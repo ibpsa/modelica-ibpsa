@@ -2,6 +2,7 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model FunctionalApproach
   "Calculating heat pump data based on a avaiable functional relationships"
   extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+      datasource="FunctionalApproach",
   QUseBlackBox_flow_nominal=CharForScaling[2]);
 
   replaceable function PolyData =

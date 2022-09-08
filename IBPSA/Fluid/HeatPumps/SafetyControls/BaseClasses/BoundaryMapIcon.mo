@@ -4,7 +4,7 @@ partial block BoundaryMapIcon "PartialModel for the icon of a boundary map"
   parameter Boolean use_opeEnvFroRec=true
     "Use a the operational envelope given in the datasheet" annotation(Dialog(tab="Safety Control", group="Operational Envelope"),choices(checkBox=true));
   parameter
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition
     dataTable "Data Table of HP" annotation (choicesAllMatching=true, Dialog(
       tab="Safety Control",
       group="Operational Envelope",

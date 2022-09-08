@@ -174,13 +174,13 @@ equation
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    LookUpTable2D</a>: Use 2D-data based on the DIN EN 14511
+    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
+    EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTableND\">
-    LookUpTableND</a>: Use SDF-data tables to model invertercontroller
+    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm3D\">
+    EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
     heat pumps or chillers or include other dependencies (ambient
     temperature etc.)
   </li>

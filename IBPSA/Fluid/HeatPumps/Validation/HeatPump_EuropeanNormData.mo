@@ -11,7 +11,7 @@ model HeatPump_EuropeanNormData
       VCon=VCon,
       redeclare model BlaBoxHPHeating =
           IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
-              IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+              IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
               tableQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
               tablePel=[0,0,10; 35,1300,1500; 55,1900,2300],
               mCon_flow_nominal=6100/5/4184,

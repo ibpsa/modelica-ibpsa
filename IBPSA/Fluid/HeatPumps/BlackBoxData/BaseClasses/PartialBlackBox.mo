@@ -69,7 +69,11 @@ partial model PartialBlackBox
             {10,10}},
         rotation=0,
         origin={-70,-10})));
+  IBPSA.Utilities.IO.Strings.StringOutput datasourceOut;
+protected
+  IBPSA.Utilities.IO.Strings.ConstStringSource constStringSource(final k=datasource);
 equation
+  connect(constStringSource.y, datasourceOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-50,-81},{-50,-88},
           {0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
                                color={0,0,127}));

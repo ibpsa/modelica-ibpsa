@@ -25,7 +25,7 @@ record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pu
     "Use a the operational envelope given in the datasheet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv),choices(checkBox=true));
   parameter
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition
     dataTable "Data Table of HP" annotation (Dialog(group=
           "Operational Envelope", enable=use_opeEnv and use_opeEnvFroRec),
       choicesAllMatching=true);

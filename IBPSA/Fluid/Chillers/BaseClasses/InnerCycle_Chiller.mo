@@ -1,16 +1,39 @@
 within IBPSA.Fluid.Chillers.BaseClasses;
 model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
-
+  // Setting all values to zero avoids errors when checking this model.
+  // The values are correctly propagated by the heat pump / chiller model anyway
   replaceable model BlaBoxChiCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox (
+       QUse_flow_nominal=0,
+       QUseBlackBox_flow_nominal=0,
+       scalingFactor=0,
+       TCon_nominal=0,
+       TEva_nominal=0,
+       dTCon_nominal=0,
+       dTEva_nominal=0,
+       primaryOperation=true,
+       mCon_flow_nominal=0,
+       mEva_flow_nominal=0,
+       y_nominal=0)
     constrainedby
     IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model BlaBoxChiHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox (
+       QUse_flow_nominal=0,
+       QUseBlackBox_flow_nominal=0,
+       scalingFactor=0,
+       TCon_nominal=0,
+       TEva_nominal=0,
+       dTCon_nominal=0,
+       dTEva_nominal=0,
+       primaryOperation=true,
+       mCon_flow_nominal=0,
+       mEva_flow_nominal=0,
+       y_nominal=0)
     constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for performance data of a chiller in reversible operation mode"
@@ -37,11 +60,14 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
         extent={{-4,-4},{4,4}},
         rotation=0,
         origin={50,-20})));
+protected
+  Utilities.IO.Strings.StringPassThrough stringPassThrough;
+  Utilities.IO.Strings.ConstStringSource constStringSource(final k=BlackBoxChillerCooling.datasource) if not use_rev;
 initial equation
-  assert(BlackBoxChillerCooling.datasource == BlackBoxChillerHeating.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
-
+  assert( stringPassThrough.y == BlackBoxChillerCooling.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
 equation
-
+  connect(constStringSource.y, stringPassThrough.u);
+  connect(BlackBoxChillerHeating.datasourceOut, stringPassThrough.u);
   connect(BlackBoxChillerCooling.Pel, switchPel.u1) annotation (Line(
         points={{34,17.2},{34,-30},{8,-30},{8,-58}}, color={0,0,127}));
   connect(BlackBoxChillerHeating.Pel, switchPel.u3) annotation (Line(
@@ -180,13 +206,13 @@ equation
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.LookUpTable2D\">
-    LookUpTable2D</a>: Use 2D-data based on the DIN EN 14511
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D\">
+    EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.LookUpTableND\">
-    LookUpTableND</a>: Use SDF-data tables to model invertercontroller
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm3D\">
+    EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
     chillers or include other dependencies (ambient temperature etc.)
   </li>
 </ul>

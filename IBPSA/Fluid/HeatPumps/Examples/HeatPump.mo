@@ -62,9 +62,9 @@ model HeatPump "Example for the reversible heat pump model."
     cpEva=4184,
     redeclare model BlaBoxHPHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare model BlaBoxHPCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.LookUpTable2D (
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCalc,
         smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,

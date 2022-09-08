@@ -1,13 +1,40 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
 model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
-
+  // Setting all values to zero avoids errors when checking this model.
+  // The values are correctly propagated by the heat pump / chiller model anyway
   replaceable model BlaBoxHPHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox (
+       QUse_flow_nominal=0,
+       QUseBlackBox_flow_nominal=0,
+       scalingFactor=0,
+       TCon_nominal=0,
+       TEva_nominal=0,
+       dTCon_nominal=0,
+       dTEva_nominal=0,
+       primaryOperation=true,
+       mCon_flow_nominal=0,
+       mEva_flow_nominal=0,
+       y_nominal=0)
+     constrainedby
+     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for black box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model BlaBoxHPCooling =
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox (
+       QUse_flow_nominal=0,
+       QUseBlackBox_flow_nominal=0,
+       scalingFactor=0,
+       TCon_nominal=0,
+       TEva_nominal=0,
+       dTCon_nominal=0,
+       dTEva_nominal=0,
+       primaryOperation=true,
+       mCon_flow_nominal=0,
+       mEva_flow_nominal=0,
+       y_nominal=0)
+      constrainedby
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for black box data of a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
@@ -28,14 +55,14 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
         extent={{-8,-8},{8,8}},
         rotation=0,
         origin={30,-8})));
-
-/*initial equation 
-  if use_rev then
-    assert( BlackBoxHeaPumCooling.datasource == BlackBoxHeaPumHeating.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
-  end if;
-*/
+protected
+  Utilities.IO.Strings.StringPassThrough stringPassThrough;
+  Utilities.IO.Strings.ConstStringSource constStringSource(final k=BlackBoxHeaPumHeating.datasource) if not use_rev;
+initial equation
+  assert( stringPassThrough.y == BlackBoxHeaPumHeating.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
 equation
-
+  connect(constStringSource.y, stringPassThrough.u);
+  connect(BlackBoxHeaPumCooling.datasourceOut, stringPassThrough.u);
   connect(BlackBoxHeaPumHeating.QCon_flow, switchQCon.u1)
     annotation (Line(points={{56,38},{56,8},{58,8}},         color={0,0,127}));
   connect(BlackBoxHeaPumHeating.Pel, switchPel.u1) annotation (Line(points={{40,38},
@@ -177,13 +204,13 @@ equation
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    LookUpTable2D</a>: Use 2D-data based on the DIN EN 14511
+    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
+    EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTableND\">
-    LookUpTableND</a>: Use SDF-data tables to model invertercontroller
+    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm3D\">
+    EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
     heat pumps or include other dependencies (ambient temperature etc.)
   </li>
   <li>

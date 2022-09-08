@@ -59,13 +59,12 @@ model Chiller "Example for the reversible chiller model."
     VCon=0.04,
     TEva_start=303.15,
     redeclare model BlaBoxChiCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.LookUpTable2D (dataTable=
-            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D.EN14511.Vitocal200AWO201
-            ()),
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (dataTable=
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare model BlaBoxChiHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
-            ()))       annotation (Placement(transformation(
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()))
+                       annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=90,
         origin={2,1})));

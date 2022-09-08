@@ -258,13 +258,13 @@ equation
 <ol>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
+    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
     Performance data 2D</a>: In order to model inverter controlled
     chillers, the compressor speed is scaled <b>linearly</b>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
+    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
     Performance data 2D</a>: Reduced evaporator power as a result of
     icing. The icing factor is multiplied with the evaporator power.
   </li>
