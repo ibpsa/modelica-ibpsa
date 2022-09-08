@@ -22,18 +22,7 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
     annotation (choicesAllMatching=true);
 
   replaceable model BlaBoxHPCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox (
-       QUse_flow_nominal=0,
-       QUseBlackBox_flow_nominal=0,
-       scalingFactor=0,
-       TCon_nominal=0,
-       TEva_nominal=0,
-       dTCon_nominal=0,
-       dTEva_nominal=0,
-       primaryOperation=true,
-       mCon_flow_nominal=0,
-       mEva_flow_nominal=0,
-       y_nominal=0)
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling(primaryOperation=true)
       constrainedby
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for black box data of a heat pump in reversible operation mode"

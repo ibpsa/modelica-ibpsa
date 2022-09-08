@@ -50,7 +50,10 @@ partial model PartialHeatPumpValidation
     use_evaCap=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_autoCalc=false,
-    TCon_start=303.15) annotation (Placement(transformation(
+    TCon_start=303.15,
+    redeclare model BlaBoxHPCooling =
+        IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling)
+                       annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={2,-21})));
