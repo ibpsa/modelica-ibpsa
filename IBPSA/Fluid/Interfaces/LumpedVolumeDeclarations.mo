@@ -47,7 +47,7 @@ block LumpedVolumeDeclarations "Declarations for lumped volumes"
   parameter Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume"
     annotation(Dialog(tab="Dynamics"));
-	
+
 protected
   // The parameter below is evaluated by OCT during compilation, and
   // if false, the assert statement won't be optimized away during
