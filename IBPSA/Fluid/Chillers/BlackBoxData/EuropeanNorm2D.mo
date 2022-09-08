@@ -1,5 +1,6 @@
 within IBPSA.Fluid.Chillers.BlackBoxData;
-model LookUpTable2D "Performance data coming from manufacturer"
+model EuropeanNorm2D
+  "Performance data coming from manufacturer according to European Standards"
   extends IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
     datasource=dataTable.device_id,
     mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
@@ -13,9 +14,9 @@ model LookUpTable2D "Performance data coming from manufacturer"
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
   parameter
-    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D.ChillerBaseDataDefinition
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.ChillerBaseDataDefinition
     dataTable=
-      IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D.EN14511.Vitocal200AWO201
+      IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
       () "Data Table of Chiller" annotation (choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
@@ -212,4 +213,4 @@ equation
   computing time.</b>
 </p>
 </html>"));
-end LookUpTable2D;
+end EuropeanNorm2D;

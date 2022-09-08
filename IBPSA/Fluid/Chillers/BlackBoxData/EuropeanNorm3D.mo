@@ -1,5 +1,6 @@
 within IBPSA.Fluid.Chillers.BlackBoxData;
-model LookUpTableND "N-dimensional table with data for chiller"
+model EuropeanNorm3D
+  "3-dimensional table with data for chiller based on european norm"
   extends IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox;
   parameter Real nConv=100
     "Gain value multiplied with relative compressor speed n to calculate matching value based on sdf tables";
@@ -248,4 +249,4 @@ equation
   </li>
 </ul>
 </html>"));
-end LookUpTableND;
+end EuropeanNorm3D;

@@ -10,9 +10,9 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
 
-  parameter EuropeanNom2D.HeatPumpBaseDataDefinition dataTable=
-      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255.Vitocal350AWI114()
-    "Data Table of HP" annotation (choicesAllMatching=true);
+  parameter EuropeanNorm2DData.HeatPumpBaseDataDefinition dataTable=
+      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255.Vitocal350AWI114
+      () "Data Table of HP" annotation (choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints

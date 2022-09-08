@@ -1,5 +1,5 @@
-BlackBox
-LookUpTable2D
-LookUpTableND
 EuropeanNorm2D
+EuropeanNorm3D
+BlackBox
+EuropeanNorm2DData
 BaseClasses
