@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model FunctionalApproach
   "Calculating heat pump data based on a avaiable functional relationships"
   extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
@@ -112,7 +112,7 @@ equation
           fillColor={0,127,255},
           textString="f")}), Documentation(revisions="<html><ul>
   <li>
-    <i>May 21, 2021ф</i> by Fabian Wuellhorst:<br/>
+    <i>May 21, 2021</i> by Fabian Wuellhorst:<br/>
     Make use of BaseClasses (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
   </li>

@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.Examples;
+within IBPSA.Fluid.HeatPumps.Examples;
 model HeatPump "Example for the reversible heat pump model."
  extends Modelica.Icons.Example;
 
@@ -62,8 +62,7 @@ model HeatPump "Example for the reversible heat pump model."
     cpEva=4184,
     redeclare model BlaBoxHPHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
     redeclare model BlaBoxHPCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.LookUpTable2D (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
@@ -267,12 +266,11 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPump
     \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
   </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,80}})));
 end HeatPump;
