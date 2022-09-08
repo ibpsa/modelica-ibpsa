@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData;
 package EN14511
 
 

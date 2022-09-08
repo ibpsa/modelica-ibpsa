@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511;
 record Ochsner_GMLW_19plus "Ochsner GMLW 19 plus"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     device_id="Ochsner_GMLW_19plus",
     tablePel=[0,-10,2,7; 35,4100,4300,4400; 50,5500,5700,5800; 60,6300,6500,
         6600],

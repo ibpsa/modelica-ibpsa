@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255;
 record Vitocal350BWH110 "Vitocal 350 BWH 110"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     device_id="Vitocal350BWH110",
     tablePel=[0,-5.0,0.0,5.0,10.0,15.0; 35,2478,2522,2609,2696,2783; 45,3608,
         3652,3696,3739,3783; 55,4217,4261,4304,4348,4391; 65,5087,5130,5174,

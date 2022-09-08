@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D;
+﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData;
 record HeatPumpBaseDataDefinition "Basic heat pump data"
     extends Modelica.Icons.Record;
   parameter Real tableQCon_flow[:,:]

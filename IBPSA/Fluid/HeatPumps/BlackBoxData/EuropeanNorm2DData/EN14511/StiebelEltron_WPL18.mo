@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511;
 record StiebelEltron_WPL18 "Stiebel Eltron WPL 18"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     device_id="StiebelEltron_WPL18",
     tablePel=[0,-7,2,7,10,20; 35,3300,3400,3500,3700,3800; 50,4500,4400,4600,
         5000,5100],

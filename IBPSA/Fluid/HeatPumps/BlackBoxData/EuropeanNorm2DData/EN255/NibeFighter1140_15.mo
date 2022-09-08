@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255;
 record NibeFighter1140_15 "Nibe Fighter 1140-15"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     device_id="NibeFighter1140_15",
     tablePel=[0,-5.0,0.0,2,5.0,10; 35,3360,3380,3380,3390,3400; 55,4830,4910,
         4940,4990,5050],

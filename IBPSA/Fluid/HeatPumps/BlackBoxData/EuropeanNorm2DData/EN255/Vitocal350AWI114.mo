@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255;
 record Vitocal350AWI114 "Vitocal 350 AWI 114"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.HeatPumpBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     device_id="Vitocal350AWI114",
     tablePel=[0,-20,-15,-10,-5,0,5,10,15,20,25,30; 35,3295.500,3522.700,3750,
         3977.300,4034.100,4090.900,4204.500,4375,4488.600,4488.600,4545.500; 50,
