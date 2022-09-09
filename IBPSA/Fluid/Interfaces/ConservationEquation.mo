@@ -56,8 +56,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Internal energy of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={110,20})));
-  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
-       "kg") "Species mass of the component"
+  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit="kg")
+    "Species mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={110,-20})));
   Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
@@ -94,8 +94,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
         StateSelect.default else StateSelect.prefer) "Mass of fluid";
 
-  Modelica.Units.SI.Mass[Medium.nXi] mXi(start=fluidVolume*rho_start*X_start[1:
-        Medium.nXi]) "Masses of independent components in the fluid";
+  Modelica.Units.SI.Mass[Medium.nXi] mXi(
+    start=fluidVolume*rho_start*X_start[1:Medium.nXi],
+    nominal=0.01*ones(Medium.nXi)) "Masses of independent components in the fluid";
   Modelica.Units.SI.Mass[Medium.nC] mC(start=fluidVolume*rho_start*C_start)
     "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
