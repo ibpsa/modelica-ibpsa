@@ -85,7 +85,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
-  Modelica.Units.SI.Energy U(start=fluidVolume*rho_start*
+  Modelica.Units.SI.Energy U(
+    start=fluidVolume*rho_start*
         Medium.specificInternalEnergy(Medium.setState_pTX(
         T=T_start,
         p=p_start,
@@ -95,7 +96,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
         StateSelect.default else StateSelect.prefer) "Mass of fluid";
-        // fixme: nonliteral nominal attribute
+
   Modelica.Units.SI.Mass[Medium.nXi] mXi(
     each stateSelect=StateSelect.never,
     start=fluidVolume*rho_start*X_start[1:Medium.nXi])
@@ -425,7 +426,9 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 <ul>
 <li>
 September 9, 2022, by Michael Wetter:<br/>
-Set nominal attribute for state <code>mXi</code>.<br/>
+Changed state variable from <code>mXi</code> to <code>medium.Xi</code>
+as this allows setting a good nominal attribute without having to use the fluid volume,
+which is non-literal value that leads to a warning in Dymola.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
 </li>
 <li>
