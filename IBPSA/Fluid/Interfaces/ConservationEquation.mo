@@ -421,6 +421,11 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+September 9, 2022, by Michael Wetter:<br/>
+Set nominal attribute for state <code>mXi</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
+</li>
+<li>
 April 26, 2019, by Filip Jorissen:<br/>
 Returning <code>getInstanceName()</code> in asserts.
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1133\">1133</a>.
