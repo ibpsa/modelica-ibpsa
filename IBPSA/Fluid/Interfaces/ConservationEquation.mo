@@ -79,7 +79,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi]),
+    Xi(
+      each stateSelect=if medium.preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
@@ -93,10 +95,11 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
         StateSelect.default else StateSelect.prefer) "Mass of fluid";
-
+        // fixme: nonliteral nominal attribute
   Modelica.Units.SI.Mass[Medium.nXi] mXi(
-    start=fluidVolume*rho_start*X_start[1:Medium.nXi],
-    nominal=0.01*ones(Medium.nXi)) "Masses of independent components in the fluid";
+    each stateSelect=StateSelect.never,
+    start=fluidVolume*rho_start*X_start[1:Medium.nXi])
+    "Masses of independent components in the fluid";
   Modelica.Units.SI.Mass[Medium.nC] mC(start=fluidVolume*rho_start*C_start)
     "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
@@ -303,7 +306,7 @@ equation
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(mXi) = mbXi_flow + mWat_flow_internal * s;
+    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/m;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
