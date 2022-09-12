@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
-model FiniteLineSource_Integrand_EquivalentBoreholes
+model FiniteLineSource_Integrand_Equivalent
   "Test case for finite line source integrand function for equivalent boreholes"
   extends Modelica.Icons.Example;
 
@@ -25,7 +25,8 @@ model FiniteLineSource_Integrand_EquivalentBoreholes
 
 equation
   u = time;
-  yRea = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
+  yRea =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent(
     u=u,
     dis=dis,
     wDis=wDis,
@@ -36,7 +37,8 @@ equation
     nBor2=nBor2,
     n_dis=n_dis,
     includeMirrorSource=false);
-  yMir = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
+  yMir =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent(
     u=u,
     dis=dis,
     wDis=wDis,
@@ -47,7 +49,8 @@ equation
     nBor2=nBor2,
     n_dis=n_dis,
     includeRealSource=false);
-  y = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
+  y =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent(
     u=u,
     dis=dis,
     wDis=wDis,
@@ -60,7 +63,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_EquivalentBoreholes.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Integrand_Equivalent.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StartTime=0.01, StopTime=1.0),
     Documentation(info="<html>
@@ -78,4 +81,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FiniteLineSource_Integrand_EquivalentBoreholes;
+end FiniteLineSource_Integrand_Equivalent;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
-function finiteLineSource_Integrand_EquivalentBoreholes
+function finiteLineSource_Integrand_Equivalent
   "Integrand function for finite line source evaluation"
   extends Modelica.Icons.Function;
 
@@ -62,4 +62,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end finiteLineSource_Integrand_EquivalentBoreholes;
+end finiteLineSource_Integrand_Equivalent;

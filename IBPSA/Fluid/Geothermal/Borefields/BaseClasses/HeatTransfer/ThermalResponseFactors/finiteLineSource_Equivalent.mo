@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
-function finiteLineSource_EquivalentBoreholes
+function finiteLineSource_Equivalent
   "Finite line source solution of Prieto and Cimmino"
   extends Modelica.Icons.Function;
 
@@ -51,9 +51,9 @@ algorithm
 
     if t >= timTre then
       lowBou := 1.0/sqrt(4*aSoi*t);
-      h_21 := Modelica.Math.Nonlinear.quadratureLobatto(
+      h_21 :=Modelica.Math.Nonlinear.quadratureLobatto(
         function
-          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
+          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent(
           dis=dis,
           wDis=wDis,
           len1=len1,
@@ -70,9 +70,9 @@ algorithm
     else
       // Linearize the solution at times below the time treshold.
       lowBou := 1.0/sqrt(4*aSoi*timTre);
-      h_21 := t/timTre*Modelica.Math.Nonlinear.quadratureLobatto(
+      h_21 :=t/timTre*Modelica.Math.Nonlinear.quadratureLobatto(
         function
-          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_EquivalentBoreholes(
+          IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Integrand_Equivalent(
           dis=dis,
           wDis=wDis,
           len1=len1,
@@ -134,4 +134,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end finiteLineSource_EquivalentBoreholes;
+end finiteLineSource_Equivalent;

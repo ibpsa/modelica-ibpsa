@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.Validation;
-model FiniteLineSource_EquivalentBoreholes
+model FiniteLineSource_Equivalent
   "Test case for finite line source for equivalent boreholes"
   extends Modelica.Icons.Example;
 
@@ -26,7 +26,8 @@ model FiniteLineSource_EquivalentBoreholes
 equation
 
   t = exp(time) - 1.0;
-  hRea = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+  hRea =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
     t=t,
     aSoi=aSoi,
     dis=dis,
@@ -38,7 +39,8 @@ equation
     burDep2=burDep2,
     nBor2=nBor2,
     includeMirrorSource=false);
-  hMir = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+  hMir =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
     t=t,
     aSoi=aSoi,
     dis=dis,
@@ -50,7 +52,8 @@ equation
     burDep2=burDep2,
     nBor2=nBor2,
     includeRealSource=false);
-  h = IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+  h =
+    IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
     t=t,
     aSoi=aSoi,
     dis=dis,
@@ -64,7 +67,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_EquivalentBoreholes.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/HeatTransfer/ThermalResponseFactors/Validation/FiniteLineSource_Equivalent.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=20.0),
     Documentation(info="<html>
@@ -82,4 +85,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end FiniteLineSource_EquivalentBoreholes;
+end FiniteLineSource_Equivalent;
