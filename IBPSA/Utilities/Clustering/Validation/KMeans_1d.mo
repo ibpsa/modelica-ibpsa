@@ -7,11 +7,11 @@ model KMeans_1d "Model that verifies the k-means clustering function for 1d data
 
   parameter Integer nDat = size(data,1) "Number of samples";
   parameter Integer nDim = size(data,2) "Number of features";
-  parameter Real[n_clusters,nDim] centroids(fixed=false)
+  parameter Real[n_clusters,nDim] centroids(each fixed=false)
     "Centroids of the clusters";
-  parameter Integer[nDat] labels(fixed=false)
+  parameter Integer[nDat] labels(each fixed=false)
     "Cluster label associated with each data point";
-  parameter Integer[n_clusters] cluster_size(fixed=false)
+  parameter Integer[n_clusters] cluster_size(each fixed=false)
     "Size of the clusters";
 
   parameter Integer labelsExp[nDat]=
