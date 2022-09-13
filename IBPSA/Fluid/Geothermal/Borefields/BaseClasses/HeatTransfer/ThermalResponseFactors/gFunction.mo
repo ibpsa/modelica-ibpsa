@@ -155,7 +155,7 @@ algorithm
         // Real part
         for m in 1:nSeg loop
           hSegRea[m] :=
-            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
               tLon[k + 1],
               aSoi,
               dis[i,j,1:n_dis[i,j]],
@@ -171,7 +171,7 @@ algorithm
         // Mirror part
         for m in 1:(2*nSeg-1) loop
           hSegMir[m] :=
-            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes(
+            IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
               tLon[k + 1],
               aSoi,
               dis[i,j,1:n_dis[i,j]],
