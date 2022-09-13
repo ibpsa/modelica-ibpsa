@@ -31,8 +31,8 @@ protected
   Real tableMerge[:,2] = tableUpp_internal;
   input Real scaledX[:] = tableMerge[:,1];
   input Real scaledY[:] = tableMerge[:,2];
-  Real unScaledX[size(scaledX, 1)](min=-100, max=100) = (scaledX - fill(xMin, size(scaledX, 1)))*(iconMax-iconMin)/(xMax - xMin) + fill(iconMin, size(scaledX,1));
-  Real unScaledY[size(scaledX, 1)](min=-100, max=100) = (scaledY - fill(yMin, size(scaledY, 1)))*(iconMax-iconMin)/(yMax - yMin) + fill(iconMin, size(scaledY,1));
+  Real unScaledX[size(scaledX, 1)](each min=-100, each max=100) = (scaledX - fill(xMin, size(scaledX, 1)))*(iconMax-iconMin)/(xMax - xMin) + fill(iconMin, size(scaledX,1));
+  Real unScaledY[size(scaledX, 1)](each min=-100, each max=100) = (scaledY - fill(yMin, size(scaledY, 1)))*(iconMax-iconMin)/(yMax - yMin) + fill(iconMin, size(scaledY,1));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
