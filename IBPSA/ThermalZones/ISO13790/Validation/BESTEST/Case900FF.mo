@@ -15,7 +15,7 @@ model Case900FF "Test with heavy-weight construction and free floating temperatu
     URoo=0.32,
     AFlo=48,
     VRoo=129.6,
-    facMas=2.7,
+    facMas=3,
     redeclare IBPSA.ThermalZones.ISO13790.Data.BESTEST900 buiMas,
     winFra=0.01,
     gFac=0.789) "Thermal zone"

@@ -11,7 +11,7 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     URoo=0.32,
     AFlo=48,
     VRoo=129.6,
-    facMas=4.52,
+    facMas=2.5,
     redeclare ISO13790.Data.BESTEST600 buiMas,
     winFra=0.01,
     gFac=0.789) "Thermal zone"
