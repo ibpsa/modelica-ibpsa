@@ -25,7 +25,7 @@ partial model PartialHeatPumpValidation
   IBPSA.Fluid.HeatPumps.HeatPump heatPump(
     redeclare package Medium_con = MediumSin,
     redeclare package Medium_eva = MediumSou,
-    QUse_flow_nominal=heatPump.innerCycle.BlackBoxHeaPumHeating.QUseBlackBox_flow_nominal,
+    QUse_flow_nominal=heatPump.innerCycle.blaBoxHeaPumHea.QUseBlackBox_flow_nominal,
     y_nominal=1,
     final use_safetyControl=false,
     final use_busConnectorOnly=false,
@@ -51,7 +51,7 @@ partial model PartialHeatPumpValidation
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_autoCalc=false,
     TCon_start=303.15,
-    redeclare model BlaBoxHPCooling =
+    redeclare model BlackBoxHeatPumpCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling)
                        annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},

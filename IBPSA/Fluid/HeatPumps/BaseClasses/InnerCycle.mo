@@ -47,7 +47,8 @@ model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
 protected
   Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
-  Utilities.IO.Strings.ConstStringSource conStrSou(final k=blaBoxHeaPumHea.datSou)
+  Utilities.IO.Strings.ConstStringSource conStrSou(
+    final k=blaBoxHeaPumHea.datSou) if not use_rev
     "Constant String data source";
 initial equation
   assert(

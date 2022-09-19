@@ -46,7 +46,7 @@ protected
   IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
   IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
-    final k=blaBoxChiCoo.datSou)
+    final k=blaBoxChiCoo.datSou) if not use_rev
    "Constant String data source";
 initial equation
   assert(
