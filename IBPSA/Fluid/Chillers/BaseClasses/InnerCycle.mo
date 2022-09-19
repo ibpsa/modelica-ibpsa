@@ -183,20 +183,20 @@ equation
 </p>
 <p>
   The user can choose between different types of performance data or
-  implement a new black-box model by extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">
-  partial</a> model.
+  implement a new black-box model by extending from <a href=
+  \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox\">
+  IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox</a>.
 </p>
 <ul>
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D\">
-    EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
   </li>
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm3D\">
-    EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
     chillers or include other dependencies (ambient temperature etc.)
   </li>
 </ul>

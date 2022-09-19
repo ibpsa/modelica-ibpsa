@@ -8,7 +8,7 @@ record ChillerBaseDataDefinition "Basic chiller data"
 
   annotation (Documentation(info="<html><p>
   Base data definition extending from the <a href=
-  \"modelica://IBPSA.DataBase.HeatPump.HeatPumpBaseDataDefinition\">HeatPumpBaseDataDefinition</a>,
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition\">IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition</a>,
   the parameters documentation is matched for a chiller. As a result,
   <code>tableQdot_eva</code>
   corresponds to the cooling capacity on the evaporator side of the

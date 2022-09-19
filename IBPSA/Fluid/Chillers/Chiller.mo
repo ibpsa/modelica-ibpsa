@@ -214,7 +214,7 @@ equation
 <ol>
   <li>
     <a href=
-    \"IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle\">InnerCycle</a>
+    \"IBPSA.Fluid.Chillers.BaseClasses.InnerCycle\">IBPSA.Fluid.Chillers.BaseClasses.InnerCycle</a>
     (Black Box): Here, the user can use between several input models or
     just easily create his own, modular black box model. Please look at
     the model description for more info.
@@ -226,7 +226,7 @@ equation
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
-    HeatExchanger</a>: This new model also enable modelling of thermal
+    IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>: This new model also enable modelling of thermal
     interias and heat losses in a heat exchanger. Please look at the
     model description for more info.
   </li>
