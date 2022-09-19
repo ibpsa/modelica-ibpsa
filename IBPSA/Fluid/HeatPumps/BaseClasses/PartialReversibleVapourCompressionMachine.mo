@@ -719,18 +719,6 @@ equation
 </p>
 <ol>
   <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    Performance data 2D</a>: In order to model inverter controlled
-    machines, the compressor speed is scaled <b>linearly</b>
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    Performance data 2D</a>: Reduced evaporator power as a result of
-    icing. The icing factor is multiplied with the evaporator power.
-  </li>
-  <li>
     <b>Inertia</b>: The default value of the n-th order element is set
     to 3. This follows comparisons with experimental data. Previous
     heat pump models are using n = 1 as a default. However, it was

@@ -239,10 +239,7 @@ equation
 </h4>
 <p>
   Using a signal bus as a connector, this heat pump model can be easily
-  combined with the new <a href=
-  \"modelica://IBPSA.Systems.HeatPumpSystems.HeatPumpSystem\">HeatPumpSystem</a>
-  or several control or safety blocks from <a href=
-  \"modelica://IBPSA.Controls.HeatPump\">IBPSA.Controls.HeatPump</a>.
+  combined with control blocks.
   The relevant data is aggregated. In order to control both chillers
   and heat pumps, both flow and return temperature are aggregated. The
   mode signal chooses the type of the heat pump operation. As a result,
@@ -281,7 +278,7 @@ equation
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
-    HeatExchanger</a>: This new model also enable modelling of thermal
+    IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>: This new model also enable modelling of thermal
     interias and heat losses in a heat exchanger. Please look at the
     model description for more info.
   </li>
@@ -312,14 +309,16 @@ equation
 <ol>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    Performance data 2D</a>: In order to model inverter controlled heat
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: 
+	In order to model inverter controlled heat
     pumps, the compressor speed is scaled <b>linearly</b>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    Performance data 2D</a>: Reduced evaporator power as a result of
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: 
+	Reduced evaporator power as a result of
     icing. The icing factor is multiplied with the evaporator power.
   </li>
   <li>

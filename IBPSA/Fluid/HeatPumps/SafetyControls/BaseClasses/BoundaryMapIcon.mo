@@ -66,8 +66,9 @@ protected
 </html>", info="<html>
 <p>
   Icon block used for the icon of the dynamic icon of the model
-  <a href=\"modelica://IBPSA.Controls.HeatPump.SafetyControls.BaseClasses.BoundaryMap\">
-  BoundaryMap</a>. Extending this model will display the used
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap\">
+  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap</a>. 
+  Extending this model will display the used
   operational envelope in the top-layer of the used models.
 </p>
 </html>"));

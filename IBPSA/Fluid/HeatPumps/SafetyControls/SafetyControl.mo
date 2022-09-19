@@ -209,27 +209,24 @@ equation
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.DefrostControl\">
-    DefrostControl</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl\">
+    IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl</a>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.OnOffControl+\">OnOffControl</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl+\">
+	IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.OperationalEnvelope\">
-    OperationalEnvelope</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">
+    IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.AntiFreeze\">AntiFreeze</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">
+	IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a>
   </li>
 </ul>
-<p>
-  The safety function for the anti legionella control is placed inside
-  the model <a href=
-  \"modelica://IBPSA.Controls.HeatPump.HPControl\">HPControl</a>
-</p>
 </html>"));
 end SafetyControl;

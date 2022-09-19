@@ -44,7 +44,7 @@ algorithm
 <p>
   The coefficients for the polynomal functions are stored inside the
   record for heat pumps in <a href=
-  \"modelica://IBPSA.DataBase.HeatPump\">IBPSA.DataBase.HeatPump</a>.
+  \"modelica://IIBPSA.Fluid.HeatPumps.BlackBoxData.Functions\">IBPSA.Fluid.HeatPumps.BlackBoxData.Functions</a>.
 </p>
 <p>
   [1]: https://www.trnsys.de/download/en/ts_type_401_en.pdf

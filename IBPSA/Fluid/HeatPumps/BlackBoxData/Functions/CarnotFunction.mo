@@ -33,7 +33,7 @@ algorithm
 </ul>
 </html>", info="<html>
 <p>
-  This function emulated the the Carnot model (<a href=
+  This function emulates the Carnot model (<a href=
   \"modelica://IBPSA.Fluid.Chillers.BaseClasses.Carnot\">IBPSA.Fluid.Chillers.BaseClasses.Carnot</a>).
   See this description for more info on assumptions etc.
 </p>

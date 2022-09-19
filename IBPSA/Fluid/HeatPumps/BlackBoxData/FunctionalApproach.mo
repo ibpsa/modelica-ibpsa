@@ -131,8 +131,9 @@ equation
 </p>
 <p>
   As the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.Functions.Characteristics.PartialBaseFct\">
-  base function</a> only returns the electrical power and the condenser
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct\">
+  IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct
+  </a> only returns the electrical power and the condenser
   heat flow, the evaporator heat flow is calculated with the following
   energy balance:
 </p>
