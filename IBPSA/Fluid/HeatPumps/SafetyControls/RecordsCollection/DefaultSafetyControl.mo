@@ -25,6 +25,6 @@ record DefaultSafetyControl
     minLocTime=1200,
     minRunTime=600);
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New;\">Default&nbsp;values&nbsp;according&nbsp;to&nbsp;the&nbsp;conference&nbsp;publication&nbsp;by&nbsp;W&uuml;llhorst&nbsp;et.&nbsp;al.</span></p>
+<p>Default values according to the conference publication by Wuellhorst et. al.</p>
 </html>"));
 end DefaultSafetyControl;

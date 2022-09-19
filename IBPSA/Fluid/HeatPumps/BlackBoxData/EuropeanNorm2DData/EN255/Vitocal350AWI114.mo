@@ -18,6 +18,6 @@ record Vitocal350AWI114 "Vitocal 350 AWI 114"
     tableUppBou=[-20,55; -5,65; 35,65]);
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for VitoCal350 air-to-water heat pump, around 11 kW</span></p>
+<p>Data for VitoCal350 air-to-water heat pump, around 11 kW </p>
 </html>"));
 end Vitocal350AWI114;

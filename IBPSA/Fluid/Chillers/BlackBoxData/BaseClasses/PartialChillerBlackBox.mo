@@ -22,6 +22,6 @@ equation
           textString="%name
 ",        origin={-3.5,-15},
           rotation=180)}), Documentation(info="<html>
-<p><span style=\"font-family: (Default);\">Partial model for calculation of electrical power P_el, condenser heat flow QCon and evaporator heat flow QEva based on the values in the sigBus for a chiller.</span></p>
+<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the sigBus for a chiller.</p>
 </html>"));
 end PartialChillerBlackBox;

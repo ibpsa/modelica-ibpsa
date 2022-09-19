@@ -10,7 +10,7 @@ record ChillerBaseDataDefinition "Basic chiller data"
   Base data definition extending from the <a href=
   \"modelica://IBPSA.DataBase.HeatPump.HeatPumpBaseDataDefinition\">HeatPumpBaseDataDefinition</a>,
   the parameters documentation is matched for a chiller. As a result,
-  <span style=\"font-family: Courier New;\">tableQdot_eva</span>
+  <code>tableQdot_eva</code>
   corresponds to the cooling capacity on the evaporator side of the
   chiller. Furthermore, the values of the tables depend on the
   condenser inlet temperature (defined in first row) and the evaporator
@@ -25,7 +25,7 @@ record ChillerBaseDataDefinition "Basic chiller data"
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>"),

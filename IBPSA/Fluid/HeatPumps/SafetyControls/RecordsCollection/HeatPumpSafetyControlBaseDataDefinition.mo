@@ -69,6 +69,6 @@ record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pu
                    coordinateSystem(preserveAspectRatio=false)), Diagram(graphics,
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p><span style=\"font-family: Courier New;\">Base data definitions with parameters relevant for safety control.</span></p>
+<p>Base data definitions with parameters relevant for safety control.</p>
 </html>"));
 end HeatPumpSafetyControlBaseDataDefinition;

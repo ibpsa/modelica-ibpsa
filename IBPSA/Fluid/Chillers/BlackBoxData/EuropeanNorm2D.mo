@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.BlackBoxData;
 model EuropeanNorm2D
   "Performance data coming from manufacturer according to European Standards"
   extends IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
-    datasource=dataTable.device_id,
+    final datasource=dataTable.device_id,
     mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
     mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
     QUseBlackBox_flow_nominal=
@@ -21,7 +21,7 @@ model EuropeanNorm2D
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
 
-  Modelica.Blocks.Tables.CombiTable2Ds     Qdot_EvaTable(
+  Modelica.Blocks.Tables.CombiTable2Ds QEvaTab_flow(
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
@@ -32,14 +32,14 @@ model EuropeanNorm2D
         extent={{-14,-14},{14,14}},
         rotation=-90,
         origin={46,34})));
-  Modelica.Blocks.Tables.CombiTable2Ds     P_eleTable(
+  Modelica.Blocks.Tables.CombiTable2Ds PelTab(
     final smoothness=smoothness,
     final extrapolation=extrapolation,
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
-    final table=dataTable.tablePel) "Electrical power table" annotation (
-      extent=[-60,-20; -40,0], Placement(transformation(
+    final table=dataTable.tablePel) "Electrical power table" annotation (extent=
+       [-60,-20; -40,0], Placement(transformation(
         extent={{-14,-14},{14,14}},
         rotation=-90,
         origin={-60,36})));
@@ -91,15 +91,14 @@ protected
 
 equation
 
-  connect(t_Co_in.y,Qdot_EvaTable. u2) annotation (Line(points={{52,65.4},{52,
-          60},{37.6,60},{37.6,50.8}},      color={0,0,127}));
-  connect(t_Co_in.y, P_eleTable.u2) annotation (Line(points={{52,65.4},{-68.4,
-          65.4},{-68.4,52.8}},  color={0,0,127}));
-  connect(t_Ev_ou.y, P_eleTable.u1) annotation (Line(points={{-54,69.4},{-54,
-          52.8},{-51.6,52.8}},  color={0,0,127}));
-  connect(t_Ev_ou.y,Qdot_EvaTable. u1) annotation (Line(points={{-54,69.4},{-54,
-          60},{52,60},{52,50.8},{54.4,50.8}},
-                                  color={0,0,127}));
+  connect(t_Co_in.y, QEvaTab_flow.u2) annotation (Line(points={{52,65.4},{52,60},
+          {37.6,60},{37.6,50.8}}, color={0,0,127}));
+  connect(t_Co_in.y, PelTab.u2) annotation (Line(points={{52,65.4},{-68.4,65.4},
+          {-68.4,52.8}}, color={0,0,127}));
+  connect(t_Ev_ou.y, PelTab.u1) annotation (Line(points={{-54,69.4},{-54,52.8},{
+          -51.6,52.8}}, color={0,0,127}));
+  connect(t_Ev_ou.y, QEvaTab_flow.u1) annotation (Line(points={{-54,69.4},{-54,60},
+          {52,60},{52,50.8},{54.4,50.8}}, color={0,0,127}));
   connect(sigBus.TEvaOutMea, t_Ev_ou.u) annotation (Line(
       points={{1,104},{-54,104},{-54,83.2}},
       color={255,204,51},
@@ -114,10 +113,10 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(P_eleTable.y, nTimesPel.u2) annotation (Line(points={{-60,20.6},{-60,8},
-          {-37.2,8},{-37.2,3.4}},    color={0,0,127}));
-  connect(Qdot_EvaTable.y,nTimesQEva. u1) annotation (Line(points={{46,18.6},{
-          46,-2.8},{43.6,-2.8}},        color={0,0,127}));
+  connect(PelTab.y, nTimesPel.u2) annotation (Line(points={{-60,20.6},{-60,8},{-37.2,
+          8},{-37.2,3.4}}, color={0,0,127}));
+  connect(QEvaTab_flow.y, nTimesQEva.u1) annotation (Line(points={{46,18.6},{46,
+          -2.8},{43.6,-2.8}}, color={0,0,127}));
 
   connect(nTimesPel.y, Pel) annotation (Line(points={{-33,-12.7},{-33,-94},{0,-94},
           {0,-110}},               color={0,0,127}));
@@ -161,7 +160,7 @@ equation
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>", info="<html>

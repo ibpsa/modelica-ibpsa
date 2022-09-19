@@ -31,7 +31,7 @@ model Chiller "Example for the reversible chiller model."
   IBPSA.Fluid.Chillers.Chiller chiller(
     QUse_flow_nominal=5000,
     y_nominal=1,
-    redeclare model vapComIne =
+    redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
     use_TSet=false,
     TCon_nominal=323.15,
@@ -58,10 +58,10 @@ model Chiller "Example for the reversible chiller model."
     VEva=0.4,
     VCon=0.04,
     TEva_start=303.15,
-    redeclare model BlaBoxChiCooling =
+    redeclare model BlackBoxChillerCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (dataTable=
             IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
-    redeclare model BlaBoxChiHeating =
+    redeclare model BlackBoxChillerHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
             IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()))
                        annotation (Placement(transformation(
@@ -210,9 +210,7 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Chiller.mos"
         "Simulate and plot"),
-    Documentation(info="<html><h4>
-  <span style=\"color: #008000\">Overview</span>
-</h4>
+    Documentation(info="<html><h4>Overview</h4>
 <p>
   Simple test set-up for the reversible chiller model. The chiller is
   turned on and off while the source temperature increases linearly.
@@ -222,7 +220,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 <p>
   Besides using the default simple table data, the user should also
   test tabulated data from <a href=
-  \"modelica://IBPSA.DataBase.HeatPump\">IBPSA.DataBase.Chiller</a> or
+  \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData\">IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData</a> or
   polynomial functions.
 </p>
 </html>",
@@ -230,7 +228,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>"),

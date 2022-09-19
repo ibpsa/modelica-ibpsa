@@ -28,6 +28,6 @@ equation
   connect(const.y, Pel)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Model&nbsp;to&nbsp;use&nbsp;to&nbsp;avoid&nbsp;warnings&nbsp;about&nbsp;partial&nbsp;model&nbsp;must&nbsp;be&nbsp;replaced. Using this model, the chiller will always be off.</span></p>
+<p>Model to use to avoid warnings about partial model must be replaced. Using this model, the chiller will always be off.</p>
 </html>"));
 end NoCooling;

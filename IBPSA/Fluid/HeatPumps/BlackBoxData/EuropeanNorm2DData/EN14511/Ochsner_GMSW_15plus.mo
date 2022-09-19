@@ -11,6 +11,6 @@ record Ochsner_GMSW_15plus "Ochsner GMSW 15 plus"
     tableUppBou=[-8,52; 0,65; 20,65]);
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for the Ochsner GMLW 15 brine-to-water device</span></p>
+<p>Data for the Ochsner GMLW 15 brine-to-water device </p>
 </html>"));
 end Ochsner_GMSW_15plus;

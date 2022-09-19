@@ -11,6 +11,6 @@ record Dimplex_LA11AS "Dimplex LA 11 AS"
     tableUppBou=[-25,58; 35,58]);
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for a Dimplex LA11AS air-to-water heat pump.</span></p>
+<p>Data for a Dimplex LA11AS air-to-water heat pump. </p>
 </html>"));
 end Dimplex_LA11AS;

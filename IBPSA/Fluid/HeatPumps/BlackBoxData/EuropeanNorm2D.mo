@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model EuropeanNorm2D "Data from European Norm in two dimensions"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
-    datasource=dataTable.device_id,
+  extends
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+    final datasource=dataTable.device_id,
     mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
     mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
     QUseBlackBox_flow_nominal=
@@ -29,7 +30,7 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,50})));
-  Modelica.Blocks.Tables.CombiTable2Ds tablePel(
+  Modelica.Blocks.Tables.CombiTable2Ds PelTab(
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
@@ -92,9 +93,9 @@ initial equation
 equation
   connect(t_Ev_in.y, tableQCon_flow.u2) annotation (Line(points={{50,79},{50,74},
           {44,74},{44,62}}, color={0,0,127}));
-  connect(t_Ev_in.y, tablePel.u2) annotation (Line(points={{50,79},{50,74},{-56,
-          74},{-56,62}}, color={0,0,127}));
-  connect(t_Co_ou.y, tablePel.u1) annotation (Line(points={{-50,79},{-50,68},{-44,
+  connect(t_Ev_in.y, PelTab.u2) annotation (Line(points={{50,79},{50,74},{-56,74},
+          {-56,62}}, color={0,0,127}));
+  connect(t_Co_ou.y, PelTab.u1) annotation (Line(points={{-50,79},{-50,68},{-44,
           68},{-44,62}}, color={0,0,127}));
   connect(t_Co_ou.y, tableQCon_flow.u1) annotation (Line(points={{-50,79},{-50,68},
           {56,68},{56,62}}, color={0,0,127}));
@@ -113,7 +114,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(tablePel.y, nTimesPel.u2) annotation (Line(points={{-50,39},{-50,8},{-36,
+  connect(PelTab.y, nTimesPel.u2) annotation (Line(points={{-50,39},{-50,8},{-36,
           8},{-36,2}}, color={0,0,127}));
   connect(tableQCon_flow.y, nTimesQCon.u1)
     annotation (Line(points={{50,39},{50,8},{56,8},{56,2}}, color={0,0,127}));
@@ -160,12 +161,12 @@ equation
   <li>
     <i>May 21, 2021</i> by Fabian Wuellhorst:<br/>
     Make use of BaseClasses (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">AixLib #1092</a>)
   </li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>

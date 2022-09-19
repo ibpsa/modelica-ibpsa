@@ -56,7 +56,7 @@ model EuropeanNorm3D
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,10})));
-  SDF.NDTable nDTableQEva(
+  SDF.NDTable QEvaTab_flow(
     final nin=3,
     final readFromFile=true,
     final filename=filename_QCon,
@@ -64,12 +64,12 @@ model EuropeanNorm3D
     final dataUnit=dataUnit_QCon,
     final scaleUnits=scaleUnits_QCon,
     final interpMethod=interpMethod,
-    final extrapMethod=extrapMethod)
-    "SDF-Table data for evaporator heat flow"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    final extrapMethod=extrapMethod) "SDF-Table data for evaporator heat flow"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-50,30})));
-  SDF.NDTable nDTablePel(
+  SDF.NDTable PelTab(
     final nin=3,
     final readFromFile=true,
     final filename=filename_Pel,
@@ -78,7 +78,7 @@ model EuropeanNorm3D
     final scaleUnits=scaleUnits_Pel,
     final interpMethod=interpMethod,
     final extrapMethod=extrapMethod) "SDF table data for electrical power"
-                                     annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,30})));
@@ -109,11 +109,10 @@ protected
         origin={10,10})));
 equation
 
-  connect(multiplex3_1.y,nDTableQEva. u) annotation (Line(points={{10,39},{10,
-          36},{-30,36},{-30,48},{-50,48},{-50,42}},
-                                          color={0,0,127}));
-  connect(multiplex3_1.y, nDTablePel.u) annotation (Line(points={{10,39},{10,42},
-          {50,42}},                          color={0,0,127}));
+  connect(multiplex3_1.y, QEvaTab_flow.u) annotation (Line(points={{10,39},{10,
+          36},{-30,36},{-30,48},{-50,48},{-50,42}}, color={0,0,127}));
+  connect(multiplex3_1.y, PelTab.u)
+    annotation (Line(points={{10,39},{10,42},{50,42}}, color={0,0,127}));
   connect(sigBus.TConInMea,t_Co_in. u) annotation (Line(
       points={{1,104},{0,104},{0,72},{34,72},{34,88},{50,88},{50,82}},
       color={255,204,51},
@@ -150,11 +149,10 @@ equation
   connect(realCorr.y, scalingFacTimesQEva.u1) annotation (Line(points={{10,-1},
           {10,-6},{-14,-6},{-14,2},{-24,2}},
                                    color={0,0,127}));
-  connect(nDTablePel.y, scalingFacTimesPel.u1) annotation (Line(points={{50,19},
-          {50,1.8},{54.4,1.8}},      color={0,0,127}));
-  connect(nDTableQEva.y, scalingFacTimesQEva.u2)
-    annotation (Line(points={{-50,19},{-50,6},{-42,6},{-42,8},{-36,8},{-36,2}},
-                                                           color={0,0,127}));
+  connect(PelTab.y, scalingFacTimesPel.u1)
+    annotation (Line(points={{50,19},{50,1.8},{54.4,1.8}}, color={0,0,127}));
+  connect(QEvaTab_flow.y, scalingFacTimesQEva.u2) annotation (Line(points={{-50,
+          19},{-50,6},{-42,6},{-42,8},{-36,8},{-36,2}}, color={0,0,127}));
   connect(scalingFacTimesQEva.y, feedbackHeatFlowEvaporator.u1) annotation (
       Line(points={{-30,-21},{-30,-26},{-72,-26},{-72,-24},{-84,-24},{-84,-10},
           {-78,-10}}, color={0,0,127}));
@@ -246,7 +244,7 @@ equation
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>"));

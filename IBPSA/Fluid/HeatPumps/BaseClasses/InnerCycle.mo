@@ -1,9 +1,9 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
-model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
+model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
   // Setting all values to zero avoids errors when checking this model.
   // The values are correctly propagated by the heat pump / chiller model anyway
-  replaceable model BlaBoxHPHeating =
+  replaceable model BlackBoxHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox (
        QUse_flow_nominal=0,
        QUseBlackBox_flow_nominal=0,
@@ -17,20 +17,20 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
        mEva_flow_nominal=0,
        y_nominal=0)
      constrainedby
-     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for black box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
-  replaceable model BlaBoxHPCooling =
+  replaceable model BlackBoxHeatPumpCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling(primaryOperation=true)
       constrainedby
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
+    IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for black box data of a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
-  BlaBoxHPHeating BlackBoxHeaPumHeating
+  BlackBoxHeatPumpHeating blaBoxHeaPumHea
   annotation (Placement(transformation(extent={{60,40},{20,80}},rotation=0)));
-  BlaBoxHPCooling BlackBoxHeaPumCooling if use_rev
+  BlackBoxHeatPumpCooling blaBoxHeaPumCoo if use_rev
   annotation (Placement(transformation(extent={{-19,40},{-60,80}}, rotation=0)));
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
     "Negate QEva to match definition of heat flow direction" annotation (
@@ -46,22 +46,22 @@ model InnerCycle_HeatPump "Blackbox model of refrigerant cycle of a heat pump"
         origin={30,-8})));
 protected
   Utilities.IO.Strings.StringPassThrough stringPassThrough;
-  Utilities.IO.Strings.ConstStringSource constStringSource(final k=BlackBoxHeaPumHeating.datasource) if not use_rev;
+  Utilities.IO.Strings.ConstStringSource constStringSource(final k=blaBoxHeaPumHea.datasource) if not use_rev;
 initial equation
-  assert( stringPassThrough.y == BlackBoxHeaPumHeating.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
+  assert( stringPassThrough.y == blaBoxHeaPumHea.datasource, "Data sources for reversible operation are not equal! Only continue if this is intended", AssertionLevel.warning);
 equation
   connect(constStringSource.y, stringPassThrough.u);
-  connect(BlackBoxHeaPumCooling.datasourceOut, stringPassThrough.u);
-  connect(BlackBoxHeaPumHeating.QCon_flow, switchQCon.u1)
+  connect(blaBoxHeaPumCoo.datasourceOut, stringPassThrough.u);
+  connect(blaBoxHeaPumHea.QCon_flow, switchQCon.u1)
     annotation (Line(points={{56,38},{56,8},{58,8}},         color={0,0,127}));
-  connect(BlackBoxHeaPumHeating.Pel, switchPel.u1) annotation (Line(points={{40,38},
+  connect(blaBoxHeaPumHea.Pel, switchPel.u1) annotation (Line(points={{40,38},
           {40,30},{86,30},{86,-52},{8,-52},{8,-58}},
                                            color={0,0,127}));
-  connect(BlackBoxHeaPumCooling.Pel, switchPel.u3) annotation (Line(
+  connect(blaBoxHeaPumCoo.Pel, switchPel.u3) annotation (Line(
       points={{-39.5,38},{-40,38},{-40,30},{-90,30},{-90,-50},{-8,-50},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(BlackBoxHeaPumCooling.QEva_flow, switchQEva.u3) annotation (Line(
+  connect(blaBoxHeaPumCoo.QEva_flow, switchQEva.u3) annotation (Line(
       points={{-55.9,38},{-56,38},{-56,24},{-52,24},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -81,17 +81,17 @@ equation
       points={{58,-8},{38.8,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(BlackBoxHeaPumCooling.QCon_flow, gainCon.u) annotation (Line(
+  connect(blaBoxHeaPumCoo.QCon_flow, gainCon.u) annotation (Line(
       points={{-23.1,38},{-24,38},{-24,32},{10,32},{10,-8},{20.4,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(BlackBoxHeaPumHeating.QEva_flow, gainEva.u) annotation (Line(points={{24,38},
+  connect(blaBoxHeaPumHea.QEva_flow, gainEva.u) annotation (Line(points={{24,38},
           {24,8},{-22.4,8}},                color={0,0,127}));
-  connect(sigBus, BlackBoxHeaPumCooling.sigBus) annotation (Line(
+  connect(sigBus, blaBoxHeaPumCoo.sigBus) annotation (Line(
       points={{0,102},{0,90},{-40,90},{-40,86},{-39.705,86},{-39.705,80.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBus, BlackBoxHeaPumHeating.sigBus) annotation (Line(
+  connect(sigBus, blaBoxHeaPumHea.sigBus) annotation (Line(
       points={{0,102},{0,90},{39.8,90},{39.8,80.8}},
       color={255,204,51},
       thickness=0.5));
@@ -164,12 +164,12 @@ equation
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
     (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -178,10 +178,7 @@ equation
   Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the
   simulation of a reversible heat pump. Thus, data both of chillers and
   heat pumps can be used to calculate the three relevant values
-  <span style=\"font-family: Courier New;\">P_el</span>, <span style=
-  \"font-family: Courier New;\">QCon</span> and <span style=
-  \"font-family: Courier New;\">QEva</span>. The <span style=
-  \"font-family: Courier New;\">mode</span> of the heat pump is used to
+  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. The <code>mode</code> of the heat pump is used to
   switch between the performance data of the chiller and the heat pump.
 </p>
 <p>
@@ -210,4 +207,4 @@ equation
   </li>
 </ul>
 </html>"));
-end InnerCycle_HeatPump;
+end InnerCycle;

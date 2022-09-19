@@ -1,9 +1,9 @@
 within IBPSA.Fluid.Chillers.BaseClasses;
-model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
+model InnerCycle "Blackbox model of refrigerant cycle of a chiller"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
   // Setting all values to zero avoids errors when checking this model.
   // The values are correctly propagated by the heat pump / chiller model anyway
-  replaceable model BlaBoxChiCooling =
+  replaceable model BlackBoxChillerCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox (
        QUse_flow_nominal=0,
        QUseBlackBox_flow_nominal=0,
@@ -21,21 +21,17 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
     "Replaceable model for performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
-  replaceable model BlaBoxChiHeating =
+  replaceable model BlackBoxChillerHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating(primaryOperation=false)
     constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
-  BlaBoxChiCooling BlackBoxChillerCooling
+  BlackBoxChillerCooling blaBoxChiCoo
     annotation (Placement(transformation(extent={{7,20},{61,76}}, rotation=0)));
-  BlaBoxChiHeating BlackBoxChillerHeating if use_rev
-    annotation (Placement(
-        transformation(
-        extent={{-27,-28},{27,28}},
-        rotation=0,
-        origin={-34,48})));
+  BlackBoxChillerHeating blaBoxChiHea
+    annotation (Placement(transformation(extent={{-27,-28},{27,28}}, rotation=0)));
 
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
     "Negate QEva to match definition of heat flow direction" annotation (
@@ -51,16 +47,20 @@ model InnerCycle_Chiller "Blackbox model of refrigerant cycle of a chiller"
         origin={50,-20})));
 protected
   Utilities.IO.Strings.StringPassThrough stringPassThrough;
-  Utilities.IO.Strings.ConstStringSource constStringSource(final k=BlackBoxChillerCooling.datasource) if not use_rev;
+  Utilities.IO.Strings.ConstStringSource constStringSource(final k=blaBoxChiCoo.datasource)
+    if not use_rev;
 initial equation
-  assert( stringPassThrough.y == BlackBoxChillerCooling.datasource, "Data sources for reversible operation are not equal! Only continue if this is intendet", AssertionLevel.warning);
+  assert(
+    stringPassThrough.y == blaBoxChiCoo.datasource,
+    "Data sources for reversible operation are not equal! Only continue if this is intended",
+    AssertionLevel.warning);
 equation
   connect(constStringSource.y, stringPassThrough.u);
-  connect(BlackBoxChillerHeating.datasourceOut, stringPassThrough.u);
-  connect(BlackBoxChillerCooling.Pel, switchPel.u1) annotation (Line(
-        points={{34,17.2},{34,-30},{8,-30},{8,-58}}, color={0,0,127}));
-  connect(BlackBoxChillerHeating.Pel, switchPel.u3) annotation (Line(
-      points={{-34,17.2},{-34,-30},{-8,-30},{-8,-58}},
+  connect(blaBoxChiHea.datasourceOut, stringPassThrough.u);
+  connect(blaBoxChiCoo.Pel, switchPel.u1) annotation (Line(points={{34,17.2},{34,
+          -30},{8,-30},{8,-58}}, color={0,0,127}));
+  connect(blaBoxChiHea.Pel, switchPel.u3) annotation (Line(
+      points={{0,-30.8},{0,-30},{-8,-30},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(constZero.y, switchPel.u3) annotation (Line(points={{-59,-70},{-34,-70},
@@ -74,35 +74,34 @@ equation
   connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-70},{-52,-70},
           {-52,-38},{58,-38},{58,-8}},       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(sigBus, BlackBoxChillerHeating.sigBus) annotation (Line(
-      points={{0,102},{0,86},{-33.73,86},{-33.73,77.12}},
+  connect(sigBus, blaBoxChiHea.sigBus) annotation (Line(
+      points={{0,102},{0,86},{0.27,86},{0.27,29.12}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBus, BlackBoxChillerCooling.sigBus) annotation (Line(
+  connect(sigBus, blaBoxChiCoo.sigBus) annotation (Line(
       points={{0,102},{0,86},{34.27,86},{34.27,77.12}},
       color={255,204,51},
       thickness=0.5));
 
-  connect(BlackBoxChillerCooling.QEva_flow, gainEva.u) annotation (Line(
-        points={{55.6,17.2},{55.6,-6},{-45.2,-6}}, color={0,0,127}));
+  connect(blaBoxChiCoo.QEva_flow, gainEva.u) annotation (Line(points={{55.6,17.2},
+          {55.6,-6},{-45.2,-6}}, color={0,0,127}));
   connect(gainEva.y, switchQEva.u1)
     annotation (Line(points={{-54.4,-6},{-56,-6},{-56,8},{-58,8}},
                                                    color={0,0,127}));
-  connect(BlackBoxChillerHeating.QEva_flow, switchQEva.u3) annotation (
-      Line(
-      points={{-12.4,17.2},{-12.4,-8},{-58,-8}},
+  connect(blaBoxChiHea.QEva_flow, switchQEva.u3) annotation (Line(
+      points={{21.6,-30.8},{21.6,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(BlackBoxChillerHeating.QCon_flow, gainCon.u) annotation (Line(
-      points={{-55.6,17.2},{-55.6,2},{-24,2},{-24,-20},{45.2,-20}},
+  connect(blaBoxChiHea.QCon_flow, gainCon.u) annotation (Line(
+      points={{-21.6,-30.8},{-21.6,2},{-24,2},{-24,-20},{45.2,-20}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(gainCon.y, switchQCon.u3)
     annotation (Line(points={{54.4,-20},{56,-20},{56,-8},{58,-8}},
                                                    color={0,0,127},
         pattern=LinePattern.Dash));
-  connect(BlackBoxChillerCooling.QCon_flow, switchQCon.u1) annotation (
-      Line(points={{12.4,17.2},{12.4,4},{62,4},{62,8},{58,8}},   color={0,0,127}));
+  connect(blaBoxChiCoo.QCon_flow, switchQCon.u1) annotation (Line(points={{12.4,
+          17.2},{12.4,4},{62,4},{62,8},{58,8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -171,7 +170,7 @@ equation
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -180,10 +179,7 @@ equation
   Used in IBPSA.Fluid.Chillers.Chiller, this model serves the
   simulation of a reversible chiller. Thus, data both of chillers and
   heat pumps can be used to calculate the three relevant values
-  <span style=\"font-family: Courier New;\">P_el</span>, <span style=
-  \"font-family: Courier New;\">QCon</span> and <span style=
-  \"font-family: Courier New;\">QEva</span>. The <span style=
-  \"font-family: Courier New;\">mode</span> of the chiller is used to
+  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. The <code>mode</code> of the chiller is used to
   switch between the performance data of the chiller and the heat pump.
 </p>
 <p>
@@ -206,4 +202,4 @@ equation
   </li>
 </ul>
 </html>"));
-end InnerCycle_Chiller;
+end InnerCycle;

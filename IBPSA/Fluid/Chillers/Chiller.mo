@@ -3,10 +3,10 @@ model Chiller
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-      final autoCalc_mCon_flow=max(0.00005*QUse_flow_nominal + 0.3161, autoCalc_mMin_flow),
-      final autoCalc_mEva_flow= max(0.00005*QUse_flow_nominal - 0.5662, autoCalc_mMin_flow),
-      final autoCalc_VCon=max(0.0000002*QUse_flow_nominal - 0.0084, autoCalc_VMin),
-      final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0066, autoCalc_VMin),
+      final autoCalc_mCon_flow=max(5E-5*QUse_flow_nominal + 0.3161, autoCalc_mMin_flow),
+      final autoCalc_mEva_flow= max(5E-5*QUse_flow_nominal - 0.5662, autoCalc_mMin_flow),
+      final autoCalc_VCon=max(2E-7*QUse_flow_nominal - 84E-4, autoCalc_VMin),
+      final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 66E-4, autoCalc_VMin),
       mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
       final scalingFactor=innerCycle.BlackBoxChillerCooling.finalScalingFactor,
       final use_safetyControl=false,
@@ -159,7 +159,7 @@ equation
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -169,7 +169,7 @@ equation
   allow the simulation of transient states.
 </p>
 <p>
-  Resulting in the choosen model structure, several configurations are
+  Resulting in the chosen model structure, several configurations are
   possible:
 </p>
 <ol>

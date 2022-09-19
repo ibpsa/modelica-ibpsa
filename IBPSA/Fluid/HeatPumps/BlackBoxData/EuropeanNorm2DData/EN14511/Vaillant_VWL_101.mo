@@ -13,6 +13,6 @@ record Vaillant_VWL_101 "Vaillant VWL10-1"
     //These boundary-tables are not from the datasheet but default values.
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for a Vaillaint VLW_101 air-to-water heat pump</span></p>
+<p>Data for a Vaillaint VLW_101 air-to-water heat pump </p>
 </html>"));
 end Vaillant_VWL_101;

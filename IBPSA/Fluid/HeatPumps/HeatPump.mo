@@ -3,17 +3,19 @@ model HeatPump
   "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-    final autoCalc_mCon_flow=max(0.00004*QUse_flow_nominal - 0.6162, autoCalc_mMin_flow),
-    final autoCalc_mEva_flow=max(0.00004*QUse_flow_nominal - 0.3177, autoCalc_mMin_flow),
-    final autoCalc_VCon=max(0.0000001*QUse_flow_nominal - 0.0094,autoCalc_VMin),
-    final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0075,autoCalc_VMin),
+    final autoCalc_mCon_flow=max(4E-5*QUse_flow_nominal - 0.6162,
+        autoCalc_mMin_flow),
+    final autoCalc_mEva_flow=max(4E-5*QUse_flow_nominal - 0.3177,
+        autoCalc_mMin_flow),
+    final autoCalc_VCon=max(1E-7*QUse_flow_nominal - 94E-4, autoCalc_VMin),
+    final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 75E-4, autoCalc_VMin),
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
-    final scalingFactor=innerCycle.BlackBoxHeaPumHeating.finalScalingFactor,
+    final scalingFactor=innerCycle.blaBoxHeaPumHea.finalScalingFactor,
     use_rev=true,
-    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle_HeatPump innerCycle(
-        redeclare model BlaBoxHPHeating = BlaBoxHPHeating,
-        redeclare model BlaBoxHPCooling = BlaBoxHPCooling));
-  replaceable model BlaBoxHPHeating =
+    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle innerCycle(
+        redeclare model BlackBoxHeatPumpHeating = BlackBoxHeatPumpHeating,
+        redeclare model BlackBoxHeatPumpCooling = BlackBoxHeatPumpCooling));
+  replaceable model BlackBoxHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
      constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
@@ -29,7 +31,7 @@ model HeatPump
        final y_nominal=y_nominal)
   "Black box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
-  replaceable model BlaBoxHPCooling =
+  replaceable model BlackBoxHeatPumpCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
@@ -204,12 +206,12 @@ equation
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
     (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>

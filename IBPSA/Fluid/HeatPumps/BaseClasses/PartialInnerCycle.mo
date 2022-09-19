@@ -159,10 +159,7 @@ equation
   IBPSA.Fluid.Chiller.Chiller, this model serves the simulation of a
   reversible vapour compression machine. Thus, data both of chillers
   and heat pumps can be used to calculate the three relevant values
-  <span style=\"font-family: Courier New;\">P_el</span>, <span style=
-  \"font-family: Courier New;\">QCon</span> and <span style=
-  \"font-family: Courier New;\">QEva</span>. The <span style=
-  \"font-family: Courier New;\">mode</span> of the machine is used to
+  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. The <code>mode</code> of the machine is used to
   switch between the performance data of the chiller and the heat pump.
 </p>
 <p>

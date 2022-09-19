@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.Validation;
 model HeatPump_EuropeanNormData
   extends BaseClasses.PartialHeatPumpValidation(heatPump(
-      redeclare model vapComIne =
+      redeclare model VapourCompressionCycleInertia =
           IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
           (
           refIneFre_constant=refIneFre_constant,
@@ -9,7 +9,7 @@ model HeatPump_EuropeanNormData
           initType=Modelica.Blocks.Types.Init.InitialState),
       mCon_flow_nominal=mCon_flow_nominal,
       VCon=VCon,
-      redeclare model BlaBoxHPHeating =
+      redeclare model BlackBoxHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
               IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
               tableQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],

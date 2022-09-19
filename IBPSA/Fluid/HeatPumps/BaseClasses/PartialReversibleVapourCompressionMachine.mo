@@ -25,7 +25,7 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
 
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
-  replaceable model vapComIne =
+  replaceable model VapourCompressionCycleInertia =
       HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia
     constrainedby
     HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
@@ -318,12 +318,12 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={-50,-50})));
 
-  vapComIne vapComIneCon "Inertia model for condenser side"
+  VapourCompressionCycleInertia vapComIneCon "Inertia model for condenser side"
                          annotation(Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
-  vapComIne vapComIneEva "Inertia model for evaporator side"
+  VapourCompressionCycleInertia vapComIneEva "Inertia model for evaporator side"
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

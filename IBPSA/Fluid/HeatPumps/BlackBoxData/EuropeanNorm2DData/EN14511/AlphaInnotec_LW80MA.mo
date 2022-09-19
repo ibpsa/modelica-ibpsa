@@ -13,7 +13,7 @@ record AlphaInnotec_LW80MA "Alpha Innotec LW 80 M-A"
     //These boundary-tables are not from the datasheet but default values.
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for air-to-water heat pump Alpha&nbsp;Innotec&nbsp;LW&nbsp;80&nbsp;M-A.</span></p>
-<p><span style=\"font-family: Courier New; color: #006400;\">Operational envelope data is not from the data table, as it is not given. Instead, default values are used.</span></p>
+<p>Data for air-to-water heat pump Alpha Innotec LW 80 M-A.</p>
+<p>Operational envelope data is not from the data table, as it is not given. Instead, default values are used.</p>
 </html>"));
 end AlphaInnotec_LW80MA;

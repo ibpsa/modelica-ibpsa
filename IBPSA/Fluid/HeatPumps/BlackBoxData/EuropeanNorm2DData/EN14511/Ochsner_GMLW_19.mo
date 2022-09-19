@@ -10,6 +10,6 @@ record Ochsner_GMLW_19 "Ochsner GMLW 19"
     tableUppBou=[-15,55; 40,55]);
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for the Ochsner GMLW 19 air-to-water device</span></p>
+<p>Data for the Ochsner GMLW 19 air-to-water device </p>
 </html>"));
 end Ochsner_GMLW_19;

@@ -13,6 +13,6 @@ record StiebelEltron_WPL18 "Stiebel Eltron WPL 18"
     //These boundary-tables are not from the datasheet but default values.
 
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Courier New; color: #006400;\">Data for a Stiebel Eltron WPL18 air-to-water heat pump</span></p>
+<p>Data for a Stiebel Eltron WPL18 air-to-water heat pump </p>
 </html>"));
 end StiebelEltron_WPL18;
