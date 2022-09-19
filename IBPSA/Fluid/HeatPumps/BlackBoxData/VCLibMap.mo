@@ -3,12 +3,11 @@ model VCLibMap
   "Multi-dimensional performance map encompasing choices of fluid and flowsheet based on steady state calculations using the Vapour Compression Library"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
-  final datasource="VCLib",
-  QUseBlackBox_flow_nominal=evaluate(
-    externalTable,
-    {y_nominal, TCon_nominal, TEva_nominal},
-    Table_QCon.interpMethod,
-    Table_QCon.extrapMethod));
+      final datSou="VCLib", QUseBlackBox_flow_nominal=evaluate(
+        externalTable,
+        {y_nominal,TCon_nominal,TEva_nominal},
+        Table_QCon.interpMethod,
+        Table_QCon.extrapMethod));
   // Parameters Heat pump operation
   parameter String refrigerant="R410A" "Identifier for the refrigerant" annotation(Dialog(group=
           "Heat pump specification"));

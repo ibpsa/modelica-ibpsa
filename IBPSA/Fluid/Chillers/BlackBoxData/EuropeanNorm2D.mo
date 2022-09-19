@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.BlackBoxData;
 model EuropeanNorm2D
   "Performance data coming from manufacturer according to European Standards"
   extends IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
-    final datasource=dataTable.device_id,
+    final datSou=dataTable.device_id,
     mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
     mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
     QUseBlackBox_flow_nominal=

@@ -8,14 +8,14 @@ model Chiller
       final autoCalc_VCon=max(2E-7*QUse_flow_nominal - 84E-4, autoCalc_VMin),
       final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 66E-4, autoCalc_VMin),
       mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
-      final scalingFactor=innerCycle.BlackBoxChillerCooling.finalScalingFactor,
+      final scalingFactor=innerCycle.blaBoxChiCoo.finalScalingFactor,
       final use_safetyControl=false,
       use_rev=true,
-      redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
-          redeclare model BlaBoxChiCooling = BlaBoxChiCooling,
-          redeclare model BlaBoxChiHeating = BlaBoxChiHeating));
+      redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle innerCycle(
+          redeclare model BlackBoxChillerCooling = BlackBoxChillerCooling,
+          redeclare model BlackBoxChillerHeating = BlackBoxChillerHeating));
 
-  replaceable model BlaBoxChiCooling =
+  replaceable model BlackBoxChillerCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
       constrainedby
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
@@ -31,7 +31,7 @@ model Chiller
        final y_nominal=y_nominal)
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
-  replaceable model BlaBoxChiHeating =
+  replaceable model BlackBoxChillerHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
        constrainedby
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(

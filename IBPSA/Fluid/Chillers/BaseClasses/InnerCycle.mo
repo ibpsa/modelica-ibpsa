@@ -34,11 +34,8 @@ model InnerCycle "Blackbox model of refrigerant cycle of a chiller"
     annotation (Placement(transformation(extent={{-27,-28},{27,28}}, rotation=0)));
 
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
-    "Negate QEva to match definition of heat flow direction" annotation (
-      Placement(transformation(
-        extent={{-4,-4},{4,4}},
-        rotation=180,
-        origin={-50,-6})));
+    "Negate QEva to match definition of heat flow direction" annotation (Placement(
+        transformation(extent={{-4,-4},{4,4}}, rotation=180)));
   Modelica.Blocks.Math.Gain gainCon(final k=-1) if use_rev
     "Negate QCon to match definition of heat flow direction" annotation (
       Placement(transformation(
@@ -46,17 +43,20 @@ model InnerCycle "Blackbox model of refrigerant cycle of a chiller"
         rotation=0,
         origin={50,-20})));
 protected
-  Utilities.IO.Strings.StringPassThrough stringPassThrough;
-  Utilities.IO.Strings.ConstStringSource constStringSource(final k=blaBoxChiCoo.datasource)
-    if not use_rev;
+  IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
+    "String pass through to enable conditional string data";
+  IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
+    final k=blaBoxChiCoo.datSou)
+   "Constant String data source";
 initial equation
   assert(
-    stringPassThrough.y == blaBoxChiCoo.datasource,
-    "Data sources for reversible operation are not equal! Only continue if this is intended",
+    strPasThr.y == blaBoxChiCoo.datSou,
+    "Data sources for reversible operation are not equal! 
+    Only continue if this is intended",
     AssertionLevel.warning);
 equation
-  connect(constStringSource.y, stringPassThrough.u);
-  connect(blaBoxChiHea.datasourceOut, stringPassThrough.u);
+  connect(conStrSou.y, strPasThr.u);
+  connect(blaBoxChiHea.datSouOut, strPasThr.u);
   connect(blaBoxChiCoo.Pel, switchPel.u1) annotation (Line(points={{34,17.2},{34,
           -30},{8,-30},{8,-58}}, color={0,0,127}));
   connect(blaBoxChiHea.Pel, switchPel.u3) annotation (Line(
@@ -83,11 +83,10 @@ equation
       color={255,204,51},
       thickness=0.5));
 
-  connect(blaBoxChiCoo.QEva_flow, gainEva.u) annotation (Line(points={{55.6,17.2},
-          {55.6,-6},{-45.2,-6}}, color={0,0,127}));
-  connect(gainEva.y, switchQEva.u1)
-    annotation (Line(points={{-54.4,-6},{-56,-6},{-56,8},{-58,8}},
-                                                   color={0,0,127}));
+  connect(blaBoxChiCoo.QEva_flow, gainEva.u) annotation (Line(points={{55.6,
+          17.2},{55.6,-8.88178e-16},{4.8,-8.88178e-16}}, color={0,0,127}));
+  connect(gainEva.y, switchQEva.u1) annotation (Line(points={{-4.4,8.88178e-16},
+          {-56,8.88178e-16},{-56,8},{-58,8}}, color={0,0,127}));
   connect(blaBoxChiHea.QEva_flow, switchQEva.u3) annotation (Line(
       points={{21.6,-30.8},{21.6,-8},{-58,-8}},
       color={0,0,127},

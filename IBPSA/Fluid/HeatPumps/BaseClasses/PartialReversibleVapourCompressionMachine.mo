@@ -26,14 +26,13 @@ partial model PartialReversibleVapourCompressionMachine
 
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
   replaceable model VapourCompressionCycleInertia =
-      HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia
+     IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia
     constrainedby
-    HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
-                                                                       "Inertia between the black-box outputs and the heat exchangers."
+    IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
+      "Inertia between the black-box outputs and the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
   parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true));
   parameter Boolean use_safetyControl=true "=true to enable internal heat pump safety control" annotation (Dialog(group="Safety Control"), choices(checkBox=true));
-
   parameter Boolean use_busConnectorOnly=false
     "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet). =false to use the bus connector for outputs only. Only possible if no internal safety control is used."
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=
@@ -309,14 +308,11 @@ partial model PartialReversibleVapourCompressionMachine
 
   //Automatic calculation of mass flow rates and volumes of the evaporator and condenser using linear regressions from data sheets of heat pumps and chillers (water to water)
 
-  Modelica.Blocks.Logical.Hysteresis hysteresis(
+  Modelica.Blocks.Logical.Hysteresis hys(
     final uLow=Modelica.Constants.eps,
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-50,-50})));
+        transformation(extent={{10,-10},{-10,10}}, rotation=180)));
 
   VapourCompressionCycleInertia vapComIneCon "Inertia model for condenser side"
                          annotation(Placement(transformation(
@@ -383,15 +379,21 @@ protected
 
 equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
-  assert(not use_autoCalc or (use_autoCalc and QUse_flow_nominal>0), "Can't auto-calculate evaporator and condenser data without a given nominal power flow (QUse_flow_nominal)!",
+  assert(not use_autoCalc or (use_autoCalc and QUse_flow_nominal>0),
+    "Can't auto-calculate evaporator and condenser data 
+    without a given nominal power flow (QUse_flow_nominal)!",
   level = AssertionLevel.error);
   assert(
     not use_autoCalc or (autoCalc_mEva_flow > autoCalc_mMin_flow and
       autoCalc_mEva_flow < 90),
-    "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated mass flows!",
+    "Given nominal power (QUse_flow_nominal) for auto-calculation of 
+    evaporator and condenser data is outside the range of data sheets 
+    considered. Please control the auto-calculated mass flows!",
     level=AssertionLevel.warning);
   assert(not use_autoCalc or (autoCalc_VEva>autoCalc_VMin and autoCalc_VEva<0.43),
-  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated volumes!",
+  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator 
+  and condenser data is outside the range of data sheets considered. 
+  Please control the auto-calculated volumes!",
   level = AssertionLevel.warning);
 
   connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
@@ -447,9 +449,8 @@ equation
   connect(port_a1, mFlow_con.port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
-  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-30,
-          -50},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
-                                      color={255,0,255}), Text(
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{11,0},{-30,0},{-30,-66},
+          {-76,-66},{-76,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -471,8 +472,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-62,-50},{-76,-50},
-          {-76,-43},{-105,-43}}, color={0,0,127}), Text(
+  connect(hys.u, sigBus.ySet) annotation (Line(points={{-12,0},{-76,0},{-76,-43},
+          {-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},

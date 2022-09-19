@@ -4,7 +4,7 @@ model NoCooling
   extends PartialChillerBlackBox(
     redeclare final IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
       iceFacCalc,
-    datasource="",
+    datSou="",
     QUseBlackBox_flow_nominal=0,
     scalingFactor=0,
     y_nominal=0,

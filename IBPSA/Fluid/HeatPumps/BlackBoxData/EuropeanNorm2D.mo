@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model EuropeanNorm2D "Data from European Norm in two dimensions"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
-    final datasource=dataTable.device_id,
+    final datSou=dataTable.device_id,
     mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
     mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
     QUseBlackBox_flow_nominal=

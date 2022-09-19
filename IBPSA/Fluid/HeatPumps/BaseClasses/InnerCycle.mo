@@ -45,13 +45,19 @@ model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
         rotation=0,
         origin={30,-8})));
 protected
-  Utilities.IO.Strings.StringPassThrough stringPassThrough;
-  Utilities.IO.Strings.ConstStringSource constStringSource(final k=blaBoxHeaPumHea.datasource) if not use_rev;
+  Utilities.IO.Strings.StringPassThrough strPasThr
+    "String pass through to enable conditional string data";
+  Utilities.IO.Strings.ConstStringSource conStrSou(final k=blaBoxHeaPumHea.datSou)
+    "Constant String data source";
 initial equation
-  assert( stringPassThrough.y == blaBoxHeaPumHea.datasource, "Data sources for reversible operation are not equal! Only continue if this is intended", AssertionLevel.warning);
+  assert(
+    strPasThr.y == blaBoxHeaPumHea.datSou,
+    "Data sources for reversible operation are not equal! 
+    Only continue if this is intended",
+    AssertionLevel.warning);
 equation
-  connect(constStringSource.y, stringPassThrough.u);
-  connect(blaBoxHeaPumCoo.datasourceOut, stringPassThrough.u);
+  connect(conStrSou.y, strPasThr.u);
+  connect(blaBoxHeaPumCoo.datSouOut,  strPasThr.u);
   connect(blaBoxHeaPumHea.QCon_flow, switchQCon.u1)
     annotation (Line(points={{56,38},{56,8},{58,8}},         color={0,0,127}));
   connect(blaBoxHeaPumHea.Pel, switchPel.u1) annotation (Line(points={{40,38},

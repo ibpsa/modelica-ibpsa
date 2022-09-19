@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model EuropeanNorm3D "3D table with data for heat pump"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
-  datasource="EuropeanNorm3D",
-  QUseBlackBox_flow_nominal=evaluate(
-    externalTable,
-    {y_nominal, TEva_nominal, TCon_nominal},
-    nDTableQCon.interpMethod,
-    nDTableQCon.extrapMethod));
+  extends
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+      datSou="EuropeanNorm3D", QUseBlackBox_flow_nominal=evaluate(
+        externalTable,
+        {y_nominal,TEva_nominal,TCon_nominal},
+        nDTableQCon.interpMethod,
+        nDTableQCon.extrapMethod));
   parameter Real nConv=100
     "Gain value multiplied with relative compressor speed n to calculate matching value based on sdf tables";
   parameter SDF.Types.InterpolationMethod interpMethod=SDF.Types.InterpolationMethod.Linear

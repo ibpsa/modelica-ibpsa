@@ -18,7 +18,8 @@ partial model PartialBlackBox
     "Nominal heat flow rate at useful heat exchanger in the unscaled black box data model. Used to calculate the scaling factor."   annotation (Dialog(group=
           "Nominal Design", enable=primaryOperation));
   parameter Boolean primaryOperation "Indicate if this black box data is used for the primary operation (e.g. heat pump -> heating)";
-  parameter String datasource="" "Indicate where the data is coming from. If reversible machines are used, these strings have to match";
+  parameter String datSou="" "Indicate where the data is coming from. 
+    If reversible machines are used, these strings have to match";
 
   replaceable Frosting.NoFrosting iceFacCalc
     constrainedby Frosting.BaseClasses.PartialIceFac
@@ -63,17 +64,15 @@ partial model PartialBlackBox
         rotation=270,
         origin={-50,-70})));
 
-
   Modelica.Blocks.Math.Feedback feedbackHeatFlowEvaporator
-    "Calculates evaporator heat flow with total energy balance"                 annotation(Placement(transformation(extent={{-10,-10},
-            {10,10}},
-        rotation=0,
-        origin={-70,-10})));
-  IBPSA.Utilities.IO.Strings.StringOutput datasourceOut;
+    "Calculates evaporator heat flow with total energy balance"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+  IBPSA.Utilities.IO.Strings.StringOutput datSouOut "String output of data source";
 protected
-  IBPSA.Utilities.IO.Strings.ConstStringSource constStringSource(final k=datasource);
+  Utilities.IO.Strings.ConstStringSource conStrSour(final k=datSou)
+    "Constant String with data source as output";
 equation
-  connect(constStringSource.y, datasourceOut);
+  connect(conStrSour.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-50,-81},{-50,-88},
           {0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
                                color={0,0,127}));
@@ -82,8 +81,8 @@ equation
           127}));
   connect(calcRedQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{
           -80,-96},{-80,-110}},                      color={0,0,127}));
-  connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y) annotation (Line(
-        points={{-44,-58},{-44,-10},{-61,-10}},         color={0,0,127}));
+  connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y)
+    annotation (Line(points={{-44,-58},{-44,0},{9,0}}, color={0,0,127}));
   connect(iceFacCalc.iceFac, proRedQEva.u1) annotation (Line(points={{-79,-42},{
           -56,-42},{-56,-58}},                      color={0,0,127}));
   connect(iceFacCalc.sigBus, sigBus) annotation (Line(

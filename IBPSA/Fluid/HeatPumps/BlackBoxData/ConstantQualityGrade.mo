@@ -2,7 +2,8 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
-      QUseBlackBox_flow_nominal=QUse_flow_nominal, datasource="ConstantQualityGradeCarnot");
+      QUseBlackBox_flow_nominal=QUse_flow_nominal, datSou=
+        "ConstantQualityGradeCarnot");
   parameter Real qualityGrade=0.3 "Constant quality grade";
   final parameter Modelica.Units.SI.Power PEl_nominal = QUse_flow_nominal / (qualityGrade * TCon_nominal * y_nominal)  * (TCon_nominal - TEva_nominal);
   Modelica.Blocks.Sources.Constant constPel(final k=PEl_nominal*
