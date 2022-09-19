@@ -134,13 +134,13 @@ equation
           8},{-28.8,3.4}},          color={0,0,127}));
   connect(nTimesSF.y, nTimesQEva.u2) annotation (Line(points={{-9,15.3},{-9,
           10},{36.4,10},{36.4,-2.8}}, color={0,0,127}));
-  connect(nTimesQEva.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={
-          {40,-16.6},{42,-16.6},{42,-18},{-84,-18},{-84,-10},{-78,-10}}, color={
+  connect(nTimesQEva.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{40,
+          -16.6},{42,-16.6},{42,-18},{-84,-18},{-84,0},{-8,0}},          color={
           0,0,127}));
   connect(nTimesPel.y, calcRedQCon.u2) annotation (Line(points={{-33,-12.7},{-33,
           -48},{64,-48},{64,-58}}, color={0,0,127}));
-  connect(constZero.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{
-          -79,10},{-62,10},{-62,4},{-56,4},{-56,-24},{-70,-24},{-70,-18}},
+  connect(constZero.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-79,10},
+          {-62,10},{-62,4},{-56,4},{-56,-24},{0,-24},{0,-8}},
         color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
@@ -204,7 +204,7 @@ equation
 </h4>
 <p>
   The model <a href=
-  \"modelica://IBPSA.Utilities.Tables.CombiTable2DExtra\">CombiTable2DExtra</a>
+  \"modelica://Modelica.Blocks.Tables.CombiTable2Ds\">Modelica.Blocks.Tables.CombiTable2Ds</a>
   is able to disallow extrapolation by holding the last value. If one
   extrapolates the given perfomance data, warnings about occuring
   extrapolations are emitted. <b>CAUTION: Checking for possible

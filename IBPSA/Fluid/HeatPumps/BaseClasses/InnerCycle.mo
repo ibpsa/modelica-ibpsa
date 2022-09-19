@@ -191,25 +191,26 @@ equation
 <p>
   The user can choose between different types of performance data or
   implement a new black-box model by extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.ReversibleHeatPump_PerformanceData.BaseClasses.PartialPerformanceData\">
-  partial</a> model.
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">
+  IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model.
 </p>
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm3D\">
-    EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm3D\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
     heat pumps or include other dependencies (ambient temperature etc.)
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.PolynomalApproach\">
-    PolynomalApproach</a>: Use a function based approach to calculate
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.FunctionalApproach\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.FunctionalApproach</a>: 
+	Use a function based approach to calculate
     the ouputs. Different functions are already implemented.
   </li>
 </ul>

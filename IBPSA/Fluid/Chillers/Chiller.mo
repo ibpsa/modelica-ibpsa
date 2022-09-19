@@ -188,8 +188,7 @@ equation
 <p>
   Using a signal bus as a connector, this chiller model can be easily
   combined within a chiller system model including several control or
-  safety blocks analogous to <a href=
-  \"modelica://IBPSA.Controls.HeatPump\">IBPSA.Controls.HeatPump</a>.
+  safety blocks analogous to <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls\">IBPSA.Fluid.HeatPumps.SafetyControls</a>.
   The relevant data is aggregated. The mode signal chooses the type of
   the chiller operation. As a result, this model can also be used as a
   heat pump:
@@ -258,14 +257,14 @@ equation
 <ol>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    Performance data 2D</a>: In order to model inverter controlled
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D</a>: In order to model inverter controlled
     chillers, the compressor speed is scaled <b>linearly</b>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.EuropeanNorm2D\">
-    Performance data 2D</a>: Reduced evaporator power as a result of
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D</a>: Reduced evaporator power as a result of
     icing. The icing factor is multiplied with the evaporator power.
   </li>
   <li>

@@ -626,7 +626,7 @@ equation
   simulation of transient states.
 </p>
 <p>
-  Resulting in the choosen model structure, several configurations are
+  Resulting in the chosen model structure, several configurations are
   possible:
 </p>
 <ol>
