@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
+within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 partial block PartialSafetyControl "Safety control with I/O"
   Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
@@ -62,9 +62,9 @@ partial block PartialSafetyControl "Safety control with I/O"
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>

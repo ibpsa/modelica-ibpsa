@@ -29,10 +29,16 @@ model Chiller "Example for the reversible chiller model."
     "Ramp signal for the temperature input of the sink side's ideal mass flow source"
     annotation (Placement(transformation(extent={{-94,-76},{-74,-56}})));
   IBPSA.Fluid.Chillers.Chiller chiller(
-    redeclare model vapComIne =
+    QUse_flow_nominal=5000,
+    y_nominal=1,
+    redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
     use_TSet=false,
+    TCon_nominal=323.15,
+    dTCon_nominal=10,
     GConIns=0,
+    TEva_nominal=288.15,
+    dTEva_nominal=7,
     CEva=100,
     GEvaOut=5,
     CCon=100,
@@ -47,20 +53,18 @@ model Chiller "Example for the reversible chiller model."
     redeclare package Medium_eva = Medium_sou,
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare model PerDataMainChi =
-        IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (dataTable=
-            IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
-    redeclare model PerDataRevChi =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-          dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
     use_rev=true,
     use_autoCalc=false,
     VEva=0.4,
     VCon=0.04,
-    TAmbEva_nominal=288.15,
-    TAmbCon_nominal=273.15,
-    TEva_start=303.15) annotation (Placement(transformation(
+    TEva_start=303.15,
+    redeclare model BlackBoxChillerCooling =
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (dataTable=
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+    redeclare model BlackBoxChillerHeating =
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()))
+                       annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=90,
         origin={2,1})));
@@ -132,12 +136,6 @@ model Chiller "Example for the reversible chiller model."
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={88,-38})));
-  Modelica.Blocks.Sources.Constant iceFac(final k=1)
-    "Fixed value for icing factor. 1 means no icing/frosting (full heat transfer in heat exchanger)" annotation (Placement(
-        transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=180,
-        origin={54,-6})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     annotation (Placement(transformation(extent={{7,-7},{-7,7}},
         rotation=270,
@@ -189,8 +187,6 @@ equation
     annotation (Line(points={{40,34},{16.5,34},{16.5,25}}, color={0,127,255}));
   connect(chiller.port_b2, senTAct.port_a) annotation (Line(points={{16.5,-23},{
           32,-23},{32,-38},{44,-38}},  color={0,127,255}));
-  connect(chiller.iceFac_in, iceFac.y) annotation (Line(points={{34.8667,-17.24},
-          {42,-17.24},{42,-6},{47.4,-6}}, color={0,0,127}));
   connect(TsuSinkRamp.y, sinkSideMassFlowSource.T_in) annotation (Line(points={
           {-73,-66},{-68,-66},{-68,-44},{-56,-44}}, color={0,0,127}));
   connect(hysHeating.y, not2.u)
@@ -214,9 +210,7 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Chiller.mos"
         "Simulate and plot"),
-    Documentation(info="<html><h4>
-  <span style=\"color: #008000\">Overview</span>
-</h4>
+    Documentation(info="<html><h4>Overview</h4>
 <p>
   Simple test set-up for the reversible chiller model. The chiller is
   turned on and off while the source temperature increases linearly.
@@ -226,7 +220,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 <p>
   Besides using the default simple table data, the user should also
   test tabulated data from <a href=
-  \"modelica://IBPSA.DataBase.HeatPump\">IBPSA.DataBase.Chiller</a> or
+  \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData\">IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData</a> or
   polynomial functions.
 </p>
 </html>",
@@ -234,7 +228,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>"),

@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.Examples;
+within IBPSA.Fluid.HeatPumps.Examples;
 model HeatPump "Example for the reversible heat pump model."
  extends Modelica.Icons.Example;
 
@@ -34,7 +34,7 @@ model HeatPump "Example for the reversible heat pump model."
         rotation=-90,
         origin={-12,-90})));
   IBPSA.Fluid.HeatPumps.HeatPump heatPump(
-    redeclare model vapComIne =
+    redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
     use_safetyControl=true,
     use_busConnectorOnly=false,
@@ -60,16 +60,14 @@ model HeatPump "Example for the reversible heat pump model."
     use_rev=true,
     GEvaIns=0,
     cpEva=4184,
-    redeclare model BlaBoxHPHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (
+    redeclare model BlackBoxHeatPumpHeating =
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+    redeclare model BlackBoxHeatPumpCooling =
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCalc,
-        dataTable=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN14511.Vitocal200AWO201()),
-    redeclare model BlaBoxHPCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.LookUpTable2D (smoothness=
-            Modelica.Blocks.Types.Smoothness.LinearSegments, dataTable=
-            IBPSA.Fluid.Chillers.BlackBoxData.EN14511.Vitocal200AWO201()),
+        smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+        dataTable=IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     VEva=0.04,
     use_evaCap=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -77,8 +75,7 @@ model HeatPump "Example for the reversible heat pump model."
     TCon_start=303.15,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
-      safetyControlParameters)
-                       annotation (Placement(transformation(
+      safetyControlParameters) annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={0,-39})));
@@ -243,9 +240,7 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump.mos"
         "Simulate and plot"),
-    Documentation(info="<html><h4>
-  <span style=\"color: #008000\">Overview</span>
-</h4>
+    Documentation(info="<html><h4>Overview</h4>
 <p>
   Simple test set-up for the HeatPumpDetailed model. The heat pump is
   turned on and off while the source temperature increases linearly.
@@ -255,7 +250,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPump
 <p>
   Besides using the default simple table data, the user should also
   test tabulated data from <a href=
-  \"modelica://IBPSA.DataBase.HeatPump\">IBPSA.DataBase.HeatPump</a> or
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData\">IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData</a> or
   polynomial functions.
 </p>
 </html>",
@@ -264,15 +259,14 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPump
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
     (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump.mos" "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,80}})));
 end HeatPump;

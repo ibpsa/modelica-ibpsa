@@ -1,37 +1,50 @@
-﻿within IBPSA.Fluid.HeatPumps;
+within IBPSA.Fluid.HeatPumps;
 model HeatPump
   "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-    final autoCalc_mCon_flow=max(0.00004*QUse_flow_nominal - 0.6162, autoCalc_mMin_flow),
-    final autoCalc_mEva_flow=max(0.00004*QUse_flow_nominal - 0.3177, autoCalc_mMin_flow),
-    final autoCalc_VCon=max(0.0000001*QUse_flow_nominal - 0.0094,autoCalc_VMin),
-    final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0075,autoCalc_VMin),
+    final autoCalc_mCon_flow=max(4E-5*QUse_flow_nominal - 0.6162,
+        autoCalc_mMin_flow),
+    final autoCalc_mEva_flow=max(4E-5*QUse_flow_nominal - 0.3177,
+        autoCalc_mMin_flow),
+    final autoCalc_VCon=max(1E-7*QUse_flow_nominal - 94E-4, autoCalc_VMin),
+    final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 75E-4, autoCalc_VMin),
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
-    final scalingFactor=innerCycle.BlackBoxHeaPumHeating.scalingFactor,
+    final scalingFactor=innerCycle.blaBoxHeaPumHea.finalScalingFactor,
     use_rev=true,
-    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle_HeatPump innerCycle(
-        redeclare model BlaBoxHPHeating = BlaBoxHPHeating,
-        redeclare model BlaBoxHPCooling = BlaBoxHPCooling));
-  replaceable model BlaBoxHPHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle innerCycle(
+        redeclare model BlackBoxHeatPumpHeating = BlackBoxHeatPumpHeating,
+        redeclare model BlackBoxHeatPumpCooling = BlackBoxHeatPumpCooling));
+  replaceable model BlackBoxHeatPumpHeating =
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
      constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-       final QCon_flow_nominal=QUse_flow_nominal,
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+       final QUse_flow_nominal=QUse_flow_nominal,
+       final scalingFactor=0,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
+       final primaryOperation=true,
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
   "Black box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
-  replaceable model BlaBoxHPCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+  replaceable model BlackBoxHeatPumpCooling =
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox(
-        final scalingFactor=scalingFactor)
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+       final QUse_flow_nominal=0,
+       final scalingFactor=scalingFactor,
+       final TCon_nominal=TEva_nominal,
+       final TEva_nominal=TCon_nominal,
+       final dTCon_nominal=dTEva_nominal,
+       final dTEva_nominal=dTCon_nominal,
+       final mCon_flow_nominal=mEva_flow_nominal,
+       final mEva_flow_nominal=mCon_flow_nominal,
+       final primaryOperation=false,
+       final y_nominal=y_nominal)
   "Black box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   replaceable parameter
@@ -193,12 +206,12 @@ equation
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
     (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -208,7 +221,7 @@ equation
   losses allow the simulation of transient states.
 </p>
 <p>
-  Resulting in the choosen model structure, several configurations are
+  Resulting in the chosen model structure, several configurations are
   possible:
 </p>
 <ol>
@@ -226,10 +239,7 @@ equation
 </h4>
 <p>
   Using a signal bus as a connector, this heat pump model can be easily
-  combined with the new <a href=
-  \"modelica://IBPSA.Systems.HeatPumpSystems.HeatPumpSystem\">HeatPumpSystem</a>
-  or several control or safety blocks from <a href=
-  \"modelica://IBPSA.Controls.HeatPump\">IBPSA.Controls.HeatPump</a>.
+  combined with control blocks.
   The relevant data is aggregated. In order to control both chillers
   and heat pumps, both flow and return temperature are aggregated. The
   mode signal chooses the type of the heat pump operation. As a result,
@@ -268,7 +278,7 @@ equation
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
-    HeatExchanger</a>: This new model also enable modelling of thermal
+    IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>: This new model also enable modelling of thermal
     interias and heat losses in a heat exchanger. Please look at the
     model description for more info.
   </li>
@@ -299,14 +309,16 @@ equation
 <ol>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    Performance data 2D</a>: In order to model inverter controlled heat
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: 
+	In order to model inverter controlled heat
     pumps, the compressor speed is scaled <b>linearly</b>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    Performance data 2D</a>: Reduced evaporator power as a result of
+    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: 
+	Reduced evaporator power as a result of
     icing. The icing factor is multiplied with the evaporator power.
   </li>
   <li>

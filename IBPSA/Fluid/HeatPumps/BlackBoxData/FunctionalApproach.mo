@@ -1,19 +1,21 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model FunctionalApproach
   "Calculating heat pump data based on a avaiable functional relationships"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox;
+  extends
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+      datSou="FunctionalApproach", QUseBlackBox_flow_nominal=CharForScaling[2]);
 
   replaceable function PolyData =
       IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct
                                                                            "Function to calculate peformance Data" annotation(choicesAllMatching=true);
   Modelica.Blocks.Sources.RealExpression internal_Pel(final y=Char[1]*
-        scalingFactor)                                                 annotation (Placement(
+        finalScalingFactor)                                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,50})));
   Modelica.Blocks.Sources.RealExpression internal_QCon(final y=Char[2]*
-        scalingFactor)                                 annotation (Placement(
+        finalScalingFactor)                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -43,6 +45,12 @@ model FunctionalApproach
   Modelica.Blocks.Routing.RealPassThrough passThroughMFlowCon;
 protected
   Real Char[2];
+  parameter Real CharForScaling[2] = PolyData(
+    y_nominal,
+    TCon_nominal,
+    TEva_nominal,
+    mCon_flow_nominal,
+    mEva_flow_nominal);
 equation
   Char =PolyData(
     passThroughYSet.y,
@@ -105,14 +113,14 @@ equation
           fillColor={0,127,255},
           textString="f")}), Documentation(revisions="<html><ul>
   <li>
-    <i>May 21, 2021ф</i> by Fabian Wüllhorst:<br/>
+    <i>May 21, 2021</i> by Fabian Wuellhorst:<br/>
     Make use of BaseClasses (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">AixLib #1092</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -123,8 +131,9 @@ equation
 </p>
 <p>
   As the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.Functions.Characteristics.PartialBaseFct\">
-  base function</a> only returns the electrical power and the condenser
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct\">
+  IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct
+  </a> only returns the electrical power and the condenser
   heat flow, the evaporator heat flow is calculated with the following
   energy balance:
 </p>

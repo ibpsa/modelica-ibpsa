@@ -3,23 +3,48 @@ model Chiller
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-      final autoCalc_mCon_flow=max(0.00005*QUse_flow_nominal + 0.3161, autoCalc_mMin_flow),
-      final autoCalc_mEva_flow= max(0.00005*QUse_flow_nominal - 0.5662, autoCalc_mMin_flow),
-      final autoCalc_VCon=max(0.0000002*QUse_flow_nominal - 0.0084, autoCalc_VMin),
-      final autoCalc_VEva=max(0.0000001*QUse_flow_nominal - 0.0066, autoCalc_VMin),
+      final autoCalc_mCon_flow=max(5E-5*QUse_flow_nominal + 0.3161, autoCalc_mMin_flow),
+      final autoCalc_mEva_flow= max(5E-5*QUse_flow_nominal - 0.5662, autoCalc_mMin_flow),
+      final autoCalc_VCon=max(2E-7*QUse_flow_nominal - 84E-4, autoCalc_VMin),
+      final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 66E-4, autoCalc_VMin),
       mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
+      final scalingFactor=innerCycle.blaBoxChiCoo.finalScalingFactor,
       final use_safetyControl=false,
       use_rev=true,
-      redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle_Chiller innerCycle(
-          redeclare model PerDataMainChi = PerDataMainChi,
-          redeclare model PerDataRevChi = PerDataRevChi));
+      redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle innerCycle(
+          redeclare model BlackBoxChillerCooling = BlackBoxChillerCooling,
+          redeclare model BlackBoxChillerHeating = BlackBoxChillerHeating));
 
-  replaceable model PerDataMainChi =
-      IBPSA.Fluid.Chillers.BlackBoxData.BlackBox.BaseClasses.PartialBlackBox
+  replaceable model BlackBoxChillerCooling =
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
+      constrainedby
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+       final QUse_flow_nominal=QUse_flow_nominal,
+       final scalingFactor=0,
+       final primaryOperation=true,
+       final TCon_nominal=TCon_nominal,
+       final TEva_nominal=TEva_nominal,
+       final dTCon_nominal=dTCon_nominal,
+       final dTEva_nominal=dTEva_nominal,
+       final mCon_flow_nominal=mCon_flow_nominal,
+       final mEva_flow_nominal=mEva_flow_nominal,
+       final y_nominal=y_nominal)
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
-  replaceable model PerDataRevChi =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox
+  replaceable model BlackBoxChillerHeating =
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
+       constrainedby
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+       final QUse_flow_nominal=0,
+       final scalingFactor=scalingFactor,
+       final primaryOperation=false,
+       final TCon_nominal=TEva_nominal,
+       final TEva_nominal=TCon_nominal,
+       final dTCon_nominal=dTEva_nominal,
+       final dTEva_nominal=dTCon_nominal,
+       final mCon_flow_nominal=mEva_flow_nominal,
+       final mEva_flow_nominal=mCon_flow_nominal,
+       final y_nominal=y_nominal)
   "Performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
@@ -134,7 +159,7 @@ equation
   <li>
     <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -144,7 +169,7 @@ equation
   allow the simulation of transient states.
 </p>
 <p>
-  Resulting in the choosen model structure, several configurations are
+  Resulting in the chosen model structure, several configurations are
   possible:
 </p>
 <ol>
@@ -163,8 +188,7 @@ equation
 <p>
   Using a signal bus as a connector, this chiller model can be easily
   combined within a chiller system model including several control or
-  safety blocks analogous to <a href=
-  \"modelica://IBPSA.Controls.HeatPump\">IBPSA.Controls.HeatPump</a>.
+  safety blocks analogous to <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls\">IBPSA.Fluid.HeatPumps.SafetyControls</a>.
   The relevant data is aggregated. The mode signal chooses the type of
   the chiller operation. As a result, this model can also be used as a
   heat pump:
@@ -190,7 +214,7 @@ equation
 <ol>
   <li>
     <a href=
-    \"IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle\">InnerCycle</a>
+    \"IBPSA.Fluid.Chillers.BaseClasses.InnerCycle\">IBPSA.Fluid.Chillers.BaseClasses.InnerCycle</a>
     (Black Box): Here, the user can use between several input models or
     just easily create his own, modular black box model. Please look at
     the model description for more info.
@@ -202,7 +226,7 @@ equation
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
-    HeatExchanger</a>: This new model also enable modelling of thermal
+    IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>: This new model also enable modelling of thermal
     interias and heat losses in a heat exchanger. Please look at the
     model description for more info.
   </li>
@@ -233,14 +257,14 @@ equation
 <ol>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    Performance data 2D</a>: In order to model inverter controlled
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D</a>: In order to model inverter controlled
     chillers, the compressor speed is scaled <b>linearly</b>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    Performance data 2D</a>: Reduced evaporator power as a result of
+    \"modelica://IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D\">
+    IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D</a>: Reduced evaporator power as a result of
     icing. The icing factor is multiplied with the evaporator power.
   </li>
   <li>

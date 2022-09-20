@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialInnerCycle
   "Blackbox model of refrigerant cycle of a vapour compression machine (heat pump or chiller)"
 
@@ -147,7 +147,7 @@ equation
     \"https://github.com/RWTH-EBC/IBPSA/issues/715\">#715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/IBPSA/issues/577\">#577</a>)
   </li>
@@ -159,37 +159,14 @@ equation
   IBPSA.Fluid.Chiller.Chiller, this model serves the simulation of a
   reversible vapour compression machine. Thus, data both of chillers
   and heat pumps can be used to calculate the three relevant values
-  <span style=\"font-family: Courier New;\">P_el</span>, <span style=
-  \"font-family: Courier New;\">QCon</span> and <span style=
-  \"font-family: Courier New;\">QEva</span>. The <span style=
-  \"font-family: Courier New;\">mode</span> of the machine is used to
+  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. The <code>mode</code> of the machine is used to
   switch between the performance data of the chiller and the heat pump.
 </p>
 <p>
   The user can choose between different types of performance data or
   implement a new black-box model by extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.BaseClasses.PartialPerformanceData\">
-  partial</a> model.
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">
+  IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model.
 </p>
-<ul>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    LookUpTable2D</a>: Use 2D-data based on the DIN EN 14511
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTableND\">
-    LookUpTableND</a>: Use SDF-data tables to model invertercontroller
-    heat pumps or chillers or include other dependencies (ambient
-    temperature etc.)
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.PolynomalApproach\">
-    PolynomalApproach</a>: Use a function based approach to calculate
-    the ouputs. Different functions are already implemented.
-  </li>
-</ul>
 </html>"));
 end PartialInnerCycle;

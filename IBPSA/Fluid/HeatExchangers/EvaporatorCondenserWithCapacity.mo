@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatExchangers;
+within IBPSA.Fluid.HeatExchangers;
 model EvaporatorCondenserWithCapacity
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol(
@@ -250,9 +250,9 @@ equation
           fillPattern=FillPattern.Solid,
           visible=not is_con)}), Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -272,18 +272,17 @@ equation
   \"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">TwoPortHeatMassExchanger</a>.
 </p>
 <p>
-  The heat exchange between capacity and medium (<span style=
-  \"font-family: Courier New;\">GIns</span>) is based on a series of heat
+  The heat exchange between capacity and medium (<code>GIns</code>) is based on a series of heat
   resistances caused by forced convection and conduction through the
   capacity of the heat exchanger. Losses or gains in result of heat
   exchange with the ambient are modeled through the heat exchange
-  coefficient <span style=\"font-family: Courier New;\">GOut</span> is
+  coefficient <code>GOut</code> is
   represented by a series of conductive resistances and the convection
   to the ambient.
 </p>
 <p>
-  Both parameters <span style=\"font-family: Courier New;\">GIns</span>
-  and <span style=\"font-family: Courier New;\">GOut</span> are variable
+  Both parameters <code>GIns</code>
+  and <code>GOut</code> are variable
   so that the calculation can follow a temperature or flow-rate based
   approach.
 </p>

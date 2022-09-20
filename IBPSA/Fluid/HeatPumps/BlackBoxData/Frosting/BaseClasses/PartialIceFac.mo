@@ -13,5 +13,8 @@ partial model PartialIceFac "Partial model to calculate the icing factor"
         rotation=0,
         origin={110,0})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Model to calculate the icing factor based on the data available in the signal bus of the heat pump.</p>
+</html>"));
 end PartialIceFac;

@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 block SafetyControl "Block including all safety levels"
   extends BaseClasses.PartialSafetyControl;
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
@@ -130,19 +130,8 @@ equation
           {-61.3333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(defrostControl.modeOut, operationalEnvelope.modeSet) annotation (
-      Line(
-      points={{-79.1667,28.3333},{-74,28.3333},{-74,12},{-34,12},{-34,28.3333},
-          {-21.3333,28.3333}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
   connect(modeSet, boolPasThrDef.u) annotation (Line(
       points={{-136,-20},{-114,-20},{-114,-50},{-102,-50}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(boolPasThrDef.y, operationalEnvelope.modeSet) annotation (Line(
-      points={{-79,-50},{-72,-50},{-72,12},{-34,12},{-34,28.3333},{-21.3333,
-          28.3333}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(defrostControl.Pel_deFro, Pel_deFro) annotation (Line(
@@ -189,11 +178,20 @@ equation
 
   connect(minimalVolumeFlowRateSafety.ERR, ERR_minFlow)
     annotation (Line(points={{70,19.1667},{70,-130}}, color={255,127,0}));
+  connect(defrostControl.modeOut, onOffController.modeSet) annotation (Line(
+        points={{-79.1667,28.3333},{-74,28.3333},{-74,28},{-70,28},{-70,28.3333},
+          {-61.3333,28.3333}}, color={255,0,255}));
+  connect(onOffController.modeOut, operationalEnvelope.modeSet) annotation (
+      Line(points={{-39.1667,28.3333},{-34,28.3333},{-34,28},{-30,28},{-30,
+          28.3333},{-21.3333,28.3333}}, color={255,0,255}));
+  connect(onOffController.modeSet, boolPasThrDef.y) annotation (Line(points={{
+          -61.3333,28.3333},{-74,28.3333},{-74,-50},{-79,-50}}, color={255,0,
+          255}));
   annotation (Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
@@ -211,27 +209,24 @@ equation
 <ul>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.DefrostControl\">
-    DefrostControl</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl\">
+    IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl</a>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.OnOffControl+\">OnOffControl</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl+\">
+	IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.OperationalEnvelope\">
-    OperationalEnvelope</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">
+    IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a>
   </li>
   <li>
     <a href=
-    \"modelica://IBPSA.Controls.HeatPump.SafetyControls.AntiFreeze\">AntiFreeze</a>
+    \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">
+	IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a>
   </li>
 </ul>
-<p>
-  The safety function for the anti legionella control is placed inside
-  the model <a href=
-  \"modelica://IBPSA.Controls.HeatPump.HPControl\">HPControl</a>
-</p>
 </html>"));
 end SafetyControl;

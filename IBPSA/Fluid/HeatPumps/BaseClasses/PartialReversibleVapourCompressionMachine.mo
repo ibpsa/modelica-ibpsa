@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialReversibleVapourCompressionMachine
   "Grey-box model for reversible heat pumps and chillers using a black-box to simulate the vapour compression cycle"
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
@@ -25,15 +25,14 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
 
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
-  replaceable model vapComIne =
-      HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
+  replaceable model VapourCompressionCycleInertia =
+     IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia
     constrainedby
-    HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
-                                                                       "Inertia between the black-box outputs and the heat exchangers."
+    IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
+      "Inertia between the black-box outputs and the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
   parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true));
   parameter Boolean use_safetyControl=true "=true to enable internal heat pump safety control" annotation (Dialog(group="Safety Control"), choices(checkBox=true));
-
   parameter Boolean use_busConnectorOnly=false
     "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet). =false to use the bus connector for outputs only. Only possible if no internal safety control is used."
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=
@@ -309,21 +308,18 @@ partial model PartialReversibleVapourCompressionMachine
 
   //Automatic calculation of mass flow rates and volumes of the evaporator and condenser using linear regressions from data sheets of heat pumps and chillers (water to water)
 
-  Modelica.Blocks.Logical.Hysteresis hysteresis(
+  Modelica.Blocks.Logical.Hysteresis hys(
     final uLow=Modelica.Constants.eps,
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-50,-50})));
+        transformation(extent={{10,-10},{-10,10}}, rotation=180)));
 
-  vapComIne vapComIneCon "Inertia model for condenser side"
+  VapourCompressionCycleInertia vapComIneCon "Inertia model for condenser side"
                          annotation(Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
-  vapComIne vapComIneEva "Inertia model for evaporator side"
+  VapourCompressionCycleInertia vapComIneEva "Inertia model for evaporator side"
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -348,6 +344,13 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={90,-40})));
 
+  Modelica.Blocks.Sources.BooleanConstant conModeTrue(final k=true)
+    if not use_busConnectorOnly and not use_rev
+    "Real expression for condenser inlet temperature" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,-110})));
 protected
   parameter Real scalingFactor "Scaling-factor of vapour compression machine";
   parameter Medium_con.ThermodynamicState staCon_nominal=Medium_con.setState_pTX(
@@ -376,15 +379,21 @@ protected
 
 equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
-  assert(not use_autoCalc or (use_autoCalc and QUse_flow_nominal>0), "Can't auto-calculate evaporator and condenser data without a given nominal power flow (QUse_flow_nominal)!",
+  assert(not use_autoCalc or (use_autoCalc and QUse_flow_nominal>0),
+    "Can't auto-calculate evaporator and condenser data 
+    without a given nominal power flow (QUse_flow_nominal)!",
   level = AssertionLevel.error);
   assert(
     not use_autoCalc or (autoCalc_mEva_flow > autoCalc_mMin_flow and
       autoCalc_mEva_flow < 90),
-    "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated mass flows!",
+    "Given nominal power (QUse_flow_nominal) for auto-calculation of 
+    evaporator and condenser data is outside the range of data sheets 
+    considered. Please control the auto-calculated mass flows!",
     level=AssertionLevel.warning);
   assert(not use_autoCalc or (autoCalc_VEva>autoCalc_VMin and autoCalc_VEva<0.43),
-  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator and condenser data is outside the range of data sheets considered. Please control the auto-calculated volumes!",
+  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator 
+  and condenser data is outside the range of data sheets considered. 
+  Please control the auto-calculated volumes!",
   level = AssertionLevel.warning);
 
   connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
@@ -440,9 +449,8 @@ equation
   connect(port_a1, mFlow_con.port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
-  connect(hysteresis.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-30,
-          -50},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
-                                      color={255,0,255}), Text(
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{11,0},{-30,0},{-30,-66},
+          {-76,-66},{-76,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -464,8 +472,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysteresis.u, sigBus.ySet) annotation (Line(points={{-62,-50},{-76,-50},
-          {-76,-43},{-105,-43}}, color={0,0,127}), Text(
+  connect(hys.u, sigBus.ySet) annotation (Line(points={{-12,0},{-76,0},{-76,-43},
+          {-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -515,6 +523,12 @@ equation
           {32,-92},{20,-92}}, color={0,127,255}));
   connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
           -60},{-100,-60}}, color={0,127,255}));
+  connect(conModeTrue.y, sigBus.modeSet) annotation (Line(points={{-79,-110},{
+          -76,-110},{-76,-42},{-105,-42},{-105,-43}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
@@ -599,7 +613,7 @@ equation
     \"https://github.com/RWTH-EBC/IBPSA/issues/715\">#715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/IBPSA/issues/577\">#577</a>)
   </li>
@@ -612,7 +626,7 @@ equation
   simulation of transient states.
 </p>
 <p>
-  Resulting in the choosen model structure, several configurations are
+  Resulting in the chosen model structure, several configurations are
   possible:
 </p>
 <ol>
@@ -704,18 +718,6 @@ equation
   model.
 </p>
 <ol>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    Performance data 2D</a>: In order to model inverter controlled
-    machines, the compressor speed is scaled <b>linearly</b>
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PerformanceData.LookUpTable2D\">
-    Performance data 2D</a>: Reduced evaporator power as a result of
-    icing. The icing factor is multiplied with the evaporator power.
-  </li>
   <li>
     <b>Inertia</b>: The default value of the n-th order element is set
     to 3. This follows comparisons with experimental data. Previous

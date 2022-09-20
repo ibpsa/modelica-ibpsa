@@ -27,5 +27,7 @@ package SafetyControls "Contains typical safety controllers for heat pumps"
           extent={{-14,-26},{16,2}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+<p>Package with safety controls for heat pumps.</p>
+</html>"));
 end SafetyControls;

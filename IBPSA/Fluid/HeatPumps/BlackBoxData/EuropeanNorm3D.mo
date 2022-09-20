@@ -1,11 +1,12 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model EuropeanNorm3D "3D table with data for heat pump"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-  QConBlackBox_flow_nominal=evaluate(
-    externalTable,
-    {y_nominal, TEva_nominal, TCon_nominal},
-    Table_QCon.interpMethod,
-    Table_QCon.extrapMethod));
+  extends
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+      datSou="EuropeanNorm3D", QUseBlackBox_flow_nominal=evaluate(
+        externalTable,
+        {y_nominal,TEva_nominal,TCon_nominal},
+        nDTableQCon.interpMethod,
+        nDTableQCon.extrapMethod));
   parameter Real nConv=100
     "Gain value multiplied with relative compressor speed n to calculate matching value based on sdf tables";
   parameter SDF.Types.InterpolationMethod interpMethod=SDF.Types.InterpolationMethod.Linear
@@ -115,7 +116,7 @@ model EuropeanNorm3D "3D table with data for heat pump"
         rotation=-90,
         origin={70,30})));
 protected
-  Modelica.Blocks.Sources.Constant realCorr(final k=scalingFactor)
+  Modelica.Blocks.Sources.Constant realCorr(final k=finalScalingFactor)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -299,22 +300,22 @@ equation
 </p>
 <ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", revisions="<html>
 <ul>
   <li>
-    <i>May 21, 2021</i> by Fabian Wüllhorst:<br/>
+    <i>May 21, 2021</i> by Fabian Wuellhorst:<br/>
     Make use of BaseClasses (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
   </li>
   <li>
-    <i>November 26, 2018</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>"),

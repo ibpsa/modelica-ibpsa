@@ -1,4 +1,4 @@
-﻿within IBPSA.Utilities.Time;
+within IBPSA.Utilities.Time;
 model DaytimeSwitch
   "Set the output to true if the given daytime stamp is equal to current daytime"
   parameter Boolean weekly=true
@@ -67,9 +67,9 @@ equation
           thickness=0.5,
           color={238,46,47})}), Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>

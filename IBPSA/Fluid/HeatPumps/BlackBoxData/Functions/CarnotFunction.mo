@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
 function CarnotFunction
   "Function to emulate the polynomal approach of the Carnot_y heat pump model"
   extends
@@ -26,14 +26,14 @@ algorithm
   Char[2] :=COP*Pel;
   annotation (Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
 <p>
-  This function emulated the the Carnot model (<a href=
+  This function emulates the Carnot model (<a href=
   \"modelica://IBPSA.Fluid.Chillers.BaseClasses.Carnot\">IBPSA.Fluid.Chillers.BaseClasses.Carnot</a>).
   See this description for more info on assumptions etc.
 </p>

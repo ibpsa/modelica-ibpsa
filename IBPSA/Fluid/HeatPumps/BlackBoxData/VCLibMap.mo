@@ -1,12 +1,13 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model VCLibMap
   "Multi-dimensional performance map encompasing choices of fluid and flowsheet based on steady state calculations using the Vapour Compression Library"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-  QConBlackBox_flow_nominal=evaluate(
-    externalTable,
-    {y_nominal, TCon_nominal, TEva_nominal},
-    Table_QCon.interpMethod,
-    Table_QCon.extrapMethod));
+  extends
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+      final datSou="VCLib", QUseBlackBox_flow_nominal=evaluate(
+        externalTable,
+        {y_nominal,TCon_nominal,TEva_nominal},
+        Table_QCon.interpMethod,
+        Table_QCon.extrapMethod));
   // Parameters Heat pump operation
   parameter String refrigerant="R410A" "Identifier for the refrigerant" annotation(Dialog(group=
           "Heat pump specification"));
@@ -48,7 +49,7 @@ model VCLibMap
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,30})));
-  Modelica.Blocks.Sources.Constant       QScaling(k=scalingFactor)
+  Modelica.Blocks.Sources.Constant       QScaling(k=finalScalingFactor)
     "Scaling for heat pump power " annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -71,7 +72,7 @@ model VCLibMap
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-110,70})));
-  SDF.NDTable Table_COP(
+  SDF.NDTable COPTab(
     final readFromFile=true,
     final dataUnit="-",
     final scaleUnits={"-","K","K"},
@@ -80,7 +81,8 @@ model VCLibMap
     final extrapMethod=extrapMethod,
     final filename=fileref,
     final dataset=dataset_COP) "nD table with performance map of heat pump"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={110,70})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
@@ -164,9 +166,8 @@ equation
   connect(multiplex3_1.y, Table_QCon.u) annotation (Line(points={{-1.9984e-15,
           59},{-1.9984e-15,54},{-30,54},{-30,88},{-110,88},{-110,82}},
                                                 color={0,0,127}));
-  connect(multiplex3_1.y, Table_COP.u) annotation (Line(points={{-1.9984e-15,59},
-          {-1.9984e-15,54},{92,54},{92,88},{110,88},{110,82}},
-                                            color={0,0,127}));
+  connect(multiplex3_1.y, COPTab.u) annotation (Line(points={{-1.9984e-15,59},{-1.9984e-15,
+          54},{92,54},{92,88},{110,88},{110,82}}, color={0,0,127}));
   connect(QScaling.y, product_scaling.u1) annotation (Line(points={{-50,59},{
           -50,48},{-44,48},{-44,42}},
                                   color={0,0,127}));
@@ -183,8 +184,8 @@ equation
   connect(divisionPel.u2, max.y) annotation (Line(points={{104,2},{104,14},{110,
           14},{110,19}},
                       color={0,0,127}));
-  connect(max.u1, Table_COP.y) annotation (Line(points={{116,42},{116,48},{110,
-          48},{110,59}},color={0,0,127}));
+  connect(max.u1, COPTab.y) annotation (Line(points={{116,42},{116,48},{110,48},
+          {110,59}}, color={0,0,127}));
   connect(const_minCOP.y, max.u2) annotation (Line(points={{70,59},{70,48},{104,
           48},{104,42}},    color={0,0,127}));
   connect(multiplex3_1.u1[1], sigBus.ySet) annotation (Line(points={{7,82},{12,
@@ -227,7 +228,7 @@ equation
   calculate the relevant outputs of the inner refrigeration cycle.
 </p>
 <p>
-  If of interest, contact Fabian Wüllhorst or Christian Vering for more
+  If of interest, contact Fabian Wuellhorst or Christian Vering for more
   information on how the maps are generated.
 </p>
 <p>
@@ -236,9 +237,9 @@ equation
 </html>", revisions="<html>
 <ul>
   <li>
-    <i>May 05, 2021</i> by Fabian Wüllhorst:<br/>
+    <i>May 05, 2021</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">AixLib #1092</a>)
   </li>
 </ul>
 </html>"),

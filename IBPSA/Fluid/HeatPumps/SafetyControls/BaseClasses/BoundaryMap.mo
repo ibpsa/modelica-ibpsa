@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
+within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 block BoundaryMap
   "Block which returns false if the input parameters are out of the given charasteristic map.
 For the boundaries of the y-input value, a dynamic hysteresis is used to ensure a used device will stay off a certain time after shutdown."
@@ -92,9 +92,9 @@ equation
 </p>
 <ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>"));

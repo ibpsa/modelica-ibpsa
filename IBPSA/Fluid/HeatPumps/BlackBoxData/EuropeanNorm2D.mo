@@ -1,17 +1,19 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData;
+within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model EuropeanNorm2D "Data from European Norm in two dimensions"
-  extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox(
-    mEva_flow_nominal=dataTable.mEva_flow_nominal*scalingFactor,
-    mCon_flow_nominal=dataTable.mCon_flow_nominal*scalingFactor,
-    QConBlackBox_flow_nominal=
+  extends
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+    final datSou=dataTable.device_id,
+    mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
+    mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
+    QUseBlackBox_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tableConID,
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
 
-  parameter EuropeanNom2D.HeatPumpBaseDataDefinition dataTable=
-      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNom2D.EN255.Vitocal350AWI114()
-    "Data Table of HP" annotation (choicesAllMatching=true);
+  parameter EuropeanNorm2DData.HeatPumpBaseDataDefinition dataTable=
+      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN255.Vitocal350AWI114()
+         "Data Table of HP" annotation (choicesAllMatching=true);
   parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
@@ -28,7 +30,7 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,50})));
-  Modelica.Blocks.Tables.CombiTable2Ds tablePel(
+  Modelica.Blocks.Tables.CombiTable2Ds PelTab(
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
@@ -66,10 +68,10 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
         origin={10,10})));
 
 protected
-  final parameter Real perDevMasFloCon = (mCon_flow_nominal - dataTable.mCon_flow_nominal*scalingFactor)/mCon_flow_nominal*100 "Deviation of nominal mass flow rate at condenser in percent";
-  final parameter Real perDevMasFloEva = (mEva_flow_nominal - dataTable.mEva_flow_nominal*scalingFactor)/mEva_flow_nominal*100 "Deviation of nominal mass flow rate at evaporator in percent";
+  final parameter Real perDevMasFloCon = (mCon_flow_nominal - dataTable.mCon_flow_nominal*finalScalingFactor)/mCon_flow_nominal*100 "Deviation of nominal mass flow rate at condenser in percent";
+  final parameter Real perDevMasFloEva = (mEva_flow_nominal - dataTable.mEva_flow_nominal*finalScalingFactor)/mEva_flow_nominal*100 "Deviation of nominal mass flow rate at evaporator in percent";
 
-  Modelica.Blocks.Sources.Constant realCorr(final k=scalingFactor)
+  Modelica.Blocks.Sources.Constant realCorr(final k=finalScalingFactor)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -91,9 +93,9 @@ initial equation
 equation
   connect(t_Ev_in.y, tableQCon_flow.u2) annotation (Line(points={{50,79},{50,74},
           {44,74},{44,62}}, color={0,0,127}));
-  connect(t_Ev_in.y, tablePel.u2) annotation (Line(points={{50,79},{50,74},{-56,
-          74},{-56,62}}, color={0,0,127}));
-  connect(t_Co_ou.y, tablePel.u1) annotation (Line(points={{-50,79},{-50,68},{-44,
+  connect(t_Ev_in.y, PelTab.u2) annotation (Line(points={{50,79},{50,74},{-56,74},
+          {-56,62}}, color={0,0,127}));
+  connect(t_Co_ou.y, PelTab.u1) annotation (Line(points={{-50,79},{-50,68},{-44,
           68},{-44,62}}, color={0,0,127}));
   connect(t_Co_ou.y, tableQCon_flow.u1) annotation (Line(points={{-50,79},{-50,68},
           {56,68},{56,62}}, color={0,0,127}));
@@ -112,7 +114,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(tablePel.y, nTimesPel.u2) annotation (Line(points={{-50,39},{-50,8},{-36,
+  connect(PelTab.y, nTimesPel.u2) annotation (Line(points={{-50,39},{-50,8},{-36,
           8},{-36,2}}, color={0,0,127}));
   connect(tableQCon_flow.y, nTimesQCon.u1)
     annotation (Line(points={{50,39},{50,8},{56,8},{56,2}}, color={0,0,127}));
@@ -157,14 +159,14 @@ equation
       extent={{-60.0,-40.0},{-30.0,-20.0}})}), Documentation(revisions="<html>
 <ul>
   <li>
-    <i>May 21, 2021</i> by Fabian Wüllhorst:<br/>
+    <i>May 21, 2021</i> by Fabian Wuellhorst:<br/>
     Make use of BaseClasses (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">#1092</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/1092\">AixLib #1092</a>)
   </li>
   <li>
-    <i>November 26, 2018</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>

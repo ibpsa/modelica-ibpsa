@@ -1,8 +1,10 @@
-﻿within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
+within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
   "Partial black box model of vapour compression cycles used for heat pump applications"
 
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
+    "Nominal heat flow rate at useful heat exchanger side"                                         annotation (Dialog(group=
+          "Nominal Design"));
   parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal temperature at secondary condenser side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.Temperature TEva_nominal "Nominal temperature at secondary evaporator side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design"));
@@ -10,10 +12,16 @@ partial model PartialBlackBox
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal "Nominal mass flow rate in secondary condenser side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal "Nominal mass flow rate in secondary evaporator side" annotation (Dialog(group="Nominal Design"));
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
-  final parameter Real scalingFactor=QCon_flow_nominal/QConBlackBox_flow_nominal "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.HeatFlowRate QConBlackBox_flow_nominal "Nominal heat flow rate at condenser in the unscaled black box data model. Used to calculate the scaling factor." annotation (Dialog(group="Nominal Design"));
+  parameter Real scalingFactor "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design", enable=not primaryOperation));
+  final parameter Real finalScalingFactor = if primaryOperation then QUse_flow_nominal/QUseBlackBox_flow_nominal else scalingFactor "Scaling factor applied to the data";
+  parameter Modelica.Units.SI.HeatFlowRate QUseBlackBox_flow_nominal
+    "Nominal heat flow rate at useful heat exchanger in the unscaled black box data model. Used to calculate the scaling factor."   annotation (Dialog(group=
+          "Nominal Design", enable=primaryOperation));
+  parameter Boolean primaryOperation "Indicate if this black box data is used for the primary operation (e.g. heat pump -> heating)";
+  parameter String datSou="" "Indicate where the data is coming from. 
+    If reversible machines are used, these strings have to match";
 
-  replaceable Frosting.BaseClasses.PartialIceFac iceFacCalc
+  replaceable Frosting.NoFrosting iceFacCalc
     constrainedby Frosting.BaseClasses.PartialIceFac
     "Replaceable model to calculate the icing factor"
     annotation (choicesAllMatching=true, Dialog(group="Frosting supression", enable=calc_iceFac), Placement(transformation(extent={{-100,
@@ -56,13 +64,15 @@ partial model PartialBlackBox
         rotation=270,
         origin={-50,-70})));
 
-
   Modelica.Blocks.Math.Feedback feedbackHeatFlowEvaporator
-    "Calculates evaporator heat flow with total energy balance"                 annotation(Placement(transformation(extent={{-10,-10},
-            {10,10}},
-        rotation=0,
-        origin={-70,-10})));
+    "Calculates evaporator heat flow with total energy balance"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
+  IBPSA.Utilities.IO.Strings.StringOutput datSouOut "String output of data source";
+protected
+  Utilities.IO.Strings.ConstStringSource conStrSour(final k=datSou)
+    "Constant String with data source as output";
 equation
+  connect(conStrSour.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-50,-81},{-50,-88},
           {0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
                                color={0,0,127}));
@@ -71,16 +81,14 @@ equation
           127}));
   connect(calcRedQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{
           -80,-96},{-80,-110}},                      color={0,0,127}));
-  connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y) annotation (Line(
-        points={{-44,-58},{-44,-10},{-61,-10}},         color={0,0,127}));
+  connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y)
+    annotation (Line(points={{-44,-58},{-44,0},{9,0}}, color={0,0,127}));
   connect(iceFacCalc.iceFac, proRedQEva.u1) annotation (Line(points={{-79,-42},{
           -56,-42},{-56,-58}},                      color={0,0,127}));
   connect(iceFacCalc.sigBus, sigBus) annotation (Line(
       points={{-100.1,-42},{-102,-42},{-102,104},{1,104}},
       color={255,204,51},
       thickness=0.5));
-  connect(iceFacCalc.iceFac, sigBus.iceFacMea) annotation (Line(points={{-79,-42},
-          {-72,-42},{-72,-28},{-102,-28},{-102,104},{1,104}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
@@ -95,18 +103,12 @@ equation
           rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    November 26, 2018 by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  Partial model for calculation of <span style=
-  \"font-family: Courier New;\">P_el</span>, <span style=
-  \"font-family: Courier New;\">QCon</span> and <span style=
-  \"font-family: Courier New;\">QEva</span> based on the values in the
-  <span style=\"font-family: Courier New;\">sigBusHP</span>.
-</p>
+<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the <code>sigBus</code> for a vapour compression machine.</p>
 </html>"));
 end PartialBlackBox;

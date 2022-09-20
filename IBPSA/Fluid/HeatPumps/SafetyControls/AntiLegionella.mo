@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 model AntiLegionella "Control to avoid Legionella in the DHW"
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TLegMin=333.15
@@ -142,7 +142,7 @@ equation
           textColor={238,46,47},
           pattern=LinePattern.Dash,
           lineThickness=0.5,
-          textString=DynamicSelect("%TLegMin K", String(TLegMin-273.15)+ "°C")),
+          textString=DynamicSelect("%TLegMin K", String(TLegMin-273.15)+ "degC")),
         Text(
           extent={{-94,0},{56,-154}},
           textColor={28,108,200},
@@ -162,14 +162,14 @@ Hour of Day: %trigHour",
   This model represents the anti legionella control of a real heat
   pump. Based on a daily or weekly approach, the given supply
   temperature is raised above the minimal temperature required for the
-  thermal desinfection (at least 60 °C) for a given duration
+  thermal desinfection (at least 60 degC) for a given duration
   minTimeAntLeg.
 </p>
 <ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wüllhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>"));
