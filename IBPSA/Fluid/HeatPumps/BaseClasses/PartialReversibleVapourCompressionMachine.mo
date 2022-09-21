@@ -312,7 +312,8 @@ partial model PartialReversibleVapourCompressionMachine
     final uLow=Modelica.Constants.eps,
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(extent={{10,-10},{-10,10}}, rotation=180)));
+        transformation(extent={{10,-10},{-10,10}}, rotation=180,
+        origin={-50,-50})));
 
   VapourCompressionCycleInertia vapComIneCon "Inertia model for condenser side"
                          annotation(Placement(transformation(
@@ -449,8 +450,9 @@ equation
   connect(port_a1, mFlow_con.port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
-  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{11,0},{-30,0},{-30,-66},
-          {-76,-66},{-76,-43},{-105,-43}}, color={255,0,255}), Text(
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-34,-50},
+          {-34,-36},{-74,-36},{-74,-43},{-105,-43}},
+                                           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -472,8 +474,9 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hys.u, sigBus.ySet) annotation (Line(points={{-12,0},{-76,0},{-76,-43},
-          {-105,-43}}, color={0,0,127}), Text(
+  connect(hys.u, sigBus.ySet) annotation (Line(points={{-62,-50},{-74,-50},{-74,
+          -43},{-105,-43}},
+                       color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
