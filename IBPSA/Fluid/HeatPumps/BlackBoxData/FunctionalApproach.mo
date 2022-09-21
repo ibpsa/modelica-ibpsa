@@ -9,13 +9,13 @@ model FunctionalApproach
       IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct
                                                                            "Function to calculate peformance Data" annotation(choicesAllMatching=true);
   Modelica.Blocks.Sources.RealExpression internal_Pel(final y=Char[1]*
-        finalScalingFactor)                                                 annotation (Placement(
+        scalingFactor)                                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,50})));
   Modelica.Blocks.Sources.RealExpression internal_QCon(final y=Char[2]*
-        finalScalingFactor)                                 annotation (Placement(
+        scalingFactor)                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

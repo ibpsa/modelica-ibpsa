@@ -10,7 +10,7 @@ model HeatPump
     final autoCalc_VCon=max(1E-7*QUse_flow_nominal - 94E-4, autoCalc_VMin),
     final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 75E-4, autoCalc_VMin),
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
-    final scalingFactor=innerCycle.blaBoxHeaPumHea.finalScalingFactor,
+    final scalingFactor=innerCycle.blaBoxHeaPumHea.scalingFactor,
     use_rev=true,
     redeclare IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle innerCycle(
         redeclare model BlackBoxHeatPumpHeating = BlackBoxHeatPumpHeating,
@@ -20,14 +20,12 @@ model HeatPump
      constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
        final QUse_flow_nominal=QUse_flow_nominal,
-       final scalingFactor=0,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
-       final primaryOperation=true,
-       final mCon_flow_nominal=mCon_flow_nominal,
-       final mEva_flow_nominal=mEva_flow_nominal,
+       final mCon_flow_nominal=mCon_flow_nominal_final,
+       final mEva_flow_nominal=mEva_flow_nominal_final,
        final y_nominal=y_nominal)
   "Black box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
@@ -41,9 +39,8 @@ model HeatPump
        final TEva_nominal=TCon_nominal,
        final dTCon_nominal=dTEva_nominal,
        final dTEva_nominal=dTCon_nominal,
-       final mCon_flow_nominal=mEva_flow_nominal,
-       final mEva_flow_nominal=mCon_flow_nominal,
-       final primaryOperation=false,
+       final mCon_flow_nominal=mEva_flow_nominal_final,
+       final mEva_flow_nominal=mCon_flow_nominal_final,
        final y_nominal=y_nominal)
   "Black box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
@@ -54,8 +51,8 @@ model HeatPump
     "Safety control parameters"
     annotation (Dialog(enable=use_safetyControl, group="Safety Control"), choicesAllMatching=true);
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
-    final mEva_flow_nominal=mEva_flow_nominal_final*scalingFactor,
-    final mCon_flow_nominal=mCon_flow_nominal_final*scalingFactor,
+    final mEva_flow_nominal=mEva_flow_nominal_final,
+    final mCon_flow_nominal=mCon_flow_nominal_final,
       safetyControlParameters=safetyControlParameters)             if use_safetyControl
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
@@ -311,14 +308,14 @@ equation
     <a href=
     \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: 
-	In order to model inverter controlled heat
+        In order to model inverter controlled heat
     pumps, the compressor speed is scaled <b>linearly</b>
   </li>
   <li>
     <a href=
     \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
     IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: 
-	Reduced evaporator power as a result of
+        Reduced evaporator power as a result of
     icing. The icing factor is multiplied with the evaporator power.
   </li>
   <li>

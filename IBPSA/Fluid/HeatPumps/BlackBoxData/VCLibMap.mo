@@ -49,7 +49,7 @@ model VCLibMap
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,30})));
-  Modelica.Blocks.Sources.Constant       QScaling(k=finalScalingFactor)
+  Modelica.Blocks.Sources.Constant       QScaling(k=scalingFactor)
     "Scaling for heat pump power " annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -109,7 +109,7 @@ model VCLibMap
 
 protected
   parameter String fileref = Modelica.Utilities.Files.loadResource(filename);
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominalinal=
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal=
       SDF.Functions.readDatasetDouble(
       fileref,
       dataset_mFlowEvaNominal,

@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
   "Partial black box model of vapour compression cycles used for heat pump applications"
 
-  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal(start=1)
     "Nominal heat flow rate at useful heat exchanger side"                                         annotation (Dialog(group=
           "Nominal Design"));
   parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal temperature at secondary condenser side" annotation (Dialog(group="Nominal Design"));
@@ -12,12 +12,10 @@ partial model PartialBlackBox
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal "Nominal mass flow rate in secondary condenser side" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal "Nominal mass flow rate in secondary evaporator side" annotation (Dialog(group="Nominal Design"));
   parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
-  parameter Real scalingFactor "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design", enable=not primaryOperation));
-  final parameter Real finalScalingFactor = if primaryOperation then QUse_flow_nominal/QUseBlackBox_flow_nominal else scalingFactor "Scaling factor applied to the data";
+  parameter Real scalingFactor=QUse_flow_nominal/QUseBlackBox_flow_nominal "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.HeatFlowRate QUseBlackBox_flow_nominal
     "Nominal heat flow rate at useful heat exchanger in the unscaled black box data model. Used to calculate the scaling factor."   annotation (Dialog(group=
-          "Nominal Design", enable=primaryOperation));
-  parameter Boolean primaryOperation "Indicate if this black box data is used for the primary operation (e.g. heat pump -> heating)";
+          "Nominal Design"));
   parameter String datSou="" "Indicate where the data is coming from. 
     If reversible machines are used, these strings have to match";
 

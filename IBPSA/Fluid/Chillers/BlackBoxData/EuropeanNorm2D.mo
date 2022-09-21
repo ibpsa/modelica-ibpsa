@@ -3,8 +3,8 @@ model EuropeanNorm2D
   "Performance data coming from manufacturer according to European Standards"
   extends IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
     final datSou=dataTable.device_id,
-    mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
-    mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
+    mEva_flow_nominal=dataTable.mEva_flow_nominal*scalingFactor,
+    mCon_flow_nominal=dataTable.mCon_flow_nominal*scalingFactor,
     QUseBlackBox_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tableConID,

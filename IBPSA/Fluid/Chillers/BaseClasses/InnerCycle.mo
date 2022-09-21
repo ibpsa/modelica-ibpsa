@@ -12,7 +12,6 @@ model InnerCycle "Blackbox model of refrigerant cycle of a chiller"
        TEva_nominal=0,
        dTCon_nominal=0,
        dTEva_nominal=0,
-       primaryOperation=true,
        mCon_flow_nominal=0,
        mEva_flow_nominal=0,
        y_nominal=0)
@@ -22,7 +21,7 @@ model InnerCycle "Blackbox model of refrigerant cycle of a chiller"
     annotation (choicesAllMatching=true);
 
   replaceable model BlackBoxChillerHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating(primaryOperation=false)
+      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
     constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for performance data of a chiller in reversible operation mode"

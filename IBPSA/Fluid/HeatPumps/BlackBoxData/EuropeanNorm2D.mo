@@ -3,8 +3,8 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
     final datSou=dataTable.device_id,
-    mEva_flow_nominal=dataTable.mEva_flow_nominal*finalScalingFactor,
-    mCon_flow_nominal=dataTable.mCon_flow_nominal*finalScalingFactor,
+    mEva_flow_nominal=dataTable.mEva_flow_nominal*scalingFactor,
+    mCon_flow_nominal=dataTable.mCon_flow_nominal*scalingFactor,
     QUseBlackBox_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tableConID,
@@ -68,10 +68,10 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
         origin={10,10})));
 
 protected
-  final parameter Real perDevMasFloCon = (mCon_flow_nominal - dataTable.mCon_flow_nominal*finalScalingFactor)/mCon_flow_nominal*100 "Deviation of nominal mass flow rate at condenser in percent";
-  final parameter Real perDevMasFloEva = (mEva_flow_nominal - dataTable.mEva_flow_nominal*finalScalingFactor)/mEva_flow_nominal*100 "Deviation of nominal mass flow rate at evaporator in percent";
+  final parameter Real perDevMasFloCon = (mCon_flow_nominal - dataTable.mCon_flow_nominal*scalingFactor)/mCon_flow_nominal*100 "Deviation of nominal mass flow rate at condenser in percent";
+  final parameter Real perDevMasFloEva = (mEva_flow_nominal - dataTable.mEva_flow_nominal*scalingFactor)/mEva_flow_nominal*100 "Deviation of nominal mass flow rate at evaporator in percent";
 
-  Modelica.Blocks.Sources.Constant realCorr(final k=finalScalingFactor)
+  Modelica.Blocks.Sources.Constant realCorr(final k=scalingFactor)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

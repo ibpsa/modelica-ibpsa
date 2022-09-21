@@ -7,7 +7,7 @@ model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
   parameter Real qualityGrade=0.3 "Constant quality grade";
   final parameter Modelica.Units.SI.Power PEl_nominal = QUse_flow_nominal / (qualityGrade * TCon_nominal * y_nominal)  * (TCon_nominal - TEva_nominal);
   Modelica.Blocks.Sources.Constant constPel(final k=PEl_nominal*
-        finalScalingFactor) annotation (Placement(transformation(
+        scalingFactor) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,90})));

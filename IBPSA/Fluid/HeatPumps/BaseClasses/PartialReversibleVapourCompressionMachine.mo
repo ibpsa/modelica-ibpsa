@@ -214,11 +214,11 @@ partial model PartialReversibleVapourCompressionMachine
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
     final is_con=true,
-    final V=VCon_final*scalingFactor,
+    final V=VCon_final,
     final C=CCon*scalingFactor,
     final TCap_start=TConCap_start,
     final GOut=GConOut*scalingFactor,
-    final m_flow_nominal=mCon_flow_nominal_final*scalingFactor,
+    final m_flow_nominal=mCon_flow_nominal_final,
     final dp_nominal=dpCon_nominal*scalingFactor,
     final GInn=GConIns*scalingFactor) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,72},{20,112}})));
@@ -235,9 +235,9 @@ partial model PartialReversibleVapourCompressionMachine
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
     final is_con=false,
-    final V=VEva_final*scalingFactor,
+    final V=VEva_final,
     final C=CEva*scalingFactor,
-    final m_flow_nominal=mEva_flow_nominal_final*scalingFactor,
+    final m_flow_nominal=mEva_flow_nominal_final,
     final dp_nominal=dpEva_nominal*scalingFactor,
     final TCap_start=TEvaCap_start,
     final GOut=GEvaOut*scalingFactor,
@@ -365,13 +365,13 @@ protected
   parameter Modelica.Units.SI.Volume autoCalc_VMin=0.003
     "Realistic volume minimum for simulation plausibility";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal_final=if
-      use_autoCalc then autoCalc_mEva_flow else mEva_flow_nominal;
+      use_autoCalc then autoCalc_mEva_flow*scalingFactor else mEva_flow_nominal*scalingFactor;
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal_final=if
-      use_autoCalc then autoCalc_mCon_flow else mCon_flow_nominal;
+      use_autoCalc then autoCalc_mCon_flow*scalingFactor else mCon_flow_nominal*scalingFactor;
   parameter Modelica.Units.SI.Volume VEva_final=if use_autoCalc then
-      autoCalc_VEva else VEva;
+      autoCalc_VEva*scalingFactor else VEva*scalingFactor;
   parameter Modelica.Units.SI.Volume VCon_final=if use_autoCalc then
-      autoCalc_VCon else VCon;
+      autoCalc_VCon*scalingFactor else VCon*scalingFactor;
 
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mEva_flow;
   parameter Modelica.Units.SI.MassFlowRate autoCalc_mCon_flow;
@@ -450,8 +450,8 @@ equation
   connect(port_a1, mFlow_con.port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
-  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-34,-50},
-          {-34,-36},{-74,-36},{-74,-43},{-105,-43}},
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-34,-50},{
+          -34,-36},{-74,-36},{-74,-43},{-105,-43}},
                                            color={255,0,255}), Text(
       string="%second",
       index=1,

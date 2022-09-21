@@ -12,9 +12,8 @@ model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
        TEva_nominal=0,
        dTCon_nominal=0,
        dTEva_nominal=0,
-       primaryOperation=true,
-       mCon_flow_nominal=0,
-       mEva_flow_nominal=0,
+       mCon_flow_nominal=1,
+       mEva_flow_nominal=1,
        y_nominal=0)
      constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
@@ -22,7 +21,7 @@ model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
     annotation (choicesAllMatching=true);
 
   replaceable model BlackBoxHeatPumpCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling(primaryOperation=true)
+      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
     IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
     "Replaceable model for black box data of a heat pump in reversible operation mode"
@@ -210,7 +209,7 @@ equation
     <a href=
     \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.FunctionalApproach\">
     IBPSA.Fluid.HeatPumps.BlackBoxData.FunctionalApproach</a>: 
-	Use a function based approach to calculate
+        Use a function based approach to calculate
     the ouputs. Different functions are already implemented.
   </li>
 </ul>

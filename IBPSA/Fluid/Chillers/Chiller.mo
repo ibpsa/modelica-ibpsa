@@ -8,7 +8,7 @@ model Chiller
       final autoCalc_VCon=max(2E-7*QUse_flow_nominal - 84E-4, autoCalc_VMin),
       final autoCalc_VEva=max(1E-7*QUse_flow_nominal - 66E-4, autoCalc_VMin),
       mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
-      final scalingFactor=innerCycle.blaBoxChiCoo.finalScalingFactor,
+      final scalingFactor=innerCycle.blaBoxChiCoo.scalingFactor,
       final use_safetyControl=false,
       use_rev=true,
       redeclare IBPSA.Fluid.Chillers.BaseClasses.InnerCycle innerCycle(
@@ -20,14 +20,12 @@ model Chiller
       constrainedby
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
        final QUse_flow_nominal=QUse_flow_nominal,
-       final scalingFactor=0,
-       final primaryOperation=true,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal,
-       final mEva_flow_nominal=mEva_flow_nominal,
+       final mCon_flow_nominal=mCon_flow_nominal_final,
+       final mEva_flow_nominal=mEva_flow_nominal_final,
        final y_nominal=y_nominal)
   "Performance data of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
@@ -37,13 +35,12 @@ model Chiller
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
        final QUse_flow_nominal=0,
        final scalingFactor=scalingFactor,
-       final primaryOperation=false,
        final TCon_nominal=TEva_nominal,
        final TEva_nominal=TCon_nominal,
        final dTCon_nominal=dTEva_nominal,
        final dTEva_nominal=dTCon_nominal,
-       final mCon_flow_nominal=mEva_flow_nominal,
-       final mEva_flow_nominal=mCon_flow_nominal,
+       final mCon_flow_nominal=mEva_flow_nominal_final,
+       final mEva_flow_nominal=mCon_flow_nominal_final,
        final y_nominal=y_nominal)
   "Performance data of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
