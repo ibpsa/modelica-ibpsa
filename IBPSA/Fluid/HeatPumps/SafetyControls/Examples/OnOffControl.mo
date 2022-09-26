@@ -50,6 +50,5 @@ equation
           21.6667,4},{110,4}}, color={0,0,127}));
   annotation (experiment(
       StopTime=7200,
-      Interval=100,
-      __Dymola_Algorithm="Dassl"));
+      Interval=100));
 end OnOffControl;
