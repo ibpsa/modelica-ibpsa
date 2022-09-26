@@ -11,8 +11,8 @@ partial block PartialSafetyControlWithErrors "Safety control which adds an error
   Modelica.Blocks.MathInteger.TriggeredAdd disErr(
     y_start=0,
     use_reset=false,
-    use_set=false)
-               "Used to show if the error was triggered" annotation (Placement(
+    use_set=false) "Used to show if the error was triggered"
+                                                         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

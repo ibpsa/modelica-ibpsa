@@ -14,171 +14,168 @@ model OnOffControl
     "False if maximal runs per hour of HP are not considered" annotation(choices(checkBox=true));
   parameter Integer maxRunPerHou "Maximal number of on/off cycles in one hour"
     annotation (Dialog(enable=use_runPerHou));
-  parameter Boolean pre_n_start=true "Start value of pre(n) at initial time";
-  Modelica.Blocks.Logical.GreaterThreshold
-                                  ySetGreaterZero(final threshold=Modelica.Constants.eps)
-                                                  "True if device is set on"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Logical.And andRun
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Modelica.Blocks.Logical.Pre pre1(final pre_u_start=pre_n_start)
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  BaseClasses.RunPerHouBoundary runPerHouBoundary(final maxRunPer_h=
-        maxRunPerHou, final delayTime=3600) if use_runPerHou
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  BaseClasses.TimeControl locTimControl(final minRunTime=minLocTime)
+  parameter Boolean preYSet_start=true
+    "Start value of pre(ySet) at initial time";
+  parameter Real ySet_small "Value of ySet at which the device is considered turned on. Default is 1 % as heat pumps and chillers currently invert down to 15 %.";
+  parameter Real ySetMin=ySet_small
+    "Minimal relative compressor speed to be used if device needs to run longer";
+  Modelica.Blocks.Logical.Hysteresis ySetOn(
+    final pre_y_start=preYSet_start,
+    final uHigh=ySet_small,
+    final uLow=ySet_small/2) "True if device is set on"
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+  Modelica.Blocks.Routing.BooleanPassThrough isAblToTurOff
+    "y equals true if the device is able to turn off, else false"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
+    "On off signal of previous time step"
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+  BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPer_h=maxRunPerHou,
+      final delayTime=3600) if use_runPerHou
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+  BaseClasses.TimeControl locTimCtr(final minRunTime=minLocTime)
     if use_minLocTime
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Modelica.Blocks.Logical.Not notIsOn
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  BaseClasses.TimeControl runTimControl(final minRunTime=minRunTime)
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+  Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  BaseClasses.TimeControl runTimCtr(final minRunTime=minRunTime)
     if use_minRunTime
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Logical.And andLoc
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
+  Modelica.Blocks.Logical.And andIsAblToTurOn
+    "If output is false, device is locked"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
-  Modelica.Blocks.Sources.BooleanConstant booleanConstantRunPerHou(final k=true) if not
-    use_runPerHou
-    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstantLocTim(final k=true) if not
-    use_minLocTime
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Blocks.Sources.BooleanConstant booleanConstantRunTim(final k=true) if not
-    use_minRunTime
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  Modelica.Blocks.Sources.BooleanConstant booConRunPerHou(final k=true)
+    if not use_runPerHou "Constant value for disabled option"
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+  Modelica.Blocks.Sources.BooleanConstant booConLocTim(final k=true)
+    if not use_minLocTime "Constant value for disabled option"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Modelica.Blocks.Sources.BooleanConstant booConstRunTim(final k=true)
+    if not use_minRunTime
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Logical.Not notSetOn
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Logical.And andTurnOff
-    "Check if HP is on and is set to be turned off"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Logical.And andTurnOn
-    "Check if HP is Off and is set to be turned on"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Modelica.Blocks.Logical.And andIsOn
-    "Check if both set and actual value are greater zero"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Logical.Switch       swinOutySet
-    "If any of the orySet conditions is true, ySet will be passed. Else nOut will stay the same"
-    annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  Modelica.Blocks.MathBoolean.Or orSetN(nu=4)
-    "Output is true if ySet value is correct"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Modelica.Blocks.Logical.And andIsOff
-    "Check if both set and actual value are equal to zero"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Modelica.Blocks.Logical.And andLocOff
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+    annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
+  Modelica.Blocks.Logical.And andTurOff
+    "Check if device is on and is set to be turned off"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Modelica.Blocks.Logical.And andTurOn
+    "Check if device is Off and is set to be turned on"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+
+  Modelica.Blocks.Logical.And andStaOn
+    "True if the device is on and wants to stay on"
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Logical.And andStaOff
+    "True if the device is off and wants to stay off"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+  Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=ySetMin) "Keep device off"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,110})));
 equation
-  connect(pre1.y, runPerHouBoundary.u) annotation (Line(points={{-59,-90},{-42,-90}},
-                                   color={255,0,255}));
-  connect(pre1.y, notIsOn.u) annotation (Line(points={{-59,-90},{-52,-90},{-52,-54},
-          {-88,-54},{-88,-30},{-82,-30}},
-                                       color={255,0,255}));
-  connect(notIsOn.y, locTimControl.u) annotation (Line(points={{-59,-30},{-52,-30},
-          {-52,-10},{-42,-10}},      color={255,0,255}));
-  connect(runTimControl.y, andRun.u2) annotation (Line(points={{-19,50},{-14,50},
-          {-14,72},{52,72},{52,82},{58,82}},
-                                 color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(runTimControl.u, pre1.y) annotation (Line(points={{-42,50},{-52,50},{-52,
-          -90},{-59,-90}},             color={255,0,255}));
-  connect(locTimControl.y, andLoc.u1) annotation (Line(points={{-19,-10},{22,-10},
-          {22,-30},{38,-30}},          color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(runPerHouBoundary.y, andLoc.u2) annotation (Line(points={{-19,-90},{-4,
-          -90},{-4,-68},{28,-68},{28,-38},{38,-38}},
-                                        color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(booleanConstantRunPerHou.y, andLoc.u2) annotation (Line(
-      points={{21,-90},{28,-90},{28,-38},{38,-38}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  connect(booleanConstantRunTim.y, andRun.u2) annotation (Line(
-      points={{61,50},{64,50},{64,72},{52,72},{52,82},{58,82}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
 
-  connect(ySetGreaterZero.y, notSetOn.u) annotation (Line(points={{-59,70},{-52,
-          70},{-52,90},{-42,90}}, color={255,0,255}));
-  connect(pre1.y, andIsOn.u2) annotation (Line(points={{-59,-90},{-52,-90},{-52,
-          6},{-10,6},{-10,2},{-2,2}}, color={255,0,255}));
-  connect(ySetGreaterZero.y, andIsOn.u1) annotation (Line(points={{-59,70},{-52,
-          70},{-52,10},{-2,10}},                               color={255,0,255}));
-  connect(andTurnOff.y, andRun.u1) annotation (Line(points={{21,90},{58,90}},
-                      color={255,0,255}));
-  connect(orSetN.y, swinOutySet.u2)
-    annotation (Line(points={{61.5,10},{61.5,0},{70,0}},
-                                               color={255,0,255}));
-  connect(notSetOn.y, andIsOff.u1) annotation (Line(points={{-19,90},{-12,90},{-12,
-          50},{-2,50}},                        color={255,0,255}));
-  connect(andIsOff.y, orSetN.u[1]) annotation (Line(points={{21,50},{30,50},{30,
-          7.375},{40,7.375}},
-                            color={255,0,255}));
-  connect(andIsOn.y, orSetN.u[2]) annotation (Line(points={{21,10},{30,10},{30,9.125},
-          {40,9.125}},      color={255,0,255}));
-  connect(andRun.y, orSetN.u[3]) annotation (Line(points={{81,90},{86,90},{86,32},
-          {30,32},{30,10.875},{40,10.875}},
-                              color={255,0,255}));
-  connect(andLoc.y, andLocOff.u1) annotation (Line(points={{61,-30},{70,-30},{70,
-          -50},{78,-50}},      color={255,0,255}));
-  connect(andTurnOn.y, andLocOff.u2) annotation (Line(points={{61,-70},{68,-70},
-          {68,-58},{78,-58}},       color={255,0,255}));
-  connect(andLocOff.y, orSetN.u[4]) annotation (Line(points={{101,-50},{104,-50},
-          {104,-12},{30,-12},{30,12.625},{40,12.625}},
-                                           color={255,0,255}));
-  connect(notSetOn.y, andTurnOff.u2) annotation (Line(points={{-19,90},{-12,90},
-          {-12,82},{-2,82}},        color={255,0,255}));
-  connect(pre1.y, andTurnOff.u1) annotation (Line(points={{-59,-90},{-52,-90},{-52,
-          74},{-10,74},{-10,90},{-2,90}},
+  when andTurOn.y then
+    if andIsAblToTurOn.y then
+      yOut = ySet;
+    else
+      yOut = 0;
+    end if;
+  elsewhen andTurOff.y then
+    if isAblToTurOff.y then
+      yOut = ySet;
+    else
+      yOut = lim.y;
+    end if;
+  elsewhen andIsAblToTurOn.y and andTurOn.y then
+    yOut = ySet;
+  elsewhen isAblToTurOff.y and andTurOff.y then
+    yOut = ySet;
+  elsewhen andStaOff.y then
+    yOut = ySet;
+  elsewhen andStaOn.y then
+    yOut = ySet;
+  end when;
+  connect(preOnOff.y, runPerHouBou.u) annotation (Line(points={{-79,-90},{-66,-90},
+          {-66,-66},{-24,-66},{-24,-50},{18,-50}},
+                                     color={255,0,255}));
+  connect(preOnOff.y, notIsOn.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
+          -66},{-108,-66},{-108,-50},{-102,-50}},     color={255,0,255}));
+  connect(notIsOn.y, locTimCtr.u) annotation (Line(points={{-79,-50},{-52,-50},{
+          -52,-10},{0,-10},{0,20},{18,20}},
                                 color={255,0,255}));
-  connect(ySetGreaterZero.y, andTurnOn.u2) annotation (Line(points={{-59,70},{-52,
-          70},{-52,10},{-12,10},{-12,-78},{38,-78}},           color={255,0,255}));
-  connect(notIsOn.y, andTurnOn.u1) annotation (Line(points={{-59,-30},{-4,-30},{
-          -4,-54},{30,-54},{30,-70},{38,-70}},     color={255,0,255}));
-  connect(notIsOn.y, andIsOff.u2) annotation (Line(points={{-59,-30},{-52,-30},{
-          -52,22},{-8,22},{-8,42},{-2,42}},
-                                   color={255,0,255}));
-  connect(booleanConstantLocTim.y, andLoc.u1) annotation (Line(
-      points={{-19,-50},{22,-50},{22,-30},{38,-30}},
+  connect(runTimCtr.u, preOnOff.y) annotation (Line(points={{-2,100},{-66,100},{
+          -66,-90},{-79,-90}}, color={255,0,255}));
+  connect(locTimCtr.y, andIsAblToTurOn.u1) annotation (Line(
+      points={{41,20},{52,20},{52,-60},{58,-60}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(runPerHouBou.y, andIsAblToTurOn.u2) annotation (Line(
+      points={{41,-50},{50,-50},{50,-68},{58,-68}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+  connect(booConRunPerHou.y, andIsAblToTurOn.u2) annotation (Line(
+      points={{41,-90},{50,-90},{50,-68},{58,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
-  connect(swinOutySet.y, yOut) annotation (Line(points={{93,0},{110,0},{110,20},
-          {130,20}}, color={0,0,127}));
+  connect(ySetOn.y, notSetOn.u) annotation (Line(points={{-79,70},{-74,70},{-74,
+          52},{-110,52},{-110,28},{-102,28}},
+                         color={255,0,255}));
+  connect(notSetOn.y, andTurOff.u2) annotation (Line(points={{-79,28},{-70,28},{
+          -70,2},{-42,2}},    color={255,0,255}));
+  connect(preOnOff.y, andTurOff.u1) annotation (Line(points={{-79,-90},{-66,-90},
+          {-66,10},{-42,10}},                   color={255,0,255}));
+  connect(ySetOn.y, andTurOn.u2) annotation (Line(points={{-79,70},{-74,70},{-74,
+          -98},{-42,-98}},                       color={255,0,255}));
+  connect(notIsOn.y, andTurOn.u1) annotation (Line(points={{-79,-50},{-52,-50},{
+          -52,-90},{-42,-90}},                      color={255,0,255}));
+  connect(booConLocTim.y, andIsAblToTurOn.u1) annotation (Line(
+      points={{41,-10},{52,-10},{52,-60},{58,-60}},
+      color={255,0,255},
+      pattern=LinePattern.Dash));
+
   connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
           -114,-116},{114,-116},{114,-20},{130,-20}}, color={255,0,255}));
-  connect(swinOutySet.u3, sigBusHP.ySet) annotation (Line(points={{70,-8},{64,
-          -8},{64,-18},{108,-18},{108,-114},{-108,-114},{-108,-69},{-129,-69}},
-        color={0,0,127}), Text(
+  connect(preOnOff.u, sigBusHP.onOffMea) annotation (Line(points={{-102,-90},{
+          -108,-90},{-108,-69},{-129,-69}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pre1.u, sigBusHP.onOffMea) annotation (Line(points={{-82,-90},{-129,
-          -90},{-129,-69}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(ySetGreaterZero.u, ySet) annotation (Line(points={{-82,70},{-114,70},
-          {-114,20},{-136,20}}, color={0,0,127}));
-  connect(swinOutySet.u1, ySet) annotation (Line(points={{70,8},{70,32},{-104,
-          32},{-104,20},{-136,20}}, color={0,0,127}));
-  annotation (Documentation(info="<html><p>
-  Checks if the ySet value is legal by checking if the device can
-  either be turned on or off, depending on which state it was in.
-</p>
-<p>
-  E.g. If it is turned on, and the new ySet value is 0, it will only
-  turn off if current runtime is longer than the minimal runtime. Else
-  it will keep the current rotating speed.
-</p>
+  connect(ySetOn.u, ySet) annotation (Line(points={{-102,70},{-114,70},{-114,20},
+          {-136,20}}, color={0,0,127}));
+  connect(andStaOn.u1, ySetOn.y) annotation (Line(points={{-42,50},{-58,50},{-58,
+          52},{-74,52},{-74,70},{-79,70}},
+                         color={255,0,255}));
+  connect(andStaOn.u2, preOnOff.y) annotation (Line(points={{-42,42},{-66,42},{-66,
+          -90},{-79,-90}},                   color={255,0,255}));
+  connect(andStaOff.u1, notIsOn.y) annotation (Line(points={{-42,-30},{-52,-30},
+          {-52,-50},{-79,-50}}, color={255,0,255}));
+  connect(andStaOff.u2, notSetOn.y) annotation (Line(points={{-42,-38},{-70,-38},
+          {-70,28},{-79,28}}, color={255,0,255}));
+  connect(lim.u, ySet) annotation (Line(points={{-102,110},{-114,110},{-114,20},
+          {-136,20}},     color={0,0,127}));
+  connect(isAblToTurOff.u, runTimCtr.y) annotation (Line(points={{38,90},{28,90},
+          {28,100},{21,100}}, color={255,0,255}));
+  connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,
+          70},{28,90},{38,90}}, color={255,0,255}));
+  annotation (Documentation(info="<html>
+<p>Checks if the <span style=\"font-family: Courier New;\">ySet</span> value is legal by checking if the device can either be turned on or off, depending on which state it was in. </p>
+<p>If the device</p>
 <ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-  </li>
+<li>is on and <span style=\"font-family: Courier New;\">ySet</span> is greater than <span style=\"font-family: Courier New;\">ySet_small</span></li>
+<li>or is off and <span style=\"font-family: Courier New;\">ySet</span> is 0</li>
+<li>or is on and should turn off, and exceeds the minimal run time (if active)</li>
+<li>or is off and want to turn on, and does neither exceed the maximal starts per hour (if active) nor violates the minimal loc-time (off-time, if active).</li>
+</ul>
+<p><span style=\"font-family: Courier New;\">yOut</span> equals <span style=\"font-family: Courier New;\">ySet</span>.</p>
+<p>If the device is on and should turn off, but does not exceed the minimal run time (if active), <span style=\"font-family: Courier New;\">yOut</span> equals <span style=\"font-family: Courier New;\">min(ySet, ySetMin)</span>.</p>
+<p>If the device is off and want to turn on, nut exceeds the maximal starts per hour (if active) or violates the minimal loc-time (off-time, if active), <span style=\"font-family: Courier New;\">yOut</span> equals 0.</p>
+</html>", revisions="<html>
+<ul>
+<li><i>November 26, 2018&nbsp;</i> by Fabian Wuellhorst:<br>First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>) </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),

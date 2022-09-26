@@ -7,6 +7,9 @@ record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pu
   parameter Modelica.Units.SI.Time minRunTime
     "Mimimum runtime of heat pump" annotation (Dialog(group=
           "HP-Security: OnOffControl", enable=use_minRunTime));
+  parameter Real ySetMin
+    "Minimal relative compressor speed to be used if device needs to run longer"
+        annotation (Dialog(group="HP-Security: OnOffControl", enable=use_minRunTime));
   parameter Boolean use_minLocTime
     "False if minimal locktime of HP is not considered"
     annotation (Dialog(group="HP-Security: OnOffControl"), choices(checkBox=true));
@@ -34,7 +37,7 @@ record HeatPumpSafetyControlBaseDataDefinition "Base data definition for heat pu
   parameter Modelica.Units.SI.TemperatureDifference dTHystOperEnv=5
     "Temperature difference used for both upper and lower hysteresis in the operational envelope."
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
-  parameter Boolean pre_n_start=true "Start value of pre(n) at initial time"
+  parameter Boolean preYSet_start "Start value of pre(n) at initial time"
     annotation (Dialog(group="OnOffControl", descriptionLabel=true),choices(checkBox=true));
 
   parameter Boolean use_deFro

@@ -2,6 +2,8 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
 record DefaultSafetyControl
   "Apply the default values according to the conference publication by Wuellhorst et. al."
   extends HeatPumpSafetyControlBaseDataDefinition(
+    preYSet_start=true,
+    ySetMin=0.3,
     m_flowConMinPer=0.1,
     m_flowEvaMinPer=0.1,
     use_minFlowCtrl=true,

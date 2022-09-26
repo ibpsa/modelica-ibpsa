@@ -53,7 +53,8 @@ model HeatPump
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
     final mEva_flow_nominal=mEva_flow_nominal_final,
     final mCon_flow_nominal=mCon_flow_nominal_final,
-      safetyControlParameters=safetyControlParameters)             if use_safetyControl
+      safetyControlParameters=safetyControlParameters,
+    final ySet_small=ySet_small)                                   if use_safetyControl
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 protected

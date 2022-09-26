@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
   "Partial black box model of vapour compression cycles used for heat pump applications"
 
-  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal(start=1)
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
     "Nominal heat flow rate at useful heat exchanger side"                                         annotation (Dialog(group=
           "Nominal Design"));
   parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal temperature at secondary condenser side" annotation (Dialog(group="Nominal Design"));

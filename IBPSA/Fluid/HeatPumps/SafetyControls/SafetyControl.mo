@@ -26,7 +26,9 @@ block SafetyControl "Block including all safety levels"
     final use_minLocTime=safetyControlParameters.use_minLocTime,
     final use_runPerHou=safetyControlParameters.use_runPerHou,
     final maxRunPerHou=safetyControlParameters.maxRunPerHou,
-    final pre_n_start=safetyControlParameters.pre_n_start)
+    final preYSet_start=safetyControlParameters.preYSet_start,
+    final ySet_small=ySet_small,
+    final ySetMin=safetyControlParameters.ySetMin)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl defrostControl(
@@ -77,6 +79,8 @@ block SafetyControl "Block including all safety levels"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={70,-130})));
+  parameter Real ySet_small
+    "Value of ySet at which the device is considered turned on. Default is 1 % as heat pumps and chillers currently invert down to 15 %.";
 equation
   connect(onOffController.yOut, operationalEnvelope.ySet) annotation (Line(
         points={{-39.1667,31.6667},{-34,31.6667},{-34,32},{-30,32},{-30,31.6667},
