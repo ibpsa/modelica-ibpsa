@@ -38,6 +38,11 @@ for easier accessability to model developers.
 </html>", revisions="<html>
 <ul>
 <li>
+September 27, 2022, by Matthis Thorade:<br/>
+Changed limits.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1640\">IBPSA, issue #1640</a>.
+</li>
+<li>
 May 10, 2013, by Michael Wetter:<br/>
 Reformulated implementation to avoid unrequired computations.
 </li>
