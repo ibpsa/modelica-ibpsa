@@ -48,6 +48,11 @@ IBPSA.Utilities.Math.Functions.spliceFunction</a>.
 revisions="<html>
 <ul>
 <li>
+September 27, 2022, by Matthis Thorade:<br/>
+Changed limits.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1640\">IBPSA, issue #1640</a>.
+</li>
+<li>
 October 13, 2021, by Michael Wetter:<br/>
 Changed implementation to not use <code>cosh</code> which overflows around <i>800</i>.<br/>
 This is for
