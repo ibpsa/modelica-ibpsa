@@ -102,5 +102,6 @@ docker run \
   --workdir="/mnt/shared/${bas_nam}" \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
-  omc ${arg_lis}"
+  omc ${arg_lis} && \
+  rm -rf tmp"
 exit $?
