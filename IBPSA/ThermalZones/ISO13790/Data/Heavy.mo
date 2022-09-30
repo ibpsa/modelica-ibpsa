@@ -12,6 +12,6 @@ First implementation.
 </html>",
         info="<html>
 <p>
-Mass data for heavy building
+Mass data for heavy building.
 </p>
 </html>"));
