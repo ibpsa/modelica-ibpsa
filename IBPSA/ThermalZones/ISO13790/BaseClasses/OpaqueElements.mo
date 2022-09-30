@@ -392,15 +392,15 @@ equation
   connect(hRoo.u, facRoo.y)
     annotation (Line(points={{-2,-200},{-19,-200}}, color={0,0,127}));
   connect(phiSol1.y, sum.u[1]) annotation (Line(points={{141,154},{164,154},{164,
-          -1.6},{178,-1.6}}, color={0,0,127}));
-  connect(phiSol2.y, sum.u[2]) annotation (Line(points={{141,74},{164,74},{164,-0.8},
-          {178,-0.8}}, color={0,0,127}));
+          -0.8},{178,-0.8}}, color={0,0,127}));
+  connect(phiSol2.y, sum.u[2]) annotation (Line(points={{141,74},{164,74},{164,-0.4},
+          {178,-0.4}}, color={0,0,127}));
   connect(phiSol3.y, sum.u[3]) annotation (Line(points={{143,-6},{166,-6},{166,0},
           {178,0}}, color={0,0,127}));
   connect(phiSol4.y, sum.u[4]) annotation (Line(points={{141,-86},{164,-86},{164,
-          0.8},{178,0.8}}, color={0,0,127}));
+          0.4},{178,0.4}}, color={0,0,127}));
   connect(phiSolRoo.y, sum.u[5]) annotation (Line(points={{141,-166},{164,-166},
-          {164,1.6},{178,1.6}}, color={0,0,127}));
+          {164,0.8},{178,0.8}}, color={0,0,127}));
   connect(SolRadOpa, sum.y)
     annotation (Line(points={{230,0},{201,0}}, color={0,0,127}));
   connect(phiSol4.u1, res4.y)
@@ -409,7 +409,8 @@ equation
     annotation (Line(points={{78,-80},{61,-80}}, color={0,0,127}));
   connect(h2.u, fac2.y)
     annotation (Line(points={{-2,40},{-19,40}}, color={0,0,127}));
-  annotation (defaultComponentName="opaEle",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},
+  annotation (defaultComponentName="opaEle",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-220,-220},
             {220,200}}),       graphics={
         Rectangle(
           extent={{-220,160},{220,-220}},
@@ -468,7 +469,7 @@ equation
 <p>
 This model calculates the solar heat gains through opaque elements. The heat flow by solar gains through building element k is given by
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>
+&Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>,
 </p>
 <p>
 where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external obstacles,
@@ -479,7 +480,7 @@ where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external ob
 The effective collecting area of opaque elements <i>A<sub>sol</sub></i> is calculated as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-A<sub>sol</sub> = &alpha;<sub>s</sub>R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>
+A<sub>sol</sub> = &alpha;<sub>s</sub>R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>,
 </p>
 <p>
 where <i>&alpha;<sub>s</sub></i> is the dimensionless absoprtion coefficient for solar radiation of the opaque element,
@@ -487,7 +488,7 @@ where <i>&alpha;<sub>s</sub></i> is the dimensionless absoprtion coefficient for
 <i>U<sub>op</sub></i> is the thermal transmittance of the opaque element,
 <i>A<sub>op</sub></i> is area of the opaque element. The extra heat flow due to thermal radiation is given by
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>r</sub> = R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>h<sub>r</sub>&#8710;T<sub>es</sub>
+&Phi;<sub>r</sub> = R<sub>se</sub>U<sub>op</sub>A<sub>op</sub>h<sub>r</sub>&#8710;T<sub>es</sub>,
 </p>
 <p>
 where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficient, and
