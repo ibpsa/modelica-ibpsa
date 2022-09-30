@@ -77,22 +77,20 @@ equation
     annotation (Line(points={{6.6,72},{14.8,72}}, color={0,0,127}));
   connect(TSetHea.y,conHeaPID. u_s)
     annotation (Line(points={{-17.4,72},{-7.2,72}},  color={0,0,127}));
-  connect(gaiHea.y,multiplex2. u1[1]) annotation (Line(points={{28.6,72},{37.2,
-          72},{37.2,62.4}}, color={0,0,127}));
   connect(multiplex2.y,sumHeaCoo. u) annotation (
     Line(points={{46.4,60},{53.2,60}},      color = {0, 0, 127}));
-  connect(gaiCoo.y,multiplex2. u2[1]) annotation (Line(points={{28.6,46},{37.2,
-          46},{37.2,57.6}}, color={0,0,127}));
   connect(conCooPID.u_s,TSetCoo. y)
     annotation (Line(points={{-7.2,46},{-17.4,46}},  color={0,0,127}));
   connect(conCooPID.y,gaiCoo. u)
     annotation (Line(points={{6.6,46},{14.8,46}}, color={0,0,127}));
   connect(conHeaPID.y,gaiHea. u)
     annotation (Line(points={{6.6,72},{14.8,72}}, color={0,0,127}));
-  connect(gaiHea.y,multiplex2. u1[1]) annotation (Line(points={{28.6,72},{37.2,
-          72},{37.2,62.4}}, color={0,0,127}));
-  connect(gaiCoo.y,multiplex2. u2[1]) annotation (Line(points={{28.6,46},{37.2,
-          46},{37.2,57.6}}, color={0,0,127}));
+  connect(gaiHea.y,multiplex2. u1[1]) annotation (Line(points={{28.6,72},{32,72},
+          {32,62},{38,62},{38,62.4},{37.2,62.4}},
+                            color={0,0,127}));
+  connect(gaiCoo.y,multiplex2. u2[1]) annotation (Line(points={{28.6,46},{32,46},
+          {32,58},{38,58},{38,57.6},{37.2,57.6}},
+                            color={0,0,127}));
   connect(gaiCoo.u,conCooPID. y)
     annotation (Line(points={{14.8,46},{6.6,46}}, color={0,0,127}));
   connect(conCooPID.u_m, TRooAir.T) annotation (Line(points={{0,38.8},{0,34},{

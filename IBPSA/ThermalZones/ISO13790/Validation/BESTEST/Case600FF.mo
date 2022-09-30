@@ -16,8 +16,9 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     winFra=0.01,
     gFac=0.789) "Thermal zone"
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
-  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
-    "weather data"
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
+    "Weather data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant intGains(k=200) "Internal heat gains"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
