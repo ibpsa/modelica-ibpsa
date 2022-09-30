@@ -200,8 +200,8 @@ equation
     annotation (Line(points={{38,100},{31,100}}, color={0,0,127}));
   connect(fraWin1.u, corFac1.y)
     annotation (Line(points={{68,100},{61,100}}, color={0,0,127}));
-  connect(fraWin1.y, sum.u[1]) annotation (Line(points={{91,100},{98,100},{98,
-          -1.5},{102,-1.5}}, color={0,0,127}));
+  connect(fraWin1.y, sum.u[1]) annotation (Line(points={{91,100},{98,100},{98,-0.75},
+          {102,-0.75}},      color={0,0,127}));
   connect(irr2.y, AWin2.u)
     annotation (Line(points={{-29,40},{-22,40}}, color={0,0,127}));
   connect(AWin2.y, g2.u)
@@ -210,8 +210,8 @@ equation
     annotation (Line(points={{31,40},{38,40}}, color={0,0,127}));
   connect(corFac2.y, fraWin2.u)
     annotation (Line(points={{61,40},{68,40}}, color={0,0,127}));
-  connect(fraWin2.y, sum.u[2]) annotation (Line(points={{91,40},{98,40},{98,
-          -0.5},{102,-0.5}}, color={0,0,127}));
+  connect(fraWin2.y, sum.u[2]) annotation (Line(points={{91,40},{98,40},{98,-0.25},
+          {102,-0.25}},      color={0,0,127}));
   connect(AWin3.u, irr3.y)
     annotation (Line(points={{-22,-20},{-29,-20}}, color={0,0,127}));
   connect(g3.u, AWin3.y)
@@ -220,8 +220,8 @@ equation
     annotation (Line(points={{38,-20},{31,-20}}, color={0,0,127}));
   connect(fraWin3.u, corFac3.y)
     annotation (Line(points={{68,-20},{61,-20}}, color={0,0,127}));
-  connect(fraWin3.y, sum.u[3]) annotation (Line(points={{91,-20},{98,-20},{98,
-          0.5},{102,0.5}}, color={0,0,127}));
+  connect(fraWin3.y, sum.u[3]) annotation (Line(points={{91,-20},{98,-20},{98,0.25},
+          {102,0.25}},     color={0,0,127}));
   connect(AWin4.u, irr4.y)
     annotation (Line(points={{-22,-80},{-29,-80}}, color={0,0,127}));
   connect(g4.u, AWin4.y)
@@ -230,8 +230,8 @@ equation
     annotation (Line(points={{38,-80},{31,-80}}, color={0,0,127}));
   connect(fraWin4.u, corFac4.y)
     annotation (Line(points={{70,-80},{61,-80}}, color={0,0,127}));
-  connect(fraWin4.y, sum.u[4]) annotation (Line(points={{93,-80},{98,-80},{98,
-          1.5},{102,1.5}}, color={0,0,127}));
+  connect(fraWin4.y, sum.u[4]) annotation (Line(points={{93,-80},{98,-80},{98,0.75},
+          {102,0.75}},     color={0,0,127}));
   connect(solRadWin, sum.y)
     annotation (Line(points={{150,0},{125,0}}, color={0,0,127}));
   annotation (defaultComponentName="glaEle",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},
@@ -263,7 +263,7 @@ equation
 <p>
 This model calculates the solar heat gains through glazed elements. The heat flow by solar gains through building element k is given by
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>
+&Phi;<sub>sol,k</sub> = F<sub>sh,ob,k</sub>A<sub>sol,k</sub>I<sub>sol,k</sub>-F<sub>r,k</sub>&Phi;<sub>r,k</sub>,
 </p>
 <p>
 where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external obstacles,
@@ -273,7 +273,7 @@ where <i>F<sub>sh,ob,k</sub></i> is the shading reduction factor for external ob
 <i>&Phi;<sub>r,k</sub></i> is the extra heat flow due to thermal radiation to the sky.
 The effective collecting area of glazed elements <i>A<sub>sol</sub></i> is calculated as
 <p align=\"center\" style=\"font-style:italic;\">
-A<sub>sol</sub> = F<sub>sh,gl</sub>F<sub>w</sub>g<sub>n</sub>(1-F<sub>f</sub>)A<sub>w</sub>
+A<sub>sol</sub> = F<sub>sh,gl</sub>F<sub>w</sub>g<sub>n</sub>(1-F<sub>f</sub>)A<sub>w</sub>,
 </p>
 <p>
 where <i>F<sub>sh,gl</sub></i> is the shading reduction factor for venetian blind or shades (equal to 1 in this model implementation),
