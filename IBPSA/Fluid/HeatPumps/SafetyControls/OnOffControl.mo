@@ -74,23 +74,29 @@ model OnOffControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,110})));
+initial equation
+  if preYSet_start then
+    yOut = 1;
+  else
+    yOut = 0;
+  end if;
 equation
 
-  when andTurOn.y then
+  when edge(andTurOn.y) then
     if andIsAblToTurOn.y then
       yOut = ySet;
     else
       yOut = 0;
     end if;
-  elsewhen andTurOff.y then
+  elsewhen edge(andTurOff.y) then
     if isAblToTurOff.y then
       yOut = ySet;
     else
       yOut = lim.y;
     end if;
-  elsewhen andIsAblToTurOn.y and andTurOn.y then
+  elsewhen edge(andIsAblToTurOn.y) and andTurOn.y then
     yOut = ySet;
-  elsewhen isAblToTurOff.y and andTurOff.y then
+  elsewhen edge(isAblToTurOff.y) and andTurOff.y then
     yOut = ySet;
   elsewhen andStaOff.y then
     yOut = ySet;
