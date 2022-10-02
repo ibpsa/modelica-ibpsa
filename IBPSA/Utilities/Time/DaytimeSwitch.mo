@@ -1,28 +1,31 @@
 within IBPSA.Utilities.Time;
 model DaytimeSwitch
   "Set the output to true if the given daytime stamp is equal to current daytime"
-  parameter Boolean weekly=true
+  parameter Boolean use_wee=true
     "Switch between a daily or weekly trigger approach" annotation(Dialog(
         enable=not daily,descriptionLabel=true), choices(choice=true "Weekly",
       choice=false "Daily",
       radioButtons=true));
 
-  parameter Integer weekDay = 1 "Day of the week" annotation (Dialog(enable=weekly));
-  parameter Integer hourDay = 12
-                                "Hour of the day";
+  parameter Integer weeDay=1 "Day of the week"
+    annotation (Dialog(enable=weekly));
+  parameter Integer houDay=12 "Hour of the day";
   parameter IBPSA.Utilities.Time.Types.ZeroTime zerTim
     "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef=2016 "Year when time = 0, used if zerTim=Custom";
-  IBPSA.Utilities.Time.CalendarTime calTim(zerTim=zerTim, yearRef=yearRef) "Used to get the unix time stamp and calendar time from the simulation time";
+  IBPSA.Utilities.Time.CalendarTime calTim(zerTim=zerTim, yearRef=yearRef)
+  "Used to get the unix time stamp and calendar time from the simulation time";
 
-  Modelica.Blocks.Interfaces.BooleanOutput isDaytime "Output boolean if current time stamp matches the set parameters"
+  Modelica.Blocks.Interfaces.BooleanOutput isDayTim
+    "Output boolean if current time stamp matches the set parameters"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
-  if weekly then
-    isDaytime =(calTim.weekDay == weekDay and calTim.hour == hourDay); //Trigger every week
+  if use_wee then
+    //Trigger every week
+    isDayTim =(calTim.weekDay == weeDay and calTim.hour == houDay);
   else
-    isDaytime =(calTim.hour == hourDay); //Trigger every day
+    isDayTim = (calTim.hour == houDay);  //Trigger every day
   end if;
 
   annotation (Icon(graphics={   Rectangle(
@@ -67,7 +70,12 @@ equation
           thickness=0.5,
           color={238,46,47})}), Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Renaming according to IBPSA guideline (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>

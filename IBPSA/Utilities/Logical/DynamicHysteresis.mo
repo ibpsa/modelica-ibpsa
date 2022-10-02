@@ -1,6 +1,6 @@
 within IBPSA.Utilities.Logical;
 block DynamicHysteresis
-  "Transform Real to Boolean signal with Hysteresis. Altered for the use of the AixLib to enable dynamic upper and lower boundaries."
+  "Transform Real to Boolean signal with Hysteresis"
 
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
   parameter Boolean pre_y_start=false "Value of pre(y) at initial time";
@@ -10,7 +10,8 @@ block DynamicHysteresis
   Modelica.Blocks.Interfaces.BooleanOutput y
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput uHigh "if y=false and u>=uHigh, switch to y=true" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput uHigh
+  "if y=false and u>=uHigh, switch to y=true" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -24,7 +25,10 @@ block DynamicHysteresis
 initial equation
   pre(y) = pre_y_start;
 equation
-  assert(uHigh > uLow,"Hysteresis limits wrong (uHigh = "+String(uHigh)+" <= uLow = "+String(uLow)+")");
+  assert(
+    uHigh > uLow,
+    "Hysteresis limits wrong (uHigh 
+    = "+String(uHigh)+" <= uLow = "+String(uLow)+")");
   y = not pre(y) and u > uHigh or pre(y) and u >= uLow;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -108,23 +112,20 @@ equation
         Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
         Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),
         Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
-    Documentation(info="<html><p>
-  This block transforms a <b>Real</b> input signal into a
-  <b>Boolean</b> output signal:
-</p>
+    Documentation(info="<html>
+<p>This block transforms a <b>Real</b> input signal into a <b>Boolean</b> output signal: </p>
 <ul>
-  <li>When the output was <b>false</b> and the input becomes
-  <b>greater</b> than parameter <b>uHigh</b>, the output switches to
-  <b>true</b>.
-  </li>
-  <li>When the output was <b>true</b> and the input becomes <b>less</b>
-  than parameter <b>uLow</b>, the output switches to <b>false</b>.
+<li>When the output was <b>false</b> and the input becomes <b>greater</b> than parameter <b>uHigh</b>, the output switches to <b>true</b>. </li>
+<li>When the output was <b>true</b> and the input becomes <b>less</b> than parameter <b>uLow</b>, the output switches to <b>false</b>. </li>
+</ul>
+<p>The start value of the output is defined via parameter <b>pre_y_start</b> (= value of pre(y) at initial time). The default value of this parameter is <b>false</b>. </p>
+<p>Altered from MSL to enable dynamic upper and lower boundaries.</p>
+</html>", revisions="<html><ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
-<p>
-  The start value of the output is defined via parameter
-  <b>pre_y_start</b> (= value of pre(y) at initial time). The default
-  value of this parameter is <b>false</b>.
-</p>
 </html>"));
 end DynamicHysteresis;
