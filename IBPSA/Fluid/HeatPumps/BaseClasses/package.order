@@ -1,5 +1,5 @@
-InnerCycle
-PartialInnerCycle
+BlackBoxVapourCompressionCycle
+PartialBlackBoxVapourCompressionCycle
 PartialReversibleVapourCompressionMachine
 PartialWaterToWater
 SenTempInflow

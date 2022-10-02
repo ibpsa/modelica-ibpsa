@@ -10,7 +10,7 @@ model HeatPump_EuropeanNormData
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model BlackBoxHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
+          IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
               IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
               tableQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
               tablePel=[0,0,10; 35,1300,1500; 55,1900,2300],

@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatPumps.Validation;
 model HeatPump_CarnotConstantQuality
   extends BaseClasses.PartialHeatPumpValidation(heaPum(
-      QUse_flow_nominal=qualityGrade*PEl_nominal*heaPum.TCon_nominal/(
-          heaPum.TCon_nominal - heaPum.TEva_nominal),
+      QUse_flow_nominal=qualityGrade*PEl_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
+           - heaPum.TEva_nominal),
       mCon_flow_nominal=mCon_flow_nominal,
       VCon=VCon,
       redeclare model VapourCompressionCycleInertia =
@@ -12,8 +12,8 @@ model HeatPump_CarnotConstantQuality
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model BlackBoxHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (qualityGrade=
-             qualityGrade)));
+          IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (quaGra=
+              qualityGrade)));
   parameter Real qualityGrade=0.4318
     "Constant quality grade" annotation(Evaluate=false);
 

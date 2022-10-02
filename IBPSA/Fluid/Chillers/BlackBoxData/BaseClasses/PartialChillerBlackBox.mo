@@ -11,7 +11,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (Icon(graphics={   Rectangle(
+  annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,255},
         fillColor={255,255,255},
@@ -19,9 +19,12 @@ equation
           extent={{-57.5,-35},{57.5,35}},
           lineColor={0,0,255},
           pattern=LinePattern.Dash,
-          textString="%name
-",        origin={-3.5,-15},
-          rotation=180)}), Documentation(info="<html>
-<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the sigBus for a chiller.</p>
+          textString="%name", origin={-3.5,-15},
+          rotation=180)}),
+      Documentation(
+  info="<html>
+<p>Partial model for calculation of electrical power <code>P_el</code>, 
+condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> 
+based on the values in the sigBus for a chiller.</p>
 </html>"));
 end PartialChillerBlackBox;

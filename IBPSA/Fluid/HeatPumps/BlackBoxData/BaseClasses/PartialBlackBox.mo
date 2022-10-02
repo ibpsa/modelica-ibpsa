@@ -1,32 +1,52 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
-  "Partial black box model of vapour compression cycles used for heat pump applications"
+  "Partial black box model of vapour compression 
+  cycles used for heat pump applications"
 
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
-    "Nominal heat flow rate at useful heat exchanger side"                                         annotation (Dialog(group=
-          "Nominal Design"));
-  parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal temperature at secondary condenser side" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.Temperature TEva_nominal "Nominal temperature at secondary evaporator side" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal "Nominal temperature difference at secondary evaporator side" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal "Nominal mass flow rate in secondary condenser side" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal "Nominal mass flow rate in secondary evaporator side" annotation (Dialog(group="Nominal Design"));
-  parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
-  parameter Real scalingFactor=QUse_flow_nominal/QUseBlackBox_flow_nominal "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
-  parameter Modelica.Units.SI.HeatFlowRate QUseBlackBox_flow_nominal
-    "Nominal heat flow rate at useful heat exchanger in the unscaled black box data model. Used to calculate the scaling factor."   annotation (Dialog(group=
-          "Nominal Design"));
-  parameter String datSou="" "Indicate where the data is coming from. 
-    If reversible machines are used, these strings have to match";
+    "Nominal heat flow rate at useful heat exchanger side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.Temperature TCon_nominal
+    "Nominal temperature at secondary condenser side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.Temperature TEva_nominal
+    "Nominal temperature at secondary evaporator side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
+    "Nominal temperature difference at secondary condenser side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
+    "Nominal temperature difference at secondary evaporator side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
+    "Nominal mass flow rate in secondary condenser side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+    "Nominal mass flow rate in secondary evaporator side"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Real y_nominal "Nominal relative compressor speed"
+    annotation (Dialog(group="Nominal Design"));
+  parameter Real scaFac=QUse_flow_nominal/QUseBlaBox_flow_nominal
+    "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.HeatFlowRate QUseBlaBox_flow_nominal
+    "Nominal heat flow rate at useful heat exchanger in the unscaled 
+    black box data model. Used to calculate the scaling factor"
+    annotation (Dialog(group="Nominal Design"));
+  parameter String datSou=""
+    "Indicate where the data is coming from";
 
   replaceable Frosting.NoFrosting iceFacCalc
     constrainedby Frosting.BaseClasses.PartialIceFac
     "Replaceable model to calculate the icing factor"
-    annotation (choicesAllMatching=true, Dialog(group="Frosting supression", enable=calc_iceFac), Placement(transformation(extent={{-100,
-            -52},{-80,-32}})));
+    annotation (
+      choicesAllMatching=true,
+      Dialog(group="Frosting supression", enable=calc_iceFac),
+      Placement(transformation(extent={{-100,-52},{-80,-32}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Pel(final unit="W", final displayUnit="kW")
-    "Electrical Power consumed by HP"                                                   annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput Pel(
+    final unit="W",
+    final displayUnit="kW")
+    "Electrical Power consumed by HP" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -50,7 +70,8 @@ partial model PartialBlackBox
         rotation=270,
         origin={80,-110})));
   Modelica.Blocks.Math.Add calcRedQCon
-    "Based on redcued heat flow to the evaporator, the heat flow to the condenser is also reduced"
+    "Based on redcued heat flow to the evaporator, the heat 
+    flow to the condenser is also reduced"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -64,8 +85,10 @@ partial model PartialBlackBox
 
   Modelica.Blocks.Math.Feedback feedbackHeatFlowEvaporator
     "Calculates evaporator heat flow with total energy balance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
-  IBPSA.Utilities.IO.Strings.StringOutput datSouOut "String output of data source";
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}},
+    rotation=0)));
+  IBPSA.Utilities.IO.Strings.StringOutput datSouOut
+  "String output of data source";
 protected
   Utilities.IO.Strings.ConstStringSource conStrSour(final k=datSou)
     "Constant String with data source as output";
@@ -80,7 +103,8 @@ equation
   connect(calcRedQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{
           -80,-96},{-80,-110}},                      color={0,0,127}));
   connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y)
-    annotation (Line(points={{-44,-58},{-44,0},{9,0}}, color={0,0,127}));
+    annotation (Line(points={{-44,-58},{-44,-10},{-61,-10}},
+                                                       color={0,0,127}));
   connect(iceFacCalc.iceFac, proRedQEva.u1) annotation (Line(points={{-79,-42},{
           -56,-42},{-56,-58}},                      color={0,0,127}));
   connect(iceFacCalc.sigBus, sigBus) annotation (Line(
@@ -97,7 +121,7 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.Dash,
           textString="%name
-",        origin={-3.5,-15},
+",        origin={-1.5,113},
           rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
@@ -107,6 +131,12 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the <code>sigBus</code> for a vapour compression machine.</p>
+<p>Partial model for calculation of electrical power <span style=\"font-family: Courier New;\">P_el</span>, condenser heat flow <span style=\"font-family: Courier New;\">QCon</span> and evaporator heat flow <span style=\"font-family: Courier New;\">QEva</span> based on the values in the <span style=\"font-family: Courier New;\">sigBus</span> for a vapour compression machine.</p>
+<p>To simulate possible icing of the evaporator on air-source devices, the icing factor is used to influence the output as well. As the factor resembles the reduction of heat transfer between refrigerant and source, the factor is implemented as follows: </p>
+<p><code>QEva = iceFac * (QCon-P_el)</code> </p>
+<p>With iceFac as a relative value between 0 and 1: </p>
+<p><code>iceFac = kA/kA_noIce</code> </p>
+<p>Finally, to follow the first law of thermodynamics: </p>
+<p><code>QCon = P_el + QEva</code> </p>
 </html>"));
 end PartialBlackBox;

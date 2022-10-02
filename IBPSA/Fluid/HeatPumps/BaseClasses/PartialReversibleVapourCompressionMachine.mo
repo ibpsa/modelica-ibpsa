@@ -1,9 +1,10 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
 partial model PartialReversibleVapourCompressionMachine
-  "Grey-box model for reversible heat pumps and chillers using a black-box to simulate the vapour compression cycle"
+  "Grey-box model for reversible heat pumps and 
+  chillers using a black-box to simulate the vapour compression cycle"
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
-    redeclare final package Medium1 = Medium_con,
-    redeclare final package Medium2 = Medium_eva,
+    redeclare final package Medium1 = MediumCon,
+    redeclare final package Medium2 = MediumEva,
     final m1_flow_nominal=mCon_flow_nominal_final,
     final m2_flow_nominal=mEva_flow_nominal_final,
     final allowFlowReversal1=allowFlowReversalCon,
@@ -11,58 +12,75 @@ partial model PartialReversibleVapourCompressionMachine
     final m1_flow_small=1E-4*abs(mCon_flow_nominal_final),
     final m2_flow_small=1E-4*abs(mEva_flow_nominal_final));
 
-//General
-  replaceable package Medium_con =
+  //General
+  replaceable package MediumCon =
     Modelica.Media.Interfaces.PartialMedium "Medium at sink side"
     annotation (Dialog(tab = "Condenser"),choicesAllMatching=true);
-  replaceable package Medium_eva =
+  replaceable package MediumEva =
     Modelica.Media.Interfaces.PartialMedium "Medium at source side"
     annotation (Dialog(tab = "Evaporator"),choicesAllMatching=true);
-  replaceable IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle innerCycle
-    constrainedby PartialInnerCycle(final use_rev=use_rev)
+  replaceable PartialBlackBoxVapourCompressionCycle vapComCyc constrainedby
+    PartialBlackBoxVapourCompressionCycle(final use_rev=use_rev)
     "Blackbox model of refrigerant cycle of a vapour compression machine"
-    annotation (Placement(transformation(extent={{-18,-18},{18,18}}, rotation=90)));
-  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal "Nominal heat flow rate at condenser" annotation (Dialog(group="Nominal Design"));
+    annotation (Placement(transformation(extent={{-18,-18},{18,18}}, rotation=
+            90)));
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
+    "Nominal heat flow rate at condenser"
+    annotation (Dialog(group="Nominal Design"));
 
-  parameter Real y_nominal "Nominal relative compressor speed" annotation (Dialog(group="Nominal Design"));
+  parameter Real y_nominal "Nominal relative compressor speed"
+    annotation (Dialog(group="Nominal Design"));
   replaceable model VapourCompressionCycleInertia =
      IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia
     constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.BaseClasses.PartialInertia
       "Inertia between the black-box outputs and the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
-  parameter Boolean use_rev=true "Is the vapour compression machine reversible?"   annotation(choices(checkBox=true));
-  parameter Boolean use_safetyControl=true "=true to enable internal heat pump safety control" annotation (Dialog(group="Safety Control"), choices(checkBox=true));
+  parameter Boolean use_rev=true
+    "Is the vapour compression machine reversible?"
+    annotation(choices(checkBox=true));
+  parameter Boolean use_safetyControl=true
+    "=true to enable internal heat pump safety control"
+    annotation (Dialog(group="Safety Control"), choices(checkBox=true));
   parameter Boolean use_busConnectorOnly=false
-    "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet). =false to use the bus connector for outputs only. Only possible if no internal safety control is used."
+    "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet).
+    =false to use the bus connector for outputs only. 
+    Only possible if no internal safety control is used"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=
           not use_safetyControl));
   parameter Boolean use_TSet=false
-    "=true to use black-box internal control for supply temperature of device with the given temperature set point TSet"
+    "=true to use black-box internal control for supply 
+    temperature of device with the given temperature set point TSet"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
   parameter Boolean use_autoCalc=false
-    "Enable automatic estimation of volumes and mass flows for water-to-water devices in a range of 25 kW to 1 MW"
-    annotation(choices(checkBox=true), Dialog(group="Water-to-water Parameterization"));
+    "Enable automatic estimation of volumes and mass flows 
+    for water-to-water devices in a range of 25 kW to 1 MW"
+    annotation(choices(checkBox=true),
+    Dialog(group="Water-to-water Parameterization"));
 
   //Condenser
-  parameter Modelica.Units.SI.Temperature TCon_nominal "Nominal flow temperature at secondary condenser side" annotation (Dialog(group="Nominal Design", tab="Condenser"));
-  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Nominal temperature difference at secondary condenser side" annotation (Dialog(group="Nominal Design", tab="Condenser"));
+  parameter Modelica.Units.SI.Temperature TCon_nominal
+    "Nominal flow temperature at secondary condenser side"
+    annotation (Dialog(group="Nominal Design", tab="Condenser"));
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
+    "Nominal temperature difference at secondary condenser side"
+    annotation (Dialog(group="Nominal Design", tab="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Manual input of the nominal mass flow rate (if not automatically calculated)"
     annotation (Dialog(
       group="Nominal Design",
       tab="Condenser",
-      enable=not use_autoCalc), Evaluate=true);
+      enable=not use_autoCalc));
 
   parameter Modelica.Units.SI.Volume VCon
     "Manual input of the condenser volume (if not automatically calculated)"
-    annotation (Evaluate=true, Dialog(
+    annotation (Dialog(
       tab="Condenser",
       enable=not use_autoCalc));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal
-    "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Flow resistance",
-        tab="Condenser"), Evaluate=true);
-  parameter Real deltaM_con=0.1
+    "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Flow resistance", tab="Condenser"));
+  parameter Real deltaMCon=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Condenser", group="Flow resistance"));
   parameter Boolean use_conCap=true
@@ -70,44 +88,55 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Dialog(group="Heat Losses", tab="Condenser"),
                                           choices(checkBox=true));
   parameter Modelica.Units.SI.HeatCapacity CCon
-    "Heat capacity of Condenser (= cp*m). If you want to neglace the dry mass of the condenser, you can set this value to zero"
-    annotation (Evaluate=true, Dialog(
+    "Heat capacity of Condenser (= cp*m). If you want to neglace the dry mass 
+    of the condenser, you can set this value to zero"
+    annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
   parameter Modelica.Units.SI.ThermalConductance GConOut
-    "Constant parameter for heat transfer to the ambient. Represents a sum of thermal resistances such as conductance, insulation and natural convection. If you want to simulate a condenser with additional dry mass but without external heat losses, set the value to zero"
-    annotation (Evaluate=true, Dialog(
+    "Constant parameter for heat transfer to the ambient. 
+    Represents a sum of thermal resistances such as conductance, 
+    insulation and natural convection. If you want to simulate a condenser 
+    with additional dry mass but without external heat losses, 
+    set the value to zero"
+    annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
   parameter Modelica.Units.SI.ThermalConductance GConIns
-    "Constant parameter for heat transfer to heat exchangers capacity. Represents a sum of thermal resistances such as forced convection and conduction inside of the capacity"
-    annotation (Evaluate=true, Dialog(
+    "Constant parameter for heat transfer to heat exchangers capacity. 
+    Represents a sum of thermal resistances such as forced convection 
+    and conduction inside of the capacity"
+    annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
 
-  parameter Modelica.Units.SI.Density rhoCon=Medium_con.density(staCon_nominal)
+  parameter Modelica.Units.SI.Density rhoCon=MediumCon.density(staCon_nominal)
     "Density of medium / fluid in condenser"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
-      Medium_con.specificHeatCapacityCp(staCon_nominal)
+      MediumCon.specificHeatCapacityCp(staCon_nominal)
     "Specific heat capacaity of medium / fluid in condenser"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
 
   //Evaporator
-  parameter Modelica.Units.SI.Temperature TEva_nominal "Nominal flow temperature at secondary evaporator side" annotation (Dialog(group="Nominal Design", tab="Evaporator"));
-  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal "Nominal temperature difference at secondary evaporator side" annotation (Dialog(group="Nominal Design", tab="Evaporator"));
+  parameter Modelica.Units.SI.Temperature TEva_nominal
+    "Nominal flow temperature at secondary evaporator side"
+    annotation (Dialog(group="Nominal Design", tab="Evaporator"));
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
+    "Nominal temperature difference at secondary evaporator side"
+    annotation (Dialog(group="Nominal Design", tab="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Manual input of the nominal mass flow rate (if not automatically calculated)"
     annotation (Dialog(
       group="Nominal Design",
       tab="Evaporator",
-      enable=not use_autoCalc), Evaluate=true);
+      enable=not use_autoCalc));
   parameter Modelica.Units.SI.Volume VEva
     "Manual input of the evaporator volume (if not automatically calculated)"
-    annotation (Evaluate=true, Dialog(
+    annotation ( Dialog(
       tab="Evaporator",
       enable=not use_autoCalc));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal
@@ -121,28 +150,34 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Dialog(group="Heat Losses", tab="Evaporator"),
                                           choices(checkBox=true));
   parameter Modelica.Units.SI.HeatCapacity CEva
-    "Heat capacity of Evaporator (= cp*m). If you want to neglace the dry mass of the evaporator, you can set this value to zero"
-    annotation (Evaluate=true, Dialog(
+    "Heat capacity of Evaporator (= cp*m). If you want to neglace the dry mass 
+    of the evaporator, you can set this value to zero"
+    annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.ThermalConductance GEvaOut
-    "Constant parameter for heat transfer to the ambient. Represents a sum of thermal resistances such as conductance, insulation and natural convection. If you want to simulate a evaporator with additional dry mass but without external heat losses, set the value to zero"
-    annotation (Evaluate=true, Dialog(
+    "Constant parameter for heat transfer to the ambient. Represents a sum of 
+    thermal resistances such as conductance, insulation and natural convection. 
+    If you want to simulate a evaporator with additional dry mass but 
+    without external heat losses, set the value to zero"
+    annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.ThermalConductance GEvaIns
-    "Constant parameter for heat transfer to heat exchangers capacity. Represents a sum of thermal resistances such as forced convection and conduction inside of the capacity"
-    annotation (Evaluate=true, Dialog(
+    "Constant parameter for heat transfer to heat exchangers capacity. 
+    Represents a sum of thermal resistances such as forced convection 
+    and conduction inside of the capacity"
+    annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
-  parameter Modelica.Units.SI.Density rhoEva=Medium_eva.density(staEva_nominal)
+  parameter Modelica.Units.SI.Density rhoEva=MediumEva.density(staEva_nominal)
     "Density of medium / fluid in evaporator"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
-      Medium_eva.specificHeatCapacityCp(staEva_nominal)
+      MediumEva.specificHeatCapacityCp(staEva_nominal)
     "Specific heat capacaity of medium / fluid in evaporator"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
 
@@ -155,41 +190,46 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Dialog(group="Condenser", tab="Assumptions"));
 
 //Initialization
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
+  parameter Modelica.Blocks.Types.Init initType=
+    Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (InitialState and InitialOutput are identical)"
     annotation (Dialog(tab="Initialization", group="Parameters"));
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure pCon_start=
-      Medium_con.p_default "Start value of pressure"
-    annotation (Evaluate=true,Dialog(tab="Initialization", group="Condenser"));
-  parameter Modelica.Media.Interfaces.Types.Temperature TCon_start=Medium_con.T_default
+      MediumCon.p_default "Start value of pressure"
+    annotation (Dialog(tab="Initialization", group="Condenser"));
+  parameter Modelica.Media.Interfaces.Types.Temperature TCon_start=
+    MediumCon.T_default
     "Start value of temperature"
-    annotation (Evaluate=true,Dialog(tab="Initialization", group="Condenser"));
-  parameter Modelica.Units.SI.Temperature TConCap_start=Medium_con.T_default
+    annotation (Dialog(tab="Initialization", group="Condenser"));
+  parameter Modelica.Units.SI.Temperature TConCap_start=MediumCon.T_default
     "Initial temperature of heat capacity of condenser" annotation (Dialog(
       tab="Initialization",
       group="Condenser",
       enable=use_conCap));
-  parameter Modelica.Media.Interfaces.Types.MassFraction XCon_start[Medium_con.nX]=
-     Medium_con.X_default "Start value of mass fractions m_i/m"
-    annotation (Evaluate=true,Dialog(tab="Initialization", group="Condenser"));
+  parameter Modelica.Media.Interfaces.Types.MassFraction XCon_start[MediumCon.nX]=
+     MediumCon.X_default "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization", group="Condenser"));
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure pEva_start=
-      Medium_eva.p_default "Start value of pressure"
-    annotation (Evaluate=true,Dialog(tab="Initialization", group="Evaporator"));
-  parameter Modelica.Media.Interfaces.Types.Temperature TEva_start=Medium_eva.T_default
+      MediumEva.p_default "Start value of pressure"
+    annotation (Dialog(tab="Initialization", group="Evaporator"));
+  parameter Modelica.Media.Interfaces.Types.Temperature TEva_start=
+    MediumEva.T_default
     "Start value of temperature"
-    annotation (Evaluate=true,Dialog(tab="Initialization", group="Evaporator"));
-  parameter Modelica.Units.SI.Temperature TEvaCap_start=Medium_eva.T_default
+    annotation (Dialog(tab="Initialization", group="Evaporator"));
+  parameter Modelica.Units.SI.Temperature TEvaCap_start=MediumEva.T_default
     "Initial temperature of heat capacity at evaporator" annotation (Dialog(
       tab="Initialization",
       group="Evaporator",
       enable=use_evaCap));
-  parameter Modelica.Media.Interfaces.Types.MassFraction XEva_start[Medium_eva.nX]=
-     Medium_eva.X_default "Start value of mass fractions m_i/m"
-    annotation (Evaluate=true,Dialog(tab="Initialization", group="Evaporator"));
+  parameter Modelica.Media.Interfaces.Types.MassFraction XEva_start[MediumEva.nX]=
+     MediumEva.X_default "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization", group="Evaporator"));
 
 //Dynamics
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state (only affects fluid-models)"
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) 
+    or steady state (only affects fluid-models)"
     annotation (Dialog(tab="Dynamics", group="Equation"));
 //Advanced
   parameter Boolean from_dp=false
@@ -199,14 +239,15 @@ partial model PartialReversibleVapourCompressionMachine
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
   parameter Real ySet_small=0.01
-    "Value of ySet at which the device is considered turned on. Default is 1 % as heat pumps and chillers currently invert down to 15 %."
+    "Value of ySet at which the device is considered turned on. 
+    Default is 1 % as heat pumps and chillers currently invert down to 15 %."
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity con(
-    redeclare final package Medium = Medium_con,
+    redeclare final package Medium = MediumCon,
     final allowFlowReversal=allowFlowReversalCon,
     final m_flow_small=1E-4*abs(mCon_flow_nominal_final),
     final show_T=show_T,
-    final deltaM=deltaM_con,
+    final deltaM=deltaMCon,
     final T_start=TCon_start,
     final p_start=pCon_start,
     final use_cap=use_conCap,
@@ -215,15 +256,15 @@ partial model PartialReversibleVapourCompressionMachine
     final energyDynamics=energyDynamics,
     final is_con=true,
     final V=VCon_final,
-    final C=CCon*scalingFactor,
+    final C=CCon*scaFac,
     final TCap_start=TConCap_start,
-    final GOut=GConOut*scalingFactor,
+    final GOut=GConOut*scaFac,
     final m_flow_nominal=mCon_flow_nominal_final,
-    final dp_nominal=dpCon_nominal*scalingFactor,
-    final GInn=GConIns*scalingFactor) "Heat exchanger model for the condenser"
+    final dp_nominal=dpCon_nominal*scaFac,
+    final GInn=GConIns*scaFac) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,72},{20,112}})));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity eva(
-    redeclare final package Medium = Medium_eva,
+    redeclare final package Medium = MediumEva,
     final deltaM=deltaM_eva,
     final use_cap=use_evaCap,
     final allowFlowReversal=allowFlowReversalEva,
@@ -236,12 +277,12 @@ partial model PartialReversibleVapourCompressionMachine
     final energyDynamics=energyDynamics,
     final is_con=false,
     final V=VEva_final,
-    final C=CEva*scalingFactor,
+    final C=CEva*scaFac,
     final m_flow_nominal=mEva_flow_nominal_final,
-    final dp_nominal=dpEva_nominal*scalingFactor,
+    final dp_nominal=dpEva_nominal*scaFac,
     final TCap_start=TEvaCap_start,
-    final GOut=GEvaOut*scalingFactor,
-    final GInn=GEvaIns*scalingFactor) "Heat exchanger model for the evaporator"
+    final GOut=GEvaOut*scaFac,
+    final GInn=GEvaIns*scaFac) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{20,-72},{-20,-112}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTempOutEva
  if use_evaCap "Foreces heat losses according to ambient temperature"
@@ -260,7 +301,7 @@ partial model PartialReversibleVapourCompressionMachine
     if not use_busConnectorOnly and not use_TSet
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
-  Interfaces.VapourCompressionMachineControlBus                sigBus annotation (
+  Interfaces.VapourCompressionMachineControlBus sigBus annotation (
       Placement(transformation(extent={{-120,-60},{-90,-26}}),
         iconTransformation(extent={{-108,-52},{-90,-26}})));
 
@@ -294,19 +335,17 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 
   IBPSA.Fluid.Sensors.MassFlowRate mFlow_eva(redeclare final package Medium =
-        Medium_eva, final allowFlowReversal=allowFlowReversalEva)
+        MediumEva, final allowFlowReversal=allowFlowReversalEva)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
         origin={72,-60},
         extent={{10,-10},{-10,10}},
         rotation=0)));
   IBPSA.Fluid.Sensors.MassFlowRate mFlow_con(final allowFlowReversal=
-        allowFlowReversalEva, redeclare final package Medium = Medium_con)
+        allowFlowReversalEva, redeclare final package Medium = MediumCon)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
         origin={-50,92},
         extent={{-10,10},{10,-10}},
         rotation=0)));
-
-  //Automatic calculation of mass flow rates and volumes of the evaporator and condenser using linear regressions from data sheets of heat pumps and chillers (water to water)
 
   Modelica.Blocks.Logical.Hysteresis hys(
     final uLow=Modelica.Constants.eps,
@@ -326,7 +365,7 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=270,
         origin={0,-50})));
 
-  SenTempInflow senTConIn(y=Medium_con.temperature(Medium_con.setState_phX(
+  SenTempInflow senTConIn(final y=MediumCon.temperature(MediumCon.setState_phX(
         port_a1.p,
         inStream(port_a1.h_outflow),
         inStream(port_a1.Xi_outflow))))
@@ -335,7 +374,7 @@ partial model PartialReversibleVapourCompressionMachine
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,90})));
-  SenTempInflow senTEvaIn(y=Medium_eva.temperature(Medium_eva.setState_phX(
+  SenTempInflow senTEvaIn(final y=MediumEva.temperature(MediumEva.setState_phX(
         port_a2.p,
         inStream(port_a2.h_outflow),
         inStream(port_a2.Xi_outflow))))
@@ -353,30 +392,36 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=0,
         origin={-90,-110})));
 protected
-  parameter Real scalingFactor "Scaling-factor of vapour compression machine";
-  parameter Medium_con.ThermodynamicState staCon_nominal=Medium_con.setState_pTX(
-      T=Medium_con.T_default, p=Medium_con.p_default, X=Medium_con.X_default) "Nominal / default state of condenser medium";
+  parameter Real scaFac "Scaling-factor of vapour compression machine";
+  parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
+      T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
+      "Nominal / default state of condenser medium";
 
-  parameter Medium_eva.ThermodynamicState staEva_nominal=Medium_eva.setState_pTX(
-      T=Medium_eva.T_default, p=Medium_eva.p_default, X=Medium_eva.X_default) "Nominal / default state of evaporator medium";
+  parameter MediumEva.ThermodynamicState staEva_nominal=MediumEva.setState_pTX(
+      T=MediumEva.T_default, p=MediumEva.p_default, X=MediumEva.X_default)
+      "Nominal / default state of evaporator medium";
 
-  parameter Modelica.Units.SI.MassFlowRate autoCalc_mMin_flow=0.3
+  //Automatic calculation of mass flow rates and volumes of the evaporator
+  // and condenser using linear regressions from data sheets of
+  // heat pumps and chillers (water to water)
+
+  parameter Modelica.Units.SI.MassFlowRate autCalMMin_flow=0.3
     "Realistic mass flow minimum for simulation plausibility";
-  parameter Modelica.Units.SI.Volume autoCalc_VMin=0.003
+  parameter Modelica.Units.SI.Volume autCalVMin=0.003
     "Realistic volume minimum for simulation plausibility";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal_final=if
-      use_autoCalc then autoCalc_mEva_flow*scalingFactor else mEva_flow_nominal*scalingFactor;
+      use_autoCalc then autCalMEva_flow*scaFac else mEva_flow_nominal*scaFac;
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal_final=if
-      use_autoCalc then autoCalc_mCon_flow*scalingFactor else mCon_flow_nominal*scalingFactor;
-  parameter Modelica.Units.SI.Volume VEva_final=if use_autoCalc then
-      autoCalc_VEva*scalingFactor else VEva*scalingFactor;
-  parameter Modelica.Units.SI.Volume VCon_final=if use_autoCalc then
-      autoCalc_VCon*scalingFactor else VCon*scalingFactor;
+      use_autoCalc then autCalMCon_flow*scaFac else mCon_flow_nominal*scaFac;
+  parameter Modelica.Units.SI.Volume VEva_final=if use_autoCalc then autCalVEva*
+      scaFac else VEva*scaFac;
+  parameter Modelica.Units.SI.Volume VCon_final=if use_autoCalc then autCalVCon*
+      scaFac else VCon*scaFac;
 
-  parameter Modelica.Units.SI.MassFlowRate autoCalc_mEva_flow;
-  parameter Modelica.Units.SI.MassFlowRate autoCalc_mCon_flow;
-  parameter Modelica.Units.SI.Volume autoCalc_VEva;
-  parameter Modelica.Units.SI.Volume autoCalc_VCon;
+  parameter Modelica.Units.SI.MassFlowRate autCalMEva_flow;
+  parameter Modelica.Units.SI.MassFlowRate autCalMCon_flow;
+  parameter Modelica.Units.SI.Volume autCalVEva;
+  parameter Modelica.Units.SI.Volume autCalVCon;
 
 equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
@@ -385,17 +430,18 @@ equation
     without a given nominal power flow (QUse_flow_nominal)!",
   level = AssertionLevel.error);
   assert(
-    not use_autoCalc or (autoCalc_mEva_flow > autoCalc_mMin_flow and
-      autoCalc_mEva_flow < 90),
+    not use_autoCalc or (autCalMEva_flow > autCalMMin_flow and autCalMEva_flow <
+      90),
     "Given nominal power (QUse_flow_nominal) for auto-calculation of 
     evaporator and condenser data is outside the range of data sheets 
     considered. Please control the auto-calculated mass flows!",
     level=AssertionLevel.warning);
-  assert(not use_autoCalc or (autoCalc_VEva>autoCalc_VMin and autoCalc_VEva<0.43),
-  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator 
+  assert(
+    not use_autoCalc or (autCalVEva > autCalVMin and autCalVEva < 0.43),
+    "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator 
   and condenser data is outside the range of data sheets considered. 
   Please control the auto-calculated volumes!",
-  level = AssertionLevel.warning);
+    level=AssertionLevel.warning);
 
   connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
           {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
@@ -413,15 +459,16 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(innerCycle.sigBus, sigBus) annotation (Line(
+  connect(vapComCyc.sigBus, sigBus) annotation (Line(
       points={{-18.54,0.18},{-30,0.18},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(innerCycle.Pel, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{
-          26,0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+
+  connect(vapComCyc.Pel, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{26,
+          0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
         color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -481,16 +528,16 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(innerCycle.QEva_flow, vapComIneEva.u) annotation (Line(points={{-1.22125e-15,
+  connect(vapComCyc.QEva_flow, vapComIneEva.u) annotation (Line(points={{-1.22125e-15,
           -19.8},{-1.22125e-15,-28.9},{2.22045e-15,-28.9},{2.22045e-15,-38}},
         color={0,0,127}));
-  connect(eva.QFlow_in, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-70.8},
-          {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}},
-        color={0,0,127}));
-  connect(vapComIneCon.y, con.QFlow_in) annotation (Line(points={{7.21645e-16,61},
-          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,70.8}},    color=
-         {0,0,127}));
-  connect(vapComIneCon.u, innerCycle.QCon_flow) annotation (Line(points={{-6.66134e-16,
+  connect(eva.Q_flow, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-92},
+          {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}}, color={0,0,
+          127}));
+  connect(vapComIneCon.y, con.Q_flow) annotation (Line(points={{7.21645e-16,61},
+          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,92}}, color={0,0,
+          127}));
+  connect(vapComIneCon.u, vapComCyc.QCon_flow) annotation (Line(points={{-6.66134e-16,
           38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
          {0,0,127}));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,82},{38,82},{
@@ -532,7 +579,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
+  annotation (Icon(graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
           fillColor={170,213,255},
@@ -610,146 +657,96 @@ equation
             -120},{100,120}})),
     Documentation(revisions="<html><ul>
   <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adjusted based on the discussion in this issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <li>
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
     (see issue <a href=
     \"https://github.com/RWTH-EBC/IBPSA/issues/715\">#715</a>)
   </li>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/IBPSA/issues/577\">#577</a>)
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  This partial model for a generic grey-box vapour compression machine
-  (heat pump or chiller) uses empirical data to model the refrigerant
-  cycle. The modelling of system inertias and heat losses allow the
-  simulation of transient states.
-</p>
-<p>
-  Resulting in the chosen model structure, several configurations are
-  possible:
-</p>
+<p>This partial model for a generic grey-box vapour compression machine 
+(heat pump or chiller) uses empirical data to model the refrigerant cycle. 
+The modelling of system inertias and heat losses allow the simulation of transient states. </p>
+<p>Resulting in the chosen model structure, several configurations are possible: </p>
 <ol>
-  <li>Compressor type: on/off or inverter controlled
-  </li>
-  <li>Reversible operation / only main operation
-  </li>
-  <li>Source/Sink: Any combination of mediums is possible
-  </li>
-  <li>Generik: Losses and inertias can be switched on or off.
-  </li>
+<li>Compressor type: on/off or inverter controlled </li>
+<li>Reversible operation / only main operation </li>
+<li>Source/Sink: Any combination of mediums is possible </li>
+<li>Generik: Losses and inertias can be switched on or off. </li>
 </ol>
-<h4>
-  Concept
-</h4>
-<p>
-  Using a signal bus as a connector, this model working as a heat pump
-  can be easily combined with several control or safety blocks from
-  <a href=
-  \"modelica://IBPSA.Controls.HeatPump\">IBPSA.Controls.HeatPump</a>.
-  The relevant data is aggregated. In order to control both chillers
-  and heat pumps, both flow and return temperature are aggregated. The
-  mode signal chooses the operation type of the vapour compression
-  machine:
-</p>
+<h4>Concept </h4>
+<p>Using a signal bus as a connector, all relevant data is aggregated. 
+In order to control both chillers and heat pumps, both flow and return
+temperature are aggregated. The mode signal chooses the operation type of 
+the vapour compression machine: </p>
 <ul>
-  <li>mode = true: Main operation mode (heat pump: heating; chiller:
-  cooling)
-  </li>
-  <li>mode = false: Reversible operation mode (heat pump: cooling;
-  chiller: heating)
-  </li>
+<li>mode = true: Main operation mode (heat pump: heating; chiller: cooling) </li>
+<li>mode = false: Reversible operation mode (heat pump: cooling; chiller: heating) </li>
 </ul>
-<p>
-  To model both on/off and inverter controlled vapour compression
-  machines, the compressor speed is normalizd to a relative value
-  between 0 and 1.
-</p>
-<p>
-  Possible icing of the evaporator is modelled with an input value
-  between 0 and 1.
-</p>
-<p>
-  The model structure is as follows. To understand each submodel,
-  please have a look at the corresponding model information:
-</p>
+<p>To model both on/off and inverter controlled vapour compression machines, the 
+compressor speed is normalizd to a relative value between 0 and 1. </p>
+<p>Possible icing of the evaporator is modelled with an input value between 0 and 1. </p>
+<p>The model structure is as follows. To understand each submodel, please have a 
+look at the corresponding model information: </p>
 <ol>
-  <li>
-    <a href=
-    \"IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle\">InnerCycle</a>
-    (Black Box): Here, the user can use between several input models or
-    just easily create his own, modular black box model. Please look at
-    the model description for more info.
-  </li>
-  <li>Inertia: A n-order element is used to model system inertias (mass
-  and thermal) of components inside the refrigerant cycle (compressor,
-  pipes, expansion valve)
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
-    HeatExchanger</a>: This new model also enable modelling of thermal
-    interias and heat losses in a heat exchanger. Please look at the
-    model description for more info.
-  </li>
+<li><a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle\">
+IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle</a> (Black Box): 
+Here, users can use between several input models or just easily create 
+their own, modular black box model. Please look at the model description 
+for more info. </li>
+<li><a href=\"IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias\">
+IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias</a>: 
+An n-order element may be used (or other SISO models) model system inertias 
+(mass and thermal) of 
+components inside the refrigerant cycle (compressor, pipes, expansion valve) </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
+IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>: This new model 
+also enable modelling of thermal interias and heat losses in a heat exchanger. 
+Please look at the model description for more info. </li>
 </ol>
-<h4>
-  Parametrization
-</h4>
-<p>
-  To simplify the parametrization of the evaporator and condenser
-  volumes and nominal mass flows there exists an option of automatic
-  estimation based on the nominal usable power of the vapour
-  compression machine. This function uses a linear correlation of these
-  parameters, which was established from the linear regression of more
-  than 20 data sets of water-to-water heat pumps from different
-  manufacturers (e.g. Carrier, Trane, Lennox) ranging from about 25kW
-  to 1MW nominal power. The linear regressions with coefficients of
-  determination above 91% give a good approximation of these
-  parameters. Nevertheless, estimates for machines outside the given
-  range should be checked for plausibility during simulation.
-</p>
-<h4>
-  Assumptions
-</h4>
-<p>
-  Several assumptions where made in order to model the vapour
-  compression machine. For a detailed description see the corresponding
-  model.
-</p>
+<h4>Parametrization </h4>
+<p>To simplify the parametrization of the evaporator and condenser volumes and 
+nominal mass flows there exists an option of automatic estimation based on the 
+nominal usable power of the vapour compression machine. This function uses a 
+linear correlation of these parameters, which was established from the linear 
+regression of more than 20 data sets of water-to-water heat pumps from different 
+manufacturers (e.g. Carrier, Trane, Lennox) ranging from about 25kW to 1MW 
+nominal power. The linear regressions with coefficients of determination above 
+91&percnt; give a good approximation of these parameters. Nevertheless, 
+estimates for machines outside the given range should be checked for 
+plausibility during simulation. </p>
+<h4>Assumptions </h4>
+<p>Several assumptions where made in order to model the vapour compression 
+machine. For a detailed description see the corresponding model. </p>
 <ol>
-  <li>
-    <b>Inertia</b>: The default value of the n-th order element is set
-    to 3. This follows comparisons with experimental data. Previous
-    heat pump models are using n = 1 as a default. However, it was
-    pointed out that a higher order element fits a real heat pump
-    better in
-  </li>
-  <li>
-    <b>Scaling factor</b>: A scaling facor is implemented for scaling
-    of the thermal power and capacity. The factor scales the parameters
-    V, m_flow_nominal, C, GIns, GOut and dp_nominal. As a result, the
-    vapour compression machine can supply more heat with the COP
-    staying nearly constant. However, one has to make sure that the
-    supplied pressure difference or mass flow is also scaled with this
-    factor, as the nominal values do not increase said mass flow.
-  </li>
+<li><b>Inertia</b>: The default value of the n-th order element is set to 3. 
+This follows comparisons with experimental data. Previous heat pump models 
+are using n = 1 as a default. However, it was pointed out that a higher order 
+element fits a real heat pump better in </li>
+<li><b>Scaling factor</b>: A scaling facor <code>scaFac</code> is implemented 
+for scaling of the thermal power and capacity. The factor scales 
+the parameters <code>V</code>, <code>m_flow_nominal</code>, 
+<code>C</code>, <code>GIns</code>, <code>GOut</code> and <code>dp_nominal</code>. 
+As a result, the vapour compression machine can 
+supply more heat with the COP staying nearly constant. However, one has to make 
+sure that the supplied pressure difference or mass flow is also scaled with this 
+factor, as the nominal values do not increase said mass flow. </li>
 </ol>
-<h4>
-  Known Limitations
-</h4>
+<h4>Known Limitations </h4>
 <ul>
-  <li>The n-th order element has a big influence on computational time.
-  Reducing the order or disabling it completly will decrease
-  computational time.
-  </li>
-  <li>Reversing the mode: A normal 4-way-exchange valve suffers from
-  heat losses and irreversibilities due to switching from one mode to
-  another. Theses losses are not taken into account.
-  </li>
+<li>Reversing the mode: A normal 4-way-exchange valve suffers from heat losses 
+and irreversibilities due to switching from one mode to another. Theses losses 
+are not taken into account. </li>
 </ul>
 </html>"));
 end PartialReversibleVapourCompressionMachine;

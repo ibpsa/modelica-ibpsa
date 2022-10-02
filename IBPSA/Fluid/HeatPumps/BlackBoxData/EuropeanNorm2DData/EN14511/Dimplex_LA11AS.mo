@@ -12,5 +12,13 @@ record Dimplex_LA11AS "Dimplex LA 11 AS"
 
   annotation (Documentation(info="<html>
 <p>Data for a Dimplex LA11AS air-to-water heat pump. </p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end Dimplex_LA11AS;

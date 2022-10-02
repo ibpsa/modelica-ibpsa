@@ -1,20 +1,22 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
-model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
-  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialInnerCycle;
+model BlackBoxVapourCompressionCycle
+  "Blackbox model of refrigerant cycle of a heat pump"
+  extends
+    IBPSA.Fluid.HeatPumps.BaseClasses.PartialBlackBoxVapourCompressionCycle;
   // Setting all values to zero avoids errors when checking this model.
   // The values are correctly propagated by the heat pump / chiller model anyway
   replaceable model BlackBoxHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox (
-       QUse_flow_nominal=0,
-       QUseBlackBox_flow_nominal=0,
-       scalingFactor=0,
-       TCon_nominal=0,
-       TEva_nominal=0,
-       dTCon_nominal=0,
-       dTEva_nominal=0,
-       mCon_flow_nominal=1,
-       mEva_flow_nominal=1,
-       y_nominal=0)
+      QUse_flow_nominal=0,
+      QUseBlaBox_flow_nominal=0,
+      scaFac=0,
+      TCon_nominal=0,
+      TEva_nominal=0,
+      dTCon_nominal=0,
+      dTEva_nominal=0,
+      mCon_flow_nominal=1,
+      mEva_flow_nominal=1,
+      y_nominal=0)
      constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
     "Replaceable model for black box data of a heat pump in main operation mode"
@@ -24,7 +26,8 @@ model InnerCycle "Blackbox model of refrigerant cycle of a heat pump"
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
     IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
-    "Replaceable model for black box data of a heat pump in reversible operation mode"
+    "Replaceable model for black box data of 
+    a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   BlackBoxHeatPumpHeating blaBoxHeaPumHea
@@ -164,8 +167,14 @@ equation
           textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textString="%name")}),
+          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adjusted based on the discussion in this issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
   <li>
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
@@ -179,39 +188,7 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  This black box model represents the refrigerant cycle of a heat pump.
-  Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the
-  simulation of a reversible heat pump. Thus, data both of chillers and
-  heat pumps can be used to calculate the three relevant values
-  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. The <code>mode</code> of the heat pump is used to
-  switch between the performance data of the chiller and the heat pump.
-</p>
-<p>
-  The user can choose between different types of performance data or
-  implement a new black-box model by extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">
-  IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model.
-</p>
-<ul>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D\">
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D</a>: Use 2D-data based on the DIN EN 14511
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm3D\">
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm3D</a>: Use SDF-data tables to model invertercontroller
-    heat pumps or include other dependencies (ambient temperature etc.)
-  </li>
-  <li>
-    <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.FunctionalApproach\">
-    IBPSA.Fluid.HeatPumps.BlackBoxData.FunctionalApproach</a>: 
-        Use a function based approach to calculate
-    the ouputs. Different functions are already implemented.
-  </li>
-</ul>
+<p>This black box model represents the refrigerant cycle of a heat pump. Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <span style=\"font-family: Courier New;\">P_el</span>, <span style=\"font-family: Courier New;\">QCon</span> and <span style=\"font-family: Courier New;\">QEva</span>. The <span style=\"font-family: Courier New;\">mode</span> of the heat pump is used to switch between the black box data of the chiller and the heat pump. </p>
+<p>The user can choose between different types of black box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>
 </html>"));
-end InnerCycle;
+end BlackBoxVapourCompressionCycle;

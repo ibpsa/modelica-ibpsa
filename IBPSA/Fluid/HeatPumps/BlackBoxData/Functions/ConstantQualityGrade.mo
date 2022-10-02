@@ -4,18 +4,18 @@ function ConstantQualityGrade
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct(
     N,
-    T_con,
-    T_eva,
-    mFlow_eva,
-    mFlow_con);
+    TConOut,
+    TEvaIn,
+    mEva_flow,
+    mCon_flow);
     parameter Real qualityGrade=0.3 "Constant quality grade";
     parameter Modelica.Units.SI.Power P_com=2000
     "Constant electric power input for compressor";
 protected
-    Real CoP_C "Carnot CoP";
+  Real COPCarnot "Carnot COP";
 algorithm
-  CoP_C:=T_con/(T_con - T_eva);
-  Char:= {P_com,P_com*CoP_C*qualityGrade};
+  COPCarnot := TConOut/(TConOut - TEvaIn);
+  Char:={P_com,P_com*COPCarnot*qualityGrade};
 
   annotation (Documentation(info="<html><p>
   Carnot CoP multiplied with constant quality grade and constant

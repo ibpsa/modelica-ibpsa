@@ -6,25 +6,32 @@ model EvaporatorCondenserWithCapacity
     final V=V),
     final tau=30);
 
-  parameter Boolean is_con "Type of heat exchanger" annotation (Dialog( descriptionLabel = true),choices(choice=true "Condenser",
-      choice=false "Evaporator",
-      radioButtons=true));
+  parameter Boolean is_con "Type of heat exchanger"
+    annotation (Dialog( descriptionLabel = true),
+      choices(
+        choice=true "Condenser",
+        choice=false "Evaporator",
+        radioButtons=true));
   parameter Modelica.Units.SI.Volume V "Volume in condenser";
-  parameter Boolean use_cap=true "False if capacity and heat losses are neglected"
+  parameter Boolean use_cap=true
+    "False if capacity and heat losses are neglected"
     annotation (Dialog(group="Heat losses"),choices(checkBox=true));
-  parameter Modelica.Units.SI.HeatCapacity C "Capacity of heat exchanger. If you want to neglace the dry mass of the heat exchanger, you can set this value to zero"
+  parameter Modelica.Units.SI.HeatCapacity C
+    "Capacity of heat exchanger. 
+    If you want to neglace the dry mass of the heat exchanger, 
+    you can set this value to zero"
     annotation (Dialog(group="Heat losses", enable=use_cap));
   parameter Modelica.Units.SI.Temperature TCap_start=Medium.T_default
     "Initial temperature of heat capacity"
     annotation (Dialog(tab="Initialization", group="Capacity"));
   Modelica.Units.SI.ThermalConductance GOut
-    "Formular for calculation of heat transfer coefficient on the outside. If you want to simulate a heat exchanger with additional dry mass but without external heat losses, set the value to zero"
-                                                           annotation (Dialog(group=
-          "Heat losses",                                                                           enable=use_cap));
+    "Formular for calculation of heat transfer coefficient on the outside. 
+    If you want to simulate a heat exchanger with additional
+    dry mass but without external heat losses, set the value to zero"
+      annotation (Dialog(group="Heat losses", enable=use_cap));
   Modelica.Blocks.Interfaces.RealOutput GInn
     "Formular for calculation of heat transfer coefficient on the inside"
-                                                                         annotation (Dialog(group=
-          "Heat losses",                                                                                         enable=use_cap));
+      annotation (Dialog(group="Heat losses", enable=use_cap));
   Modelica.Thermal.HeatTransfer.Components.Convection conIns if use_cap
     "Convection between fluid and solid" annotation (Placement(transformation(
         extent={{-12,-12},{12,12}},
@@ -41,9 +48,10 @@ model EvaporatorCondenserWithCapacity
     final T(
       final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial),
       final start=TCap_start),
-    final der_T(final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial),
-        start=0)) if use_cap "Heat Capacity" annotation (Placement(
-        transformation(
+    final der_T(
+      final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial),
+      start=0)) if use_cap "Heat Capacity" annotation (Placement(
+      transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={30,50})));
@@ -70,21 +78,20 @@ model EvaporatorCondenserWithCapacity
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,-70})));
-  Modelica.Blocks.Interfaces.RealInput QFlow_in "Heat flow rate to the medium"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-118}), iconTransformation(
-        extent={{-8,-8},{8,8}},
-        rotation=90,
-        origin={-8.88178e-16,-106})));
+  Modelica.Blocks.Interfaces.RealInput Q_flow
+    "Heat flow rate to the medium"
+    annotation (
+      Placement(transformation(extent={{-20,-20},{20,20}},
+      rotation=90)));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senT
     "Heat flow rate of the condenser" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={50,-50})));
-  Modelica.Blocks.Interfaces.RealOutput T(unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealOutput T(
+    final unit="K",
+    final displayUnit="degC")
     "Absolute temperature as output signal" annotation (Placement(
         transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent=
            {{100,-62},{124,-38}})));
@@ -111,8 +118,9 @@ equation
       pattern=LinePattern.Dash));
   connect(vol.heatPort, preHea.port) annotation (Line(points={{-9,-10},{-12,-10},
           {-12,-34},{0,-34},{0,-60},{1.77636e-15,-60}},   color={191,0,0}));
-  connect(preHea.Q_flow, QFlow_in) annotation (Line(points={{-1.77636e-15,-80},
-          {-1.77636e-15,-99},{0,-99},{0,-118}},color={0,0,127}));
+  connect(preHea.Q_flow, Q_flow)
+  annotation (Line(points={{-1.77636e-15,-80},{-1.77636e-15,
+          -99},{0,-99},{0,0}}, color={0,0,127}));
   connect(senT.port, vol.heatPort) annotation (Line(points={{40,-50},{0,-50},{0,
           -34},{-12,-34},{-12,-10},{-9,-10}}, color={191,0,0}));
   connect(senT.T, T)
@@ -269,10 +277,12 @@ equation
 <p>
   In order to model transient states and inertias of a real heat pump,
   a capacity is added to the base model <a href=
-  \"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">TwoPortHeatMassExchanger</a>.
+  \"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+  IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger</a>.
 </p>
 <p>
-  The heat exchange between capacity and medium (<code>GIns</code>) is based on a series of heat
+The heat exchange between capacity and medium (<code>GIns</code>)
+  is based on a series of heat
   resistances caused by forced convection and conduction through the
   capacity of the heat exchanger. Losses or gains in result of heat
   exchange with the ambient are modeled through the heat exchange

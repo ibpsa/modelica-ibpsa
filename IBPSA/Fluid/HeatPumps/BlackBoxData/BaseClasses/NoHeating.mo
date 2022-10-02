@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 model NoHeating
-  "No heating. Used to avoid warnings about partial model must be replaced"
+  "No heating, used to avoid warnings about partial model must be replaced"
   extends PartialHeatPumpBlackBox(
     redeclare final IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
       iceFacCalc,
     datSou="",
-    QUseBlackBox_flow_nominal=0,
-    scalingFactor=0,
+    QUseBlaBox_flow_nominal=0,
+    scaFac=0,
     y_nominal=0,
     mEva_flow_nominal=0,
     mCon_flow_nominal=0,
@@ -15,19 +15,27 @@ model NoHeating
     TEva_nominal=273.15,
     TCon_nominal=273.15,
     QUse_flow_nominal=0);
-  Modelica.Blocks.Sources.Constant const(final k=0)
+  Modelica.Blocks.Sources.Constant constZer(final k=0)
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
 equation
-  connect(const.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{-67,
-          26},{-62,26},{-62,4},{-94,4},{-94,-10},{-78,-10}}, color={0,0,127}));
-  connect(const.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-67,
-          26},{-62,26},{-62,4},{-94,4},{-94,-10},{-84,-10},{-84,-24},{-70,-24},{
-          -70,-18}}, color={0,0,127}));
-  connect(const.y, calcRedQCon.u2) annotation (Line(points={{-67,26},{-62,26},{-62,
+  connect(constZer.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{-67,26},
+          {-62,26},{-62,4},{-94,4},{-94,-10},{-78,-10}},     color={0,0,127}));
+  connect(constZer.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-67,26},
+          {-62,26},{-62,4},{-94,4},{-94,-10},{-84,-10},{-84,-24},{-70,-24},{-70,
+          -18}},     color={0,0,127}));
+  connect(constZer.y, calcRedQCon.u2) annotation (Line(points={{-67,26},{-62,26},{-62,
           4},{64,4},{64,-58}}, color={0,0,127}));
-  connect(const.y, Pel)
+  connect(constZer.y, Pel)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>Model to use to avoid warnings about partial model must be replaced. Using this model, the heat pump will always be off.</p>
+  <p>Model to use to avoid warnings about partial model must be replaced. 
+  Using this model, the heat pump will always be off.</p>
+</html>", revisions="<html><ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</ul>
 </html>"));
 end NoHeating;

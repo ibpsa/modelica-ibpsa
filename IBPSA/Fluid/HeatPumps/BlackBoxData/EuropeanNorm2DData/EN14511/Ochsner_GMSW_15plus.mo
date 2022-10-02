@@ -12,5 +12,13 @@ record Ochsner_GMSW_15plus "Ochsner GMSW 15 plus"
 
   annotation (Documentation(info="<html>
 <p>Data for the Ochsner GMLW 15 brine-to-water device </p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end Ochsner_GMSW_15plus;

@@ -12,6 +12,16 @@ record NibeFighter1140_15 "Nibe Fighter 1140-15"
     tableUppBou=[-35,65; 50,65]);
 
   annotation (Documentation(info="<html>
-<p>Brine-to-water heat pump according to: <a href=\"https://www.nibe.lv/nibedocuments/10153/031094-4.pdf\">https://www.nibe.lv/nibedocuments/10153/031094-4.pdf</a></p>
+  <p>Brine-to-water heat pump according to: 
+  <a href=\"https://www.nibe.lv/nibedocuments/10153/031094-4.pdf\">
+  https://www.nibe.lv/nibedocuments/10153/031094-4.pdf</a></p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end NibeFighter1140_15;

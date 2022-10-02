@@ -14,5 +14,13 @@ record Vaillant_VWL_101 "Vaillant VWL10-1"
 
   annotation (Documentation(info="<html>
 <p>Data for a Vaillaint VLW_101 air-to-water heat pump </p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end Vaillant_VWL_101;

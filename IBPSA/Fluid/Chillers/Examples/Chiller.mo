@@ -2,20 +2,20 @@ within IBPSA.Fluid.Chillers.Examples;
 model Chiller "Example for the reversible chiller model."
  extends Modelica.Icons.Example;
 
-  replaceable package Medium_sin = IBPSA.Media.Water
+  replaceable package MediumSin = IBPSA.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
-  replaceable package Medium_sou = IBPSA.Media.Water
+  replaceable package MediumSou = IBPSA.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
   IBPSA.Fluid.Sources.MassFlowSource_T sinkSideMassFlowSource(
     use_T_in=true,
     m_flow=1,
-    redeclare package Medium = Medium_sin,
+    redeclare package Medium = MediumSin,
     T=275.15,
     nPorts=1) "Ideal mass flow source at the inlet of the sink side"
     annotation (Placement(transformation(extent={{-54,-58},{-34,-38}})));
 
   IBPSA.Fluid.Sources.Boundary_pT sinkSideFixedBoundary(redeclare package
-      Medium = Medium_sin, nPorts=1)
+      Medium = MediumSin, nPorts=1)
     "Fixed boundary at the outlet of the sink side" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -49,8 +49,8 @@ model Chiller "Example for the reversible chiller model."
     mEva_flow_nominal=0.5,
     use_conCap=false,
     use_evaCap=false,
-    redeclare package Medium_con = Medium_sin,
-    redeclare package Medium_eva = Medium_sou,
+    redeclare package MediumCon = MediumSin,
+    redeclare package MediumEva = MediumSou,
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_rev=true,
@@ -59,12 +59,12 @@ model Chiller "Example for the reversible chiller model."
     VCon=0.04,
     TEva_start=303.15,
     redeclare model BlackBoxChillerCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (dataTable=
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (datTab=
             IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare model BlackBoxChillerHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
             IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()))
-                       annotation (Placement(transformation(
+                 annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=90,
         origin={2,1})));
@@ -76,7 +76,7 @@ model Chiller "Example for the reversible chiller model."
     final tauHeaTra=1200,
     final allowFlowReversal=chiller.allowFlowReversalCon,
     final transferHeat=false,
-    redeclare final package Medium = Medium_sou,
+    redeclare final package Medium = MediumSou,
     T_start=303.15,
     final TAmb=291.15) "Temperature at source outlet" annotation (Placement(
         transformation(
@@ -95,7 +95,7 @@ model Chiller "Example for the reversible chiller model."
     redeclare final IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8 per,
     final allowFlowReversal=true,
     final addPowerToMedium=false,
-    redeclare final package Medium = Medium_sou)
+    redeclare final package Medium = MediumSou)
     "Fan or pump at source side of HP" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -108,7 +108,7 @@ model Chiller "Example for the reversible chiller model."
     final m_flow_nominal=chiller.m2_flow_nominal,
     final V=5,
     final allowFlowReversal=true,
-    redeclare package Medium = Medium_sou) "Volume of Condenser" annotation (
+    redeclare package Medium = MediumSou) "Volume of Condenser" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -130,7 +130,7 @@ model Chiller "Example for the reversible chiller model."
         rotation=270,
         origin={96,52})));
   IBPSA.Fluid.Sources.Boundary_pT sourceSideFixedBoundary(nPorts=1, redeclare
-      package Medium = Medium_sou)
+      package Medium = MediumSou)
     "Fixed boundary at the outlet of the source side" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},

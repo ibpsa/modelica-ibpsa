@@ -2,55 +2,53 @@ within IBPSA.Fluid.HeatPumps.Examples;
 model HeatPump "Example for the reversible heat pump model."
  extends Modelica.Icons.Example;
 
-  replaceable package Medium_sin = IBPSA.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
-  replaceable package Medium_sou = IBPSA.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
-  IBPSA.Fluid.Sources.MassFlowSource_T                sourceSideMassFlowSource(
+  replaceable package MediumSin = IBPSA.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    annotation (choicesAllMatching=true);
+  replaceable package MediumSou = IBPSA.Media.Water
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    annotation (choicesAllMatching=true);
+  IBPSA.Fluid.Sources.MassFlowSource_T souSidSou(
     use_m_flow_in=true,
     use_T_in=true,
     m_flow=1,
     nPorts=1,
-    redeclare package Medium = Medium_sou,
+    redeclare package Medium = MediumSou,
     T=275.15) "Ideal mass flow source at the inlet of the source side"
-              annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT                  sourceSideFixedBoundary(
-                                                                         nPorts=
-       1, redeclare package Medium = Medium_sou)
-          "Fixed boundary at the outlet of the source side"
-          annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-70,-10})));
-  Modelica.Blocks.Sources.Ramp TsuSourceRamp(
+  Sources.Boundary_pT souSidFixBou(nPorts=1, redeclare package Medium =
+        MediumSou) "Fixed boundary at the outlet of the source side"
+          annotation (Placement(transformation(extent={{-50,20},{-30,0}},
+          rotation=0)));
+  Modelica.Blocks.Sources.Ramp TSouRamp(
     duration=500,
     startTime=500,
     height=25,
     offset=278)
     "Ramp signal for the temperature input of the source side's ideal flow"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Sources.Constant T_amb_internal(k=291.15)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-12,-90})));
-  IBPSA.Fluid.HeatPumps.HeatPump heatPump(
+  Modelica.Blocks.Sources.Constant TAmbInternal(k=291.15)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}}, rotation=-90)));
+  IBPSA.Fluid.HeatPumps.HeatPump heaPum(
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
-    redeclare package Medium_con = Medium_sin,
-    redeclare package Medium_eva = Medium_sou,
-    mEva_flow_nominal=heatPump.innerCycle.blaBoxHeaPumHea.dataTable.mEva_flow_nominal,
+    redeclare package MediumCon = MediumSin,
+    redeclare package MediumEva = MediumSou,
+    mEva_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.datTab.mEva_flow_nominal,
     redeclare model BlackBoxHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (dataTable=
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
             IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare model BlackBoxHeatPumpCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2Ds (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCalc,
         smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-        dataTable=IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+        datTab=
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
-      safetyControlParameters(
+      safCtrlPar(
       minRunTime=100,
       minLocTime=200,
       use_minFlowCtrl=true),
@@ -61,9 +59,9 @@ model HeatPump "Example for the reversible heat pump model."
     GEvaIns=0,
     GEvaOut=5,
     QUse_flow_nominal=6000,
-    TCon_nominal(displayUnit = "K")= 313.15,
-    TCon_start(displayUnit = "K")= 303.15,
-    TEva_nominal(displayUnit = "K")= 278.15,
+    TCon_nominal(displayUnit="K") = 313.15,
+    TCon_start(displayUnit="K") = 303.15,
+    TEva_nominal(displayUnit="K") = 278.15,
     VCon=0.4,
     VEva=0.04,
     cpCon=4184,
@@ -71,7 +69,7 @@ model HeatPump "Example for the reversible heat pump model."
     dTCon_nominal=7,
     dTEva_nominal=3,
     dpCon_nominal(displayUnit="Pa") = 1000,
-    dpEva_nominal(displayUnit = "Pa")= 0,
+    dpEva_nominal(displayUnit="Pa") = 0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_autoCalc=false,
     use_busConnectorOnly=false,
@@ -79,18 +77,15 @@ model HeatPump "Example for the reversible heat pump model."
     use_evaCap=false,
     use_rev=true,
     use_safetyControl=true,
-    y_nominal=1) annotation (Placement(transformation(
-        extent={{-24,-29},{24,29}},
-        rotation=270,
-        origin={0,-39})));
+    y_nominal=1) annotation (Placement(transformation(extent={{-24,-29},{24,29}},
+          rotation=270)));
 
-  Modelica.Blocks.Sources.BooleanStep booleanModeSetStep(startTime=1800,
-      startValue=true) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,70})));
+  Modelica.Blocks.Sources.BooleanStep booModeSetStep(startTime=1800, startValue=
+       true)           annotation (Placement(transformation(extent={{-100,-20},{
+            -80,0}},
+                  rotation=0)));
 
-  Modelica.Blocks.Logical.Hysteresis hysHeating(
+  Modelica.Blocks.Logical.Hysteresis hysHea(
     pre_y_start=true,
     uLow=273.15 + 30,
     uHigh=273.15 + 35)
@@ -98,64 +93,60 @@ model HeatPump "Example for the reversible heat pump model."
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-10,10})));
+        origin={-90,70})));
   Modelica.Blocks.Sources.Sine sine(
     f=1/3600,
-    amplitude=heatPump.QUse_flow_nominal/2,
-    offset=heatPump.QUse_flow_nominal/2)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    amplitude=heaPum.QUse_flow_nominal/2,
+    offset=heaPum.QUse_flow_nominal/2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,90})));
-  Movers.FlowControlled_m_flow      pumSou(
-    m_flow_nominal=heatPump.mCon_flow_nominal,
+  Movers.FlowControlled_m_flow pumSou(
+    m_flow_nominal=heaPum.mCon_flow_nominal,
     redeclare final IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per,
     final allowFlowReversal=true,
     final addPowerToMedium=false,
-    redeclare final package Medium = Medium_sin,
+    redeclare final package Medium = MediumSin,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=heatPump.dpCon_nominal)
-    "Fan or pump at source side of HP" annotation (Placement(transformation(
+    dp_nominal=heaPum.dpCon_nominal) "Fan or pump at source side of HP"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={50,10})));
 
-  IBPSA.Fluid.MixingVolumes.MixingVolume Room(
+  MixingVolumes.MixingVolume dem(
     nPorts=2,
     final use_C_flow=false,
-    final m_flow_nominal=heatPump.mCon_flow_nominal,
+    final m_flow_nominal=heaPum.mCon_flow_nominal,
     final V=0.001,
     final allowFlowReversal=true,
-    redeclare package Medium = Medium_sin,
+    redeclare package Medium = MediumSin,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Volume of Condenser" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={90,-30})));
+    "Volume of demand"    annotation (Placement(transformation(extent={{-10,-10},
+            {10,10}}, rotation=270,
+        origin={90,-22})));
 
-  Modelica.Blocks.Sources.Constant nIn(k=heatPump.mCon_flow_nominal)
-                                              annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={30,30})));
+  Modelica.Blocks.Sources.Constant constMCon_flow(final k=heaPum.mCon_flow_nominal)
+      annotation (Placement(
+        transformation(extent={{10,-10},{-10,10}}, rotation=180,
+        origin={30,32})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatFlowRateCon
     "Heat flow rate of the condenser" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={90,8})));
-  Modelica.Blocks.Math.Product
-                            product1   annotation (Placement(transformation(
+  Modelica.Blocks.Math.Product product1   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,50})));
-  Modelica.Blocks.Logical.Not not2 "Negate output of hysteresis"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={10,90},
-        rotation=180)));
-  IBPSA.Fluid.Sources.Boundary_pT   sinkSideFixedBoundary(
-      redeclare package Medium = Medium_sin, nPorts=1)
-    "Fixed boundary at the outlet of the sink side" annotation (Placement(
-        transformation(
+  Modelica.Blocks.Logical.Not notHys "Negate output of hysteresis"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={10,90})));
+  IBPSA.Fluid.Sources.Boundary_pT sinSidFixBou(redeclare package Medium =
+        MediumSin, nPorts=1) "Fixed boundary at the outlet of the sink side"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={50,-30})));
@@ -163,13 +154,13 @@ model HeatPump "Example for the reversible heat pump model."
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,50})));
-  Modelica.Blocks.Logical.Hysteresis hysCooling(
+  Modelica.Blocks.Logical.Hysteresis hysCoo(
     pre_y_start=false,
     uLow=273.15 + 15,
     uHigh=273.15 + 19)
     annotation (Placement(transformation(extent={{40,58},{20,78}})));
   Modelica.Blocks.Sources.Pulse mSouStep(
-    amplitude=heatPump.mEva_flow_nominal,
+    amplitude=heaPum.mEva_flow_nominal,
     width=95,
     period=1800,
     startTime=0,
@@ -188,57 +179,62 @@ model HeatPump "Example for the reversible heat pump model."
         origin={-70,30})));
 equation
 
-  connect(sourceSideMassFlowSource.ports[1], heatPump.port_a2) annotation (Line(
-        points={{-40,-70},{-14.5,-70},{-14.5,-63}},         color={0,127,255}));
-  connect(Room.heatPort, heatFlowRateCon.port)
-    annotation (Line(points={{90,-20},{90,-2}},       color={191,0,0}));
+  connect(souSidSou.ports[1], heaPum.port_a2) annotation (Line(points={{-40,-70},
+          {-14.5,-70},{-14.5,-24}}, color={0,127,255}));
+  connect(dem.heatPort, heatFlowRateCon.port)
+    annotation (Line(points={{90,-12},{90,-2}},            color={191,0,0}));
   connect(heatFlowRateCon.Q_flow, product1.y)
     annotation (Line(points={{90,18},{90,39}}, color={0,0,127}));
-  connect(heatPump.port_b2, sourceSideFixedBoundary.ports[1]) annotation (Line(
-        points={{-14.5,-15},{-52,-15},{-52,-10},{-60,-10}},
-                                                      color={0,127,255}));
-  connect(Room.ports[1], pumSou.port_a) annotation (Line(points={{80,-29},{80,
-          -32},{66,-32},{66,10},{60,10}},
-                           color={0,127,255}));
-  connect(pumSou.port_b, heatPump.port_a1) annotation (Line(points={{40,10},{
-          14.5,10},{14.5,-15}}, color={0,127,255}));
-  connect(hysHeating.y, not2.u)
-    annotation (Line(points={{39,90},{22,90}},   color={255,0,255}));
-  connect(TsuSourceRamp.y, sourceSideMassFlowSource.T_in) annotation (Line(
-        points={{-79,-90},{-62,-90},{-62,-66}},           color={0,0,127},
-        smooth=Smooth.None));
-  connect(logicalSwitch.u1, not2.y) annotation (Line(points={{-18,62},{-18,90},
-          {-1,90}},          color={255,0,255}));
-  connect(hysCooling.y, logicalSwitch.u3) annotation (Line(points={{19,68},{-2,
-          68},{-2,62}},            color={255,0,255}));
-  connect(booleanModeSetStep.y, logicalSwitch.u2)
-    annotation (Line(points={{-59,70},{-10,70},{-10,62}}, color={255,0,255}));
+  connect(heaPum.port_b2, souSidFixBou.ports[1]) annotation (Line(points={{-14.5,
+          24},{-14.5,34},{-30,34},{-30,10}},
+                                        color={0,127,255}));
+  connect(dem.ports[1], pumSou.port_a) annotation (Line(points={{80,-21},{68,-21},
+          {68,-10},{66,-10},{66,10},{60,10}},
+                                     color={0,127,255}));
+  connect(pumSou.port_b, heaPum.port_a1)
+    annotation (Line(points={{40,10},{14.5,10},{14.5,24}}, color={0,127,255}));
+  connect(hysHea.y, notHys.u)
+    annotation (Line(points={{39,90},{22,90}}, color={255,0,255}));
+  connect(TSouRamp.y, souSidSou.T_in) annotation (Line(
+      points={{-79,-90},{-62,-90},{-62,-66}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(logicalSwitch.u1, notHys.y)
+    annotation (Line(points={{-18,62},{-18,90},{-1,90}}, color={255,0,255}));
+  connect(hysCoo.y, logicalSwitch.u3)
+    annotation (Line(points={{19,68},{-2,68},{-2,62}}, color={255,0,255}));
+  connect(booModeSetStep.y, logicalSwitch.u2)
+    annotation (Line(points={{-79,-10},{-54,-10},{-54,52},{-26,52},{-26,68},{-10,
+          68},{-10,62}},                               color={255,0,255}));
   connect(logicalSwitch.y, booleanToReal.u)
-    annotation (Line(points={{-10,39},{-10,22}},       color={255,0,255}));
-  connect(booleanModeSetStep.y, heatPump.modeSet) annotation (Line(points={{-59,
-          70},{-28,70},{-28,-11.16},{-21.75,-11.16}}, color={255,0,255}));
-  connect(booleanToReal.y, heatPump.ySet) annotation (Line(points={{-10,-1},{
-          -10,-4},{4.83333,-4},{4.83333,-11.16}},
-                               color={0,0,127}));
-  connect(mSouStep.y, sourceSideMassFlowSource.m_flow_in)
+    annotation (Line(points={{-10,39},{-10,38},{-50,38},{-50,88},{-90,88},{-90,82}},
+                                                       color={255,0,255}));
+  connect(booModeSetStep.y, heaPum.modeSet) annotation (Line(points={{-79,-10},{
+          -54,-10},{-54,32},{-28,32},{-28,34},{-21.75,34},{-21.75,27.84}},
+                                          color={255,0,255}));
+  connect(booleanToReal.y, heaPum.ySet) annotation (Line(points={{-90,59},{-90,50},
+          {-52,50},{-52,36},{-8,36},{-8,34},{4.83333,34},{4.83333,27.84}},
+                                         color={0,0,127}));
+  connect(mSouStep.y, souSidSou.m_flow_in)
     annotation (Line(points={{-79,-50},{-62,-50},{-62,-62}}, color={0,0,127}));
-  connect(heatPump.port_b1, Room.ports[2]) annotation (Line(points={{14.5,-63},
-          {14.5,-70},{66,-70},{66,-32},{80,-32},{80,-31}}, color={0,127,255}));
-  connect(sinkSideFixedBoundary.ports[1], pumSou.port_a) annotation (Line(
-        points={{50,-20},{50,-10},{66,-10},{66,10},{60,10}}, color={0,127,255}));
-  connect(heatFlowRateCon1.port, Room.heatPort) annotation (Line(points={{60,40},
-          {60,26},{78,26},{78,-20},{90,-20}}, color={191,0,0}));
-  connect(heatFlowRateCon1.T, hysCooling.u)
+  connect(heaPum.port_b1, dem.ports[2]) annotation (Line(points={{14.5,-24},{14.5,
+          -46},{70,-46},{70,-23},{80,-23}},           color={0,127,255}));
+  connect(sinSidFixBou.ports[1], pumSou.port_a) annotation (Line(points={{50,-20},
+          {50,-10},{66,-10},{66,10},{60,10}}, color={0,127,255}));
+  connect(heatFlowRateCon1.port, dem.heatPort) annotation (Line(points={{60,40},
+          {60,24},{76,24},{76,-6},{90,-6},{90,-12}},
+                                           color={191,0,0}));
+  connect(heatFlowRateCon1.T, hysCoo.u)
     annotation (Line(points={{60,61},{60,68},{42,68}}, color={0,0,127}));
-  connect(heatFlowRateCon1.T, hysHeating.u) annotation (Line(points={{60,61},{
-          60,70},{68,70},{68,90},{62,90}}, color={0,0,127}));
-  connect(nIn.y, pumSou.m_flow_in) annotation (Line(points={{41,30},{46,30},{46,
-          32},{50,32},{50,22}}, color={0,0,127}));
+  connect(heatFlowRateCon1.T, hysHea.u) annotation (Line(points={{60,61},{60,70},
+          {68,70},{68,90},{62,90}}, color={0,0,127}));
+  connect(constMCon_flow.y, pumSou.m_flow_in) annotation (Line(points={{41,32},{
+          41,28},{50,28},{50,22}},     color={0,0,127}));
   connect(product1.u1, sine.y) annotation (Line(points={{96,62},{96,70},{90,70},
           {90,79}}, color={0,0,127}));
-  connect(booleanModeSetStep.y, booleanToRealMode.u) annotation (Line(points={{
-          -59,70},{-54,70},{-54,48},{-90,48},{-90,30},{-82,30}}, color={255,0,
-          255}));
+  connect(booModeSetStep.y, booleanToRealMode.u) annotation (Line(points={{-79,-10},
+          {-54,-10},{-54,44},{-88,44},{-88,30},{-82,30}},
+                                                        color={255,0,255}));
   connect(booleanToRealMode.y, product1.u2) annotation (Line(points={{-59,30},{
           10,30},{10,52},{58,52},{58,62},{84,62}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -246,21 +242,15 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/HeatPump.mos"
         "Simulate and plot"),
-    Documentation(info="<html><h4>Overview</h4>
-<p>
-  Simple test set-up for the HeatPumpDetailed model. The heat pump is
-  turned on and off while the source temperature increases linearly.
-  Outputs are the electric power consumption of the heat pump and the
-  supply temperature.
-</p>
-<p>
-  Besides using the default simple table data, the user should also
-  test tabulated data from <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData\">IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData</a> or
-  polynomial functions.
-</p>
+    Documentation(info="<html>
+<p>  Example for the reversible heat pump model</p>
 </html>",
       revisions="<html><ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adjusted based on the discussion in this issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
   <li>
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
@@ -273,6 +263,5 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPump
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,80}})));
+</html>"));
 end HeatPump;

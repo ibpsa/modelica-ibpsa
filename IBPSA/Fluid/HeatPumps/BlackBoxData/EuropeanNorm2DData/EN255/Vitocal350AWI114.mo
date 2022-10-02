@@ -19,5 +19,13 @@ record Vitocal350AWI114 "Vitocal 350 AWI 114"
 
   annotation (Documentation(info="<html>
 <p>Data for VitoCal350 air-to-water heat pump, around 11 kW </p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end Vitocal350AWI114;

@@ -10,6 +10,16 @@ record AlphaInnotec_SW170I "Alpha Innotec SW 170 I"
     tableUppBou=[-22,65; 45,65]);
 
   annotation (Documentation(info="<html>
-<p>Data for a brine-to-water heat pump of Alpha Innotec. Data according to: <a href=\"https://www.forum-hausbau.de/data/PruefResSW090923.pdf\">https://www.forum-hausbau.de/data/PruefResSW090923.pdf</a></p>
+  <p>Data for a brine-to-water heat pump of Alpha Innotec. 
+  Data according to: <a href=\"https://www.forum-hausbau.de/data/PruefResSW090923.pdf\">
+  https://www.forum-hausbau.de/data/PruefResSW090923.pdf</a></p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end AlphaInnotec_SW170I;

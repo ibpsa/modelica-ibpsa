@@ -5,9 +5,10 @@ function CarnotFunction
     IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct;
   parameter Modelica.Units.SI.Power Pel_nominal=2000
     "Constant nominal electric power";
-  parameter Real etaCarnot_nominal(unit="1") = 0.5
-      "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
-      annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
+  parameter Real etaCar_nominal(unit="1") = 0.5
+  "Carnot effectiveness (=COP/COP_Carnot) 
+    used if use_eta_Carnot_nominal = true"
+    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
 
   parameter Real a[:] = {1}
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
@@ -15,13 +16,16 @@ function CarnotFunction
 protected
   Modelica.Units.SI.Power Pel;
   Real COP;
-  Real COP_carnot;
+  Real COPCarnot;
   Real etaPartLoad = IBPSA.Utilities.Math.Functions.polynomial(a=a, x=N);
 algorithm
-  assert(abs(T_con - T_eva)>Modelica.Constants.eps, "Temperatures have to differ to calculate the Carnot efficiency", AssertionLevel.warning);
-  COP_carnot :=T_con/(T_con - T_eva);
+  assert(
+    abs(TConOut - TEvaIn) > Modelica.Constants.eps,
+    "Temperatures have to differ to calculate the Carnot efficiency",
+    AssertionLevel.warning);
+  COPCarnot := TConOut/(TConOut - TEvaIn);
   Pel :=Pel_nominal*N;
-  COP :=etaCarnot_nominal*etaPartLoad*COP_carnot;
+  COP :=etaCar_nominal*etaPartLoad*COPCarnot;
   Char[1] :=Pel;
   Char[2] :=COP*Pel;
   annotation (Documentation(revisions="<html><ul>
@@ -34,7 +38,8 @@ algorithm
 </html>", info="<html>
 <p>
   This function emulates the Carnot model (<a href=
-  \"modelica://IBPSA.Fluid.Chillers.BaseClasses.Carnot\">IBPSA.Fluid.Chillers.BaseClasses.Carnot</a>).
+  \"modelica://IBPSA.Fluid.Chillers.BaseClasses.Carnot\">
+  IBPSA.Fluid.Chillers.BaseClasses.Carnot</a>).
   See this description for more info on assumptions etc.
 </p>
 </html>"));

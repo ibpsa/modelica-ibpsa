@@ -1,54 +1,61 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
-partial model PartialInnerCycle
-  "Blackbox model of refrigerant cycle of a vapour compression machine (heat pump or chiller)"
+partial model PartialBlackBoxVapourCompressionCycle
+  "Blackbox model of refrigerant cycle of a vapour compression machine"
 
-  parameter Boolean use_rev=true "True if the vapour compression machine is reversible";
+  parameter Boolean use_rev=true
+    "True if the vapour compression machine is reversible";
+
   IBPSA.Fluid.Interfaces.VapourCompressionMachineControlBus sigBus annotation (
       Placement(transformation(extent={{-18,86},{18,118}}), iconTransformation(
           extent={{-16,88},{18,118}})));
   Modelica.Blocks.Sources.Constant constZero(final k=0) if not use_rev
     "If no heating is used, the switches may still be connected"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    final unit="W", final displayUnit="kW")
     "Heat Flow to condenser"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    final unit="W", final displayUnit="kW")
     "Heat flow from evaporator"
     annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
-  Modelica.Blocks.Logical.Switch       switchQEva(
-    u1(unit="W", displayUnit="kW"),
-    u3(unit="W", displayUnit="kW"),
-    y(unit="W", displayUnit="kW"))
+  Modelica.Blocks.Logical.Switch switchQEva(
+    u1(final unit="W", final displayUnit="kW"),
+    u3(final unit="W", final displayUnit="kW"),
+    y(final unit="W", final displayUnit="kW"))
     "If mode is false, Condenser becomes Evaporator and vice versa"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  Modelica.Blocks.Logical.Switch       switchQCon(
-    y(unit="W", displayUnit="kW"),
-    u1(unit="W", displayUnit="kW"),
-    u3(unit="W", displayUnit="kW"))
+  Modelica.Blocks.Logical.Switch switchQCon(
+    y(final unit="W", final displayUnit="kW"),
+    u1(final unit="W", final displayUnit="kW"),
+    u3(final unit="W", final displayUnit="kW"))
     "If mode is false, Condenser becomes Evaporator and vice versa"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput Pel(unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput Pel(
+    final unit="W", final displayUnit="kW")
     "Electrical power consumed by compressor" annotation (Placement(
         transformation(
         extent={{-10.5,-10.5},{10.5,10.5}},
         rotation=-90,
         origin={0.5,-110.5})));
 
-  Modelica.Blocks.Logical.Switch       switchPel(
-    u1(unit="W", displayUnit="kW"),
-    u3(unit="W", displayUnit="kW"),
-    y(unit="W", displayUnit="kW"))
+  Modelica.Blocks.Logical.Switch switchPel(
+    u1(final unit="W", final displayUnit="kW"),
+    u3(final unit="W", final displayUnit="kW"),
+    y(final unit="W", final displayUnit="kW"))
     "Whether to use cooling or heating power consumption" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-70})));
-
-  Modelica.Blocks.Routing.BooleanPassThrough modeSetAssert
+protected
+  Modelica.Blocks.Routing.BooleanPassThrough pasTrModSet
     "Pass through to enable assertion for non-reversible device";
 equation
-  assert(use_rev or (use_rev == false and modeSetAssert.y == true),
-    "Can't turn to reversible operation mode on irreversible vapour compression machine",
+  assert(
+    use_rev or (use_rev == false and pasTrModSet.y == true),
+    "Can't turn to reversible operation mode on 
+    irreversible vapour compression machine",
     level=AssertionLevel.error);
 
   connect(switchQEva.y, QEva_flow)
@@ -73,7 +80,7 @@ equation
       points={{0,102},{0,0},{58,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(modeSetAssert.u, sigBus.modeSet);
+  connect(pasTrModSet.u, sigBus.modeSet);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -141,6 +148,11 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adjusted based on the discussion in this issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <li>
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the vapour compression machine
     partial model (see issue <a href=
@@ -159,7 +171,8 @@ equation
   IBPSA.Fluid.Chiller.Chiller, this model serves the simulation of a
   reversible vapour compression machine. Thus, data both of chillers
   and heat pumps can be used to calculate the three relevant values
-  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. The <code>mode</code> of the machine is used to
+  <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. 
+  The <code>mode</code> of the machine is used to
   switch between the performance data of the chiller and the heat pump.
 </p>
 <p>
@@ -169,4 +182,4 @@ equation
   IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model.
 </p>
 </html>"));
-end PartialInnerCycle;
+end PartialBlackBoxVapourCompressionCycle;

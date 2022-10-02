@@ -9,12 +9,18 @@ function PolynomalApproach
     "Polynomal coefficient for the condenser heat flow";
 
 protected
-  Real TEva_n = T_eva/273.15 + 1 "Normalized evaporator temperature";
-  Real TCon_n = T_con/273.15 + 1 "Normalized condenser temperature";
+  Real TEva_normalized=TEvaIn/273.15 + 1 "Normalized evaporator temperature";
+  Real TCon_normalized=TConOut/273.15 + 1 "Normalized condenser temperature";
 algorithm
   if N >= Modelica.Constants.eps then
-    Char[1] := p[1] + p[2]*TEva_n + p[3]*TCon_n + p[4]*TCon_n*TEva_n + p[5]*TEva_n^2 + p[6]*TCon_n^2; //Pel
-    Char[2] := q[1] + q[2]*TEva_n + q[3]*TCon_n + q[4]*TCon_n*TEva_n + q[5]*TEva_n^2 + q[6]*TCon_n^2; //QCon
+    //Pel
+    Char[1] :=p[1] + p[2]*TEva_normalized + p[3]*TCon_normalized + p[4]*
+      TCon_normalized*TEva_normalized + p[5]*TEva_normalized^2 + p[6]*
+      TCon_normalized^2;
+    //QCon
+    Char[2] :=q[1] + q[2]*TEva_normalized + q[3]*TCon_normalized + q[4]*
+      TCon_normalized*TEva_normalized + q[5]*TEva_normalized^2 + q[6]*
+      TCon_normalized^2;
   else //Maybe something better could be used such as smooth()
     Char[1] := 0;
     Char[2] := 0;
@@ -44,7 +50,8 @@ algorithm
 <p>
   The coefficients for the polynomal functions are stored inside the
   record for heat pumps in <a href=
-  \"modelica://IIBPSA.Fluid.HeatPumps.BlackBoxData.Functions\">IBPSA.Fluid.HeatPumps.BlackBoxData.Functions</a>.
+  \"modelica://IIBPSA.Fluid.HeatPumps.BlackBoxData.Functions\">
+  IBPSA.Fluid.HeatPumps.BlackBoxData.Functions</a>.
 </p>
 <p>
   [1]: https://www.trnsys.de/download/en/ts_type_401_en.pdf

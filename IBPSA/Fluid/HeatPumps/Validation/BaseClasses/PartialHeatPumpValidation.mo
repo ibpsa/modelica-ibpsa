@@ -25,9 +25,9 @@ partial model PartialHeatPumpValidation
         rotation=0,
         origin={-31,11})));
   IBPSA.Fluid.HeatPumps.HeatPump heaPum(
-    redeclare package Medium_con = MediumSin,
-    redeclare package Medium_eva = MediumSou,
-    QUse_flow_nominal=heaPum.innerCycle.blaBoxHeaPumHea.QUseBlackBox_flow_nominal,
+    redeclare package MediumCon = MediumSin,
+    redeclare package MediumEva = MediumSou,
+    QUse_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.QUseBlaBox_flow_nominal,
     y_nominal=1,
     final use_safetyControl=false,
     final use_busConnectorOnly=false,

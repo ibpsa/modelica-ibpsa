@@ -1,7 +1,10 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
 block SenTempInflow "Custom block to measure instream fluid temperature"
 
-  Modelica.Blocks.Interfaces.RealOutput y(unit="K", displayUnit="degC") "Inflow temperature"
+  Modelica.Blocks.Interfaces.RealOutput y(
+    final unit="K",
+    final displayUnit="degC")
+    "Inflow temperature"
     annotation (Dialog(group="Time varying output signal"), Placement(
         transformation(extent={{100,-10},{120,10}})));
 
@@ -20,16 +23,18 @@ block SenTempInflow "Custom block to measure instream fluid temperature"
           extent={{-150,90},{150,50}},
           textString="%name",
           textColor={0,0,255})}), Documentation(info="<html>
-<p>
-The (time varying) Real output signal of this block can be defined in its
-parameter menu via variable <strong>y</strong>. The purpose is to support the
-easy definition of Real expressions in a block diagram. For example,
-in the y-menu the definition \"if time &lt; 1 then 0 else 1\" can be given in order
-to define that the output signal is one, if time &ge; 1 and otherwise
-it is zero. Note, that \"time\" is a built-in variable that is always
-accessible and represents the \"model time\" and that
-variable <strong>y</strong> is both a variable and a connector.
-</p>
+<p>Duplicate of 
+<a href=\"modelica://Modelica.Blocks.Sources.RealExpression\">
+Modelica.Blocks.Sources.RealExpression</a> adding unit Kelvin to the output.</p>
+<p>Used to output a temperature measurement by evaluating 
+the port temperature directly.</p>
+</html>", revisions="<html><ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</ul>
 </html>"));
 
 end SenTempInflow;

@@ -13,5 +13,13 @@ record Ochsner_GMLW_19plus "Ochsner GMLW 19 plus"
 
   annotation (Documentation(info="<html>
 <p>Data for the Ochsner GMLW 19 plus air-to-water device </p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end Ochsner_GMLW_19plus;

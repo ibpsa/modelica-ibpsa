@@ -3,20 +3,25 @@ model FunctionalApproach
   "Estimate the frosting supression using a function"
   extends BaseClasses.PartialIceFac;
 
-  replaceable function iceFunc =
+  replaceable function iceFacFun =
       IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct "Replaceable function to calculate current icing factor" annotation(choicesAllMatching=true);
+    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct
+    "Replaceable function to calculate current icing factor"
+    annotation(choicesAllMatching=true);
 
-  Modelica.Blocks.Routing.RealPassThrough passThroughTEvaIn;
-  Modelica.Blocks.Routing.RealPassThrough passThroughTEvaOut;
-  Modelica.Blocks.Routing.RealPassThrough passThroughMFlowEva;
+  Modelica.Blocks.Routing.RealPassThrough pasThrTEvaIn;
+  Modelica.Blocks.Routing.RealPassThrough pasThrTEvaOut;
+  Modelica.Blocks.Routing.RealPassThrough pasThrMFlowEva;
 
 equation
-  iceFac = iceFunc(passThroughTEvaIn.y, passThroughTEvaOut.y, passThroughMFlowEva.y);
-  connect(passThroughTEvaOut.u, sigBus.TEvaOutMea);
-  connect(passThroughTEvaIn.u, sigBus.TEvaInMea);
-  connect(passThroughMFlowEva.u, sigBus.m_flowEvaMea);
+  iceFac =iceFacFun(
+    pasThrTEvaIn.y,
+    pasThrTEvaOut.y,
+    pasThrMFlowEva.y);
+  connect(pasThrTEvaOut.u, sigBus.TEvaOutMea);
+  connect(pasThrTEvaIn.u, sigBus.TEvaInMea);
+  connect(pasThrMFlowEva.u, sigBus.m_flowEvaMea);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-151,147},{149,107}},

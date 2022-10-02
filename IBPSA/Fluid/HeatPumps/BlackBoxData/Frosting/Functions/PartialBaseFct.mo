@@ -7,7 +7,9 @@ partial function PartialBaseFct "Base function for all icing factor functions"
     "Evaporator return temperature";
   input Modelica.Units.SI.MassFlowRate mEva_flow
     "Mass flow rate at the evaporator";
-  output Real iceFac(min=0, max=1) "Efficiency factor (0..1) to estimate influence of icing. 0 means no heat is transferred through heat exchanger (fully frozen). 1 means no icing/frosting.";
+  output Real iceFac(min=0, max=1)
+    "Efficiency factor to estimate influence 
+    of icing (0: full icing, 1: no icing)";
 
   annotation (Documentation(revisions="<html><ul>
   <li>

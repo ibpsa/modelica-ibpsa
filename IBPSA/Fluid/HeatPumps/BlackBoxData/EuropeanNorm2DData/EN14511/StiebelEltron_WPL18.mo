@@ -14,5 +14,13 @@ record StiebelEltron_WPL18 "Stiebel Eltron WPL 18"
 
   annotation (Documentation(info="<html>
 <p>Data for a Stiebel Eltron WPL18 air-to-water heat pump </p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
 </html>"));
 end StiebelEltron_WPL18;

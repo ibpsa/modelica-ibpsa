@@ -5,8 +5,8 @@ model NoCooling
     redeclare final IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
       iceFacCalc,
     datSou="",
-    QUseBlackBox_flow_nominal=0,
-    scalingFactor=0,
+    QUseBlaBox_flow_nominal=0,
+    scaFac=0,
     y_nominal=0,
     mEva_flow_nominal=1,
     mCon_flow_nominal=1,
@@ -28,6 +28,14 @@ equation
   connect(const.y, Pel)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>Model to use to avoid warnings about partial model must be replaced. Using this model, the chiller will always be off.</p>
+  <p>Model to use to avoid warnings about partial model must be replaced. 
+  Using this model, the chiller will always be off.</p>
+</html>", revisions="<html><ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</ul>
 </html>"));
 end NoCooling;

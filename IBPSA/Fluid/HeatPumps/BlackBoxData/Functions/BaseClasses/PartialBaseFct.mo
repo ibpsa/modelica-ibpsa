@@ -3,10 +3,10 @@ partial function PartialBaseFct
   "Base class for Cycle Characteristic"
   extends Modelica.Icons.Function;
   input Real N "Relative compressor speed";
-  input Real T_con "Condenser outlet temperature";
-  input Real T_eva "Evaporator inlet temperature";
-  input Real mFlow_eva "Mass flow rate at evaporator";
-  input Real mFlow_con "Mass flow rate at condenser";
+  input Modelica.Units.SI.Temperature TConOut "Condenser outlet temperature";
+  input Modelica.Units.SI.Temperature TEvaIn "Evaporator inlet temperature";
+  input Modelica.Units.SI.MassFlowRate mEva_flow "Mass flow rate at evaporator";
+  input Modelica.Units.SI.MassFlowRate mCon_flow "Mass flow rate at condenser";
   output Real Char[2] "Array with [Pel, QCon]";
 
   annotation (Documentation(info="<html><p>

@@ -15,15 +15,14 @@ record Vitocal200AWO201
     tableUppBou=[-20,50; -10,60; 30,60; 35,55]);
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html><p>
   Data record for type AWO-M/AWO-M-E-AC 201.A04,
   obtained from the technical guide in the UK.
 </p>
+</html>", revisions="<html>
 <ul>
   <li>
-    <i>November 26, 2018 </i> by Fabian Wuellhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>

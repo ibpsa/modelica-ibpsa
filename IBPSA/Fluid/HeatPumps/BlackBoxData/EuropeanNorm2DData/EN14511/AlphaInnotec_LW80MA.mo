@@ -14,6 +14,16 @@ record AlphaInnotec_LW80MA "Alpha Innotec LW 80 M-A"
 
   annotation (Documentation(info="<html>
 <p>Data for air-to-water heat pump Alpha Innotec LW 80 M-A.</p>
-<p>Operational envelope data is not from the data table, as it is not given. Instead, default values are used.</p>
-</html>"));
+<p>Operational envelope data is not from the data table, as it 
+is not given. Instead, default values are used.</p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
+</html>
+"));
 end AlphaInnotec_LW80MA;

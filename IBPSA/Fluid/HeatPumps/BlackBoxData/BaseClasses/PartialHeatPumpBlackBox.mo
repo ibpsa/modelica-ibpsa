@@ -10,6 +10,14 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
-<p>Partial model for calculation of electrical power P_el, condenser heat flow QCon and evaporator heat flow QEva based on the values in the sigBus for a heat pump.</p>
+  <p>Partial black box data for heat pumps. Specifies <code>iceFacHPMea</code>
+  in addition to basic equations.</p>
+</html>", revisions="<html><ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</ul>
 </html>"));
 end PartialHeatPumpBlackBox;

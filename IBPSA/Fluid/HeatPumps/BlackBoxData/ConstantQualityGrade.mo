@@ -2,22 +2,23 @@ within IBPSA.Fluid.HeatPumps.BlackBoxData;
 model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
-      QUseBlackBox_flow_nominal=QUse_flow_nominal, datSou=
-        "ConstantQualityGradeCarnot");
-  parameter Real qualityGrade=0.3 "Constant quality grade";
-  final parameter Modelica.Units.SI.Power PEl_nominal = QUse_flow_nominal / (qualityGrade * TCon_nominal * y_nominal)  * (TCon_nominal - TEva_nominal);
-  Modelica.Blocks.Sources.Constant constPel(final k=PEl_nominal*
-        scalingFactor) annotation (Placement(transformation(
+      QUseBlaBox_flow_nominal=QUse_flow_nominal,
+      datSou="ConstantQualityGradeCarnot");
+  parameter Real quaGra=0.3 "Constant quality grade";
+  final parameter Modelica.Units.SI.Power PEl_nominal=QUse_flow_nominal/(quaGra
+      *TCon_nominal*y_nominal)*(TCon_nominal - TEva_nominal);
+  Modelica.Blocks.Sources.Constant constPel(final k=PEl_nominal*scaFac)
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,90})));
-  Modelica.Blocks.Logical.Switch        switchPel
+  Modelica.Blocks.Logical.Switch switchPel
     "If HP is off, no heat will be exchanged" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,10})));
-  Modelica.Blocks.Logical.Switch        switchQCon
+  Modelica.Blocks.Logical.Switch switchQCon
     "If HP is off, no heat will be exchanged" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -30,13 +31,12 @@ model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
         rotation=90,
         origin={-10,10})));
 
-
   Modelica.Blocks.Math.MultiProduct multiProduct(nu=3) annotation (Placement(
         transformation(
         extent={{-11,-11},{11,11}},
         rotation=270,
         origin={-49,71})));
-  Modelica.Blocks.Sources.Constant constEta(final k=qualityGrade) annotation (
+  Modelica.Blocks.Sources.Constant constEta(final k=quaGra) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -128,16 +128,19 @@ equation
           {-66,22},{-58,22}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li>
 </ul>
 </html>", info="<html>
 <p>This model uses a constant quality grade approach to model the efficiency of the heat pump.</p>
-<p>According to the defined QUse_flow_nominal, the heat pump supplies it&apos;s heat. </p>
+<p>According to the defined <code>QUse_flow_nominal</code>, the heat pump supplies its heat. </p>
 <p>The following equations are used:</p>
-<p><img src=\"modelica://IBPSA/Resources/Images/equations/equation-kDbLGklc.png\" alt=\"Q_Con = P_elNominal * eta_QualityGrade * y_Set * T_ConOutMea / (T_ConOutMea - T_EvaInMea)\"/></p>
+<p><br><br><img src=\"modelica://IBPSA/Resources/Images/equations/equation-kDbLGklc.png\" alt=\"Q_Con = P_elNominal * eta_QualityGrade * y_Set * T_ConOutMea / (T_ConOutMea - T_EvaInMea)\"/></p>
 <p><img src=\"modelica://IBPSA/Resources/Images/equations/equation-d0dh1QDk.png\" alt=\"P_elNominal = Q_UseNominal / (eta_QualityGrade * T_ConNominal * y_nominal ) * (T_ConNominal - T_EvaNominal)\"/></p>
-</html>"));
+</html>"), Icon(graphics={Text(
+          extent={{-78,80},{74,-66}},
+          textColor={0,0,127},
+          textString="Carnot")}));
 end ConstantQualityGrade;
