@@ -2,60 +2,88 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 partial block BoundaryMapIcon "PartialModel for the icon of a boundary map"
 
   parameter Boolean use_opeEnvFroRec=true
-    "Use a the operational envelope given in the datasheet" annotation(Dialog(tab="Safety Control", group="Operational Envelope"),choices(checkBox=true));
-  parameter
-    IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition
-    dataTable "Data Table of HP" annotation (choicesAllMatching=true, Dialog(
-      tab="Safety Control",
-      group="Operational Envelope",
-      enable=use_opeEnvFroRec));
-  parameter Real tableUpp[:,2] "Table matrix (grid = first column; e.g., table=[0,2])"
-    annotation (Dialog(tab="Safety Control", group="Operational Envelope", enable=not use_opeEnvFroRec));
-  parameter Real iconMin=-70
+    "Use a the operational envelope given in the datasheet"
+    annotation (
+      Dialog(tab="Safety Control", group="Operational Envelope"),
+      choices(checkBox=true));
+  parameter BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab
+    "Data Table of HP"
+      annotation (
+        choicesAllMatching=true,
+        Dialog(
+          tab="Safety Control",
+          group="Operational Envelope",
+          enable=use_opeEnvFroRec));
+  parameter Real tabUpp[:,2]
+    "Table matrix (grid = first column; e.g., table=[0,2])"
+    annotation (
+      Dialog(
+        tab="Safety Control", group="Operational Envelope",
+        enable=not use_opeEnvFroRec));
+  parameter Real icoMin=-70
     "Used to set the frame where the icon should appear"
     annotation (Dialog(tab="Dynamic Icon"));
-  parameter Real iconMax = 70
-    "Used to set the frame where the icon should appear"
+  parameter Real icoMax=70 "Used to set the frame where the icon should appear"
     annotation (Dialog(tab="Dynamic Icon"));
 protected
-  parameter Real tableUpp_internal[:,2] = if use_opeEnvFroRec then dataTable.tableUppBou else tableUpp;
-  parameter Real xMax=tableUpp_internal[end, 1]
+  parameter Real tabUpp_internal[:,2]=if use_opeEnvFroRec then datTab.tableUppBou
+       else tabUpp;
+  parameter Real xMax=tabUpp_internal[end, 1]
     "Maximal value of lower and upper table data";
-  parameter Real xMin=tableUpp_internal[1, 1]
+  parameter Real xMin=tabUpp_internal[1, 1]
     "Minimal value of lower and upper table data";
-  parameter Real yMax=max(tableUpp_internal[:, 2])
+  parameter Real yMax=max(tabUpp_internal[:, 2])
     "Maximal value of lower and upper table data";
   parameter Real yMin=0
     "Minimal value of lower and upper table data";
-  final Real[size(scaledX, 1), 2] points=transpose({unScaledX,unScaledY}) annotation(Hide=false);
-  Real tableMerge[:,2] = tableUpp_internal;
-  input Real scaledX[:] = tableMerge[:,1];
-  input Real scaledY[:] = tableMerge[:,2];
-  Real unScaledX[size(scaledX, 1)](each min=-100, each max=100) = (scaledX - fill(xMin, size(scaledX, 1)))*(iconMax-iconMin)/(xMax - xMin) + fill(iconMin, size(scaledX,1));
-  Real unScaledY[size(scaledX, 1)](each min=-100, each max=100) = (scaledY - fill(yMin, size(scaledY, 1)))*(iconMax-iconMin)/(yMax - yMin) + fill(iconMin, size(scaledY,1));
+  final Real[size(scaX, 1),2] points=transpose({unScaX,unScaY})
+    annotation (Hide=false);
+  Real tabMer[:,2]=tabUpp_internal;
+  input Real scaX[:]=tabMer[:, 1];
+  input Real scaY[:]=tabMer[:, 2];
+  Real unScaX[size(scaX, 1)](
+    each min=-100,
+    each max=100) = (scaX - fill(xMin, size(scaX, 1)))*(icoMax - icoMin)/
+    (xMax - xMin) + fill(icoMin, size(scaX, 1));
+  Real unScaY[size(scaX, 1)](
+    each min=-100,
+    each max=100) = (scaY - fill(yMin, size(scaY, 1)))*(icoMax - icoMin)/
+    (yMax - yMin) + fill(icoMin, size(scaY, 1));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),                                        graphics={
-        Rectangle(
-          extent={{iconMin-25,iconMax+25},{iconMax+25,iconMin-25}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Line(points=DynamicSelect({{-66,-66},{-66,50},{-44,66},
-              {68,66},{68,-66},{-66,-66}},points),                          color={238,46,47},
-          thickness=0.5),
-        Polygon(
-          points={{iconMin-20,iconMax},{iconMin-20,iconMax},{iconMin-10,iconMax},{iconMin-15,iconMax+20}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{iconMax+20,iconMin-10},{iconMax,iconMin-4},{iconMax,iconMin-16},{iconMax+20,iconMin-10}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Line(points={{iconMin-15,iconMax},{iconMin-15,iconMin-15}}, color={95,95,95}),
-        Line(points={{iconMin-20,iconMin-10},{iconMax+10,iconMin-10}}, color={95,95,95})}), coordinateSystem(preserveAspectRatio=false), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(
+    coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{100,100}}), graphics={
+                                Rectangle(
+        extent={{-100,-100},{100,100}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
+                                    Line(points=DynamicSelect(
+      {{-66,-66},{-66,50},{-44,66}, {68,66},{68,-66},{-66,-66}},points),
+      color={238,46,47},
+      thickness=0.5),
+  Polygon(
+    points={{icoMin-20,icoMax},{icoMin-20,icoMax},
+            {icoMin-10,icoMax},{icoMin-15,icoMax+20}},
+    lineColor={95,95,95},
+    fillColor={95,95,95},
+    fillPattern=FillPattern.Solid),
+  Polygon(
+    points={{icoMax+20,icoMin-10},{icoMax,icoMin-4},
+            {icoMax,icoMin-16},{icoMax+20,icoMin-10}},
+    lineColor={95,95,95},
+    fillColor={95,95,95},
+    fillPattern=FillPattern.Solid),
+  Line(points={{icoMin-15,icoMax},
+              {icoMin-15,icoMin-15}}, color={95,95,95}),
+  Line(points={{icoMin-20,icoMin-10},
+              {icoMax+10,icoMin-10}}, color={95,95,95}),
+        Text(
+          extent={{-147,135},{153,95}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),
     Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>

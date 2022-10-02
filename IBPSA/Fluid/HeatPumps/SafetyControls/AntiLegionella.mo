@@ -6,18 +6,18 @@ model AntiLegionella "Control to avoid Legionella in the DHW"
 
   parameter Modelica.Units.SI.Time minTimeAntLeg
     "Minimal duration of antilegionella control";
-  parameter Boolean weekly=true
-    "Switch between a daily or weekly trigger approach" annotation(Dialog(descriptionLabel=true), choices(choice=true "Weekly",
+  parameter Boolean use_wee=true
+    "Switch between a daily or weekly trigger approach"
+    annotation(Dialog(descriptionLabel=true), choices(choice=true "Weekly",
       choice=false "Daily",
       radioButtons=true));
   parameter Integer trigWeekDay "Day of the week at which control is triggered"
-    annotation (Dialog(enable=weekly));
+    annotation (Dialog(enable=use_wee));
   parameter Integer trigHour "Hour of the day at which control is triggered";
   parameter IBPSA.Utilities.Time.Types.ZeroTime zerTim
     "Enumeration for choosing how reference time (time = 0) should be defined";
   parameter Integer yearRef=2016 "Year when time = 0, used if zerTim=Custom";
-  Modelica.Blocks.Logical.GreaterEqual
-                               TConLessTLegMin
+  Modelica.Blocks.Logical.GreaterEqual TConLesTLegMin
     "Compare if current TCon is smaller than the minimal TLeg"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Logical.Switch       switchTLeg
@@ -32,32 +32,32 @@ model AntiLegionella "Control to avoid Legionella in the DHW"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Logical.Timer timeAntiLeg "Time in which legionella will die"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Logical.GreaterThreshold
-                               greaterThreshold(final threshold=minTimeAntLeg)
+  Modelica.Blocks.Logical.GreaterThreshold greThr(final threshold=minTimeAntLeg)
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Modelica.Blocks.Interfaces.RealInput TSet_in "Input of TSet"
     annotation (Placement(transformation(extent={{-140,64},{-100,104}})));
   Modelica.Blocks.Logical.Pre pre1
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   IBPSA.Utilities.Time.DaytimeSwitch daytimeSwitch(
-    final hourDay=trigHour,
+    use_wee=use_wee,
+    final houDay=trigHour,
     final zerTim=zerTim,
     final yearRef=yearRef,
-    final weekDay=trigWeekDay)
+    final weeDay=trigWeekDay)
     "If given day and hour match the current daytime, output will be true"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,30})));
-  Modelica.Blocks.MathInteger.TriggeredAdd triggeredAdd(use_reset=true, use_set=
-       false,
-    y_start=0)
-              "See info of model for description"
+  Modelica.Blocks.MathInteger.TriggeredAdd triAdd(
+    use_reset=true,
+    use_set=false,
+    y_start=0) "See info of model for description"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.IntegerConstant intConPluOne(final k=1)
     "Value for counting"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Logical.LessThreshold    lessThreshold(final threshold=1)
+  Modelica.Blocks.Logical.LessThreshold lesThr(final threshold=1)
     "Checks if value is less than one"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Math.IntegerToReal intToReal "Converts Integer to Real"
@@ -66,8 +66,8 @@ model AntiLegionella "Control to avoid Legionella in the DHW"
     "Input of actual supply temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 equation
-  connect(constTLegMin.y, TConLessTLegMin.u2) annotation (Line(points={{-79,-90},
-          {-74,-90},{-74,-78},{-62,-78}},   color={0,0,127}));
+  connect(constTLegMin.y, TConLesTLegMin.u2) annotation (Line(points={{-79,-90},
+          {-74,-90},{-74,-78},{-62,-78}}, color={0,0,127}));
   connect(switchTLeg.y, TSet_out)
     annotation (Line(points={{81,80},{114,80}},             color={0,0,127}));
   connect(TSet_in, switchTLeg.u1) annotation (Line(points={{-120,84},{-30,84},{
@@ -77,28 +77,24 @@ equation
                                       color={0,0,127}));
   connect(timeAntiLeg.u, pre1.y)
     annotation (Line(points={{18,-70},{1,-70}},  color={255,0,255}));
-  connect(TConLessTLegMin.y, pre1.u)
-    annotation (Line(points={{-39,-70},{-22,-70}},
-                                                 color={255,0,255}));
-  connect(lessThreshold.y, switchTLeg.u2) annotation (Line(points={{41,50},{48,
-          50},{48,80},{58,80}},   color={255,0,255}));
-  connect(intToReal.y, lessThreshold.u) annotation (Line(points={{1,50},{18,50}},
-                                color={0,0,127}));
-  connect(intConPluOne.y, triggeredAdd.u)
-    annotation (Line(points={{-79,70},{-74,70},{-74,50},{-64,50}},
-                                                     color={255,127,0}));
-  connect(intToReal.u, triggeredAdd.y)
-    annotation (Line(points={{-22,50},{-38,50}},  color={255,127,0}));
-  connect(greaterThreshold.y, triggeredAdd.reset) annotation (Line(points={{81,-70},
-          {86,-70},{86,32},{-44,32},{-44,38}},           color={255,0,255}));
-  connect(TSupAct, TConLessTLegMin.u1)
-    annotation (Line(points={{-120,0},{-70,0},{-70,-70},{-62,-70}},
-                                                color={0,0,127}));
-  connect(daytimeSwitch.isDaytime, triggeredAdd.trigger) annotation (Line(
-        points={{-79,30},{-56,30},{-56,38}},               color={255,0,255}));
-  connect(timeAntiLeg.y, greaterThreshold.u)
-    annotation (Line(points={{41,-70},{58,-70}},
-                                              color={0,0,127}));
+  connect(TConLesTLegMin.y, pre1.u)
+    annotation (Line(points={{-39,-70},{-22,-70}}, color={255,0,255}));
+  connect(lesThr.y, switchTLeg.u2) annotation (Line(points={{41,50},{48,50},{48,
+          80},{58,80}}, color={255,0,255}));
+  connect(intToReal.y, lesThr.u)
+    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
+  connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-79,70},{-74,70},{
+          -74,50},{-64,50}}, color={255,127,0}));
+  connect(intToReal.u, triAdd.y)
+    annotation (Line(points={{-22,50},{-38,50}}, color={255,127,0}));
+  connect(greThr.y, triAdd.reset) annotation (Line(points={{81,-70},{86,-70},{86,
+          32},{-44,32},{-44,38}}, color={255,0,255}));
+  connect(TSupAct, TConLesTLegMin.u1) annotation (Line(points={{-120,0},{-70,0},
+          {-70,-70},{-62,-70}}, color={0,0,127}));
+  connect(daytimeSwitch.isDayTim, triAdd.trigger)
+    annotation (Line(points={{-79,30},{-56,30},{-56,38}}, color={255,0,255}));
+  connect(timeAntiLeg.y, greThr.u)
+    annotation (Line(points={{41,-70},{58,-70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                             Rectangle(
           extent={{-100,99.5},{100,-100}},
@@ -156,8 +152,8 @@ Hour of Day: %trigHour",
           textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name")}),                                                           Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+          textString="%name")}),
+          Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html><p>
   This model represents the anti legionella control of a real heat
   pump. Based on a daily or weekly approach, the given supply
@@ -166,6 +162,13 @@ Hour of Day: %trigHour",
   minTimeAntLeg.
 </p>
 <ul>
+  <li>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
+</ul>
+</html>", revisions="<html><ul>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

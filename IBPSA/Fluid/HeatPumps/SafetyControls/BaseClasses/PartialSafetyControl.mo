@@ -6,7 +6,7 @@ partial block PartialSafetyControl "Safety control with I/O"
   Modelica.Blocks.Interfaces.RealOutput yOut
     "Relative speed of compressor. From 0 to 1"
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
-  Interfaces.VapourCompressionMachineControlBus                sigBusHP
+  Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus-connector for the heat pump"
     annotation (Placement(transformation(extent={{-146,-84},{-112,-54}})));
   Modelica.Blocks.Interfaces.BooleanOutput modeOut
@@ -16,6 +16,11 @@ partial block PartialSafetyControl "Safety control with I/O"
     annotation (Placement(transformation(extent={{-152,-36},{-120,-4}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}}),      graphics={
+                                Rectangle(
+        extent={{-120,-120},{120,120}},
+        lineColor={0,0,127},
+        fillColor={255,255,255},
+        fillPattern=FillPattern.Solid),
         Polygon(
           points={{-42,20},{0,62},{-42,20}},
           lineColor={28,108,200},
@@ -47,35 +52,22 @@ partial block PartialSafetyControl "Safety control with I/O"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-151,147},{149,107}},
+          extent={{-151,153},{149,113}},
           textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name"),
-        Rectangle(
-          extent={{-120,120},{120,-120}},
-          lineColor={28,108,200},
-          lineThickness=0.5,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None)}),
-                                     Diagram(coordinateSystem(
+          textString="%name")}),     Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
+    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  Partial block for a safety control. Based on the signals in the
-  sigBusHP either the input signals are equal to the output signals or,
-  if an error occurs, set to 0.
-</p>
-<p>
-  The Output ERR informs about the number of errors in the specific
-  safety block.
-</p>
+<p>Partial block for a safety control. Based on the signals in the
+<code>sigBus</code> either the input signals are equal to the output 
+signals or, if an error occurs, set to 0. </p>
 </html>"));
 end PartialSafetyControl;

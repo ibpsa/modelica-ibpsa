@@ -3,20 +3,27 @@ model OnOffControl
   "Controlls if the minimal runtime, stoptime and max. runs per hour are inside given boundaries"
   extends BaseClasses.PartialSafetyControl;
   parameter Boolean use_minRunTime
-    "False if minimal runtime of HP is not considered" annotation(choices(checkBox=true));
+    "False if minimal runtime of HP is not considered"
+    annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minRunTime(displayUnit="min")
-    "Mimimum runtime of heat pump" annotation (Dialog(enable=use_minRunTime));
+    "Mimimum runtime of heat pump"
+    annotation (Dialog(enable=use_minRunTime));
   parameter Boolean use_minLocTime
-    "False if minimal locktime of HP is not considered" annotation(choices(checkBox=true));
+    "False if minimal locktime of HP is not considered"
+    annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minLocTime(displayUnit="min")
-    "Minimum lock time of heat pump" annotation (Dialog(enable=use_minLocTime));
+    "Minimum lock time of heat pump"
+     annotation (Dialog(enable=use_minLocTime));
   parameter Boolean use_runPerHou
-    "False if maximal runs per hour of HP are not considered" annotation(choices(checkBox=true));
+    "False if maximal runs per hour of HP are not considered"
+    annotation(choices(checkBox=true));
   parameter Integer maxRunPerHou "Maximal number of on/off cycles in one hour"
     annotation (Dialog(enable=use_runPerHou));
   parameter Boolean preYSet_start=true
     "Start value of pre(ySet) at initial time";
-  parameter Real ySet_small "Value of ySet at which the device is considered turned on. Default is 1 % as heat pumps and chillers currently invert down to 15 %.";
+  parameter Real ySet_small
+    "Value of ySet at which the device is considered turned on, 
+    default is 1 % as heat pumps and chillers currently invert down to 15 %";
   parameter Real ySetMin=ySet_small
     "Minimal relative compressor speed to be used if device needs to run longer";
   Modelica.Blocks.Logical.Hysteresis ySetOn(
@@ -31,7 +38,7 @@ model OnOffControl
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPer_h=maxRunPerHou,
-      final delayTime=3600) if use_runPerHou
+      final delTim=3600) if use_runPerHou
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   BaseClasses.TimeControl locTimCtr(final minRunTime=minLocTime)
     if use_minLocTime
@@ -144,8 +151,8 @@ equation
 
   connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
           -114,-116},{114,-116},{114,-20},{130,-20}}, color={255,0,255}));
-  connect(preOnOff.u, sigBusHP.onOffMea) annotation (Line(points={{-102,-90},{
-          -108,-90},{-108,-69},{-129,-69}}, color={255,0,255}), Text(
+  connect(preOnOff.u, sigBus.onOffMea) annotation (Line(points={{-102,-90},{-108,
+          -90},{-108,-69},{-129,-69}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
@@ -168,23 +175,49 @@ equation
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,
           70},{28,90},{38,90}}, color={255,0,255}));
   annotation (Documentation(info="<html>
-<p>Checks if the <span style=\"font-family: Courier New;\">ySet</span> value is legal by checking if the device can either be turned on or off, depending on which state it was in. </p>
+  <p>Checks if the <code>ySet</code> value 
+  is legal by checking if the device can either be turned on or off, 
+  depending on which state it was in. </p>
 <p>If the device</p>
 <ul>
-<li>is on and <span style=\"font-family: Courier New;\">ySet</span> is greater than <span style=\"font-family: Courier New;\">ySet_small</span></li>
-<li>or is off and <span style=\"font-family: Courier New;\">ySet</span> is 0</li>
+<li>is on and <code>ySet</code> is 
+greater than <code>ySet_small</code></li>
+<li>or is off and <code>ySet</code> is 0</li>
 <li>or is on and should turn off, and exceeds the minimal run time (if active)</li>
-<li>or is off and want to turn on, and does neither exceed the maximal starts per hour (if active) nor violates the minimal loc-time (off-time, if active).</li>
+<li>or is off and want to turn on, and does neither exceed the maximal starts 
+per hour (if active) nor violates the minimal loc-time (off-time, if active).</li>
 </ul>
-<p><span style=\"font-family: Courier New;\">yOut</span> equals <span style=\"font-family: Courier New;\">ySet</span>.</p>
-<p>If the device is on and should turn off, but does not exceed the minimal run time (if active), <span style=\"font-family: Courier New;\">yOut</span> equals <span style=\"font-family: Courier New;\">min(ySet, ySetMin)</span>.</p>
-<p>If the device is off and want to turn on, nut exceeds the maximal starts per hour (if active) or violates the minimal loc-time (off-time, if active), <span style=\"font-family: Courier New;\">yOut</span> equals 0.</p>
-</html>", revisions="<html>
-<ul>
-<li><i>November 26, 2018&nbsp;</i> by Fabian Wuellhorst:<br>First implementation (see issue <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>) </li>
+<p><code>yOut</code> equals 
+<code>ySet</code>.</p>
+<p>If the device is on and should turn off, but does not exceed the minimal 
+run time (if active), <code>yOut</code> 
+equals <code>min(ySet, ySetMin)</code>.</p>
+<p>If the device is off and want to turn on, nut exceeds the maximal starts 
+per hour (if active) or violates the minimal loc-time (off-time, if active), 
+<code>yOut</code> equals 0.</p>
+</html>", revisions="<html><ul>
+  <li>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adjusted based on the discussion in this issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+  </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}}), graphics={
+          Rectangle(
+          extent={{120,60},{60,-10}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid), Text(
+          extent={{60,60},{120,-6}},
+          textColor={0,0,127},
+          textString="See 
+equations")}),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}}), graphics={
         Rectangle(
           extent={{-10,-30},{10,-70}},
