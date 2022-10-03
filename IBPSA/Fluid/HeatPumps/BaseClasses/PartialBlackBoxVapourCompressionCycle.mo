@@ -166,7 +166,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This black box model represents the refrigerant cycle of a vapour
+  This black-box model represents the refrigerant cycle of a vapour
   compression machine. Used in IBPSA.Fluid.HeatPumps.HeatPump and
   IBPSA.Fluid.Chiller.Chiller, this model serves the simulation of a
   reversible vapour compression machine. Thus, data both of chillers

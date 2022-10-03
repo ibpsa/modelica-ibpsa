@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.BlackBoxData;
-package BaseClasses "Package with partial classes of Performance Data"
+package BaseClasses "Package with partial classes of performance Data"
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

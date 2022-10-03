@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses;
 partial model PartialChillerBlackBox
-  "Partial black box model of vapour compression cycles used for chiller applications"
+  "Partial black-box model of vapour compression cycles used for chiller applications"
   extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox;
 
 equation

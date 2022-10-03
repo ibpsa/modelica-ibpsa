@@ -10,7 +10,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
-  <p>Partial black box data for heat pumps. Specifies <code>iceFacHPMea</code>
+  <p>Partial black-box data for heat pumps. Specifies <code>iceFacHPMea</code>
   in addition to basic equations.</p>
 </html>", revisions="<html><ul>
   <li>

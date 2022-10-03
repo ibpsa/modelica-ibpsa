@@ -26,7 +26,7 @@ model HeatPump
        final mCon_flow_nominal=mCon_flow_nominal_final,
        final mEva_flow_nominal=mEva_flow_nominal_final,
        final y_nominal=y_nominal)
-  "Black box data of a heat pump in heating mode"
+  "Black-box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
   replaceable model BlackBoxHeatPumpCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
@@ -41,7 +41,7 @@ model HeatPump
        final mCon_flow_nominal=mEva_flow_nominal_final,
        final mEva_flow_nominal=mCon_flow_nominal_final,
        final y_nominal=y_nominal)
-  "Black box data of a heat pump in cooling operation mode"
+  "Black-box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   replaceable parameter SafetyControls.RecordsCollection.DefaultSafetyControl
     safCtrlPar

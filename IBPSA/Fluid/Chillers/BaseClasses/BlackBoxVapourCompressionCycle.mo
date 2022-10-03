@@ -19,14 +19,14 @@ model BlackBoxVapourCompressionCycle
       y_nominal=0)
     constrainedby
     IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
-    "Replaceable model for performance data of a chiller in main operation mode"
+    "Replaceable model for black-box model of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model BlackBoxChillerHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
     constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
-    "Replaceable model for performance data of a chiller in reversible operation mode"
+    "Replaceable model for black-box model of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   BlackBoxChillerCooling blaBoxChiCoo
@@ -177,14 +177,14 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This black box model represents the refrigerant cycle of a chiller. 
+<p>This black-box model represents the refrigerant cycle of a chiller. 
 Used in <a href=\"modelica://IBPSA.Fluid.Chillers.Chiller\">IBPSA.Fluid.Chillers.Chiller</a>, 
 this model serves the simulation of a 
 reversible chiller. Thus, data both of chillers and heat pumps can be used to
 calculate the three relevant values <code>P_el</code>, <code>QCon</code> and 
 <code>QEva</code>. The <code>mode</code> of the chiller is used to switch
-between the performance data of the chiller and the heat pump. </p>
- <p>The user can choose between different types of performance data or implement 
+between the black-box model of the chiller and the heat pump. </p>
+ <p>The user can choose between different types of black-box model or implement 
  a new black-box model by extending from 
  <a href=\"modelica://IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox\">
  IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox</a>. </p>

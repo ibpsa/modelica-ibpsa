@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses;
 partial model PartialBlackBox
-  "Partial black box model of vapour compression 
+  "Partial black-box model of vapour compression 
   cycles used for heat pump applications"
 
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
@@ -30,7 +30,7 @@ partial model PartialBlackBox
     "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.HeatFlowRate QUseBlaBox_flow_nominal
     "Nominal heat flow rate at useful heat exchanger in the unscaled 
-    black box data model. Used to calculate the scaling factor"
+    black-box data model. Used to calculate the scaling factor"
     annotation (Dialog(group="Nominal Design"));
   parameter String datSou=""
     "Indicate where the data is coming from";

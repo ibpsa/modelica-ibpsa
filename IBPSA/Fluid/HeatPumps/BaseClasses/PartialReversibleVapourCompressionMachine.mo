@@ -699,10 +699,10 @@ compressor speed is normalizd to a relative value between 0 and 1. </p>
 <p>The model structure is as follows. To understand each submodel, please have a 
 look at the corresponding model information: </p>
 <ol>
-<li><a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle\">
-IBPSA.Fluid.HeatPumps.BaseClasses.InnerCycle</a> (Black Box): 
+<li><a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialBlackBoxVapourCompressionCycle\">
+IBPSA.Fluid.HeatPumps.BaseClasses.PartialBlackBoxVapourCompressionCycle</a> (Black-Box): 
 Here, users can use between several input models or just easily create 
-their own, modular black box model. Please look at the model description 
+their own, modular black-box model. Please look at the model description 
 for more info. </li>
 <li><a href=\"IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias\">
 IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias</a>: 

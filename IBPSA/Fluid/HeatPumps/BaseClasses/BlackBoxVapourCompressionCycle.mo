@@ -19,14 +19,14 @@ model BlackBoxVapourCompressionCycle
       y_nominal=0)
      constrainedby
     IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
-    "Replaceable model for black box data of a heat pump in main operation mode"
+    "Replaceable model for black-box data of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model BlackBoxHeatPumpCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
     IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
-    "Replaceable model for black box data of 
+    "Replaceable model for black-box data of 
     a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
@@ -188,7 +188,7 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This black box model represents the refrigerant cycle of a heat pump. Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <span style=\"font-family: Courier New;\">P_el</span>, <span style=\"font-family: Courier New;\">QCon</span> and <span style=\"font-family: Courier New;\">QEva</span>. The <span style=\"font-family: Courier New;\">mode</span> of the heat pump is used to switch between the black box data of the chiller and the heat pump. </p>
-<p>The user can choose between different types of black box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>
+<p>This black-box model represents the refrigerant cycle of a heat pump. Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <span style=\"font-family: Courier New;\">P_el</span>, <span style=\"font-family: Courier New;\">QCon</span> and <span style=\"font-family: Courier New;\">QEva</span>. The <span style=\"font-family: Courier New;\">mode</span> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
+<p>The user can choose between different types of black-box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>
 </html>"));
 end BlackBoxVapourCompressionCycle;

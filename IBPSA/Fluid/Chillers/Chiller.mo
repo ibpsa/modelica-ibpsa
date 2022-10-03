@@ -27,7 +27,7 @@ model Chiller
        final mCon_flow_nominal=mCon_flow_nominal_final,
        final mEva_flow_nominal=mEva_flow_nominal_final,
        final y_nominal=y_nominal)
-  "Performance data of a chiller in main operation mode"
+  "Black-box model of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
   replaceable model BlackBoxChillerHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
@@ -42,7 +42,7 @@ model Chiller
        final mCon_flow_nominal=mEva_flow_nominal_final,
        final mEva_flow_nominal=mCon_flow_nominal_final,
        final y_nominal=y_nominal)
-  "Performance data of a chiller in reversible operation mode"
+  "Black-box model of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
 equation
