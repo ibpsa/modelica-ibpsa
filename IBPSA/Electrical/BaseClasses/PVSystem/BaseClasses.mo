@@ -111,6 +111,15 @@ package BaseClasses "Base parameters for PV Model"
   end PartialPVThermal;
 
   partial model PartialPVOptical
+    Modelica.Blocks.Interfaces.RealInput HGloHor annotation (Placement(
+          transformation(extent={{-122,-16},{-90,16}}), iconTransformation(
+            extent={{-122,-16},{-90,16}})));
+    Modelica.Blocks.Interfaces.RealOutput absRadRat
+      "Ratio of absorbed radiation under operating conditions to standard conditions"
+      annotation (Placement(transformation(extent={{94,42},{114,62}})));
+    Modelica.Blocks.Interfaces.RealOutput radTil
+      "Total solar radiation on the tilted surface"
+      annotation (Placement(transformation(extent={{94,-60},{114,-40}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Ellipse(
             extent={{-78,76},{-22,24}},
