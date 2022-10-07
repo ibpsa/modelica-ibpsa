@@ -2,9 +2,13 @@ within IBPSA.Electrical.Examples;
 model PVSystemSingleDiode
   extends Modelica.Icons.Example;
   PVSystem.PVSystemSingleDiode pVSystemSingleDiode(
+    use_MPP_in=false,
+    use_Til_in=false,
     til=0.5235987755983,
     azi=0,
-    ageing=1) annotation (Placement(transformation(extent={{-8,-4},{28,20}})));
+    ageing=1,
+    use_heat_port=true)
+              annotation (Placement(transformation(extent={{-8,-4},{28,20}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "D:/05_Offline/modelica-ibpsa/IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
