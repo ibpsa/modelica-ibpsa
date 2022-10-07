@@ -70,9 +70,9 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   //Conditional connectors
-  Modelica.Blocks.Interfaces.RealInput MPPTrackingSet if use_MPP_in
+  Modelica.Blocks.Interfaces.RealInput MPPTraSet if use_MPP_in
     "Conditional input for MPP tracking" annotation (Placement(transformation(
-          extent={{-110,-2},{-88,20}}),  iconTransformation(extent={{-110,-2},{-88,
+          extent={{-110,-2},{-88,20}}), iconTransformation(extent={{-110,-2},{-88,
             20}})));
   Modelica.Blocks.Interfaces.RealInput tilSet if use_Til_in
     "Conditional input for tilt angle control" annotation (Placement(
@@ -82,17 +82,17 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Conditional input for azimuth angle control" annotation (Placement(
         transformation(extent={{-110,-50},{-88,-28}}), iconTransformation(
           extent={{-110,-50},{-88,-28}})));
-  Modelica.Blocks.Interfaces.RealInput shadingSet if use_Sha_in
+  Modelica.Blocks.Interfaces.RealInput shaSet if use_Sha_in
     "Conditional input for shading [0,1]" annotation (Placement(transformation(
-          extent={{-110,-76},{-88,-54}}),  iconTransformation(extent={{-106,-72},
+          extent={{-110,-76},{-88,-54}}), iconTransformation(extent={{-106,-72},
             {-88,-54}})));
 
-  Modelica.Blocks.Interfaces.RealInput ageingSet if use_age_in
+  Modelica.Blocks.Interfaces.RealInput ageSet if use_age_in
     "Conditional input for ageing [0,1]" annotation (Placement(transformation(
           extent={{-110,-104},{-88,-82}}), iconTransformation(extent={{-106,-72},
             {-88,-54}})));
 
-  Modelica.Blocks.Interfaces.RealOutput DCPower "DC Power output"
+  Modelica.Blocks.Interfaces.RealOutput P_DC "DC Power output"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
 protected
   Modelica.Blocks.Interfaces.RealInput MPP_in_internal
@@ -115,11 +115,11 @@ protected
   parameter Real Sha = 1 "Dummy Shading parameter";
 
 equation
-  connect(MPPTrackingSet, MPP_in_internal);
+  connect(MPPTraSet, MPP_in_internal);
   connect(tilSet, Til_in_internal);
   connect(aziSet, Azi_in_internal);
-  connect(shadingSet, Sha_in_internal);
-  connect(ageingSet, Age_in_internal);
+  connect(shaSet, Sha_in_internal);
+  connect(ageSet, Age_in_internal);
 
   if not use_MPP_in then
     MPP_in_internal = MPP;
