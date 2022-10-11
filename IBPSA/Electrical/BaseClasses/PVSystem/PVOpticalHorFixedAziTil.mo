@@ -29,7 +29,7 @@ model PVOpticalHorFixedAziTil
    "Time zone in seconds relative to GMT"
    annotation(Dialog(group="Location"));
 
- parameter Real groRef(unit="1")       "Ground refelctance"
+ parameter Real groRef(unit="1")       "Ground reflectance"
    annotation ();
 
  // Air mass parameters. For mono-SI, use default values
