@@ -1,4 +1,6 @@
 PartialPVSystem
 PVOpticalHorFixedAziTil
+PVElectrical2Diodes
+PVElectrical2DiodesMPP
 PVElectrical5pAnalytical
 BaseClasses

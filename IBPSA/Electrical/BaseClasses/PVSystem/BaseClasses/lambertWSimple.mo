@@ -1,0 +1,15 @@
+within IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses;
+function lambertWSimple
+  "Simple approximation for Lambert W function for x >= 2, should only
+be used for large input values as error decreases for increasing input values"
+
+   input Real x(min=2);
+   output Real W;
+
+algorithm
+  W:= log(x)*(1-log(log(x))/(log(x)+1));
+  annotation (Documentation(info="<html>
+<p><span style=\"font-family: Roboto; color: #202124; background-color: #ffffff;\">The Lambert W function solves mathematical equations in which the unknown is both inside and outside of an exponential function or a logarithm.</span></p>
+<p>This function is a simple approximation for Lambert W function following Baetzelis, 2016:</p>
+</html>"));
+end lambertWSimple;
