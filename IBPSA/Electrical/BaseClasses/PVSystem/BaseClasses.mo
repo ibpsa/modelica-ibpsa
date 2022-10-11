@@ -112,14 +112,14 @@ package BaseClasses "Base parameters for PV Model"
 
   partial model PartialPVOptical
     Modelica.Blocks.Interfaces.RealInput HGloHor annotation (Placement(
-          transformation(extent={{-122,-16},{-90,16}}), iconTransformation(
-            extent={{-122,-16},{-90,16}})));
+          transformation(extent={{-132,-16},{-100,16}}),iconTransformation(
+            extent={{-132,-16},{-100,16}})));
     Modelica.Blocks.Interfaces.RealOutput absRadRat
       "Ratio of absorbed radiation under operating conditions to standard conditions"
-      annotation (Placement(transformation(extent={{94,42},{114,62}})));
+      annotation (Placement(transformation(extent={{100,42},{120,62}})));
     Modelica.Blocks.Interfaces.RealOutput radTil
       "Total solar radiation on the tilted surface"
-      annotation (Placement(transformation(extent={{94,-60},{114,-40}})));
+      annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Ellipse(
             extent={{-78,76},{-22,24}},
@@ -137,6 +137,21 @@ package BaseClasses "Base parameters for PV Model"
             arrow={Arrow.None,Arrow.Filled})}),                    Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end PartialPVOptical;
+
+  function lambertWSimple
+    "Simple approximation for Lambert W function for x >= 2, should only 
+  be used for large input values as error decreases for increasing input values"
+
+     input Real x(min=2);
+     output Real W;
+
+  algorithm
+    W:= log(x)*(1-log(log(x))/(log(x)+1));
+    annotation (Documentation(info="<html>
+<p><span style=\"font-family: Roboto; color: #202124; background-color: #ffffff;\">The Lambert W function solves mathematical equations in which the unknown is both inside and outside of an exponential function or a logarithm.</span></p>
+<p>This function is a simple approximation for Lambert W function following Baetzelis, 2016:</p>
+</html>"));
+  end lambertWSimple;
 
   package Icons
     partial model partialPVIcon "Partial model for basic PV model icon"
