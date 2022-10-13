@@ -17,7 +17,7 @@ protected
     final alpha=0)
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
+  Modelica.Blocks.Math.Gain gai(k(unit="W")=Q_flow_nominal, y(unit="W")) "Gain"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(u, gai.u) annotation (Line(
