@@ -2,33 +2,33 @@ within IBPSA.Fluid.HeatPumps.SafetyControls;
 block MinimalVolumeFlowRateSafety
   "Safety control for minimal volume flow rate"
   extends BaseClasses.PartialSafetyControlWithErrors;
-  parameter Boolean use_minFlowCtrl=true
+  parameter Boolean use_minFloCon=true
     "=false to disable minimal mass flow rate requirements"
     annotation(choices(checkBox=true));
-  parameter Modelica.Units.SI.MassFlowRate m_flowEvaMin
+  parameter Modelica.Units.SI.MassFlowRate mEvaMin_flow
     "Minimal mass flow rate in evaporator required to operate the device"
     annotation (Dialog(enable=use_minFlowCtrl));
-  parameter Modelica.Units.SI.MassFlowRate m_flowConMin
+  parameter Modelica.Units.SI.MassFlowRate mConMin_flow
     "Minimal mass flow rate in condenser required to operate the device"
     annotation (Dialog(enable=use_minFlowCtrl));
   Modelica.Blocks.Logical.Hysteresis hysCon(
-    final uLow=m_flowConMin,
-    final uHigh=max(m_flowConMin*1.1, Modelica.Constants.eps),
-    final pre_y_start=false) if use_minFlowCtrl
+    final uLow=mConMin_flow,
+    final uHigh=max(mConMin_flow*1.1, Modelica.Constants.eps),
+    final pre_y_start=false) if use_minFloCon
     "Check if condenser mass flow rate is high enough"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Logical.Hysteresis hysEva(
-    final uLow=m_flowEvaMin,
-    final uHigh=max(m_flowEvaMin*1.1, Modelica.Constants.eps),
-    final pre_y_start=false) if use_minFlowCtrl
+    final uLow=mEvaMin_flow,
+    final uHigh=max(mEvaMin_flow*1.1, Modelica.Constants.eps),
+    final pre_y_start=false) if use_minFloCon
     "Check if evaporator mass flow rate is high enough"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Logical.And and1 if use_minFlowCtrl
-                                   "Assure both are good"
+  Modelica.Blocks.Logical.And and1 if use_minFloCon
+    "Both condenser and evaporator have sufficient flow"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
   Modelica.Blocks.Sources.BooleanConstant conBoo(final k=true)
-    if not use_minFlowCtrl "Disable this safety control"
+    if not use_minFloCon   "Disable this safety control"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
   connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-40,-20},

@@ -4,12 +4,11 @@ partial model PartialSafetyControlExample
   Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus-connector for the heat pump"
     annotation (Placement(transformation(extent={{-70,-72},{-30,-32}})));
-  Modelica.Blocks.Sources.BooleanConstant booCon
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Modelica.Blocks.Logical.Hysteresis hys(
     pre_y_start=false,
     uHigh=0.01,
-    uLow=0.01/2) annotation (Placement(transformation(
+    uLow=0.01/2) "Check if onOffMea in heat pump model would be true"
+                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={10,-50})));

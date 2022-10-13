@@ -30,14 +30,16 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
     final extrapolation=extrapolation) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
         origin={30,50})));
-  Modelica.Blocks.Tables.CombiTable2Ds tabPel(
+  Modelica.Blocks.Tables.CombiTable2Ds tabPEle(
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
     final table=datTab.tablePel,
     final extrapolation=extrapolation) "Electrical power table" annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}}, rotation=-90,
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
         origin={70,50})));
 
   Modelica.Blocks.Math.UnitConversions.To_degC TEvaInToDegC
@@ -100,12 +102,10 @@ equation
   connect(TEvaInToDegC.y, tabQCon_flow.u2) annotation (Line(points={{-50,79},{-50,
           74},{24,74},{24,62}},
                             color={0,0,127}));
-  connect(TEvaInToDegC.y, tabPel.u2) annotation (Line(points={{-50,79},{-50,74},
-          {64,74},{64,62}},
-                        color={0,0,127}));
-  connect(TConOutToDegC.y, tabPel.u1)
-    annotation (Line(points={{50,79},{50,78},{54,78},{54,76},{76,76},{76,62}},
-                                                            color={0,0,127}));
+  connect(TEvaInToDegC.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,74},
+          {64,74},{64,62}}, color={0,0,127}));
+  connect(TConOutToDegC.y, tabPEle.u1) annotation (Line(points={{50,79},{50,78},
+          {54,78},{54,76},{76,76},{76,62}}, color={0,0,127}));
   connect(TConOutToDegC.y, tabQCon_flow.u1)
     annotation (Line(points={{50,79},{50,70},{36,70},{36,62}},
                                                             color={0,0,127}));
@@ -123,14 +123,13 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(tabPel.y, nTimesPel.u2) annotation (Line(points={{70,39},{70,34},{-24,
-          34},{-24,8},{-36,8},{-36,2}},
-                       color={0,0,127}));
+  connect(tabPEle.y, nTimesPel.u2) annotation (Line(points={{70,39},{70,34},{-24,
+          34},{-24,8},{-36,8},{-36,2}}, color={0,0,127}));
   connect(tabQCon_flow.y, nTimesQCon.u1)
     annotation (Line(points={{30,39},{30,20},{56,20},{56,2}},
                                                            color={0,0,127}));
-  connect(nTimesPel.y, Pel) annotation (Line(points={{-30,-21},{-30,-80},{0,-80},
-          {0,-110}},               color={0,0,127}));
+  connect(nTimesPel.y, PEle) annotation (Line(points={{-30,-21},{-30,-80},{0,-80},
+          {0,-110}}, color={0,0,127}));
   connect(constScaFac.y, nTimesScaFac.u2) annotation (Line(points={{-90,59},{-90,
           50},{-76,50},{-76,42}},                  color={0,0,127}));
   connect(sigBus.ySet, nTimesScaFac.u1) annotation (Line(
@@ -145,13 +144,12 @@ equation
           {-20,14},{-20,6},{-16,6},{-16,2},{-24,2}},             color={0,0,127}));
   connect(nTimesScaFac.y, nTimesQCon.u2) annotation (Line(points={{-70,19},{-70,
           14},{46,14},{46,8},{44,8},{44,2}},                    color={0,0,127}));
-  connect(nTimesPel.y, calcRedQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},
-          {64,-48},{64,-58}},                color={0,0,127}));
-  connect(nTimesPel.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-30,-21},
-          {-30,-20},{-56,-20},{-56,-24},{-70,-24},{-70,-18}},     color={0,0,
-          127}));
-  connect(nTimesQCon.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{50,-21},
-          {50,-26},{-96,-26},{-96,-10},{-78,-10}},     color={0,0,127}));
+  connect(nTimesPel.y, redQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},
+          {64,-48},{64,-58}}, color={0,0,127}));
+  connect(nTimesPel.y, feeHeaFloEva.u2) annotation (Line(points={{-30,-21},{-30,
+          -20},{-56,-20},{-56,-24},{-70,-24},{-70,-18}}, color={0,0,127}));
+  connect(nTimesQCon.y, feeHeaFloEva.u1) annotation (Line(points={{50,-21},{50,
+          -26},{-96,-26},{-96,-10},{-78,-10}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={
           {-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},

@@ -53,11 +53,6 @@ protected
   annotation (Icon(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}), graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
                                     Line(points=DynamicSelect(
       {{-66,-66},{-66,50},{-44,66}, {68,66},{68,-66},{-66,-66}},points),
       color={238,46,47},
@@ -77,13 +72,7 @@ protected
   Line(points={{icoMin-15,icoMax},
               {icoMin-15,icoMin-15}}, color={95,95,95}),
   Line(points={{icoMin-20,icoMin-10},
-              {icoMax+10,icoMin-10}}, color={95,95,95}),
-        Text(
-          extent={{-147,135},{153,95}},
-          textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
-          textString="%name")}),
+              {icoMax+10,icoMin-10}}, color={95,95,95})}),
     Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>

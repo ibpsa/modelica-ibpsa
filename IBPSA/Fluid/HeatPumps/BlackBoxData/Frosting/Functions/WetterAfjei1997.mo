@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
-function WetterAfjei1996
-  "Correction of COP (Icing, Defrost) according to Wetter,Afjei 1996"
+function WetterAfjei1997
+  "Correction of COP (Icing, Defrost) according to Wetter, Afjei 1997"
   extends
-    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct;
+    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFunction;
 
   parameter Real facA=0.03 "Factor for linear term";
   parameter Real facB=-0.004 "Factor for linear term";
@@ -23,7 +23,10 @@ algorithm
   end if;
   iceFac:=1 - fac;
   annotation (Documentation(info="<html>
-<p>Correction of CoP (Icing, Defrost) according to Wetter, Afjei 1996. </p>
+  <p>Correction of CoP (Icing, Defrost) according to Wetter, Afjei 1997 
+  (Dual stage compressor heat pump including frost and cycle losses, 
+  <a href=\"https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf\">
+  https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>)</p>
 </html>",
   revisions="<html><ul>
   <li>
@@ -33,4 +36,4 @@ algorithm
   </li>
 </ul>
 </html>"));
-end WetterAfjei1996;
+end WetterAfjei1997;

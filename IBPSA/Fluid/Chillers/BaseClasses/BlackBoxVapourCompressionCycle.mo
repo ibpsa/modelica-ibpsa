@@ -60,23 +60,23 @@ initial equation
 equation
   connect(conStrSou.y, strPasThr.u);
   connect(blaBoxChiHea.datSouOut, strPasThr.u);
-  connect(blaBoxChiCoo.Pel, switchPel.u1) annotation (Line(points={{40.5,38},{
-          40,38},{40,8},{8,8},{8,-58}},
-                                 color={0,0,127}));
-  connect(blaBoxChiHea.Pel, switchPel.u3) annotation (Line(
+  connect(blaBoxChiCoo.PEle, swiPEle.u1) annotation (Line(points={{40.5,38},{40,
+          38},{40,8},{8,8},{8,-58}}, color={0,0,127}));
+  connect(blaBoxChiHea.PEle, swiPEle.u3) annotation (Line(
       points={{-59.5,35.9},{-58,35.9},{-58,26},{-24,26},{-24,-58},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchPel.u3) annotation (Line(points={{-59,-70},{-34,-70},
-          {-34,-58},{-8,-58}},
+  connect(constZero.y, swiPEle.u3) annotation (Line(
+      points={{-59,-70},{-34,-70},{-34,-58},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchQEva.u3) annotation (Line(
+  connect(constZero.y, swiQEva.u3) annotation (Line(
       points={{-59,-70},{-52,-70},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-70},{-52,-70},
-          {-52,-38},{58,-38},{58,-8}},       color={0,0,127},
+  connect(constZero.y, swiQCon.u3) annotation (Line(
+      points={{-59,-70},{-52,-70},{-52,-38},{58,-38},{58,-8}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus, blaBoxChiHea.sigBus) annotation (Line(
       points={{0,102},{0,92},{-59.295,92},{-59.295,80.84}},
@@ -89,9 +89,9 @@ equation
 
   connect(blaBoxChiCoo.QEva_flow, gainEva.u) annotation (Line(points={{56.1,38},
           {56.1,26},{14,26},{14,12},{2,12}},             color={0,0,127}));
-  connect(gainEva.y, switchQEva.u1) annotation (Line(points={{-21,12},{-50,12},
-          {-50,8},{-58,8}},                   color={0,0,127}));
-  connect(blaBoxChiHea.QEva_flow, switchQEva.u3) annotation (Line(
+  connect(gainEva.y, swiQEva.u1) annotation (Line(points={{-21,12},{-50,12},{-50,
+          8},{-58,8}}, color={0,0,127}));
+  connect(blaBoxChiHea.QEva_flow, swiQEva.u3) annotation (Line(
       points={{-43.1,35.9},{-42,35.9},{-42,-10},{-52,-10},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -99,12 +99,12 @@ equation
       points={{-75.9,35.9},{-74,35.9},{-74,20},{-34,20},{-34,-8},{18,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(gainCon.y, switchQCon.u3)
-    annotation (Line(points={{41,-8},{58,-8}},     color={0,0,127},
-        pattern=LinePattern.Dash));
-  connect(blaBoxChiCoo.QCon_flow, switchQCon.u1) annotation (Line(points={{24.9,38},
-          {24.9,36},{24,36},{24,24},{50,24},{50,8},{58,8}},
-                                                color={0,0,127}));
+  connect(gainCon.y, swiQCon.u3) annotation (Line(
+      points={{41,-8},{58,-8}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(blaBoxChiCoo.QCon_flow, swiQCon.u1) annotation (Line(points={{24.9,38},
+          {24.9,36},{24,36},{24,24},{50,24},{50,8},{58,8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

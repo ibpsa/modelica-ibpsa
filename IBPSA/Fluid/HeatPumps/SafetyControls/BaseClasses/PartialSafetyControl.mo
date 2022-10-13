@@ -2,22 +2,20 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 partial block PartialSafetyControl "Safety control with I/O"
   Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
-    annotation (Placement(transformation(extent={{-152,4},{-120,36}})));
+    annotation (Placement(transformation(extent={{-132,4},{-100,36}}),
+        iconTransformation(extent={{-132,4},{-100,36}})));
   Modelica.Blocks.Interfaces.RealOutput yOut
     "Relative speed of compressor. From 0 to 1"
-    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
   Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus-connector for the heat pump"
-    annotation (Placement(transformation(extent={{-146,-84},{-112,-54}})));
-  Modelica.Blocks.Interfaces.BooleanOutput modeOut
-    "Heat pump mode, =true: heating, =false: chilling"
-    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
-  Modelica.Blocks.Interfaces.BooleanInput modeSet "Set value of heat pump mode"
-    annotation (Placement(transformation(extent={{-152,-36},{-120,-4}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}}),      graphics={
+    annotation (Placement(transformation(extent={{-122,-86},{-88,-56}}),
+        iconTransformation(extent={{-122,-86},{-88,-56}})));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),      graphics={
                                 Rectangle(
-        extent={{-120,-120},{120,120}},
+        extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -52,7 +50,7 @@ partial block PartialSafetyControl "Safety control with I/O"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-151,153},{149,113}},
+          extent={{-151,139},{149,99}},
           textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},

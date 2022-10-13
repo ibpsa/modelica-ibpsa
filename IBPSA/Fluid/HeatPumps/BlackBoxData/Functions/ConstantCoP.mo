@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.Functions;
-function ConstantCoP "Constant CoP and constant electric power"
+function ConstantCOP "Constant COP and constant electric power"
   extends
     IBPSA.Fluid.HeatPumps.BlackBoxData.Functions.BaseClasses.PartialBaseFct(
     N,
@@ -9,14 +9,12 @@ function ConstantCoP "Constant CoP and constant electric power"
     mCon_flow);
   parameter Modelica.Units.SI.Power Pel_nominal=2000
     "Constant electric power input for compressor";
-    parameter Real CoP "Constant CoP";
+    parameter Real COP "Constant COP";
 algorithm
-  Char:={Pel_nominal,Pel_nominal*CoP};
+  Char:={Pel_nominal,Pel_nominal*COP};
 
-  annotation (Documentation(info="<html><p>
-  Carnot CoP and constant electric power, no dependency on speed or
-  mass flow rates!
-</p>
+  annotation (Documentation(info="<html>
+<p>Carnot COP and constant electric power, no dependency on speed or mass flow rates.</p>
 </html>",
     revisions="<html><ul>
   <li>
@@ -26,4 +24,4 @@ algorithm
 </ul>
 </html>
 "));
-end ConstantCoP;
+end ConstantCOP;

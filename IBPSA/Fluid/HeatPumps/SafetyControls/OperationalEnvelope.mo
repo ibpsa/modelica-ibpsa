@@ -8,17 +8,18 @@ block OperationalEnvelope
     "False to allow HP to run out of operational envelope"
     annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.TemperatureDifference dTHyst=5
-    "Temperature difference used for both upper and 
-    lower hysteresis in the operational envelope."
+    "Temperature deadband in the operational envelope"
     annotation (Dialog(
       tab="Safety Control",
       group="Operational Envelope",
       enable=use_opeEnv));
     Modelica.Blocks.Math.UnitConversions.To_degC toDegCTConOutMea
+    "Boundary map takes degC as input"
     annotation (
       extent=[-88,38; -76,50],
       Placement(transformation(extent={{-100,40},{-80,60}})));
   Modelica.Blocks.Math.UnitConversions.To_degC toDegCTEvaInMea
+    "Boundary map takes degC as input"
   annotation (
       extent=[-88,38; -76,50],
       Placement(transformation(extent={{-100,80},{-80,
@@ -27,10 +28,10 @@ block OperationalEnvelope
     final tabUpp=tabUpp,
     final use_opeEnvFroRec=use_opeEnvFroRec,
     final datTab=datTab,
-    final dx=dTHyst) if use_opeEnv
+    final dx=dTHyst) if use_opeEnv "Operational boundary map"
     annotation (Placement(transformation(extent={{-62,38},{2,102}})));
   Modelica.Blocks.Sources.BooleanConstant booConOpeEnv(final k=true) if not
-    use_opeEnv
+    use_opeEnv "If disabled, there is never an error"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation

@@ -35,18 +35,15 @@ partial model PartialBlackBox
   parameter String datSou=""
     "Indicate where the data is coming from";
 
-  replaceable Frosting.NoFrosting iceFacCalc
-    constrainedby Frosting.BaseClasses.PartialIceFac
-    "Replaceable model to calculate the icing factor"
-    annotation (
-      choicesAllMatching=true,
-      Dialog(group="Frosting supression", enable=calc_iceFac),
-      Placement(transformation(extent={{-100,-52},{-80,-32}})));
+  replaceable Frosting.NoFrosting iceFacCal constrainedby
+    Frosting.BaseClasses.PartialIcingFactor
+    "Replaceable model to calculate the icing factor" annotation (
+    choicesAllMatching=true,
+    Dialog(group="Frosting supression", enable=calc_iceFac),
+    Placement(transformation(extent={{-100,-52},{-80,-32}})));
 
-  Modelica.Blocks.Interfaces.RealOutput Pel(
-    final unit="W",
-    final displayUnit="kW")
-    "Electrical Power consumed by HP" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
+        "kW") "Electrical Power consumed by HP" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -69,9 +66,8 @@ partial model PartialBlackBox
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-110})));
-  Modelica.Blocks.Math.Add calcRedQCon
-    "Based on redcued heat flow to the evaporator, the heat 
-    flow to the condenser is also reduced"
+  Modelica.Blocks.Math.Add redQCon
+    "Reduce heat flow to the condenser based on the reduction to the evaporator"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -83,10 +79,9 @@ partial model PartialBlackBox
         rotation=270,
         origin={-50,-70})));
 
-  Modelica.Blocks.Math.Feedback feedbackHeatFlowEvaporator
-    "Calculates evaporator heat flow with total energy balance"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}},
-    rotation=0)));
+  Modelica.Blocks.Math.Feedback feeHeaFloEva
+    "Calculates evaporator heat flow with total energy balance" annotation (
+      Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
   IBPSA.Utilities.IO.Strings.StringOutput datSouOut
   "String output of data source";
 protected
@@ -97,17 +92,15 @@ equation
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-50,-81},{-50,-88},
           {0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
                                color={0,0,127}));
-  connect(proRedQEva.y, calcRedQCon.u1) annotation (Line(points={{-50,-81},{-50,
-          -88},{0,-88},{0,-52},{76,-52},{76,-58}},                color={0,0,
-          127}));
-  connect(calcRedQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{
-          -80,-96},{-80,-110}},                      color={0,0,127}));
-  connect(proRedQEva.u2, feedbackHeatFlowEvaporator.y)
-    annotation (Line(points={{-44,-58},{-44,-10},{-61,-10}},
-                                                       color={0,0,127}));
-  connect(iceFacCalc.iceFac, proRedQEva.u1) annotation (Line(points={{-79,-42},{
-          -56,-42},{-56,-58}},                      color={0,0,127}));
-  connect(iceFacCalc.sigBus, sigBus) annotation (Line(
+  connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-50,-81},{-50,-88},
+          {0,-88},{0,-52},{76,-52},{76,-58}}, color={0,0,127}));
+  connect(redQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{-80,
+          -96},{-80,-110}}, color={0,0,127}));
+  connect(proRedQEva.u2, feeHeaFloEva.y)
+    annotation (Line(points={{-44,-58},{-44,-10},{-61,-10}}, color={0,0,127}));
+  connect(iceFacCal.iceFac, proRedQEva.u1)
+    annotation (Line(points={{-79,-42},{-56,-42},{-56,-58}}, color={0,0,127}));
+  connect(iceFacCal.sigBus, sigBus) annotation (Line(
       points={{-100.1,-42},{-102,-42},{-102,104},{1,104}},
       color={255,204,51},
       thickness=0.5));
@@ -131,8 +124,9 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial model for calculation of electrical power <span style=\"font-family: Courier New;\">P_el</span>, condenser heat flow <span style=\"font-family: Courier New;\">QCon</span> and evaporator heat flow <span style=\"font-family: Courier New;\">QEva</span> based on the values in the <span style=\"font-family: Courier New;\">sigBus</span> for a vapour compression machine.</p>
-<p>To simulate possible icing of the evaporator on air-source devices, the icing factor is used to influence the output as well. As the factor resembles the reduction of heat transfer between refrigerant and source, the factor is implemented as follows: </p>
+<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the <code>sigBus</code> for a vapour compression machine.</p>
+<p>To simulate possible icing of the evaporator on air-source devices, the icing factor is used to influence the output as well. </p>
+<p>As the factor resembles the reduction of heat transfer between refrigerant and source, the factor is implemented as follows: </p>
 <p><code>QEva = iceFac * (QCon-P_el)</code> </p>
 <p>With iceFac as a relative value between 0 and 1: </p>
 <p><code>iceFac = kA/kA_noIce</code> </p>

@@ -20,8 +20,7 @@ record DefaultSafetyControl
     minIceFac=0.5,
     dTHystOperEnv=5,
     datTab=
-        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-        (),
+        IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201(),
     use_opeEnvFroRec=false,
     use_opeEnv=true,
     tabUpp=[-40,70; 40,70],

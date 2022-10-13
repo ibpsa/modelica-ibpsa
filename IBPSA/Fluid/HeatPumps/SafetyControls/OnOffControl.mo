@@ -37,16 +37,16 @@ model OnOffControl
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPer_h=maxRunPerHou,
-      final delTim=3600) if use_runPerHou
+  BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPer_h=maxRunPerHou, final
+      delTim=3600)       if use_runPerHou "Check number of starts violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   BaseClasses.TimeControl locTimCtr(final minRunTime=minLocTime)
-    if use_minLocTime
+    if use_minLocTime "Check if device should be locked"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   BaseClasses.TimeControl runTimCtr(final minRunTime=minRunTime)
-    if use_minRunTime
+    if use_minRunTime "Check if device needs to run"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Logical.And andIsAblToTurOn
     "If output is false, device is locked"
@@ -61,7 +61,7 @@ model OnOffControl
   Modelica.Blocks.Sources.BooleanConstant booConstRunTim(final k=true)
     if not use_minRunTime
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Modelica.Blocks.Logical.Not notSetOn
+  Modelica.Blocks.Logical.Not notSetOn "Device is not set to turn on"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
   Modelica.Blocks.Logical.And andTurOff
     "Check if device is on and is set to be turned off"
@@ -149,16 +149,15 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dash));
 
-  connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
-          -114,-116},{114,-116},{114,-20},{130,-20}}, color={255,0,255}));
-  connect(preOnOff.u, sigBus.onOffMea) annotation (Line(points={{-102,-90},{-108,
-          -90},{-108,-69},{-129,-69}}, color={255,0,255}), Text(
+  connect(preOnOff.u, sigBus.onOffMea) annotation (Line(points={{-102,-90},{
+          -108,-90},{-108,-71},{-105,-71}},
+                                       color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetOn.u, ySet) annotation (Line(points={{-102,70},{-114,70},{-114,20},
-          {-136,20}}, color={0,0,127}));
+          {-116,20}}, color={0,0,127}));
   connect(andStaOn.u1, ySetOn.y) annotation (Line(points={{-42,50},{-58,50},{-58,
           52},{-74,52},{-74,70},{-79,70}},
                          color={255,0,255}));
@@ -169,7 +168,7 @@ equation
   connect(andStaOff.u2, notSetOn.y) annotation (Line(points={{-42,-38},{-70,-38},
           {-70,28},{-79,28}}, color={255,0,255}));
   connect(lim.u, ySet) annotation (Line(points={{-102,110},{-114,110},{-114,20},
-          {-136,20}},     color={0,0,127}));
+          {-116,20}},     color={0,0,127}));
   connect(isAblToTurOff.u, runTimCtr.y) annotation (Line(points={{38,90},{28,90},
           {28,100},{21,100}}, color={255,0,255}));
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,

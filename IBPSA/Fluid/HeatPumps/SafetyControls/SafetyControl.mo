@@ -14,6 +14,7 @@ block SafetyControl "Block including all safety levels"
   replaceable parameter
     RecordsCollection.HeatPumpSafetyControlBaseDataDefinition safCtrlPar
     constrainedby RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
+    "Safety control parameters"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-118,
             102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope operationalEnvelope(
@@ -21,7 +22,7 @@ block SafetyControl "Block including all safety levels"
     final tabUpp=safCtrlPar.tabUpp,
     final use_opeEnvFroRec=safCtrlPar.use_opeEnvFroRec,
     final datTab=safCtrlPar.datTab,
-    final dTHyst=safCtrlPar.dTHystOperEnv)
+    final dTHyst=safCtrlPar.dTHystOperEnv) "Block for operational envelope"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl onOffController(
     final minRunTime=safCtrlPar.minRunTime,
@@ -32,14 +33,15 @@ block SafetyControl "Block including all safety levels"
     final maxRunPerHou=safCtrlPar.maxRunPerHou,
     final preYSet_start=safCtrlPar.preYSet_start,
     final ySet_small=ySet_small,
-    final ySetMin=safCtrlPar.ySetMin)
+    final ySetMin=safCtrlPar.ySetMin) "On off control block"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl defrostControl(
     final minIceFac=safCtrlPar.minIceFac,
-    final deltaIceFac=safCtrlPar.deltaIceFac,
+    final deaIciFac=safCtrlPar.deltaIceFac,
     final use_chiller=safCtrlPar.use_chiller,
     final conPelDeFro=safCtrlPar.calcPel_deFro) if safCtrlPar.use_deFro
+    "Defrost control"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Routing.RealPassThrough realPasThrDef
     if not safCtrlPar.use_deFro
@@ -55,6 +57,7 @@ block SafetyControl "Block including all safety levels"
         origin={130,80})));
   IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze antiFreeze(final TAntFre=
         safCtrlPar.TAntFre, final use_antFre=safCtrlPar.use_antFre)
+    "Block for anti freezing in simulation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Routing.BooleanPassThrough boolPasThrDef
     if not safCtrlPar.use_deFro
@@ -62,24 +65,27 @@ block SafetyControl "Block including all safety levels"
       Placement(transformation(extent={{-100,-60},{-80,-40}})),
       choicesAllMatching=true);
   Modelica.Blocks.Interfaces.IntegerOutput opeEnvErr if safCtrlPar.use_opeEnv
+    "Number off errors due to operational envelope"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,-130})));
   Modelica.Blocks.Interfaces.IntegerOutput antFreErr if safCtrlPar.use_antFre
+    "Number off errors due to anti freezing"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={30,-130})));
 
   MinimalVolumeFlowRateSafety minimalVolumeFlowRateSafety(
-    final use_minFlowCtrl=safCtrlPar.use_minFlowCtrl,
-    final m_flowEvaMin=safCtrlPar.m_flowEvaMinPer*mEva_flow_nominal,
-    final m_flowConMin=safCtrlPar.m_flowConMinPer*mCon_flow_nominal)
+    final use_minFloCon=safCtrlPar.use_minFlowCtrl,
+    final mEvaMin_flow=safCtrlPar.m_flowEvaMinPer*mEva_flow_nominal,
+    final mConMin_flow=safCtrlPar.m_flowConMinPer*mCon_flow_nominal)
+    "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Modelica.Blocks.Interfaces.IntegerOutput minFlowErr
-    "Integer for displaying number off Errors during simulation" annotation (
+    "Number off errors due to minimal flow rates"                annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

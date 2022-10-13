@@ -5,17 +5,14 @@ block DefrostControl
     IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.PartialSafetyControlWithErrors;
   parameter Real minIceFac "Minimal value above which no defrost is necessary";
   parameter Boolean use_chiller=true
-    "True if defrost operates by changing mode to cooling. 
-    False to use an electrical heater" annotation(choices(checkBox=true));
+    "True if defrost by reverse cycle, false if by heater" annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Power conPelDeFro
     "Constant eletrical energy demand to melt ice"
     annotation (Dialog(enable=not use_chiller));
-  parameter Real deltaIceFac = 0.1
-    "Bandwitdth for hystereses. If the icing factor is based on the duration 
-    of defrost, this value is necessary to avoid state-events.";
+  parameter Real deaIciFac=0.1 "Icing factor deadband";
   Modelica.Blocks.Logical.Hysteresis iceFacGreMinHea(
     final uLow=minIceFac,
-    final uHigh=minIceFac + deltaIceFac,
+    final uHigh=minIceFac + deaIciFac,
     final pre_y_start=true) if not use_chiller
     "Check if icing factor is greater than a boundary" annotation (Placement(
         transformation(
@@ -24,8 +21,8 @@ block DefrostControl
         origin={-29.5,-69.5})));
   Modelica.Blocks.Interfaces.RealOutput PelDeFro if not use_chiller
     "Relative speed of compressor. From 0 to 1" annotation (Placement(
-        transformation(extent={{10,-10},{-10,10}}, rotation=-90,
-        origin={0,130})));
+        transformation(extent={{10,-10},{-10,10}}, rotation=180,
+        origin={130,92})));
   Modelica.Blocks.Sources.BooleanConstant conTrueNotUseChi(final k=true)
  if not use_chiller
     "If ice is melted with an additional heater, HP can continue running"
@@ -51,9 +48,8 @@ block DefrostControl
         origin={-30,50})));
   Modelica.Blocks.Logical.Hysteresis iceFacGreMinChi(
     final uLow=minIceFac,
-    final uHigh=minIceFac + deltaIceFac,
-    final pre_y_start=true)
-                  if use_chiller
+    final uHigh=minIceFac + deaIciFac,
+    final pre_y_start=true) if use_chiller
     "Check if icing factor is greater than a boundary" annotation (Placement(
         transformation(
         extent={{-10.5,-10.5},{10.5,10.5}},
@@ -82,8 +78,8 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(PelDeFro, swiPel.y) annotation (Line(points={{0,130},{0,116.5},{
-          7.21645e-16,116.5},{7.21645e-16,101}},
+  connect(PelDeFro, swiPel.y) annotation (Line(points={{130,92},{16,92},{16,108},
+          {7.21645e-16,108},{7.21645e-16,101}},
                           color={0,0,127}));
   connect(iceFacGreMinHea.y, swiPel.u2) annotation (Line(
       points={{-17.95,-69.5},{0,-69.5},{0,4},{ 0,4},{0,78}},
@@ -107,11 +103,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(logicalSwitch.y, modeOut) annotation (Line(points={{101,-50},{116,-50},
-          {116,-20},{130,-20}},color={255,0,255}));
-  connect(modeSet, logicalSwitch.u1) annotation (Line(points={{-136,-20},{-110,
-          -20},{-110,18},{12,18},{12,-42},{78,-42}},
-                                    color={255,0,255}));
   connect(conFalseNotUseChi.y, logicalSwitch.u3) annotation (Line(
       points={{41,-70},{66,-70},{66,-58},{78,-58}},
       color={255,0,255},

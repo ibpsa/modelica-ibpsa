@@ -25,7 +25,7 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Placement(transformation(extent={{-18,-18},{18,18}}, rotation=
             90)));
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
-    "Nominal heat flow rate at condenser"
+    "Nominal heat flow rate at useful side of the device"
     annotation (Dialog(group="Nominal Design"));
 
   parameter Real y_nominal "Nominal relative compressor speed"
@@ -467,8 +467,8 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
 
-  connect(vapComCyc.Pel, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{26,
-          0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+  connect(vapComCyc.PEle, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{
+          26,0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
         color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -531,11 +531,11 @@ equation
   connect(vapComCyc.QEva_flow, vapComIneEva.u) annotation (Line(points={{-1.22125e-15,
           -19.8},{-1.22125e-15,-28.9},{2.22045e-15,-28.9},{2.22045e-15,-38}},
         color={0,0,127}));
-  connect(eva.Q_flow, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-92},
+  connect(eva.Q_flow, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-68},
           {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}}, color={0,0,
           127}));
   connect(vapComIneCon.y, con.Q_flow) annotation (Line(points={{7.21645e-16,61},
-          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,92}}, color={0,0,
+          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,68}}, color={0,0,
           127}));
   connect(vapComIneCon.u, vapComCyc.QCon_flow) annotation (Line(points={{-6.66134e-16,
           38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=

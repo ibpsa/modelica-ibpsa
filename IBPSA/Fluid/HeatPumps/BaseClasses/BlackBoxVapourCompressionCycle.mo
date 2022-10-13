@@ -61,32 +61,32 @@ initial equation
 equation
   connect(conStrSou.y, strPasThr.u);
   connect(blaBoxHeaPumCoo.datSouOut,  strPasThr.u);
-  connect(blaBoxHeaPumHea.QCon_flow, switchQCon.u1)
-    annotation (Line(points={{56,38},{56,8},{58,8}},         color={0,0,127}));
-  connect(blaBoxHeaPumHea.Pel, switchPel.u1) annotation (Line(points={{40,38},
-          {40,30},{86,30},{86,-52},{8,-52},{8,-58}},
-                                           color={0,0,127}));
-  connect(blaBoxHeaPumCoo.Pel, switchPel.u3) annotation (Line(
+  connect(blaBoxHeaPumHea.QCon_flow, swiQCon.u1)
+    annotation (Line(points={{56,38},{56,8},{58,8}}, color={0,0,127}));
+  connect(blaBoxHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38},{
+          40,30},{86,30},{86,-52},{8,-52},{8,-58}}, color={0,0,127}));
+  connect(blaBoxHeaPumCoo.PEle, swiPEle.u3) annotation (Line(
       points={{-39.5,38},{-40,38},{-40,30},{-90,30},{-90,-50},{-8,-50},{-8,-58}},
+
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(blaBoxHeaPumCoo.QEva_flow, switchQEva.u3) annotation (Line(
+  connect(blaBoxHeaPumCoo.QEva_flow, swiQEva.u3) annotation (Line(
       points={{-55.9,38},{-56,38},{-56,24},{-52,24},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchPel.u3)
-    annotation (Line(points={{-59,-70},{-40,-70},{-40,-50},{-8,-50},{-8,-58}},
-                                                  color={0,0,127}));
-  connect(constZero.y, switchQEva.u3) annotation (Line(points={{-59,-70},{-52,
-          -70},{-52,-8},{-58,-8}},   color={0,0,127},
+  connect(constZero.y, swiPEle.u3) annotation (Line(points={{-59,-70},{-40,-70},
+          {-40,-50},{-8,-50},{-8,-58}}, color={0,0,127}));
+  connect(constZero.y, swiQEva.u3) annotation (Line(
+      points={{-59,-70},{-52,-70},{-52,-8},{-58,-8}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, switchQCon.u3) annotation (Line(points={{-59,-70},{-20,
-          -70},{-20,-20},{50,-20},{50,-8},{58,-8}},
-                                             color={0,0,127},
+  connect(constZero.y, swiQCon.u3) annotation (Line(
+      points={{-59,-70},{-20,-70},{-20,-20},{50,-20},{50,-8},{58,-8}},
+      color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(gainEva.y, switchQEva.u1)
-    annotation (Line(points={{-40.8,8},{-58,8}},   color={0,0,127}));
-  connect(switchQCon.u3, gainCon.y) annotation (Line(
+  connect(gainEva.y, swiQEva.u1)
+    annotation (Line(points={{-40.8,8},{-58,8}}, color={0,0,127}));
+  connect(swiQCon.u3, gainCon.y) annotation (Line(
       points={{58,-8},{38.8,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -188,7 +188,10 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This black-box model represents the refrigerant cycle of a heat pump. Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <span style=\"font-family: Courier New;\">P_el</span>, <span style=\"font-family: Courier New;\">QCon</span> and <span style=\"font-family: Courier New;\">QEva</span>. The <span style=\"font-family: Courier New;\">mode</span> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
+<p>This black-box model represents the refrigerant cycle of a heat pump. </p>
+<p>Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. </p>
+<p>Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <code>PEle</code>, <code>QCon</code> and <code>QEva</code>. </p>
+<p>The <code>mode</code> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
 <p>The user can choose between different types of black-box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>
 </html>"));
 end BlackBoxVapourCompressionCycle;

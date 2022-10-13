@@ -5,7 +5,8 @@ partial model PartialBlackBoxVapourCompressionCycle
   parameter Boolean use_rev=true
     "True if the vapour compression machine is reversible";
 
-  IBPSA.Fluid.Interfaces.VapourCompressionMachineControlBus sigBus annotation (
+  IBPSA.Fluid.Interfaces.VapourCompressionMachineControlBus sigBus
+    "Signal bus with data for black box models"                    annotation (
       Placement(transformation(extent={{-18,86},{18,118}}), iconTransformation(
           extent={{-16,88},{18,118}})));
   Modelica.Blocks.Sources.Constant constZero(final k=0) if not use_rev
@@ -19,27 +20,26 @@ partial model PartialBlackBoxVapourCompressionCycle
     final unit="W", final displayUnit="kW")
     "Heat flow from evaporator"
     annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
-  Modelica.Blocks.Logical.Switch switchQEva(
+  Modelica.Blocks.Logical.Switch swiQEva(
     u1(final unit="W", final displayUnit="kW"),
     u3(final unit="W", final displayUnit="kW"),
     y(final unit="W", final displayUnit="kW"))
     "If mode is false, Condenser becomes Evaporator and vice versa"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  Modelica.Blocks.Logical.Switch switchQCon(
+  Modelica.Blocks.Logical.Switch swiQCon(
     y(final unit="W", final displayUnit="kW"),
     u1(final unit="W", final displayUnit="kW"),
     u3(final unit="W", final displayUnit="kW"))
     "If mode is false, Condenser becomes Evaporator and vice versa"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput Pel(
-    final unit="W", final displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit="kW")
     "Electrical power consumed by compressor" annotation (Placement(
         transformation(
         extent={{-10.5,-10.5},{10.5,10.5}},
         rotation=-90,
         origin={0.5,-110.5})));
 
-  Modelica.Blocks.Logical.Switch switchPel(
+  Modelica.Blocks.Logical.Switch swiPEle(
     u1(final unit="W", final displayUnit="kW"),
     u3(final unit="W", final displayUnit="kW"),
     y(final unit="W", final displayUnit="kW"))
@@ -49,20 +49,20 @@ partial model PartialBlackBoxVapourCompressionCycle
         rotation=270,
         origin={0,-70})));
 protected
-  Modelica.Blocks.Routing.BooleanPassThrough pasTrModSet
+  Modelica.Blocks.Routing.BooleanPassThrough pasTrhModSet
     "Pass through to enable assertion for non-reversible device";
 equation
   assert(
-    use_rev or (use_rev == false and pasTrModSet.y == true),
+    use_rev or (use_rev == false and pasTrhModSet.y == true),
     "Can't turn to reversible operation mode on 
     irreversible vapour compression machine",
     level=AssertionLevel.error);
 
-  connect(switchQEva.y, QEva_flow)
+  connect(swiQEva.y, QEva_flow)
     annotation (Line(points={{-81,0},{-110,0}}, color={0,0,127}));
-  connect(switchPel.y, Pel) annotation (Line(points={{-1.9984e-15,-81},{
-          -1.9984e-15,-95.75},{0.5,-95.75},{0.5,-110.5}}, color={0,0,127}));
-  connect(sigBus.modeSet,  switchPel.u2) annotation (Line(
+  connect(swiPEle.y, PEle) annotation (Line(points={{-1.9984e-15,-81},{-1.9984e-15,
+          -95.75},{0.5,-95.75},{0.5,-110.5}}, color={0,0,127}));
+  connect(sigBus.modeSet, swiPEle.u2) annotation (Line(
       points={{0,102},{0,22},{2.22045e-15,22},{2.22045e-15,-58}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -70,17 +70,17 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  connect(switchQCon.y, QCon_flow)
+  connect(swiQCon.y, QCon_flow)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(sigBus.modeSet, switchQEva.u2) annotation (Line(
+  connect(sigBus.modeSet, swiQEva.u2) annotation (Line(
       points={{0,102},{0,0},{-58,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigBus.modeSet, switchQCon.u2) annotation (Line(
+  connect(sigBus.modeSet, swiQCon.u2) annotation (Line(
       points={{0,102},{0,0},{58,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(pasTrModSet.u, sigBus.modeSet);
+  connect(pasTrhModSet.u, sigBus.modeSet);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

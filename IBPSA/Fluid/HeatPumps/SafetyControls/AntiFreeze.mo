@@ -23,14 +23,12 @@ model AntiFreeze "Model to prevent source from freezing"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},{
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-116,20},{32,20},{32,8},{
           78,8}}, color={0,0,127}));
-  connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
-          -114,-64},{96,-64},{96,-20},{130,-20}}, color={255,0,255}));
   connect(min.y, hys.u)
     annotation (Line(points={{-79,-10},{-62,-10}}, color={0,0,127}));
   connect(sigBus.TConInMea, min.u1) annotation (Line(
-      points={{-129,-69},{-129,-38},{-112,-38},{-112,-4},{-102,-4}},
+      points={{-105,-71},{-105,-38},{-112,-38},{-112,-4},{-102,-4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -39,7 +37,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus.TEvaOutMea, min.u2) annotation (Line(
-      points={{-129,-69},{-129,-38},{-112,-38},{-112,-16},{-102,-16}},
+      points={{-105,-71},{-105,-38},{-112,-38},{-112,-16},{-102,-16}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

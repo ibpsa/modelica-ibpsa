@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions;
-partial function PartialBaseFct "Base function for all icing factor functions"
+partial function PartialBaseFunction
+  "Base function for all icing factor functions"
   extends Modelica.Icons.Function;
   input Modelica.Units.SI.ThermodynamicTemperature TEvaInMea
     "Evaporator supply temperature. Should be equal to outdoor air temperature";
@@ -30,4 +31,4 @@ partial function PartialBaseFct "Base function for all icing factor functions"
   means no icing/frosting.
 </p>
 </html>"));
-end PartialBaseFct;
+end PartialBaseFunction;

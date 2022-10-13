@@ -3,7 +3,7 @@ model NoHeating
   "No heating, used to avoid warnings about partial model must be replaced"
   extends PartialHeatPumpBlackBox(
     redeclare final IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
-      iceFacCalc,
+      iceFacCal,
     datSou="",
     QUseBlaBox_flow_nominal=0,
     scaFac=0,
@@ -18,14 +18,14 @@ model NoHeating
   Modelica.Blocks.Sources.Constant constZer(final k=0)
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
 equation
-  connect(constZer.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{-67,26},
-          {-62,26},{-62,4},{-94,4},{-94,-10},{-78,-10}},     color={0,0,127}));
-  connect(constZer.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-67,26},
-          {-62,26},{-62,4},{-94,4},{-94,-10},{-84,-10},{-84,-24},{-70,-24},{-70,
-          -18}},     color={0,0,127}));
-  connect(constZer.y, calcRedQCon.u2) annotation (Line(points={{-67,26},{-62,26},{-62,
+  connect(constZer.y, feeHeaFloEva.u1) annotation (Line(points={{-67,26},{-62,
+          26},{-62,4},{-94,4},{-94,-10},{-78,-10}}, color={0,0,127}));
+  connect(constZer.y, feeHeaFloEva.u2) annotation (Line(points={{-67,26},{-62,
+          26},{-62,4},{-94,4},{-94,-10},{-84,-10},{-84,-24},{-70,-24},{-70,-18}},
+        color={0,0,127}));
+  connect(constZer.y, redQCon.u2) annotation (Line(points={{-67,26},{-62,26},{-62,
           4},{64,4},{64,-58}}, color={0,0,127}));
-  connect(constZer.y, Pel)
+  connect(constZer.y, PEle)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   annotation (Documentation(info="<html>
   <p>Model to use to avoid warnings about partial model must be replaced. 

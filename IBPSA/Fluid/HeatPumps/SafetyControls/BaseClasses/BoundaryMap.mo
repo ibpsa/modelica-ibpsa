@@ -27,9 +27,11 @@ Modelica.Blocks.MathBoolean.Nor
   annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 IBPSA.Utilities.Logical.DynamicHysteresis lesUpp(final pre_y_start=false)
   annotation (Placement(transformation(extent={{20,60},{40,80}})));
-Modelica.Blocks.Logical.Less lesLef
+Modelica.Blocks.Logical.Hysteresis
+                             lesLef
   annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-Modelica.Blocks.Logical.Greater greaterRig
+Modelica.Blocks.Logical.Hysteresis
+                                hysteresis(uLow=0.05)
   annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 Modelica.Blocks.Sources.Constant conXMin(k=xMin)
   annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -50,17 +52,9 @@ connect(lesUpp.y, nor1.u[1]) annotation (Line(points={{41,70},{50,70},
       {50,-2.33333}, {60,-2.33333}}, color={255,0,255}));
 connect(lesLef.y, nor1.u[2]) annotation (Line(points={{41,-30},{50,-30},
       {50,0}, {60,0}}, color={255,0,255}));
-connect(greaterRig.y, nor1.u[3]) annotation (Line(points={{41,-70},{50,-70},
+connect(hysteresis.y, nor1.u[3]) annotation (Line(points={{41,-70},{50,-70},
       {50,2.33333},{60,2.33333}},
                                 color={255,0,255}));
-connect(x, lesLef.u1) annotation (Line(points={{-114,60},{-72,60},{-72,-30},
-      {18, -30}}, color={0,0,127}));
-connect(x, greaterRig.u1) annotation (Line(points={{-114,60},{-72,60},
-      {-72,-30}, {-64,-30},{-64,-70},{18,-70}}, color={0,0,127}));
-connect(conXMax.y, greaterRig.u2) annotation (Line(points={{-39,-90},
-      {10,-90},{10,-78},{18,-78}}, color={0,0,127}));
-connect(conXMin.y, lesLef.u2) annotation (Line(points={{-39,-50},{-10,-50},
-      {-10, -38},{18,-38}}, color={0,0,127}));
 connect(y, lesUpp.u) annotation (Line(points={{-114,-60},{-90,-60},{-90,94},
       {12, 94},{12,70},{18,70}}, color={0,0,127}));
 connect(uppTab.y[1], lesUpp.uHigh) annotation (Line(points={{-39,70},{8,70},

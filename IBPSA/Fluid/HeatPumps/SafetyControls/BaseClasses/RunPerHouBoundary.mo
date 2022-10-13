@@ -8,16 +8,18 @@ block RunPerHouBoundary "Checks if a maximal run per hour value is in boundary"
                               runCouLesMax(threshold=maxRunPer_h)
     "Checks if the count of total runs is lower than the maximal value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Modelica.Blocks.MathInteger.TriggeredAdd triAdd
+  Modelica.Blocks.MathInteger.TriggeredAdd triAdd "Count number of starts"
     annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
   Modelica.Blocks.Sources.IntegerConstant intConPluOne(final k=1)
     "Value for counting"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Modelica.Blocks.Math.IntegerToReal intToReal
+    "Convert to real in order to compare and delay"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Math.Add sub(k2=-1)
+  Modelica.Blocks.Math.Add sub(k2=-1) "Diff of current and delayed starts"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixDel(final delayTime=delTim)
+    "Apply delay to enable starts per delTim"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 equation
   connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-79,-20},{-74,-20},

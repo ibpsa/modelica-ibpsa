@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.BaseClasses;
-partial model PartialIceFac "Partial model to calculate the icing factor"
+partial model PartialIcingFactor "Partial model to calculate the icing factor"
   Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus-connector used in a heat pump" annotation (Placement(
         transformation(
@@ -39,4 +39,4 @@ partial model PartialIceFac "Partial model to calculate the icing factor"
   </li>
 </ul>
 </html>"));
-end PartialIceFac;
+end PartialIcingFactor;

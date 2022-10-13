@@ -21,9 +21,10 @@ partial block PartialSafetyControlWithErrors
   Modelica.Blocks.Interfaces.IntegerOutput err
     "Integer for displaying number off Errors during simulation"
                                                annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, rotation=270,
-        origin={0,-130})));
-  Modelica.Blocks.Logical.Not notVal annotation (Placement(transformation(
+        transformation(extent={{-10,-10},{10,10}}, rotation=0,
+        origin={130,-110})));
+  Modelica.Blocks.Logical.Not notVal "=true indicates a error"
+                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-100})));
@@ -31,12 +32,14 @@ partial block PartialSafetyControlWithErrors
     "Used for display of current error"
     annotation (Placement(transformation(extent={{60,-110},{40,-90}})));
   Modelica.Blocks.Routing.BooleanPassThrough booPasThr
+    "Used to keep the connection to the counter"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(conZer.y,swiErr. u3) annotation (Line(points={{61,-30},{70,-30},{70,
           -8},{78,-8}},     color={0,0,127}));
   connect(disErr.y,err)  annotation (Line(points={{-2.22045e-15,-112},{
-          -2.22045e-15,-121},{0,-121},{0,-130}}, color={255,127,0}));
+          -2.22045e-15,-118},{80,-118},{80,-110},{130,-110}},
+                                                 color={255,127,0}));
   connect(notVal.y, disErr.trigger) annotation (Line(points={{-19,-100},
           {-12,-100}, {-12,-94}}, color={255,0,255}));
   connect(intConOne.y, disErr.u) annotation (Line(points={{39,-100},{20,-100},
@@ -47,7 +50,7 @@ equation
   connect(booPasThr.y, notVal.u) annotation (Line(points={{61,0},{66,0},{66,-74},
           {-48,-74},{-48,-100},{-42,-100}}, color={255,0,255}));
   connect(swiErr.y, yOut) annotation (Line(points={{101,0},{110,0},{110,20},{
-          130,20}}, color={0,0,127}));
+          110,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),      Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),

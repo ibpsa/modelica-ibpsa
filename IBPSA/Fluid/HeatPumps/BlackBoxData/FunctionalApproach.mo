@@ -57,27 +57,23 @@ equation
   connect(switchQCon.u3, constZero.y)
     annotation (Line(points={{-58,2},{-58,8},{-10,8},{-10,19}},
                      color={0,0,127}));
-  connect(switchQCon.y, feedbackHeatFlowEvaporator.u1)
-    annotation (Line(points={{-50,-21},
-          {-50,-26},{-84,-26},{-84,-10},{-78,-10}},     color={0,0,127}));
+  connect(switchQCon.y, feeHeaFloEva.u1) annotation (Line(points={{-50,-21},{-50,
+          -26},{-84,-26},{-84,-10},{-78,-10}}, color={0,0,127}));
   connect(switchQCon.u1, QConInternal_flow.y)
     annotation (Line(points={{-42,2},{-42,50},{-59,50}},
                                                       color={0,0,127}));
   connect(constZero.y, switchPel.u3)
     annotation (Line(points={{-10,19},{-10,8},{
           42,8},{42,2}},color={0,0,127}));
-  connect(switchPel.y, calcRedQCon.u2)
-    annotation (Line(points={{50,-21},{50,-50},
-          {64,-50},{64,-58}}, color={0,0,127}));
-  connect(switchPel.y, Pel)
-    annotation (Line(points={{50,-21},{50,-44},{0,-44},{
-          0,-110}},  color={0,0,127}));
+  connect(switchPel.y, redQCon.u2) annotation (Line(points={{50,-21},{50,-50},{64,
+          -50},{64,-58}}, color={0,0,127}));
+  connect(switchPel.y, PEle) annotation (Line(points={{50,-21},{50,-44},{0,-44},
+          {0,-110}}, color={0,0,127}));
   connect(switchPel.u1, PelInternal.y) annotation (Line(points={{58,2},{58,0},{
           68,0},{68,50},{61,50}},
                              color={0,0,127}));
-  connect(switchPel.y, feedbackHeatFlowEvaporator.u2)
-    annotation (Line(points={{50,-21},{50,-32},{-70,-32},{-70,-18}},
-                    color={0,0,127}));
+  connect(switchPel.y, feeHeaFloEva.u2) annotation (Line(points={{50,-21},{50,-32},
+          {-70,-32},{-70,-18}}, color={0,0,127}));
   connect(switchPel.u2, sigBus.onOffMea)
     annotation (Line(points={{50,2},{50,12},{20,12},{20,96},{1,96},{1,104}},
                   color={255,0,255}),
@@ -133,8 +129,12 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This model is used to calculate the three values based on a functional approach. The user can choose between several functions or implement their own. </p>
-<p>As the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct\">IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct </a>only returns the electrical power and the condenser heat flow, the evaporator heat flow is calculated with the following energy balance: </p>
+<p>This model is used to calculate the three values based on a functional approach. </p>
+<p>The user can choose between several functions or implement their own. </p>
+<p>As the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct\">
+IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct </a>
+only returns the electrical power and the condenser heat flow, 
+the evaporator heat flow is calculated with the following energy balance: </p>
 <p><span style=\"font-family: Courier New;\">QEva = QCon - P_el</span> </p>
 </html>"));
 end FunctionalApproach;

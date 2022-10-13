@@ -27,7 +27,8 @@ model EuropeanNorm2D
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
     final extrapolation=extrapolation,
-    final table=datTab.tableQEva_flow) annotation (Placement(transformation(
+    final table=datTab.tableQEva_flow) "Evaporator heat flow table"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,50})));
@@ -43,21 +44,25 @@ model EuropeanNorm2D
         rotation=-90,
         origin={-70,50})));
 
-  Modelica.Blocks.Math.UnitConversions.To_degC TConInToDegC annotation (extent=[
+  Modelica.Blocks.Math.UnitConversions.To_degC TConInToDegC
+    "Table input is in degC"                                annotation (extent=[
         -88,38; -76,50], Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,90})));
-  Modelica.Blocks.Math.UnitConversions.To_degC TEvaOutToDegC annotation (extent=
+  Modelica.Blocks.Math.UnitConversions.To_degC TEvaOutToDegC
+    "Table input is in degC"                                 annotation (extent=
        [-88,38; -76,50], Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,90})));
-  Modelica.Blocks.Math.Product nTimPel annotation (Placement(transformation(
+  Modelica.Blocks.Math.Product nTimPel "Scale Pel using ySet and scaFac"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-30,-10})));
-  Modelica.Blocks.Math.Product nTimEva annotation (Placement(transformation(
+  Modelica.Blocks.Math.Product nTimEva "Scale QEva_flow using ySet and scaFac"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,10})));
@@ -127,8 +132,8 @@ equation
   connect(tabQEva_flow.y, nTimEva.u1) annotation (Line(points={{50,39},{50,26},{
           56,26},{56,22}}, color={0,0,127}));
 
-  connect(nTimPel.y, Pel) annotation (Line(points={{-30,-21},{-30,-94},{0,-94},{
-          0,-110}}, color={0,0,127}));
+  connect(nTimPel.y, PEle) annotation (Line(points={{-30,-21},{-30,-94},{0,-94},
+          {0,-110}}, color={0,0,127}));
   connect(realCorr.y, nTimScaFac.u2)
     annotation (Line(points={{-10,39},{-10,32},{4,32}}, color={0,0,127}));
   connect(sigBus.ySet, nTimScaFac.u1) annotation (Line(
@@ -143,14 +148,13 @@ equation
     annotation (Line(points={{10,9},{10,2},{-24,2}}, color={0,0,127}));
   connect(nTimScaFac.y, nTimEva.u2) annotation (Line(points={{10,9},{10,4},{34,4},
           {34,28},{44,28},{44,22}}, color={0,0,127}));
-  connect(nTimEva.y, feedbackHeatFlowEvaporator.u1) annotation (Line(points={{50,
-          -1},{50,-18},{-58,-18},{-58,-22},{-72,-22},{-72,-24},{-84,-24},{-84,-10},
-          {-78,-10}}, color={0,0,127}));
-  connect(nTimPel.y, calcRedQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},
-          {64,-48},{64,-58}}, color={0,0,127}));
-  connect(constZero.y, feedbackHeatFlowEvaporator.u2) annotation (Line(points={{-79,10},
-          {-62,10},{-62,4},{-56,4},{-56,-24},{-70,-24},{-70,-18}},
+  connect(nTimEva.y, feeHeaFloEva.u1) annotation (Line(points={{50,-1},{50,-18},
+          {-58,-18},{-58,-22},{-72,-22},{-72,-24},{-84,-24},{-84,-10},{-78,-10}},
         color={0,0,127}));
+  connect(nTimPel.y, redQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},{
+          64,-48},{64,-58}}, color={0,0,127}));
+  connect(constZero.y, feeHeaFloEva.u2) annotation (Line(points={{-79,10},{-62,
+          10},{-62,4},{-56,4},{-56,-24},{-70,-24},{-70,-18}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
     Line(points={{0.0,40.0},{0.0,-40.0}}),

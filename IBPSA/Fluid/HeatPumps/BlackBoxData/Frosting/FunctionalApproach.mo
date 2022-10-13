@@ -1,18 +1,21 @@
 within IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting;
 model FunctionalApproach
   "Estimate the frosting supression using a function"
-  extends BaseClasses.PartialIceFac;
+  extends BaseClasses.PartialIcingFactor;
 
   replaceable function iceFacFun =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct
+      IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFunction
     constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFct
+    IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.PartialBaseFunction
     "Replaceable function to calculate current icing factor"
     annotation(choicesAllMatching=true);
 
-  Modelica.Blocks.Routing.RealPassThrough pasThrTEvaIn;
-  Modelica.Blocks.Routing.RealPassThrough pasThrTEvaOut;
-  Modelica.Blocks.Routing.RealPassThrough pasThrMFlowEva;
+  Modelica.Blocks.Routing.RealPassThrough pasThrTEvaIn
+    "Enable usage of bus variables in function call";
+  Modelica.Blocks.Routing.RealPassThrough pasThrTEvaOut
+    "Enable usage of bus variables in function call";
+  Modelica.Blocks.Routing.RealPassThrough pasThrMFlowEva
+    "Enable usage of bus variables in function call";
 
 equation
   iceFac =iceFacFun(

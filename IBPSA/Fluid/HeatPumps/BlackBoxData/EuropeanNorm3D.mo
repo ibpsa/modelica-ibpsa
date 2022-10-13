@@ -189,19 +189,14 @@ equation
   connect(scaFacGainPel.y, switchPel.u1)
     annotation (Line(points={{30,39},{30,12},{56,12},{56,6},{64,6},{64,2},{58,2}},
                                                     color={0,0,127}));
-  connect(switchPel.y, calcRedQCon.u2) annotation (Line(points={{50,-21},{50,-50},
-          {64,-50},{64,-58}},            color={0,0,127}));
-  connect(switchPel.y, Pel) annotation (Line(points={{50,-21},{50,-26},{-12,-26},
-          {-12,-94},{0,-94},{0,-110}},
-                     color={0,0,127}));
-  connect(switchQCon.y, feedbackHeatFlowEvaporator.u1)
-    annotation (Line(points={{-30,-21},
-          {-30,-22},{-50,-22},{-50,4},{-84,4},{-84,-10},{-78,-10}},  color={0,0,
-          127}));
-  connect(switchPel.y, feedbackHeatFlowEvaporator.u2)
-    annotation (Line(points={{50,-21},
-          {50,-26},{-70,-26},{-70,-18}},
-                 color={0,0,127}));
+  connect(switchPel.y, redQCon.u2) annotation (Line(points={{50,-21},{50,-50},
+          {64,-50},{64,-58}}, color={0,0,127}));
+  connect(switchPel.y, PEle) annotation (Line(points={{50,-21},{50,-26},{-12,-26},
+          {-12,-94},{0,-94},{0,-110}}, color={0,0,127}));
+  connect(switchQCon.y, feeHeaFloEva.u1) annotation (Line(points={{-30,-21},{-30,
+          -22},{-50,-22},{-50,4},{-84,4},{-84,-10},{-78,-10}}, color={0,0,127}));
+  connect(switchPel.y, feeHeaFloEva.u2) annotation (Line(points={{50,-21},{50,
+          -26},{-70,-26},{-70,-18}}, color={0,0,127}));
   connect(switchQCon.u2, sigBus.onOffMea) annotation (Line(points={{-30,2},{-30,
           12},{-94,12},{-94,96},{1,96},{1,104}},                 color={255,0,
           255}), Text(

@@ -4,9 +4,9 @@ partial model PartialChillerBlackBox
   extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox;
 
 equation
-  connect(iceFacCalc.iceFac, sigBus.iceFacChiMea) annotation (Line(points={{
-          -79,-42},{-72,-42},{-72,-26},{-102,-26},{-102,104},{1,104}}, color=
-          {0,0,127}), Text(
+  connect(iceFacCal.iceFac, sigBus.iceFacChiMea) annotation (Line(points={{-79,
+          -42},{-72,-42},{-72,-26},{-102,-26},{-102,104},{1,104}}, color={0,0,
+          127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
