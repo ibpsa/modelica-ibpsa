@@ -3,19 +3,7 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
 
   extends IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.Icons.partialPVIcon;
 
-  replaceable model ElectricalModel =
-    IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical
-   "Model with electrical characteristics";
-
-  replaceable model ThermalModel =
-    IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.PartialPVThermal
-    "Model with thermal characteristics";
-
-  replaceable model OpticalModel =
-    IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.PartialPVOptical
-    "Model with optical characteristics"
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  //replaceable model IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.PartialPVOptical PVOptical annotation(choicesAllMatching=true);
 
   replaceable parameter IBPSA.Electrical.DataBase.PVSimpleBaseDataDefinition data
    constrainedby IBPSA.Electrical.DataBase.PVSimpleBaseDataDefinition
@@ -94,6 +82,14 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
 
   Modelica.Blocks.Interfaces.RealOutput P_DC "DC Power output"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
+  replaceable BaseClasses.PartialPVOptical partialPVOptical
+  "Model with optical characteristics"
+    annotation (Placement(transformation(extent={{-36,64},{-24,76}})));
+  replaceable BaseClasses.PartialPVThermal partialPVThermal= IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.PartialPVThermal
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-38,4},{-24,16}})));
+
+  replaceable BaseClasses.PartialPVElectrical partialPVElectrical
+    annotation (Placement(transformation(extent={{-36,-56},{-24,-44}})));
 protected
   Modelica.Blocks.Interfaces.RealInput MPP_in_internal
   "Needed to connect to conditional MPP tracking connector";
