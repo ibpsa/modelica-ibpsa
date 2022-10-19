@@ -5,8 +5,7 @@ function smoothInterpolation
   input Real x "Abscissa value";
   input Real xSup[:] "Support points (strictly increasing)";
   input Real ySup[size(xSup,1)] "Function values at xSup";
-  input Boolean ensureMonotonicity=IBPSA.Utilities.Math.Functions.isMonotonic(
-                                               ySup, strict=false)
+  input Boolean ensureMonotonicity=isMonotonic(ySup, strict=false)
     "Set to true to ensure monotonicity of the cubic hermite";
   output Real yInt "Interpolated ordinate value";
 
@@ -32,14 +31,14 @@ algorithm
        end if;
      end for;
      assert(xSup[i] < xSup[i+1], "Support points xSup must be increasing.");
-    yInt := IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-      x=x,
-      x1=xSup[i],
-      x2=xSup[i + 1],
-      y1=ySup[i],
-      y2=ySup[i + 1],
-      y1d=dy_dx[i],
-      y2d=dy_dx[i + 1]);
+     yInt:=cubicHermiteLinearExtrapolation(
+        x=x,
+        x1=xSup[i],
+        x2=xSup[i+1],
+        y1=ySup[i],
+        y2=ySup[i+1],
+        y1d=dy_dx[i],
+        y2d=dy_dx[i+1]);
   elseif n == 2 then
     // Linear interpolation.
     yInt := ySup[1] + (x - xSup[1]) * (ySup[2] - ySup[1])/(xSup[2] - xSup[1]);
