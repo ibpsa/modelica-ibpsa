@@ -115,7 +115,7 @@ IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
 Aug 5, 2022, by Hongxiang Fu:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 </ul>
 </html>"),

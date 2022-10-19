@@ -946,7 +946,7 @@ Now the flow work <code>WFlo</code> is bounded to be non-negative.
 </li>
 </ul>
 These are for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 June 6, 2022, by Hongxiang Fu:<br/>
 Added a constraint that <i>W<sub>flo</sub> = V&#775; &Delta;p &ge; 0</i>.<br/>
 This is for

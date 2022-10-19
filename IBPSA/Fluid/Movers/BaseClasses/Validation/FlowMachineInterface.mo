@@ -36,7 +36,7 @@ and <code>eff.V_flow_max</code> as they are now assigned inside
 <a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.<br/>
 This is for 
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 <li>
 February 19, 2016, by Michael Wetter:<br/>

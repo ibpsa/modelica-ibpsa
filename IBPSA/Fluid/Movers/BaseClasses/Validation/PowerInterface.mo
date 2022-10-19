@@ -49,7 +49,7 @@ Simple validation model for the power interface model.
 March 8, 2022, by Hongxiang Fu:<br/>
 Changed the source for <code>etaHyd</code> to <code>WHyd</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 <li>
 February 19, 2016, by Michael Wetter:<br/>

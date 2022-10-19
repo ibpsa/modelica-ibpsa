@@ -195,7 +195,7 @@ IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 </li>
 </ul>
 These are for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 <li>
 February 19, 2016, by Filip Jorissen:<br/>

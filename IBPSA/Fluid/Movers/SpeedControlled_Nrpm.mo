@@ -94,7 +94,7 @@ with the enumeration
 <a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
 IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
 This is for

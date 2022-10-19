@@ -41,7 +41,7 @@ to support the implementation of
 <a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Euler\">
 <code>IBPSA.Fluid.Movers.BaseClasses.Euler</code></a>.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>

@@ -63,7 +63,7 @@ https://www.energy.gov/sites/prod/files/2014/04/f15/10097517.pdf</a>
 <ul>
 <li>April 5, by Hongxiang Fu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 </ul>
 </html>"));

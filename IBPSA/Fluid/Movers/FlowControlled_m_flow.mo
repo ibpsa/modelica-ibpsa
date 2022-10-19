@@ -130,7 +130,7 @@ and
 <a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
 IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>

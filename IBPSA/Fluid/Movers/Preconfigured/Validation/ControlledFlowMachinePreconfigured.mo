@@ -46,7 +46,7 @@ IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic</a>.
 <li>
 August 17, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
 </li>
 </ul>
 </html>"),
