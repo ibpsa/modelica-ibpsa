@@ -27,7 +27,7 @@ for instructions.
 <li>
 October 15, 2021, by Hongxiang Fu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
 </html>"));
@@ -52,7 +52,7 @@ for instructions.
 <li>
 October 15, 2021, by Hongxiang Fu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
 </html>"));

@@ -76,7 +76,7 @@ Changed parameterisation so that the result curve is clearer.
 </li>
 </ul>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
 June 6, 2022, by Hongxiang Fu:<br/>

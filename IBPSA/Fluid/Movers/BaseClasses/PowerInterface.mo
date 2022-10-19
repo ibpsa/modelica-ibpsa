@@ -128,7 +128,7 @@ It now takes <code>WHyd</code> instead of <code>etaHyd</code> as an input from
 <a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

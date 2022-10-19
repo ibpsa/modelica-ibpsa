@@ -606,7 +606,7 @@ Added an <code>assert()</code> warning when the model has to overwrite
 </li>
 </ul>
 These are for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">Buildings, #2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 <li>
 June 17, 2021, by Michael Wetter:<br/>
