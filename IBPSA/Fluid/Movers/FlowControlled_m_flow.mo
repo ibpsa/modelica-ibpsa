@@ -20,7 +20,20 @@ model FlowControlled_m_flow
           IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+        final etaHydMet=
+          if per.etaHydMet ==
+               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            and not per.havePressureCurve then
+              IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+          else per.etaHydMet,
+        final etaMotMet=
+          if (per.etaMotMet ==
+               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+            and (not per.haveWMot_nominal and not per.havePressureCurve) then
+               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+          else per.etaMotMet),
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
@@ -99,11 +112,6 @@ equation
    info="<html>
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
-The efficiency of the device is computed based
-on the efficiency and pressure curves that are defined
-in record <code>per</code>, which is of type
-<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
-IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
 See the
@@ -113,6 +121,17 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 27, 2022, by Hongxiang Fu:<br/>
+Replaced <code>not use_powerCharacteristic</code> with the enumerations
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
+and
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
+IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
