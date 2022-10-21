@@ -17,15 +17,15 @@ preferredView="info",
 Documentation(info="<html>
 <p>
 This package contains a list of packages that represent different type of electric systems.
-Each package inherits from <a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
-Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>.
+Each package inherits from <a href=\"modelica://IBPSA.Electrical.PhaseSystems.PartialPhaseSystem\">
+IBPSA.Electrical.PhaseSystems.PartialPhaseSystem</a>.
 </p>
 <p>
 The packages represent various types of electrical systems. The basic idea behind this
 approach is to use the same connector for different electrical domains.
 Each connector has a replaceable package that inherits from
-<a href=\"modelica://Buildings.Electrical.PhaseSystems.PartialPhaseSystem\">
-Buildings.Electrical.PhaseSystems.PartialPhaseSystem</a>
+<a href=\"modelica://IBPSA.Electrical.PhaseSystems.PartialPhaseSystem\">
+IBPSA.Electrical.PhaseSystems.PartialPhaseSystem</a>
 depending on the type of electrical system.
 The electrical systems represented are:
 </p>
