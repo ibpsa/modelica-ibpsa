@@ -2,4 +2,5 @@ ConstantVoltage
 VoltageSource
 PVSystem
 Examples
+Validation
 BaseClasses

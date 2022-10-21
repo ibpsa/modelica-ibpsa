@@ -5,12 +5,9 @@ package PVSystem
     extends
       IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.Icons.partialPVIcon;
 
-    //replaceable model IBPSA.Electrical.BaseClasses.PVSystem.BaseClasses.PartialPVOptical PVOptical annotation(choicesAllMatching=true);
-
-    replaceable parameter IBPSA.Electrical.DataBase.PVSimpleBaseDataDefinition data
-     constrainedby IBPSA.Electrical.DataBase.PVSimpleBaseDataDefinition
-     "PV Panel data definition"
-                               annotation (choicesAllMatching);
+    replaceable parameter IBPSA.Electrical.DataBase.PVBaseDataDefinition data
+     constrainedby IBPSA.Electrical.DataBase.PVBaseDataDefinition
+     "PV Panel data definition" annotation(choicesAllMatching=true);
 
     parameter Boolean use_MPP_in = false
      "If true then MPP via real interface else internal automatic MPP tracking"
@@ -21,7 +18,7 @@ package PVSystem
     annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
 
     parameter Modelica.Units.SI.Angle til if not use_Til_in
-    "Prescribed tilt angle (used if til=Parameter)" annotation(Dialog(enable=not use_Til_in, tab="Advanced"));
+    "Prescribed tilt angle (used if til=Parameter)" annotation(Dialog(enable=not use_Til_in, tab="Module mounting and specifications"));
 
     parameter Boolean use_Azi_in = false
     "If true then azimuth angle is controlled via real interface else parameter"
@@ -29,7 +26,7 @@ package PVSystem
 
     parameter Modelica.Units.SI.Angle azi if not use_Azi_in
     "Prescribed azimuth angle (used if azi=Parameter)"
-    annotation(Dialog(enable=not use_Azi_in, tab="Advanced"));
+    annotation(Dialog(enable=not use_Azi_in, tab="Module mounting and specifications"));
 
     parameter Boolean use_Sha_in = false
     "If true then shading is real interface else neglected"
@@ -82,15 +79,15 @@ package PVSystem
             extent={{-110,-104},{-88,-82}}), iconTransformation(extent={{-106,-72},
               {-88,-54}})));
 
-    Modelica.Blocks.Interfaces.RealOutput P_DC "DC Power output"
+    Modelica.Blocks.Interfaces.RealOutput P "DC Power output"
       annotation (Placement(transformation(extent={{94,-10},{114,10}})));
-    replaceable BaseClasses.PartialPVOptical partialPVOptical
+    replaceable IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVOptical partialPVOptical
     "Model with optical characteristics"
       annotation (Placement(transformation(extent={{-36,64},{-24,76}})));
-    replaceable BaseClasses.PartialPVThermal partialPVThermal=IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVThermal
-      annotation (choicesAllMatching=true,Placement(transformation(extent={{-38,4},{-24,16}})));
+    replaceable IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVThermal partialPVThermal "Test"
+      annotation (choicesAllMatching=true,Dialog(tab="Module mounting and specifications"),Placement(transformation(extent={{-38,4},{-24,16}})));
 
-    replaceable BaseClasses.PartialPVElectrical partialPVElectrical
+    replaceable IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical partialPVElectrical
       annotation (Placement(transformation(extent={{-36,-56},{-24,-44}})));
   protected
     Modelica.Blocks.Interfaces.RealInput MPP_in_internal
@@ -392,77 +389,10 @@ package PVSystem
           coordinateSystem(preserveAspectRatio=false)));
   end PVOpticalHorFixedAziTil;
 
-  model PVElectrical2Diodes
-    "2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
+  model PVElectrical1DiodeMPP "Analytical 5-p model for PV I-V 
+  characteristics with temp. dependency based on 5 parameters with automatic MPP control"
     extends
-      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical2Diodes;
-    input Modelica.Blocks.Interfaces.RealInput U(unit="V")
-      "Module voltage"
-      annotation (Placement(transformation(extent={{-98,-28},{-60,10}}),iconTransformation(extent={{-10,-10},{10,10}},origin={-70,0})));
-  equation
-    0 = IPho - ISat1 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(1.0 * Ut)) - 1.0)
-      - ISat2 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(2.0 * Ut)) - 1.0)
-      - (U / nCelSer + (I / nCelPar) * RSer) / RPar - I / nCelPar;
-    P = I * U;
-    annotation (
-  Documentation(info="<html>
-<p>
-This is a 2 diodes electrical model of a PV module.
-</p>
-</html>",   revisions="<html>
-<ul>
-<li>
-October 11, 2022 by Christoph Nytsch-Geusen:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-  end PVElectrical2Diodes;
-
-  model PVElectrical2DiodesMPP
-    "MPP controlled 2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
-    extends
-      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical2Diodes;
-    output Modelica.Blocks.Interfaces.RealOutput U(
-      unit="V",
-      start = 0.0)
-      "Module voltage"
-      annotation (Placement(transformation(extent={{60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,10}})));
-    Real lambda(start = 0.0)
-      "Lagrange multiplier";
-
-  equation
-    // Calculation of I_MPP and U_MPP with the calculation method extremes under constraints with Lagrange multiplier
-    0 = IPho - ISat1 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(1.0 * Ut)) - 1.0)
-      - ISat2 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(2.0 * Ut)) - 1.0)
-      - (U / nCelSer + (I / nCelPar) * RSer) / RPar - I / nCelPar;
-
-    0 = I / nCelPar - lambda * ((ISat1 / (1.0 * Ut)) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (1.0 * Ut))
-      + (ISat2 / (2.0 * Ut))* Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (2.0 * Ut)) + 1.0 / RPar);
-
-    0 = U / nCelSer - lambda * (( RSer * ISat1) / (1.0 * Ut) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (1.0 * Ut))
-      + (RSer * ISat2) / (2.0 * Ut) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (2.0 * Ut)) + RSer / RPar + 1.0);
-
-    P = I * U;
-    annotation (
-  Documentation(info="<html>
-<p>
-This is a 2 diodes MPP controlled electrical model of a PV module.
-</p>
-</html>",   revisions="<html>
-<ul>
-<li>
-October 11, 2022 by Christoph Nytsch-Geusen:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-  end PVElectrical2DiodesMPP;
-
-  model PVElectrical5pAnalytical "Analytical 5-p model for PV I-V 
-  characteristics with temp. dependency based on 5 parameters"
-    extends
-      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical;
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical1Diode;
 
     // Main parameters under standard conditions
 
@@ -523,11 +453,11 @@ First implementation.
 
     // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
 
-   a_0 = V_oc0*(1-T_c0*beta_Voc)/(50.1-T_c0*alpha_Isc);
+   a_0 = V_oc0*(1-TCel0*beta_Voc)/(50.1-TCel0*alpha_Isc);
 
     w_0 =
-      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.LambertWSimple(
-      exp(1/(a_0/V_oc0) + 1));
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.lambertWSimple(
+       exp(1/(a_0/V_oc0) + 1));
 
    R_s0 = (a_0*(w_0-1)-V_mp0)/I_mp0;
 
@@ -539,25 +469,25 @@ First implementation.
 
   // Parameter extrapolation equations to operating conditions (DeSoto et al.,2006)
 
-   a/a_0 = T_c/T_c0;
+   a/a_0 = TCel/TCel0;
 
-   I_s/I_s0 = (T_c/T_c0)^3*exp(1/k*(E_g0/T_c0-E_g/T_c));
+   I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(E_g0/TCel0-E_g/TCel));
 
-   E_g/E_g0 = 1-C*(T_c-T_c0);
+   E_g/E_g0 = 1-C*(TCel-TCel0);
 
    R_s = R_s0;
 
-   I_ph = if absRadRat > 0 then absRadRat*(I_ph0+TCoeff_Isc*(T_c-T_c0))
+   I_ph = if absRadRat > 0 then absRadRat*(I_ph0+TCoeff_Isc*(TCel-TCel0))
    else
     0;
 
-   R_sh/R_sh0 = if noEvent(absRadRat > 0.001) then 1/absRadRat
+   R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat
    else
     0;
 
   //Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
 
-   I_mp = if noEvent(absRadRat <= 0.0011 or w<=0.001) then 0
+   I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
    else
    I_ph*(1-1/w)-a*(w-1)/R_sh;
 
@@ -565,31 +495,175 @@ First implementation.
    else
    a*(w-1)-R_s*I_mp;
 
-   V_oc = if I_ph >= 0.01  then
+   V_oc = if I_ph >= Modelica.Constants.eps*10  then
    a*log(abs((I_ph/I_s+1)))
    else
    0;
 
-    w = if noEvent(V_oc >= 0.001) then
-      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.LambertWSimple(
-      exp(1/(a/V_oc) + 1)) else 0;
+    w = if noEvent(V_oc >= Modelica.Constants.eps) then
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.lambertWSimple(
+       exp(1/(a/V_oc) + 1)) else 0;
 
   //I-V curve equation - use if P at a given V is needed (e.g. battery loading scenarios without MPP tracker)
   //I = I_ph - I_s*(exp((V+I*R_s)/(a))-1) - (V + I*R_s)/(R_sh);
 
   // Efficiency and Performance
 
-   eta= if noEvent(radTil <= 0.01) then 0
+   eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0
    else
    P_mod/(radTil*A_pan);
 
    P_mod = V_mp*I_mp;
 
-   DCOutputPower=max(0, min(P_Max*n_mod, P_mod*n_mod));
+   P=max(0, min(P_Max*n_mod, P_mod*n_mod));
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
-  end PVElectrical5pAnalytical;
+          coordinateSystem(preserveAspectRatio=false)),
+      Documentation(info="<html><h4>
+  <span style=\"color: #008000\">Overview</span>
+</h4>
+<p>
+  <br/>
+  Analytical 5-p model for determining the I-V characteristics of a PV
+  array (Batzelis et al.,2016) with temp. dependency of the 5
+  parameters after (DeSoto et al.,2006). The final output of this model
+  is the DC performance of the PV array.
+</p>
+<p>
+  <br/>
+  Validated with experimental data from NIST (Boyd, 2017).
+</p>
+<p>
+  Module calibration is based on manufactory data.
+</p>
+<p>
+  <br/>
+</p>
+<h4>
+  <span style=\"color: #008000\">References</span>
+</h4>
+<p>
+  A Method for the analytical extraction of the Single-Diode PV model
+  parameters. by Batzelis, Efstratios I. ; Papathanassiou, Stavros A.
+</p>
+<p>
+  Improvement and validation of a model for photovoltaic array
+  performance. by De Soto, W. ; Klein, S. A. ; Beckman, W. A.
+</p>
+<p>
+  Performance Data from the NIST Photovoltaic Arrays and Weather
+  Station. by Boyd, M.:
+</p>
+
+</html>"));
+  end PVElectrical1DiodeMPP;
+
+  model PVElectrical2Diodes
+    "2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
+    extends
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical2Diodes;
+    input Modelica.Blocks.Interfaces.RealInput U(unit="V")
+      "Module voltage"
+      annotation (Placement(transformation(extent={{-138,-20},{-100,18}}),
+                                                                        iconTransformation(extent={{-10,-10},{10,10}},origin={-110,8})));
+  equation
+    0 = IPho - ISat1 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(1.0 * Ut)) - 1.0)
+      - ISat2 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(2.0 * Ut)) - 1.0)
+      - (U / nCelSer + (I / nCelPar) * RSer) / RPar - I / nCelPar;
+    P = I * U;
+    annotation (
+  Documentation(info="<html>
+<p>
+This is a 2 diodes electrical model of a PV module.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+October 11, 2022 by Christoph Nytsch-Geusen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end PVElectrical2Diodes;
+
+  model PVElectrical2DiodesMPP
+    "MPP controlled 2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
+    extends
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical2Diodes;
+    output Modelica.Blocks.Interfaces.RealOutput U(
+      unit="V",
+      start = 0.0)
+      "Module voltage"
+      annotation (Placement(transformation(extent={{60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,10}})));
+    Real lambda(start = 0.0)
+      "Lagrange multiplier";
+
+  equation
+    // Calculation of I_MPP and U_MPP with the calculation method extremes under constraints with Lagrange multiplier
+    0 = IPho - ISat1 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(1.0 * Ut)) - 1.0)
+      - ISat2 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(2.0 * Ut)) - 1.0)
+      - (U / nCelSer + (I / nCelPar) * RSer) / RPar - I / nCelPar;
+
+    0 = I / nCelPar - lambda * ((ISat1 / (1.0 * Ut)) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (1.0 * Ut))
+      + (ISat2 / (2.0 * Ut))* Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (2.0 * Ut)) + 1.0 / RPar);
+
+    0 = U / nCelSer - lambda * (( RSer * ISat1) / (1.0 * Ut) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (1.0 * Ut))
+      + (RSer * ISat2) / (2.0 * Ut) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (2.0 * Ut)) + RSer / RPar + 1.0);
+
+    P = I * U;
+    annotation (
+  Documentation(info="<html>
+<p>
+This is a 2 diodes MPP controlled electrical model of a PV module.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+October 11, 2022 by Christoph Nytsch-Geusen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end PVElectrical2DiodesMPP;
+
+  model PVThermalEmpMountOpenRack
+    "Empirical thermal model for PV cell with open rack mounting (tilt > 10 °)"
+    extends
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVThermalEmp;
+
+   final parameter Modelica.Units.SI.Temperature T_a_0=293.15
+      "Reference ambient temperature";
+   final parameter Real coeff_trans_abs = 0.9
+   "Module specific coefficient as a product of transmission and absorption.
+ It is usually unknown and set to 0.9 in literature";
+
+  equation
+
+   TCel =if noEvent(radTil >= Modelica.Constants.eps) then (TDryBul) + (T_NOCT
+       - T_a_0)*radTil/radNOCT*9.5/(5.7 + 3.8*winVel)*(1 - eta/coeff_trans_abs)
+       else (TDryBul);
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)),
+      Documentation(info="<html><h4>
+  <span style=\"color: #008000\">Overview</span>
+</h4>
+<p>
+  Model for determining the cell temperature of a PV module mounted on
+  an open rack under operating conditions and under consideration of
+  the wind velocity.
+</p>
+<p>
+  <br/>
+</p>
+<h4>
+  <span style=\"color: #008000\">References</span>
+</h4>
+<p>
+  <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
+  Beckman, W. A.
+</p>
+</html>"));
+  end PVThermalEmpMountOpenRack;
 
   package BaseClasses "Package with base classes for IBPSA.Electrical"
     extends Modelica.Icons.BasesPackage;
@@ -644,6 +718,12 @@ be used for large input values as error decreases for increasing input values"
 
     partial model PartialPVElectrical
       "Partial electrical model for PV module model"
+
+     replaceable parameter IBPSA.Electrical.DataBase.PVBaseDataDefinition data
+     constrainedby IBPSA.Electrical.DataBase.PVBaseDataDefinition
+        "PV Panel data definition" annotation (choicesAllMatching);
+      Modelica.Blocks.Interfaces.RealInput TCel "Cell temperature"
+        annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
          Rectangle(
           lineColor={0,0,0},
@@ -683,6 +763,120 @@ be used for large input values as error decreases for increasing input values"
             coordinateSystem(preserveAspectRatio=false)));
     end PartialPVElectrical;
 
+    partial model PartialPVElectrical1Diode
+      "Partial electrical model for PV module model following the 1 diode approach"
+      extends
+        IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical(
+        redeclare IBPSA.Electrical.DataBase.PV1DiodeBaseDataDefinition data);
+
+      replaceable parameter IBPSA.Electrical.DataBase.PV1DiodeBaseDataDefinition
+        data constrainedby IBPSA.Electrical.DataBase.PV1DiodeBaseDataDefinition
+        "PV Panel data definition" annotation (choicesAllMatching);
+
+    // Adjustable input parameters
+
+     parameter Real n_mod(final quantity=
+        "NumberOfModules", final unit="1") "Number of connected PV modules"
+        annotation ();
+
+
+    // Parameters from module data sheet
+
+    final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
+      "Efficiency under standard conditions";
+
+     final parameter Real n_ser=data.n_ser
+        "Number of cells connected in series on the PV panel";
+
+    final parameter Modelica.Units.SI.Area A_pan=data.A_pan
+      "Area of one Panel, must not be confused with area of the whole module";
+
+    final parameter Modelica.Units.SI.Area A_mod=data.A_mod
+      "Area of one module (housing)";
+
+    final parameter Modelica.Units.SI.Voltage V_oc0=data.V_oc0
+      "Open circuit voltage under standard conditions";
+
+    final parameter Modelica.Units.SI.ElectricCurrent I_sc0=data.I_sc0
+      "Short circuit current under standard conditions";
+
+    final parameter Modelica.Units.SI.Voltage V_mp0=data.V_mp0
+      "MPP voltage under standard conditions";
+
+    final parameter Modelica.Units.SI.ElectricCurrent I_mp0=data.I_mp0
+      "MPP current under standard conditions";
+
+    final parameter Modelica.Units.SI.Power P_Max=data.P_mp0*1.05
+      "Maximal power of one PV module under standard conditions. P_MPP with 5 % tolerance. This is used to limit DCOutputPower.";
+
+     final parameter Real TCoeff_Isc(unit = "A/K")=data.TCoeff_Isc
+        "Temperature coefficient for short circuit current, >0";
+
+     final parameter Real TCoeff_Voc(unit = "V/K")=data.TCoeff_Voc
+        "Temperature coefficient for open circuit voltage, <0";
+
+    final parameter Modelica.Units.SI.LinearTemperatureCoefficient alpha_Isc=data.alpha_Isc
+      "Normalized temperature coefficient for short circuit current, >0";
+
+    final parameter Modelica.Units.SI.LinearTemperatureCoefficient beta_Voc=data.beta_Voc
+      "Normalized temperature coefficient for open circuit voltage, <0";
+
+    final parameter Modelica.Units.SI.LinearTemperatureCoefficient gamma_Pmp=data.gamma_Pmp
+      "Normalized temperature coefficient for power at MPP";
+
+    final parameter Modelica.Units.SI.Temperature TCel0= 25 + 273.15
+      "Thermodynamic cell temperature under standard conditions";
+
+      Modelica.Blocks.Interfaces.RealInput absRadRat
+        "Ratio of absorbed radiation under operating conditions to standard conditions"
+        annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+      Modelica.Blocks.Interfaces.RealInput radTil
+        "Total solar irradiance on the tilted surface"
+        annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+      Modelica.Blocks.Interfaces.RealOutput P "DC power output"
+        annotation (Placement(transformation(extent={{100,40},{120,60}})));
+      Modelica.Blocks.Interfaces.RealOutput eta
+        "Efficiency of the PV module under operating conditions"
+        annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+         Rectangle(
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,100},{100,-100}}),
+            Line(
+              points={{-66,-64},{-66,88}},
+              color={0,0,0},
+              arrow={Arrow.None,Arrow.Filled},
+              thickness=0.5),
+            Line(
+              points={{-66,-64},{64,-64}},
+              color={0,0,0},
+              arrow={Arrow.None,Arrow.Filled},
+              thickness=0.5),
+            Text(
+              extent={{-72,80},{-102,68}},
+              lineColor={0,0,0},
+              lineThickness=0.5,
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid,
+              textString="I"),
+            Text(
+              extent={{80,-80},{50,-92}},
+              lineColor={0,0,0},
+              lineThickness=0.5,
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid,
+              textString="U"),
+            Line(
+              points={{-66,54},{-66,54},{-6,54},{12,50},{22,42},{32,28},{38,8},{
+                  42,-14},{44,-44},{44,-64}},
+              color={0,0,0},
+              thickness=0.5,
+              smooth=Smooth.Bezier)}),                               Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end PartialPVElectrical1Diode;
+
     partial model PartialPVElectrical2Diodes
       "2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
       extends
@@ -712,28 +906,27 @@ be used for large input values as error decreases for increasing input values"
       Modelica.Units.SI.ElectricCurrent ISat2
         "Saturation current diode 2";
 
-      input Modelica.Blocks.Interfaces.RealInput T(
-        final quantity="ThermodynamicTemperature",
-        final unit="K",
-        min = 0.0,
-        displayUnit="degC")
-        "Cell temperature"
-        annotation (Placement(transformation(extent={{-100,10},{-60,50}}), iconTransformation(extent={{-80,30},{-60,50}})));
       input Modelica.Blocks.Interfaces.RealInput ITot(
         final quantity="RadiantEnergyFluenceRate",
         final unit="W/m2",
         displayUnit="W/m2")
         "Effective total solar irradiation on solar cell"
-        annotation (Placement(transformation(extent={{-100,-70},{-60,-30}}),iconTransformation(extent={{-80,-50},{-60,-30}})));
+        annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+                                                                            iconTransformation(extent={{-120,
+                -50},{-100,-30}})));
       output Modelica.Blocks.Interfaces.RealOutput P(
         final quantity="Power",
         final unit="W",
         displayUnit="W")
         "Module power"
-        annotation (Placement(transformation(extent={{60,30},{80,50}}), iconTransformation(extent={{60,30},{80,50}})));
+        annotation (Placement(transformation(extent={{100,40},{120,60}}),
+                                                                        iconTransformation(extent={{100,40},
+                {120,60}})));
       output Modelica.Blocks.Interfaces.RealOutput I(unit="A", start = 0.0)
         "Module current"
-        annotation (Placement(transformation(extent={{60,-50},{80,-30}}), iconTransformation(extent={{60,-50},{80,-30}})));
+        annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
+                                                                          iconTransformation(extent={{100,-60},
+                {120,-40}})));
       Modelica.Units.SI.Voltage Ut "Temperature voltage";
     protected
       final constant Real e(unit = "A.s") = Modelica.Constants.F/Modelica.Constants.N_A
@@ -741,13 +934,14 @@ be used for large input values as error decreases for increasing input values"
       final constant Real k(unit = "J/K") = Modelica.Constants.R/Modelica.Constants.N_A
         "Boltzmann constant";
     equation
-      Ut = k * T / e;
+      Ut =k*TCel/e;
 
-      IPho = (c1 + c2 * 0.001 * T) * ITot;
+      IPho =(c1 + c2*0.001*TCel)*ITot;
 
-      ISat1 = cs1 * T * T * T * Modelica.Math.exp(-(Eg * e)/(k * T));
+      ISat1 =cs1*TCel*TCel*TCel*Modelica.Math.exp(-(Eg*e)/(k*T));
 
-      ISat2 = cs2 * sqrt(T * T * T * T * T) * Modelica.Math.exp(-(Eg * e)/(2.0 * k * T));
+      ISat2 =cs2*sqrt(TCel*TCel*TCel*TCel*TCel)*Modelica.Math.exp(-(Eg*e)/(2.0*
+        k*TCel));
 
         annotation (
       Documentation(info="<html>
@@ -765,6 +959,13 @@ be used for large input values as error decreases for increasing input values"
     end PartialPVElectrical2Diodes;
 
     partial model PartialPVThermal
+     "Partial model for determining the cell temperature of a PV moduleConnector 
+  for PV record data"
+     replaceable parameter IBPSA.Electrical.DataBase.PVBaseDataDefinition data
+     constrainedby IBPSA.Electrical.DataBase.PVBaseDataDefinition
+        "PV Panel data definition" annotation (choicesAllMatching);
+      Modelica.Blocks.Interfaces.RealOutput TCel "Cell temperature"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                  Text(extent={{-40,-68},{44,-102}},
                                                                   lineColor={0,0,255},textString= "%name"),
@@ -830,6 +1031,97 @@ be used for large input values as error decreases for increasing input values"
               textString="T")}),                                     Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end PartialPVThermal;
+
+    partial model PartialPVThermalEmp
+      "Empirical thermal models for PV cells to calculate cell temperature"
+      extends
+        IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVThermal;
+
+      final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
+        "Efficiency under standard conditions";
+
+      final parameter Modelica.Units.SI.Temperature T_NOCT=data.T_NOCT
+        "Cell temperature under NOCT conditions";
+
+     final parameter Real radNOCT(final quantity="Irradiance",
+        final unit="W/m2")= 800
+        "Irradiance under NOCT conditions";
+
+      Modelica.Blocks.Interfaces.RealInput TDryBul "Ambient temperature (dry bulb)"
+        annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
+      Modelica.Blocks.Interfaces.RealInput winVel "Wind velocity"
+        annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+      Modelica.Blocks.Interfaces.RealInput eta
+        "Efficiency of the PV module under operating conditions"
+        annotation (Placement(transformation(extent={{-140,-30},{-100,10}})));
+      Modelica.Blocks.Interfaces.RealInput radTil
+        "Total solar irradiance on the tilted surface"
+        annotation (Placement(transformation(extent={{-142,-90},{-102,-50}})));
+      annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                                 Text(extent={{-40,-68},{44,-102}},
+                                                                  lineColor={0,0,255},textString= "%name"),
+        Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
+                fillPattern =                                                                              FillPattern.Solid),
+        Rectangle(extent={{-90,24},{-62,-4}},
+                                            lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                     FillPattern.Solid),
+        Rectangle(extent={{-58,24},{-30,-4}},
+                                           lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                    FillPattern.Solid),
+        Rectangle(extent={{-26,24},{2,-4}},
+                                          lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                   FillPattern.Solid),
+        Rectangle(extent={{-90,-8},{-62,-36}},lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                       FillPattern.Solid),
+        Rectangle(extent={{-58,-8},{-30,-36}},
+                                             lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                      FillPattern.Solid),
+        Rectangle(extent={{-26,-8},{2,-36}},lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                     FillPattern.Solid),
+        Rectangle(extent={{-90,-40},{-62,-68}},lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                        FillPattern.Solid),
+        Rectangle(extent={{-58,56},{-30,28}},
+                                            lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                     FillPattern.Solid),
+        Rectangle(extent={{-26,56},{2,28}},lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                    FillPattern.Solid),
+        Rectangle(extent={{-90,56},{-62,28}},lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                      FillPattern.Solid),
+        Rectangle(extent={{-58,-40},{-30,-68}},
+                                              lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                       FillPattern.Solid),
+        Rectangle(extent={{-26,-40},{2,-68}},lineColor={0,0,255},fillColor={0,0,255},
+                fillPattern =                                                                      FillPattern.Solid),
+            Ellipse(
+              extent={{46,-90},{86,-52}},
+              lineColor={0,0,0},
+              lineThickness=0.5,
+              fillColor={191,0,0},
+              fillPattern=FillPattern.Solid),
+            Rectangle(
+              extent={{54,48},{78,-60}},
+              lineColor={191,0,0},
+              fillColor={191,0,0},
+              fillPattern=FillPattern.Solid),
+            Polygon(
+              points={{54,48},{54,88},{56,94},{60,96},{66,98},{72,96},{76,94},{78,
+                  88},{78,48},{54,48}},
+              lineColor={0,0,0},
+              lineThickness=0.5,
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Line(
+              points={{54,48},{54,-56}},
+              thickness=0.5),
+            Line(
+              points={{78,48},{78,-56}},
+              thickness=0.5),
+            Text(
+              extent={{92,4},{-28,-26}},
+              lineColor={0,0,0},
+              textString="T")}),                                     Diagram(
+            coordinateSystem(preserveAspectRatio=false)));
+    end PartialPVThermalEmp;
 
     partial model PartialPVOptical
       Modelica.Blocks.Interfaces.RealInput HGloHor annotation (Placement(
