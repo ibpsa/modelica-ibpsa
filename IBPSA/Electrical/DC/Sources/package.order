@@ -1,4 +1,5 @@
 ConstantVoltage
 VoltageSource
+PVSystem
 Examples
 BaseClasses

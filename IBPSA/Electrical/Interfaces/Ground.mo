@@ -5,8 +5,8 @@ model Ground "Generalized model of a ground connection."
     IBPSA.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
 
-  replaceable IBPSA.Electrical.Interfaces.Terminal terminal(redeclare
-      package PhaseSystem = PhaseSystem) "Generalized terminal"
+  replaceable IBPSA.Electrical.Interfaces.Terminal terminal(redeclare package
+              PhaseSystem = PhaseSystem) "Generalized terminal"
     annotation (Placement(transformation(extent={{-8,92},{8,108}}),
         iconTransformation(extent={{-8,92},{8,108}})));
 equation

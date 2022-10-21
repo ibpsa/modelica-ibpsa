@@ -1,4 +1,4 @@
-within Buildings.Electrical.AC.OnePhase;
+within IBPSA.Electrical.AC.OnePhase;
 package Basics "Package with basic models"
 extends Modelica.Icons.BasesPackage;
 
