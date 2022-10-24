@@ -108,11 +108,12 @@ protected
     "Needed to connect to conditional connector";
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+  if use_mWat_flow then
+    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
       "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
-
+  end if;
 equation
   // Conditional connectors
   connect(mWat_flow, mWat_flow_internal);

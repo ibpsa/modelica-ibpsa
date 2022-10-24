@@ -170,11 +170,13 @@ protected
 
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "In " + getInstanceName() + ":
+  if use_mWat_flow then
+    assert(Medium.nXi == 0 or abs(sum(s) - 1) < 1e-5, "In " + getInstanceName()
+       + ":
          If Medium.nXi > 1, then substance 'water' must be present for one component of '"
-         + Medium.mediumName + "'.
+       + Medium.mediumName + "'.
          Check medium model.");
+  end if;
 
   // Make sure that if energyDynamics is SteadyState, then
   // massDynamics is also SteadyState.

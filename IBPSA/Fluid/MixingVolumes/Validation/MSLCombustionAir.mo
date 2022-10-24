@@ -1,8 +1,8 @@
 within IBPSA.Fluid.MixingVolumes.Validation;
 model MSLCombustionAir
   "Test of MSL mixture gas with Modelica IBPSA components"
-   package Medium = Modelica.Media.IdealGases.MixtureGases.CombustionAir; // Doesn't work, substance 'water' is missing
-//   package Medium = Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents; // Doesn't work
+   //package Medium = Modelica.Media.IdealGases.MixtureGases.CombustionAir; // Doesn't work, substance 'water' is missing
+   package Medium = Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents; // Doesn't work
   //package Medium = Modelica.Media.IdealGases.SingleGases.N2; // Works fine
 
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1e4;
@@ -22,7 +22,7 @@ model MSLCombustionAir
     redeclare package Medium = Medium,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  IBPSA.Fluid.MixingVolumes.BaseClasses.MixingVolumeHeatPort vol(
+  IBPSA.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=1,
