@@ -56,7 +56,7 @@ equation
   wetBulMod.TDryBul = Medium.temperature_phX(
     p=port_a.p,
     h=h,
-    X=if Medium.reducedX then cat(1, Xi, {1-sum(Xi)}) else Xi));
+    X=if Medium.reducedX then cat(1, Xi, {1-sum(Xi)}) else Xi);
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
   TMedWetBul = wetBulMod.TWetBul;
