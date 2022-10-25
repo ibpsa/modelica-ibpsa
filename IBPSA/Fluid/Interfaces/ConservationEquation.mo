@@ -427,6 +427,12 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 24, 2022, by Michael Wetter:<br/>
+Conditionally removed assertion that checks for water content as this is
+only required if water is added to the medium.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
 September 9, 2022, by Michael Wetter:<br/>
 Changed state variable from <code>mXi</code> to <code>medium.Xi</code>
 as this allows setting a good nominal attribute without having to use the fluid volume,

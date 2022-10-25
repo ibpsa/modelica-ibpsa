@@ -338,6 +338,12 @@ IBPSA.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
+October 24, 2022, by Michael Wetter:<br/>
+Conditionally removed assertion that checks for water content as this is
+only required if water is added to the medium.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>XiOut</code>.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
