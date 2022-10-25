@@ -62,7 +62,6 @@ and it sets <code>reducedX=false</code>.
 </p>
 </html>",
 revisions = "<html>
-<p>
 <ul>
 <li>
 October 24, 2022, by Michael Wetter:<br/>
@@ -70,6 +69,5 @@ First implementation.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
 </li>
 </ul>
-</p>
 </html>"));
 end MSLCombustionAir;
