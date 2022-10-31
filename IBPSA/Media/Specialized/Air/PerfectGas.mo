@@ -31,9 +31,9 @@ package PerfectGas "Model for air as a perfect gas"
     u(nominal=1E4),
     p(stateSelect=StateSelect.avoid),
     T(start=T_default,
-      stateSelect=StateSelect.avoid,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100),
-    d(stateSelect=StateSelect.avoid),
+    d(stateSelect=StateSelect.never),
     Xi(
       nominal={0.01},
       each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -49,15 +49,14 @@ package PerfectGas "Model for air as a perfect gas"
       "Molar masses of components";
 
     Modelica.Units.SI.TemperatureDifference dT(
-      nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - reference_T
+      nominal=10) = T - reference_T
       "Temperature difference used to compute enthalpy";
     // Nominal value is 100/1E5=1E-3
-    Modelica.Media.Interfaces.Types.Density dd(
-      nominal=1E-3,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = d - 1.2
-      "Density of medium";
-
+    Modelica.Units.SI.PressureDifference dp(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100,
+      displayUnit="Pa") = p - reference_p + 1000
+      "Differential pressure, plus 1000 Pa offset (for numerical reasons)";
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
@@ -651,6 +650,18 @@ space dimension</i>. CRC Press. 1998.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2022, by Michael Wetter:<br/>
+For the state dp, added 1000 Pascal. Based on numerical experiments with <code>IBPSA.Media.Air</code>,
+having the state away from 0 for zero mass flow rate seems more robust.
+See for example <code>IBPSA.Airflow.Multizone.Examples.PressurizationData</code> and
+<code>IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic</code> which fail with CVode, 1E-6,
+in Dymola and Optimica if 1000 is not added.
+Also, adding 1000 Pa is needed for <code>IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic</code>
+with dassl, 1E-6, in OpenModelica. We therefore also use T instead of T_degC as the state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
 <li>
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>

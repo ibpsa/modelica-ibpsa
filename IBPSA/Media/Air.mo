@@ -133,8 +133,9 @@ public
     // We therefore also use T instead of T_degC as the state.
     Modelica.Units.SI.PressureDifference dp(
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
-      nominal=100) = p - reference_p + 1000
-      "Differential pressure";
+      nominal=100,
+      displayUnit="Pa") = p - reference_p + 1000
+      "Differential pressure, plus 1000 Pa offset (for numerical reasons)";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 
