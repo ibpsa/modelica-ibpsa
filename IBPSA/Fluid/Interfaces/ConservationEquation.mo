@@ -438,22 +438,22 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 31, 2022, by Michael Wetter:<br/>
+Changed model to use differential pressure as a state rather than the mass.
+Using mass would require to setting <code>m(nominal=fluidVolume...</code>
+but <code>fluidVolume</code> is in some models not a literal value.
+Changed model to use <code>medium.T</code>
+as the state rather than <code>U</code> to avoid using <code>fluidVolume</code>
+in the expression for the nominal value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+</li>
+<li>
 September 9, 2022, by Michael Wetter:<br/>
 Changed state variable from <code>mXi</code> to <code>medium.Xi</code>
 as this allows setting a good nominal attribute without having to use the fluid volume,
 which is non-literal value that leads to a warning in Dymola.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
-</li>
-<li>
-November 12, 2020, by Michael Wetter and Filip Jorissen:<br/>
-Changed model to use density instead of mass as a prefered state.
-Using mass would require to setting <code>m(nominal=fluidVolume...</code>
-but <code>fluidVolume</code> is in some models not a literal value.
-Changed model to use either <code>medium.u</code> or a new variable <code>_u</code>
-as the state rather than <code>U</code> to avoid using <code>fluidVolume</code>
-in the expression for the nominal value.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
 </li>
 <li>
 April 26, 2019, by Filip Jorissen:<br/>
