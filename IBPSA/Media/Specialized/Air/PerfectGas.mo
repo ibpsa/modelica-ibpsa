@@ -652,6 +652,12 @@ space dimension</i>. CRC Press. 1998.
 </html>", revisions="<html>
 <ul>
 <li>
+September 9, 2022, by Michael Wetter:<br/>
+Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">#1634</a>.
+</li>
+<li>
 November 6, 2020, by Michael Wetter and Filip Jorissen:<br/>
 Solved equation between pressure and density in the base properties
 for pressure, as this is what the symbolic formulation usually needs.<br/>

@@ -56,8 +56,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Internal energy of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={110,20})));
-  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
-       "kg") "Species mass of the component"
+  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit="kg")
+    "Species mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={110,-20})));
   Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
@@ -80,7 +80,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi]),
+    Xi(
+      each stateSelect=if medium.preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
@@ -318,7 +320,7 @@ equation
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(mXi) = mbXi_flow + mWat_flow_internal * s;
+    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/m;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -435,6 +437,13 @@ IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Changed state variable from <code>mXi</code> to <code>medium.Xi</code>
+as this allows setting a good nominal attribute without having to use the fluid volume,
+which is non-literal value that leads to a warning in Dymola.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter and Filip Jorissen:<br/>
 Changed model to use density instead of mass as a prefered state.

@@ -130,6 +130,15 @@ Non-SI units are to be kept at an absolute minimum, and they must be declared as
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+  class Version_4_0_0 "Version 4.0.0"
+    extends Modelica.Icons.ReleaseNotes;
+      annotation (preferredView="info", Documentation(info="<html>
+<p>
+Fourth release of the IBPSA library, currently in development status.
+</p>
+</html>"));
+  end Version_4_0_0;
+
   class Version_3_0_0 "Version 3.0.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (preferredView="info", Documentation(info="<html>
@@ -164,6 +173,9 @@ First official release of the IBPSA library.
 This section summarizes the releases of the <code>IBPSA</code> library.
 </p>
 <ul>
+<li>
+<a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_4_0_0\">Version 4.0.0</a>(xxx)
+</li>
 <li>
 <a href=\"modelica://IBPSA.UsersGuide.ReleaseNotes.Version_3_0_0\">Version 3.0.0</a>(September 28, 2018)
 </li>
@@ -483,7 +495,7 @@ The library has the following <i>User's Guides</i>:
 end UsersGuide;
 
 annotation (
-version="3.0.0",
+version="4.0.0",
 versionDate="2018-09-28",
 dateModified = "2018-09-28",
 uses(Modelica(version="4.0.0")),
