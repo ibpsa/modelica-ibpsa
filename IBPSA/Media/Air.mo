@@ -90,6 +90,7 @@ public
      stateSelect=StateSelect.never)
      "Density of medium";
   Modelica.Units.SI.Temperature T(
+   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
    start=reference_T,
    nominal=100)
    "Temperature of medium";
@@ -107,8 +108,7 @@ public
     "Thermodynamic state record for optional functions";
 
   Modelica.Units.NonSI.Temperature_degC T_degC(
-      nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default) = T - 273.15
+      nominal=10) = T - 273.15
        "Temperature of medium in [degC]";
   Modelica.Units.NonSI.Pressure_bar p_bar=
     Modelica.Units.Conversions.to_bar(p) "Absolute pressure of medium in [bar]";
@@ -124,9 +124,16 @@ public
   protected
     Modelica.Units.SI.TemperatureDifference dT = if reference_T_is_0degC then T_degC else T - reference_T
       "Temperature difference used to compute enthalpy";
+    // For the state dp, we add 1000 Pascal. Based on numerical experiments,
+    // having the state not be at 0 for zero mass flow rate seems more robust.
+    // See for example <code> and
+    // <code>IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic which fail with CVode, 1E-6,
+    // in Dymola and Optimica if 1000 is not added.
+    // Also, adding 1000 Pa is needed for ControlledFlowMachineDynamic with dassl, 1E-6, in OpenModelica.
+    // We therefore also use T instead of T_degC as the state.
     Modelica.Units.SI.PressureDifference dp(
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
-      nominal=100) = p - reference_p
+      nominal=100) = p - reference_p + 1000
       "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
@@ -1070,6 +1077,18 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2022, by Michael Wetter:<br/>
+For the state dp, added 1000 Pascal. Based on numerical experiments,
+having the state away from 0 for zero mass flow rate seems more robust.
+See for example <code>IBPSA.Airflow.Multizone.Examples.PressurizationData</code> and
+<code>IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic</code> which fail with CVode, 1E-6,
+in Dymola and Optimica if 1000 is not added.
+Also, adding 1000 Pa is needed for <code>IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic</code>
+with dassl, 1E-6, in OpenModelica. We therefore also use T instead of T_degC as the state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
 <li>
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>
