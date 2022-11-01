@@ -16,7 +16,7 @@ The configuration is as follows:
 <ul>
 <li>
 The parameters <code>m_flow_nominal</code> and <code>dp_nominal</code>
-are used to construct the pressure curve <i>&Delta; p(V&#775;)</i>.
+are used to construct the pressure curve <i>&Delta; p = f(m&#775;,  y)</i> where <i>m&#775;</i> is the mass flow rate and <i>y</i> is the speed.
 The curve support points come from regression of the pump and fan data records
 available in the data package.
 The pump pressure curve is based on all data records in
