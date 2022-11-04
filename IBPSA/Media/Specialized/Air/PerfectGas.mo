@@ -35,8 +35,8 @@ package PerfectGas "Model for air as a perfect gas"
       nominal=100),
     d(stateSelect=StateSelect.never),
     Xi(
-      nominal={0.01},
-      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal={0.01}),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
