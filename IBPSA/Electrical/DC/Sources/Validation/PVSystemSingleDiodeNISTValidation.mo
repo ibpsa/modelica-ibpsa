@@ -19,7 +19,8 @@ model PVSystemSingleDiodeNISTValidation
   Modelica.Blocks.Sources.CombiTimeTable NISTdata(
     tableOnFile=true,
     tableName="Roof2016",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://AixLib/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
     columns={3,5,2,4},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "The PVSystem model is validaded with measurement data from: https://pvdata.nist.gov/ "
