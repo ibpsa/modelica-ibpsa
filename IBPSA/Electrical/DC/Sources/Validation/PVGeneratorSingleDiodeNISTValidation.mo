@@ -1,15 +1,15 @@
 ﻿within IBPSA.Electrical.DC.Sources.Validation;
-model PVSystemSingleDiodeNISTValidation
+model PVGeneratorSingleDiodeNISTValidation
   "Validation with empirical data from NIST for the date of 14.06.2016"
    extends Modelica.Icons.Example;
-  PVSystem.PVSystemSingleDiode pVSystemSingleDiode(
+  PVGenerators.PVGeneratorSingleDiode pVSystemSingleDiode(
     til=0.17453292519943,
     azi=0,
     redeclare
       IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.PVThermalEmpMountOpenRack
       partialPVThermal,
-  n_mod=312,
-  redeclare IBPSA.Electrical.DataBase.PV1DiodeSharpNUU235F2 data,
+    n_mod=312,
+    redeclare IBPSA.Electrical.DataBase.PV1DiodeSharpNUU235F2 data,
     groRef=0.2,
     lat=0.68304158408499,
     lon=-1.3476664539029,
@@ -19,8 +19,7 @@ model PVSystemSingleDiodeNISTValidation
   Modelica.Blocks.Sources.CombiTimeTable NISTdata(
     tableOnFile=true,
     tableName="Roof2016",
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
     columns={3,5,2,4},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "The PVSystem model is validaded with measurement data from: https://pvdata.nist.gov/ "
@@ -77,5 +76,8 @@ equation
       StopTime=28771200,
       Interval=10,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
-end PVSystemSingleDiodeNISTValidation;
+      __Dymola_Algorithm="Dassl"),
+   __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVGeneratorSingleDiodeNISTValidation.mos"
+        "Simulate and plot"));
+end PVGeneratorSingleDiodeNISTValidation;

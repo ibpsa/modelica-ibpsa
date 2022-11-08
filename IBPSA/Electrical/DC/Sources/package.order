@@ -1,6 +1,6 @@
 ConstantVoltage
 VoltageSource
-PVSystem
+PVGenerators
 Examples
 Validation
 BaseClasses
