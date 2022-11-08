@@ -254,22 +254,22 @@ package PVSystem
 
     Modelica.Units.SI.Angle zen "Zenith angle";
 
-    BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
+    IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
       annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-    BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
+    IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
       annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-    BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(timZon=
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(timZon=
           timZon, lon=lon)
       annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-    BoundaryConditions.WeatherData.BaseClasses.SolarTime solTim
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.SolarTime solTim
       annotation (Placement(transformation(extent={{-18,-80},{2,-60}})));
-    BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
+    IBPSA.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
       annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-    BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(azi=azi,
+    IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(azi=azi,
         til=til,lat=lat) annotation (Placement(transformation(extent={{60,40},{80,60}})));
-    BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zenAng(lat=lat)
+    IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zenAng(lat=lat)
       annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-    Utilities.Time.ModelTime modTim
+    IBPSA.Utilities.Time.ModelTime modTim
       annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   equation
     connect(solTim.solTim, solHouAng.solTim) annotation (Line(points={{3,-70},{18,
