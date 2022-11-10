@@ -28,8 +28,8 @@ equation
       color={255,204,51},
       thickness=0.5));
 
-  connect(intGains.y, zon5R1C.intGai) annotation (Line(points={{-39,-30},{-22,
-          -30},{-22,-12},{-16,-12}}, color={0,0,127}));
+  connect(intGains.y, zon5R1C.intSenGai) annotation (Line(points={{-39,-30},{
+          -28,-30},{-28,-12},{-16,-12}}, color={0,0,127}));
  annotation(experiment(Tolerance=1e-6, StopTime=3.1536e+007),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case600FF.mos"

@@ -2,6 +2,7 @@ within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GainSurface "Surface node heat flow"
 
   Modelica.Units.SI.Area AMas "Effective mass area (see Table 12 in standard)";
+  Modelica.Units.SI.Power surGai "heat gains to surface node";
   parameter Modelica.Units.SI.Area ATot "Total area of building's surfaces facing the thermal zone";
   parameter Modelica.Units.SI.ThermalConductance HWinGai "Thermal conductance through windows";
   parameter Real facMas "Effective mass area factor";
@@ -12,12 +13,12 @@ model GainSurface "Surface node heat flow"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput solGai(unit="W") "Solar gains"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput surGai(unit="W")=(1 - AMas/ATot - HWinGai/(9.1*ATot))*(
-        0.5*intSenGai + solGai) "Heat gains to surface node"
+  Modelica.Blocks.Interfaces.RealOutput surGaiOut(unit="W")=surGai "Output of heat gains to surface node"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
   AMas  = facMas*AFlo;
+  surGai= (1 - AMas/ATot - HWinGai/(9.1*ATot))*(0.5*intSenGai + solGai);
 
   annotation (defaultComponentName="phiSur",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

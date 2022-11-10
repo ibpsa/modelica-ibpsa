@@ -194,22 +194,22 @@ equation
           -64},{-72,-50},{-79.2857,-50}}, color={0,0,127}));
   connect(solGai.u2, opaEle.SolRadOpa) annotation (Line(points={{-62,-76},{-72,
           -76},{-72,-89.5238},{-79.5455,-89.5238}}, color={0,0,127}));
-  connect(phiSur.solGai, solGai.y) annotation (Line(points={{122,-8},{128,-8},{
-          128,-102},{-30,-102},{-30,-70},{-39,-70}}, color={0,0,127}));
-  connect(phiMas.solGai, solGai.y) annotation (Line(points={{122,-88},{128,-88},
-          {128,-102},{-30,-102},{-30,-70},{-39,-70}}, color={0,0,127}));
+  connect(solGai.y, phiMas.solGai) annotation (Line(points={{-39,-70},{-32,-70},
+          {-32,-104},{134,-104},{134,-88},{122,-88}}, color={0,0,127}));
+  connect(phiSur.solGai, solGai.y) annotation (Line(points={{122,-8},{134,-8},{
+          134,-104},{-32,-104},{-32,-70},{-39,-70}}, color={0,0,127}));
+  connect(intSenGai, phiMas.intSenGai) annotation (Line(points={{-160,-120},{
+          -32,-120},{-32,-134},{128,-134},{128,-84},{122,-84}}, color={0,0,127}));
+  connect(phiSur.intSenGai, intSenGai) annotation (Line(points={{122,-4},{128,
+          -4},{128,-134},{-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
+  connect(phiAir.u, intSenGai) annotation (Line(points={{122,80},{128,80},{128,
+          -134},{-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
+  connect(phiMas.masGaiOut, heaMas.Q_flow)
+    annotation (Line(points={{99,-80},{80,-80}}, color={0,0,127}));
   connect(phiAir.y, heaAir.Q_flow)
     annotation (Line(points={{99,80},{80,80}}, color={0,0,127}));
-  connect(phiSur.surGai, heaSur.Q_flow)
+  connect(phiSur.surGaiOut, heaSur.Q_flow)
     annotation (Line(points={{99,0},{80,0}}, color={0,0,127}));
-  connect(phiMas.masGai, heaMas.Q_flow)
-    annotation (Line(points={{99,-80},{80,-80}}, color={0,0,127}));
-  connect(phiAir.u, intGai) annotation (Line(points={{122,80},{134,80},{134,
-          -134},{-70,-134},{-70,-120},{-160,-120}}, color={0,0,127}));
-  connect(phiSur.intGai, intGai) annotation (Line(points={{122,-4},{134,-4},{
-          134,-134},{-70,-134},{-70,-120},{-160,-120}}, color={0,0,127}));
-  connect(phiMas.intGai, intGai) annotation (Line(points={{122,-84},{134,-84},{
-          134,-134},{-70,-134},{-70,-120},{-160,-120}}, color={0,0,127}));
   annotation (defaultComponentName="zon5R1C", Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -140},{140,140}}), graphics={Rectangle(
           extent={{-140,140},{140,-140}},
