@@ -113,7 +113,7 @@ model OpaqueElements "Solar heat gains of opaque elements"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Modelica.Blocks.Math.Sum sum(nin=5) "Sum of solar gains through opaque surfaces"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-  Modelica.Blocks.Interfaces.RealOutput SolRadOpa "Total solar gains through opaque surfaces"
+  Modelica.Blocks.Interfaces.RealOutput SolRadOpa( unit="W") "Total solar gains through opaque surfaces"
     annotation (Placement(transformation(extent={{220,-10},{240,10}}),
         iconTransformation(extent={{220,-10},{240,10}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil4(
@@ -392,15 +392,15 @@ equation
   connect(hRoo.u, facRoo.y)
     annotation (Line(points={{-2,-200},{-19,-200}}, color={0,0,127}));
   connect(phiSol1.y, sum.u[1]) annotation (Line(points={{141,154},{164,154},{164,
-          -0.8},{178,-0.8}}, color={0,0,127}));
-  connect(phiSol2.y, sum.u[2]) annotation (Line(points={{141,74},{164,74},{164,-0.4},
-          {178,-0.4}}, color={0,0,127}));
+          -1.6},{178,-1.6}}, color={0,0,127}));
+  connect(phiSol2.y, sum.u[2]) annotation (Line(points={{141,74},{164,74},{164,-0.8},
+          {178,-0.8}}, color={0,0,127}));
   connect(phiSol3.y, sum.u[3]) annotation (Line(points={{143,-6},{166,-6},{166,0},
           {178,0}}, color={0,0,127}));
   connect(phiSol4.y, sum.u[4]) annotation (Line(points={{141,-86},{164,-86},{164,
-          0.4},{178,0.4}}, color={0,0,127}));
+          0.8},{178,0.8}}, color={0,0,127}));
   connect(phiSolRoo.y, sum.u[5]) annotation (Line(points={{141,-166},{164,-166},
-          {164,0.8},{178,0.8}}, color={0,0,127}));
+          {164,1.6},{178,1.6}}, color={0,0,127}));
   connect(SolRadOpa, sum.y)
     annotation (Line(points={{230,0},{201,0}}, color={0,0,127}));
   connect(phiSol4.u1, res4.y)

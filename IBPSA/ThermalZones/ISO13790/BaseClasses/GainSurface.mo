@@ -1,19 +1,19 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GainSurface "Surface node heat flow"
 
-  Real AMas "Effective mass area (see Table 12 in standard)";
-  parameter Real ATot "Total area of building's surfaces facing the thermal zone";
-  parameter Real HWinGai;
+  Modelica.Units.SI.Area AMas "Effective mass area (see Table 12 in standard)";
+  parameter Modelica.Units.SI.Area ATot "Total area of building's surfaces facing the thermal zone";
+  parameter Modelica.Units.SI.ThermalConductance HWinGai "Thermal conductance through windows";
   parameter Real facMas "Effective mass area factor";
-  parameter Real AFlo "Floor area";
+  parameter Modelica.Units.SI.Area AFlo "Floor area";
 
 
-  Modelica.Blocks.Interfaces.RealInput intGai "Internal gains"
+  Modelica.Blocks.Interfaces.RealInput intSenGai(unit="W") "Internal sensible heat gains"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput solGai "Solar gains"
+  Modelica.Blocks.Interfaces.RealInput solGai(unit="W") "Solar gains"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput surGai=(1 - AMas/ATot - HWinGai/(9.1*ATot))*(
-        0.5*intGai + solGai) "Heat gains to surface node"
+  Modelica.Blocks.Interfaces.RealOutput surGai(unit="W")=(1 - AMas/ATot - HWinGai/(9.1*ATot))*(
+        0.5*intSenGai + solGai) "Heat gains to surface node"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation

@@ -106,7 +106,7 @@ model Zone "Thermal zone based on 5R1C network"
     surAzi={surAzi[1],surAzi[2],surAzi[3],
         surAzi[4],0}) "Solar heat gains of opaque elements"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Interfaces.RealInput intGai "Internal heat gains"
+  Modelica.Blocks.Interfaces.RealInput intSenGai( unit="W") "Internal sensible heat gains"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}})));
   BaseClasses.GainSurface phiSur(
     ATot=AFlo*4.5,

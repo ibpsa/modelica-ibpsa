@@ -11,7 +11,7 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
       connectorSizing=true,
       tab="General",
       group="Ports"));
-  Modelica.Blocks.Interfaces.RealInput latGains "latent gains"
+  Modelica.Blocks.Interfaces.RealInput latGains( unit="W") "latent gains"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}})));
   Modelica.Blocks.Math.Gain mWat_flow(k=1/h_fg)
     "Water flow rate due to latent heat gain"
