@@ -1,115 +1,98 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GlazedElements "Solar heat gains of glazed elements"
-  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "weather data" annotation (Placement(
-        transformation(extent={{-150,-12},{-110,28}}),iconTransformation(extent={{-150,
-            -10},{-130,10}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface     HDirTil(
-    til=surTil[1],
-    azi=surAzi[1]) "Direct solar irradiation on surface 1"
-            annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez     HDifTil(
-    til=surTil[1],
-    azi=surAzi[1]) "Diffuse solar irradiation on surface 1"
-    annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface     HDirTil1(
-    til=surTil[2],
-    azi=surAzi[2]) "Direct solar irradiation on surface 2"
-    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez     HDifTil1(
-    til=surTil[2],
-    azi=surAzi[2]) "Diffuse solar irradiation on surface 2"
-    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface     HDirTil2(
-    til=surTil[3],
-    azi=surAzi[3]) "Direct solar irradiation on surface 3"
-    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez     HDifTil2(
-    til=surTil[3],
-    azi=surAzi[3]) "Diffuse solar irradiation on surface 3"
-    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface     HDirTil3(
-    til=surTil[4],
-    azi=surAzi[4]) "Direct solar irradiation on surface 4"
-    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez     HDifTil3(
-    til=surTil[4],
-    azi=surAzi[4]) "Diffuse solar irradiation on surface 4"
-    annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
-
   parameter Real groRef = 0.2 "Ground reflectance"
-      annotation(Evaluate=true, Dialog(tab = "General", group = "Location"));
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Location"));
   parameter Modelica.Units.SI.Area[4] AWin={0,0,6,0} "Areas of windows"
     annotation (Evaluate=true, Dialog(tab="General", group="Window data"));
   parameter Real winFra = 0.01 "Frame fraction of windows"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
   parameter Real gFac = 0.5 "Energy transmittance of glazings"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
   parameter Modelica.Units.SI.Angle[4] surTil "Tilt angle of surfaces"
     annotation (Evaluate=true, Dialog(tab="General", group="Window directions"));
   parameter Modelica.Units.SI.Angle[4] surAzi
     "Azimuth angle of surfaces" annotation (Evaluate=true, Dialog(tab="General",
         group="Window directions"));
-
+  Modelica.Blocks.Interfaces.RealOutput solRadWin( unit="W") "Total solar irradiation through windows"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+        iconTransformation(extent={{140,-10},{160,10}})));
+  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data" annotation (Placement(
+        transformation(extent={{-150,-12},{-110,28}}),iconTransformation(extent={{-150,
+            -10},{-130,10}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=surTil[1], azi=surAzi[1]) "Direct solar irradiation on surface 1"
+    annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=surTil[1],azi=surAzi[1]) "Diffuse solar irradiation on surface 1"
+    annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil1(til=surTil[2],azi=surAzi[2]) "Direct solar irradiation on surface 2"
+    annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil1(til=surTil[2],azi=surAzi[2]) "Diffuse solar irradiation on surface 2"
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil2(til=surTil[3],azi=surAzi[3]) "Direct solar irradiation on surface 3"
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil2(til=surTil[3],azi=surAzi[3]) "Diffuse solar irradiation on surface 3"
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil3(til=surTil[4],azi=surAzi[4]) "Direct solar irradiation on surface 4"
+    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil3(til=surTil[4],azi=surAzi[4]) "Diffuse solar irradiation on surface 4"
+    annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
   Modelica.Blocks.Math.Add irrN1
-    "total of direct and diffuse radiation on surface 1"
+    "Total of direct and diffuse radiation on surface 1"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
   Modelica.Blocks.Math.Gain AWin1(k=AWin[1])
     "Windows area on surface 1"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Modelica.Blocks.Math.Gain g1(k=gFac)
-    "g factor of the windows on surface 1"
+    "Windows g-factor on surface 1"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Blocks.Math.Gain fraWin1(k=1 - winFra)
-    "frame fraction of the windows on surface 1"
+    "Frame fraction of the windows on surface 1"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Blocks.Math.Add irr2
-    "total of direct and diffuse radiation on surface 2"
+    "Total of direct and diffuse radiation on surface 2"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Modelica.Blocks.Math.Gain AWin2(k=AWin[2])
     "Windows area on surface 2"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Modelica.Blocks.Math.Gain g2(k=gFac)
-    "g factor of the windows on surface 2"
+    "Windows g-factor on surface 2"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Modelica.Blocks.Math.Gain fraWin2(k=1 - winFra)
-    "frame fraction of the windows on surface1 2"
+    "Frame fraction of the windows on surface1 2"
     annotation (Placement(transformation(extent={{70,30},{90,50}})));
   Modelica.Blocks.Math.Add irr3
-    "total of direct and diffuse radiation on surface 3"
+    "Total of direct and diffuse radiation on surface 3"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Modelica.Blocks.Math.Gain AWin3(k=AWin[3])
     "Windows area on surface 3"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Modelica.Blocks.Math.Gain g3(k=gFac)
-    "g factor of the windows on surface 3"
+    "Windows g-factor on surface 3"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   Modelica.Blocks.Math.Gain fraWin3(k=1 - winFra)
-    "frame fraction of the windows on surface 3"
+    "Frame fraction of the windows on surface 3"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
   Modelica.Blocks.Math.Add irr4
-    "total of direct and diffuse radiation on surface 4"
+    "Total of direct and diffuse radiation on surface 4"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Modelica.Blocks.Math.Gain AWin4( k=AWin[4])
     "Windows area on surface 4"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Modelica.Blocks.Math.Gain g4(k=gFac)
-    "g factor of the windows on surface 4"
+    "Windows g-factor on surface 4"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
   Modelica.Blocks.Math.Gain fraWin4(k=1 - winFra)
-    "frame fraction of the windows on surface 4"
+    "Frame fraction of the windows on surface 4"
     annotation (Placement(transformation(extent={{72,-90},{92,-70}})));
   Modelica.Blocks.Math.Sum sum(nin=4) "Sum of solar irradiation through windows"
     annotation (Placement(transformation(extent={{104,-10},{124,10}})));
-  Modelica.Blocks.Interfaces.RealOutput solRadWin( unit="W") "Total solar irradiation through windows"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
-        iconTransformation(extent={{140,-10},{160,10}})));
-  Modelica.Blocks.Math.Gain corFac1(k=0.9) "correction factor surface 1"
+
+  Modelica.Blocks.Math.Gain corFac1(k=0.9) "Correction factor surface 1"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Math.Gain corFac2(k=0.9) "correction factor surface 2"
+  Modelica.Blocks.Math.Gain corFac2(k=0.9) "Correction factor surface 2"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Modelica.Blocks.Math.Gain corFac3(k=0.9) "correction factor surface 3"
+  Modelica.Blocks.Math.Gain corFac3(k=0.9) "Correction factor surface 3"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Modelica.Blocks.Math.Gain corFac4(k=0.9) "correction factor surface 4"
+  Modelica.Blocks.Math.Gain corFac4(k=0.9) "Correction factor surface 4"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(weaBus, HDirTil.weaBus) annotation (Line(
