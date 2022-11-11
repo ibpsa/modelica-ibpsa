@@ -28,15 +28,17 @@ model Chiller "Example for the reversible chiller model."
     offset=278)
     "Ramp signal for the temperature input of the sink side's ideal mass flow source"
     annotation (Placement(transformation(extent={{-94,-76},{-74,-56}})));
-  IBPSA.Fluid.Chillers.Chiller chiller(
+  IBPSA.Fluid.Chillers.Chiller chi(
     QUse_flow_nominal=5000,
     y_nominal=1,
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
+
     use_TSet=false,
     TCon_nominal=323.15,
     dTCon_nominal=10,
     GConIns=0,
+    tauEva=3600,
     TEva_nominal=288.15,
     dTEva_nominal=7,
     CEva=100,
@@ -54,27 +56,25 @@ model Chiller "Example for the reversible chiller model."
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_rev=true,
-    use_autoCalc=false,
-    VEva=0.4,
-    VCon=0.04,
     TEva_start=303.15,
     redeclare model BlackBoxChillerCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (datTab=
-            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+            ()),
     redeclare model BlackBoxChillerHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()))
-                 annotation (Placement(transformation(
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+            ())) annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=90,
         origin={2,1})));
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort senTAct(
-    final m_flow_nominal=chiller.m2_flow_nominal,
+    final m_flow_nominal=chi.m2_flow_nominal,
     final tau=1,
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final tauHeaTra=1200,
-    final allowFlowReversal=chiller.allowFlowReversalCon,
+    final allowFlowReversal=chi.allowFlowReversalCon,
     final transferHeat=false,
     redeclare final package Medium = MediumSou,
     T_start=303.15,
@@ -105,7 +105,7 @@ model Chiller "Example for the reversible chiller model."
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2,
     final use_C_flow=false,
-    final m_flow_nominal=chiller.m2_flow_nominal,
+    final m_flow_nominal=chi.m2_flow_nominal,
     final V=5,
     final allowFlowReversal=true,
     redeclare package Medium = MediumSou) "Volume of Condenser" annotation (
@@ -177,16 +177,16 @@ equation
         points={{64,-38},{78,-38}},                   color={0,127,255}));
   connect(senTAct.port_b, Room.ports[2]) annotation (Line(points={{64,-38},{66,-38},
           {66,1},{76,1}},          color={0,127,255}));
-  connect(chiller.ySet, booleanToReal.y) annotation (Line(points={{-2.83333,
-          -26.84},{-3,-26.84},{-3,-45.3}}, color={0,0,127}));
-          connect(sinkSideMassFlowSource.ports[1], chiller.port_a1) annotation (Line(
-        points={{-34,-48},{-12.5,-48},{-12.5,-23}}, color={0,127,255}));
-  connect(sinkSideFixedBoundary.ports[1], chiller.port_b1) annotation (Line(
-        points={{-76,62},{-50,62},{-50,25},{-12.5,25}}, color={0,127,255}));
-  connect(pumSou.port_b, chiller.port_a2)
+  connect(chi.ySet, booleanToReal.y) annotation (Line(points={{-2.83333,-26.84},
+          {-3,-26.84},{-3,-45.3}}, color={0,0,127}));
+  connect(sinkSideMassFlowSource.ports[1], chi.port_a1) annotation (Line(points
+        ={{-34,-48},{-12.5,-48},{-12.5,-23}}, color={0,127,255}));
+  connect(sinkSideFixedBoundary.ports[1], chi.port_b1) annotation (Line(points=
+          {{-76,62},{-50,62},{-50,25},{-12.5,25}}, color={0,127,255}));
+  connect(pumSou.port_b, chi.port_a2)
     annotation (Line(points={{40,34},{16.5,34},{16.5,25}}, color={0,127,255}));
-  connect(chiller.port_b2, senTAct.port_a) annotation (Line(points={{16.5,-23},{
-          32,-23},{32,-38},{44,-38}},  color={0,127,255}));
+  connect(chi.port_b2, senTAct.port_a) annotation (Line(points={{16.5,-23},{32,
+          -23},{32,-38},{44,-38}}, color={0,127,255}));
   connect(TsuSinkRamp.y, sinkSideMassFlowSource.T_in) annotation (Line(points={
           {-73,-66},{-68,-66},{-68,-44},{-56,-44}}, color={0,0,127}));
   connect(hysHeating.y, not2.u)
@@ -195,8 +195,8 @@ equation
     annotation (Line(points={{54,-49},{54,-76},{47.2,-76}}, color={0,0,127}));
   connect(hysCooling.u, senTAct.T)
     annotation (Line(points={{47.2,-92},{54,-92},{54,-49}}, color={0,0,127}));
-  connect(booleanStep.y, chiller.modeSet) annotation (Line(points={{23.2,-54},{
-          12,-54},{12,-40},{23.75,-40},{23.75,-26.84}},  color={255,0,255}));
+  connect(booleanStep.y, chi.revSet) annotation (Line(points={{23.2,-54},{12,-54},
+          {12,-40},{23.75,-40},{23.75,-26.84}}, color={255,0,255}));
   connect(logicalSwitch.y, booleanToReal.u) annotation (Line(points={{-0.5,-83},
           {-3,-83},{-3,-61.4}}, color={255,0,255}));
   connect(not2.y, logicalSwitch.u3) annotation (Line(points={{19.6,-76},{16,-76},

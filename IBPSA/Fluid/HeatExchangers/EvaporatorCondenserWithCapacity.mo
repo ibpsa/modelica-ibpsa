@@ -1,10 +1,9 @@
 within IBPSA.Fluid.HeatExchangers;
 model EvaporatorCondenserWithCapacity
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol(
-    final prescribedHeatFlowRate=true,
-    final V=V),
-    final tau=30);
+    redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol(final V=
+          m_flow_nominal*tau/rho_default,
+    final prescribedHeatFlowRate=true));
 
   parameter Boolean is_con "Type of heat exchanger"
     annotation (Dialog( descriptionLabel = true),
@@ -12,7 +11,6 @@ model EvaporatorCondenserWithCapacity
         choice=true "Condenser",
         choice=false "Evaporator",
         radioButtons=true));
-  parameter Modelica.Units.SI.Volume V "Volume in condenser";
   parameter Boolean use_cap=true
     "False if capacity and heat losses are neglected"
     annotation (Dialog(group="Heat losses"),choices(checkBox=true));

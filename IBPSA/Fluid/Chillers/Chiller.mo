@@ -3,10 +3,6 @@ model Chiller
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-    final autCalMCon_flow=max(5E-5*QUse_flow_nominal + 0.3161, autCalMMin_flow),
-    final autCalMEva_flow=max(5E-5*QUse_flow_nominal - 0.5662, autCalMMin_flow),
-    final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
-    final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin),
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
     final scaFac=vapComCyc.blaBoxChiCoo.scaFac,
     final use_safetyControl=false,
@@ -24,8 +20,8 @@ model Chiller
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal_final,
-       final mEva_flow_nominal=mEva_flow_nominal_final,
+       final mCon_flow_nominal=mCon_flow_nominal,
+       final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
   "Black-box model of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
@@ -39,8 +35,8 @@ model Chiller
        final TEva_nominal=TCon_nominal,
        final dTCon_nominal=dTEva_nominal,
        final dTEva_nominal=dTCon_nominal,
-       final mCon_flow_nominal=mEva_flow_nominal_final,
-       final mEva_flow_nominal=mCon_flow_nominal_final,
+       final mCon_flow_nominal=mEva_flow_nominal,
+       final mEva_flow_nominal=mCon_flow_nominal,
        final y_nominal=y_nominal)
   "Black-box model of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
@@ -52,7 +48,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(modeSet, sigBus.modeSet) annotation (Line(points={{-116,-90},{-80,-90},
+  connect(revSet, sigBus.revSet) annotation (Line(points={{-116,-90},{-80,-90},
           {-80,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,

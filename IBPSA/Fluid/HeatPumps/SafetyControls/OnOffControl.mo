@@ -216,16 +216,5 @@ per hour (if active) or violates the minimal loc-time (off-time, if active),
           extent={{60,60},{120,-6}},
           textColor={0,0,127},
           textString="See 
-equations")}),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}}), graphics={
-        Rectangle(
-          extent={{-10,-30},{10,-70}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-14,-40},{16,-12}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+equations")}));
 end OnOffControl;

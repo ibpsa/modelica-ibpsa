@@ -5,12 +5,12 @@ partial model PartialReversibleVapourCompressionMachine
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = MediumCon,
     redeclare final package Medium2 = MediumEva,
-    final m1_flow_nominal=mCon_flow_nominal_final,
-    final m2_flow_nominal=mEva_flow_nominal_final,
+    final m1_flow_nominal=mCon_flow_nominal,
+    final m2_flow_nominal=mEva_flow_nominal,
     final allowFlowReversal1=allowFlowReversalCon,
     final allowFlowReversal2=allowFlowReversalEva,
-    final m1_flow_small=1E-4*abs(mCon_flow_nominal_final),
-    final m2_flow_small=1E-4*abs(mEva_flow_nominal_final));
+    final m1_flow_small=1E-4*abs(mCon_flow_nominal),
+    final m2_flow_small=1E-4*abs(mEva_flow_nominal));
 
   //General
   replaceable package MediumCon =
@@ -42,23 +42,27 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Boolean use_safetyControl=true
     "=true to enable internal heat pump safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
+
+  parameter Boolean use_extBusCon=true
+    "=false to disable external use of the bus connector"
+    annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
   parameter Boolean use_busConnectorOnly=false
-    "=true to use bus connector for model inputs (modeSet, ySet, TSet, onOffSet).
+    "=true to use bus connector for model inputs (revSet, ySet, TSet, onOffSet).
     =false to use the bus connector for outputs only. 
     Only possible if no internal safety control is used"
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=
-          not use_safetyControl));
+    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
+          use_safetyControl and use_extBusCon));
+
   parameter Boolean use_TSet=false
     "=true to use black-box internal control for supply 
     temperature of device with the given temperature set point TSet"
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
-  parameter Boolean use_autoCalc=false
-    "Enable automatic estimation of volumes and mass flows 
-    for water-to-water devices in a range of 25 kW to 1 MW"
-    annotation(choices(checkBox=true),
-    Dialog(group="Water-to-water Parameterization"));
-
+    annotation (
+          choices(checkBox=true),
+          Dialog(enable=not use_busConnectorOnly, group="Input Connectors"));
   //Condenser
+  parameter Modelica.Units.SI.Time tauCon=30
+    "Time constant of heat transfer at nominal flow"
+    annotation (Dialog(tab="Condenser", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
     "Nominal flow temperature at secondary condenser side"
     annotation (Dialog(group="Nominal Design", tab="Condenser"));
@@ -72,11 +76,6 @@ partial model PartialReversibleVapourCompressionMachine
       tab="Condenser",
       enable=not use_autoCalc));
 
-  parameter Modelica.Units.SI.Volume VCon
-    "Manual input of the condenser volume (if not automatically calculated)"
-    annotation (Dialog(
-      tab="Condenser",
-      enable=not use_autoCalc));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal
     "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Flow resistance", tab="Condenser"));
@@ -122,6 +121,9 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Dialog(tab="Condenser", group="Medium properties"));
 
   //Evaporator
+  parameter Modelica.Units.SI.Time tauEva=30
+    "Time constant of heat transfer at nominal flow"
+    annotation (Dialog(tab="Evaporator", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TEva_nominal
     "Nominal flow temperature at secondary evaporator side"
     annotation (Dialog(group="Nominal Design", tab="Evaporator"));
@@ -134,11 +136,7 @@ partial model PartialReversibleVapourCompressionMachine
       group="Nominal Design",
       tab="Evaporator",
       enable=not use_autoCalc));
-  parameter Modelica.Units.SI.Volume VEva
-    "Manual input of the evaporator volume (if not automatically calculated)"
-    annotation ( Dialog(
-      tab="Evaporator",
-      enable=not use_autoCalc));
+
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal
     "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Flow resistance",
         tab="Evaporator"), Evaluate=true);
@@ -245,9 +243,10 @@ partial model PartialReversibleVapourCompressionMachine
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = MediumCon,
     final allowFlowReversal=allowFlowReversalCon,
-    final m_flow_small=1E-4*abs(mCon_flow_nominal_final),
+    final m_flow_small=1E-4*abs(mCon_flow_nominal),
     final show_T=show_T,
     final deltaM=deltaMCon,
+    final tau=tauCon,
     final T_start=TCon_start,
     final p_start=pCon_start,
     final use_cap=use_conCap,
@@ -255,20 +254,20 @@ partial model PartialReversibleVapourCompressionMachine
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
     final is_con=true,
-    final V=VCon_final,
     final C=CCon*scaFac,
     final TCap_start=TConCap_start,
     final GOut=GConOut*scaFac,
-    final m_flow_nominal=mCon_flow_nominal_final,
+    final m_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dpCon_nominal*scaFac,
     final GInn=GConIns*scaFac) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,72},{20,112}})));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
     final deltaM=deltaM_eva,
+    final tau=tauEva,
     final use_cap=use_evaCap,
     final allowFlowReversal=allowFlowReversalEva,
-    final m_flow_small=1E-4*abs(mEva_flow_nominal_final),
+    final m_flow_small=1E-4*abs(mEva_flow_nominal),
     final show_T=show_T,
     final T_start=TEva_start,
     final p_start=pEva_start,
@@ -276,9 +275,8 @@ partial model PartialReversibleVapourCompressionMachine
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
     final is_con=false,
-    final V=VEva_final,
     final C=CEva*scaFac,
-    final m_flow_nominal=mEva_flow_nominal_final,
+    final m_flow_nominal=mEva_flow_nominal,
     final dp_nominal=dpEva_nominal*scaFac,
     final TCap_start=TEvaCap_start,
     final GOut=GEvaOut*scaFac,
@@ -301,8 +299,9 @@ partial model PartialReversibleVapourCompressionMachine
     if not use_busConnectorOnly and not use_TSet
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
-  Interfaces.VapourCompressionMachineControlBus sigBus annotation (
-      Placement(transformation(extent={{-120,-60},{-90,-26}}),
+  Interfaces.VapourCompressionMachineControlBus sigBus if use_extBusCon
+    "Bus with signal for device control" annotation (
+          Placement(transformation(extent={{-120,-60},{-90,-26}}),
         iconTransformation(extent={{-108,-52},{-90,-26}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", final
@@ -327,11 +326,10 @@ partial model PartialReversibleVapourCompressionMachine
     annotation (Placement(transformation(extent={{-132,24},{-100,56}})));
   Modelica.Blocks.Interfaces.BooleanInput onOffSet
     if not use_busConnectorOnly and use_TSet
-    "Set value of operation mode if internal temperature control is used"
+    "Turn the device on (if internal temperature control is used)"
     annotation (Placement(transformation(extent={{-132,-36},{-100,-4}})));
-  Modelica.Blocks.Interfaces.BooleanInput modeSet
-    if not use_busConnectorOnly and use_rev
-    "Set value of operation mode"
+  Modelica.Blocks.Interfaces.BooleanInput revSet
+    if not use_busConnectorOnly and use_rev "Reverse the operation, =true for main operating mode"
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 
   IBPSA.Fluid.Sensors.MassFlowRate mFlow_eva(redeclare final package Medium =
@@ -391,6 +389,7 @@ partial model PartialReversibleVapourCompressionMachine
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-110})));
+
 protected
   parameter Real scaFac "Scaling-factor of vapour compression machine";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
@@ -401,79 +400,11 @@ protected
       T=MediumEva.T_default, p=MediumEva.p_default, X=MediumEva.X_default)
       "Nominal / default state of evaporator medium";
 
-  //Automatic calculation of mass flow rates and volumes of the evaporator
-  // and condenser using linear regressions from data sheets of
-  // heat pumps and chillers (water to water)
-
-  parameter Modelica.Units.SI.MassFlowRate autCalMMin_flow=0.3
-    "Realistic mass flow minimum for simulation plausibility";
-  parameter Modelica.Units.SI.Volume autCalVMin=0.003
-    "Realistic volume minimum for simulation plausibility";
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal_final=if
-      use_autoCalc then autCalMEva_flow*scaFac else mEva_flow_nominal*scaFac;
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal_final=if
-      use_autoCalc then autCalMCon_flow*scaFac else mCon_flow_nominal*scaFac;
-  parameter Modelica.Units.SI.Volume VEva_final=if use_autoCalc then autCalVEva*
-      scaFac else VEva*scaFac;
-  parameter Modelica.Units.SI.Volume VCon_final=if use_autoCalc then autCalVCon*
-      scaFac else VCon*scaFac;
-
-  parameter Modelica.Units.SI.MassFlowRate autCalMEva_flow;
-  parameter Modelica.Units.SI.MassFlowRate autCalMCon_flow;
-  parameter Modelica.Units.SI.Volume autCalVEva;
-  parameter Modelica.Units.SI.Volume autCalVCon;
+  Interfaces.VapourCompressionMachineControlBus sigBusInt if not use_extBusCon
+    "Internal sigBus to avoid external access";
 
 equation
-  //Control and feedback for the auto-calculation of condenser and evaporator data
-  assert(not use_autoCalc or (use_autoCalc and QUse_flow_nominal>0),
-    "Can't auto-calculate evaporator and condenser data 
-    without a given nominal power flow (QUse_flow_nominal)!",
-  level = AssertionLevel.error);
-  assert(
-    not use_autoCalc or (autCalMEva_flow > autCalMMin_flow and autCalMEva_flow <
-      90),
-    "Given nominal power (QUse_flow_nominal) for auto-calculation of 
-    evaporator and condenser data is outside the range of data sheets 
-    considered. Please control the auto-calculated mass flows!",
-    level=AssertionLevel.warning);
-  assert(
-    not use_autoCalc or (autCalVEva > autCalVMin and autCalVEva < 0.43),
-    "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator 
-  and condenser data is outside the range of data sheets considered. 
-  Please control the auto-calculated volumes!",
-    level=AssertionLevel.warning);
-
-  connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
-          {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
-          -43}},                                                color={0,0,127}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(mFlow_con.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-50,81},
-          {-50,32},{-76,32},{-76,-43},{-105,-43}},
-                                                 color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
-
-  connect(vapComCyc.sigBus, sigBus) annotation (Line(
-      points={{-18.54,0.18},{-30,0.18},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-
-  connect(vapComCyc.PEle, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{
-          26,0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
-        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-
+  // Non bus connections
   connect(TConAmb, varTempOutCon.T) annotation (Line(
       points={{110,100},{88,100},{88,110},{82,110}},
       color={0,0,127},
@@ -497,6 +428,55 @@ equation
   connect(port_a1, mFlow_con.port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
+  connect(mFlow_eva.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
+          {32,-92},{20,-92}}, color={0,127,255}));
+  connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
+          -60},{-100,-60}}, color={0,127,255}));
+  connect(vapComCyc.QEva_flow, vapComIneEva.u) annotation (Line(points={{-1.22125e-15,
+          -19.8},{-1.22125e-15,-28.9},{2.22045e-15,-28.9},{2.22045e-15,-38}},
+        color={0,0,127}));
+  connect(eva.Q_flow, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-68},
+          {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}}, color={0,0,
+          127}));
+  connect(vapComIneCon.y, con.Q_flow) annotation (Line(points={{7.21645e-16,61},
+          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,68}}, color={0,0,
+          127}));
+  connect(vapComIneCon.u, vapComCyc.QCon_flow) annotation (Line(points={{-6.66134e-16,
+          38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
+         {0,0,127}));
+  connect(mFlow_con.port_b, con.port_a)
+    annotation (Line(points={{-40,92},{-20,92}}, color={0,127,255}));
+  connect(con.port_b, port_b1) annotation (Line(points={{20,92},{78,92},{78,60},
+          {100,60}}, color={0,127,255}));
+  // External bus connections
+  connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
+          {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
+          -43}},                                                color={0,0,127}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(mFlow_con.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-50,81},
+          {-50,32},{-76,32},{-76,-43},{-105,-43}},
+                                                 color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(vapComCyc.sigBus, sigBus) annotation (Line(
+      points={{-18.54,0.18},{-30,0.18},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(vapComCyc.PEle, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{
+          26,0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+        color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-34,-50},{
           -34,-36},{-74,-36},{-74,-43},{-105,-43}},
                                            color={255,0,255}), Text(
@@ -528,34 +508,18 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(vapComCyc.QEva_flow, vapComIneEva.u) annotation (Line(points={{-1.22125e-15,
-          -19.8},{-1.22125e-15,-28.9},{2.22045e-15,-28.9},{2.22045e-15,-38}},
-        color={0,0,127}));
-  connect(eva.Q_flow, vapComIneEva.y) annotation (Line(points={{2.22045e-16,-68},
-          {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}}, color={0,0,
-          127}));
-  connect(vapComIneCon.y, con.Q_flow) annotation (Line(points={{7.21645e-16,61},
-          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,68}}, color={0,0,
-          127}));
-  connect(vapComIneCon.u, vapComCyc.QCon_flow) annotation (Line(points={{-6.66134e-16,
-          38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
-         {0,0,127}));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,82},{38,82},{
           38,32},{-76,32},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(con.port_b, port_b1) annotation (Line(points={{20,92},{78,92},{78,60},
-          {100,60}}, color={0,127,255}));
   connect(senTConIn.y, sigBus.TConInMea) annotation (Line(points={{-79,90},{-72,
           90},{-72,32},{-76,32},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(mFlow_con.port_b, con.port_a)
-    annotation (Line(points={{-40,92},{-20,92}}, color={0,127,255}));
   connect(eva.T, sigBus.TEvaOutMea) annotation (Line(points={{-22.4,-82},{-76,-82},
           {-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
@@ -569,16 +533,26 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(mFlow_eva.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
-          {32,-92},{20,-92}}, color={0,127,255}));
-  connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
-          -60},{-100,-60}}, color={0,127,255}));
-  connect(conModeTrue.y, sigBus.modeSet) annotation (Line(points={{-79,-110},{
+  connect(conModeTrue.y, sigBus.revSet) annotation (Line(points={{-79,-110},{
           -76,-110},{-76,-42},{-105,-42},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  // Internal bus connections --> No graphics required
+  connect(mFlow_eva.m_flow, sigBusInt.m_flowEvaMea);
+  connect(mFlow_con.m_flow, sigBusInt.m_flowConMea);
+  connect(vapComCyc.sigBus, sigBusInt);
+  connect(vapComCyc.PEle, sigBusInt.PelMea);
+  connect(hys.y, sigBusInt.onOffMea);
+  connect(varTempOutCon.T, sigBusInt.TConAmbMea);
+  connect(varTempOutEva.T, sigBusInt.TEvaAmbMea);
+  connect(hys.u, sigBusInt.ySet);
+  connect(con.T, sigBusInt.TConOutMea);
+  connect(senTConIn.y, sigBusInt.TConInMea);
+  connect(eva.T, sigBusInt.TEvaOutMea);
+  connect(senTEvaIn.y, sigBusInt.TEvaInMea);
+  connect(conModeTrue.y, sigBusInt.revSet);
   annotation (Icon(graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
@@ -687,7 +661,7 @@ The modelling of system inertias and heat losses allow the simulation of transie
 <h4>Concept </h4>
 <p>Using a signal bus as a connector, all relevant data is aggregated. 
 In order to control both chillers and heat pumps, both flow and return
-temperature are aggregated. The mode signal chooses the operation type of 
+temperature are aggregated. The revSet signal chooses the operation type of 
 the vapour compression machine: </p>
 <ul>
 <li>mode = true: Main operation mode (heat pump: heating; chiller: cooling) </li>

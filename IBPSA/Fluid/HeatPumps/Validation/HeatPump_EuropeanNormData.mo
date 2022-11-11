@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.Validation;
 model HeatPump_EuropeanNormData
   extends BaseClasses.PartialHeatPumpValidation(heaPum(
       mCon_flow_nominal=mCon_flow_nominal,
-      VCon=VCon,
+      tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model VapourCompressionCycleInertia =
           IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
           (
@@ -18,6 +18,7 @@ model HeatPump_EuropeanNormData
               mEva_flow_nominal=4800/5/4184,
               tableUppBou=[-40,70; 40,70],
               device_id="Vaillaint_VWL101"))));
+
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.404317
     "Condenser nominal mass flow rate"
     annotation (Evaluate=false);

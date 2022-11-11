@@ -4,9 +4,7 @@ block OperationalEnvelope
   values are outside of the given operatinal envelope"
   extends BaseClasses.PartialSafetyControlWithErrors;
   extends BaseClasses.BoundaryMapIcon(final icoMin=-70, final icoMax=70);
-  parameter Boolean use_opeEnv
-    "False to allow HP to run out of operational envelope"
-    annotation(choices(checkBox=true));
+
   parameter Modelica.Units.SI.TemperatureDifference dTHyst=5
     "Temperature deadband in the operational envelope"
     annotation (Dialog(
@@ -28,20 +26,15 @@ block OperationalEnvelope
     final tabUpp=tabUpp,
     final use_opeEnvFroRec=use_opeEnvFroRec,
     final datTab=datTab,
-    final dx=dTHyst) if use_opeEnv "Operational boundary map"
+    final dx=dTHyst)               "Operational boundary map"
     annotation (Placement(transformation(extent={{-62,38},{2,102}})));
-  Modelica.Blocks.Sources.BooleanConstant booConOpeEnv(final k=true) if not
-    use_opeEnv "If disabled, there is never an error"
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{32,20},{32,8},{
-          78,8}}, color={0,0,127}));
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-116,20},{66,20},{66,8},{78,
+          8}},    color={0,0,127}));
 
-  connect(modeSet, modeOut) annotation (Line(points={{-136,-20},{-114,-20},{
-          -114,-52},{110,-52},{110,-20},{130,-20}}, color={255,0,255}));
   connect(sigBus.TEvaInMea, toDegCTEvaInMea.u) annotation (Line(
-      points={{-129,-69},{-108,-69},{-108,90},{-102,90}},
+      points={{-105,-71},{-108,-71},{-108,90},{-102,90}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -53,23 +46,17 @@ equation
   connect(bouMap.y, toDegCTConOutMea.y) annotation (Line(points={{-66.48,50.8},
     {-72.74,50.8},{-72.74,50},{-79,50}}, color={0,0,127}));
   connect(sigBus.TConOutMea, toDegCTConOutMea.u) annotation (Line(
-      points={{-129,-69},{-102,-69},{-102,50}},
+      points={{-105,-71},{-102,-71},{-102,50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(booPasThr.u, booConOpeEnv.y) annotation (Line(
-      points={{38,0},{6,0},{6,-30},{1,-30}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
   connect(bouMap.noErr, booPasThr.u) annotation (Line(
       points={{5.2,70},{24,70},{24,0},{38,0}},
-      color={255,0,255},
-      pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})), Icon(
-        coordinateSystem(extent={{-120,-120},{120,120}})),
+      color={255,0,255}));
+  annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>

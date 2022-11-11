@@ -35,14 +35,15 @@ model HeatPump "Example for the reversible heat pump model."
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
     redeclare package MediumCon = MediumSin,
     redeclare package MediumEva = MediumSou,
+    tauCon=3600,
     mEva_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.datTab.mEva_flow_nominal,
     redeclare model BlackBoxHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
             IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare model BlackBoxHeatPumpCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2Ds (
+        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
-          iceFacCalc,
+          iceFacCal,
         smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
         datTab=
             IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
@@ -62,8 +63,6 @@ model HeatPump "Example for the reversible heat pump model."
     TCon_nominal(displayUnit="K") = 313.15,
     TCon_start(displayUnit="K") = 303.15,
     TEva_nominal(displayUnit="K") = 278.15,
-    VCon=0.4,
-    VEva=0.04,
     cpCon=4184,
     cpEva=4184,
     dTCon_nominal=7,
@@ -71,7 +70,6 @@ model HeatPump "Example for the reversible heat pump model."
     dpCon_nominal(displayUnit="Pa") = 1000,
     dpEva_nominal(displayUnit="Pa") = 0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_autoCalc=false,
     use_busConnectorOnly=false,
     use_conCap=false,
     use_evaCap=false,
@@ -80,7 +78,7 @@ model HeatPump "Example for the reversible heat pump model."
     y_nominal=1) annotation (Placement(transformation(extent={{-24,-29},{24,29}},
           rotation=270)));
 
-  Modelica.Blocks.Sources.BooleanStep booModeSetStep(startTime=1800, startValue=
+  Modelica.Blocks.Sources.BooleanStep boorevSetStep(startTime=1800, startValue=
        true)           annotation (Placement(transformation(extent={{-100,-20},{
             -80,0}},
                   rotation=0)));
@@ -203,13 +201,13 @@ equation
     annotation (Line(points={{-18,62},{-18,90},{-1,90}}, color={255,0,255}));
   connect(hysCoo.y, logicalSwitch.u3)
     annotation (Line(points={{19,68},{-2,68},{-2,62}}, color={255,0,255}));
-  connect(booModeSetStep.y, logicalSwitch.u2)
+  connect(boorevSetStep.y, logicalSwitch.u2)
     annotation (Line(points={{-79,-10},{-54,-10},{-54,52},{-26,52},{-26,68},{-10,
           68},{-10,62}},                               color={255,0,255}));
   connect(logicalSwitch.y, booleanToReal.u)
     annotation (Line(points={{-10,39},{-10,38},{-50,38},{-50,88},{-90,88},{-90,82}},
                                                        color={255,0,255}));
-  connect(booModeSetStep.y, heaPum.modeSet) annotation (Line(points={{-79,-10},{
+  connect(boorevSetStep.y, heaPum.revSet) annotation (Line(points={{-79,-10},{
           -54,-10},{-54,32},{-28,32},{-28,34},{-21.75,34},{-21.75,27.84}},
                                           color={255,0,255}));
   connect(booleanToReal.y, heaPum.ySet) annotation (Line(points={{-90,59},{-90,50},
@@ -232,7 +230,7 @@ equation
           41,28},{50,28},{50,22}},     color={0,0,127}));
   connect(product1.u1, sine.y) annotation (Line(points={{96,62},{96,70},{90,70},
           {90,79}}, color={0,0,127}));
-  connect(booModeSetStep.y, booleanToRealMode.u) annotation (Line(points={{-79,-10},
+  connect(boorevSetStep.y, booleanToRealMode.u) annotation (Line(points={{-79,-10},
           {-54,-10},{-54,44},{-88,44},{-88,30},{-82,30}},
                                                         color={255,0,255}));
   connect(booleanToRealMode.y, product1.u2) annotation (Line(points={{-59,30},{

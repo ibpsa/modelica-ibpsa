@@ -22,7 +22,10 @@ block DefrostControl
   Modelica.Blocks.Interfaces.RealOutput PelDeFro if not use_chiller
     "Relative speed of compressor. From 0 to 1" annotation (Placement(
         transformation(extent={{10,-10},{-10,10}}, rotation=180,
-        origin={130,92})));
+        origin={130,92}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,80})));
   Modelica.Blocks.Sources.BooleanConstant conTrueNotUseChi(final k=true)
  if not use_chiller
     "If ice is melted with an additional heater, HP can continue running"
@@ -32,20 +35,20 @@ block DefrostControl
     "Calculate how much eletrical energy is used to melt ice" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={30,50})));
+        rotation=0,
+        origin={-10,70})));
 
   Modelica.Blocks.Logical.Switch swiPel if not use_chiller
     "If defrost is on, output will be positive" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,90})));
+        rotation=0,
+        origin={70,90})));
   Modelica.Blocks.Sources.Constant conZero(final k=0) if not use_chiller
     "If Defrost is enabled, HP runs at full power"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-30,50})));
+        rotation=0,
+        origin={-10,110})));
   Modelica.Blocks.Logical.Hysteresis iceFacGreMinChi(
     final uLow=minIceFac,
     final uHigh=minIceFac + deaIciFac,
@@ -56,21 +59,26 @@ block DefrostControl
         rotation=0,
         origin={-29.5,-29.5})));
   Modelica.Blocks.Logical.LogicalSwitch logicalSwitch
-    "If a chiller is used to defrost, mode will be false"
+    "If a chiller is used to defrost, revSet will be false"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Modelica.Blocks.Sources.BooleanConstant conFalseNotUseChi(final k=true)
                                                                        if not
     use_chiller "Just to omit warnings"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Sources.BooleanConstant conTrueUseChi(final k=not use_chiller)
- if use_chiller "Set mode to false to simulate the defrost cycle"
+ if use_chiller "Set revSet to false to simulate the defrost cycle"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+  Modelica.Blocks.Interfaces.BooleanInput revSet "Set value of operation mode"
+    annotation (Placement(transformation(extent={{-132,-36},{-100,-4}}),
+        iconTransformation(extent={{-132,-36},{-100,-4}})));
+  Modelica.Blocks.Interfaces.BooleanOutput revOut
+    "Set value of operation mode" annotation (Placement(transformation(extent={{100,-32},
+            {124,-8}}),          iconTransformation(extent={{100,-34},{120,-14}})));
 equation
-  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{74,20},{74,8},{
-          78,8}},
-               color={0,0,127}));
+  connect(ySet, swiErr.u1) annotation (Line(points={{-116,20},{74,20},{74,8},{78,
+          8}}, color={0,0,127}));
   connect(sigBus.iceFacMea, iceFacGreMinHea.u) annotation (Line(
-      points={{-129,-69},{-82.8,-69},{-82.8,-69.5},{-42.1,-69.5}},
+      points={{-105,-71},{-82.8,-71},{-82.8,-69.5},{-42.1,-69.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -78,24 +86,23 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(PelDeFro, swiPel.y) annotation (Line(points={{130,92},{16,92},{16,108},
-          {7.21645e-16,108},{7.21645e-16,101}},
-                          color={0,0,127}));
+  connect(PelDeFro, swiPel.y) annotation (Line(points={{130,92},{128,92},{128,
+          90},{81,90}},   color={0,0,127}));
   connect(iceFacGreMinHea.y, swiPel.u2) annotation (Line(
-      points={{-17.95,-69.5},{0,-69.5},{0,4},{ 0,4},{0,78}},
+      points={{-17.95,-69.5},{14,-69.5},{14,90},{58,90}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
   connect(constPelDeFro.y, swiPel.u3) annotation (Line(
-      points={{30,61},{30,70},{8,70},{8,78}},
+      points={{1,70},{10,70},{10,82},{58,82}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(swiPel.u1, conZero.y) annotation (Line(
-      points={{-8,78},{-8,70},{-30,70},{-30,61}},
+      points={{58,98},{6,98},{6,110},{1,110}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus.iceFacMea, iceFacGreMinChi.u) annotation (Line(
-      points={{-129,-69},{-50,-69},{-50,-29.5},{-42.1,-29.5}},
+      points={{-105,-71},{-50,-71},{-50,-29.5},{-42.1,-29.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -121,8 +128,11 @@ equation
       pattern=LinePattern.Dash));
   connect(booPasThr.y, logicalSwitch.u2) annotation (Line(points={{61,0},{66,0},
           {66,-50},{78,-50}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,120}}),                                  graphics={
+  connect(logicalSwitch.u1, revSet) annotation (Line(points={{78,-42},{-78,-42},
+          {-78,-20},{-116,-20}}, color={255,0,255}));
+  connect(logicalSwitch.y, revOut) annotation (Line(points={{101,-50},{110,-50},
+          {110,-30},{92,-30},{92,-20},{112,-20}}, color={255,0,255}));
+  annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -199,13 +209,7 @@ equation
           points={{14,14},{-14,-14}},
           color={28,108,200},
           origin={14,-14},
-          rotation=90),
-        Text(
-          extent={{-151,147},{149,107}},
-          textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
-          textString="%name")}),                                 Diagram(
+          rotation=90)}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     Documentation(info="<html><p>
@@ -214,7 +218,7 @@ equation
 </p>
 <p>
   If a given lower boundary is surpassed, the mode of the heat pump
-  will be set to false(eq. Chilling) and the compressor speed is set to
+  will be set to false (eq. Chilling) and the compressor speed is set to
   1 to make the defrost process as fast as possible.
 </p>
 <ul>

@@ -40,7 +40,6 @@ partial model PartialHeatPumpValidation
     TEva_nominal=290.15,
     dTEva_nominal=5,
     mEva_flow_nominal=0.8,
-    VEva=0.05,
     dpEva_nominal=0,
     dpCon_nominal=0,
     use_conCap=false,
@@ -51,7 +50,6 @@ partial model PartialHeatPumpValidation
     TEva_start=290.15,
     use_evaCap=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_autoCalc=false,
     TCon_start=303.15,
     redeclare model BlackBoxHeatPumpCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling) annotation (
@@ -148,14 +146,15 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TEvaOutSim, sigBus.TEvaOutMea) annotation (Line(points={{110,-10},{20,
-          -10},{20,70}}, color={0,0,127}), Text(
+  connect(TEvaOutSim, sigBus.TEvaOutMea) annotation (Line(points={{110,-10},{76,
+          -10},{76,70},{20,70}},
+                         color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(PElSim, sigBus.PelMea) annotation (Line(points={{110,-92},{88,-92},{88,
-          -10},{20,-10},{20,70}},    color={0,0,127}), Text(
+  connect(PElSim, sigBus.PelMea) annotation (Line(points={{110,-92},{82,-92},{
+          82,70},{20,70}},           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},

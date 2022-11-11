@@ -182,7 +182,7 @@ Used in <a href=\"modelica://IBPSA.Fluid.Chillers.Chiller\">IBPSA.Fluid.Chillers
 this model serves the simulation of a 
 reversible chiller. Thus, data both of chillers and heat pumps can be used to
 calculate the three relevant values <code>P_el</code>, <code>QCon</code> and 
-<code>QEva</code>. The <code>mode</code> of the chiller is used to switch
+<code>QEva</code>. The <code>revSet</code> of the chiller is used to switch
 between the black-box model of the chiller and the heat pump. </p>
  <p>The user can choose between different types of black-box model or implement 
  a new black-box model by extending from 

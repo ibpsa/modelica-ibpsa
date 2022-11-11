@@ -67,9 +67,9 @@ equation
           40,30},{86,30},{86,-52},{8,-52},{8,-58}}, color={0,0,127}));
   connect(blaBoxHeaPumCoo.PEle, swiPEle.u3) annotation (Line(
       points={{-39.5,38},{-40,38},{-40,30},{-90,30},{-90,-50},{-8,-50},{-8,-58}},
-
       color={0,0,127},
       pattern=LinePattern.Dash));
+
   connect(blaBoxHeaPumCoo.QEva_flow, swiQEva.u3) annotation (Line(
       points={{-55.9,38},{-56,38},{-56,24},{-52,24},{-52,-8},{-58,-8}},
       color={0,0,127},
@@ -191,7 +191,7 @@ equation
 <p>This black-box model represents the refrigerant cycle of a heat pump. </p>
 <p>Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. </p>
 <p>Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <code>PEle</code>, <code>QCon</code> and <code>QEva</code>. </p>
-<p>The <code>mode</code> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
+<p>The <code>revSet</code> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
 <p>The user can choose between different types of black-box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>
 </html>"));
 end BlackBoxVapourCompressionCycle;

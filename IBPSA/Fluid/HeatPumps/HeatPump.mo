@@ -3,10 +3,6 @@ model HeatPump
   "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
-    final autCalMCon_flow=max(4E-5*QUse_flow_nominal - 0.6162, autCalMMin_flow),
-    final autCalMEva_flow=max(4E-5*QUse_flow_nominal - 0.3177, autCalMMin_flow),
-    final autCalVCon=max(1E-7*QUse_flow_nominal - 94E-4, autCalVMin),
-    final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin),
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
     final scaFac=vapComCyc.blaBoxHeaPumHea.scaFac,
     use_rev=true,
@@ -23,35 +19,36 @@ model HeatPump
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal_final,
-       final mEva_flow_nominal=mEva_flow_nominal_final,
+       final mCon_flow_nominal=mCon_flow_nominal,
+       final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
   "Black-box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
   replaceable model BlackBoxHeatPumpCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
       constrainedby
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+    IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
        final QUse_flow_nominal=0,
        final scaFac=scaFac,
        final TCon_nominal=TEva_nominal,
        final TEva_nominal=TCon_nominal,
        final dTCon_nominal=dTEva_nominal,
        final dTEva_nominal=dTCon_nominal,
-       final mCon_flow_nominal=mEva_flow_nominal_final,
-       final mEva_flow_nominal=mCon_flow_nominal_final,
+       final mCon_flow_nominal=mEva_flow_nominal,
+       final mEva_flow_nominal=mCon_flow_nominal,
        final y_nominal=y_nominal)
   "Black-box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   replaceable parameter SafetyControls.RecordsCollection.DefaultSafetyControl
     safCtrlPar
-    constrainedby IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
+    constrainedby
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
     "Safety control parameters"
     annotation (Dialog(enable=use_safetyControl, group="Safety Control"),
     choicesAllMatching=true);
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
-    final mEva_flow_nominal=mEva_flow_nominal_final,
-    final mCon_flow_nominal=mCon_flow_nominal_final,
+    final mEva_flow_nominal=mEva_flow_nominal,
+    final mCon_flow_nominal=mCon_flow_nominal,
     safCtrlPar=safCtrlPar,
     final ySet_small=ySet_small) if use_safetyControl
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
@@ -70,19 +67,17 @@ equation
       horizontalAlignment=TextAlignment.Left));
   if use_safetyControl then
     connect(safetyControl.sigBus, sigBus) annotation (Line(
-        points={{-60.75,-15.75},{-60.75,-16},{-76,-16},{-76,-43},{-105,-43}},
+        points={{-60.5,-17.1},{-60.5,-16},{-76,-16},{-76,-43},{-105,-43}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(modeSet, safetyControl.modeSet) annotation (Line(points={{-116,-90},
-            {-76,-90},{-76,-11.6667},{-61.3333,-11.6667}},
-                                                    color={255,0,255}));
-    connect(safetyControl.modeOut, sigBus.modeSet) annotation (Line(points={{
-            -39.1667,-11.6667},{-30,-11.6667},{-30,-66},{-76,-66},{-76,-43},{
-            -105,-43}},
+    connect(revSet, safetyControl.revSet) annotation (Line(points={{-116,-90},
+            {-76,-90},{-76,-12},{-61.6,-12}},       color={255,0,255}));
+    connect(safetyControl.revOut, sigBus.revSet) annotation (Line(points={{-38.4,
+            -12.4},{-30,-12.4},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
         color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -94,17 +89,15 @@ equation
       connect(realToBool.y, sigBus.onOffSet);
       connect(boolToReal.y, safetyControl.ySet);
     else
-      connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{
-              -39.1667,-8.33333},{-30,-8.33333},{-30,-66},{-76,-66},{-76,-43},{
-              -105,-43}},                                             color={0,0,127}),
+      connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{-39,-8},
+              {-30,-8},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},     color={0,0,127}),
         Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
       connect(ySet, safetyControl.ySet) annotation (Line(points={{-116,20},{-80,
-              20},{-80,-8.33333},{-61.3333,-8.33333}},
-                                                 color={0,0,127}));
+              20},{-80,-8},{-61.6,-8}},          color={0,0,127}));
     end if;
   else
     connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
@@ -113,7 +106,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-    connect(modeSet, sigBus.modeSet) annotation (Line(points={{-116,-90},{-76,-90},
+    connect(revSet, sigBus.revSet) annotation (Line(points={{-116,-90},{-76,-90},
           {-76,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,

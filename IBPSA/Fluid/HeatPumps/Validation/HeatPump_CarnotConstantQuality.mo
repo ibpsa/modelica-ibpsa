@@ -4,7 +4,7 @@ model HeatPump_CarnotConstantQuality
       QUse_flow_nominal=qualityGrade*PEl_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
            - heaPum.TEva_nominal),
       mCon_flow_nominal=mCon_flow_nominal,
-      VCon=VCon,
+      tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model VapourCompressionCycleInertia =
           IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
           (
