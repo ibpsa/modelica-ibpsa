@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.BaseClasses;
-model LargeScaleWaterToWaterParameters
+partial model LargeScaleWaterToWaterParameters
   "Model with parameters for large scale water-to-water heat pump"
 
   //Automatic calculation of mass flow rates and volumes of the evaporator
@@ -46,5 +46,8 @@ initial equation
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p></span><span style=\"font-size: 9.75pt;\">TODO: Add doc and revision</p>
+</html>"));
 end LargeScaleWaterToWaterParameters;
