@@ -60,8 +60,8 @@ block SafetyControl "Block including all safety levels"
     "Block for anti freezing in simulation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Routing.BooleanPassThrough boolPasThrDef
-    if not safCtrlPar.use_deFro
-    "No 2. Layer" annotation (
+    if not safCtrlPar.use_deFro "No defrost control"
+                  annotation (
       Placement(transformation(extent={{-80,-40},{-60,-20}})),
       choicesAllMatching=true);
   Modelica.Blocks.Interfaces.IntegerOutput opeEnvErr if safCtrlPar.use_opeEnv

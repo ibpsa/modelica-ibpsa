@@ -5,16 +5,18 @@ partial model PartialHeatPumpValidation
 
   replaceable package MediumSin = IBPSA.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
+      "Medium of sink side"
       annotation (choicesAllMatching=true);
   replaceable package MediumSou = IBPSA.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
+      "Medium of source side"
       annotation (choicesAllMatching=true);
   IBPSA.Fluid.Sources.MassFlowSource_T souSidMassFlowSou(
     use_m_flow_in=true,
     use_T_in=true,
     m_flow=1,
     nPorts=1,
-    redeclare package Medium = MediumSou,
+    redeclare final package Medium = MediumSou,
     T=275.15) "Ideal mass flow source at the inlet of the source side"
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
 
@@ -25,8 +27,8 @@ partial model PartialHeatPumpValidation
         rotation=0,
         origin={-31,11})));
   IBPSA.Fluid.HeatPumps.HeatPump heaPum(
-    redeclare package MediumCon = MediumSin,
-    redeclare package MediumEva = MediumSou,
+    redeclare final package MediumCon = MediumSin,
+    redeclare final package MediumEva = MediumSou,
     QUse_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.QUseBlaBox_flow_nominal,
     y_nominal=1,
     final use_safetyControl=false,
@@ -52,24 +54,26 @@ partial model PartialHeatPumpValidation
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TCon_start=303.15,
     redeclare model BlackBoxHeatPumpCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling) annotation (
+        IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling) "Heat pump"
+                                                                 annotation (
       Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={2,-21})));
 
-  IBPSA.Fluid.Sources.Boundary_pT sinSidFixedBou(redeclare package Medium =
-        MediumSin, nPorts=1) "Fixed boundary at the outlet of the sink side"
+  IBPSA.Fluid.Sources.Boundary_pT sinSidFixedBou(
+    redeclare final package Medium = MediumSin,
+    nPorts=1) "Fixed boundary at the outlet of the sink side"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={70,-50})));
+        origin={50,-50})));
   IBPSA.Fluid.Sources.MassFlowSource_T sinSideMassFlowSou(
     use_m_flow_in=true,
     use_T_in=true,
     m_flow=1,
     nPorts=1,
-    redeclare package Medium = MediumSin,
+    redeclare final package Medium = MediumSin,
     T=275.15) "Ideal mass flow source at the inlet of the source side"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -77,8 +81,10 @@ partial model PartialHeatPumpValidation
         origin={30,30})));
 
   Modelica.Blocks.Math.Gain gainmFlowEva(final k=heaPum.mEva_flow_nominal)
+    "Gain to ensure mEva_flow"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Math.Gain gainmFlowCon(final k=heaPum.mCon_flow_nominal)
+    "Gain to ensure mCon_flow"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -89,21 +95,29 @@ partial model PartialHeatPumpValidation
     fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Fluid/HeatPumps/Validation/MeasuredHeatPumpData.txt"),
     columns=2:10,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
+    "Table with measurement data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput TConOutMea(unit="K", displayUnit="degC")
+    "Measured condenser outlet"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.RealOutput TEvaOutMea(unit="K", displayUnit="degC")
+    "Measured evaporator outlet"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Modelica.Blocks.Interfaces.RealOutput PElMea(unit="W", displayUnit="kW")
+    "Measured electrical power"
     annotation (Placement(transformation(extent={{100,-78},{120,-58}})));
   Modelica.Blocks.Interfaces.RealOutput PElSim(unit="W", displayUnit="kW")
+    "Simulated electrical power"
     annotation (Placement(transformation(extent={{100,-102},{120,-82}})));
   Modelica.Blocks.Interfaces.RealOutput TConOutSim(unit="K", displayUnit="degC")
+    "Simulated condenser outlet"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Interfaces.RealOutput TEvaOutSim(unit="K", displayUnit="degC")
+    "Simulated evaporator outlet"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Interfaces.VapourCompressionMachineControlBus sigBus
+    "Signal bus of heat pump"
     annotation (Placement(transformation(extent={{0,50},{40,90}}),
         iconTransformation(extent={{0,50},{40,90}})));
 equation
@@ -113,7 +127,7 @@ equation
   connect(heaPum.port_b2, souSidFixedBou.ports[1]) annotation (Line(points={{-12.5,
           3},{-16,3},{-16,11},{-20,11}}, color={0,127,255}));
   connect(heaPum.port_b1, sinSidFixedBou.ports[1]) annotation (Line(points={{16.5,
-          -45},{16.5,-50},{60,-50}}, color={0,127,255}));
+          -45},{16.5,-50},{40,-50}}, color={0,127,255}));
   connect(heaPum.port_a1, sinSideMassFlowSou.ports[1]) annotation (Line(points={
           {16.5,3},{16.5,12},{30,12},{30,20}}, color={0,127,255}));
   connect(gainmFlowEva.y, souSidMassFlowSou.m_flow_in)
