@@ -1,70 +1,48 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model OpaqueElements "Solar heat gains of opaque elements"
-  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "weather data" annotation (Placement(
-        transformation(extent={{-200,-20},{-160,20}}),iconTransformation(extent={{-230,
-            -40},{-210,-20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    til=surTil[1],
-    azi=surAzi[1]) "Direct solar irradiation on surface 1"
-            annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
-    til=surTil[1],
-    azi=surAzi[1]) "Diffuse solar irradiation on surface 1"
-    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil1(
-    til=surTil[2],
-    azi=surAzi[2]) "Direct solar irradiation on surface 2"
-    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil1(
-    til=surTil[2],
-    azi=surAzi[2]) "Diffuse solar irradiation on surface 2"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil2(
-    til=surTil[3],
-    azi=surAzi[3]) "Direct solar irradiation on surface 3"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil2(
-    til=surTil[3],
-    azi=surAzi[3]) "Diffuse solar irradiation on surface 3"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil3(
-    til=surTil[4],
-    azi=surAzi[4]) "Direct solar irradiation on surface 4"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil3(
-    til=surTil[4],
-    azi=surAzi[4]) "Diffuse solar irradiation on surface 4"
-    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-
-  parameter Real groRef = 0.2 "Ground reflectance"
-      annotation(Evaluate=true, Dialog(tab = "General", group = "Location"));
+  parameter Real groRef=0.2 "Ground reflectance"
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Location"));
   parameter Modelica.Units.SI.Area[4] AWal "Area of opaque constructions"
     annotation (Evaluate=true, Dialog(tab="General", group="Construction data"));
-
   parameter Real UWal "U-value of walls"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
-
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
   parameter Modelica.Units.SI.Area ARoo "Area of opaque constructions"
     annotation (Dialog(tab="General", group="Construction data"));
-
   parameter Real URoo "U-value of roof"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
-
-   parameter Real eps = 0.9 "Emissivity of external surface"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
-
-  parameter Real alp = 0.6 "Absorption coefficient"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
-
-   parameter Real surRes = 0.04 "External surface heat resistance"
-        annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
-
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
+  parameter Real eps=0.9 "Emissivity of external surface"
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
+  parameter Real alp=0.6 "Absorption coefficient"
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
+  parameter Real surRes=0.04 "External surface heat resistance"
+    annotation(Evaluate=true, Dialog(tab = "General", group = "Construction data"));
   parameter Modelica.Units.SI.Angle[5] surTil "Tilt angle of surfaces"
     annotation (Evaluate=true, Dialog(tab="General", group="Window directions"));
   parameter Modelica.Units.SI.Angle[5] surAzi
     "Azimuth angle of surfaces" annotation (Evaluate=true, Dialog(tab="General",
         group="Window directions"));
-
+  Modelica.Blocks.Interfaces.RealOutput SolRadOpa( unit="W") "Total solar gains through opaque surfaces"
+    annotation (Placement(transformation(extent={{220,-10},{240,10}}),
+        iconTransformation(extent={{220,-10},{240,10}})));
+  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "weather data" annotation (Placement(
+        transformation(extent={{-200,-20},{-160,20}}),iconTransformation(extent={{-230,
+            -40},{-210,-20}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=surTil[1],azi=surAzi[1]) "Direct solar irradiation on surface 1"
+    annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=surTil[1],azi=surAzi[1]) "Diffuse solar irradiation on surface 1"
+    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil1(til=surTil[2],azi=surAzi[2]) "Direct solar irradiation on surface 2"
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil1(til=surTil[2],azi=surAzi[2]) "Diffuse solar irradiation on surface 2"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil2(til=surTil[3],azi=surAzi[3]) "Direct solar irradiation on surface 3"
+    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil2(til=surTil[3],azi=surAzi[3]) "Diffuse solar irradiation on surface 3"
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil3(til=surTil[4],azi=surAzi[4]) "Direct solar irradiation on surface 4"
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+  IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil3(til=surTil[4],azi=surAzi[4]) "Diffuse solar irradiation on surface 4"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Modelica.Blocks.Math.Add irr1
     "total of direct and diffuse radiation on facade 1"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
@@ -113,9 +91,6 @@ model OpaqueElements "Solar heat gains of opaque elements"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
   Modelica.Blocks.Math.Sum sum(nin=5) "Sum of solar gains through opaque surfaces"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-  Modelica.Blocks.Interfaces.RealOutput SolRadOpa( unit="W") "Total solar gains through opaque surfaces"
-    annotation (Placement(transformation(extent={{220,-10},{240,10}}),
-        iconTransformation(extent={{220,-10},{240,10}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil4(
     til=surTil[5],
     azi=surAzi[5])

@@ -1,12 +1,12 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GlazedElements "Solar heat gains of glazed elements"
-  parameter Real groRef = 0.2 "Ground reflectance"
+  parameter Real groRef=0.2 "Ground reflectance"
     annotation(Evaluate=true, Dialog(tab = "General", group = "Location"));
   parameter Modelica.Units.SI.Area[4] AWin={0,0,6,0} "Areas of windows"
     annotation (Evaluate=true, Dialog(tab="General", group="Window data"));
-  parameter Real winFra = 0.01 "Frame fraction of windows"
+  parameter Real winFra=0.01 "Frame fraction of windows"
     annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
-  parameter Real gFac = 0.5 "Energy transmittance of glazings"
+  parameter Real gFac=0.5 "Energy transmittance of glazings"
     annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
   parameter Modelica.Units.SI.Angle[4] surTil "Tilt angle of surfaces"
     annotation (Evaluate=true, Dialog(tab="General", group="Window directions"));
