@@ -14,6 +14,6 @@ model LargeScaleWaterToWater
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 
   annotation (Documentation(info="<html>
-<p></span><span style=\"font-size: 9.75pt;\">TODO: Add doc and revision</p>
+<p>TODO: Add doc and revision</p>
 </html>"));
 end LargeScaleWaterToWater;

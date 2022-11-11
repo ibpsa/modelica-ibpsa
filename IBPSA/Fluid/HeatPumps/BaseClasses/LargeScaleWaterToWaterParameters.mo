@@ -48,6 +48,6 @@ initial equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p></span><span style=\"font-size: 9.75pt;\">TODO: Add doc and revision</p>
+<p>TODO: Add doc and revision</p>
 </html>"));
 end LargeScaleWaterToWaterParameters;
