@@ -250,7 +250,7 @@ equation
   connect(hysteresis.y, not2.u) annotation (Line(points={{-179,-40},{-162,-40}},
                       color={255,0,255}));
   connect(temRoo.T, hysteresis.u)
-    annotation (Line(points={{-51,30},{-220,30},{-220,-40},{-202,-40}},
+    annotation (Line(points={{-50,30},{-220,30},{-220,-40},{-202,-40}},
                                                             color={0,0,127}));
   connect(pumHeaPum.port_b, temSup.port_a)
     annotation (Line(points={{-70,-100},{-70,-30}},color={0,127,255}));
