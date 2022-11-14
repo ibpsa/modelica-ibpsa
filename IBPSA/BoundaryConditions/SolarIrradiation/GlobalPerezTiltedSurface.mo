@@ -1,5 +1,5 @@
 within IBPSA.BoundaryConditions.SolarIrradiation;
-block GlobalTiltedSurfacePerez
+block GlobalPerezTiltedSurface
   "Global solar irradiation on a tilted surface with diffuse irradiation calculation following Perez"
   extends
     IBPSA.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
@@ -67,4 +67,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end GlobalTiltedSurfacePerez;
+end GlobalPerezTiltedSurface;

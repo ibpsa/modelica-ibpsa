@@ -1,5 +1,5 @@
 within IBPSA.BoundaryConditions.SolarIrradiation.Examples;
-model GlobalTiltedSurfacePerez
+model GlobalPerezTiltedSurface
   "Test model for global solar irradiation on a tilted surface with diffuse
   irradiation calculation based on Perez"
   extends Modelica.Icons.Example;
@@ -10,19 +10,19 @@ model GlobalTiltedSurfacePerez
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloRoo(
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloRoo(
     til=IBPSA.Types.Tilt.Ceiling,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloFlo(
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloFlo(
     til=IBPSA.Types.Tilt.Floor,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloWal(
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloWal(
     til=IBPSA.Types.Tilt.Wall,
     azi=0.78539816339745,
     rho=rho)
@@ -64,7 +64,7 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (
   experiment(StartTime=1.82304e+07, Tolerance=1e-6, StopTime=1.83168e+07),
-  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/GlobalTiltedSurfacePerez.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/GlobalPerezTiltedSurface.mos"
         "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -82,4 +82,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end GlobalTiltedSurfacePerez;
+end GlobalPerezTiltedSurface;
