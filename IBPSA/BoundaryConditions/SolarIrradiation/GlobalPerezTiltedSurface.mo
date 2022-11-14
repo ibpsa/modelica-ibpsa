@@ -41,7 +41,7 @@ equation
           6}},            color={0,0,127}));
   connect(HDirTil.H, HGloTil.u2) annotation (Line(points={{2,-40},{26,-40},{26,-6},
           {38,-6}}, color={0,0,127}));
-  connect(add.y, H) annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
+  connect(HGloTil.y, H) annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
   annotation (
     defaultComponentName = "HGloTil",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
