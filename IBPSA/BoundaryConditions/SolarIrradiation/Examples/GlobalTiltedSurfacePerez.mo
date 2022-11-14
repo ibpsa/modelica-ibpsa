@@ -67,5 +67,13 @@ equation
 <p>The three instances of the model compute the global solar irradiation on a roof, a wall and a floor.</p>
 <p>Since the floor only sees the ground but not the radiative heat flow that is scattered in the atmosphere,<p>
 <p>it receives the lowest amount of diffuse and hence global solar irradiation.</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+Nov 14, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end GlobalTiltedSurfacePerez;

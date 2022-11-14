@@ -42,5 +42,12 @@ equation
 </p>and combines it to the global irradiation.</p>
 <p>It uses an anisotropic sky model proposed by Perez for the diffuse irradiation computation. </p>
 <p>For a definition of the parameters, see the User&apos;s Guide. </p>
+</html>", revisions="<html>
+<ul>
+<li>
+Nov 14, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end GlobalTiltedSurfacePerez;
