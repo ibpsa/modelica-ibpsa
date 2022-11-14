@@ -3,28 +3,25 @@ model GlobalTiltedSurfacePerez
   "Test model for global solar irradiation on a tilted surface with diffuse 
   irradiation calculation based on Perez"
   extends Modelica.Icons.Example;
-  WeatherData.ReaderTMY3                          weaDat(filNam=
+  WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez
-                                                         HGloRoo(til=IBPSA.Types.Tilt.Ceiling,
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloRoo(til=IBPSA.Types.Tilt.Ceiling,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez
-                                                         HGloFlo(til=IBPSA.Types.Tilt.Floor,
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloFlo(til=IBPSA.Types.Tilt.Floor,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez
-                                                         HGloWal(til=IBPSA.Types.Tilt.Wall,
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloWal(til=IBPSA.Types.Tilt.Wall,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on wall"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  WeatherData.Bus                          weaBus
+  WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,20},
