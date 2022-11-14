@@ -15,10 +15,17 @@ block GlobalTiltedSurfacePerez
     final azi=azi,
     final outSkyCon=outSkyCon,
     final outGroCon=outGroCon)
+    "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,20},{0,60}})));
-  DirectTiltedSurface HDirTil(final til=til, final azi=azi)
+  DirectTiltedSurface HDirTil(
+    final til=til,
+    final azi=azi)
+    "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-40,-60},{0,-20}})));
-  Modelica.Blocks.Math.Add add
+  Modelica.Blocks.Math.Add HGloTil(
+      final k1=1,
+      final k2=1)
+    "Global irradiation on tilted surface"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
@@ -30,12 +37,14 @@ equation
       points={{-100,0},{-100,-40},{-40,-40}},
       color={255,204,51},
       thickness=0.5));
-  connect(HDifTil.H, add.u1) annotation (Line(points={{2,40},{26,40},{26,6},{38,
+  connect(HDifTil.H, HGloTil.u1) annotation (Line(points={{2,40},{26,40},{26,6},{38,
           6}},            color={0,0,127}));
-  connect(HDirTil.H, add.u2) annotation (Line(points={{2,-40},{26,-40},{26,-6},
+  connect(HDirTil.H, HGloTil.u2) annotation (Line(points={{2,-40},{26,-40},{26,-6},
           {38,-6}}, color={0,0,127}));
   connect(add.y, H) annotation (Line(points={{61,0},{110,0}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (
+    defaultComponentName = "HGloTil",
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
