@@ -10,13 +10,13 @@ block GlobalTiltedSurfacePerez
   parameter Boolean outGroCon=false
     "Output contribution of diffuse irradiation from ground";
   DiffusePerez HDifTil(
-    til=til,
-    rho=rho,
-    azi=azi,
-    outSkyCon=outSkyCon,
-    outGroCon=outGroCon)
+    final til=til,
+    final rho=rho,
+    final azi=azi,
+    final outSkyCon=outSkyCon,
+    final outGroCon=outGroCon)
     annotation (Placement(transformation(extent={{-40,20},{0,60}})));
-  DirectTiltedSurface HDirTil(til=til, azi=azi)
+  DirectTiltedSurface HDirTil(final til=til, final azi=azi)
     annotation (Placement(transformation(extent={{-40,-60},{0,-20}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -38,7 +38,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This component computes the hemispherical direct and diffuse irradiation on a tilted surface and combines it to the global irradiation.</p>
+<p>This component computes the hemispherical direct and diffuse irradiation on a tilted surface</p> 
+</p>and combines it to the global irradiation.</p>
 <p>It uses an anisotropic sky model proposed by Perez for the diffuse irradiation computation. </p>
 <p>For a definition of the parameters, see the User&apos;s Guide. </p>
 </html>"));
