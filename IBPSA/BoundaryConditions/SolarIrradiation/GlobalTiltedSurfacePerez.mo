@@ -38,10 +38,18 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This component computes the hemispherical direct and diffuse irradiation on a tilted surface</p> 
-</p>and combines it to the global irradiation.</p>
-<p>It uses an anisotropic sky model proposed by Perez for the diffuse irradiation computation. </p>
-<p>For a definition of the parameters, see the User&apos;s Guide. </p>
+<p>
+This component computes the hemispherical direct and diffuse irradiation on a tilted surface
+and outputs the global irradiation.
+</p>
+<p>
+It uses an anisotropic sky model proposed by Perez for the diffuse irradiation computation.
+</p>
+<p>
+For a definition of the parameters, see the
+<a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">
+IBPSA.BoundaryConditions.UsersGuide</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

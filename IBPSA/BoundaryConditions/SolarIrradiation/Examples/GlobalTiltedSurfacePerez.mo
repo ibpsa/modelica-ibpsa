@@ -1,22 +1,29 @@
 within IBPSA.BoundaryConditions.SolarIrradiation.Examples;
 model GlobalTiltedSurfacePerez
-  "Test model for global solar irradiation on a tilted surface with diffuse 
+  "Test model for global solar irradiation on a tilted surface with diffuse
   irradiation calculation based on Perez"
   extends Modelica.Icons.Example;
+
+  parameter Real rho=0.2 "Ground reflectance";
+
   WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloRoo(til=IBPSA.Types.Tilt.Ceiling,
+
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloRoo(
+    til=IBPSA.Types.Tilt.Ceiling,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloFlo(til=IBPSA.Types.Tilt.Floor,
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloFlo(
+    til=IBPSA.Types.Tilt.Floor,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloWal(til=IBPSA.Types.Tilt.Wall,
+  IBPSA.BoundaryConditions.SolarIrradiation.GlobalTiltedSurfacePerez HGloWal(
+    til=IBPSA.Types.Tilt.Wall,
     azi=0.78539816339745,
     rho=rho)
     "Diffuse irradiation on wall"
@@ -26,7 +33,6 @@ model GlobalTiltedSurfacePerez
     annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,20},
             {21,21}})));
-  parameter Real rho=0.2 "Ground reflectance";
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{-20,10},{11,10}},
@@ -65,8 +71,8 @@ equation
     Documentation(info="<html>
 <p>This model tests the implementation of global irradiation computation based on Perez&apos; model for diffuse solar radiation.</p>
 <p>The three instances of the model compute the global solar irradiation on a roof, a wall and a floor.</p>
-<p>Since the floor only sees the ground but not the radiative heat flow that is scattered in the atmosphere,<p>
-<p>it receives the lowest amount of diffuse and hence global solar irradiation.</p>
+<p>Since the floor only sees the ground but not the radiative heat flow that is scattered in the atmosphere,
+it receives the lowest amount of diffuse and global solar irradiation.</p>
 </html>",
 revisions="<html>
 <ul>
