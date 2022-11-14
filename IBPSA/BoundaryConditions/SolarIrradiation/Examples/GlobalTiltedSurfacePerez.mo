@@ -63,6 +63,9 @@ equation
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>This model tests the implementation of global irradiation computation based on Perez&apos; model for diffuse solar radiation.</p><p>The three instances of the model compute the global solar irradiation on a roof, a wall and a floor.</p><p>Since the floor only sees the ground but not the radiative heat flow that is scattered in the atmosphere, it receives the lowest amount of diffuse and hence global solar irradiation. </p>
+<p>This model tests the implementation of global irradiation computation based on Perez&apos; model for diffuse solar radiation.</p>
+<p>The three instances of the model compute the global solar irradiation on a roof, a wall and a floor.</p>
+<p>Since the floor only sees the ground but not the radiative heat flow that is scattered in the atmosphere,<p>
+<p>it receives the lowest amount of diffuse and hence global solar irradiation.</p>
 </html>"));
 end GlobalTiltedSurfacePerez;
