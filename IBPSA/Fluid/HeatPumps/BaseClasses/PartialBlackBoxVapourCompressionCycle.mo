@@ -167,7 +167,7 @@ equation
 </html>", info="<html>
 <p>
   This black-box model represents the refrigerant cycle of a vapour
-  compression machine. Used in IBPSA.Fluid.HeatPumps.HeatPump and
+  compression machine. Used in IBPSA.Fluid.HeatPumps.ModularReversible and
   IBPSA.Fluid.Chiller.Chiller, this model serves the simulation of a
   reversible vapour compression machine. Thus, data both of chillers
   and heat pumps can be used to calculate the three relevant values

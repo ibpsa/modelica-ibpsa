@@ -189,7 +189,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>This black-box model represents the refrigerant cycle of a heat pump. </p>
-<p>Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. </p>
+<p>Used in IBPSA.Fluid.HeatPumps.ModularReversible, this model serves the simulation of a reversible heat pump. </p>
 <p>Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <code>PEle</code>, <code>QCon</code> and <code>QEva</code>. </p>
 <p>The <code>revSet</code> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
 <p>The user can choose between different types of black-box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>

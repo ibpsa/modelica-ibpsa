@@ -1,8 +1,11 @@
+AirToWaterWithFlowsheetAndFluid
 Carnot_TCon
 Carnot_y
-HeatPump
 LargeScaleWaterToWater
+ModularReversible
 ReciprocatingWaterToWater
+ReversibleAirToWaterEuropeanNorm2D
+ReversibleCarnotWithLosses
 ScrollWaterToWater
 BlackBoxData
 Calibration

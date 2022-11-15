@@ -26,10 +26,11 @@ partial model PartialHeatPumpValidation
         extent={{-11,11},{11,-11}},
         rotation=0,
         origin={-31,11})));
-  IBPSA.Fluid.HeatPumps.HeatPump heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible heaPum(
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
     QUse_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.QUseBlaBox_flow_nominal,
+
     y_nominal=1,
     final use_safetyControl=false,
     final use_busConnectorOnly=false,
@@ -55,8 +56,7 @@ partial model PartialHeatPumpValidation
     TCon_start=303.15,
     redeclare model BlackBoxHeatPumpCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling) "Heat pump"
-                                                                 annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={2,-21})));

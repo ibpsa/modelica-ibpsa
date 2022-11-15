@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps;
-model HeatPump
+model ModularReversible
   "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
@@ -114,7 +114,6 @@ equation
       horizontalAlignment=TextAlignment.Left));
   end if;
 
-
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
@@ -217,4 +216,4 @@ this heat pump model for a reversible, modular heat pump adds
 safety controls of real devices.</p>
 <p>As with all options, the safety controls are optional.</p>
 </html>"));
-end HeatPump;
+end ModularReversible;

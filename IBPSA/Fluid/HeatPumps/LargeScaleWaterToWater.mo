@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
-  extends HeatPump(
+  extends ModularReversible(
     mCon_flow_nominal=autCalMCon_flow*scaFac,
     mEva_flow_nominal=autCalMEva_flow*scaFac,
     tauCon=autCalVCon*rhoCon/autCalMCon_flow,

@@ -43,16 +43,6 @@ partial model PartialReversibleVapourCompressionMachine
     "=true to enable internal heat pump safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
 
-  parameter Boolean use_extBusCon=true
-    "=false to disable external use of the bus connector"
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors"));
-  parameter Boolean use_busConnectorOnly=false
-    "=true to use bus connector for model inputs (revSet, ySet, TSet, onOffSet).
-    =false to use the bus connector for outputs only. 
-    Only possible if no internal safety control is used"
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
-          use_safetyControl and use_extBusCon));
-
   parameter Boolean use_TSet=false
     "=true to use black-box internal control for supply 
     temperature of device with the given temperature set point TSet"
@@ -299,10 +289,6 @@ partial model PartialReversibleVapourCompressionMachine
     if not use_busConnectorOnly and not use_TSet
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
-  Interfaces.VapourCompressionMachineControlBus sigBus if use_extBusCon
-    "Bus with signal for device control" annotation (
-          Placement(transformation(extent={{-120,-60},{-90,-26}}),
-        iconTransformation(extent={{-108,-52},{-90,-26}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", final
       displayUnit="degC") if use_evaCap and not use_busConnectorOnly
@@ -390,7 +376,22 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=0,
         origin={-90,-110})));
 
+// Line to delete if you don't want to use the bus externally
 protected
+  Interfaces.VapourCompressionMachineControlBus sigBus
+    "Bus with signal for device control" annotation (
+          Placement(transformation(extent={{-120,-60},{-90,-26}}),
+        iconTransformation(extent={{-108,-52},{-90,-26}})));
+
+  parameter Boolean use_busConnectorOnly=false
+    "=true to use bus connector for model inputs (revSet, ySet, TSet, onOffSet).
+    =false to use the bus connector for outputs only. 
+    Only possible if no internal safety control is used"
+    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
+          use_safetyControl));
+
+// Line to add if you want to use the bus
+//protected
   parameter Real scaFac "Scaling-factor of vapour compression machine";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
@@ -399,9 +400,6 @@ protected
   parameter MediumEva.ThermodynamicState staEva_nominal=MediumEva.setState_pTX(
       T=MediumEva.T_default, p=MediumEva.p_default, X=MediumEva.X_default)
       "Nominal / default state of evaporator medium";
-
-  Interfaces.VapourCompressionMachineControlBus sigBusInt if not use_extBusCon
-    "Internal sigBus to avoid external access";
 
 equation
   // Non bus connections
@@ -539,7 +537,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  // Internal bus connections --> No graphics required
+  /* // Internal bus connections --> No graphics required
   connect(mFlow_eva.m_flow, sigBusInt.m_flowEvaMea);
   connect(mFlow_con.m_flow, sigBusInt.m_flowConMea);
   connect(vapComCyc.sigBus, sigBusInt);
@@ -552,7 +550,7 @@ equation
   connect(senTConIn.y, sigBusInt.TConInMea);
   connect(eva.T, sigBusInt.TEvaOutMea);
   connect(senTEvaIn.y, sigBusInt.TEvaInMea);
-  connect(conModeTrue.y, sigBusInt.revSet);
+  connect(conModeTrue.y, sigBusInt.revSet);*/
   annotation (Icon(graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

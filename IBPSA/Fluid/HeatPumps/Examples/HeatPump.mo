@@ -30,23 +30,27 @@ model HeatPump "Example for the reversible heat pump model."
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Sources.Constant TAmbInternal(k=291.15)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, rotation=-90)));
-  IBPSA.Fluid.HeatPumps.HeatPump heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible heaPum(
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
+
     redeclare package MediumCon = MediumSin,
     redeclare package MediumEva = MediumSou,
     tauCon=3600,
     mEva_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.datTab.mEva_flow_nominal,
+
     redeclare model BlackBoxHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+            ()),
     redeclare model BlackBoxHeatPumpCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCal,
         smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
         datTab=
-            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+            ()),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
       safCtrlPar(
