@@ -38,8 +38,7 @@ protected
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil3(til=surTil[4],azi=surAzi[4]) "Diffuse solar irradiation on surface 4"
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
-  Modelica.Blocks.Math.Add irrN1
-    "Total of direct and diffuse radiation on surface 1"
+  Modelica.Blocks.Math.Add irr1 "Total of direct and diffuse radiation on surface 1"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
   Modelica.Blocks.Math.Gain solRad1(k=AWin[1]*gFac*0.9*(1 - winFra)) "Solar radiation through surface 1"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
@@ -125,10 +124,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(HDirTil.H, irrN1.u1) annotation (Line(points={{-69,110},{-60,110},{
-          -60,106},{-52,106}}, color={0,0,127}));
-  connect(HDifTil.H, irrN1.u2) annotation (Line(points={{-69,90},{-58,90},{-58,
-          94},{-52,94}}, color={0,0,127}));
+  connect(HDirTil.H, irr1.u1) annotation (Line(points={{-69,110},{-60,110},{-60,106},{-52,106}}, color={0,0,127}));
+  connect(HDifTil.H, irr1.u2) annotation (Line(points={{-69,90},{-58,90},{-58,94},{-52,94}}, color={0,0,127}));
   connect(HDirTil1.H, irr2.u1) annotation (Line(points={{-69,50},{-60,50},{-60,
           46},{-52,46}}, color={0,0,127}));
   connect(irr2.u2, HDifTil1.H) annotation (Line(points={{-52,34},{-62,34},{-62,
@@ -151,7 +148,7 @@ equation
                            color={0,0,127}));
   connect(solRadWin, sum.y)
     annotation (Line(points={{150,0},{125,0}}, color={0,0,127}));
-  connect(solRad1.u, irrN1.y) annotation (Line(points={{18,100},{-29,100}}, color={0,0,127}));
+  connect(solRad1.u, irr1.y) annotation (Line(points={{18,100},{-29,100}}, color={0,0,127}));
   connect(solRad2.u, irr2.y) annotation (Line(points={{18,40},{-29,40}}, color={0,0,127}));
   connect(solRad3.u, irr3.y) annotation (Line(points={{18,-20},{-29,-20}}, color={0,0,127}));
   connect(irr4.y, solRad4.u) annotation (Line(points={{-29,-80},{18,-80}}, color={0,0,127}));
