@@ -45,6 +45,12 @@ model FlowControlled_m_flow
     "Vector of mass flow rate set points, used when inputType=Stage"
     annotation (Dialog(enable=inputType == IBPSA.Fluid.Types.InputType.Stages));
 
+  parameter Modelica.Units.SI.Pressure dpMax(
+    min=0,
+    displayUnit="Pa") = 2*max(eff.per.pressure.dp)
+   "Maximum pressure allowed to operate the model, if exceeded, the simulation stops with an error"
+   annotation(Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput m_flow_in(
     final unit="kg/s",
     nominal=m_flow_nominal)
@@ -62,6 +68,13 @@ model FlowControlled_m_flow
     nominal=m_flow_nominal) "Actual mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
+
+equation
+  assert(senRelPre.p_rel <= dpMax,
+    "In " + getInstanceName() + ": Model operates with head dp_actual = " + String(senRelPre.p_rel) + " Pascals,
+    which exceeds the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
+    This typically happens if the pump or fan forces a high mass flow rate through a closed valve or damper,
+    or if the performance record is entered unreasonable. Please verify your model.");
 
 equation
   if use_inputFilter then
@@ -86,7 +99,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-
   annotation (
       Icon(graphics={
         Text(
@@ -106,6 +118,13 @@ in record <code>per</code>, which is of type
 IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
+Note that if the model operates with a head that is larger than <code>dpMax</code>, which by default is
+two times larger than the largest head declared in <code>eff.per.pressure.dp</code>,
+the simulation will stop with an error message.
+This guards against unreasonably high pressure drops which can happen if the pump or fan is forcing mass flow rate
+through a closed valve or damper.
+</p>
+<p>
 See the
 <a href=\"modelica://IBPSA.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
@@ -113,6 +132,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Added assertion if model operates with a pressure higher than <code>dpMax</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">#1659</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
