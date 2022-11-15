@@ -16,7 +16,8 @@ model GlazedElements "Solar heat gains of glazed elements"
   Modelica.Blocks.Interfaces.RealOutput solRadWin( unit="W") "Total solar irradiation through windows"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{140,-10},{160,10}})));
-  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data" annotation (Placement(
+  IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data"
+    annotation (Placement(
         transformation(extent={{-150,-12},{-110,28}}),iconTransformation(extent={{-150,
             -10},{-130,10}})));
 
@@ -40,61 +41,25 @@ protected
   Modelica.Blocks.Math.Add irrN1
     "Total of direct and diffuse radiation on surface 1"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-  Modelica.Blocks.Math.Gain AWin1(k=AWin[1])
-    "Windows area on surface 1"
-    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
-  Modelica.Blocks.Math.Gain g1(k=gFac)
-    "Windows g-factor on surface 1"
-    annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Modelica.Blocks.Math.Gain fraWin1(k=1 - winFra)
-    "Frame fraction of the windows on surface 1"
-    annotation (Placement(transformation(extent={{70,90},{90,110}})));
+  Modelica.Blocks.Math.Gain solRad1(k=AWin[1]*gFac*0.9*(1 - winFra)) "Solar radiation through surface 1"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Modelica.Blocks.Math.Add irr2
     "Total of direct and diffuse radiation on surface 2"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Modelica.Blocks.Math.Gain AWin2(k=AWin[2])
-    "Windows area on surface 2"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Modelica.Blocks.Math.Gain g2(k=gFac)
-    "Windows g-factor on surface 2"
-    annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Modelica.Blocks.Math.Gain fraWin2(k=1 - winFra)
-    "Frame fraction of the windows on surface1 2"
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+  Modelica.Blocks.Math.Gain solRad2(k=AWin[2]*gFac*0.9*(1 - winFra)) "Solar radiation through surface 2"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Modelica.Blocks.Math.Add irr3
     "Total of direct and diffuse radiation on surface 3"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Modelica.Blocks.Math.Gain AWin3(k=AWin[3])
-    "Windows area on surface 3"
-    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Modelica.Blocks.Math.Gain g3(k=gFac)
-    "Windows g-factor on surface 3"
-    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
-  Modelica.Blocks.Math.Gain fraWin3(k=1 - winFra)
-    "Frame fraction of the windows on surface 3"
-    annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
+  Modelica.Blocks.Math.Gain solRad3(k=AWin[3]*gFac*0.9*(1 - winFra)) "Solar radiation through surface 3"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Modelica.Blocks.Math.Add irr4
     "Total of direct and diffuse radiation on surface 4"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-  Modelica.Blocks.Math.Gain AWin4( k=AWin[4])
-    "Windows area on surface 4"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Modelica.Blocks.Math.Gain g4(k=gFac)
-    "Windows g-factor on surface 4"
-    annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
-  Modelica.Blocks.Math.Gain fraWin4(k=1 - winFra)
-    "Frame fraction of the windows on surface 4"
-    annotation (Placement(transformation(extent={{72,-90},{92,-70}})));
+  Modelica.Blocks.Math.Gain solRad4(k=AWin[4]*gFac*0.9*(1 - winFra)) "Solar radiation through surface 4"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Modelica.Blocks.Math.Sum sum(nin=4) "Sum of solar irradiation through windows"
     annotation (Placement(transformation(extent={{104,-10},{124,10}})));
-  Modelica.Blocks.Math.Gain corFac1(k=0.9) "Correction factor surface 1"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Math.Gain corFac2(k=0.9) "Correction factor surface 2"
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Modelica.Blocks.Math.Gain corFac3(k=0.9) "Correction factor surface 3"
-    annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Modelica.Blocks.Math.Gain corFac4(k=0.9) "Correction factor surface 4"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(weaBus, HDirTil.weaBus) annotation (Line(
       points={{-130,8},{-130,112},{-90,112},{-90,110}},
@@ -176,48 +141,20 @@ equation
           -62,-70},{-69,-70}}, color={0,0,127}));
   connect(irr4.u2, HDifTil3.H) annotation (Line(points={{-52,-86},{-62,-86},{
           -62,-90},{-69,-90}}, color={0,0,127}));
-  connect(AWin1.u, irrN1.y)
-    annotation (Line(points={{-22,100},{-29,100}}, color={0,0,127}));
-  connect(g1.u, AWin1.y)
-    annotation (Line(points={{8,100},{1,100}}, color={0,0,127}));
-  connect(corFac1.u, g1.y)
-    annotation (Line(points={{38,100},{31,100}}, color={0,0,127}));
-  connect(fraWin1.u, corFac1.y)
-    annotation (Line(points={{68,100},{61,100}}, color={0,0,127}));
-  connect(fraWin1.y, sum.u[1]) annotation (Line(points={{91,100},{98,100},{98,-1.5},
-          {102,-1.5}},       color={0,0,127}));
-  connect(irr2.y, AWin2.u)
-    annotation (Line(points={{-29,40},{-22,40}}, color={0,0,127}));
-  connect(AWin2.y, g2.u)
-    annotation (Line(points={{1,40},{8,40}}, color={0,0,127}));
-  connect(g2.y, corFac2.u)
-    annotation (Line(points={{31,40},{38,40}}, color={0,0,127}));
-  connect(corFac2.y, fraWin2.u)
-    annotation (Line(points={{61,40},{68,40}}, color={0,0,127}));
-  connect(fraWin2.y, sum.u[2]) annotation (Line(points={{91,40},{98,40},{98,-0.5},
-          {102,-0.5}},       color={0,0,127}));
-  connect(AWin3.u, irr3.y)
-    annotation (Line(points={{-22,-20},{-29,-20}}, color={0,0,127}));
-  connect(g3.u, AWin3.y)
-    annotation (Line(points={{8,-20},{1,-20}}, color={0,0,127}));
-  connect(corFac3.u, g3.y)
-    annotation (Line(points={{38,-20},{31,-20}}, color={0,0,127}));
-  connect(fraWin3.u, corFac3.y)
-    annotation (Line(points={{68,-20},{61,-20}}, color={0,0,127}));
-  connect(fraWin3.y, sum.u[3]) annotation (Line(points={{91,-20},{98,-20},{98,0.5},
-          {102,0.5}},      color={0,0,127}));
-  connect(AWin4.u, irr4.y)
-    annotation (Line(points={{-22,-80},{-29,-80}}, color={0,0,127}));
-  connect(g4.u, AWin4.y)
-    annotation (Line(points={{8,-80},{1,-80}}, color={0,0,127}));
-  connect(corFac4.u, g4.y)
-    annotation (Line(points={{38,-80},{31,-80}}, color={0,0,127}));
-  connect(fraWin4.u, corFac4.y)
-    annotation (Line(points={{70,-80},{61,-80}}, color={0,0,127}));
-  connect(fraWin4.y, sum.u[4]) annotation (Line(points={{93,-80},{98,-80},{98,1.5},
-          {102,1.5}},      color={0,0,127}));
+  connect(solRad1.y, sum.u[1]) annotation (Line(points={{41,100},{98,100},{98,-1.5},{102,-1.5}},
+                             color={0,0,127}));
+  connect(solRad2.y, sum.u[2]) annotation (Line(points={{41,40},{98,40},{98,-0.5},{102,-0.5}},
+                             color={0,0,127}));
+  connect(solRad3.y, sum.u[3]) annotation (Line(points={{41,-20},{98,-20},{98,0.5},{102,0.5}},
+                           color={0,0,127}));
+  connect(solRad4.y, sum.u[4]) annotation (Line(points={{41,-80},{96,-80},{96,-10},{98,-10},{98,1.5},{102,1.5}},
+                           color={0,0,127}));
   connect(solRadWin, sum.y)
     annotation (Line(points={{150,0},{125,0}}, color={0,0,127}));
+  connect(solRad1.u, irrN1.y) annotation (Line(points={{18,100},{-29,100}}, color={0,0,127}));
+  connect(solRad2.u, irr2.y) annotation (Line(points={{18,40},{-29,40}}, color={0,0,127}));
+  connect(solRad3.u, irr3.y) annotation (Line(points={{18,-20},{-29,-20}}, color={0,0,127}));
+  connect(irr4.y, solRad4.u) annotation (Line(points={{-29,-80},{18,-80}}, color={0,0,127}));
   annotation (defaultComponentName="glaEle",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},
             {140,140}}), graphics={
         Rectangle(

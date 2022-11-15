@@ -216,12 +216,12 @@ This is a lumped-capacitance simplified building model based  on the 5R1C
 network presented in the ISO 13790:2008 Standard. The simplified 5R1C model uses
 five thermal resistances and one thermal capacitance to reproduce the 
 transient thermal behaviour of buildings. The thermal zone is modeled with three 
-temperature nodes, the indoor air temperature <code>Tair</code>, the envelope internal 
-surface temperature <code>Tsur</code> and the building mass temperature Tmas (heat port neglected), and two boundary
-condition nodes, supply air temperature <code>Tsup</code> and the external air temperature 
-<code>Text</code>. The five resistances are related to heat transfer by ventilation <code>Hve</code>, 
-windows <code>Hwin</code>, opaque components (split between <code>Htrasm</code> and <code>Hmass</code>) and heat 
-transfer between the internal surfaces of walls and the air temperature <code>Htherm</code>.
+temperature nodes, the indoor air temperature <code>TAir</code>, the envelope internal 
+surface temperature <code>TSur</code> and the building mass temperature <code>TMas</code> (heat port neglected), and two boundary
+condition nodes, supply air temperature <code>TSup</code> and the external air temperature 
+<code>TExt</code>. The five resistances are related to heat transfer by ventilation <code>HVen</code>, 
+windows <code>HWin</code>, opaque components (split between <code>HTra</code> and <code>HMas</code>) and heat 
+transfer between the internal surfaces of walls and the air temperature <code>HThe</code>.
 The thermal capacitance <code>Cm</code> includes the thermal capacity of the entire building. The heating and/or 
 cooling demand is found by calculating the heating and/or cooling power &Phi;HC that
 needs to be supplied to, or extracted from, the internal air node to maintain a 
