@@ -10,8 +10,8 @@ model GlazedElements "Solar heat gains of glazed elements"
     annotation(Evaluate=true, Dialog(tab = "General", group = "Window data"));
   parameter Modelica.Units.SI.Angle[4] surTil "Tilt angle of surfaces"
     annotation (Evaluate=true, Dialog(tab="General", group="Window directions"));
-  parameter Modelica.Units.SI.Angle[4] surAzi
-    "Azimuth angle of surfaces" annotation (Evaluate=true, Dialog(tab="General",
+  parameter Modelica.Units.SI.Angle[4] surAzi "Azimuth angle of surfaces"
+    annotation (Evaluate=true, Dialog(tab="General",
         group="Window directions"));
   Modelica.Blocks.Interfaces.RealOutput solRadWin( unit="W") "Total solar irradiation through windows"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
