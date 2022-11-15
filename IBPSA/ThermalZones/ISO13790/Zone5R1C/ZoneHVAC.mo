@@ -1,10 +1,9 @@
 within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
   extends Zone(capMas(C=buiMas.heaC*AFlo - VRoo*1.2*1014))
-                                                         annotation (Icon(
+    annotation (Icon(
         coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
-
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
   parameter Integer nPorts=0 "Number of fluid ports" annotation (Evaluate=true,
       Dialog(
@@ -13,20 +12,18 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
       group="Ports"));
   Modelica.Blocks.Interfaces.RealInput intLatGai( unit="W") "Internal latent heat gains"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}})));
-  Modelica.Blocks.Math.Gain mWat_flow(k=1/h_fg)
-    "Water flow rate due to latent heat gain"
+  Modelica.Blocks.Math.Gain mWat_flow(k=1/h_fg) "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Fluid.MixingVolumes.MixingVolumeMoistAir       vol(
+  Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=1,
     V=VRoo,
-    nPorts=nPorts)       "Air volume"
-              annotation (Placement(transformation(extent={{50,110},{70,130}})));
+    nPorts=nPorts) "Air volume"
+    annotation (Placement(transformation(extent={{50,110},{70,130}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports_b[nPorts](redeclare
-      each final package
-                    Medium = Medium)
-    "fluid port for adding HVAC system"                         annotation (
+      each final package Medium = Medium) "fluid port for adding HVAC system"
+    annotation (
       Placement(transformation(
         extent={{-34,-9},{34,9}},
         rotation=-90,
@@ -34,11 +31,9 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
         extent={{-38.5,-10.5},{38.5,10.5}},
         rotation=-90,
         origin={129.5,100.5})));
-
 protected
   constant Modelica.Units.SI.SpecificEnergy h_fg=
-      IBPSA.Media.Air.enthalpyOfCondensingGas(273.15 + 37)
-    "Latent heat of water vapor";
+      IBPSA.Media.Air.enthalpyOfCondensingGas(273.15 + 37) "Latent heat of water vapor";
 
 equation
   connect(latGains, mWat_flow.u) annotation (Line(points={{-160,-80},{-130,-80},

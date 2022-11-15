@@ -3,14 +3,14 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Case600FF;
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
     "Sum of heating and cooling heat flow rate"
-                                              annotation (
+    annotation (
     Placement(visible = true, transformation(extent={{54,56},{62,64}},      rotation = 0)));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaCoo
     "Prescribed heat flow for heating and cooling"
     annotation (Placement(visible=true, transformation(extent={{68,54},{80,66}},
           rotation=0)));
   Modelica.Blocks.Math.Gain gaiHea(k=1E6) "Gain for heating"
-                                          annotation (Placement(visible=true,
+    annotation (Placement(visible=true,
         transformation(
         origin={22,72},
         extent={{-6,-6},{6,6}},
@@ -20,26 +20,27 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     k=0.1,
     reverseActing=true,
     strict=true) "Controller for heating"
-                 annotation (Placement(visible=true, transformation(
+    annotation (Placement(visible=true, transformation(
         origin={0,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20)
-    "Set-point for heating"                               annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20) "Set-point for heating"
+    annotation (Placement(
         visible=true, transformation(
         origin={-24,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
-    "Set-point for cooling"                               annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27) "Set-point for cooling"
+    annotation (Placement(
         visible=true, transformation(
         origin={-24,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Routing.Multiplex2 multiplex2 annotation (
+  Modelica.Blocks.Routing.Multiplex2 multiplex2
+    annotation (
     Placement(visible = true, transformation(extent={{38,56},{46,64}},      rotation = 0)));
   Modelica.Blocks.Math.Gain gaiCoo(k=-1E6) "Gain for cooling"
-                                           annotation (Placement(visible=true,
+    annotation (Placement(visible=true,
         transformation(
         origin={22,46},
         extent={{-6,-6},{6,6}},
@@ -49,12 +50,12 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     k=0.1,
     reverseActing=false,
     strict=true) "Controller for cooling"
-                 annotation (Placement(visible=true, transformation(
+    annotation (Placement(visible=true, transformation(
         origin={0,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
-    "Room air temperature"                                        annotation (
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir "Room air temperature"
+    annotation (
     Placement(visible = true, transformation(extent={{12,20},{20,28}},      rotation = 0)));
   Modelica.Blocks.Continuous.Integrator ECoo(
     k=1,

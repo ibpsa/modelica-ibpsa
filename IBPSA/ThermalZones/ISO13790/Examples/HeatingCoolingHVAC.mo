@@ -7,28 +7,28 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
     annotation (Placement(visible=true, transformation(extent={{58,54},{70,66}},
           rotation=0)));
   Modelica.Blocks.Math.Gain gaiHea(k=1E6) "Gain for heating"
-                                          annotation (Placement(visible=true,
+    annotation (Placement(visible=true,
         transformation(
         origin={12,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Controls.Continuous.LimPID       conHeaPID(
+  Controls.Continuous.LimPID conHeaPID(
     Ti=300,
     k=0.1,
     reverseActing=true,
     strict=true) "Controller for heating"
-                 annotation (Placement(visible=true, transformation(
+    annotation (Placement(visible=true, transformation(
         origin={-10,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20)
-    "Set-point for heating"                               annotation (Placement(
+  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20) "Set-point for heating"
+    annotation (Placement(
         visible=true, transformation(
         origin={-34,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
-    "Room air temperature"                                        annotation (
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir "Room air temperature"
+    annotation (
     Placement(visible = true, transformation(extent={{0,20},{8,28}},        rotation = 0)));
   Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = IBPSA.Media.Air,
@@ -39,25 +39,26 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
     redeclare package Medium = IBPSA.Media.Air,
     T=280.15,
     nPorts=1) "source of air"
-              annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
-    "Set-point for cooling"                               annotation (Placement(
+    "Set-point for cooling"
+    annotation (Placement(
         visible=true, transformation(
         origin={-34,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Controls.Continuous.LimPID       conCooPID(
+  Controls.Continuous.LimPID conCooPID(
     Ti=300,
     k=0.1,
     yMax=0.07,
     reverseActing=false,
     strict=true) "Controller for cooling"
-                 annotation (Placement(visible=true, transformation(
+    annotation (Placement(visible=true, transformation(
         origin={-10,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
   Modelica.Blocks.Math.Gain gaiCoo(k=1) "Gain for cooling"
-                                           annotation (Placement(visible=true,
+    annotation (Placement(visible=true,
         transformation(
         origin={12,46},
         extent={{-6,-6},{6,6}},

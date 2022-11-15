@@ -27,6 +27,8 @@ model OpaqueElements "Solar heat gains of opaque elements"
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus "weather data" annotation (Placement(
         transformation(extent={{-200,-20},{-160,20}}),iconTransformation(extent={{-230,
             -40},{-210,-20}})));
+
+protected
   IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=surTil[1],azi=surAzi[1]) "Direct solar irradiation on surface 1"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=surTil[1],azi=surAzi[1]) "Diffuse solar irradiation on surface 1"

@@ -19,7 +19,9 @@ model GlazedElements "Solar heat gains of glazed elements"
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data" annotation (Placement(
         transformation(extent={{-150,-12},{-110,28}}),iconTransformation(extent={{-150,
             -10},{-130,10}})));
-  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=surTil[1], azi=surAzi[1]) "Direct solar irradiation on surface 1"
+
+protected
+  IBPSA.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=surTil[1],azi=surAzi[1]) "Direct solar irradiation on surface 1"
     annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
   IBPSA.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=surTil[1],azi=surAzi[1]) "Diffuse solar irradiation on surface 1"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
@@ -85,7 +87,6 @@ model GlazedElements "Solar heat gains of glazed elements"
     annotation (Placement(transformation(extent={{72,-90},{92,-70}})));
   Modelica.Blocks.Math.Sum sum(nin=4) "Sum of solar irradiation through windows"
     annotation (Placement(transformation(extent={{104,-10},{124,10}})));
-
   Modelica.Blocks.Math.Gain corFac1(k=0.9) "Correction factor surface 1"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Math.Gain corFac2(k=0.9) "Correction factor surface 2"

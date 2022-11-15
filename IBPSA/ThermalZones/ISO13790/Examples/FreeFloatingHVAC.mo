@@ -5,7 +5,6 @@ model FreeFloatingHVAC "Illustrates the use of the 5R1C HVAC thermal zone in fre
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")) "weather data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
   Zone5R1C.ZoneHVAC zonHVAC(
     airRat=0.5,
     AWin={0,0,3,0},

@@ -5,8 +5,6 @@ model FreeFloating "Illustrates the use of the 5R1C thermal zone in free-floatin
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")) "weather data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
-
   Zone5R1C.Zone zon5R1C(
     airRat=0.5,
     AWin={0,0,3,0},
@@ -28,8 +26,8 @@ equation
       points={{30.6,13},{-50.7,13},{-50.7,70},{-60,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(zon5R1C.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,-10},
-          {-40,-70},{-59,-70}}, color={0,0,127}));
+  connect(zon5R1C.intSenGai, intGains.y)
+    annotation (Line(points={{24,-10},{-40,-10},{-40,-70},{-59,-70}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloating.mos"

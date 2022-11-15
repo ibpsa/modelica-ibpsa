@@ -1,41 +1,32 @@
 within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model Zone "Thermal zone based on 5R1C network"
-
   parameter Real airRat(unit="1/h") "Air change rate"
-  annotation (Dialog(group="Ventilation"));
-
+   annotation (Dialog(group="Ventilation"));
   parameter Modelica.Units.SI.Area[4] AWin "Area of windows"
-    annotation (Dialog(group="Windows"));
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin
-    "U-value of windows" annotation (Dialog(group="Windows"));
-
-  parameter Modelica.Units.SI.Area[4] AWal
-    "Area of external walls" annotation (Dialog(group="Opaque constructions"));
+   annotation (Dialog(group="Windows"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin "U-value of windows"
+   annotation (Dialog(group="Windows"));
+  parameter Modelica.Units.SI.Area[4] AWal "Area of external walls"
+   annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area ARoo "Area of roof"
-    annotation (Dialog(group="Opaque constructions"));
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWal
-    "U-value of external walls"
-    annotation (Dialog(group="Opaque constructions"));
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer URoo
-    "U-value of roof" annotation (Dialog(group="Opaque constructions"));
-
+   annotation (Dialog(group="Opaque constructions"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWal "U-value of external walls"
+   annotation (Dialog(group="Opaque constructions"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer URoo "U-value of roof"
+   annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area AFlo "Net conditioned floor area";
   parameter Modelica.Units.SI.Volume VRoo "Volume of room";
   parameter Real facMas "Effective mass area factor";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
     annotation (choicesAllMatching=true);
-
   parameter Modelica.Units.SI.Angle surTil[4]={1.5707963267949,1.5707963267949,
       1.5707963267949,1.5707963267949} "Tilt angle of surfaces";
-
   parameter Modelica.Units.SI.Angle surAzi[4]={3.1415926535898,-1.5707963267949,
       0,1.5707963267949} "Azimuth angle of surfaces";
-
   parameter Real winFra(min=0, max=1)=0.01 "Frame fraction of windows"
     annotation(Dialog(group="Windows"));
   parameter Real gFac(min=0, max=1) "Energy transmittance of glazings"
     annotation(Dialog(group="Windows"));
-
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HVen(G=airRat*VRoo*
         1005*1.2/3600) "Heat transfer due to ventilation"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -59,7 +50,7 @@ model Zone "Thermal zone based on 5R1C network"
         rotation=90,
         origin={40,-40})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capMas(C=buiMas.heaC*
-        AFlo, T(
+      AFlo, T(
       displayUnit="K",
       fixed=true,
       start=293.15)) "Zone thermal capacity" annotation (Placement(
@@ -84,12 +75,8 @@ model Zone "Thermal zone based on 5R1C network"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TExt
     "External air temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
   Modelica.Blocks.Math.Add solGai "Total solar heat gains"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-
-
-
   BaseClasses.GlazedElements glaEle(
     AWin=AWin,
     winFra=winFra,
@@ -114,7 +101,6 @@ model Zone "Thermal zone based on 5R1C network"
     AFlo=AFlo,
     HWinGai=HWin.G) "Heat flow injected to surface node"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-
   Modelica.Blocks.Math.Gain phiAir(k=0.5) "Heat flow injected to air node"
     annotation (Placement(transformation(extent={{120,70},{100,90}})));
   BaseClasses.GainMass phiMas(
@@ -122,11 +108,7 @@ model Zone "Thermal zone based on 5R1C network"
     facMas=facMas,
     AFlo=AFlo) "Heat flow injected to mass node"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-
-
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TVen
-    "Supply air temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TVen "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
 
@@ -190,20 +172,20 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(solGai.u1, glaEle.solRadWin) annotation (Line(points={{-62,-64},{-72,
-          -64},{-72,-50},{-79.2857,-50}}, color={0,0,127}));
-  connect(solGai.u2, opaEle.SolRadOpa) annotation (Line(points={{-62,-76},{-72,
-          -76},{-72,-89.5238},{-79.5455,-89.5238}}, color={0,0,127}));
+  connect(solGai.u1, glaEle.solRadWin) annotation (Line(points={{-62,-64},{-72,-64},{-72,-50},{-79.2857,-50}},
+                                          color={0,0,127}));
+  connect(solGai.u2, opaEle.SolRadOpa) annotation (Line(points={{-62,-76},{-72,-76},{-72,-89.5238},{-79.5455,-89.5238}},
+                                                    color={0,0,127}));
   connect(solGai.y, phiMas.solGai) annotation (Line(points={{-39,-70},{-32,-70},
           {-32,-104},{134,-104},{134,-88},{122,-88}}, color={0,0,127}));
-  connect(phiSur.solGai, solGai.y) annotation (Line(points={{122,-8},{134,-8},{
-          134,-104},{-32,-104},{-32,-70},{-39,-70}}, color={0,0,127}));
-  connect(intSenGai, phiMas.intSenGai) annotation (Line(points={{-160,-120},{
-          -32,-120},{-32,-134},{128,-134},{128,-84},{122,-84}}, color={0,0,127}));
-  connect(phiSur.intSenGai, intSenGai) annotation (Line(points={{122,-4},{128,
-          -4},{128,-134},{-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
-  connect(phiAir.u, intSenGai) annotation (Line(points={{122,80},{128,80},{128,
-          -134},{-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
+  connect(phiSur.solGai, solGai.y) annotation (Line(points={{122,-8},{134,-8},{134,
+          -104},{-32,-104},{-32,-70},{-39,-70}}, color={0,0,127}));
+  connect(intSenGai, phiMas.intSenGai) annotation (Line(points={{-160,-120},{-32,
+          -120},{-32,-134},{128,-134},{128,-84},{122,-84}}, color={0,0,127}));
+  connect(phiSur.intSenGai, intSenGai) annotation (Line(points={{122,-4},{128,-4},
+          {128,-134},{-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
+  connect(phiAir.u, intSenGai) annotation (Line(points={{122,80},{128,80},{128,-134},
+          {-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
   connect(phiMas.masGaiOut, heaMas.Q_flow)
     annotation (Line(points={{99,-80},{80,-80}}, color={0,0,127}));
   connect(phiAir.y, heaAir.Q_flow)
@@ -318,10 +300,5 @@ Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-        info="<html>
-<p>
-Mass data for heavy building
-</p>
 </html>"));
 end Zone;

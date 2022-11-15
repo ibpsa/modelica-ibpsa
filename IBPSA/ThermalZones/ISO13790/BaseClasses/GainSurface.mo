@@ -1,14 +1,11 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GainSurface "Surface node heat flow"
-
   Modelica.Units.SI.Area AMas "Effective mass area (see Table 12 in standard)";
   Modelica.Units.SI.Power surGai "Heat gains to surface node";
   parameter Modelica.Units.SI.Area ATot "Total area of building's surfaces facing the thermal zone";
   parameter Modelica.Units.SI.ThermalConductance HWinGai "Thermal conductance through windows";
   parameter Real facMas "Effective mass area factor";
   parameter Modelica.Units.SI.Area AFlo "Floor area";
-
-
   Modelica.Blocks.Interfaces.RealInput intSenGai(unit="W") "Internal sensible heat gains"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput solGai(unit="W") "Solar gains"
