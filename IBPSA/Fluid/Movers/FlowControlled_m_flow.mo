@@ -93,7 +93,6 @@ equation
       smooth=Smooth.None));
   end if;
 
-
   connect(inputSwitch.u, m_flow_in) annotation (Line(
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
