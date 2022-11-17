@@ -14,7 +14,7 @@ model PVGeneratorSingleDiode
       azi=azi,
       final timZon=timZon,
       final groRef=groRef,
-      final radTil0=radTil0,
+      HGloTil0=HGloTil0,
       final glaExtCoe=glaExtCoe,
       final glaThi=glaThi,
       final refInd=refInd,
@@ -49,7 +49,7 @@ model PVGeneratorSingleDiode
   parameter Modelica.Units.SI.Length alt "Site altitude in Meters, default= 1" annotation(Dialog(tab="Site specifications"));
   parameter Modelica.Units.SI.Time timZon(displayUnit="h")
   "Time zone in seconds relative to GMT" annotation(Dialog(tab="Site specifications"));
-  parameter Real radTil0=1000 "Total solar radiation on the horizontal surface 
+  parameter Real HGloTil0=1000 "Total solar radiation on the horizontal surface 
   under standard conditions" annotation(Dialog(tab="Site specifications"));
 
 protected
@@ -58,29 +58,46 @@ protected
     "Transmittance at standard conditions (incAng=refAng=0)";
 
 equation
-  connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-99,91},{
-          -42,91},{-42,70},{-36.96,70}}, color={0,0,127}));
-  connect(TDryBul, partialPVThermal.TDryBul) annotation (Line(points={{-99,63},{
-          -46,63},{-46,16},{-42,16},{-42,15.4},{-39.4,15.4}}, color={0,0,127}));
-  connect(vWinSpe, partialPVThermal.winVel) annotation (Line(points={{-99,37},{-46,
-          37},{-46,13},{-39.4,13}}, color={0,0,127}));
+  connect(vWinSpe, partialPVThermal.winVel) annotation (Line(points={{-109,25},{
+          -46,25},{-46,13},{-39.4,13}},
+                                    color={0,0,127}));
   connect(partialPVElectrical.eta, partialPVThermal.eta) annotation (Line(
-        points={{-23.4,-53},{6,-53},{6,-24},{-58,-24},{-58,9.4},{-39.4,9.4}},
-        color={0,0,127}));
-  connect(partialPVOptical.radTil, partialPVThermal.radTil) annotation (Line(
-        points={{-23.4,67},{-10,67},{-10,28},{-58,28},{-58,5.8},{-39.54,5.8}},
+        points={{-23.4,-53},{6,-53},{6,-24},{-58,-24},{-58,8.2},{-39.4,8.2}},
         color={0,0,127}));
   connect(partialPVThermal.TCel, partialPVElectrical.TCel) annotation (Line(
-        points={{-23.3,10},{-18,10},{-18,8},{-10,8},{-10,-16},{-58,-16},{-58,-47},
-          {-37.2,-47}}, color={0,0,127}));
+        points={{-23.3,10},{-10,10},{-10,-16},{-58,-16},{-58,-47},{-37.2,-47}},
+                        color={0,0,127}));
   connect(partialPVElectrical.P, P) annotation (Line(points={{-23.4,-47},{52,-47},
-          {52,0},{104,0}}, color={0,0,127}));
+          {52,0},{110,0}}, color={0,0,127}));
   connect(partialPVOptical.absRadRat, partialPVElectrical.absRadRat)
-    annotation (Line(points={{-23.4,73.12},{18,73.12},{18,-34},{-64,-34},{-64,-51.8},
-          {-37.2,-51.8}}, color={0,0,127}));
-  connect(partialPVOptical.radTil, partialPVElectrical.radTil) annotation (Line(
-        points={{-23.4,67},{6,67},{6,-20},{-72,-20},{-72,-54.2},{-37.2,-54.2}},
-        color={0,0,127}));
+    annotation (Line(points={{-23.4,70},{18,70},{18,-34},{-64,-34},{-64,-51.8},{
+          -37.2,-51.8}},  color={0,0,127}));
+  connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-109,69},
+          {-42,69},{-42,70},{-37.2,70}}, color={0,0,127}));
+  connect(HGloTil, partialPVElectrical.radTil) annotation (Line(points={{-109,91},
+          {-84,91},{-84,-54.2},{-37.2,-54.2}}, color={0,0,127}));
+  connect(TDryBul, partialPVThermal.TDryBul) annotation (Line(points={{-109,47},
+          {-64,47},{-64,15.4},{-39.4,15.4}}, color={0,0,127}));
+  connect(HGloTil, partialPVThermal.HGloTil) annotation (Line(points={{-109,91},
+          {-78,91},{-78,6},{-58,6},{-58,5.8},{-39.4,5.8}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+                Documentation(info="<html>
+<p>
+This is a photovoltaic generator model based on a single diode approach with 
+replaceable thermal models accounting for different mountings.
+</p>
+<p>
+For a definition of the parameters, see the
+<a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">
+IBPSA.BoundaryConditions.UsersGuide</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PVGeneratorSingleDiode;

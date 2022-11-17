@@ -43,15 +43,16 @@ package PVSystem
     "If true then heat port is enables as interface"
     annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
 
-    Modelica.Blocks.Interfaces.RealInput HGloHor "Horizontal global irradiation"
-      annotation (Placement(transformation(extent={{-110,80},{-88,102}}),
-          iconTransformation(extent={{-110,80},{-88,102}})));
+    Modelica.Blocks.Interfaces.RealInput HGloTil
+      "Global irradiation on tilted surface"
+      annotation (Placement(transformation(extent={{-118,82},{-100,100}}),
+          iconTransformation(extent={{-118,82},{-100,100}})));
     Modelica.Blocks.Interfaces.RealInput TDryBul "Ambient dry bulb temperature"
-      annotation (Placement(transformation(extent={{-110,52},{-88,74}}),
-          iconTransformation(extent={{-110,52},{-88,74}})));
+      annotation (Placement(transformation(extent={{-118,38},{-100,56}}),
+          iconTransformation(extent={{-118,38},{-100,56}})));
     Modelica.Blocks.Interfaces.RealInput vWinSpe "Wind speed" annotation (
-        Placement(transformation(extent={{-110,26},{-88,48}}), iconTransformation(
-            extent={{-110,26},{-88,48}})));
+        Placement(transformation(extent={{-118,16},{-100,34}}),iconTransformation(
+            extent={{-118,16},{-100,34}})));
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_heat_port
       "Heat port for connection with e.g. building facade or mass"
       annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -59,28 +60,28 @@ package PVSystem
     //Conditional connectors
     Modelica.Blocks.Interfaces.RealInput MPPTraSet if use_MPP_in
       "Conditional input for MPP tracking" annotation (Placement(transformation(
-            extent={{-110,-2},{-88,20}}), iconTransformation(extent={{-110,-2},{-88,
-              20}})));
+            extent={{-118,-14},{-100,4}}),iconTransformation(extent={{-118,-14},{-100,
+              4}})));
     Modelica.Blocks.Interfaces.RealInput tilSet if use_Til_in
       "Conditional input for tilt angle control" annotation (Placement(
-          transformation(extent={{-110,-24},{-88,-2}}),  iconTransformation(
-            extent={{-110,-24},{-88,-2}})));
+          transformation(extent={{-118,-36},{-100,-18}}),iconTransformation(
+            extent={{-118,-36},{-100,-18}})));
     Modelica.Blocks.Interfaces.RealInput aziSet if use_Azi_in
       "Conditional input for azimuth angle control" annotation (Placement(
-          transformation(extent={{-110,-50},{-88,-28}}), iconTransformation(
-            extent={{-110,-50},{-88,-28}})));
+          transformation(extent={{-118,-58},{-100,-40}}),iconTransformation(
+            extent={{-118,-58},{-100,-40}})));
     Modelica.Blocks.Interfaces.RealInput shaSet if use_Sha_in
       "Conditional input for shading [0,1]" annotation (Placement(transformation(
-            extent={{-110,-76},{-88,-54}}), iconTransformation(extent={{-106,-72},
-              {-88,-54}})));
+            extent={{-122,-84},{-100,-62}}),iconTransformation(extent={{-118,-80},
+              {-100,-62}})));
 
     Modelica.Blocks.Interfaces.RealInput ageSet if use_age_in
       "Conditional input for ageing [0,1]" annotation (Placement(transformation(
-            extent={{-110,-104},{-88,-82}}), iconTransformation(extent={{-106,-72},
-              {-88,-54}})));
+            extent={{-122,-106},{-100,-84}}),iconTransformation(extent={{-118,-102},
+              {-100,-84}})));
 
     Modelica.Blocks.Interfaces.RealOutput P "DC Power output"
-      annotation (Placement(transformation(extent={{94,-10},{114,10}})));
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     replaceable IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVOptical partialPVOptical
     "Model with optical characteristics"
       annotation (Placement(transformation(extent={{-36,64},{-24,76}})));
@@ -89,6 +90,10 @@ package PVSystem
 
     replaceable IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVElectrical partialPVElectrical
       annotation (Placement(transformation(extent={{-36,-56},{-24,-44}})));
+    Modelica.Blocks.Interfaces.RealInput HGloHor
+      "Global irradiation on horizontal surface" annotation (Placement(
+          transformation(extent={{-118,60},{-100,78}}), iconTransformation(extent=
+             {{-118,60},{-100,78}})));
   protected
     Modelica.Blocks.Interfaces.RealInput MPP_in_internal
     "Needed to connect to conditional MPP tracking connector";
@@ -136,6 +141,23 @@ package PVSystem
       Age_in_internal = ageing;
     end if;
 
+  annotation(Documentation(info="<html>
+<p>
+This is a partial model for a PV system with an electrical, thermal, and optical replaceable model.
+</p>
+<p>
+For a definition of the parameters, see the
+<a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">
+IBPSA.BoundaryConditions.UsersGuide</a>.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end PartialPVSystem;
 
   model PVOpticalHorFixedAziTil
@@ -179,9 +201,8 @@ package PVSystem
     parameter Real b_3=0.000527 annotation(Dialog(tab="Module specifications"));
     parameter Real b_4=-0.000011 annotation(Dialog(tab="Module specifications"));
 
-    parameter Real radTil0(unit="W/m2")=1000
-                               "Total solar radiation on the horizontal surface 
-  under standard conditions"
+    parameter Real HGloTil0(unit="W/m2")=1000
+   "Total solar radiation on the horizontal surface under standard conditions"
     annotation(Dialog(group="Location"));
 
     constant Real G_sc(final quantity="Irradiance",
@@ -358,11 +379,6 @@ package PVSystem
 
     HGloHor = HGloHorBea + HGloHorDif;
 
-    radTil = if noEvent(HGloHor <= 0.1) then 0 else HGloHorBea*R_b + HGloHorDif*(0.5*(1 + cos(
-    til)*(1 + (1 - (HGloHorDif/HGloHor)^2)*sin(til/2)^3)*(1 + (1 - (HGloHorDif/
-    HGloHor)^2)*(cos(incAng.incAng)^2)*(cos(til)^3)))) + HGloHor*groRef*(1 - cos(
-    til))/2;
-
     k_t = if noEvent(HGloHor <=0.001) then 0
     else
     min(1,max(0,(HGloHor)/(G_sc*(1.00011+0.034221*cos(2*Modelica.Constants.pi*nDay/24/60/60/365)+0.00128*sin(2*Modelica.Constants.pi*nDay/24/60/60/365)
@@ -381,12 +397,29 @@ package PVSystem
 
     absRadRat = if noEvent(HGloHor <=0.1) then 0
     else
-    airMasMod*(HGloHorBea/radTil0*R_b*incAngMod
-    +HGloHorDif/radTil0*incAngModDif*(0.5*(1+cos(til)*(1+(1-(HGloHorDif/HGloHor)^2)*sin(til/2)^3)*(1+(1-(HGloHorDif/HGloHor)^2)*(cos(incAng.incAng)^2)*(cos(til)^3))))
-    +HGloHor/radTil0*groRef*incAngModGro*(1-cos(til))/2);
+    airMasMod*(HGloHorBea/HGloTil0*R_b*incAngMod
+    +HGloHorDif/HGloTil0*incAngModDif*(0.5*(1+cos(til)*(1+(1-(HGloHorDif/HGloHor)^2)*sin(til/2)^3)*(1+(1-(HGloHorDif/HGloHor)^2)*(cos(incAng.incAng)^2)*(cos(til)^3))))
+    +HGloHor/HGloTil0*groRef*incAngModGro*(1-cos(til))/2);
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-          coordinateSystem(preserveAspectRatio=false)));
+          coordinateSystem(preserveAspectRatio=false)),
+          Documentation(info="<html>
+<p>
+This is an optical model to calculate the absorption ratio of a PV cell based on the radiation.
+</p>
+<p>
+For a definition of the parameters, see the
+<a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">
+IBPSA.BoundaryConditions.UsersGuide</a>.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
   end PVOpticalHorFixedAziTil;
 
   model PVElectrical1DiodeMPP "Analytical 5-p model for PV I-V 
@@ -555,6 +588,13 @@ package PVSystem
   Station. by Boyd, M.:
 </p>
 
+</html>",  revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
   end PVElectrical1DiodeMPP;
 
@@ -627,11 +667,11 @@ First implementation.
   end PVElectrical2DiodesMPP;
 
   model PVThermalEmpMountOpenRack
-    "Empirical thermal model for PV cell with open rack mounting (tilt > 10 °)"
+    "Empirical thermal model for PV cell with open rack mounting (tilt >= 10 °)"
     extends
       IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVThermalEmp;
 
-   final parameter Modelica.Units.SI.Temperature T_a_0=293.15
+   final parameter Modelica.Units.SI.Temperature TDryBul0=293.15
       "Reference ambient temperature";
    final parameter Real coeff_trans_abs = 0.9
    "Module specific coefficient as a product of transmission and absorption.
@@ -639,14 +679,12 @@ First implementation.
 
   equation
 
-   TCel =if noEvent(radTil >= Modelica.Constants.eps) then (TDryBul) + (T_NOCT
-       - T_a_0)*radTil/radNOCT*9.5/(5.7 + 3.8*winVel)*(1 - eta/coeff_trans_abs)
+   TCel =if noEvent(HGloTil >= Modelica.Constants.eps) then (TDryBul) + (T_NOCT -
+      TDryBul0)*HGloTil/HNOCT*9.5/(5.7 + 3.8*winVel)*(1 - eta/coeff_trans_abs)
        else (TDryBul);
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)),
-      Documentation(info="<html><h4>
-  <span style=\"color: #008000\">Overview</span>
-</h4>
+      Documentation(info="<html>
 <p>
   Model for determining the cell temperature of a PV module mounted on
   an open rack under operating conditions and under consideration of
@@ -662,26 +700,58 @@ First implementation.
   <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
   Beckman, W. A.
 </p>
+</html>",  revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
   end PVThermalEmpMountOpenRack;
 
+  model PVThermalEmpMountCloseToGround
+    "Empirical thermal model for PV cell with back close to ground ~(0 ° < til < 10 °)"
+  extends
+      IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.BaseClasses.PartialPVThermalEmp;
+
+  equation
+
+   TCel = if noEvent(HGloTil >= Modelica.Constants.eps) then
+   HGloTil*(exp(-2.98-0.0471*winVel))+(TDryBul)+HGloTil/1000*1
+   else
+   (TDryBul);
+
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+          coordinateSystem(preserveAspectRatio=false)),
+      Documentation(info="<html>
+<p>
+  Model for determining the cell temperature of a PV module mounted on
+  an open rack under operating conditions and under consideration of
+  the wind velocity.
+</p>
+<p>
+  <br/>
+</p>
+<h4>
+  <span style=\"color: #008000\">References</span>
+</h4>
+<p>
+  <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
+  Beckman, W. A.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end PVThermalEmpMountCloseToGround;
+
   package BaseClasses "Package with base classes for IBPSA.Electrical"
     extends Modelica.Icons.BasesPackage;
-    function lambertWSimple
-      "Simple approximation for Lambert W function for x >= 2, should only
-be used for large input values as error decreases for increasing input values"
-
-       input Real x(min=2);
-       output Real W;
-
-    algorithm
-      W:= log(x)*(1-log(log(x))/(log(x)+1));
-      annotation (Documentation(info="<html>
-<p><span style=\"font-family: Roboto; color: #202124; background-color: #ffffff;\">The Lambert W function solves mathematical equations in which the unknown is both inside and outside of an exponential function or a logarithm.</span></p>
-<p>This function is a simple approximation for Lambert W function following Baetzelis, 2016:</p>
-</html>"));
-    end lambertWSimple;
-
     package Icons
       partial model partialPVIcon "Partial model for basic PV model icon"
         annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -715,6 +785,28 @@ be used for large input values as error decreases for increasing input values"
             Diagram(coordinateSystem(preserveAspectRatio=false)));
       end partialPVIcon;
     end Icons;
+
+    function lambertWSimple
+      "Simple approximation for Lambert W function for x >= 2, should only
+be used for large input values as error decreases for increasing input values"
+
+       input Real x(min=2);
+       output Real W;
+
+    algorithm
+      W:= log(x)*(1-log(log(x))/(log(x)+1));
+      annotation (Documentation(info="<html>
+<p><span style=\"font-family: Roboto; color: #202124; background-color: #ffffff;\">The Lambert W function solves mathematical equations in which the unknown is both inside and outside of an exponential function or a logarithm.</span></p>
+<p>This function is a simple approximation for Lambert W function following Baetzelis, 2016:</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+    end lambertWSimple;
 
     partial model PartialPVElectrical
       "Partial electrical model for PV module model"
@@ -760,7 +852,18 @@ be used for large input values as error decreases for increasing input values"
               color={0,0,0},
               thickness=0.5,
               smooth=Smooth.Bezier)}),                               Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+            coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+    <p>This is a partial model for the electrical surrogate models of a photovoltaic model.</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+
     end PartialPVElectrical;
 
     partial model PartialPVElectrical1Diode
@@ -874,7 +977,17 @@ be used for large input values as error decreases for increasing input values"
               color={0,0,0},
               thickness=0.5,
               smooth=Smooth.Bezier)}),                               Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+            coordinateSystem(preserveAspectRatio=false)),
+            Documentation(info="<html>
+        <p>This is a partial model for the electrical surrogate model of a photovoltaic model modeled as a single diode circuit.</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end PartialPVElectrical1Diode;
 
     partial model PartialPVElectrical2Diodes
@@ -959,13 +1072,23 @@ be used for large input values as error decreases for increasing input values"
     end PartialPVElectrical2Diodes;
 
     partial model PartialPVThermal
-     "Partial model for determining the cell temperature of a PV moduleConnector 
+     "Partial model for computing the cell temperature of a PV moduleConnector 
   for PV record data"
      replaceable parameter IBPSA.Electrical.DataBase.PVBaseDataDefinition data
      constrainedby IBPSA.Electrical.DataBase.PVBaseDataDefinition
         "PV Panel data definition" annotation (choicesAllMatching);
       Modelica.Blocks.Interfaces.RealOutput TCel "Cell temperature"
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+      Modelica.Blocks.Interfaces.RealInput TDryBul "Ambient temperature (dry bulb)"
+        annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
+      Modelica.Blocks.Interfaces.RealInput winVel "Wind velocity"
+        annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+      Modelica.Blocks.Interfaces.RealInput HGloTil
+        "Total solar irradiance on the tilted surface"
+        annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+      Modelica.Blocks.Interfaces.RealInput eta
+        "Efficiency of the PV module under operating conditions"
+        annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                  Text(extent={{-40,-68},{44,-102}},
                                                                   lineColor={0,0,255},textString= "%name"),
@@ -1029,7 +1152,17 @@ be used for large input values as error decreases for increasing input values"
               extent={{92,4},{-28,-26}},
               lineColor={0,0,0},
               textString="T")}),                                     Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+            coordinateSystem(preserveAspectRatio=false)),
+                Documentation(info="<html>
+        <p>This is a partial model for the thermal surrogate model of a photovoltaic modelt.</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end PartialPVThermal;
 
     partial model PartialPVThermalEmp
@@ -1043,20 +1176,10 @@ be used for large input values as error decreases for increasing input values"
       final parameter Modelica.Units.SI.Temperature T_NOCT=data.T_NOCT
         "Cell temperature under NOCT conditions";
 
-     final parameter Real radNOCT(final quantity="Irradiance",
+      final parameter Real HNOCT(final quantity="Irradiance",
         final unit="W/m2")= 800
         "Irradiance under NOCT conditions";
 
-      Modelica.Blocks.Interfaces.RealInput TDryBul "Ambient temperature (dry bulb)"
-        annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-      Modelica.Blocks.Interfaces.RealInput winVel "Wind velocity"
-        annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-      Modelica.Blocks.Interfaces.RealInput eta
-        "Efficiency of the PV module under operating conditions"
-        annotation (Placement(transformation(extent={{-140,-30},{-100,10}})));
-      Modelica.Blocks.Interfaces.RealInput radTil
-        "Total solar irradiance on the tilted surface"
-        annotation (Placement(transformation(extent={{-142,-90},{-102,-50}})));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                  Text(extent={{-40,-68},{44,-102}},
                                                                   lineColor={0,0,255},textString= "%name"),
@@ -1120,19 +1243,26 @@ be used for large input values as error decreases for increasing input values"
               extent={{92,4},{-28,-26}},
               lineColor={0,0,0},
               textString="T")}),                                     Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+            coordinateSystem(preserveAspectRatio=false)),
+            Documentation(info="<html>
+        <p>This is a partial model for the thermal surrogate model of a photovoltaic model based on empirical descriptions.</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end PartialPVThermalEmp;
 
     partial model PartialPVOptical
       Modelica.Blocks.Interfaces.RealInput HGloHor annotation (Placement(
-            transformation(extent={{-132,-16},{-100,16}}),iconTransformation(
-              extent={{-132,-16},{-100,16}})));
+            transformation(extent={{-140,-20},{-100,20}}),iconTransformation(
+              extent={{-140,-20},{-100,20}})));
       Modelica.Blocks.Interfaces.RealOutput absRadRat
         "Ratio of absorbed radiation under operating conditions to standard conditions"
-        annotation (Placement(transformation(extent={{100,42},{120,62}})));
-      Modelica.Blocks.Interfaces.RealOutput radTil
-        "Total solar radiation on the tilted surface"
-        annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
             Ellipse(
               extent={{-78,76},{-22,24}},
@@ -1148,7 +1278,17 @@ be used for large input values as error decreases for increasing input values"
               points={{-26,32},{44,-14},{-34,-56}},
               color={0,0,0},
               arrow={Arrow.None,Arrow.Filled})}),                    Diagram(
-            coordinateSystem(preserveAspectRatio=false)));
+            coordinateSystem(preserveAspectRatio=false)),
+            Documentation(info="<html>
+        <p>This is a partial model for the optical surrogate model of a photovoltaic model.</p>
+</html>",     revisions="<html>
+<ul>
+<li>
+Nov 17, 2022, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
     end PartialPVOptical;
   end BaseClasses;
 end PVSystem;
