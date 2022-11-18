@@ -120,7 +120,7 @@ IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
 Note that if the model operates with a head that is larger than <code>dpMax</code>, which by default is
 two times larger than the largest head declared in <code>eff.per.pressure.dp</code>,
 the simulation will stop with an error message.
-This guards against unreasonably high pressure drops which can happen if the pump or fan is forcing mass flow rate
+This guards against unreasonably high pressure drops and electrical power uses, which can happen if the pump or fan is forcing mass flow rate
 through a closed valve or damper.
 </p>
 <p>
