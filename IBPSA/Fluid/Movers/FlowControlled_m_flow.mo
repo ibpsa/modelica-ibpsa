@@ -71,10 +71,11 @@ model FlowControlled_m_flow
 
 equation
   assert(-dp <= dpMax,
-    "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pascals,
-    which exceeds the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
-    This typically happens if the pump or fan forces a high mass flow rate through a closed valve or damper,
-    or if the performance record is entered unreasonable. Please verify your model and consider using the model FlowControlled_dp instead of FlowControlled_m_flow.");
+    "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pa,
+    exceeding the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
+    This can happen if the model forces a high mass flow rate through a closed actuator,
+    or if the performance record is unreasonable. Please verify your model, and 
+    consider using FlowControlled_dp instead of FlowControlled_m_flow.");
 
 equation
   if use_inputFilter then
@@ -120,8 +121,8 @@ IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
 Note that if the model operates with a head that is larger than <code>dpMax</code>, which by default is
 two times larger than the largest head declared in <code>eff.per.pressure.dp</code>,
 the simulation will stop with an error message.
-This guards against unreasonably high pressure drops and electrical power uses, which can happen if the pump or fan is forcing mass flow rate
-through a closed valve or damper.
+This guards against unreasonably high pressure drops and electrical power use,
+which can happen if the model is forcing mass flow rate through a closed actuator.
 </p>
 <p>
 See the
