@@ -74,7 +74,7 @@ equation
     "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pascals,
     which exceeds the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
     This typically happens if the pump or fan forces a high mass flow rate through a closed valve or damper,
-    or if the performance record is entered unreasonable. Please verify your model.");
+    or if the performance record is entered unreasonable. Please verify your model and consider using the model FlowControlled_dp instead of FlowControlled_m_flow.");
 
 equation
   if use_inputFilter then
