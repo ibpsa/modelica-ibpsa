@@ -47,7 +47,7 @@ Removed binding of <code>P_nominal</code> as
 this parameter is disabled and assigned a value
 in the <code>initial equation</code> section.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">issue 426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 <li>
 August 24, 2014, by Marco Bonvini:<br/>

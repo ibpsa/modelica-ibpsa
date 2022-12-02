@@ -88,7 +88,7 @@ IBPSA.Electrical.AC.ThreePhasesBalanced.Lines.Line</a>.
 November 8, 2016, by Michael Wetter:<br/>
 Corrected wrong assignment of parameter <code>mode</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/571\">#571</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/571\">#571</a>.
 </li>
 <li>
 September 23, 2014, by Marco Bonvini:<br/>

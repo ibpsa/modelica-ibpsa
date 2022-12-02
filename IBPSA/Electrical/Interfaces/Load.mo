@@ -121,14 +121,14 @@ November 28, 2016, by Michael Wetter:<br/>
 Removed zero start value for current.
 The current is typically non-zero and zero is anyway the default start value, hence there is no need to set it.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check
 in Dymola 2017 FD01 beta2.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/557\">issue 557</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
 </li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
@@ -136,20 +136,20 @@ Set default value for <code>P_nominal</code>
 and removed assertion warning.
 This is required for pedantic model check in Dymola.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">#426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">#426</a>.
 </li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Provided value for <code>P_nominal</code> if
-<code>mode &lt;&gt; IBPSA.Electrical.Types.Load.VariableZ_P_input</code>.
+<code>mode &lt;&gt; Buildings.Electrical.Types.Load.VariableZ_P_input</code>.
 This avoids a warning during translation of
-<a href=\"modelica://IBPSA.Examples.ChillerPlant.DataCenterRenewables\">
-IBPSA.Examples.ChillerPlant.DataCenterRenewables</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterRenewables\">
+Buildings.Examples.ChillerPlant.DataCenterRenewables</a>.
 </li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Changed the parameter from <code>linear</code> to <code>linearized</code>
-because <code>IBPSA.Fluid</code> also uses <code>linearized</code>.
+because <code>Buildings.Fluid</code> also uses <code>linearized</code>.
 This change has been done to use a consistent naming across the library.
 </li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
@@ -163,7 +163,7 @@ Created documentation and revised model.
 </li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
-Model included in the IBPSA library.
+Model included in the Buildings library.
 </li>
 </ul>
 </html>", info="<html>

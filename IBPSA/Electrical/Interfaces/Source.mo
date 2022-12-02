@@ -33,7 +33,7 @@ equation
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 Updated documentation for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/427\">issue 427</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/427\">issue 427</a>.
 </li>
 <li>
 May 15, 2014, by Marco Bonvini:<br/>

@@ -390,7 +390,7 @@ Added missing <code>replaceable</code> for the terminal.
 November 28, 2016, by Michael Wetter:<br/>
 Made voltage public to allow setting a start value.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/584\">#584</a>.
 </li>
 <li>
 May 26, 2016, by Michael Wetter:<br/>

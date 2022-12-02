@@ -7,19 +7,19 @@ partial model ResistiveLoad "Partial model of a resistive load"
 <li>
 May 14, 2015, by Marco Bonvini:<br/>
 Created model to solve problems related to OpenModelica as described
-in issue <a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/415\">#415</a>.<br/>
+in issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.<br/>
 OpenModelica cannot determine the value
 <code>PhaseSystem.n</code> when models like
-<a href=\"modelica://IBPSA.Electrical.AC.OnePhase.Loads.Resistive\">
-IBPSA.Electrical.AC.OnePhase.Loads.Resistive</a>
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Resistive\">
+Buildings.Electrical.AC.OnePhase.Loads.Resistive</a>
 inherit directly from
-<a href=\"modelica://IBPSA.Electrical.Interfaces.LoadIBPSA.Electrical.Interfaces.Load\">
-IBPSA.Electrical.Interfaces.LoadIBPSA.Electrical.Interfaces.Load</a>.<br/>
+<a href=\"modelica://Buildings.Electrical.Interfaces.LoadIBPSA.Electrical.Interfaces.Load\">
+Buildings.Electrical.Interfaces.LoadIBPSA.Electrical.Interfaces.Load</a>.<br/>
 The same problem does not happen with models like
-<a href=\"modelica://IBPSA.Electrical.AC.OnePhase.Loads.Capacitive\">
-IBPSA.Electrical.AC.OnePhase.Loads.Capacitive</a> or
-<a href=\"modelica://IBPSA.Electrical.AC.OnePhase.Loads.Inductive\">
-IBPSA.Electrical.AC.OnePhase.Loads.Inductive</a> since they inherit
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Capacitive\">
+Buildings.Electrical.AC.OnePhase.Loads.Capacitive</a> or
+<a href=\"modelica://Buildings.Electrical.AC.OnePhase.Loads.Inductive\">
+Buildings.Electrical.AC.OnePhase.Loads.Inductive</a> since they inherit
 from a different model.<br/>
 For such a reason this interface for resistive load model has been
 added to the library.

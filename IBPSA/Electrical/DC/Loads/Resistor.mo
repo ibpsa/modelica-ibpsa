@@ -49,10 +49,10 @@ Set default value for <code>P_nominal</code> to avoid an error when translating
 the model in Dymola's pedantic mode.
 </li>
 <li>May 14, 2015, by Marco Bonvini:<br/>
-Changed parent class to <a href=\"modelica://IBPSA.Electrical.Interfaces.ResistiveLoad\">
+Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 IBPSA.Electrical.Interfaces.ResistiveLoad</a> in order
 to help openmodelica parsing the model. This fixes issue
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/415\">#415</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.
 </li>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>
