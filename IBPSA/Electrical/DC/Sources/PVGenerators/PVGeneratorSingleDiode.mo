@@ -1,4 +1,4 @@
-within IBPSA.Electrical.DC.Sources.PVGenerators;
+﻿within IBPSA.Electrical.DC.Sources.PVGenerators;
 model PVGeneratorSingleDiode
   "Photovoltaic module(s) model based on single diode approach"
   extends IBPSA.Electrical.DC.Sources.BaseClasses.PVSystem.PartialPVSystem(
@@ -83,16 +83,45 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>
+<p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings. </p>
+<p>The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:</p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" width=600px height=auto/> </p>
+<p>In the figure, I_ph denotes the photocurrent and I_d is the dark current.</p>
+<p>The dark current is opposed to the photocurrent and derives from the Shockley equation:</p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/dark_current_single_diode.png\" width=250px height=auto/> </p>
+<p>where a is the modified ideality factor that is defined as follows:</p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/modified_ideality_single_diode.png\" width=250px height=auto/> </p>
+<p>Here, N_s is the number of serial cells, n_I is the ideality factor, </p>
+<p>k is the Boltzman constant, q is the elementary charge, and T_cell the cell temperature.</p>
+<p>R_s is the serial resistance that results in a voltage loss.</p>
+<p>R_sh denotes is the serial resistance that accounts for the leakage currents along the cell's side.</p>
+<p>And I_sh is the resulting leakage current.</p>
+<p>The resulting I-U-curve is defined as follows and bases on 5 unknown parameters:</p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/I_U_curve_single_diode.png\" width=600px height=auto/> </p>
+<p>Hence, the name 5-p approach is common.</p>
+<p><br><br><br>For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>. </p>
+<h4>References</h4>
 <p>
-This is a photovoltaic generator model based on a single diode approach with 
-replaceable thermal models accounting for different mountings.
+Humada, Ali M. ; Hojabri, Mojgan ; Mekhilef, Saad ; Hamada, Hussein M.: Solar
+cell parameters extraction based on single and double-diode models: A review. In:
+Renewable and Sustainable Energy Reviews 56 (2016), 494–509.
+<a href=\"https://doi.org/10.1016/j.rser.2015.11.051\">
+https://doi.org/10.1016/j.rser.2015.11.051</a>
 </p>
 <p>
-For a definition of the parameters, see the
-<a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">
-IBPSA.BoundaryConditions.UsersGuide</a>.
+Cannizzaro, S. ; Di Piazza, M. C. ; Luna, M. ; Vitale, G.: Generalized classification
+of PV modules by simplified single-diode models. In: IEEE 23rd International
+Symposium on Industrial Electronics (ISIE), 2014. Piscataway, NJ : IEEE, 2014. –
+ISBN 978–1–4799–2399–1, S. 2266–2273
 </p>
-</html>", revisions="<html>
+<p>
+Jordehi, A. R.: Parameter estimation of solar photovoltaic (PV) cells: A review. In:
+Renewable and Sustainable Energy Reviews 61 (2016), 354–371.
+<a href=\"http://dx.doi.org/10.1016/j.rser.2016.03.049\">
+http://dx.doi.org/10.1016/j.rser.2016.03.049</a>
+– ISSN 1364–0321
+</p>
+</html>",revisions="<html>
 <ul>
 <li>
 Nov 17, 2022, by Laura Maier:<br/>
