@@ -166,7 +166,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVGeneratorSingleDiodeNISTValidation.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
         "Simulate and plot"),
     Documentation(info="<html><p>
   The PVSystem model is validaded with empirical data from: <a href=
