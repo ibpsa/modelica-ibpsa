@@ -1,6 +1,6 @@
 ConstantVoltage
+PVSingleDiode
 VoltageSource
-PVGenerators
 Examples
 Validation
 BaseClasses
