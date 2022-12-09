@@ -1,4 +1,4 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
 partial model PartialSource
   "Partial model for a three-phase AC unbalanced voltage source without neutral cable"
 

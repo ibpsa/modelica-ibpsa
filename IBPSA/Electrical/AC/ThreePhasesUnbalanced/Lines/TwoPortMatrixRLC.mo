@@ -172,7 +172,7 @@ Set nominal attribute for voltage at terminal.
 November 28, 2016, by Michael Wetter:<br/>
 Made current and voltage public to allow setting start values.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>

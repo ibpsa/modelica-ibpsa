@@ -1,8 +1,5 @@
-BaseUnbalancedPV
 BaseUnbalancedWindTurbine
 PartialSource
 PartialSource_N
-UnbalancedPV
-UnbalancedPV_N
 UnbalancedWindTurbine
 UnbalancedWindTurbine_N

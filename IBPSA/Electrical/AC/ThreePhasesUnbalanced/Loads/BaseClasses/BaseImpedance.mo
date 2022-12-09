@@ -1,8 +1,8 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model BaseImpedance
   "Partial model of a three-phase unbalanced impedance"
-  extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
-  replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
+  extends IBPSA.Electrical.Interfaces.PartialPluggableUnbalanced;
+  replaceable IBPSA.Electrical.AC.OnePhase.Loads.Impedance
     load1(
     inductive=inductive,
     R=R,
@@ -19,7 +19,7 @@ partial model BaseImpedance
     LMax=LMax)
     if plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
+  replaceable IBPSA.Electrical.AC.OnePhase.Loads.Impedance
     load2(
     inductive=inductive,
     R=R,
@@ -36,7 +36,7 @@ partial model BaseImpedance
     LMax=LMax)
     if plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable Buildings.Electrical.AC.OnePhase.Loads.Impedance
+  replaceable IBPSA.Electrical.AC.OnePhase.Loads.Impedance
     load3(
     inductive=inductive,
     R=R,
@@ -53,8 +53,8 @@ partial model BaseImpedance
     LMax=LMax)
     if plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  parameter Buildings.Electrical.Types.LoadConnection loadConn=
-    Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
+  parameter IBPSA.Electrical.Types.LoadConnection loadConn=
+    IBPSA.Electrical.Types.LoadConnection.wye_to_wyeg
     "Type of load connection (Yg or D)";
   parameter Boolean inductive=true
     "If =true the load is inductive, otherwise it is capacitive"
@@ -140,21 +140,21 @@ partial model BaseImpedance
         rotation=270,
         origin={40,100})));
 
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta
-    wyeToDelta if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+  IBPSA.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToDelta
+    wyeToDelta if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_delta)
     "Wye to delta load connection"
     annotation (Placement(transformation(extent={{-64,0},{-44,20}})));
-  Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToWyeGround
-    wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+  IBPSA.Electrical.AC.ThreePhasesUnbalanced.Interfaces.WyeToWyeGround
+    wyeToWyeGround if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to grounded wye connection"
     annotation (Placement(transformation(extent={{-64,-20},{-44,0}})));
 protected
   Interfaces.Adapter3to3 adaDel
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_delta)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
   Interfaces.Adapter3to3 adaWye
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
 equation

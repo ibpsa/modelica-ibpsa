@@ -104,7 +104,7 @@ equation
 November 28, 2016, by Michael Wetter:<br/>
 Set start values.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>

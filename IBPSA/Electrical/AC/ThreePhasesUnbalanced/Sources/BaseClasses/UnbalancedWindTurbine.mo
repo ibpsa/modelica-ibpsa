@@ -1,10 +1,10 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
 model UnbalancedWindTurbine
   "Base model for an unbalanced wind power source without neutral cable"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine;
+    IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine;
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
+    IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.PartialSource;
 protected
   Interfaces.Adapter3to3 ada "Adapter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

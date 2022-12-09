@@ -1,21 +1,21 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model BaseLoadCtrl
   "Partial model of a three-phase unbalanced load with voltage controllers"
-  extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
-  parameter Buildings.Electrical.Types.LoadConnection loadConn=
-    Buildings.Electrical.Types.LoadConnection.wye_to_wyeg
+  extends IBPSA.Electrical.Interfaces.PartialPluggableUnbalanced;
+  parameter IBPSA.Electrical.Types.LoadConnection loadConn=
+    IBPSA.Electrical.Types.LoadConnection.wye_to_wyeg
     "Type of load connection (Yg or D)";
   parameter Boolean linearized = false
     "If =true introduce a linearization in the load" annotation(Dialog(group="Modeling assumption"));
-  parameter Buildings.Electrical.Types.Load mode(
-    min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
-    max=Buildings.Electrical.Types.Load.VariableZ_y_input)=
-    Buildings.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
+  parameter IBPSA.Electrical.Types.Load mode(
+    min=IBPSA.Electrical.Types.Load.FixedZ_steady_state,
+    max=IBPSA.Electrical.Types.Load.VariableZ_y_input)=
+    IBPSA.Electrical.Types.Load.FixedZ_steady_state "Parameters that specifies the mode of the load (e.g., steady state,
     dynamic, prescribed power consumption, etc.)" annotation(Dialog(group="Modeling assumption"));
 
   parameter Modelica.Units.SI.Power P_nominal=0
     "Nominal power (negative if consumed, positive if generated)" annotation (
-      Dialog(group="Nominal conditions", enable=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
+      Dialog(group="Nominal conditions", enable=mode <> IBPSA.Electrical.Types.Load.VariableZ_P_input));
 
   parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
@@ -28,12 +28,12 @@ partial model BaseLoadCtrl
   parameter Modelica.Units.SI.Time tDelay=300
     "Time to wait before plugging the load again after disconnection"
     annotation (Dialog(group="Voltage CTRL", enable=voltageCtrl));
-  parameter Types.InitMode initMode=Buildings.Electrical.Types.InitMode.zero_current
+  parameter Types.InitMode initMode=IBPSA.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"
     annotation (Dialog(tab="Initialization"));
-  replaceable Buildings.Electrical.Interfaces.Load load1(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  replaceable IBPSA.Electrical.Interfaces.Load load1(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.OnePhase,
+    redeclare IBPSA.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     final linearized=linearized,
     final mode=mode,
     final P_nominal = P_nominal,
@@ -41,9 +41,9 @@ partial model BaseLoadCtrl
     final initMode=initMode)
     if plugPhase1 "Load 1"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  replaceable Buildings.Electrical.Interfaces.Load load2(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  replaceable IBPSA.Electrical.Interfaces.Load load2(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.OnePhase,
+    redeclare IBPSA.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     final linearized=linearized,
     final mode=mode,
     final P_nominal = P_nominal,
@@ -51,9 +51,9 @@ partial model BaseLoadCtrl
     final initMode=initMode)
     if plugPhase2 "Load 2"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  replaceable Buildings.Electrical.Interfaces.Load load3(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  replaceable IBPSA.Electrical.Interfaces.Load load3(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.OnePhase,
+    redeclare IBPSA.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     final linearized=linearized,
     final mode=mode,
     final P_nominal = P_nominal,
@@ -62,7 +62,7 @@ partial model BaseLoadCtrl
     if plugPhase3 "Load 3"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
   Modelica.Blocks.Interfaces.RealInput y1  if plugPhase1 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_y_input
+    mode == IBPSA.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -71,7 +71,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={120,80})));
   Modelica.Blocks.Interfaces.RealInput Pow1(unit="W") if plugPhase1 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
+    mode == IBPSA.Electrical.Types.Load.VariableZ_P_input "Power consumed"
                                            annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -80,7 +80,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={120,80})));
   Modelica.Blocks.Interfaces.RealInput y2 if plugPhase2 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_y_input
+    mode == IBPSA.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -89,7 +89,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={120,0})));
   Modelica.Blocks.Interfaces.RealInput Pow2(unit="W") if plugPhase2 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
+    mode == IBPSA.Electrical.Types.Load.VariableZ_P_input "Power consumed"
                                            annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -98,7 +98,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={120,0})));
   Modelica.Blocks.Interfaces.RealInput y3 if plugPhase3 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_y_input
+    mode == IBPSA.Electrical.Types.Load.VariableZ_y_input
     "Fraction of the nominal power consumed"                       annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -108,7 +108,7 @@ partial model BaseLoadCtrl
         rotation=180,
         origin={120,-80})));
   Modelica.Blocks.Interfaces.RealInput Pow3(unit="W") if plugPhase3 and
-    mode == Buildings.Electrical.Types.Load.VariableZ_P_input "Power consumed"
+    mode == IBPSA.Electrical.Types.Load.VariableZ_P_input "Power consumed"
                                            annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -117,9 +117,9 @@ partial model BaseLoadCtrl
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={120,-80})));
-  Buildings.Electrical.Utilities.VoltageControl vCTRL_1(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  IBPSA.Electrical.Utilities.VoltageControl vCTRL_1(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.OnePhase,
+    redeclare IBPSA.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     vThresh=vThresh,
     tDelay=tDelay,
     V_nominal=V_nominal/sqrt(3))
@@ -128,9 +128,9 @@ partial model BaseLoadCtrl
   Modelica.Blocks.Math.Product cmd1 if plugPhase1 and voltageCtrl
     "Block that impose voltage ctrl"
     annotation (Placement(transformation(extent={{56,56},{36,76}})));
-  Buildings.Electrical.Utilities.VoltageControl vCTRL_2(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  IBPSA.Electrical.Utilities.VoltageControl vCTRL_2(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.OnePhase,
+    redeclare IBPSA.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     vThresh=vThresh,
     tDelay=tDelay,
     V_nominal=V_nominal/sqrt(3))
@@ -139,9 +139,9 @@ partial model BaseLoadCtrl
   Modelica.Blocks.Math.Product cmd2 if plugPhase2 and voltageCtrl
     "Block that impose voltage ctrl"
     annotation (Placement(transformation(extent={{56,-16},{36,4}})));
-  Buildings.Electrical.Utilities.VoltageControl vCTRL_3(
-    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
-    redeclare Buildings.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
+  IBPSA.Electrical.Utilities.VoltageControl vCTRL_3(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.OnePhase,
+    redeclare IBPSA.Electrical.AC.OnePhase.Interfaces.Terminal_n terminal,
     vThresh=vThresh,
     tDelay=tDelay,
     V_nominal=V_nominal/sqrt(3))
@@ -151,25 +151,25 @@ partial model BaseLoadCtrl
     "Block that impose voltage ctrl"
     annotation (Placement(transformation(extent={{56,-80},{36,-60}})));
   Interfaces.WyeToDelta
-    wyeToDelta if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    wyeToDelta if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_delta)
     "Wye to delta load connection"
     annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
   Interfaces.WyeToWyeGround
-    wyeToWyeGround if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    wyeToWyeGround if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Wye to wye grounded connection"
     annotation (Placement(transformation(extent={{-54,-20},{-34,0}})));
 protected
   Interfaces.Adapter3to3 adaDel
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_delta)
+    if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_delta)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-50},{-60,-30}})));
   Interfaces.Adapter3to3 adaWye
-    if (loadConn == Buildings.Electrical.Types.LoadConnection.wye_to_wyeg)
+    if (loadConn == IBPSA.Electrical.Types.LoadConnection.wye_to_wyeg)
     "Adapter"
     annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
 equation
   // Connections enabled when the input provided is y (between 0 and 1)
-  if mode==Buildings.Electrical.Types.Load.VariableZ_y_input then
+  if mode==IBPSA.Electrical.Types.Load.VariableZ_y_input then
     if plugPhase1 and voltageCtrl then
       connect(cmd1.y, load1.y) annotation (Line(
         points={{35,66},{20,66},{20,50},{10,50}},
@@ -223,7 +223,7 @@ equation
   end if;
 
   // Connections enabled when the input provided is the power
-  if mode==Buildings.Electrical.Types.Load.VariableZ_P_input then
+  if mode==IBPSA.Electrical.Types.Load.VariableZ_P_input then
     if plugPhase1 and voltageCtrl then
       connect(cmd1.y, load1.Pow) annotation (Line(
         points={{35,66},{20,66},{20,50},{10,50}},
@@ -360,7 +360,7 @@ Each load model has the option to be controlled by a voltage controller.
 When enabled, the voltage controller unplugs the load for a certain amount of
 time if the voltage exceeds a given threshold. Mode information about the
 voltage controller can be found
-<a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.
+<a href=\"modelica://IBPSA.Electrical.Utilities.VoltageControl\">here</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -379,10 +379,10 @@ Added adapters for
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Provided value for <code>P_nominal</code> if
-<code>mode &lt;&gt; Buildings.Electrical.Types.Load.VariableZ_P_input</code>.
+<code>mode &lt;&gt; IBPSA.Electrical.Types.Load.VariableZ_P_input</code>.
 This avoids a warning during translation of
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive</a>.
+<a href=\"modelica://IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive\">
+IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.Inductive</a>.
 </li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>

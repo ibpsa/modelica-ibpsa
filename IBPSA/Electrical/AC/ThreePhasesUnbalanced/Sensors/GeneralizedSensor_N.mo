@@ -122,7 +122,7 @@ The two components of the power <i>S</i> are the active and reactive power for e
 November 8, 2016, by Michael Wetter:<br/>
 Corrected wrong access to phase system.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/570\">#570</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/570\">#570</a>.
 </li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>

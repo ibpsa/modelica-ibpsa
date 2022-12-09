@@ -1,4 +1,4 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads;
 package BaseClasses "Package with base class models"
 extends Modelica.Icons.BasesPackage;
 
@@ -6,8 +6,8 @@ extends Modelica.Icons.BasesPackage;
 annotation (Documentation(info="<html>
 <p>
 This package contains base classes used by the models that are part of the package
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads</a>.
+<a href=\"modelica://IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads\">
+IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads</a>.
 </p>
 </html>", revisions="<html>
 <ul>

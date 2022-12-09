@@ -58,8 +58,8 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   //Conditional connectors
   Modelica.Blocks.Interfaces.RealInput MPPTraSet if use_MPP_in
     "Conditional input for MPP tracking" annotation (Placement(transformation(
-          extent={{-118,-14},{-100,4}}),iconTransformation(extent={{-118,-14},{-100,
-            4}})));
+          extent={{-118,-10},{-100,8}}),iconTransformation(extent={{-118,-10},{
+            -100,8}})));
   Modelica.Blocks.Interfaces.RealInput tilSet if use_Til_in
     "Conditional input for tilt angle control" annotation (Placement(
         transformation(extent={{-118,-36},{-100,-18}}),iconTransformation(

@@ -1,9 +1,9 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model LoadCtrl
   "Partial model of a three-phase load with voltage controller without neutral cable"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal
+    IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseLoadCtrl;
+    IBPSA.Electrical.AC.ThreePhasesUnbalanced.Interfaces.Terminal_n terminal
     "Connector for three-phase unbalanced systems without neutral cable"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 equation
@@ -35,15 +35,15 @@ Each load model has the option to be controlled by a voltage controller.
 When enabled, the voltage controller unplugs the load for a certain amount of
 time if the voltage exceeds a given threshold. Mode information about the
 voltage controller can be found
-<a href=\"modelica://Buildings.Electrical.Utilities.VoltageControl\">here</a>.
+<a href=\"modelica://IBPSA.Electrical.Utilities.VoltageControl\">here</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Revised model, it now extends from
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoadCtrl\">
-Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoadCtrl</a>.
+<a href=\"modelica://IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoadCtrl\">
+IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.PartialLoadCtrl</a>.
 </li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>

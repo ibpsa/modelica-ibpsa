@@ -1,8 +1,8 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses;
 partial model Impedance_N
   "Partial model of a three-phase unbalanced impedance with neutral cable"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
+    IBPSA.Electrical.AC.ThreePhasesUnbalanced.Loads.BaseClasses.BaseImpedance;
   Interfaces.Terminal4_n terminal "Electrical connector"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.Connection3to4_n connection3to4

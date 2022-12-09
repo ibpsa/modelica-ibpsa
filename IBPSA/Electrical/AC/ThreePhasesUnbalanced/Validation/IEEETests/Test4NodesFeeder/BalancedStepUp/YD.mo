@@ -85,14 +85,14 @@ Set better start values
 because for one component, the start value is far from a solution
 and if specified, Dymola 2022 beta3 fails to initialize the model.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/2432\">#2432</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2432\">#2432</a>.
 </li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Set start value for <code>loadRL(load1(v(each start = 15000)))</code> which
 is needed for Dymola 2017 to find the correct solution.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>

@@ -231,7 +231,7 @@ Set nominal attribute for voltage at terminal.
 November 28, 2016, by Michael Wetter:<br/>
 Made current and voltage public to allow setting start values.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
@@ -243,7 +243,7 @@ for
 IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD</a>.
 Also, the current is typically non-zero and zero is anyway the default start value, hence there is no need to set it.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 January 14, 2015, by Marco Bonvini:<br/>

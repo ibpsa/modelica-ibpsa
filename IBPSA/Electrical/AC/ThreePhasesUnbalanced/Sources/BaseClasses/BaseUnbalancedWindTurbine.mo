@@ -1,9 +1,10 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
 partial model BaseUnbalancedWindTurbine
   "Partial model for an unbalanced wind power source"
-  extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
-  extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
-  extends Buildings.Electrical.Interfaces.PartialWindTurbineBase(V_nominal(start = 480));
+  extends IBPSA.Electrical.Interfaces.PartialPluggableUnbalanced;
+  extends IBPSA.Electrical.Interfaces.PartialAcDcParameters;
+  extends IBPSA.Electrical.BaseClasses.WindTurbine.PartialWindTurbineBase(
+                                                             V_nominal(start = 480));
   parameter Real scaleFraction[3](each min=0, each max=1.0) = ones(3)/3
     "Fraction of power allocated to the wind turbines of each phase";
   replaceable OnePhase.Sources.WindTurbine
@@ -56,7 +57,7 @@ partial model BaseUnbalancedWindTurbine
 equation
 
   assert(abs(sum(scaleFraction)-1) < Modelica.Constants.eps,
-  "Model that extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine,
+  "Model that extends IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine,
   has an invalid value for the vector scaleFraction[:]. The sum of the
   elements has to be equal to 1.0.",
   level=AssertionLevel.error);

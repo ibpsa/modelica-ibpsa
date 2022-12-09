@@ -97,7 +97,7 @@ revisions="<html>
 February 27, 2016 by Michael Wetter:<br/>
 Stored example in a single file rather than a file with multiple examples.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/488\">#488</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/488\">#488</a>.
 </li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>

@@ -129,7 +129,7 @@ IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.
 Also, the current is typically non-zero and zero is anyway the default start value, hence there is no need to set it.<br/>
 Made current and voltage public to allow setting start values.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/584\">#584</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/584\">#584</a>.
 </li>
 <li>
 October 6, 2014, by Marco Bonvini:<br/>

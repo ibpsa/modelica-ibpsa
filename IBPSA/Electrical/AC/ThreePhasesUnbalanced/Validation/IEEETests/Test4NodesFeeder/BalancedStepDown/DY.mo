@@ -82,7 +82,7 @@ Set start values
 <code>loadRL(load1(v(start = {1500, 1200})))</code>
 as the model seems to have more than one solution.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/2432\">#2432</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2432\">#2432</a>.
 </li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>

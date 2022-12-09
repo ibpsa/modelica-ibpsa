@@ -1,8 +1,8 @@
-within Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
+within IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses;
 model UnbalancedWindTurbine_N
   "Base model for an unbalanced wind power source with neutral cable"
   extends
-    Buildings.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine;
+    IBPSA.Electrical.AC.ThreePhasesUnbalanced.Sources.BaseClasses.BaseUnbalancedWindTurbine;
   Interfaces.Terminal4_p terminal
     "Connector for three-phase unbalanced systems with neutral cable"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));

@@ -211,7 +211,7 @@ September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check
 in Dymola 2017 FD01 beta2.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/557\">issue 557</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/557\">issue 557</a>.
 </li>
 <li>
 March 9, 2015, by Marco Bonvini:<br/>

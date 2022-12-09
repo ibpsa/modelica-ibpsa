@@ -85,12 +85,12 @@ Proc. of the 7th Modelica Conference, Bielefeld, Germany, March 2008.
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 Updated documentation for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/427\">issue 427</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/427\">issue 427</a>.
 </li>
 <li>
 February 26, 2016, by Michael Wetter:<br/>
 Added adapter model for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">issue 426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 <li>
 August 27, 2014, by Marco Bonvini:<br/>
