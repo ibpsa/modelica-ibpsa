@@ -1,8 +1,8 @@
 within IBPSA.Electrical.BaseClasses.PV;
-model PVElectrical2DiodesMPP
+model PVElectricalTwoDiodesMPP
   "MPP controlled 2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
   extends
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical2Diodes;
+    IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalTwoDiodes;
   output Modelica.Blocks.Interfaces.RealOutput U(
     unit="V",
     start = 0.0)
@@ -37,4 +37,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PVElectrical2DiodesMPP;
+end PVElectricalTwoDiodesMPP;

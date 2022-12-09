@@ -1,8 +1,8 @@
 within IBPSA.Electrical.BaseClasses.PV;
-model PVElectrical2Diodes
+model PVElectricalTwoDiodes
   "2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
   extends
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical2Diodes;
+    IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalTwoDiodes;
   input Modelica.Blocks.Interfaces.RealInput U(unit="V")
     "Module voltage"
     annotation (Placement(transformation(extent={{-138,-20},{-100,18}}),
@@ -25,4 +25,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PVElectrical2Diodes;
+end PVElectricalTwoDiodes;

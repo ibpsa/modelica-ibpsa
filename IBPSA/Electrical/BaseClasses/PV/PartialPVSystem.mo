@@ -43,40 +43,42 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
 
   Modelica.Blocks.Interfaces.RealInput HGloTil
     "Global irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{-118,82},{-100,100}}),
-        iconTransformation(extent={{-118,82},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
+        iconTransformation(extent={{-140,110},{-100,150}})));
   Modelica.Blocks.Interfaces.RealInput TDryBul "Ambient dry bulb temperature"
-    annotation (Placement(transformation(extent={{-118,38},{-100,56}}),
-        iconTransformation(extent={{-118,38},{-100,56}})));
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput vWinSpe "Wind speed" annotation (
-      Placement(transformation(extent={{-118,16},{-100,34}}),iconTransformation(
-          extent={{-118,16},{-100,34}})));
+      Placement(transformation(extent={{-140,20},{-100,60}}),iconTransformation(
+          extent={{-140,20},{-100,60}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_heat_port
     "Heat port for connection with e.g. building facade or mass"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
 
   //Conditional connectors
   Modelica.Blocks.Interfaces.RealInput MPPTraSet if use_MPP_in
     "Conditional input for MPP tracking" annotation (Placement(transformation(
-          extent={{-118,-10},{-100,8}}),iconTransformation(extent={{-118,-10},{
-            -100,8}})));
+          extent={{-140,-10},{-100,30}}),
+                                        iconTransformation(extent={{-140,-10},{
+            -100,30}})));
   Modelica.Blocks.Interfaces.RealInput tilSet if use_Til_in
     "Conditional input for tilt angle control" annotation (Placement(
-        transformation(extent={{-118,-36},{-100,-18}}),iconTransformation(
-          extent={{-118,-36},{-100,-18}})));
+        transformation(extent={{-140,-40},{-100,0}}),  iconTransformation(
+          extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput aziSet if use_Azi_in
     "Conditional input for azimuth angle control" annotation (Placement(
-        transformation(extent={{-118,-58},{-100,-40}}),iconTransformation(
-          extent={{-118,-58},{-100,-40}})));
+        transformation(extent={{-140,-70},{-100,-30}}),iconTransformation(
+          extent={{-140,-70},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput shaSet if use_Sha_in
     "Conditional input for shading [0,1]" annotation (Placement(transformation(
-          extent={{-122,-84},{-100,-62}}),iconTransformation(extent={{-118,-80},
-            {-100,-62}})));
+          extent={{-140,-100},{-100,-60}}),
+                                          iconTransformation(extent={{-136,-96},
+            {-100,-60}})));
 
   Modelica.Blocks.Interfaces.RealInput ageSet if use_age_in
     "Conditional input for ageing [0,1]" annotation (Placement(transformation(
-          extent={{-122,-106},{-100,-84}}),iconTransformation(extent={{-118,-102},
-            {-100,-84}})));
+          extent={{-140,-130},{-100,-90}}),iconTransformation(extent={{-136,
+            -126},{-100,-90}})));
 
   Modelica.Blocks.Interfaces.RealOutput P "DC Power output"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -93,8 +95,8 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     annotation (Placement(transformation(extent={{-36,-56},{-24,-44}})));
   Modelica.Blocks.Interfaces.RealInput HGloHor
     "Global irradiation on horizontal surface" annotation (Placement(
-        transformation(extent={{-118,60},{-100,78}}), iconTransformation(extent=
-           {{-118,60},{-100,78}})));
+        transformation(extent={{-140,80},{-100,120}}),iconTransformation(extent={{-140,80},
+            {-100,120}})));
 protected
   Modelica.Blocks.Interfaces.RealInput MPP_in_internal
   "Needed to connect to conditional MPP tracking connector";
@@ -158,5 +160,7 @@ Nov 17, 2022, by Laura Maier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-100,-120},{100,140}})),
+    Icon(coordinateSystem(extent={{-100,-120},{100,140}})));
 end PartialPVSystem;

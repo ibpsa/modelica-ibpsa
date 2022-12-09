@@ -63,7 +63,7 @@ First implementation.
     replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
       IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
       annotation (choicesAllMatching);
-    Modelica.Blocks.Interfaces.RealInput TCel "Cell temperature"
+    Modelica.Blocks.Interfaces.RealInput TCel(final unit="K") "Cell temperature"
       annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
        Rectangle(
@@ -115,8 +115,8 @@ First implementation.
 
   end PartialPVElectrical;
 
-  partial model PartialPVElectrical1Diode
-    "Partial electrical model for PV module model following the 1 diode approach"
+  partial model PartialPVElectricalSingleDiode
+    "Partial electrical model for PV module model following the single diode approach"
     extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical(
         redeclare IBPSA.Electrical.Data.PV.SingleDiodeData data);
 
@@ -124,14 +124,14 @@ First implementation.
       constrainedby IBPSA.Electrical.Data.PV.SingleDiodeData
       "PV Panel data definition" annotation (choicesAllMatching);
 
-  // Adjustable input parameters
+  // Adjustable parameters
 
-   parameter Real n_mod(final quantity=
-      "NumberOfModules", final unit="1") "Number of connected PV modules"
+   parameter Integer n_mod "Number of connected PV modules"
       annotation ();
 
   // Parameters from module data sheet
 
+  protected
   final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
     "Efficiency under standard conditions";
 
@@ -177,15 +177,15 @@ First implementation.
   final parameter Modelica.Units.SI.Temperature TCel0= 25 + 273.15
     "Thermodynamic cell temperature under standard conditions";
 
-    Modelica.Blocks.Interfaces.RealInput absRadRat
+    Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
       "Ratio of absorbed radiation under operating conditions to standard conditions"
       annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-    Modelica.Blocks.Interfaces.RealInput radTil
+    Modelica.Blocks.Interfaces.RealInput radTil(final unit="W/m2")
       "Total solar irradiance on the tilted surface"
       annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-    Modelica.Blocks.Interfaces.RealOutput P "DC power output"
+    Modelica.Blocks.Interfaces.RealOutput P(final unit="W") "DC power output"
       annotation (Placement(transformation(extent={{100,40},{120,60}})));
-    Modelica.Blocks.Interfaces.RealOutput eta
+    Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
       "Efficiency of the PV module under operating conditions"
       annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -235,9 +235,9 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  end PartialPVElectrical1Diode;
+  end PartialPVElectricalSingleDiode;
 
-  partial model PartialPVElectrical2Diodes
+  partial model PartialPVElectricalTwoDiodes
     "2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
     extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical;
     parameter Integer nCelPar
@@ -315,7 +315,7 @@ First implementation.
   </li>
   </ul>
   </html>"));
-  end PartialPVElectrical2Diodes;
+  end PartialPVElectricalTwoDiodes;
 
   partial model PartialPVThermal
    "Partial model for computing the cell temperature of a PV moduleConnector 

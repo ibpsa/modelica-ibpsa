@@ -1,8 +1,8 @@
 BaseClasses
 PartialPVSystem
-PVElectrical1DiodeMPP
-PVElectrical2Diodes
-PVElectrical2DiodesMPP
+PVElectricalSingleDiodeMPP
+PVElectricalTwoDiodes
+PVElectricalTwoDiodesMPP
 PVOpticalHorFixedAziTil
 PVThermalEmpMountCloseToGround
 PVThermalEmpMountOpenRack

@@ -119,32 +119,37 @@ model PVOpticalHorFixedAziTil
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(timZon=
         timZon, lon=lon)
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.SolarTime solTim
     annotation (Placement(transformation(extent={{-18,-80},{2,-60}})));
   IBPSA.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(azi=azi,
-      til=til,lat=lat) annotation (Placement(transformation(extent={{60,40},{80,60}})));
+      til=til,lat=lat) annotation (Placement(transformation(extent={{40,40},{60,
+            60}})));
   IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zenAng(lat=lat)
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   IBPSA.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(solTim.solTim, solHouAng.solTim) annotation (Line(points={{3,-70},{18,
           -70}},                    color={0,0,127}));
-  connect(locTim.locTim, solTim.locTim) annotation (Line(points={{-39,-70},{-26,
-          -70},{-26,-75.4},{-20,-75.4}}, color={0,0,127}));
-  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(points={{1,-30},{6,-30},
-          {6,-52},{-26,-52},{-26,-64},{-20,-64}},        color={0,0,127}));
-  connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-19,50},{32,50},
-          {32,55.4},{57.8,55.4}}, color={0,0,127}));
+  connect(locTim.locTim, solTim.locTim) annotation (Line(points={{-59,-70},{-40,
+          -70},{-40,-75.4},{-20,-75.4}}, color={0,0,127}));
+  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(points={{1,-10},{6,-10},
+          {6,-40},{-40,-40},{-40,-60},{-28,-60},{-28,-64},{-20,-64}},
+                                                         color={0,0,127}));
+  connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-19,50},{0,50},
+          {0,40},{20,40},{20,55.4},{37.8,55.4}},
+                                  color={0,0,127}));
   connect(solHouAng.solHouAng, incAng.solHouAng) annotation (Line(points={{41,-70},
-          {48,-70},{48,45.2},{58,45.2}}, color={0,0,127}));
-  connect(decAng.decAng, zenAng.decAng) annotation (Line(points={{-19,50},{32,50},
-          {32,-44.6},{58,-44.6}}, color={0,0,127}));
+          {40,-70},{40,36},{32,36},{32,45.2},{38,45.2}},
+                                         color={0,0,127}));
+  connect(decAng.decAng, zenAng.decAng) annotation (Line(points={{-19,50},{0,50},
+          {0,80},{80,80},{80,-20},{60,-20},{60,-44.6},{78,-44.6}},
+                                  color={0,0,127}));
   connect(solHouAng.solHouAng, zenAng.solHouAng) annotation (Line(points={{41,-70},
-          {48,-70},{48,-54.8},{58,-54.8}}, color={0,0,127}));
+          {60,-70},{60,-54.8},{78,-54.8}}, color={0,0,127}));
 
  nDay = floor(modTim.y/86400)*86400
   "Zero-based day number in seconds (January 1=0, January 2=86400)";

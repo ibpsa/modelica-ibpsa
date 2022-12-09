@@ -73,12 +73,13 @@ equation
     annotation (Line(points={{61,-30},{64,-30},{64,0},{46,0},{46,8},{44.8,8}},
                                                    color={0,0,127}));
   connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{58.6,8},
-          {56,8},{56,14.7},{61.1,14.7}},     color={0,0,127}));
+          {56,8},{56,14.6154},{60,14.6154}}, color={0,0,127}));
   connect(NISTdata.y[2], pVSystemSingleDiode.vWinSpe) annotation (Line(points={{61,-30},
-          {64,-30},{64,12.5},{61.1,12.5}},                           color={0,0,
+          {64,-30},{64,12.3077},{60,12.3077}},                       color={0,0,
           127}));
   connect(pVSystemSingleDiode.P, PSim)
-    annotation (Line(points={{83,10},{110,10}},   color={0,0,127}));
+    annotation (Line(points={{83,9.23077},{96,9.23077},{96,10},{110,10}},
+                                                  color={0,0,127}));
   connect(NISTdata.y[4], kiloWattToWatt.u) annotation (Line(points={{61,-30},{78.8,
           -30}},                    color={0,0,127}));
   connect(kiloWattToWatt.y, PMea)
@@ -91,10 +92,10 @@ equation
           {64,0},{46,0},{46,36},{26,36},{26,50}},
                                   color={0,0,127}));
   connect(NISTdata.y[3], pVSystemSingleDiode.HGloHor) annotation (Line(points={{61,-30},
-          {64,-30},{64,0},{46,0},{46,16.9},{61.1,16.9}},
+          {64,-30},{64,0},{46,0},{46,16.9231},{60,16.9231}},
                                                    color={0,0,127}));
   connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{59,50},
-          {64,50},{64,24},{56,24},{56,19.1},{61.1,19.1}},
+          {64,50},{64,24},{56,24},{56,19.2308},{60,19.2308}},
                                           color={0,0,127}));
   connect(latLon[1].y, weaBus.lat)
     annotation (Line(points={{-81.2,50},{26,50}},color={0,0,127}));
@@ -168,16 +169,12 @@ equation
    __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
         "Simulate and plot"),
-    Documentation(info="<html><p>
-  The PVSystem model is validaded with empirical data from: <a href=
-  \"https://pvdata.nist.gov/\">https://pvdata.nist.gov/</a>
-</p>
-<p>
-  The date 14.06.2016 was chosen as an example for the PVSystem model.
-</p>
-<p>
-  The PV mounting is an open rack system based on the ground.
-</p>
+    Documentation(info="<html>
+<p>The PVSystem model is validaded with empirical data from: <a href=\"https://pvdata.nist.gov/\">https://pvdata.nist.gov/</a> </p>
+<p>The date 14.06.2016 was chosen as an example for the PVSystem model. </p>
+<p>The PV mounting is an open rack system based on the roof. </p>
+<p>The validation model proves that single diode PV models tend to overestimate the power output.</p>
+<p>This is due to the neglection of staining, shading, other loss effects.</p>
 </html>",revisions="<html>
 <ul>
 <li>
