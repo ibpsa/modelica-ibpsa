@@ -1,5 +1,5 @@
 within IBPSA.Electrical.BaseClasses.PV;
-model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V 
+model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V
   characteristics with temp. dependency based on 5 parameters with automatic MPP control"
   extends
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
@@ -63,51 +63,40 @@ equation
 
   // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
 
- a_0 = V_oc0*(1-TCel0*beta_Voc)/(50.1-TCel0*alpha_Isc);
+  a_0 = V_oc0*(1-TCel0*beta_Voc)/(50.1-TCel0*alpha_Isc);
 
-  w_0 = IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a_0/
-    V_oc0) + 1));
+  w_0 = IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a_0/V_oc0) + 1));
 
- R_s0 = (a_0*(w_0-1)-V_mp0)/I_mp0;
+  R_s0 = (a_0*(w_0-1)-V_mp0)/I_mp0;
 
- R_sh0 = a_0*(w_0-1)/(I_sc0*(1-1/w_0)-I_mp0);
+  R_sh0 = a_0*(w_0-1)/(I_sc0*(1-1/w_0)-I_mp0);
 
- I_ph0 = (1+R_s0/R_sh0)*I_sc0;
+  I_ph0 = (1+R_s0/R_sh0)*I_sc0;
 
- I_s0 = I_ph0*exp(-1/(a_0/V_oc0));
+  I_s0 = I_ph0*exp(-1/(a_0/V_oc0));
 
-// Parameter extrapolation equations to operating conditions (DeSoto et al.,2006)
+  // Parameter extrapolation equations to operating conditions (DeSoto et al.,2006)
 
- a/a_0 = TCel/TCel0;
+  a/a_0 = TCel/TCel0;
 
- I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(E_g0/TCel0-E_g/TCel));
+  I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(E_g0/TCel0-E_g/TCel));
 
- E_g/E_g0 = 1-C*(TCel-TCel0);
+  E_g/E_g0 = 1-C*(TCel-TCel0);
 
- R_s = R_s0;
+  R_s = R_s0;
 
- I_ph = if absRadRat > 0 then absRadRat*(I_ph0+TCoeff_Isc*(TCel-TCel0))
- else
-  0;
+  I_ph = if absRadRat > 0 then absRadRat*(I_ph0+TCoeff_Isc*(TCel-TCel0)) else 0;
 
- R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat
- else
-  0;
+  R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat else 0;
 
-//Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
+  //Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
 
- I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
- else
- I_ph*(1-1/w)-a*(w-1)/R_sh;
+  I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
+         else I_ph*(1-1/w)-a*(w-1)/R_sh;
 
- V_mp = if absRadRat <= 0 then 0
- else
- a*(w-1)-R_s*I_mp;
+  V_mp = if absRadRat <= 0 then 0 else a*(w-1)-R_s*I_mp;
 
- V_oc = if I_ph >= Modelica.Constants.eps*10  then
- a*log(abs((I_ph/I_s+1)))
- else
- 0;
+  V_oc = if I_ph >= Modelica.Constants.eps*10 then a*log(abs((I_ph/I_s+1))) else 0;
 
   w = if noEvent(V_oc >= Modelica.Constants.eps) then
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/V_oc)
@@ -118,13 +107,11 @@ equation
 
 // Efficiency and Performance
 
- eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0
- else
- P_mod/(radTil*A_pan);
+  eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0 else P_mod/(radTil*A_pan);
 
- P_mod = V_mp*I_mp;
+  P_mod = V_mp*I_mp;
 
- P=max(0, min(P_Max*n_mod, P_mod*n_mod));
+  P=max(0, min(P_Max*n_mod, P_mod*n_mod));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -135,7 +122,7 @@ equation
   <br/>
   Analytical 5-p model for determining the I-V characteristics of a PV
   array (Batzelis et al.,2016) with temp. dependency of the 5
-  parameters following (DeSoto et al.,2006). 
+  parameters following (DeSoto et al.,2006).
   For more information on the 5-p modeling approach (single-diode PV cell approximation),
   see model
 <a href=\"modelica://IBPSA.Electrical.DC.Sources.PVGenerators.PVGeneratorSingleDiode\">
@@ -164,7 +151,7 @@ information.
 to the parameter values at standard conditions following (DeSoto et al.,2006).</p>
 <p>
   <br/>
-  Validated with experimental data from NIST (Boyd, 2017). 
+  Validated with experimental data from NIST (Boyd, 2017).
 </p>
 <p>
   Module calibration is based on manufactory data.
@@ -176,21 +163,21 @@ to the parameter values at standard conditions following (DeSoto et al.,2006).</
   <span style=\"color: #008000\">References</span>
 </h4>
 <p>
-Batzelis, E. I., & Papathanassiou, S. A. (2015). A method for the analytical 
-extraction of the single-diode PV model parameters. IEEE Transactions on 
+Batzelis, E. I., & Papathanassiou, S. A. (2015). A method for the analytical
+extraction of the single-diode PV model parameters. IEEE Transactions on
 Sustainable Energy, 7(2), 504-512.
 <a href=\"https://doi.org/10.1109/TSTE.2015.2503435\">
 https://doi.org/10.1109/TSTE.2015.2503435</a>
 </p>
 <p>
-De Soto, W., Klein, S. A., & Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., & Beckman, W. A. (2006). Improvement and validation
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88,
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
 </p>
 <p>
-Boyd, M. (2017). Performance data from the nist photovoltaic arrays and weather 
-station. Journal of Research of the National Institute of Standards and 
+Boyd, M. (2017). Performance data from the nist photovoltaic arrays and weather
+station. Journal of Research of the National Institute of Standards and
 Technology, 122, 1.
 <a href=\"https://doi.org/10.6028/jres.122.040\">
 https://doi.org/10.6028/jres.122.040</a>

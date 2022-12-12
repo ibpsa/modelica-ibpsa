@@ -63,8 +63,15 @@ First implementation.
     replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
       IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
       annotation (choicesAllMatching);
-    Modelica.Blocks.Interfaces.RealInput TCel(final unit="K") "Cell temperature"
+    Modelica.Blocks.Interfaces.RealInput TCel(final unit="K")
+      "Cell temperature"
       annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+
+    // Adjustable parameters
+
+    parameter Integer n_mod "Number of connected PV modules"
+      annotation ();
+
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
        Rectangle(
         lineColor={0,0,0},
@@ -124,66 +131,62 @@ First implementation.
       constrainedby IBPSA.Electrical.Data.PV.SingleDiodeData
       "PV Panel data definition" annotation (choicesAllMatching);
 
-  // Adjustable parameters
-
-   parameter Integer n_mod "Number of connected PV modules"
-      annotation ();
-
   // Parameters from module data sheet
 
   protected
-  final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
-    "Efficiency under standard conditions";
+    final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
+      "Efficiency under standard conditions";
 
-   final parameter Real n_ser=data.n_ser
+    final parameter Integer n_ser=data.n_ser
       "Number of cells connected in series on the PV panel";
 
-  final parameter Modelica.Units.SI.Area A_pan=data.A_pan
-    "Area of one Panel, must not be confused with area of the whole module";
+    final parameter Modelica.Units.SI.Area A_pan=data.A_pan
+      "Area of one Panel, must not be confused with area of the whole module";
 
-  final parameter Modelica.Units.SI.Area A_mod=data.A_mod
-    "Area of one module (housing)";
+    final parameter Modelica.Units.SI.Area A_mod=data.A_mod
+      "Area of one module (housing)";
 
-  final parameter Modelica.Units.SI.Voltage V_oc0=data.V_oc0
-    "Open circuit voltage under standard conditions";
+    final parameter Modelica.Units.SI.Voltage V_oc0=data.V_oc0
+      "Open circuit voltage under standard conditions";
 
-  final parameter Modelica.Units.SI.ElectricCurrent I_sc0=data.I_sc0
-    "Short circuit current under standard conditions";
+    final parameter Modelica.Units.SI.ElectricCurrent I_sc0=data.I_sc0
+      "Short circuit current under standard conditions";
 
-  final parameter Modelica.Units.SI.Voltage V_mp0=data.V_mp0
-    "MPP voltage under standard conditions";
+    final parameter Modelica.Units.SI.Voltage V_mp0=data.V_mp0
+      "MPP voltage under standard conditions";
 
-  final parameter Modelica.Units.SI.ElectricCurrent I_mp0=data.I_mp0
-    "MPP current under standard conditions";
+    final parameter Modelica.Units.SI.ElectricCurrent I_mp0=data.I_mp0
+      "MPP current under standard conditions";
 
-  final parameter Modelica.Units.SI.Power P_Max=data.P_mp0*1.05
-    "Maximal power of one PV module under standard conditions. P_MPP with 5 % tolerance. This is used to limit DCOutputPower.";
+    final parameter Modelica.Units.SI.Power P_Max=data.P_mp0*1.05
+      "Maximal power of one PV module under standard conditions. P_MPP with 5 % tolerance. This is used to limit DCOutputPower.";
 
-   final parameter Real TCoeff_Isc(unit = "A/K")=data.TCoeff_Isc
-      "Temperature coefficient for short circuit current, >0";
+    final parameter Real TCoeff_Isc(unit = "A/K")=data.TCoeff_Isc
+        "Temperature coefficient for short circuit current, >0";
 
-   final parameter Real TCoeff_Voc(unit = "V/K")=data.TCoeff_Voc
-      "Temperature coefficient for open circuit voltage, <0";
+    final parameter Real TCoeff_Voc(unit = "V/K")=data.TCoeff_Voc
+        "Temperature coefficient for open circuit voltage, <0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient alpha_Isc=data.alpha_Isc
-    "Normalized temperature coefficient for short circuit current, >0";
+    final parameter Modelica.Units.SI.LinearTemperatureCoefficient alpha_Isc=data.alpha_Isc
+      "Normalized temperature coefficient for short circuit current, >0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient beta_Voc=data.beta_Voc
-    "Normalized temperature coefficient for open circuit voltage, <0";
+    final parameter Modelica.Units.SI.LinearTemperatureCoefficient beta_Voc=data.beta_Voc
+      "Normalized temperature coefficient for open circuit voltage, <0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient gamma_Pmp=data.gamma_Pmp
-    "Normalized temperature coefficient for power at MPP";
+    final parameter Modelica.Units.SI.LinearTemperatureCoefficient gamma_Pmp=data.gamma_Pmp
+      "Normalized temperature coefficient for power at MPP";
 
-  final parameter Modelica.Units.SI.Temperature TCel0= 25 + 273.15
-    "Thermodynamic cell temperature under standard conditions";
-
+    final parameter Modelica.Units.SI.Temperature TCel0 = 25.0 + 273.15
+      "Thermodynamic cell temperature under standard conditions";
+  public
     Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
       "Ratio of absorbed radiation under operating conditions to standard conditions"
       annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
     Modelica.Blocks.Interfaces.RealInput radTil(final unit="W/m2")
       "Total solar irradiance on the tilted surface"
       annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-    Modelica.Blocks.Interfaces.RealOutput P(final unit="W") "DC power output"
+    Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
+      "DC power output"
       annotation (Placement(transformation(extent={{100,40},{120,60}})));
     Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
       "Efficiency of the PV module under operating conditions"
@@ -239,24 +242,38 @@ First implementation.
 
   partial model PartialPVElectricalTwoDiodes
     "2 diodes model for PV I-V characteristics with temp. dependency based on 9 parameters"
-    extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical;
-    parameter Integer nCelPar
-        "Number of parallel connected cells within the PV module";
-    parameter Integer nCelSer
+    extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical(
+      redeclare IBPSA.Electrical.Data.PV.TwoDiodesData data);
+
+    replaceable parameter IBPSA.Electrical.Data.PV.TwoDiodesData data
+      constrainedby IBPSA.Electrical.Data.PV.TwoDiodesData
+      "PV Panel data definition" annotation (choicesAllMatching);
+
+    // Parameters from module data sheet
+    final parameter Integer n_par = data.n_par
+      "Number of parallel connected cells within the PV module";
+    final parameter Integer n_ser = data.n_ser
       "Number of serial connected cells within the PV module";
-    parameter Real Eg(unit = "eV")
+    final parameter Real Eg(
+      unit = "eV") = data.Eg
       "Band gap";
-    parameter Real c1(unit = "m2/V")
+    final parameter Real c1(
+      unit = "m2/V") = data.c1
       "1st coefficient IPho";
-    parameter Real c2(unit = "m2/(kV.K)")
+    final parameter Real c2(
+      unit = "m2/(kV.K)") = data.c2
       "2nd coefficient IPho";
-    parameter Real cs1(unit = "A/K3")
+    final parameter Real cs1(
+      unit = "A/K3") = data.cs1
       "1st coefficient ISat1";
-    parameter Real cs2(unit = "A/K5")
+    final parameter Real cs2(
+      unit = "A/K5") = data.cs2
       "2nd coefficient ISat2";
-    parameter Real RPar(unit = "V/A")
+    final parameter Real RPar(
+      unit = "V/A") = data.RPar
       "Parallel resistance";
-    parameter Real RSer(unit = "V/A")
+    final parameter Real RSer(
+      unit = "V/A") = data.RSer
       "Serial resistance";
     Modelica.Units.SI.ElectricCurrent IPho
       "Photo current";
@@ -265,28 +282,33 @@ First implementation.
     Modelica.Units.SI.ElectricCurrent ISat2
       "Saturation current diode 2";
 
-    input Modelica.Blocks.Interfaces.RealInput ITot(
-      final quantity="RadiantEnergyFluenceRate",
-      final unit="W/m2",
-      displayUnit="W/m2")
-      "Effective total solar irradiation on solar cell"
-      annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-                                                                          iconTransformation(extent={{-120,
-              -50},{-100,-30}})));
     output Modelica.Blocks.Interfaces.RealOutput P(
       final quantity="Power",
       final unit="W",
       displayUnit="W")
       "Module power"
       annotation (Placement(transformation(extent={{100,40},{120,60}}),
-                                                                      iconTransformation(extent={{100,40},
-              {120,60}})));
-    output Modelica.Blocks.Interfaces.RealOutput I(unit="A", start = 0.0)
+        iconTransformation(extent={{100,40},{120,60}})));
+    output Modelica.Blocks.Interfaces.RealOutput I(
+      unit="A", start = 0.0)
       "Module current"
       annotation (Placement(transformation(extent={{100,-60},{120,-40}}),
-                                                                        iconTransformation(extent={{100,-60},
-              {120,-40}})));
-    Modelica.Units.SI.Voltage Ut "Temperature voltage";
+        iconTransformation(extent={{100,-60},{120,-40}})));
+    Modelica.Units.SI.Voltage Ut
+      "Temperature voltage";
+
+    Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
+      "Efficiency of the PV module under operating conditions"
+      annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+
+    Modelica.Blocks.Interfaces.RealInput absRadRat(
+      final unit="1")
+      "Ratio of absorbed radiation under operating conditions to standard conditions"
+      annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+    Modelica.Blocks.Interfaces.RealInput radTil(
+      final unit="W/m2")
+      "Total solar irradiance on the tilted surface"
+      annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   protected
     final constant Real e(unit = "A.s") = Modelica.Constants.F/Modelica.Constants.N_A
       "Elementary charge";
@@ -295,12 +317,11 @@ First implementation.
   equation
     Ut =k*TCel/e;
 
-    IPho =(c1 + c2*0.001*TCel)*ITot;
+    IPho =(c1 + c2*0.001*TCel)*radTil;
 
-    ISat1 =cs1*TCel*TCel*TCel*Modelica.Math.exp(-(Eg*e)/(k*T));
+    ISat1 =cs1*TCel*TCel*TCel*Modelica.Math.exp(-(Eg*e)/(k*TCel));
 
-    ISat2 =cs2*sqrt(TCel*TCel*TCel*TCel*TCel)*Modelica.Math.exp(-(Eg*e)/(2.0*
-      k*TCel));
+    ISat2 =cs2*sqrt(TCel*TCel*TCel*TCel*TCel)*Modelica.Math.exp(-(Eg*e)/(2.0*k*TCel));
 
       annotation (
     Documentation(info="<html>
@@ -318,16 +339,20 @@ First implementation.
   end PartialPVElectricalTwoDiodes;
 
   partial model PartialPVThermal
-   "Partial model for computing the cell temperature of a PV moduleConnector 
+   "Partial model for computing the cell temperature of a PV moduleConnector
   for PV record data"
     replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
-      IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
+      IBPSA.Electrical.Data.PV.Generic
+      "PV Panel data definition"
       annotation (choicesAllMatching);
-    Modelica.Blocks.Interfaces.RealOutput TCel "Cell temperature"
+    Modelica.Blocks.Interfaces.RealOutput TCel
+      "Cell temperature"
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-    Modelica.Blocks.Interfaces.RealInput TDryBul "Ambient temperature (dry bulb)"
+    Modelica.Blocks.Interfaces.RealInput TDryBul
+      "Ambient temperature (dry bulb)"
       annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-    Modelica.Blocks.Interfaces.RealInput winVel "Wind velocity"
+    Modelica.Blocks.Interfaces.RealInput winVel
+      "Wind velocity"
       annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
     Modelica.Blocks.Interfaces.RealInput HGloTil
       "Total solar irradiance on the tilted surface"

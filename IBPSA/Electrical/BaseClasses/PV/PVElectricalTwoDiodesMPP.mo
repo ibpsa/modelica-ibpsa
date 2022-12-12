@@ -13,15 +13,15 @@ model PVElectricalTwoDiodesMPP
 
 equation
   // Calculation of I_MPP and U_MPP with the calculation method extremes under constraints with Lagrange multiplier
-  0 = IPho - ISat1 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(1.0 * Ut)) - 1.0)
-    - ISat2 * (Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer)/(2.0 * Ut)) - 1.0)
-    - (U / nCelSer + (I / nCelPar) * RSer) / RPar - I / nCelPar;
+  0 = IPho - ISat1 * (Modelica.Math.exp((U / n_ser + (I / n_par) * RSer)/(1.0 * Ut)) - 1.0)
+    - ISat2 * (Modelica.Math.exp((U / n_ser + (I / n_par) * RSer)/(2.0 * Ut)) - 1.0)
+    - (U / n_ser + (I / n_par) * RSer) / RPar - I / n_par;
 
-  0 = I / nCelPar - lambda * ((ISat1 / (1.0 * Ut)) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (1.0 * Ut))
-    + (ISat2 / (2.0 * Ut))* Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (2.0 * Ut)) + 1.0 / RPar);
+  0 = I / n_par - lambda * ((ISat1 / (1.0 * Ut)) * Modelica.Math.exp((U / n_ser + (I / n_par) * RSer) / (1.0 * Ut))
+    + (ISat2 / (2.0 * Ut))* Modelica.Math.exp((U / n_ser + (I / n_par) * RSer) / (2.0 * Ut)) + 1.0 / RPar);
 
-  0 = U / nCelSer - lambda * (( RSer * ISat1) / (1.0 * Ut) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (1.0 * Ut))
-    + (RSer * ISat2) / (2.0 * Ut) * Modelica.Math.exp((U / nCelSer + (I / nCelPar) * RSer) / (2.0 * Ut)) + RSer / RPar + 1.0);
+  0 = U / n_ser - lambda * (( RSer * ISat1) / (1.0 * Ut) * Modelica.Math.exp((U / n_ser + (I / n_par) * RSer) / (1.0 * Ut))
+    + (RSer * ISat2) / (2.0 * Ut) * Modelica.Math.exp((U / n_ser + (I / n_par) * RSer) / (2.0 * Ut)) + RSer / RPar + 1.0);
 
   P = I * U;
   annotation (
