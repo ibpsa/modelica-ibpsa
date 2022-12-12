@@ -289,59 +289,6 @@ protected
   Modelica.Units.SI.Power P_internal
     "Either PEle or WHyd";
 
-  Modelica.Blocks.Math.Division V_flow_internal
-    "Converts mass flow rate to volumetric flow rate";
-  // This block replaces an algebraic equation with connections to allow
-  //   the conditional declarations of CombiTable2D blocks used in the Euler number
-  //   computations. This avoids the need to provide them with initial table values
-  //   to meet their format requirements even when they are not used.
-
-  parameter IBPSA.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
-    IBPSA.Fluid.Movers.BaseClasses.Euler.computeTables(
-      peak=per.peak,
-      dpMax=dpMax,
-      V_flow_max=V_flow_max,
-      use=per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
-    "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
-
-  Modelica.Blocks.Tables.CombiTable2Ds effTab(
-    final table=curEu.eta,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    if per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-    "Look-up table for mover efficiency";
-  Modelica.Blocks.Tables.CombiTable2Ds powTab(
-    final table=curEu.P,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    if per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-    "Look-up table for mover power";
-
-  Modelica.Blocks.Routing.RealPassThrough WHydEu
-    if per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
-  Modelica.Blocks.Routing.RealPassThrough etaHydEu
-    if per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
-  Modelica.Blocks.Routing.RealPassThrough PEleEu
-    if per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and not per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
-  Modelica.Blocks.Routing.RealPassThrough etaEu
-    if per.etaHydMet==
-        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and not per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
   Real yMot(final min=0, final start=0.833)=
     if per.haveWMot_nominal
       then WHyd/per.WMot_nominal
@@ -487,9 +434,7 @@ equation
   y_out=r_N;
 
   //density conversion
-  connect(V_flow_internal.u1,m_flow);
-  connect(V_flow_internal.u2,rho);
-  connect(V_flow_internal.y,V_flow);
+  V_flow = m_flow / rho;
 
   // Hydraulic equations
   r_V = V_flow/V_flow_max;
@@ -639,13 +584,6 @@ equation
                x1=eta/etaMot, x2=1, deltaX=1E-3);
   end if;
 
-  // for power computation via EulerNumber
-  //   effTab and powTab are conditionally-enabled blocks.
-  connect(effTab.u1, dp_internal);
-  connect(effTab.u2, V_flow_internal.y);
-  connect(powTab.u1, dp_internal);
-  connect(powTab.u2, V_flow);
-
   // Hydraulic efficiency etaHyd and hydraulic work WHyd
   //   or total efficiency eta and total electric power PEle
   //   depending on the information provided
@@ -673,18 +611,10 @@ equation
                      x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet==
        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
-    // etaHydEu and WHydEu are routing blocks
-    //   conditionally enabled if per.powerOrEfficiencyIsHydraulic=true
-      connect(effTab.y,etaHydEu.u);
-      connect(etaHydEu.y,etaHyd);
-      connect(powTab.y,WHydEu.u);
-      connect(WHydEu.y,WHyd);
-    // etaEu and PEleEu are routing blocks
-    //   conditionally enabled if per.powerOrEfficiencyIsHydraulic=false
-      connect(effTab.y,etaEu.u);
-      connect(etaEu.y,eta);
-      connect(powTab.y,PEleEu.u);
-      connect(PEleEu.y,PEle);
+    eta_internal = IBPSA.Fluid.Movers.BaseClasses.Euler.efficiency(
+                     peak = per.peak, dp = dp_internal, V_flow = V_flow);
+    P_internal = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
+                          x1=eta_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
