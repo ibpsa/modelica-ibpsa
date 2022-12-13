@@ -1,6 +1,6 @@
-within IBPSA.Fluid.HeatPumps.Examples;
-model ScrollWaterToWater_OneRoomRadiator
-  "Heat pump with scroll compressor connected to a simple room model with radiator"
+within IBPSA.Fluid.HeatPumps.Examples.BaseClasses;
+partial model PartialOneRoomRadiator
+  "Simple room model with radiator, without a heat pump"
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       IBPSA.Media.Air "Medium model for air";
@@ -106,23 +106,6 @@ model ScrollWaterToWater_OneRoomRadiator
 
 //--------------------------------------------------------------------------------------//
 
-  ScrollWaterToWater heaPum(
-    redeclare package Medium1 = MediumW,
-    redeclare package Medium2 = MediumW,
-    redeclare package ref = IBPSA.Media.Refrigerants.R410A,
-    dp1_nominal=2000,
-    dp2_nominal=2000,
-    tau1=15,
-    tau2=15,
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m1_flow_nominal=mHeaPum_flow_nominal,
-    m2_flow_nominal=mHeaPum_flow_nominal,
-    datHeaPum=Data.ScrollWaterToWater.Heating.Daikin_WRA072_24kW_4_30COP_R410A(),
-    T1_start=TRadSup_nominal)
-    "Heat pump"
-    annotation (Placement(transformation(extent={{30,-160},{10,-140}})));
-
   IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumW,
     m_flow_start=0.85,
@@ -134,24 +117,18 @@ model ScrollWaterToWater_OneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-180})));
-  Modelica.Blocks.Logical.Hysteresis hysteresis(
-    uLow=273.15 + 19,
-    uHigh=273.15 + 21) "Hysteresis controller"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-190,-40})));
-  Modelica.Blocks.Logical.Not not2 "Negate output of hysteresis"
+  Modelica.Blocks.Logical.Hysteresis hysHea(uLow=273.15 + 19, uHigh=273.15 + 21)
+    "Hysteresis controller for heating" annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}}, origin={-190,-40})));
+  Modelica.Blocks.Logical.Not not2 "If lower than hysteresis, heating demand"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={-150,-40})));
-  Modelica.Blocks.Math.BooleanToReal booToReaPum(realTrue=1, y(start=0))
-    "Pump signal" annotation (Placement(transformation(
+  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(realTrue=
+        mHeaPum_flow_nominal, y(start=0)) "Pump signal" annotation (Placement(
+        transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,-110})));
-  Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Modelica.Blocks.Logical.And and2
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.BooleanToReal booToReaPum1(
     realTrue=1,
     y(start=0))
@@ -159,20 +136,6 @@ model ScrollWaterToWater_OneRoomRadiator
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={40,-110})));
-  Modelica.Blocks.Logical.Hysteresis tesConHea(
-    uHigh=0.25*mHeaPum_flow_nominal,
-    uLow=0.20*mHeaPum_flow_nominal) "Test for flow rate of condenser pump"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=180,
-        origin={-50,-80})));
-  Modelica.Blocks.Logical.Hysteresis tesEvaPum(
-    uLow=0.20*mHeaPum_flow_nominal,
-    uHigh=0.25*mHeaPum_flow_nominal) "Test for flow rate of evaporator pump"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-30,-110})));
   IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumW,
     T=281.15,
@@ -180,8 +143,7 @@ model ScrollWaterToWater_OneRoomRadiator
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumW,
-    T=283.15,
-    nPorts=1) "Fluid sink on source side"
+    T=283.15) "Fluid sink on source side"
     annotation (Placement(transformation(extent={{80,-210},{60,-190}})));
   IBPSA.Fluid.Sources.Boundary_pT preSou(
     redeclare package Medium = MediumW,
@@ -190,6 +152,17 @@ model ScrollWaterToWater_OneRoomRadiator
     "Source for pressure and to account for thermal expansion of water"
     annotation (Placement(transformation(extent={{90,-130},{70,-110}})));
 
+  Modelica.Blocks.Math.BooleanToReal booToReaPumEva(realTrue=1, y(start=0))
+    "Pump signal" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-110,-180})));
+  Modelica.Blocks.Logical.Hysteresis hysCoo(uLow=273.15 + 22, uHigh=273.15 + 24)
+    "Hysteresis controller for cooling" annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}}, origin={-190,-70})));
+  Modelica.Blocks.Logical.Or  or1 "Either heating or cooling"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        origin={-106,-54})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -243,49 +216,30 @@ equation
       points={{0,50},{20,50}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(temRet.port_b, heaPum.port_a1) annotation (Line(points={{60,-30},{60,-144},
-          {30,-144}}, color={0,127,255}));
-  connect(pumHeaPumSou.port_b, heaPum.port_a2) annotation (Line(points={{-30,-170},
-          {-30,-156},{10,-156}}, color={0,127,255}));
-  connect(hysteresis.y, not2.u) annotation (Line(points={{-179,-40},{-162,-40}},
-                      color={255,0,255}));
-  connect(temRoo.T, hysteresis.u)
-    annotation (Line(points={{-51,30},{-220,30},{-220,-40},{-202,-40}},
-                                                            color={0,0,127}));
+  connect(hysHea.y, not2.u)
+    annotation (Line(points={{-179,-40},{-162,-40}}, color={255,0,255}));
+  connect(temRoo.T, hysHea.u) annotation (Line(points={{-51,30},{-220,30},{-220,
+          -40},{-202,-40}}, color={0,0,127}));
   connect(pumHeaPum.port_b, temSup.port_a)
     annotation (Line(points={{-70,-100},{-70,-30}},color={0,127,255}));
   connect(temRet.port_a, rad.port_b)
     annotation (Line(points={{60,-10},{60,0},{20,0}},     color={0,127,255}));
-  connect(booToReaPum1.y, heaPum.y) annotation (Line(points={{40,-121},{40,-147},
-          {32,-147}},                  color={0,0,127}));
-  connect(tesConHea.y, and1.u1)
-    annotation (Line(points={{-39,-80},{-22,-80}}, color={255,0,255}));
-  connect(tesEvaPum.y, and1.u2) annotation (Line(points={{-30,-99},{-30,-88},{-22,
-          -88}},                   color={255,0,255}));
-  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{10,-144},{
-          -70,-144},{-70,-120}},            color={0,127,255}));
-  connect(booToReaPum.y, pumHeaPum.m_flow_in) annotation (Line(points={{-99,-110},
-          {-82,-110}},              color={0,0,127}));
-  connect(booToReaPum.y, pumHeaPumSou.m_flow_in) annotation (Line(points={{-99,-110},
-          {-90,-110},{-90,-180},{-42,-180}},     color={0,0,127}));
-  connect(not2.y, and2.u1) annotation (Line(points={{-139,-40},{18,-40}},
-                 color={255,0,255}));
-  connect(not2.y, booToReaPum.u) annotation (Line(points={{-139,-40},{-130,-40},
-          {-130,-110},{-122,-110}}, color={255,0,255}));
+  connect(booToReaPumCon.y, pumHeaPum.m_flow_in)
+    annotation (Line(points={{-99,-110},{-82,-110}}, color={0,0,127}));
   connect(sou.ports[1], pumHeaPumSou.port_a) annotation (Line(points={{-60,-200},
           {-30,-200},{-30,-190}}, color={0,127,255}));
-  connect(sin.ports[1], heaPum.port_b2) annotation (Line(points={{60,-200},{40,-200},
-          {40,-156},{30,-156}}, color={0,127,255}));
-  connect(pumHeaPum.m_flow_actual, tesConHea.u)
-    annotation (Line(points={{-75,-99},{-75,-80},{-62,-80}}, color={0,0,127}));
-  connect(and1.y, and2.u2) annotation (Line(points={{1,-80},{10,-80},{10,-48},{18,
-          -48}}, color={255,0,255}));
-  connect(pumHeaPumSou.m_flow_actual, tesEvaPum.u) annotation (Line(points={{-35,
-          -169},{-35,-140},{-30,-140},{-30,-122}}, color={0,0,127}));
-  connect(and2.y, booToReaPum1.u) annotation (Line(points={{41,-40},{50,-40},{50,
-          -80},{40,-80},{40,-98}}, color={255,0,255}));
   connect(preSou.ports[1], temRet.port_b) annotation (Line(points={{70,-120},{60,
           -120},{60,-30}}, color={0,127,255}));
+  connect(booToReaPumEva.y, pumHeaPumSou.m_flow_in)
+    annotation (Line(points={{-99,-180},{-42,-180}}, color={0,0,127}));
+  connect(hysCoo.y, or1.u2) annotation (Line(points={{-179,-70},{-124,-70},{
+          -124,-62},{-118,-62}}, color={255,0,255}));
+  connect(or1.y, booToReaPum1.u)
+    annotation (Line(points={{-95,-54},{40,-54},{40,-98}}, color={255,0,255}));
+  connect(not2.y, or1.u1) annotation (Line(points={{-139,-40},{-126,-40},{-126,
+          -54},{-118,-54}}, color={255,0,255}));
+  connect(hysCoo.u, temRoo.T) annotation (Line(points={{-202,-70},{-220,-70},{
+          -220,30},{-51,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Example that simulates one room equipped with a radiator. Hot water is produced
@@ -333,8 +287,6 @@ First implementation.
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ScrollWaterToWater_OneRoomRadiator.mos"
         "Simulate and plot"),
     experiment(
-      StartTime=6912000,
-      StopTime=7776000,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Dassl"));
-end ScrollWaterToWater_OneRoomRadiator;
+      StopTime=172800,
+      Tolerance=1e-08));
+end PartialOneRoomRadiator;

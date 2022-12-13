@@ -39,8 +39,8 @@ partial model PartialReversibleVapourCompressionMachine
   parameter Boolean use_rev=true
     "Is the vapour compression machine reversible?"
     annotation(choices(checkBox=true));
-  parameter Boolean use_safetyControl=true
-    "=true to enable internal heat pump safety control"
+  parameter Boolean use_internalSafetyControl=true
+    "=true to enable internal safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
 
   parameter Boolean use_TSet=false
@@ -368,15 +368,13 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={90,-40})));
 
-  Modelica.Blocks.Sources.BooleanConstant conModeTrue(final k=true)
-    if not use_busConnectorOnly and not use_rev
-    "Real expression for condenser inlet temperature" annotation (Placement(
-        transformation(
+// Line to delete if you don't want to use the bus externally
+  Modelica.Blocks.Sources.BooleanConstant conRevSetTrue(final k=true) if not
+    use_busConnectorOnly and not use_rev and not use_internalSafetyControl
+    "Set revert mode to true" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-110})));
-
-// Line to delete if you don't want to use the bus externally
 protected
   Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus with signal for device control" annotation (
@@ -388,7 +386,7 @@ protected
     =false to use the bus connector for outputs only. 
     Only possible if no internal safety control is used"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
-          use_safetyControl));
+          use_internalSafetyControl));
 
 // Line to add if you want to use the bus
 //protected
@@ -531,12 +529,27 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(conModeTrue.y, sigBus.revSet) annotation (Line(points={{-79,-110},{
-          -76,-110},{-76,-42},{-105,-42},{-105,-43}}, color={255,0,255}), Text(
+  connect(conRevSetTrue.y, sigBus.revSet) annotation (Line(points={{-79,-110},{-78,
+          -110},{-78,-112},{-76,-112},{-76,-43},{-105,-43}}, color={255,0,255}),
+      Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  if not use_internalSafetyControl then
+    connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
+          {-105,-43}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+    connect(revSet, sigBus.revSet) annotation (Line(points={{-116,-90},{-76,-90},
+          {-76,-43},{-105,-43}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  end if;
   /* // Internal bus connections --> No graphics required
   connect(mFlow_eva.m_flow, sigBusInt.m_flowEvaMea);
   connect(mFlow_con.m_flow, sigBusInt.m_flowConMea);
@@ -549,8 +562,8 @@ equation
   connect(con.T, sigBusInt.TConOutMea);
   connect(senTConIn.y, sigBusInt.TConInMea);
   connect(eva.T, sigBusInt.TEvaOutMea);
-  connect(senTEvaIn.y, sigBusInt.TEvaInMea);
-  connect(conModeTrue.y, sigBusInt.revSet);*/
+  connect(senTEvaIn.y, sigBusInt.TEvaInMea);*/
+
   annotation (Icon(graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
@@ -566,12 +579,6 @@ equation
           lineColor={0,0,0},
           origin={1,61},
           rotation=90),
-        Text(
-          extent={{-151,147},{149,107}},
-          textColor={0,0,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255},
-          textString="%name"),
         Line(
           points={{-9,40},{9,40},{-5,-2},{9,-40},{-9,-40}},
           color={0,0,0},

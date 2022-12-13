@@ -5,7 +5,7 @@ model ModularReversible
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
     final scaFac=vapComCyc.blaBoxChiCoo.scaFac,
-    final use_safetyControl=false,
+    final use_internalSafetyControl=false,
     use_rev=true,
     redeclare IBPSA.Fluid.Chillers.BaseClasses.BlackBoxVapourCompressionCycle
       vapComCyc(redeclare model BlackBoxChillerCooling = BlackBoxChillerCooling,
@@ -48,30 +48,13 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(revSet, sigBus.revSet) annotation (Line(points={{-116,-90},{-80,-90},
-          {-80,-43},{-105,-43}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(onOffSet, sigBus.onOffSet) annotation (Line(points={{-116,-20},{-80,-20},
           {-80,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
-          {-105,-43}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(onOffSet, sigBus.onOffMea) annotation (Line(points={{-116,-20},{-80,-20},
-          {-80,-43},{-105,-43}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

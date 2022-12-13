@@ -33,7 +33,7 @@ model BlackBoxVapourCompressionCycle
   BlackBoxHeatPumpHeating blaBoxHeaPumHea
   annotation (Placement(transformation(extent={{60,40},{20,80}},rotation=0)));
   BlackBoxHeatPumpCooling blaBoxHeaPumCoo if use_rev
-  annotation (Placement(transformation(extent={{-19,40},{-60,80}}, rotation=0)));
+  annotation (Placement(transformation(extent={{-19,42},{-60,82}}, rotation=0)));
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
     "Negate QEva to match definition of heat flow direction" annotation (
       Placement(transformation(
@@ -66,12 +66,12 @@ equation
   connect(blaBoxHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38},{
           40,30},{86,30},{86,-52},{8,-52},{8,-58}}, color={0,0,127}));
   connect(blaBoxHeaPumCoo.PEle, swiPEle.u3) annotation (Line(
-      points={{-39.5,38},{-40,38},{-40,30},{-90,30},{-90,-50},{-8,-50},{-8,-58}},
+      points={{-39.5,40},{-40,40},{-40,30},{-90,30},{-90,-50},{-8,-50},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
 
   connect(blaBoxHeaPumCoo.QEva_flow, swiQEva.u3) annotation (Line(
-      points={{-55.9,38},{-56,38},{-56,24},{-52,24},{-52,-8},{-58,-8}},
+      points={{-55.9,40},{-56,40},{-56,24},{-52,24},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(constZero.y, swiPEle.u3) annotation (Line(points={{-59,-70},{-40,-70},
@@ -91,13 +91,13 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(blaBoxHeaPumCoo.QCon_flow, gainCon.u) annotation (Line(
-      points={{-23.1,38},{-24,38},{-24,32},{10,32},{10,-8},{20.4,-8}},
+      points={{-23.1,40},{-24,40},{-24,32},{10,32},{10,-8},{20.4,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(blaBoxHeaPumHea.QEva_flow, gainEva.u) annotation (Line(points={{24,38},
           {24,8},{-22.4,8}},                color={0,0,127}));
   connect(sigBus, blaBoxHeaPumCoo.sigBus) annotation (Line(
-      points={{0,102},{0,90},{-40,90},{-40,86},{-39.705,86},{-39.705,80.8}},
+      points={{0,102},{0,90},{-40,90},{-40,86},{-39.705,86},{-39.705,82.8}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus, blaBoxHeaPumHea.sigBus) annotation (Line(

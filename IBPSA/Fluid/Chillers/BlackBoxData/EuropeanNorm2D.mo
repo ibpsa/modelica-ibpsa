@@ -83,14 +83,6 @@ protected
         origin={-10,50})));
 
 protected
-  Modelica.Blocks.Sources.Constant constZero(final k=0)
-    "For chilling, evaporator heat flow is calculated"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,10})));
-
-protected
   parameter Modelica.Blocks.Types.ExternalCombiTable2D tableConID=
       Modelica.Blocks.Types.ExternalCombiTable2D(
       "NoName",
@@ -148,13 +140,10 @@ equation
     annotation (Line(points={{10,9},{10,2},{-24,2}}, color={0,0,127}));
   connect(nTimScaFac.y, nTimEva.u2) annotation (Line(points={{10,9},{10,4},{34,4},
           {34,28},{44,28},{44,22}}, color={0,0,127}));
-  connect(nTimEva.y, feeHeaFloEva.u1) annotation (Line(points={{50,-1},{50,-18},
-          {-58,-18},{-58,-22},{-72,-22},{-72,-24},{-84,-24},{-84,-10},{-78,-10}},
-        color={0,0,127}));
   connect(nTimPel.y, redQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},{
           64,-48},{64,-58}}, color={0,0,127}));
-  connect(constZero.y, feeHeaFloEva.u2) annotation (Line(points={{-79,10},{-62,
-          10},{-62,4},{-56,4},{-56,-24},{-70,-24},{-70,-18}}, color={0,0,127}));
+  connect(nTimEva.y, proRedQEva.u2) annotation (Line(points={{50,-1},{50,-28},{
+          -44,-28},{-44,-58}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
     Line(points={{0.0,40.0},{0.0,-40.0}}),

@@ -18,15 +18,12 @@ model NoCooling
   Modelica.Blocks.Sources.Constant const(final k=0) "Zero energy flows"
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
 equation
-  connect(const.y, feeHeaFloEva.u1) annotation (Line(points={{-67,26},{-62,26},
-          {-62,4},{-94,4},{-94,-10},{-78,-10}}, color={0,0,127}));
-  connect(const.y, feeHeaFloEva.u2) annotation (Line(points={{-67,26},{-62,26},
-          {-62,4},{-94,4},{-94,-10},{-84,-10},{-84,-24},{-70,-24},{-70,-18}},
-        color={0,0,127}));
-  connect(const.y, redQCon.u2) annotation (Line(points={{-67,26},{-62,26},{-62,
-          4},{64,4},{64,-58}}, color={0,0,127}));
+  connect(const.y, redQCon.u2) annotation (Line(points={{-67,26},{64,26},{64,
+          -58}},               color={0,0,127}));
   connect(const.y, PEle)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
+  connect(const.y, proRedQEva.u2)
+    annotation (Line(points={{-67,26},{-44,26},{-44,-58}}, color={0,0,127}));
   annotation (Documentation(info="<html>
   <p>Model to use to avoid warnings about partial model must be replaced. 
   Using this model, the chiller will always be off.</p>

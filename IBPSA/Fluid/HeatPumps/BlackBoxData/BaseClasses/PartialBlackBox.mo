@@ -79,9 +79,6 @@ partial model PartialBlackBox
         rotation=270,
         origin={-50,-70})));
 
-  Modelica.Blocks.Math.Feedback feeHeaFloEva
-    "Calculates evaporator heat flow with total energy balance" annotation (
-      Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
   IBPSA.Utilities.IO.Strings.StringOutput datSouOut
   "String output of data source";
 protected
@@ -96,8 +93,6 @@ equation
           {0,-88},{0,-52},{76,-52},{76,-58}}, color={0,0,127}));
   connect(redQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{-80,
           -96},{-80,-110}}, color={0,0,127}));
-  connect(proRedQEva.u2, feeHeaFloEva.y)
-    annotation (Line(points={{-44,-58},{-44,-10},{-61,-10}}, color={0,0,127}));
   connect(iceFacCal.iceFac, proRedQEva.u1)
     annotation (Line(points={{-79,-42},{-56,-42},{-56,-58}}, color={0,0,127}));
   connect(iceFacCal.sigBus, sigBus) annotation (Line(

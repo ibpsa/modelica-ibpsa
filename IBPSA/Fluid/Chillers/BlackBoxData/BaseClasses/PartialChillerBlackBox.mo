@@ -15,12 +15,7 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),   Text(
-          extent={{-57.5,-35},{57.5,35}},
-          lineColor={0,0,255},
-          pattern=LinePattern.Dash,
-          textString="%name", origin={-3.5,-15},
-          rotation=180)}),
+        fillPattern=FillPattern.Solid)}),
       Documentation(
   info="<html>
 <p>Partial model for calculation of electrical power <code>P_el</code>, 

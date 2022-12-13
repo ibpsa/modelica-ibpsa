@@ -30,9 +30,8 @@ partial model PartialHeatPumpValidation
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
     QUse_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.QUseBlaBox_flow_nominal,
-
     y_nominal=1,
-    final use_safetyControl=false,
+    final use_internalSafetyControl=false,
     final use_busConnectorOnly=false,
     final use_TSet=false,
     TCon_nominal=303.15,
