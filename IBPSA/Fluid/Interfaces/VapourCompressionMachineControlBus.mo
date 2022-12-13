@@ -5,8 +5,8 @@ expandable connector VapourCompressionMachineControlBus
   annotation (Documentation(info="<html>
 <p>Bus connector for a vapour compression machine. </p>
 <p>Used in the reversbile modular approaches for chiller and heat pump in 
-the models <a href=\"modelica://IBPSA.Fluid.Chillers.Chiller\">
-IBPSA.Fluid.Chillers.Chiller</a> and 
+the models <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
+IBPSA.Fluid.Chillers.ModularReversible</a> and 
 <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
 IBPSA.Fluid.HeatPumps.ModularReversible</a>.</p>
 </html>", revisions="<html><ul>

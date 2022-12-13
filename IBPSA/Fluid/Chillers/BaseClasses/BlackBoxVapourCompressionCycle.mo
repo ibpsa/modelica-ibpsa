@@ -178,7 +178,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>This black-box model represents the refrigerant cycle of a chiller. 
-Used in <a href=\"modelica://IBPSA.Fluid.Chillers.Chiller\">IBPSA.Fluid.Chillers.Chiller</a>, 
+Used in <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">IBPSA.Fluid.Chillers.ModularReversible</a>, 
 this model serves the simulation of a 
 reversible chiller. Thus, data both of chillers and heat pumps can be used to
 calculate the three relevant values <code>P_el</code>, <code>QCon</code> and 

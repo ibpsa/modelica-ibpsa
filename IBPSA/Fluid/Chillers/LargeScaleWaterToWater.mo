@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers;
 model LargeScaleWaterToWater
-  extends Chiller(
+  extends ModularReversible(
     mCon_flow_nominal=autCalMCon_flow*scaFac,
     mEva_flow_nominal=autCalMEva_flow*scaFac,
     tauCon=autCalVCon*rhoCon/autCalMCon_flow,

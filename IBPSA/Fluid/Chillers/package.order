@@ -1,7 +1,8 @@
 Carnot_TEva
 Carnot_y
-Chiller
 LargeScaleWaterToWater
+ModularReversible
+ReversibleCarnotWithLosses
 BlackBoxData
 Examples
 Validation

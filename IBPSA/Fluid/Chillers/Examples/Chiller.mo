@@ -28,12 +28,11 @@ model Chiller "Example for the reversible chiller model."
     offset=278)
     "Ramp signal for the temperature input of the sink side's ideal mass flow source"
     annotation (Placement(transformation(extent={{-94,-76},{-74,-56}})));
-  IBPSA.Fluid.Chillers.Chiller chi(
+  IBPSA.Fluid.Chillers.ModularReversible chi(
     QUse_flow_nominal=5000,
     y_nominal=1,
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
-
     use_TSet=false,
     TCon_nominal=323.15,
     dTCon_nominal=10,
@@ -59,12 +58,11 @@ model Chiller "Example for the reversible chiller model."
     TEva_start=303.15,
     redeclare model BlackBoxChillerCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (datTab=
-            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare model BlackBoxChillerHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
-            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-            ())) annotation (Placement(transformation(
+            IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()))
+                 annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=90,
         origin={2,1})));
@@ -179,8 +177,8 @@ equation
           {66,1},{76,1}},          color={0,127,255}));
   connect(chi.ySet, booleanToReal.y) annotation (Line(points={{-2.83333,-26.84},
           {-3,-26.84},{-3,-45.3}}, color={0,0,127}));
-  connect(sinkSideMassFlowSource.ports[1], chi.port_a1) annotation (Line(points
-        ={{-34,-48},{-12.5,-48},{-12.5,-23}}, color={0,127,255}));
+  connect(sinkSideMassFlowSource.ports[1], chi.port_a1) annotation (Line(points=
+         {{-34,-48},{-12.5,-48},{-12.5,-23}}, color={0,127,255}));
   connect(sinkSideFixedBoundary.ports[1], chi.port_b1) annotation (Line(points=
           {{-76,62},{-50,62},{-50,25},{-12.5,25}}, color={0,127,255}));
   connect(pumSou.port_b, chi.port_a2)

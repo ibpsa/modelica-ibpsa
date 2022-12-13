@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers;
-model Chiller
+model ModularReversible
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
   extends
     IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
@@ -14,7 +14,7 @@ model Chiller
   replaceable model BlackBoxChillerCooling =
       IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
       constrainedby
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+    IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -28,7 +28,7 @@ model Chiller
   replaceable model BlackBoxChillerHeating =
       IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
        constrainedby
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
        final QUse_flow_nominal=0,
        final scaFac=scaFac,
        final TCon_nominal=TEva_nominal,
@@ -162,4 +162,4 @@ equation
 IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine</a> 
 for information on the concept.</p>
 </html>"));
-end Chiller;
+end ModularReversible;
