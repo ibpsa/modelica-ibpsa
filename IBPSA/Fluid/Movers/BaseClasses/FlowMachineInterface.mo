@@ -270,6 +270,21 @@ protected
      zeros(size(per.power.V_flow,1))
     "Coefficients for polynomial of power vs. flow rate";
 
+  final parameter IBPSA.Fluid.Movers.BaseClasses.Euler.powerWithDerivative powEu_internal=
+    if (curve == 1) then
+      IBPSA.Fluid.Movers.BaseClasses.Euler.power(peak=per.peak,pressure=pCur1)
+    elseif (curve == 2) then
+      IBPSA.Fluid.Movers.BaseClasses.Euler.power(peak=per.peak,pressure=pCur2)
+    else
+      IBPSA.Fluid.Movers.BaseClasses.Euler.power(peak=per.peak,pressure=pCur3)
+    "Intermediate parameter";
+  final parameter IBPSA.Fluid.Movers.BaseClasses.Characteristics.powerParameters powEu(
+    V_flow = powEu_internal.V_flow,
+    P = powEu_internal.P)
+    "Power vs. volumetric flow rate computed from Euler number";
+  final parameter Real powEuDer[:] = powEu_internal.d
+    "Power derivative wrt volumetric flow rate computed from Euler number";
+
   parameter Boolean haveMinimumDecrease=
     if nOri<2 then false
     else
@@ -611,10 +626,15 @@ equation
                      x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet==
        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
-    eta_internal = IBPSA.Fluid.Movers.BaseClasses.Euler.efficiency(
-                     peak = per.peak, dp = dp_internal, V_flow = V_flow);
-    P_internal = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
-                          x1=eta_internal, x2=1E-5, deltaX=1E-6);
+    if homotopyInitialization then
+      P_internal = homotopy(actual=cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta),
+                      simplified=V_flow/V_flow_nominal*
+                            cha.power(per=powEu, V_flow=V_flow_nominal, r_N=1, d=powEuDer, delta=delta));
+    else
+      P_internal = (rho/rho_default)*cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
+    end if;
+    eta_internal = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
+                            x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),
