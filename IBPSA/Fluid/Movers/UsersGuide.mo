@@ -535,12 +535,31 @@ is instantiated.
 </li>
 </ul>
 <p>
-For more information on the Euler number method, see
+For simplicity, the implementation does not directly use this method to estimate
+<i>&eta;<sub>hyd</sub></i> at any operation point.
+Rather, it only computes a power curve at nominal speed and then uses similarity
+laws to estimate power at reduced speeds.
+Because the Euler number method does not account for the efficiency
+degradation along any curve <i>&Delta;p=kV&#775;<sup>2</sup></i>,
+these two methods are equivalent.
+See the documentation of
+<a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Euler.power\">
+IBPSA.Fluid.Movers.BaseClasses.Euler.power</a>
+for more details.
+Also see
+<a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed\">
+IBPSA.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed</a>
+for demonstration.
+</p>
+<p>
+For more information on the Euler number method, see the documentation of
 <a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Euler.correlation\">
-IBPSA.Fluid.Movers.BaseClasses.Euler.correlation</a>
-and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
+IBPSA.Fluid.Movers.BaseClasses.Euler.correlation</a>,
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
-chapter 16.4 equations 16.209 through 16.218.<br/>
+chapter 16.4 equations 16.209 through 16.218, and
+<a href=\"https://2022.american.conference.modelica.org/documents/NA_Modelica_2022_Proceedings.pdf\">
+Fu et al. (2022)</a>
 </p>
 </li>
 <li>
@@ -829,6 +848,17 @@ Fan and pump model that has a unique solution for any pressure
 boundary condition and control signal.</a>
 <i>Proc. of the 13th Conference of the International Building Performance
 Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
+</p>
+<p>
+Hongxiang Fu, David Blum, Michael Wetter.
+Fan and Pump Efficiency in Modelica based on the Euler Number.
+<a href=\"https://2022.american.conference.modelica.org/documents/NA_Modelica_2022_Proceedings.pdf\">
+<i>Proc. of the American Modelica Conference 2022</i></a>, p. 19-25.
+Dallas, TX, USA. October 2022.
+</p>
+<p>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
+EnergyPlus 9.6.0 Engineering Reference</a>
 </p>
 </html>"));
 
