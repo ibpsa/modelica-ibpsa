@@ -6,14 +6,14 @@ model PowerEuler
     pump_m_flow(per=perPea));
 
   parameter IBPSA.Fluid.Movers.Data.Generic perPea(
-    final powerOrEfficiencyIsHydraulic=false,
+    final powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
     final etaHydMet=
             IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
     final etaMotMet=
             IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided,
-    peak=IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak(
-      pressure=per.pressure,
-      power=per.power))
+    final peak=IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak(
+                 pressure=per.pressure,
+                 power=per.power))
     "Peak condition";
 
   annotation (
