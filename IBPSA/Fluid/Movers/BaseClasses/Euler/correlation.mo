@@ -11,7 +11,7 @@ protected
   constant Real pRig[4]={-0.0085494313567,0.12957001502,-0.65997315029,1.1399300301};
   constant Real p[4] = if x<-0.5 then pLef else if x>0.5 then pRig else pMid;
 algorithm
-  y:=max(0,Modelica.Math.Polynomials.evaluate(u=x,p=p))/pMid[end];
+  y:=max(0,p[1]*x^3+p[2]*x^2+p[3]*x+p[4])/pMid[end];
 
   annotation(Documentation(info="<html>
 <p>
