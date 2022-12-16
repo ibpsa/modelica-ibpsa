@@ -173,8 +173,10 @@ record Generic "Generic data record for movers"
 <ul>
 <li>
 March 1, 2022, by Hongxiang Fu:<br/>
+<ul>
+<li>
 Modified the record to allow separate specifications of different
-efficiency variables;
+efficiency variables.
 </li>
 <li>
 Added parameters for computation using Euler number.
