@@ -13,7 +13,8 @@ protected
 algorithm
   y:=max(0,p[1]*x^3+p[2]*x^2+p[3]*x+p[4])/pMid[end];
 
-  annotation(Documentation(info="<html>
+  annotation(smoothOrder = 1,
+  Documentation(info="<html>
 <p>
 This function approximates the following correlation with two simple polynomials
 stitched together by a third one of the same order:
