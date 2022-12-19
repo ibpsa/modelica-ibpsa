@@ -21,8 +21,10 @@ model FlowControlled_m_flow
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
         final etaHydMet=
-          if per.etaHydMet ==
+          if (per.etaHydMet ==
                IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet ==
+               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
             and not per.havePressureCurve then
               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
           else per.etaHydMet,
@@ -90,7 +92,6 @@ equation
     or if the performance record is unreasonable. Please verify your model, and 
     consider using one of the other pump or fan models.");
 
-equation
   if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{41,70.5},{44,70.5},{44,50},{110,50}},
