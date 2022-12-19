@@ -25,7 +25,7 @@ protected
     if max(pressure.V_flow) < 1E-6
       then 0
     else IBPSA.Utilities.Math.Functions.smoothInterpolation(
-               x=peak.V_flow,
+               x=V_flow_hal,
                xSup=pressure.V_flow,
                ySup=pressure.dp,
                ensureMonotonicity=true)
