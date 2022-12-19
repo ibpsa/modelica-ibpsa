@@ -477,7 +477,7 @@ IBPSA.Fluid.Movers.Validation.PowerExact</a>
 as an example.
 </li>
 <li>
-<b><code>EulerNumber</code> (default)</b> -
+<b><code>EulerNumber</code> (default 1)</b> -
 The model uses a triple <i>(&eta;<sub>hyd</sub>, V&#775;, &Delta;p)</i>
 corresponding to the operating point at which the peak efficiency is attained.
 It computes <i>&eta;<sub>hyd</sub></i> and <i>W&#775;<sub>hyd</sub></i>
@@ -563,7 +563,7 @@ Fu et al. (2022)</a>
 </p>
 </li>
 <li>
-<code>NotProvided</code> - The information of this efficiency item is not provided.
+<code>NotProvided</code> (default 2) - The information of this efficiency item is not provided.
 The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </li>
 </ul>
@@ -572,6 +572,11 @@ The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 These options are tested in
 <a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
 IBPSA.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
+</p>
+<p>
+The model uses <code>EulerNumber</code> as the default option
+unless a pressure curve is not provided.
+In this case, the model overrides it and uses <code>NotProvided</code> instead.
 </p>
 <p>
 The user can use the same options to specify the total efficiency <i>&eta;</i>
@@ -666,7 +671,7 @@ The model then computes the efficiency the same way as in the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
 </li>
 <li>
-<b><code>NotProvided</code> (default 2)</b> -
+<code>NotProvided</code> (default 2) -
 The information of this efficiency item is not provided.
 The model uses a constant value <i>&eta;<sub>mot</sub>=0.7</i>.
 </li>
@@ -678,10 +683,19 @@ IBPSA.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
 </p>
 <p>
 By default, the model uses the <code>GenericCurve</code> to obtain more accurate
-results with variable <i>&eta;<sub>mot</sub></i>,
-unless <code>per.powerOrEfficiencyIsHydraulic=false</code>.
-There are two reasons for this setup:
+results with variable <i>&eta;<sub>mot</sub></i>. There are two exceptions:
 </p>
+<ul>
+<li>
+When neither pressure curve nor nominal motor power is provided,
+the model overrides it and uses <code>NotProvided</code> instead.
+</li>
+<li>
+When the user specifies that the provided power is total power instead of
+hydraulic power, i.e. <code>per.powerOrEfficiencyIsHydraulic==false</code>,
+the model uses <code>NotProvided</code> as default.
+The user can still mannually set it to <code>GenericCurve</code>, but this is
+not recommended. There are two reasons:
 <ol>
 <li>
 Consider the following two equations:
@@ -695,7 +709,7 @@ When <i>W&#775;<sub>hyd</sub></i> is known
 the unknowns are <i>&eta;<sub>mot</sub></i> and <i>P<sub>ele</sub></i>
 which can be solved explicitly. Otherwise, the unknowns are
 <i>&eta;<sub>mot</sub></i> and <i>W&#775;<sub>hyd</sub></i>,
-and an interative solution would be required which may not converge
+and an iterative solution would be required which may not converge
 for some values.
 </li>
 <li>
@@ -711,6 +725,8 @@ amount of heat dissipates into the ambient, the separation of
 <i>&eta;<sub>hyd</sub></i> and <i>&eta;<sub>mot</sub></i> is then not important.
 </li>
 </ol>
+</li>
+</ul>
 
 <h5>Start-up and shut-down transients</h5>
 <p>
