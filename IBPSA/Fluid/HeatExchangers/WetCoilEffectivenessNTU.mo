@@ -144,7 +144,7 @@ protected
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
   IBPSA.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime dryWetCalcs(
     fullyWet(hAirOut(start=Medium2.h_default)),
-    final cfg=flowRegime,
+    final cfg=flowRegime_nominal,
     final mWat_flow_nominal=m1_flow_nominal,
     final mAir_flow_nominal=m2_flow_nominal,
     final Qfac=Qfac)
@@ -214,8 +214,8 @@ protected
     "Index of water";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  flo flowRegime(fixed=false, start=flowRegime_nominal)
-    "Heat exchanger flow regime";
+//   flo flowRegime(fixed=false, start=flowRegime_nominal)
+//     "Heat exchanger flow regime";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
@@ -310,34 +310,34 @@ initial equation
 equation
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
-  if (configuration == con.ParallelFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0)
-      then
-        flo.ParallelFlow
-      else
-        flo.CounterFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0)
-      then
-        flo.CounterFlow
-      else
-        flo.ParallelFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime = flo.CrossFlowUnmixed;
-  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
-    flowRegime = if (C1_flow < C2_flow)
-      then
-        flo.CrossFlowCMinMixedCMaxUnmixed
-      else
-        flo.CrossFlowCMinUnmixedCMaxMixed;
-  else
-    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
-    flowRegime = if (C1_flow < C2_flow)
-      then
-        flo.CrossFlowCMinUnmixedCMaxMixed
-      else
-        flo.CrossFlowCMinMixedCMaxUnmixed;
-  end if;
+//   if (configuration == con.ParallelFlow) then
+//     flowRegime = if (C1_flow*C2_flow >= 0)
+//       then
+//         flo.ParallelFlow
+//       else
+//         flo.CounterFlow;
+//   elseif (configuration == con.CounterFlow) then
+//     flowRegime = if (C1_flow*C2_flow >= 0)
+//       then
+//         flo.CounterFlow
+//       else
+//         flo.ParallelFlow;
+//   elseif (configuration == con.CrossFlowUnmixed) then
+//     flowRegime = flo.CrossFlowUnmixed;
+//   elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+//     flowRegime = if (C1_flow < C2_flow)
+//       then
+//         flo.CrossFlowCMinMixedCMaxUnmixed
+//       else
+//         flo.CrossFlowCMinUnmixedCMaxMixed;
+//   else
+//     // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+//     flowRegime = if (C1_flow < C2_flow)
+//       then
+//         flo.CrossFlowCMinUnmixedCMaxMixed
+//       else
+//         flo.CrossFlowCMinMixedCMaxUnmixed;
+//   end if;
 
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
@@ -604,7 +604,7 @@ online</a>.
 </p>
 <p>Elmahdy, A.H. and Mitalas, G.P. 1977.
 &quot;A Simple Model for Cooling and Dehumidifying Coils for Use
-In Calculating Energy Requirements for Buildings&quot;.
+In Calculating Energy Requirements for IBPSA&quot;.
 ASHRAE Transactions. Vol.83. Part 2. pp. 103-117.</p>
 <p>Takagi, T. and Sugeno, M., 1985.
 Fuzzy identification of systems and its applications to modeling and control.
