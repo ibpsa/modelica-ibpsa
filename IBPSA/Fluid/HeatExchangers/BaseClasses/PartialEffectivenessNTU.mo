@@ -80,8 +80,6 @@ protected
     "Nominal temperature at port b2";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-//   flo flowRegime(fixed=false, start=flowRegime_nominal)
-//     "Heat exchanger flow regime";
 initial equation
   assert(m1_flow_nominal > 0,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
@@ -152,22 +150,6 @@ initial equation
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 equation
-  // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
-//   if (configuration == con.ParallelFlow) then
-//     flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
-//   elseif (configuration == con.CounterFlow) then
-//     flowRegime = if (C1_flow*C2_flow >= 0) then flo.CounterFlow else flo.ParallelFlow;
-//   elseif (configuration == con.CrossFlowUnmixed) then
-//     flowRegime = flo.CrossFlowUnmixed;
-//   elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
-//     flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinMixedCMaxUnmixed
-//        else flo.CrossFlowCMinUnmixedCMaxMixed;
-//   else
-//     // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
-//     flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
-//        else flo.CrossFlowCMinMixedCMaxUnmixed;
-//   end if;
-
   // Effectiveness
   eps = IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
