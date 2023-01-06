@@ -315,6 +315,13 @@ Updated the function to use the more efficient method of Prieto and Cimmino
 (2021).
 </li>
 <li>
+November 16, 2022, by Michael Wetter:<br/>
+Initialized variable <code>Done</code>.<br/>
+See
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/9707#issuecomment-1317631281\">
+OpenModelica, #9707</a>.
+</li>
+<li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.
 </li>
