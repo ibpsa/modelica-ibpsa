@@ -8,9 +8,10 @@ function KMeans "k-means clustering algorithm"
   input Real relTol=1e-5 "Relative tolerance on cluster positions";
   input Integer max_iter=500 "Maximum number of k-means iterations";
   input Integer n_init=10 "Number of runs with randomized centroid seeds";
+  input Integer n_cluster_size=0 "Length of the cluster_size output vector";
   output Real centroids[n_clusters,n_features] "Centroids of the clusters";
   output Integer labels[n_samples] "Cluster label associated with each data point";
-  output Integer cluster_size[n_clusters] "Size of the clusters";
+  output Integer cluster_size[max(n_clusters, n_cluster_size)] "Size of the clusters";
 
 protected
   Real old_centroids[n_clusters,n_features] "Previous iteration centroids";
@@ -110,7 +111,7 @@ algorithm
    end for;
 
    // Evaluate cluster sizes
-   for j in 1:n_clusters loop
+   for j in 1:max(n_clusters, n_cluster_size) loop
      cluster_size[j] := sum(if labels[i]==j then 1 else 0 for i in 1:n_samples);
    end for;
 
@@ -120,6 +121,10 @@ annotation (
 This function applies <i>k</i>-means clustering to <i>n</i>-dimentional data and
 returns the centroid of the clusters, the cluster labels for each sample, and
 the size of each cluster.
+</p>
+<p>
+The returned length of the <code>cluster_size</code> vector is
+<code>max(n_clusters, n_cluster_size)</code>.
 </p>
 <h4>Implementation</h4>
 <p>

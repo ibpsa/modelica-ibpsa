@@ -53,11 +53,12 @@ algorithm
   N := min(N, nClu);
 
   // ---- Identify borehole clusters
-  (,labels,cluSiz[1:N]) := IBPSA.Utilities.Clustering.KMeans(
+  (,labels,cluSiz) := IBPSA.Utilities.Clustering.KMeans(
     TBor,
     N,
     nBor,
-    1);
+    1,
+    n_cluster_size=nClu);
 
 annotation (
 Inline=true,
