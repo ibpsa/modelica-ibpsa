@@ -577,7 +577,7 @@ online</a>.
 </p>
 <p>Elmahdy, A.H. and Mitalas, G.P. 1977.
 &quot;A Simple Model for Cooling and Dehumidifying Coils for Use
-In Calculating Energy Requirements for IBPSA&quot;.
+In Calculating Energy Requirements for Buildings&quot;.
 ASHRAE Transactions. Vol.83. Part 2. pp. 103-117.</p>
 <p>Takagi, T. and Sugeno, M., 1985.
 Fuzzy identification of systems and its applications to modeling and control.
