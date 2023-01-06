@@ -202,6 +202,13 @@ for <code>UA</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 5, 2023, by Hongxiang Fu:<br/>
+Removed <code>flowRegime</code> and replaced its use with
+<code>flowRegime_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
+</li>
+<li>
 November 11, 2023, by Michael Wetter:<br/>
 Corrected wrong temperature in assignment of <code>sta2_default</code>.<br/>
 This is for

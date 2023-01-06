@@ -579,6 +579,13 @@ Fuzzy identification of systems and its applications to modeling and control.
 </html>",                    revisions="<html>
 <ul>
 <li>
+January 5, 2023, by Hongxiang Fu:<br/>
+Removed <code>flowRegime</code> and replaced its use with
+<code>flowRegime_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
+</li>
+<li>
 March 3, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>
 This is for
