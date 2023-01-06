@@ -196,7 +196,13 @@ IBPSA.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
 </p>
 <p>
-Models that extend from this partial model need to provide an assignment
+The flow regimes for capacity flow rate are solely dependent on nominal
+values and are not influenced by the actual capacity flow rates.
+This is to avoid events and improve numerical performance. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA issue 1682</a>
+</p>
+<p>
+Models that extend from this partial modconfigurationel need to provide an assignment
 for <code>UA</code>.
 </p>
 </html>", revisions="<html>

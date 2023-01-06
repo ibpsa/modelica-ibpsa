@@ -545,6 +545,12 @@ with water and coil materials are considered.</p>
 coefficient, is assumed to be <i>1</i>.</p>
 <p>The model is not suitable for a cross-flow heat exchanger of which the number
 of passes is less than four.</p>
+<p>
+The flow regimes for capacity flow rate are solely dependent on nominal
+values and are not influenced by the actual capacity flow rates.
+This is to avoid events and improve numerical performance. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA issue 1682</a>
+</p>
 <h4>Validation</h4>
 <p>Validation results can be found in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU\">
