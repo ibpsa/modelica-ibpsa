@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
 
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
