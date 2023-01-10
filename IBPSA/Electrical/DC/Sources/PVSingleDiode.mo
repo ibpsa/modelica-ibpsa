@@ -84,23 +84,35 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>
-<p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings. </p>
-<p>The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:</p>
+<p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings.<br/>
+The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:<br/>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" width=600px height=auto/> </p>
-<p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.</p>
-<p>The dark current is opposed to the photocurrent and derives from the Shockley equation:</p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/dark_current_single_diode.png\" width=250px height=auto/> </p>
-<p>where a is the modified ideality factor that is defined as follows:</p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/modified_ideality_single_diode.png\" width=250px height=auto/> </p>
-<p>Here,  <i>N</i><sub>s</sub> is the number of serial cells, <i>n</i><sub>I</sub> is the ideality factor, </p>
-<p>k is the Boltzman constant, q is the elementary charge, and <i>T</i><sub>cell</sub> the cell temperature.</p>
-<p><i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.</p>
-<p><i>R</i><sub>sh</sub> denotes is the serial resistance that accounts for the leakage currents along the cell's side.</p>
-<p>And <i>I</i><sub>sh</sub> is the resulting leakage current.</p>
-<p>The resulting I-V-curve is defined as follows and bases on 5 unknown parameters:</p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/I_U_curve_single_diode.png\" width=600px height=auto/> </p>
-<p>Hence, the name 5-p approach is common.</p>
-<p><br><br><br>For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>. </p>
+<p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.<br/>
+<i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub><br/>
+<i>I</i><sub>d</sub> derives from the Shockley equation, as</p>
+<p align=\"center\" style=\"font-style:italic;\">
+<i>I</i><sub>d</sub> =
+I<sub>s</sub>(e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1).</p>
+<p>The Shockley equation uses the modified ideality factor </p>
+<p align=\"center\" style=\"font-style:italic;\">a=(N<sub>s</sub> n<sub>I</sub> k T<sub>cell</sub> &frasl; q).</p>
+<p>The ideality factor <i>a</i> results from<br/>
+the number of serial cells <i>N</i><sub>s</sub>,<br/>
+the ideality factor <i>n</i><sub>I</sub>,<br/>
+the Boltzman constant k,<br/>
+the elementary charge q,
+<br/>and the cell temperature <i>T</i><sub>cell</sub>.</p>
+<i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.<br/>
+The serial resistance <i>R</i><sub>sh</sub> accounts for the leakage currents along the cell's side<br/>
+and <i>I</i><sub>sh</sub> is the resulting leakage current.<br/>
+The result is the I-V-curve</p>
+<p align=\"center\" style=\"font-style:italic;\">
+<i>I</i> =
+I<sub>ph</sub> - I<sub>d</sub> - I<sub>sh</sub> <br/>
+= I<sub>ph</sub> - I<sub>s</sub> (e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1) - (U+IR<sub>s</sub>) &frasl; R<sub>sh</sub>
+</p>
+<p>that bases on five unknown parameters only.<br/>
+Hence, the name 5-p approach is common.</p>
+<p><br><br>For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>. </p>
 <h4>References</h4>
 <p>
 Humada, Ali M. ; Hojabri, Mojgan ; Mekhilef, Saad ; Hamada, Hussein M.: Solar
