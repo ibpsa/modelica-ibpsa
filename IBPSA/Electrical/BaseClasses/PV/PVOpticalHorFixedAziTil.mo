@@ -4,15 +4,15 @@ model PVOpticalHorFixedAziTil
   surface with tilt and azimuth angle as parameters"
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical;
 
- parameter Real lat(unit="rad", displayUnit="deg")
+ parameter Modelica.Units.SI.Angle lat
                         "Latitude"
    annotation(Dialog(group="Location"));
 
- parameter Real lon(unit="rad", displayUnit="deg")
+ parameter Modelica.Units.SI.Angle lon(unit="rad", displayUnit="deg")
                         "Longitude"
    annotation(Dialog(group="Location"));
 
- parameter Real  alt(unit="m")
+ parameter Modelica.Units.SI.Height alt(unit="m")
    "Site altitude in Meters, default= 1"
    annotation(Dialog(group="Location"));
 
@@ -49,7 +49,7 @@ model PVOpticalHorFixedAziTil
   parameter Real glaExtCoe(unit="1/m")=4
   "Glazing extinction coefficient for glass";
 
-  parameter Real glaThi(unit="m")=0.002
+  parameter Modelica.Units.SI.Length glaThi=0.002
   "Glazing thickness for most PV cell panels it is 0.002 m";
 
   parameter Real refInd(unit="1")=1.526

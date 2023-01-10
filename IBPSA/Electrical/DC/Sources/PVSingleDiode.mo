@@ -39,7 +39,7 @@ model PVSingleDiode
 
   parameter Real groRef(unit="1")=0.2 "Ground refelctance" annotation(Dialog(tab="Module mounting and specifications"));
   parameter Real glaExtCoe=4 "Glazing extinction coefficient for glass" annotation(Dialog(tab="Module mounting and specifications"));
-  parameter Real glaThi=0.002
+  parameter Modelica.Units.SI.Length glaThi=0.002
     "Glazing thickness for most PV cell panels it is 0.002 m" annotation(Dialog(tab="Module mounting and specifications"));
   parameter Real refInd=1.526
     "Effective index of refraction of the cell cover (glass)" annotation(Dialog(tab="Module mounting and specifications"));
@@ -87,17 +87,17 @@ equation
 <p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings. </p>
 <p>The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:</p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" width=600px height=auto/> </p>
-<p>In the figure, I_ph denotes the photocurrent and I_d is the dark current.</p>
+<p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.</p>
 <p>The dark current is opposed to the photocurrent and derives from the Shockley equation:</p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/dark_current_single_diode.png\" width=250px height=auto/> </p>
 <p>where a is the modified ideality factor that is defined as follows:</p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/modified_ideality_single_diode.png\" width=250px height=auto/> </p>
-<p>Here, N_s is the number of serial cells, n_I is the ideality factor, </p>
-<p>k is the Boltzman constant, q is the elementary charge, and T_cell the cell temperature.</p>
-<p>R_s is the serial resistance that results in a voltage loss.</p>
-<p>R_sh denotes is the serial resistance that accounts for the leakage currents along the cell's side.</p>
-<p>And I_sh is the resulting leakage current.</p>
-<p>The resulting I-U-curve is defined as follows and bases on 5 unknown parameters:</p>
+<p>Here,  <i>N</i><sub>s</sub> is the number of serial cells, <i>n</i><sub>I</sub> is the ideality factor, </p>
+<p>k is the Boltzman constant, q is the elementary charge, and <i>T</i><sub>cell</sub> the cell temperature.</p>
+<p><i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.</p>
+<p><i>R</i><sub>sh</sub> denotes is the serial resistance that accounts for the leakage currents along the cell's side.</p>
+<p>And <i>I</i><sub>sh</sub> is the resulting leakage current.</p>
+<p>The resulting I-V-curve is defined as follows and bases on 5 unknown parameters:</p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/I_U_curve_single_diode.png\" width=600px height=auto/> </p>
 <p>Hence, the name 5-p approach is common.</p>
 <p><br><br><br>For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>. </p>
