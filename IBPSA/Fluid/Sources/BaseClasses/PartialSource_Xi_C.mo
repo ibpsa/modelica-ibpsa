@@ -3,17 +3,6 @@ partial model PartialSource_Xi_C
   "Partial component source with parameter definitions for Xi and C"
   extends IBPSA.Fluid.Sources.BaseClasses.PartialSource;
 
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
-        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
-        choice(redeclare package Medium =
-            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
-
   parameter Boolean use_X_in = false
     "Get the composition (all fractions) from the input connector"
     annotation(Evaluate=true, HideResult=true, Dialog(tab="Advanced"));

@@ -2,17 +2,7 @@ within IBPSA.Fluid.Sources;
 model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choices(
-        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
-        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
-        choice(redeclare package Medium =
-            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
