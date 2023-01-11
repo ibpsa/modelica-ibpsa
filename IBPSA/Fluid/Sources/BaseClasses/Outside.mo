@@ -1,7 +1,11 @@
 within IBPSA.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends IBPSA.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
+  extends IBPSA.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choices(
+        choice(redeclare package Medium = IBPSA.Media.Air "Moist air")));
 
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
