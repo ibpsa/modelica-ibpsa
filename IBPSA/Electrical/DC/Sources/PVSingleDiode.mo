@@ -4,24 +4,21 @@ model PVSingleDiode
   extends IBPSA.Electrical.BaseClasses.PV.PartialPVSystem(
     final ageing=1.0,
     replaceable IBPSA.Electrical.Data.PV.SingleDiodeData data,
-    redeclare IBPSA.Electrical.BaseClasses.PV.PVOpticalHorFixedAziTil
+    redeclare IBPSA.Electrical.BaseClasses.PV.PVOpticalAbsRat
       partialPVOptical(
-        final lat=lat,
-        final lon=lon,
+        final PVTechType=PVTechType,
         final alt=alt,
-        til=til,
-        azi=azi,
-        final timZon=timZon,
+        final use_Til_in=use_Til_in,
+        final til=til,
         final groRef=groRef,
-        HGloTil0=HGloTil0,
+        final HGloTil0=HGloTil0,
         final glaExtCoe=glaExtCoe,
         final glaThi=glaThi,
-        final refInd=refInd,
-        final tau_0=tau_0),
+        final refInd=refInd),
     redeclare IBPSA.Electrical.BaseClasses.PV.PVElectricalSingleDiodeMPP
       partialPVElectrical(redeclare IBPSA.Electrical.Data.PV.SingleDiodeData
         data=data,
-        n_mod=n_mod),
+        final n_mod=n_mod),
     replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermalEmp
       partialPVThermal(
       redeclare IBPSA.Electrical.Data.PV.SingleDiodeData data=data),
@@ -43,18 +40,12 @@ model PVSingleDiode
     "Glazing thickness for most PV cell panels it is 0.002 m" annotation(Dialog(tab="Module mounting and specifications"));
   parameter Real refInd=1.526
     "Effective index of refraction of the cell cover (glass)" annotation(Dialog(tab="Module mounting and specifications"));
-  parameter Modelica.Units.SI.Angle lat "Latitude" annotation(Dialog(tab="Site specifications"));
-  parameter Modelica.Units.SI.Angle lon "Longitude" annotation(Dialog(tab="Site specifications"));
+
   parameter Modelica.Units.SI.Length alt "Site altitude in Meters, default= 1" annotation(Dialog(tab="Site specifications"));
-  parameter Modelica.Units.SI.Time timZon(displayUnit="h")
-  "Time zone in seconds relative to GMT" annotation(Dialog(tab="Site specifications"));
-  parameter Real HGloTil0=1000 "Total solar radiation on the horizontal surface 
+
+  constant Modelica.Units.SI.Irradiance HGloTil0=1000 "Total solar radiation on the horizontal surface 
   under standard conditions" annotation(Dialog(tab="Site specifications"));
 
-protected
-  parameter Real tau_0=exp(-(partialPVOptical.glaExtCoe*partialPVOptical.glaThi))
-      *(1 - ((partialPVOptical.refInd - 1)/(partialPVOptical.refInd + 1))^2)
-    "Transmittance at standard conditions (incAng=refAng=0)";
 
 equation
   connect(partialPVElectrical.eta, partialPVThermal.eta) annotation (Line(
@@ -70,17 +61,28 @@ equation
     annotation (Line(points={{-23.4,70},{20,70},{20,-34},{-64,-34},{-64,-51.8},{
           -37.2,-51.8}},  color={0,0,127}));
   connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-120,100},
-          {-60,100},{-60,80},{-48,80},{-48,70},{-37.2,70}},
+          {-60,100},{-60,80},{-48,80},{-48,70.6},{-37.2,70.6}},
                                          color={0,0,127}));
-  connect(HGloTil, partialPVElectrical.radTil) annotation (Line(points={{-120,130},
-          {-100,130},{-100,-54},{-68,-54},{-68,-54.2},{-37.2,-54.2}},
+  connect(HGloTil, partialPVElectrical.radTil) annotation (Line(points={{-120,140},
+          {-100,140},{-100,-54},{-68,-54},{-68,-54.2},{-37.2,-54.2}},
                                                color={0,0,127}));
   connect(TDryBul, partialPVThermal.TDryBul) annotation (Line(points={{-120,70},
           {-60,70},{-60,15.4},{-39.4,15.4}}, color={0,0,127}));
-  connect(HGloTil, partialPVThermal.HGloTil) annotation (Line(points={{-120,130},
-          {-80,130},{-80,6},{-40,6},{-40,5.8},{-39.4,5.8}},color={0,0,127}));
+  connect(HGloTil, partialPVThermal.HGloTil) annotation (Line(points={{-120,140},
+          {-80,140},{-80,6},{-40,6},{-40,5.8},{-39.4,5.8}},color={0,0,127}));
   connect(vWinSpe, partialPVThermal.winVel) annotation (Line(points={{-120,40},{
           -40,40},{-40,28},{-52,28},{-52,13},{-39.4,13}}, color={0,0,127}));
+  connect(zenAngle, partialPVOptical.zenAng) annotation (Line(points={{-120,260},
+          {-44,260},{-44,75.28},{-37.2,75.28}},
+                                              color={0,0,127}));
+  connect(incAngle, partialPVOptical.incAng) annotation (Line(points={{-120,220},
+          {-88,220},{-88,182},{-54,182},{-54,73},{-37.2,73}},     color={0,0,127}));
+  connect(HDifHor, partialPVOptical.HDifHor) annotation (Line(points={{-120,180},
+          {-102,180},{-102,154},{-72,154},{-72,68.2},{-37.2,68.2}}, color={0,0,127}));
+
+
+  connect(partialPVOptical.tilSet, Til_in_internal);
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>
@@ -111,7 +113,7 @@ The result is the I-V-curve</p>
 I<sub>ph</sub> - I<sub>d</sub> - I<sub>sh</sub> <br/>
 = I<sub>ph</sub> - I<sub>s</sub> (e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1) - (U+IR<sub>s</sub>) &frasl; R<sub>sh</sub>
 </p>
-<p>that bases on five unknown parameters only.<br/>
+<p>that bases on five unknown parameters (<i>I</i><sub>ph</sub>, <i>I</i><sub>s</sub>, <i>a</i>, <i>R</i><sub>s</sub>, and <i>R</i><sub>sh</sub>) only.<br/>
 Hence, the name 5-p approach is common.</p>
 <p><br><br>For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>. </p>
 <h4>References</h4>
