@@ -13,10 +13,14 @@ model FreeFloating "Illustrates the use of the 5R1C thermal zone in free-floatin
     ARoo=16,
     UWal=1.3,
     URoo=1.3,
+    UFlo=1,
     AFlo=16,
     VRoo=16*3,
     facMas=2.5,
     redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
+    nOrientations=4,
+    surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
+    surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},
     gFac=0.5) "Thermal zone"
     annotation (Placement(transformation(extent={{26,-12},{54,16}})));
   Modelica.Blocks.Sources.Constant intGains(k=10) "internal heat gains in Watt"

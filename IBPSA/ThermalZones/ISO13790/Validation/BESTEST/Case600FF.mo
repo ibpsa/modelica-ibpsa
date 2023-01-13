@@ -9,10 +9,15 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     ARoo=48,
     UWal=0.51,
     URoo=0.32,
+    UFlo=1,
+    b=0,
     AFlo=48,
     VRoo=129.6,
     facMas=2.5,
     redeclare ISO13790.Data.BESTEST600 buiMas,
+    nOrientations=4,
+    surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
+    surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},
     winFra=0.01,
     gFac=0.789) "Thermal zone"
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));

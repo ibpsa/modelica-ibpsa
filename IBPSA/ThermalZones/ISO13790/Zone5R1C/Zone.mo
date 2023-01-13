@@ -2,11 +2,11 @@ within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model Zone "Thermal zone based on 5R1C network"
   parameter Real airRat(unit="1/h") "Air change rate"
    annotation (Dialog(group="Ventilation"));
-  parameter Modelica.Units.SI.Area[4] AWin "Area of windows"
+  parameter Modelica.Units.SI.Area AWin[:] "Area of windows"
    annotation (Dialog(group="Windows"));
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin "U-value of windows"
    annotation (Dialog(group="Windows"));
-  parameter Modelica.Units.SI.Area[4] AWal "Area of external walls"
+  parameter Modelica.Units.SI.Area AWal[:] "Area of external walls"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area ARoo "Area of roof"
    annotation (Dialog(group="Opaque constructions"));
@@ -14,44 +14,45 @@ model Zone "Thermal zone based on 5R1C network"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer URoo "U-value of roof"
    annotation (Dialog(group="Opaque constructions"));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UFlo "U-value of floor"
+   annotation (Dialog(group="Opaque constructions"));
+  parameter Real b=0.5 "Coefficient floor trasmittance"
+   annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area AFlo "Net conditioned floor area";
   parameter Modelica.Units.SI.Volume VRoo "Volume of room";
   parameter Real facMas "Effective mass area factor";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
-    annotation (choicesAllMatching=true);
-  parameter Modelica.Units.SI.Angle surTil[4]={1.5707963267949,1.5707963267949,
-      1.5707963267949,1.5707963267949} "Tilt angle of surfaces";
-  parameter Modelica.Units.SI.Angle surAzi[4]={3.1415926535898,-1.5707963267949,
-      0,1.5707963267949} "Azimuth angle of surfaces";
+   annotation (choicesAllMatching=true);
+  parameter Integer nOrientations "Number of orientations for vertical walls";
+  parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
+  parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
   parameter Real winFra(min=0, max=1)=0.01 "Frame fraction of windows"
-    annotation(Dialog(group="Windows"));
+   annotation(Dialog(group="Windows"));
   parameter Real gFac(min=0, max=1) "Energy transmittance of glazings"
-    annotation(Dialog(group="Windows"));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HVen(G=airRat*VRoo*
-        1005*1.2/3600) "Heat transfer due to ventilation"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HTra(G=1/(1/(UWal*
-        AWal[1] + UWal*AWal[2] + UWal*AWal[3] + UWal*AWal[4] + URoo*ARoo) - 1/(
-        9.1*facMas*AFlo))) "Heat transfere through opaque elements"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(G=UWin*AWin[1] +
-        UWin*AWin[2] + UWin*AWin[3] + UWin*AWin[4])
-    "Heat transfer through glazed elements"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+   annotation(Dialog(group="Windows"));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HVen(
+      G=airRat*VRoo*1005*1.2/3600) "Heat transfer due to ventilation"
+   annotation (Placement(transformation(extent={{0,70},{20,90}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HTra(
+      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(9.1*facMas*AFlo))) "Heat transfere through opaque elements"
+   annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(
+      G=UWin*sum(AWin)) "Heat transfer through glazed elements"
+   annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=3.45*AFlo*4.5) "Coupling conductancec betwee air and surface nodes"
-    annotation (Placement(transformation(
+   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=9.1*facMas*AFlo)
-    "Coupling conductancec between surface and mass nodes" annotation (
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=9.1*facMas*AFlo) "Coupling conductancec between surface and mass nodes"
+   annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,-40})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capMas(C=buiMas.heaC*
-      AFlo, T(
-      displayUnit="K",
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capMas(
+      C=buiMas.heaC*AFlo,
+      T(displayUnit="K",
       fixed=true,
       start=293.15)) "Zone thermal capacity" annotation (Placement(
         transformation(
@@ -77,21 +78,22 @@ model Zone "Thermal zone based on 5R1C network"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Math.Add solGai "Total solar heat gains"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  BaseClasses.GlazedElements glaEle(
+  BaseClasses.GlazedElements Win(
+    n=nOrientations,
     AWin=AWin,
-    winFra=winFra,
     surTil=surTil,
     surAzi=surAzi,
-    gFac=gFac) "Solar heat gains of glazed elements"
+    gFac=gFac,
+    winFra=winFra) "Solar heat gains of glazed elements"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  BaseClasses.OpaqueElements opaEle(
+  BaseClasses.OpaqueElements Opa(
+    n=nOrientations,
     AWal=AWal,
-    UWal=UWal,
     ARoo=ARoo,
+    UWal=UWal,
     URoo=URoo,
-    surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949,0},
-    surAzi={surAzi[1],surAzi[2],surAzi[3],
-        surAzi[4],0}) "Solar heat gains of opaque elements"
+    surTil=surTil,
+    surAzi=surAzi) "Solar heat gains of opaque elements"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Interfaces.RealInput intSenGai( unit="W") "Internal sensible heat gains"
     annotation (Placement(transformation(extent={{-180,-140},{-140,-100}})));
@@ -136,7 +138,7 @@ equation
     annotation (Line(points={{40,0},{40,30}}, color={191,0,0}));
   connect(TSur,TSur)
     annotation (Line(points={{40,0},{40,0}}, color={191,0,0}));
-  connect(glaEle.weaBus, weaBus) annotation (Line(
+  connect(Win.weaBus, weaBus) annotation (Line(
       points={{-100,-50},{-120,-50},{-120,120}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -144,8 +146,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(opaEle.weaBus, weaBus) annotation (Line(
-      points={{-100,-90.9524},{-120,-90.9524},{-120,120}},
+  connect(Opa.weaBus, weaBus) annotation (Line(
+      points={{-100,-90},{-120,-90},{-120,120}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -172,10 +174,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(solGai.u1, glaEle.solRadWin) annotation (Line(points={{-62,-64},{-72,-64},{-72,-50},{-79.2857,-50}},
-                                          color={0,0,127}));
-  connect(solGai.u2, opaEle.SolRadOpa) annotation (Line(points={{-62,-76},{-72,-76},{-72,-89.5238},{-79.5455,-89.5238}},
-                                                    color={0,0,127}));
   connect(solGai.y, phiMas.solGai) annotation (Line(points={{-39,-70},{-32,-70},
           {-32,-104},{134,-104},{134,-88},{122,-88}}, color={0,0,127}));
   connect(phiSur.solGai, solGai.y) annotation (Line(points={{122,-8},{134,-8},{134,
@@ -192,6 +190,10 @@ equation
     annotation (Line(points={{99,80},{80,80}}, color={0,0,127}));
   connect(phiSur.surGaiOut, heaSur.Q_flow)
     annotation (Line(points={{99,0},{80,0}}, color={0,0,127}));
+  connect(Win.solRadWin, solGai.u1) annotation (Line(points={{-79,-50},{-70,-50},
+          {-70,-64},{-62,-64}}, color={0,0,127}));
+  connect(Opa.y, solGai.u2) annotation (Line(points={{-79,-90},{-70,-90},{-70,-76},
+          {-62,-76}}, color={0,0,127}));
   annotation (defaultComponentName="zon5R1C", Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -140},{140,140}}), graphics={Rectangle(
           extent={{-140,140},{140,-140}},
