@@ -10,6 +10,11 @@ record BESTESTResults "BESTEST comparison results"
   parameter Modelica.Units.SI.Power PCooMax=-6827 "Maximum peak cooling load";
   parameter Modelica.Units.SI.Power PCooMin=-5965 "Minimum peak cooling load";
 
-  annotation (defaultComponentName="annComBESTEST",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (defaultComponentName="annComBESTEST",Icon(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Documentation(info="<html>
+<p>
+BESTEST results for annual heating and cooling loads.
+</p>
+</html>"));
 end BESTESTResults;
