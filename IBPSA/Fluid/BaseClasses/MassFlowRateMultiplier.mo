@@ -10,7 +10,8 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
     annotation(Dialog(enable=not use_input));
 
   Modelica.Blocks.Interfaces.RealInput u(
-    final unit="1", final min=Modelica.Constants.small) if use_input
+    final unit="1",
+    final min=Modelica.Constants.small) if use_input
     "Multiplier factor"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
@@ -27,7 +28,8 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
   Modelica.Blocks.Math.Division div1 if use_input
     "Compute the inverse"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Modelica.Blocks.Sources.Constant one(final k=1) if use_input
+  Modelica.Blocks.Sources.Constant one(
+    final k=1) if use_input
     "Constant 1"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
@@ -75,10 +77,10 @@ equation
 <p>
 This model multiplies the mass flow rate so that
 <code>0 = port_b.m_flow + gain * port_a.m_flow</code>
-where the variable <code>gain</code> is either equal to
-the input variable <code>u</code> if <code>use_input</code> 
+where <code>gain</code> is either equal to
+the input variable <code>u</code> if <code>use_input</code>
 is set to <code>true</code>, or equal to
-the parameter <code>k</code> if <code>use_input</code> 
+the parameter <code>k</code> if <code>use_input</code>
 is set to <code>false</code>.
 </p>
 <p>
@@ -96,7 +98,9 @@ having the same mass flow rate and temperatures.
 <ul>
 <li>
 January 11, 2023, by Antoine Gautier:<br/>
-Added option to use input connector as multiplier factor.
+Added option to use input connector as multiplier factor.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1684\">#1684</a>.
 </li>
 <li>
 March 27, 2013, by Michael Wetter:<br/>

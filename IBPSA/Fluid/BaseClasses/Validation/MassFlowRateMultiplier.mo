@@ -65,11 +65,11 @@ equation
     experiment(Tolerance=1e-6, StartTime=0.0, StopTime=10.0),
     Documentation(info="<html>
 <p>
-This example demonstrates the use of 
+This example demonstrates the use of
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier\">
 IBPSA.Fluid.BaseClasses.MassFlowRateMultiplier</a>,
 using either a parameter to specify the multiplier factor
-(see the instance <code>massFlowRateMultiplier</code>) or 
+(see the instance <code>massFlowRateMultiplier</code>) or
 an input signal (see the instance <code>massFlowRateMultiplier1</code>).
 </p>
 </html>", revisions="<html>
