@@ -44,7 +44,7 @@ initial equation
     "Gain must not be zero. Received k = " + String(k));
 equation
   assert(abs(u_internal) > Modelica.Constants.small,
-    "Gain must not be zero. Received u = " + String(u_internal));
+    "Gain must be non-zero. Received u = " + String(u_internal));
 
   // Pressure drop in design flow direction
   port_a.p = port_b.p;
