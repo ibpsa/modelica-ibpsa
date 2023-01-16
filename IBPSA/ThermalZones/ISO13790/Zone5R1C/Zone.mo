@@ -16,17 +16,18 @@ model Zone "Thermal zone based on 5R1C network"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer UFlo "U-value of floor"
    annotation (Dialog(group="Opaque constructions"));
-  parameter Real b=0.5 "Coefficient floor trasmittance"
+  parameter Real b=0.5 "Adjustment factor for ground heat transfer"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area AFlo "Net conditioned floor area";
   parameter Modelica.Units.SI.Volume VRoo "Volume of room";
   parameter Real facMas "Effective mass area factor";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45 "Heat transfer conductivity between surface and air node";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
    annotation (choicesAllMatching=true);
   parameter Integer nOrientations "Number of orientations for vertical walls";
   parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
   parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
-  parameter Real winFra(min=0, max=1)=0.01 "Frame fraction of windows"
+  parameter Real winFra(min=0, max=1)=0.001 "Frame fraction of windows"
    annotation(Dialog(group="Windows"));
   parameter Real gFac(min=0, max=1) "Energy transmittance of glazings"
    annotation(Dialog(group="Windows"));
@@ -39,7 +40,7 @@ model Zone "Thermal zone based on 5R1C network"
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(
       G=UWin*sum(AWin)) "Heat transfer through glazed elements"
    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=3.45*AFlo*4.5) "Coupling conductancec betwee air and surface nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*4.5) "Coupling conductancec betwee air and surface nodes"
    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
