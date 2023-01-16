@@ -38,9 +38,7 @@ equation
           -40,-70},{-40,-10},{24,-10}}, color={0,0,127}));
   annotation (experiment(
       StopTime=31536000,
-      Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloatingHVAC.mos"
         "Simulate and plot"),

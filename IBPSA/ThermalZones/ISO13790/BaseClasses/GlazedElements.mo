@@ -80,5 +80,25 @@ equation
           extent={{-108,148},{114,116}},
           textColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+<p>
+This model calculates the heat flow by solar gains through each glazed element <i>k</i>. The heat flow is given by 
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>sol,k</sub> =F<sub>sh,k </sub>I<sub>sol,k </sub>g<sub>fac</sub> (1-F<sub>frame</sub>) A<sub>win,k</sub>
+</p>
+where <i>F<sub>sh,k</sub></i> is the shading reduction factor which is set to 0.9 by deafult, <i>I<sub>sol,k</sub></i> is the solar irradiance
+per square meter of surface area, <i>g<sub>fac</sub></i> is the total solar energy transmittance of the trasparent
+element, <i>F<sub>frame</sub></i> is the frame area fraction, and <i>A<sub>win,k</sub></i> is the overall area of 
+the glazed element in square meters.
+<p>
+The model neglects the extra heat flow due to thermal radiation to the sky from the building.
+</p>
+</p>
+</html>", revisions="<html><ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul></html>"));
 end GlazedElements;

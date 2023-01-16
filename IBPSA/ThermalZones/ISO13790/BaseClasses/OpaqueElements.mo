@@ -166,5 +166,32 @@ equation
           extent={{-110,148},{112,116}},
           textColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This model calculates the heat flow by solar gains through each opaque building element <i>k</i>. The heat flow is given by 
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>sol,k</sub> =F<sub>sh,k </sub>I<sub>sol,k </sub> &alpha;<sub>k</sub> R<sub>se</sub> U<sub>k</sub>
+A<sub>k</sub> - F<sub>f</sub> &Phi;<sub>r,k</sub>
+</p>
+where <i>F<sub>sh,k</sub></i> is the shading reduction factor, <i>I<sub>sol,k</sub></i> is the solar irradiance
+per square meter of surface area, <i>&alpha;<sub>k</sub></i> is the dimensionless absportion coefficient for solar radiation of the opaque element,
+<i>R<sub>se</sub></i> is the external surface heat resistance of the opaque element in mK/W, and <i>A<sub>k</sub></i> is the area of the opaque element.
+<p>
+The form factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to 
+thermal radiation to the sky is given by
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>r,k</sub> =h<sub>r</sub> &#916;T<sub>sky</sub> R<sub>se</sub> U<sub>k</sub> A<sub>k</sub>
+</p>
+where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficent which is approximated to 5&epsilon; W/m<sup>2</sup>K (where &epsilon; is the emissivity for 
+the thermal radiation of the external surfece), and &#916;T<sub>sky</sub> is the average temperature difference between the external air temperature and the 
+apparent sky temperature.
+</p>
+</p>
+</html>", revisions="<html><ul>
+<li>
+Mar 16, 2022, by Alessandro Maccarini:<br/>
+First implementation.
+</li>
+</ul></html>"));
 end OpaqueElements;

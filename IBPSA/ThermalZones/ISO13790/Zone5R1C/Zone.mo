@@ -238,51 +238,41 @@ which are split in three components.
 <br>
 The ventilation heat transfer coefficient <code>Hve</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>ve</sub> =
-  &rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>
-  </p>
-  where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific 
-  heat of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
-  flow rate.
-  
-  The coupling conductance <code>H<sub>therm</sub></code> is given by
+H<sub>ve</sub> =&rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>
+</p>
+where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific 
+heat of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
+flow rate.
+The coupling conductance <code>H<sub>therm</sub></code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>therm</sub> =
-  h<sub>as</sub>A<sub>tot</sub>
-  </p>
-  where <i>h<sub>as</sub></i> is the heat transfer coefficient between the air 
-  node the surface node, with a fixed value of 3.45 W/m<sup>2</sup>K, and
-  <i>A<sub>tot</sub></i> is the area of all surfaces facing the building zone.
-  
-  The thermal transmission coefficient of windows <code>Hwin</code> is calculated using
+H<sub>therm</sub> = h<sub>as</sub>A<sub>tot</sub>
+</p>
+where <i>h<sub>as</sub></i> is the heat transfer coefficient between the air 
+node the surface node, with a fixed value of 3.45 W/m<sup>2</sup>K, and
+<i>A<sub>tot</sub></i> is the area of all surfaces facing the building zone.
+The thermal transmission coefficient of windows <code>Hwin</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>win</sub> =
-  &sum;<sub>k</sub>U<sub>win,k</sub>A<sub>win,k</sub>
-  </p>
-  where <i>U<sub>win,k</sub></i> is the thermal transmittance of window element 
-  k of the building envelope and <i>A<sub>k</sub></i>  is the area of the window
-  element k of the building envelope.
-  
-  The coupling conductance <code>Hmass</code> is given by
+&sum;<sub>k</sub>U<sub>win,k</sub>A<sub>win,k</sub>
+</p>
+where <i>U<sub>win,k</sub></i> is the thermal transmittance of window element 
+k of the building envelope and <i>A<sub>k</sub></i>  is the area of the window
+element k of the building envelope. The coupling conductance <code>Hmass</code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>mass</sub> =
-  h<sub>ms</sub>f<sub>ms</sub>A<sub>f</sub>
-  </p>
-  where <i>h<sub>ms</sub></i> is the heat transfer coefficient between the mass 
-  node and the surfacenode, with fixed value of 9.1 W/m<sup>2</sup>K, 
-  <i>f<sub>ms</sub></i> is a correction factor, and <i>A<sub>f</sub></i>
-  is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed 
-  2.5 for light and medium building constructions, and 3 for heavy constructions.
-  
-  The coupling conductance <code>Htrasm</code> is calculated using
+H<sub>mass</sub> =h<sub>ms</sub>f<sub>ms</sub>A<sub>f</sub>
+</p>
+where <i>h<sub>ms</sub></i> is the heat transfer coefficient between the mass 
+node and the surfacenode, with fixed value of 9.1 W/m<sup>2</sup>K, 
+<i>f<sub>ms</sub></i> is a correction factor, and <i>A<sub>f</sub></i>
+is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed 
+2.5 for light and medium building constructions, and 3 for heavy constructions.
+The coupling conductance <code>Htrasm</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>trasm</sub> =
 1 &frasl; (1 &frasl; H<sub>op</sub>-1 &frasl; H<sub>mass</sub>)
-  </p>
-  where <i>H<sub>op</sub></i> is the thermal transmission coefficient of opaque elements.
-  
-  The three heat gains components are calculated using
-  
+</p>
+where <i>H<sub>op</sub></i> is the thermal transmission coefficient of opaque elements.
+The three heat gains components are calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>air</sub> = 0.5&Phi;<sub>int</sub>
 </p>
@@ -293,10 +283,9 @@ H<sub>trasm</sub> =
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>mas</sub> = f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub> (0.5&Phi;<sub>int</sub>+
 &Phi;<sub>sol</sub>)
-</p>
-  
-  </html>",
-  revisions="<html>
+</p> 
+</html>",
+revisions="<html>
 <ul>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
