@@ -1,7 +1,6 @@
 within IBPSA.ThermalZones.ISO13790.Examples;
 model FreeFloatingHVAC "Illustrates the use of the 5R1C HVAC thermal zone in free-floating conditions"
   extends Modelica.Icons.Example;
-
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")) "weather data"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -13,9 +12,13 @@ model FreeFloatingHVAC "Illustrates the use of the 5R1C HVAC thermal zone in fre
     ARoo=16,
     UWal=1.3,
     URoo=1.3,
+    UFlo=1,
     AFlo=16,
     VRoo=16*3,
     facMas=2.5,
+    nOrientations=4,
+    surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
+    surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},
     gFac=0.5,
     redeclare package Medium = IBPSA.Media.Air,
     redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas) "Thermal zone"
@@ -29,11 +32,15 @@ equation
       points={{30.6,13},{-50.7,13},{-50.7,70},{-60,70}},
       color={255,204,51},
       thickness=0.5));
-  connect(latGains.y, zonHVAC.latGains) annotation (Line(points={{-59,-10},{-54,
-          -10},{-54,-6},{24,-6}}, color={0,0,127}));
-  connect(zonHVAC.intGai, intGains.y) annotation (Line(points={{24,-10},{-40,
-          -10},{-40,-70},{-59,-70}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  connect(latGains.y, zonHVAC.intLatGai) annotation (Line(points={{-59,-10},{
+          -52,-10},{-52,-6},{24,-6}}, color={0,0,127}));
+  connect(intGains.y, zonHVAC.intSenGai) annotation (Line(points={{-59,-70},{
+          -40,-70},{-40,-10},{24,-10}}, color={0,0,127}));
+  annotation (experiment(
+      StopTime=31536000,
+      Interval=3600,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloatingHVAC.mos"
         "Simulate and plot"),

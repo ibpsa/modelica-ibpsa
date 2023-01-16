@@ -37,14 +37,14 @@ protected
       IBPSA.Media.Air.enthalpyOfCondensingGas(273.15 + 37) "Latent heat of water vapor";
 
 equation
-  connect(latGains, mWat_flow.u) annotation (Line(points={{-160,-80},{-130,-80},
-          {-130,50},{-70,50},{-70,120},{-42,120}}, color={0,0,127}));
   connect(mWat_flow.y, vol.mWat_flow) annotation (Line(points={{-19,120},{28,120},
           {28,128},{48,128}}, color={0,0,127}));
   connect(TAir, vol.heatPort)
     annotation (Line(points={{40,80},{40,120},{50,120}}, color={191,0,0}));
   connect(vol.ports, ports_b) annotation (Line(points={{60,110},{60,100},{94,100},
           {94,119},{140,119}}, color={0,127,255}));
+  connect(intLatGai, mWat_flow.u) annotation (Line(points={{-160,-80},{-130,-80},
+          {-130,100},{-70,100},{-70,120},{-42,120}}, color={0,0,127}));
     annotation (defaultComponentName="zonHVAC",Documentation(info="<html>
 <p>
 This models is identical to <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone\">
