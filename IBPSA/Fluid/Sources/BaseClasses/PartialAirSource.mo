@@ -54,7 +54,7 @@ equation
   annotation (defaultComponentName="bou",
   Documentation(info="<html>
 <p>
-Partial model for a wet air source that either prescribes
+Partial model for a moist air source that either prescribes
 pressure or mass flow rate.
 Models that extend this partial model need to prescribe the outflowing
 specific enthalpy, composition and trace substances.
@@ -81,7 +81,7 @@ IBPSA.Fluid.Sources.BaseClasses.PartialSource<a/>.
 <ul>
 <li>
 January 09, 2023, by Jianjun Hu:<br/>
-First implementation, specifically for the wet air source.<br/>
+First implementation, specifically for the moist air source.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
 </li>
