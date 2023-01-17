@@ -82,7 +82,7 @@ If the temperature is outside these bounds, the simulation will stop with an err
 This partial model provides medium selection for water, moist air and glycol.
 For a model that only provides moist air as a selection, use
 <a href=\"modelica://IBPSA.Fluid.Sources.BaseClasses.PartialAirSource\">
-IBPSA.Fluid.Sources.BaseClasses.PartialAirSource<a/>.
+IBPSA.Fluid.Sources.BaseClasses.PartialAirSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>
