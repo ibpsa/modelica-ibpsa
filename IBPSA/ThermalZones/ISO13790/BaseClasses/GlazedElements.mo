@@ -10,10 +10,12 @@ model GlazedElements
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
            {{-110,-10},{-90,10}})));
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[n](til=surTil, azi=surAzi)
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[n](
+  final til=surTil,
+  final azi=surAzi)
     "Direct solar irradiation on surface"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Math.Gain solRad[n](k=AWin*gFac*0.9*(1 - winFra))
+  Modelica.Blocks.Math.Gain solRad[n](final k=AWin*gFac*0.9*(1 - winFra))
     "Solar radiation"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=n) "Sum of all orientations"
@@ -21,7 +23,9 @@ model GlazedElements
   Modelica.Blocks.Interfaces.RealOutput solRadWin
     "Solar radiation through windows"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil [n](til=surTil, azi=surAzi)
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil [n](
+  final til=surTil,
+  final azi=surAzi)
     "Diffuse solar irradiation on surface"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Math.Add irr [n]
