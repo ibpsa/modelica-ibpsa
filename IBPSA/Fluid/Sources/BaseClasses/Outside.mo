@@ -129,6 +129,12 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+January 09, 2023, by Jianjun Hu:<br/>
+Changed base class to constrain medium to moist air.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
 This is for

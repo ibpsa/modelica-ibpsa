@@ -187,6 +187,12 @@ with exception of boundary flow rate, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+January 09, 2023, by Jianjun Hu:<br/>
+Changed base class to constrain medium to moist air.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+</li>
+<li>
 November 14, 2019, by Michael Wetter:<br/>
 Removed duplicate connector.<br/>
 This is for

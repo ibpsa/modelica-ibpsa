@@ -70,11 +70,20 @@ medium temperature is within the bounds <code>T_min</code> and <code>T_max</code
 where <code>T_min</code> and <code>T_max</code> are constants of the <code>Medium</code>.
 If the temperature is outside these bounds, the simulation will stop with an error.
 </p>
+<h4>Usage</h4>
+<p>
+This partial model provides medium selection for moist air.
+For a model that only provides for water, moist air and glycol as a selection, use
+<a href=\"modelica://IBPSA.Fluid.Sources.BaseClasses.PartialSource\">
+IBPSA.Fluid.Sources.BaseClasses.PartialSource<a/>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 January 09, 2023, by Jianjun Hu:<br/>
-First implementation, specifically for the wet air source.
+First implementation, specifically for the wet air source.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
 </li>
 </ul>
 </html>"));
