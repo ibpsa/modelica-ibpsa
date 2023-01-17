@@ -20,6 +20,12 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
     annotation (Placement(transformation(
           extent={{100,50},{120,70}}), iconTransformation(extent={{100,50},{120,
             70}})));
+protected
+  Modelica.Blocks.Interfaces.RealInput u_internal
+    "Connector for multiplier factor for internal use only"
+    annotation (Placement(
+    transformation(extent={{-60,20},{-20,60}}),iconTransformation(extent={{100,40},
+    {140,80}})));
 
   Modelica.Blocks.Sources.Constant cst(
     final k=k) if not use_input
@@ -33,18 +39,12 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
     "Constant 1"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-protected
-  Modelica.Blocks.Interfaces.RealInput u_internal
-    "Connector for multiplier factor for internal use only"
-    annotation (Placement(
-    transformation(extent={{-60,20},{-20,60}}),iconTransformation(extent={{100,40},
-    {140,80}})));
 initial equation
-  assert(k > Modelica.Constants.small or -k < -Modelica.Constants.small,
-    "Gain must not be zero. Received k = " + String(k));
+  assert(k > Modelica.Constants.small,
+    "Gain must be strictly positive. Received k = " + String(k));
 equation
-  assert(abs(u_internal) > Modelica.Constants.small,
-    "Gain must be non-zero. Received u = " + String(u_internal));
+  assert(u_internal > Modelica.Constants.small,
+    "Gain must be strictly positive. Received u = " + String(u_internal));
 
   // Pressure drop in design flow direction
   port_a.p = port_b.p;
@@ -77,7 +77,7 @@ equation
 <p>
 This model multiplies the mass flow rate so that
 <code>0 = port_b.m_flow + gain * port_a.m_flow</code>
-where <code>gain</code> is either equal to
+where <code>gain &gt; 0</code> is either equal to
 the input variable <code>u</code> if <code>use_input</code>
 is set to <code>true</code>, or equal to
 the parameter <code>k</code> if <code>use_input</code>
