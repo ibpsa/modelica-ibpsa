@@ -80,6 +80,8 @@ protected
     "Nominal temperature at port b2";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
+  flo flowRegime(fixed=false, start=flowRegime_nominal)
+    "Heat exchanger flow regime";
 initial equation
   assert(m1_flow_nominal > 0,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
@@ -150,12 +152,28 @@ initial equation
     flowRegime=Integer(flowRegime_nominal)) else 0;
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 equation
+  // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
+  if (configuration == con.ParallelFlow) then
+    flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
+  elseif (configuration == con.CounterFlow) then
+    flowRegime = if (C1_flow*C2_flow >= 0) then flo.CounterFlow else flo.ParallelFlow;
+  elseif (configuration == con.CrossFlowUnmixed) then
+    flowRegime = flo.CrossFlowUnmixed;
+  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+    flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinMixedCMaxUnmixed
+       else flo.CrossFlowCMinUnmixedCMaxMixed;
+  else
+    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+    flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
+       else flo.CrossFlowCMinMixedCMaxUnmixed;
+  end if;
+
   // Effectiveness
   eps = IBPSA.Fluid.HeatExchangers.BaseClasses.epsilon_C(
     UA=UA,
     C1_flow=C1_flow,
     C2_flow=C2_flow,
-    flowRegime=Integer(flowRegime_nominal),
+    flowRegime=Integer(flowRegime),
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
@@ -196,29 +214,16 @@ IBPSA.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
 </p>
 <p>
-The flow regimes for capacity flow rate are solely dependent on nominal
-values and are not influenced by the actual capacity flow rates.
-This is to avoid events and improve numerical performance. See
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA issue 1682</a>
-</p>
-<p>
-Models that extend from this partial modconfigurationel need to provide an assignment
+Models that extend from this partial model need to provide an assignment
 for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 5, 2023, by Hongxiang Fu:<br/>
-Removed <code>flowRegime</code> and replaced its use with
-<code>flowRegime_nominal</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
-</li>
-<li>
 November 11, 2023, by Michael Wetter:<br/>
 Corrected wrong temperature in assignment of <code>sta2_default</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">IBPSA, issue 3151</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>.
 </li>
 <li>
 February 25, 2021 by Baptiste Ravache:<br/>

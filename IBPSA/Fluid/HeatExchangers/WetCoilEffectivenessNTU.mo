@@ -144,7 +144,7 @@ protected
     annotation (Placement(transformation(extent={{-68,-13},{-50,9}})));
   IBPSA.Fluid.HeatExchangers.BaseClasses.WetCoilDryWetRegime dryWetCalcs(
     fullyWet(hAirOut(start=Medium2.h_default)),
-    final cfg=flowRegime_nominal,
+    final cfg=flowRegime,
     final mWat_flow_nominal=m1_flow_nominal,
     final mAir_flow_nominal=m2_flow_nominal,
     final Qfac=Qfac)
@@ -214,6 +214,8 @@ protected
     "Index of water";
   parameter flo flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
+  flo flowRegime(fixed=false, start=flowRegime_nominal)
+    "Heat exchanger flow regime";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
@@ -306,6 +308,37 @@ initial equation
   end if;
 
 equation
+  // Assign the flow regime for the given heat exchanger configuration and
+  // mass flow rates
+  if (configuration == con.ParallelFlow) then
+    flowRegime = if (C1_flow*C2_flow >= 0)
+      then
+        flo.ParallelFlow
+      else
+        flo.CounterFlow;
+  elseif (configuration == con.CounterFlow) then
+    flowRegime = if (C1_flow*C2_flow >= 0)
+      then
+        flo.CounterFlow
+      else
+        flo.ParallelFlow;
+  elseif (configuration == con.CrossFlowUnmixed) then
+    flowRegime = flo.CrossFlowUnmixed;
+  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+    flowRegime = if (C1_flow < C2_flow)
+      then
+        flo.CrossFlowCMinMixedCMaxUnmixed
+      else
+        flo.CrossFlowCMinUnmixedCMaxMixed;
+  else
+    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+    flowRegime = if (C1_flow < C2_flow)
+      then
+        flo.CrossFlowCMinUnmixedCMaxMixed
+      else
+        flo.CrossFlowCMinMixedCMaxUnmixed;
+  end if;
+
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
   connect(heaCooHum_u.port_b, port_b2) annotation (Line(
@@ -545,12 +578,6 @@ with water and coil materials are considered.</p>
 coefficient, is assumed to be <i>1</i>.</p>
 <p>The model is not suitable for a cross-flow heat exchanger of which the number
 of passes is less than four.</p>
-<p>
-The flow regimes for capacity flow rate are solely dependent on nominal
-values and are not influenced by the actual capacity flow rates.
-This is to avoid events and improve numerical performance. See
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA issue 1682</a>
-</p>
 <h4>Validation</h4>
 <p>Validation results can be found in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU\">
@@ -584,13 +611,6 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
-<li>
-January 5, 2023, by Hongxiang Fu:<br/>
-Removed <code>flowRegime</code> and replaced its use with
-<code>flowRegime_nominal</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
-</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>
