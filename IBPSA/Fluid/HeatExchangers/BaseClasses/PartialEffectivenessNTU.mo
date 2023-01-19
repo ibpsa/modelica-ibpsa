@@ -48,6 +48,13 @@ model PartialEffectivenessNTU
   final parameter Real NTU_nominal(min=0, fixed=false)
     "Nominal number of transfer units";
 
+  constant Boolean use_dynamicFlowRegime = false
+    "If true, regime is determined with actual flow rates during simulation";
+  // This switch is declared as a constant instead of a parameter
+  //   to hide it from non-advanced users.
+  //   Setting it true may generate events.
+  //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
+
 protected
   final parameter Medium1.ThermodynamicState sta1_default = Medium1.setState_pTX(
      T=Medium1.T_default,
@@ -153,19 +160,23 @@ initial equation
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
-  if (configuration == con.ParallelFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0) then flo.CounterFlow else flo.ParallelFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime = flo.CrossFlowUnmixed;
-  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
-    flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinMixedCMaxUnmixed
-       else flo.CrossFlowCMinUnmixedCMaxMixed;
+  if use_dynamicFlowRegime then
+    if (configuration == con.ParallelFlow) then
+      flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
+    elseif (configuration == con.CounterFlow) then
+      flowRegime = if (C1_flow*C2_flow >= 0) then flo.CounterFlow else flo.ParallelFlow;
+    elseif (configuration == con.CrossFlowUnmixed) then
+      flowRegime = flo.CrossFlowUnmixed;
+    elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+      flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinMixedCMaxUnmixed
+         else flo.CrossFlowCMinUnmixedCMaxMixed;
+    else
+      // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+      flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
+         else flo.CrossFlowCMinMixedCMaxUnmixed;
+    end if;
   else
-    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
-    flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
-       else flo.CrossFlowCMinMixedCMaxUnmixed;
+    flowRegime = flowRegime_nominal;
   end if;
 
   // Effectiveness
