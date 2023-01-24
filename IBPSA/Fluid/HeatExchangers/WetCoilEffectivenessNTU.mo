@@ -607,6 +607,15 @@ with water and coil materials are considered.</p>
 coefficient, is assumed to be <i>1</i>.</p>
 <p>The model is not suitable for a cross-flow heat exchanger of which the number
 of passes is less than four.</p>
+<p>
+By default, the flow regimes for capacity flow rate are solely dependent on
+nominal values and are not influenced by the actual capacity flow rates.
+The purpose is to avoid events and improve numerical performance.
+To track the actual flow regime during simulation and switch equations
+accordingly, set <code>constant use_dynamicFlowRegime</code> to
+<code>true</code>. See discussions in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1683\">IBPSA PR 1683</a>.
+</p>
 <h4>Validation</h4>
 <p>Validation results can be found in
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU\">
@@ -640,6 +649,15 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
+<li>
+January 24, 2023, by Hongxiang Fu:<br/>
+Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
+by default. Added an assertion warning to inform the user about how to change
+this behaviour if the flow direction does need to change.
+the flow direction changes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>

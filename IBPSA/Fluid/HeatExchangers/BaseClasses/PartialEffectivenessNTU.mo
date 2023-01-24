@@ -235,11 +235,29 @@ IBPSA.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
 </p>
 <p>
+By default, the flow regimes for capacity flow rate are solely dependent on
+nominal values and are not influenced by the actual capacity flow rates.
+The purpose is to avoid events and improve numerical performance.
+To track the actual flow regime during simulation and switch equations
+accordingly, set <code>constant use_dynamicFlowRegime</code> to
+<code>true</code>. See discussions in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1683\">IBPSA PR 1683</a>.
+</p>
+<p>
 Models that extend from this partial model need to provide an assignment
 for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 24, 2023, by Hongxiang Fu:<br/>
+Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
+by default. Added an assertion warning to inform the user about how to change
+this behaviour if the flow direction does need to change.
+the flow direction changes.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
+</li>
 <li>
 November 11, 2023, by Michael Wetter:<br/>
 Corrected wrong temperature in assignment of <code>sta2_default</code>.<br/>
