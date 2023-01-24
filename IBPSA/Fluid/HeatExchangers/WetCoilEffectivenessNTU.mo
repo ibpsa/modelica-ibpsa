@@ -349,6 +349,16 @@ equation
     end if;
   else
     flowRegime = flowRegime_nominal;
+    assert((m1_flow > -0.1 * m1_flow_nominal)
+       and (m2_flow > -0.1 * m2_flow_nominal),
+"*** Warning in "+ getInstanceName()+
+      ": The flow direction in one or both sides reversed.
+      However, because (constant) use_dynamicFlowRegime = false,
+      the model does not change equations based on the actual flow regime.
+      If the user wants the model to switch equations based on the actual
+      flow regime during simulation, change the constant to true.
+      But doing so may slow down the simulation because of events.",
+      level = AssertionLevel.warning);
   end if;
 
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
