@@ -285,6 +285,13 @@ protected
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
 initial equation
+  assert(m1_flow_nominal > Modelica.Constants.eps,
+    "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
+    m1_flow_nominal));
+  assert(m2_flow_nominal > Modelica.Constants.eps,
+    "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
+    m2_flow_nominal));
+
   cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
