@@ -90,10 +90,10 @@ protected
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 initial equation
-  assert(m1_flow_nominal > 0,
+  assert(m1_flow_nominal > Modelica.Constants.eps,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
     m1_flow_nominal));
-  assert(m2_flow_nominal > 0,
+  assert(m2_flow_nominal > Modelica.Constants.eps,
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
