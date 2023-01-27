@@ -609,7 +609,7 @@ coefficient, is assumed to be <i>1</i>.</p>
 of passes is less than four.</p>
 <p>
 By default, the flow regime, such as counter flow or parallel flow,
-is kept constant based on the parameter value <code>configuration<code>.
+is kept constant based on the parameter value <code>configuration</code>.
 If a flow reverses direction, it is not changed, e.g.,
 a heat exchanger does not change from counter flow to parallel flow
 if one flow changes direction.
