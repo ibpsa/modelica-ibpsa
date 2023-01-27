@@ -10,6 +10,13 @@ model WetCoilEffectivenessNTU
   import con = IBPSA.Fluid.Types.HeatExchangerConfiguration;
   import flo = IBPSA.Fluid.Types.HeatExchangerFlowRegime;
 
+  constant Boolean use_dynamicFlowRegime = false
+    "If true, flow regime is determined using actual flow rates";
+  // This switch is declared as a constant instead of a parameter
+  //   as users typically need not to change this setting,
+  //   and setting it true may generate events.
+  //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
+
   parameter IBPSA.Fluid.Types.HeatExchangerConfiguration configuration=
     con.CounterFlow
     "Heat exchanger configuration";
@@ -72,13 +79,6 @@ model WetCoilEffectivenessNTU
 
   Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
-
-  constant Boolean use_dynamicFlowRegime = false
-    "If true, regime is determined with actual flow rates during simulation";
-  // This switch is declared as a constant instead of a parameter
-  //   to hide it from non-advanced users.
-  //   Setting it true may generate events.
-  //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
 
 protected
   final parameter Modelica.Units.SI.MassFraction X_w_a2_nominal=w_a2_nominal/(1
@@ -358,13 +358,13 @@ equation
     flowRegime = flowRegime_nominal;
     assert((m1_flow > -0.1 * m1_flow_nominal)
        and (m2_flow > -0.1 * m2_flow_nominal),
-"*** Warning in "+ getInstanceName()+
-      ": The flow direction in one or both sides reversed.
-      However, because (constant) use_dynamicFlowRegime = false,
+"*** Warning in " + getInstanceName() +
+      ": The flow direction reversed.
+      However, because the constant use_dynamicFlowRegime is set to false,
       the model does not change equations based on the actual flow regime.
-      If the user wants the model to switch equations based on the actual
-      flow regime during simulation, change the constant to true.
-      But doing so may slow down the simulation because of events.",
+      To switch equations based on the actual flow regime during the simulation,
+      set the constant use_dynamicFlowRegime=true.
+      Note that this can lead to slow simulation because of events.",
       level = AssertionLevel.warning);
   end if;
 
@@ -608,13 +608,16 @@ coefficient, is assumed to be <i>1</i>.</p>
 <p>The model is not suitable for a cross-flow heat exchanger of which the number
 of passes is less than four.</p>
 <p>
-By default, the flow regimes for capacity flow rate are solely dependent on
-nominal values and are not influenced by the actual capacity flow rates.
-The purpose is to avoid events and improve numerical performance.
-To track the actual flow regime during simulation and switch equations
-accordingly, set <code>constant use_dynamicFlowRegime</code> to
-<code>true</code>. See discussions in
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1683\">IBPSA PR 1683</a>.
+By default, the flow regime, such as counter flow or parallel flow,
+is kept constant based on the parameter value <code>configuration<code>.
+If a flow reverses direction, it is not changed, e.g.,
+a heat exchanger does not change from counter flow to parallel flow
+if one flow changes direction.
+To dynamically change the flow regime,
+set the constant <code>use_dynamicFlowRegime</code> to
+<code>true</code>.
+However, <code>use_dynamicFlowRegime=true</code>
+can cause slower simulation due to events.
 </p>
 <h4>Validation</h4>
 <p>Validation results can be found in
@@ -653,8 +656,7 @@ Fuzzy identification of systems and its applications to modeling and control.
 January 24, 2023, by Hongxiang Fu:<br/>
 Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
 by default. Added an assertion warning to inform the user about how to change
-this behaviour if the flow direction does need to change.
-the flow direction changes.<br/>
+this behaviour if the flow direction does need to change.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
 </li>
