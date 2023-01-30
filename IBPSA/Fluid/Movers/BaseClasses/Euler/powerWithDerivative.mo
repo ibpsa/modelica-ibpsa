@@ -6,8 +6,8 @@ record powerWithDerivative
     "Volume flow rate at user-selected operating points";
   parameter Modelica.Units.SI.Power P[11](each min=0)
     "Fan or pump electrical power at these flow rates";
-  parameter Real d[11]
-    "Derivative of power with respect to flow rate";
+  parameter Real d[11](unit="J/m3")
+    "Derivative of power with respect to volume flow rate";
   annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe electrical power and its derivative
