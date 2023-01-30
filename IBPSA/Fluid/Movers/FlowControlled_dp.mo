@@ -135,7 +135,7 @@ equation
           textColor={0,0,127},
           visible=inputType == IBPSA.Fluid.Types.InputType.Continuous or inputType == IBPSA.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("dp", if inputType == IBPSA.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
-  defaultComponentName="fan",
+  defaultComponentName="mov",
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.

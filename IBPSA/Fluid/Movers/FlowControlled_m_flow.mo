@@ -120,7 +120,7 @@ equation
           textColor={0,0,127},
           visible=inputType == IBPSA.Fluid.Types.InputType.Continuous or inputType == IBPSA.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("m_flow", if inputType == IBPSA.Fluid.Types.InputType.Continuous then String(m_flow_in, leftJustified=false, significantDigits=3) else String(stage)))}),
-  defaultComponentName="fan",
+  defaultComponentName="mov",
   Documentation(
    info="<html>
 <p>
