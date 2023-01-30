@@ -283,7 +283,7 @@ protected
     P = powEu_internal.P)
     "Power vs. volumetric flow rate computed from Euler number";
   final parameter Real powEuDer[:] = powEu_internal.d
-    "Power derivative wrt volumetric flow rate computed from Euler number";
+    "Power derivative with respect to volumetric flow rate computed from Euler number";
 
   parameter Boolean haveMinimumDecrease=
     if nOri<2 then false
