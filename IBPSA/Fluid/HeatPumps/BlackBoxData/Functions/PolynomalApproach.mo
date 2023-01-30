@@ -50,7 +50,7 @@ algorithm
 <p>
   The coefficients for the polynomal functions are stored inside the
   record for heat pumps in <a href=
-  \"modelica://IIBPSA.Fluid.HeatPumps.BlackBoxData.Functions\">
+  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.Functions\">
   IBPSA.Fluid.HeatPumps.BlackBoxData.Functions</a>.
 </p>
 <p>

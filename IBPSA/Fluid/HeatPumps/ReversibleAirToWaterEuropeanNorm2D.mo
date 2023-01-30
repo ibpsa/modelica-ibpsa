@@ -2,6 +2,10 @@ within IBPSA.Fluid.HeatPumps;
 model ReversibleAirToWaterEuropeanNorm2D
   "Reversibel air to water heat pump based on 2D manufacturer data in europe"
   extends ModularReversible(
+    dTEva_nominal=0,
+    mEva_flow_nominal=datTabHea.mEva_flow_nominal*vapComCyc.blaBoxHeaPumHea.scaFac,
+    mCon_flow_nominal=datTabHea.mCon_flow_nominal*vapComCyc.blaBoxHeaPumHea.scaFac,
+    dTCon_nominal=QUse_flow_nominal/cpCon/mCon_flow_nominal,
     final GEvaIns=0,
     final GEvaOut=0,
     final CEva=0,
@@ -15,12 +19,12 @@ model ReversibleAirToWaterEuropeanNorm2D
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCal,
           final datTab=datTabCoo),
     final use_TSet=false,
-    redeclare final model BlackBoxHeatPumpHeating =
+    redeclare model BlackBoxHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCal,
           final datTab=datTabHea),
     final use_rev=true,
-    redeclare final model VapourCompressionCycleInertia =
+    redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia);
 
   replaceable parameter IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition

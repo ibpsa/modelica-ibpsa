@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511;
 record Vitocal200AWO201 "Vitocal200AWO201Chilling"
   extends
     IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.ChillerBaseDataDefinition(
-    device_id="Vitocal200AWO2201",
+    device_id="Vitocal200AWO201",
     tablePel=[0,20,25,27,30,35; 7,1380.0,1590.0,1680.0,1800.0,1970.0; 18,950.0,
         1060.0,1130.0,1200.0,1350.0],
     tableQEva_flow=[0,20,25,27,30,35; 7,2540.0,2440.0,2370.0,2230.0,2170.0; 18,

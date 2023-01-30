@@ -31,7 +31,8 @@ model OnOffControl
     final uHigh=ySet_small,
     final uLow=ySet_small/2) "True if device is set on"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Routing.BooleanPassThrough isAblToTurOff
+  Modelica.Blocks.Routing.BooleanPassThrough isAblToTurOff(
+    y(start=true, fixed=true))
     "y equals true if the device is able to turn off, else false"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
@@ -48,7 +49,8 @@ model OnOffControl
   BaseClasses.TimeControl runTimCtr(final minRunTime=minRunTime)
     if use_minRunTime "Check if device needs to run"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Modelica.Blocks.Logical.And andIsAblToTurOn
+  Modelica.Blocks.Logical.And andIsAblToTurOn(
+    y(start=true, fixed=true))
     "If output is false, device is locked"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
@@ -63,10 +65,12 @@ model OnOffControl
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Logical.Not notSetOn "Device is not set to turn on"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
-  Modelica.Blocks.Logical.And andTurOff
+  Modelica.Blocks.Logical.And andTurOff(
+    y(start=not preYSet_start, fixed=true))
     "Check if device is on and is set to be turned off"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Logical.And andTurOn
+  Modelica.Blocks.Logical.And andTurOn(
+    y(start=preYSet_start, fixed=true))
     "Check if device is Off and is set to be turned on"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
@@ -81,34 +85,52 @@ model OnOffControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,110})));
-initial equation
-  if preYSet_start then
-    yOut = 1;
-  else
-    yOut = 0;
-  end if;
-equation
 
+protected
+  Integer devRunMin(start=0, fixed=true)
+    "Indicates if device needs to run at minimal limit";
+  Integer devTurOff(start=0, fixed=true)
+    "Indicates if device needs to turn off";
+  Integer devNorOpe(start=1, fixed=true)
+    "Indicates if device is at normal operation";
+equation
+  yOut = ySet * devNorOpe + 0 * devTurOff + ySetMin * devRunMin;
   when edge(andTurOn.y) then
     if andIsAblToTurOn.y then
-      yOut = ySet;
-    else
-      yOut = 0;
+      devTurOff = 0;
+      devRunMin = 0;
+      devNorOpe = 1;
+   else
+      devTurOff = 1;
+      devRunMin = 0;
+      devNorOpe = 0;
     end if;
   elsewhen edge(andTurOff.y) then
     if isAblToTurOff.y then
-      yOut = ySet;
+      devTurOff = 0;
+      devRunMin = 0;
+      devNorOpe = 1;
     else
-      yOut = lim.y;
+      devTurOff = 0;
+      devRunMin = 1;
+      devNorOpe = 0;
     end if;
-  elsewhen edge(andIsAblToTurOn.y) and andTurOn.y then
-    yOut = ySet;
-  elsewhen edge(isAblToTurOff.y) and andTurOff.y then
-    yOut = ySet;
+  elsewhen andIsAblToTurOn.y and andTurOn.y then
+    devTurOff = 0;
+    devRunMin = 0;
+    devNorOpe = 1;
+  elsewhen isAblToTurOff.y and andTurOff.y then
+    devTurOff = 0;
+    devRunMin = 0;
+    devNorOpe = 1;
   elsewhen andStaOff.y then
-    yOut = ySet;
+    devTurOff = 0;
+    devRunMin = 0;
+    devNorOpe = 1;
   elsewhen andStaOn.y then
-    yOut = ySet;
+    devTurOff = 0;
+    devRunMin = 0;
+    devNorOpe = 1;
   end when;
   connect(preOnOff.y, runPerHouBou.u) annotation (Line(points={{-79,-90},{-66,-90},
           {-66,-66},{-24,-66},{-24,-50},{18,-50}},

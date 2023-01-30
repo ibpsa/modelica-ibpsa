@@ -2,13 +2,21 @@ within IBPSA.Fluid.HeatPumps;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends ModularReversible(
+    GEvaIns=0,
+    GEvaOut=0,
+    CEva=0,
+    use_evaCap=false,
+    GConIns=0,
+    GConOut=0,
+    CCon=0,
+    use_conCap=false,
     redeclare model BlackBoxHeatPumpCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling,
     redeclare model BlackBoxHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCal,
           datTab=datTab),
-    use_rev=false,
+    final use_rev=false,
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
     mCon_flow_nominal=autCalMCon_flow*scaFac,
