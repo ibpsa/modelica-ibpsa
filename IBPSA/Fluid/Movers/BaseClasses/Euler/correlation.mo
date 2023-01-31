@@ -6,10 +6,10 @@ function correlation
   output Real y "eta/eta_peak";
 
 protected
-  Real a = if x <-0.5 then 0.056873227 else if x>0.5 then -0.0085494313567 else 0.378246;
-  Real b = if x<-0.5 then 0.493231336746 else if x>0.5 then 0.12957001502 else -0.759885;
-  Real c = if x<-0.5 then 1.433531254001 else if x>0.5 then -0.65997315029 else -0.0606145;
-  Real d = if x<-0.5 then 1.407887300933 else if x>0.5 then 1.1399300301 else 1.01427;
+  Real a = if x <-0.5 then 0.05687322707407 else if x>0.5 then -8.5494313567465000E-3 else 0.37824577860088;
+  Real b = if x<-0.5 then 0.493231336746 else if x>0.5 then 1.2957001502368300E-1 else -0.75988502317361;
+  Real c = if x<-0.5 then 1.433531254001 else if x>0.5 then -6.5997315029278200E-1 else -0.060614519563716;
+  Real d = if x<-0.5 then 1.407887300933 else if x>0.5 then 1.13993003013131 else 1.01426507307139;
 algorithm
   y:=max(0,a*x^3+b*x^2+c*x+d)/1.01545;
 
