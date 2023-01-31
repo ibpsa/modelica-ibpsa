@@ -16,8 +16,7 @@ algorithm
   annotation(smoothOrder = 1,
   Documentation(info="<html>
 <p>
-This function approximates the following correlation with two simple polynomials
-stitched together by a third one of the same order:
+This function approximates the following correlation:
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
@@ -25,7 +24,7 @@ stitched together by a third one of the same order:
 <p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i> (note that <i>&eta;</i>
 refers to the hydraulic efficiency instead of total efficiency),
-<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
+<i>x=log<sub>10</sub>(Eu &frasl; Eu<sub>p</sub>)</i>,
 with the subscript <i>p</i> denoting the condition where
 the mover is operating at peak efficiency, and
 </p>
@@ -51,7 +50,17 @@ the mover is operating at peak efficiency, and
 <i>d=5.267518</i>
 </p>
 <p>
-This correlation function has the shape as shown below
+The approximation uses two simple polynomials stitched together by
+a third one of the same order.
+Care has been taken to ensure that, on the curve constructed by
+<code>if</code> statements, the differences of <i>dy &frasl; dx</i>
+evaluated by different groups of coefficients at the connecting points
+(i.e. at <i>x = - 0.5</i> and <i>x = + 0.5</i>) are less than 1E-14.
+This helps the solver to be able to consider the derivative continuous
+even when it requires a precision of 1E-10 when there are nested loops.
+</p>
+<p>
+The correlation and the approximation have the shape as shown below
 (plotted by 
 <a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Validation.EulerCurve\">
 IBPSA.Fluid.Movers.BaseClasses.Validation.EulerCurve</a>).
@@ -69,7 +78,7 @@ The modified dimensionless Euler number is defined as
 where <i>&Delta;p</i> is the fan pressure rise in Pa,
 <i>D</i> is the fan wheel outer diameter in m,
 <i>&rho;</i> is the inlet air density in kg/m<sup>3</sup>,
-and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
+and <i>V&#775;</i> is the volumetric flow rate in m<sup>3</sup>/s.
 Note that the units in the definition do not matter to this correlation
 because it is the ratio of the Euler numbers that is used.
 Since <i>D</i> is constant for the same mover
@@ -90,7 +99,7 @@ Note that the formula is simplified here from the source document.
 </p>
 <p>
 Regarding the approximation polynominals, see the discussions in
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646#issuecomment-1320920539\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646\">
 pull request #1646</a>.
 </p>
 <h4>Resources</h4>
