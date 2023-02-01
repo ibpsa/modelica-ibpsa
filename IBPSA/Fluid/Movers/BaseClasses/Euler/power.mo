@@ -9,8 +9,16 @@ function power
     V_flow=zeros(11),P=zeros(11),d=zeros(11))
     "Power and its derivative vs. flow rate";
 protected
-  Modelica.Units.SI.VolumeFlowRate V_flow[11];
-  Modelica.Units.SI.PressureDifference dp[11];
+  Modelica.Units.SI.VolumeFlowRate V_flow[11]
+    "Volumetric flow rate";
+  Modelica.Units.SI.PressureDifference dp[11]
+    "Pressure rise";
+  constant Real small =
+    if max(V_flow) * max(dp) > Modelica.Constants.eps
+      then 1E-4 * max(V_flow) * max(dp)
+    else 1
+    "Small value for regularisation";
+
 algorithm
   // Construct pressure curve of 10% max flow rate increments
   //   from the given pressure curve
@@ -35,7 +43,8 @@ algorithm
                     x2 = IBPSA.Fluid.Movers.BaseClasses.Euler.efficiency(
                     peak=peak,
                     dp=dp[i],
-                    V_flow=V_flow[i]),
+                    V_flow=V_flow[i],
+                    small=small),
                     deltaX = 1E-6);
   end for;
 
