@@ -13,10 +13,7 @@ protected
     "Volumetric flow rate";
   Modelica.Units.SI.PressureDifference dp[11]
     "Pressure rise";
-  constant Real small =
-    if max(V_flow) * max(dp) > Modelica.Constants.eps
-      then 1E-4 * max(V_flow) * max(dp)
-    else 1
+  constant Real small = 1E-4 * max(pressure.V_flow) * max(pressure.dp)
     "Small value for regularisation";
 
 algorithm
