@@ -9,16 +9,17 @@ function clusterBoreholes
   input Modelica.Units.SI.Height dBor "Borehole buried depth";
   input Modelica.Units.SI.Radius rBor "Borehole radius";
   input Integer nClu "Number of clusters to be generated";
-  input Real TTol = 0.001 "Absolute tolerance on the borehole wall temperature for the identification of clusters";
+  input Modelica.Units.SI.TemperatureDifference TTol = 0.001
+    "Absolute tolerance on the borehole wall temperature for the identification of clusters";
 
   output Integer labels[nBor] "Cluster label associated with each data point";
   output Integer cluSiz[nClu] "Size of the clusters";
   output Integer N "Number of unique clusters";
 
 protected
-  Real TBor[nBor,1] "Steady-state borehole wall temperatures";
-  Real TBor_Unique[nBor] "Unique borehole wall temperatures under tolerance";
-  Real dis "Distance between boreholes";
+  Modelica.Units.SI.Temperature TBor[nBor,1] "Steady-state borehole wall temperatures";
+  Modelica.Units.SI.Temperature TBor_Unique[nBor] "Unique borehole wall temperatures under tolerance";
+  Modelica.Units.SI.Length dis "Distance between boreholes";
 
 algorithm
   // ---- Evaluate borehole wall temperatures
@@ -95,6 +96,10 @@ of Building Performance Simulation 14(4): 446-460.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 1, 2023, by Michael Wetter:<br/>
+Added units.
+</li>
 <li>
 June 9, 2022 by Massimo Cimmino:<br/>
 First implementation.
