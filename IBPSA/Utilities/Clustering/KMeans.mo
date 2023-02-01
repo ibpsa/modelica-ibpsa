@@ -20,7 +20,6 @@ protected
   Integer new_labels[n_samples] "Next iteration cluster labels";
   Real new_inertia "Inertia of the samples during the current run";
   Real inertia "Minimum inertia of the samples since first run";
-  // Integer seed "Arbitrary seed value";
   Integer id "Id of the random integer generator";
   Integer k_iter "Index of k-means iteration";
   Real min_dis "Minimum distance between a sample (or a centroid) and a cluster centroid";
@@ -29,11 +28,7 @@ protected
   constant Integer seed = 2 "Arbitrary seed value";
 
 algorithm
-  // ---- Generate random seed
-  // Uncomment the line below to generate a random seed. Also, comment the
-  // constant seed from the protected block and replace with a variable.
-  // seed := Modelica.Math.Random.Utilities.automaticGlobalSeed();
-  id := Modelica.Math.Random.Utilities.initializeImpureRandom(seed);
+ id := Modelica.Math.Random.Utilities.initializeImpureRandom(seed);
 
   // ---- Perform n_init successive runs of the k-means algorithm
  for run in 1:n_init loop
