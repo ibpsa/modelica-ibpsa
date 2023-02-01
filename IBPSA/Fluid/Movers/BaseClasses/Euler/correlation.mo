@@ -55,9 +55,9 @@ a third one of the same order.
 Care has been taken to ensure that, on the curve constructed by
 <code>if</code> statements, the differences of <i>dy &frasl; dx</i>
 evaluated by different groups of coefficients at the connecting points
-(i.e. at <i>x = - 0.5</i> and <i>x = + 0.5</i>) are less than 1E-14.
-This helps the solver to be able to consider the derivative continuous
-even when it requires a precision of 1E-10 when there are nested loops.
+(i.e. at <i>x = - 0.5</i> and <i>x = + 0.5</i>) are less than <i>1E-14</i>.
+This way, the derivative is still continuous to the solver even if
+the solver requires a precision of <i>1E-10</i> when there are nested loops.
 </p>
 <p>
 The correlation and the approximation have the shape as shown below
@@ -96,11 +96,6 @@ For more information regarding the correlation curve refer to
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
 Note that the formula is simplified here from the source document.
-</p>
-<p>
-Regarding the approximation polynominals, see the discussions in
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646\">
-pull request #1646</a>.
 </p>
 <h4>Resources</h4>
 <p>
