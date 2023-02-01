@@ -1,5 +1,5 @@
 within IBPSA.Utilities.Clustering;
-function KMeans "k-means clustering algorithm"
+impure function KMeans "k-means clustering algorithm"
   extends Modelica.Icons.Function;
   input Real data[n_samples,n_features] "Data to be clustered";
   input Integer n_clusters "Number of clusters to be generated";
@@ -128,6 +128,11 @@ modifying the constant <code>seed</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 1, 2023, by Michael Wetter:<br/>
+Added <code>impure</code> declaration which is needed for compliance with the Modelica Language Specification,
+and is required by Optimica.
+</li>
 <li>
 June 9, 2022 by Massimo Cimmino:<br/>
 First Implementation

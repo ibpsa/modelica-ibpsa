@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
-function clusterBoreholes
+impure function clusterBoreholes
   "Identify clusters of boreholes with similar heat interactions"
   extends Modelica.Icons.Function;
 
@@ -54,6 +54,7 @@ algorithm
   N := min(N, nClu);
 
   // ---- Identify borehole clusters
+  // This function is impure
   (,labels,cluSiz) := IBPSA.Utilities.Clustering.KMeans(
     TBor,
     N,
@@ -96,6 +97,11 @@ of Building Performance Simulation 14(4): 446-460.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 1, 2023, by Michael Wetter:<br/>
+Added <code>impure</code> declaration which is needed for compliance with the Modelica Language Specification,
+and is required by Optimica.
+</li>
 <li>
 February 1, 2023, by Michael Wetter:<br/>
 Added units.
