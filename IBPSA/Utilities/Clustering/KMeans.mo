@@ -129,7 +129,7 @@ The returned length of the <code>cluster_size</code> vector is
 <h4>Implementation</h4>
 <p>
 The seed for random number generation is constant. It can be changed by
-modifying the cosntant <code>seed</code>.
+modifying the constant <code>seed</code>.
 </p>
 </html>", revisions="<html>
 <ul>
