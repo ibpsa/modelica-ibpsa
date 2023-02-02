@@ -13,7 +13,6 @@ model ModularReversible_OneRoomRadiator
     y_nominal=1,
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
-
     use_internalSafetyControl=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
@@ -36,19 +35,21 @@ model ModularReversible_OneRoomRadiator
         IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCal,
+        useAirForCon=false,
+        useAirForEva=false,
         TAppCon_nominal=0,
         TAppEva_nominal=0),
     redeclare model BlackBoxHeatPumpCooling =
         IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCal,
           datTab=
-            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
       safCtrlPar(use_antFre=true, TAntFre=275.15))
     "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
+
   Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
     "Let the pumps always run, due to inertia of the heat pump" annotation (
       Placement(transformation(
@@ -74,14 +75,22 @@ equation
           {-128,-150},{-128,-110},{-122,-110}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-137,-150},
           {-130,-150},{-130,-180},{-122,-180}}, color={255,0,255}));
-  connect(modRevHeaPump.revSet, not1.y) annotation (Line(points={{21.6,-157},{
-          24,-157},{24,-152},{26,-152},{26,-130},{-92,-130},{-92,-80},{-99,-80}},
-        color={255,0,255}));
   connect(temAmbBas.y, modRevHeaPump.TConAmb) annotation (Line(points={{10,-179},
           {10,-162},{-1,-162},{-1,-138}}, color={0,0,127}));
-  connect(swiYSet.y, modRevHeaPump.ySet) annotation (Line(points={{40,-123},{40,
-          -146},{21.6,-146}}, color={0,0,127}));
+  connect(modRevHeaPump.revSet, oneRoomRadiatorHeatPumpControl.revSet)
+    annotation (Line(points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},
+          {-132,-92},{-132,-76},{-139,-76}}, color={255,0,255}));
+  connect(oneRoomRadiatorHeatPumpControl.ySet, modRevHeaPump.ySet) annotation (
+      Line(points={{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">ModularReversible</a> heat pump model directly. </p>
-</html>"));
+</html>"),
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ModularReversible_OneRoomRadiator.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
+      StopTime=86400,
+      Tolerance=1e-08,
+      __Dymola_Algorithm="Dassl"));
 end ModularReversible_OneRoomRadiator;

@@ -5,80 +5,51 @@ model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
       QUseBlaBox_flow_nominal=QUse_flow_nominal,
       datSou="ConstantQualityGradeCarnot");
   extends IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialCarnot(constPel(
-        final k=QUse_flow_nominal/(quaGra*TCon_nominal*y_nominal)*(TCon_nominal
-           - TEva_nominal)));
-
-  Modelica.Blocks.Logical.Switch switchPel
-    "If HP is off, no heat will be exchanged" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,10})));
-  Modelica.Blocks.Logical.Switch switchQCon
-    "If HP is off, no heat will be exchanged" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={-50,10})));
-  Modelica.Blocks.Sources.Constant constZero(final k=0)
-                                             annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-10,10})));
+        final k=QUse_flow_nominal/(quaGra*(TCon_nominal+TAppCon_nominal)*y_nominal)*(
+        TCon_nominal + TAppCon_nominal - TEva_nominal - TAppEva_nominal)),
+    dTAppUse(k=TAppCon_nominal),
+    dTAppNotUse(k=-TAppEva_nominal));
 
 equation
 
-  connect(switchQCon.u3, constZero.y) annotation (Line(points={{-42,22},{-42,28},
-          {-10,28},{-10,21}},                         color={0,0,127}));
-  connect(switchQCon.y, feeHeaFloEva.u1) annotation (Line(points={{-50,-1},{-50,
-          -28},{-72,-28},{-72,-24},{-84,-24},{-84,-10},{-78,-10}}, color={0,0,
-          127}));
-  connect(constZero.y, switchPel.u3) annotation (Line(points={{-10,21},{-10,28},
-          {42,28},{42,22}},
-                        color={0,0,127}));
-  connect(switchPel.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-50},{
-          64,-50},{64,-58}}, color={0,0,127}));
-  connect(switchPel.y, PEle) annotation (Line(points={{50,-1},{50,-94},{0,-94},
-          {0,-110}}, color={0,0,127}));
-  connect(switchPel.y, feeHeaFloEva.u2) annotation (Line(points={{50,-1},{50,-20},
-          {-54,-20},{-54,-26},{-70,-26},{-70,-18}}, color={0,0,127}));
-  connect(switchPel.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,56},
-          {1,56},{1,104}},                              color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{-3,6},{-3,6}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(switchQCon.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,
-          30},{1,30},{1,104}},                           color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{1,70},{1,
           104}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pasThrTUse.u, sigBus.TConOutMea) annotation (Line(points={{-70,92},{
-          -70,104},{1,104}}, color={0,0,127}), Text(
+  connect(addTVapCycUse.u1, sigBus.TConOutMea) annotation (Line(points={{-64,82},
+          {-64,104},{1,104}}, color={0,0,127}), Text(
       string="%second",
       index=1,
-      extent={{-3,6},{-3,6}},
+      extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pasThrTNotUse.u, sigBus.TEvaInMea) annotation (Line(points={{-30,92},
-          {-30,104},{0,104},{0,86},{1,86},{1,104}}, color={0,0,127}), Text(
+  connect(addTVapCycNotUse.u1, sigBus.TEvaInMea) annotation (Line(points={{-24,82},
+          {-24,104},{1,104}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(proQUse_flow.y, switchQCon.u1) annotation (Line(points={{-50,39},{-50,
-          32},{-58,32},{-58,22}}, color={0,0,127}));
-  connect(proPEle.y, switchPel.u1) annotation (Line(points={{70,39},{70,34},{58,
-          34},{58,22}}, color={0,0,127}));
+  connect(switchPel.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-26},{62,
+          -26},{62,-58},{64,-58}}, color={0,0,127}));
+  connect(switchPel.y, PEle) annotation (Line(points={{50,-1},{50,-92},{0,-92},{
+          0,-110}}, color={0,0,127}));
+  connect(switchPel.y, feeHeaFloEva.u2) annotation (Line(points={{50,-1},{50,-24},
+          {-70,-24},{-70,-18}}, color={0,0,127}));
+  connect(switchQUse.y, feeHeaFloEva.u1) annotation (Line(points={{-50,-1},{-88,
+          -1},{-88,-10},{-78,-10}}, color={0,0,127}));
+  connect(switchQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,
+          32},{1,32},{1,104}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(switchPel.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,56},
+          {1,56},{1,104}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

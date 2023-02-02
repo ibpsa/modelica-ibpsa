@@ -7,13 +7,19 @@ model ReversibleCarnotWithLosses
         QUseBlaBox_flow_nominal=QCoo_flow_nominal,
         redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
           iceFacCal,
+        useAirForCon=cpCon < 1500,
+        useAirForEva=cpEva < 1500,
         quaGra=quaGra),
     redeclare model BlackBoxHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (redeclare
+        IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (
+        redeclare
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.FunctionalApproach
           iceFacCal(redeclare function iceFacFun =
               IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.WetterAfjei1997),
-          quaGra=quaGra),
+
+        useAirForCon=cpCon < 1500,
+        useAirForEva=cpEva < 1500,
+        quaGra=quaGra),
     final use_evaCap,
     final use_conCap,
     redeclare model VapourCompressionCycleInertia =

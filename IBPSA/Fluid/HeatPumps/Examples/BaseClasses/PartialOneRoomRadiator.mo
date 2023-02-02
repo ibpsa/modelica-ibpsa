@@ -66,7 +66,7 @@ partial model PartialOneRoomRadiator
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        origin={-40,30})));
+        origin={-38,30})));
 
 //----------------------------------------------------------------------------//
 
@@ -119,12 +119,6 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-180})));
-  Modelica.Blocks.Logical.Hysteresis hysHea(uLow=273.15 + 19, uHigh=273.15 + 21)
-    "Hysteresis controller for heating" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-190,-40})));
-  Modelica.Blocks.Logical.Not not2 "If lower than hysteresis, heating demand"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={-150,-40})));
   Modelica.Blocks.Math.BooleanToReal booToReaPumCon(realTrue=
         mHeaPum_flow_nominal, y(start=0)) "Pump signal" annotation (Placement(
         transformation(
@@ -152,47 +146,6 @@ partial model PartialOneRoomRadiator
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,-180})));
-  Modelica.Blocks.Logical.Hysteresis hysCoo(uLow=273.15 + 22, uHigh=273.15 + 24)
-    if witCoo
-    "Hysteresis controller for cooling" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-190,-70})));
-  Modelica.Blocks.Logical.Or  or1 "Either heating or cooling"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={-110,-54})));
-  Modelica.Blocks.Continuous.LimPID PIDHea(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.03,
-    Ti=400,
-    yMax=1,
-    yMin=0.3) "PID control for heating"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Modelica.Blocks.Logical.Switch swiHeatCooYSet if witCoo
-    "Switch ySet for heating and cooling" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        origin={40,-80},
-        rotation=270)));
-  Modelica.Blocks.Sources.Constant constTSetRooHea(k=294.15)
-    "Room set temperature for heating"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Sources.Constant constTSetRooCoo(k=294.15) if witCoo
-    "Room set temperature for cooling"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Modelica.Blocks.Continuous.LimPID PIDCoo(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.03,
-    Ti=400,
-    yMax=1,
-    yMin=0.3) if witCoo
-              "PID control for cooling, inverse"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Modelica.Blocks.Logical.Switch swiYSet "If no demand, switch heat pump off"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={40,-112})));
-  Modelica.Blocks.Sources.BooleanConstant conFal(k=false) if not witCoo
-    "No cooling if witCoo=false"
-    annotation (Placement(transformation(extent={{-200,-106},{-180,-86}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaCoo if witCoo
     "Prescribed heat flow to trigger cooling"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -205,12 +158,15 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,90})));
-  Modelica.Blocks.Logical.Not not1 if witCoo
-    "If cooling demand, heat pump must turn to false"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        origin={-110,-80})));
-  Modelica.Blocks.Sources.Constant constYSetZero(k=0) "ySet equals zero"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  OneRoomRadiatorHeatPumpControl oneRoomRadiatorHeatPumpControl(final witCoo=
+        witCoo)
+    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
+  Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
+    "Let the pumps always run, due to inertia of the heat pump" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-154,-140})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -233,7 +189,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
-      points={{-30,30},{60,30}},
+      points={{-28,30},{60,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(rad.heatPortCon, vol.heatPort) annotation (Line(
@@ -264,10 +220,6 @@ equation
       points={{0,50},{20,50}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(hysHea.y, not2.u)
-    annotation (Line(points={{-179,-40},{-162,-40}}, color={255,0,255}));
-  connect(temRoo.T, hysHea.u) annotation (Line(points={{-51,30},{-220,30},{-220,
-          -40},{-202,-40}}, color={0,0,127}));
   connect(pumHeaPum.port_b, temSup.port_a)
     annotation (Line(points={{-70,-100},{-70,-30}},color={0,127,255}));
   connect(temRet.port_a, rad.port_b)
@@ -280,45 +232,22 @@ equation
           -120},{60,-30}}, color={0,127,255}));
   connect(booToReaPumEva.y, pumHeaPumSou.m_flow_in)
     annotation (Line(points={{-99,-180},{-42,-180}}, color={0,0,127}));
-  connect(hysCoo.y, or1.u2) annotation (Line(points={{-179,-70},{-144,-70},{-144,
-          -62},{-122,-62}},      color={255,0,255}));
-  connect(not2.y, or1.u1) annotation (Line(points={{-139,-40},{-126,-40},{-126,-54},
-          {-122,-54}},      color={255,0,255}));
-  connect(hysCoo.u, temRoo.T) annotation (Line(points={{-202,-70},{-220,-70},{
-          -220,30},{-51,30}}, color={0,0,127}));
-  connect(PIDHea.u_m, temRoo.T) annotation (Line(points={{10,-42},{10,-52},{-50,
-          -52},{-50,10},{-62,10},{-62,30},{-51,30}}, color={0,0,127}));
-  connect(PIDHea.u_s, constTSetRooHea.y)
-    annotation (Line(points={{-2,-30},{-19,-30}}, color={0,0,127}));
-  connect(swiHeatCooYSet.u2, hysCoo.y) annotation (Line(points={{40,-68},{40,-54},
-          {-70,-54},{-70,-70},{-179,-70}},   color={255,0,255}));
-  connect(swiHeatCooYSet.u1, PIDCoo.y) annotation (Line(points={{32,-68},{30,-68},
-          {30,-70},{21,-70}}, color={0,0,127}));
-  connect(PIDHea.y, swiHeatCooYSet.u3)
-    annotation (Line(points={{21,-30},{48,-30},{48,-68}}, color={0,0,127}));
   if not witCoo then
-    connect(swiYSet.u1, PIDHea.y) annotation (Line(points={{48,-100},{48,-92},{56,
-          -92},{56,-36},{48,-36},{48,-30},{21,-30}}, color={0,0,127}));
   end if;
-  connect(conFal.y, or1.u2) annotation (Line(points={{-179,-96},{-144,-96},{-144,
-          -62},{-122,-62}}, color={255,0,255}));
   connect(cooLoa.y, preHeaCoo.Q_flow)
     annotation (Line(points={{-119,90},{-100,90}}, color={0,0,127}));
   connect(preHeaCoo.port, heaCap.port) annotation (Line(points={{-80,90},{-60,90},
           {-60,96},{50,96},{50,50},{70,50}}, color={191,0,0}));
-  connect(not1.u, hysCoo.y) annotation (Line(points={{-122,-80},{-144,-80},{-144,
-          -70},{-179,-70}}, color={255,0,255}));
-  connect(constTSetRooCoo.y, PIDCoo.u_m) annotation (Line(points={{-19,-70},{-14,
-          -70},{-14,-92},{10,-92},{10,-82}}, color={0,0,127}));
-  connect(PIDCoo.u_s, temRoo.T) annotation (Line(points={{-2,-70},{-8,-70},{-8,-52},
-          {-50,-52},{-50,10},{-62,10},{-62,30},{-51,30}}, color={0,0,127}));
-  connect(swiHeatCooYSet.y, swiYSet.u1) annotation (Line(points={{40,-91},{40,-96},
-          {48,-96},{48,-100}}, color={0,0,127}));
-   connect(swiYSet.u2, or1.y) annotation (Line(points={{40,-100},{40,-94},{22,-94},
-          {22,-118},{-48,-118},{-48,-76},{-94,-76},{-94,-54},{-99,-54}}, color={
-          255,0,255}));
-  connect(constYSetZero.y, swiYSet.u3) annotation (Line(points={{-19,-100},{-19,
-          -94},{32,-94},{32,-100}}, color={0,0,127}));
+  connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-143,-140},
+          {-136,-140},{-136,-180},{-122,-180}}, color={255,0,255}));
+  connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-143,-140},
+          {-134,-140},{-134,-110},{-122,-110}}, color={255,0,255}));
+  connect(oneRoomRadiatorHeatPumpControl.TRadSup, temSup.T) annotation (Line(
+        points={{-162,-77},{-178,-77},{-178,-76},{-198,-76},{-198,-20},{-81,-20}},
+        color={0,0,127}));
+  connect(oneRoomRadiatorHeatPumpControl.TRooMea, temRoo.T) annotation (Line(
+        points={{-162,-70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}},
+        color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Example that simulates one room equipped with a radiator. Hot water is produced

@@ -2,11 +2,7 @@ within IBPSA.Fluid.HeatPumps.Examples;
 model ReversibleAirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
   extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
-        realTrue=revCarWitLosHeaPum.mEva_flow_nominal),
-    constTSetRooHea(k=293.15),
-    constTSetRooCoo(k=296.15),
-    PIDHea(yMin=0),
-    PIDCoo(yMin=0));
+        realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
 
   ReversibleAirToWaterEuropeanNorm2D
                              revCarWitLosHeaPum(
@@ -36,12 +32,6 @@ model ReversibleAirToWater2D_OneRoomRadiator
       datTabCoo)
                 "Reversible heat pump with losses and carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
-  Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
-    "Let the pumps always run, due to inertia of the heat pump" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-148,-150})));
 equation
   connect(revCarWitLosHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,
           -154},{38,-154},{38,-200},{60,-200}}, color={0,127,255}));
@@ -51,13 +41,19 @@ equation
          {{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
   connect(revCarWitLosHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,
           -142},{60,-142},{60,-30}}, color={0,127,255}));
-  connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-137,-150},
-          {-128,-150},{-128,-110},{-122,-110}}, color={255,0,255}));
-  connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-137,-150},
-          {-130,-150},{-130,-180},{-122,-180}}, color={255,0,255}));
-  connect(swiYSet.y, revCarWitLosHeaPum.ySet) annotation (Line(points={{40,-123},
-          {40,-146},{21.6,-146}}, color={0,0,127}));
-  connect(not1.y, revCarWitLosHeaPum.revSet) annotation (Line(points={{-99,-80},
-          {-86,-80},{-86,-166},{26,-166},{26,-157},{21.6,-157}}, color={255,0,
-          255}));
+  connect(oneRoomRadiatorHeatPumpControl.ySet, revCarWitLosHeaPum.ySet)
+    annotation (Line(points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}},
+        color={0,0,127}));
+  connect(revCarWitLosHeaPum.revSet, oneRoomRadiatorHeatPumpControl.revSet)
+    annotation (Line(points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-80},
+          {-14,-80},{-14,-86},{-134,-86},{-134,-76},{-139,-76}}, color={255,0,255}));
+  annotation (
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ReversibleAirToWater2D_OneRoomRadiator.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
+      StopTime=86400,
+      Tolerance=1e-08,
+      __Dymola_Algorithm="Dassl"));
 end ReversibleAirToWater2D_OneRoomRadiator;

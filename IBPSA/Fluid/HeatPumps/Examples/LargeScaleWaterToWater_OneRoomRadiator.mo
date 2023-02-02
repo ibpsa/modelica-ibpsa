@@ -54,8 +54,9 @@ equation
           {-128,-150},{-128,-110},{-122,-110}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-137,-150},
           {-130,-150},{-130,-180},{-122,-180}}, color={255,0,255}));
-  connect(swiYSet.y, larScaWatToWatHeaPum.ySet) annotation (Line(points={{40,
-          -123},{40,-146},{21.6,-146}}, color={0,0,127}));
+  connect(oneRoomRadiatorHeatPumpControl.ySet, larScaWatToWatHeaPum.ySet)
+    annotation (Line(points={{-139,-66},{-62,-66},{-62,-76},{21.6,-76},{21.6,
+          -146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example demonstrates the usage of the model <a href=\"IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater\">IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater</a>.</p>
 <p>Contrary to the other models, parameters for heat exchanger inertia (tau) and mass flow rates are calculated automatically based on the heat demand.</p>
