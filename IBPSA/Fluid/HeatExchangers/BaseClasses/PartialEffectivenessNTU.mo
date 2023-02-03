@@ -254,7 +254,7 @@ for <code>UA</code>.
 <ul>
 <li>
 February 3, 2023, by Jianjun Hu:<br/>
-Added <code>noEvent()</code> in the assertion function to avoid optimica error.<br/>
+Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1690\">issue 1690</a>.
 </li>
