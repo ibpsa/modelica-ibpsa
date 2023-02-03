@@ -13,8 +13,9 @@ protected
     "Volumetric flow rate";
   Modelica.Units.SI.PressureDifference dp[11]
     "Pressure rise";
-  constant Real small = 1E-4 * max(pressure.V_flow) * max(pressure.dp)
-    "Small value for regularisation";
+  Real V_flow_dp_small(
+    final unit="m3.Pa/s",
+    min = Modelica.Constants.eps) "Small value for regularisation";
 
 algorithm
   // Construct pressure curve of 10% max flow rate increments
@@ -33,15 +34,17 @@ algorithm
   // The efficiency is bounded away from zero.
   //   This is only for suppressing an error with optimica.
   power.V_flow:=V_flow;
+  V_flow_dp_small :=1E-4*max(pressure.V_flow)*max(pressure.dp);
+
   for i in 2:10 loop
     power.P[i]:=V_flow[i] * dp[i]
                 / IBPSA.Utilities.Math.Functions.smoothMax(
                     x1 = 1E-5,
                     x2 = IBPSA.Fluid.Movers.BaseClasses.Euler.efficiency(
-                    peak=peak,
-                    dp=dp[i],
-                    V_flow=V_flow[i],
-                    small=small),
+                      peak=peak,
+                      dp=dp[i],
+                      V_flow=V_flow[i],
+                      V_flow_dp_small=V_flow_dp_small/2),
                     deltaX = 1E-6);
   end for;
 

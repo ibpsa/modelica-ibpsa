@@ -8,7 +8,9 @@ function efficiency
     "Pressure rise";
   input Modelica.Units.SI.VolumeFlowRate V_flow
     "Volumetric flow rate";
-  input Real small(min = Modelica.Constants.eps)
+  input Real V_flow_dp_small(
+    final unit="m3.Pa/s",
+    min = Modelica.Constants.eps)
     "Small number for regularisation";
   output Modelica.Units.SI.Efficiency eta
     "Efficiency";
@@ -20,12 +22,12 @@ algorithm
   log_r_Eu:= log10(
                IBPSA.Utilities.Math.Functions.smoothMax(
                  x1=dp * peak.V_flow^2,
-                 x2=small,
-                 deltaX=small/2)
+                 x2=V_flow_dp_small,
+                 deltaX=V_flow_dp_small/2)
               /IBPSA.Utilities.Math.Functions.smoothMax(
                  x1=peak.dp * V_flow^2,
-                 x2=small,
-                 deltaX=small/2));
+                 x2=V_flow_dp_small,
+                 deltaX=V_flow_dp_small/2));
   eta:= peak.eta*
           IBPSA.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
 
