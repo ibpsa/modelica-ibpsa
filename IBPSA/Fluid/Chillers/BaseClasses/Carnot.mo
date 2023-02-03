@@ -24,8 +24,7 @@ partial model Carnot
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCarnot_nominal(unit="1") = COP_nominal/
-    (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
+  parameter Real etaCarnot_nominal(unit="1") = 0.3
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
 
@@ -385,6 +384,14 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+February 3, 2023, by Michael Wetter:<br/>
+Changed parameter binding
+<code>etaCarnot_nominal(unit=\"1\") = COP_nominal/(TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))</code>
+to
+<code>etaCarnot_nominal(unit=\"1\") = 0.3</code> to avoid a circular assignment.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3226\">Buildings, #3226</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
