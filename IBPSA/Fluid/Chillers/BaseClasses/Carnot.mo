@@ -384,6 +384,7 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
 February 3, 2023, by Michael Wetter:<br/>
 Changed parameter binding
 <code>etaCarnot_nominal(unit=\"1\") = COP_nominal/(TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))</code>
