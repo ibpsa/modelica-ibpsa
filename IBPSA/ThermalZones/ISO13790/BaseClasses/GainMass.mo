@@ -5,11 +5,11 @@ model GainMass "Mass node heat flow"
   parameter Modelica.Units.SI.Area ATot "Total area of building's surfaces facing the thermal zone";
   parameter Real facMas "Effective mass area factor";
   parameter Modelica.Units.SI.Area AFlo "Floor area";
-  Modelica.Blocks.Interfaces.RealInput intSenGai(unit="W") "Internal sensible heat gains"
+  Modelica.Blocks.Interfaces.RealInput intSenGai(final unit="W") "Internal sensible heat gains"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput solGai(unit="W") "Solar gains"
+  Modelica.Blocks.Interfaces.RealInput solGai(final unit="W") "Solar gains"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput masGaiOut(unit="W")=masGai "Output of heat gains to mass node"
+  Modelica.Blocks.Interfaces.RealOutput masGaiOut(final unit="W")=masGai "Output of heat gains to mass node"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
