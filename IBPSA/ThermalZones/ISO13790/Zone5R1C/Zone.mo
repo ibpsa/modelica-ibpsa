@@ -23,7 +23,9 @@ model Zone "Thermal zone based on 5R1C network"
   parameter Real facMas "Effective mass area factor";
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45 "Heat transfer conductivity between surface and air node";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
-   annotation (choicesAllMatching=true);
+   annotation (
+     choicesAllMatching=true,
+     Placement(transformation(extent={{100,100},{120,120}})));
   parameter Integer nOrientations "Number of orientations for vertical walls";
   parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
   parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
@@ -53,7 +55,7 @@ model Zone "Thermal zone based on 5R1C network"
         origin={40,-40})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capMas(
       C=buiMas.heaC*AFlo,
-      T(displayUnit="K",
+      T(displayUnit="degC",
       fixed=true,
       start=293.15)) "Zone thermal capacity" annotation (Placement(
         transformation(
@@ -72,8 +74,7 @@ model Zone "Thermal zone based on 5R1C network"
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-140,100},{-100,140}}),
-                                                      iconTransformation(extent={{-126,78},
-            {-62,142}})));
+        iconTransformation(extent={{-126,78}, {-62,142}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TExt
     "External air temperature"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -113,6 +114,7 @@ model Zone "Thermal zone based on 5R1C network"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TVen "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+
 equation
 
   connect(TSur,HWin. port_b)
