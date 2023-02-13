@@ -20,7 +20,7 @@ model OpaqueElements
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Math.Gain solRadOpa[n](final k=AWal*alp*UWal*surRes)
     "Solar radiation on vertical opaque surfaces"
-    annotation (Placement(transformation(extent={{-8,60},{12,80}})));
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   Modelica.Blocks.Interfaces.RealOutput y "Solar radiation through windows"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil [n](
@@ -35,16 +35,16 @@ model OpaqueElements
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Math.Gain theRadOpa[n](each k=5*eps*11*0.5)
     "Extra thermal radiation through walls"
-    annotation (Placement(transformation(extent={{-8,10},{12,30}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Modelica.Blocks.Math.Add irrRoo
     "Total of direct and diffuse radiation on the south facade"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Math.Gain solRadRoo(final k=ARoo*alp*URoo*surRes)
     "Solar radiation on roof"
-    annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Math.Gain theRadRoo(final k=5*eps*11*1)
     "Extra thermal radiation through roof"
-    annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Modelica.Blocks.Math.Add addRoo(k2=-1)
     "Total of direct and diffuse radiation on the roof"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
@@ -91,7 +91,7 @@ equation
           64},{-42,64}}, color={0,0,127}));
 
   connect(irrOpa.y, solRadOpa.u)
-    annotation (Line(points={{-19,70},{-10,70}}, color={0,0,127}));
+    annotation (Line(points={{-19,70},{-12,70}}, color={0,0,127}));
   connect(HDirTilRoo.H, irrRoo.u1) annotation (Line(points={{-59,-30},{-50,-30},
           {-50,-24},{-42,-24}}, color={0,0,127}));
   connect(HDifTilRof.H, irrRoo.u2) annotation (Line(points={{-59,-70},{-48,-70},
@@ -113,17 +113,20 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(irrRoo.y, solRadRoo.u)
-    annotation (Line(points={{-19,-30},{-10,-30}}, color={0,0,127}));
+    annotation (Line(points={{-19,-30},{-12,-30}}, color={0,0,127}));
   connect(facRoo.y, theRadRoo.u)
-    annotation (Line(points={{-19,-80},{-10,-80}}, color={0,0,127}));
+    annotation (Line(points={{-19,-80},{-12,-80}}, color={0,0,127}));
   connect(addOpa.y, multiSum.u)
     annotation (Line(points={{41,50},{48,50}}, color={0,0,127}));
-  connect(solRadOpa.y, addOpa.u1) annotation (Line(points={{13,70},{14,70},{14,56},
-          {18,56}}, color={0,0,127}));
-  connect(theRadRoo.y, addRoo.u2) annotation (Line(points={{13,-80},{12,-80},{12,
-          -56},{18,-56}}, color={0,0,127}));
-  connect(solRadRoo.y, addRoo.u1) annotation (Line(points={{13,-30},{12,-30},{12,
-          -44},{18,-44}}, color={0,0,127}));
+  connect(solRadOpa.y, addOpa.u1) annotation (Line(points={{11,70},{14,70},{14,
+          56},{18,56}},
+                    color={0,0,127}));
+  connect(theRadRoo.y, addRoo.u2) annotation (Line(points={{11,-80},{14,-80},{
+          14,-56},{18,-56}},
+                          color={0,0,127}));
+  connect(solRadRoo.y, addRoo.u1) annotation (Line(points={{11,-30},{14,-30},{
+          14,-44},{18,-44}},
+                          color={0,0,127}));
   connect(addTot.y, y)
     annotation (Line(points={{93,0},{110,0}}, color={0,0,127}));
   connect(addRoo.y, addTot.u2) annotation (Line(points={{41,-50},{64,-50},{64,-6},
@@ -131,9 +134,10 @@ equation
   connect(multiSum.y, addTot.u1) annotation (Line(points={{61.02,50},{64,50},{64,
           6},{70,6}}, color={0,0,127}));
   connect(facOpa.y, theRadOpa.u)
-    annotation (Line(points={{-19,20},{-10,20}}, color={0,0,127}));
-  connect(theRadOpa.y, addOpa.u2) annotation (Line(points={{13,20},{14,20},{14,44},
-          {18,44}}, color={0,0,127}));
+    annotation (Line(points={{-19,20},{-12,20}}, color={0,0,127}));
+  connect(theRadOpa.y, addOpa.u2) annotation (Line(points={{11,20},{14,20},{14,
+          44},{18,44}},
+                    color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95},
           fillColor={255,255,255},
