@@ -215,7 +215,12 @@ equation
         Text(
           extent={{60,-82},{118,-126}},
           textColor={0,0,0},
-          textString="ISO")}),  Diagram(coordinateSystem(preserveAspectRatio=
+          textString="ISO"),
+        Text(
+          extent={{-182,-64},{-118,-110}},
+          textColor={0,0,88},
+          textString="intSenGai")}),
+                                Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
