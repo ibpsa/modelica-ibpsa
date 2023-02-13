@@ -98,7 +98,10 @@ equation
                            color={191,0,0}));
   connect(preHeaCoo.port, zonHVAC.TAir) annotation (Line(points={{58,72},{68,72},
           {68,10},{44,10}}, color={191,0,0}));
-  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  annotation (experiment(
+      StartTime=8640000,
+      StopTime=9504000,
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/HeatingCoolingHVAC.mos"
         "Simulate and plot"),

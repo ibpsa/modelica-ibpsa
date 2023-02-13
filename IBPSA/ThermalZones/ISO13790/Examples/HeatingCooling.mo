@@ -53,8 +53,8 @@ equation
   connect(conHeaPID.y, gaiHea.u)
     annotation (Line(points={{-3.4,72},{4.8,72}}, color={0,0,127}));
   connect(conHeaPID.u_m, TRooAir.T)
-    annotation (Line(points={{-10,64.8},{-10,62},{0,62},{0,30},{98,30},{98,10},
-          {94.8,10}},                             color={0,0,127}));
+    annotation (Line(points={{-10,64.8},{-10,62},{0,62},{0,30},{98,30},{98,10},{
+          94.8,10}},                              color={0,0,127}));
   connect(TSetHea.y, conHeaPID.u_s)
     annotation (Line(points={{-27.4,72},{-17.2,72}}, color={0,0,127}));
   connect(multiplex2.y,sumHeaCoo. u)
@@ -67,11 +67,11 @@ equation
   connect(conHeaPID.y, gaiHea.u)
     annotation (Line(points={{-3.4,72},{4.8,72}}, color={0,0,127}));
   connect(gaiHea.y, multiplex2.u1[1])
-    annotation (Line(points={{18.6,72},{22,72},{22,62},{28,62},{28,62.4},{29.2,
-          62.4}},                                color={0,0,127}));
+    annotation (Line(points={{18.6,72},{22,72},{22,62},{28,62},{28,62.4},{29.2,62.4}},
+                                                 color={0,0,127}));
   connect(gaiCoo.y, multiplex2.u2[1])
-    annotation (Line(points={{18.6,46},{22,46},{22,58},{28,58},{28,57.6},{29.2,
-          57.6}},                                color={0,0,127}));
+    annotation (Line(points={{18.6,46},{22,46},{22,58},{28,58},{28,57.6},{29.2,57.6}},
+                                                 color={0,0,127}));
   connect(gaiCoo.u, conCooPID.y)
     annotation (Line(points={{4.8,46},{-3.4,46}}, color={0,0,127}));
   connect(TRooAir.T, conCooPID.u_m)
@@ -83,7 +83,10 @@ equation
   connect(preHeaCoo.port, zon5R1C.TAir)
     annotation (Line(points={{70,60},{74,60},{74,10},{44,10}},
                             color={191,0,0}));
-  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  annotation (experiment(
+    StartTime=8640000,
+    StopTime=9504000,
+    Tolerance=1e-6),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/HeatingCooling.mos"
         "Simulate and plot"),

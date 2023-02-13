@@ -32,13 +32,14 @@ equation
       points={{30.6,13},{-54,13},{-54,10},{-60,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(latGains.y, zonHVAC.intLatGai) annotation (Line(points={{-59,-20},{
-          -46,-20},{-46,-2},{24,-2}}, color={0,0,127}));
-  connect(intGains.y, zonHVAC.intSenGai) annotation (Line(points={{-59,-50},{
-          -40,-50},{-40,-10},{24,-10}}, color={0,0,127}));
+  connect(latGains.y, zonHVAC.intLatGai) annotation (Line(points={{-59,-20},{-46,
+          -20},{-46,-2},{24,-2}},     color={0,0,127}));
+  connect(intGains.y, zonHVAC.intSenGai) annotation (Line(points={{-59,-50},{-40,
+          -50},{-40,-10},{24,-10}},     color={0,0,127}));
   annotation (experiment(
-      StopTime=31536000,
-      Tolerance=1e-06),
+    StartTime=8640000,
+    StopTime=9504000,
+    Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloatingHVAC.mos"
         "Simulate and plot"),

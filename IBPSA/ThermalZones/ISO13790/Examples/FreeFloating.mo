@@ -32,7 +32,10 @@ equation
       thickness=0.5));
   connect(zon5R1C.intSenGai, intGains.y)
     annotation (Line(points={{24,-10},{-48,-10},{-48,-30},{-59,-30}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+  annotation (experiment(
+    StartTime=8640000,
+    StopTime=9504000,
+    Tolerance=1e-6),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Examples/FreeFloating.mos"
         "Simulate and plot"),
