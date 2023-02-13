@@ -28,9 +28,9 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
@@ -39,7 +39,8 @@ jobs:
         run: pip3 install --upgrade pip wheel
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@v4.0.0
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@50ac74d8e4fd067179bb38bc23140c2c9254c94c
+
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only

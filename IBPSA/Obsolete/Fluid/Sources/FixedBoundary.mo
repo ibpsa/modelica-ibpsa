@@ -122,7 +122,8 @@ revisions="<html>
 <ul>
 <li>
 May 13, 2019 by Jianjun Hu:<br/>
-Moved from IBPSA.Fluid.Sources.FixedBoundary to here. This is for  
+Moved from IBPSA.Fluid.Sources.FixedBoundary to IBPSA.Obsolete.
+This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
