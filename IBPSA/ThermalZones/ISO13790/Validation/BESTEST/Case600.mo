@@ -161,8 +161,6 @@ equation
       points={{-60,10},{-58,10},{-58,11},{-9.4,11}},
       color={255,204,51},
       thickness=0.5));
-  connect(preHeaCoo.port, TRooAir.port) annotation (Line(points={{80,60},{90,60},
-          {90,-4},{20,-4},{20,8}}, color={191,0,0}));
  annotation(experiment(
       StopTime=31536000,
       Tolerance=1e-06),
