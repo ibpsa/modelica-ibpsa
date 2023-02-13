@@ -103,7 +103,7 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     VRoo=129.6,
     facMas=4.522,
     hInt=2.74,
-    redeclare IBPSA.ThermalZones.ISO13790.Data.BESTEST600 buiMas,
+    redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST600 buiMas,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
     surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},
@@ -111,8 +111,8 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
   Modelica.Blocks.Sources.Constant intGai(k=200) "Internal heat gains"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  BoundaryConditions.WeatherData.ReaderTMY3       weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+    Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
