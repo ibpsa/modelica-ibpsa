@@ -185,11 +185,11 @@ equation
           {128,-134},{-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
   connect(phiAir.u, intSenGai) annotation (Line(points={{122,80},{128,80},{128,-134},
           {-32,-134},{-32,-120},{-160,-120}}, color={0,0,127}));
-  connect(phiMas.masGaiOut, heaMas.Q_flow)
+  connect(phiMas.masGai, heaMas.Q_flow)
     annotation (Line(points={{99,-80},{80,-80}}, color={0,0,127}));
   connect(phiAir.y, heaAir.Q_flow)
     annotation (Line(points={{99,80},{80,80}}, color={0,0,127}));
-  connect(phiSur.surGaiOut, heaSur.Q_flow)
+  connect(phiSur.surGai, heaSur.Q_flow)
     annotation (Line(points={{99,0},{80,0}}, color={0,0,127}));
   connect(Win.solRadWin, solGai.u1) annotation (Line(points={{-79,-50},{-70,-50},
           {-70,-64},{-62,-64}}, color={0,0,127}));
@@ -215,19 +215,19 @@ equation
             false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This is a lumped-capacitance simplified building model based  on the 5R1C 
+This is a lumped-capacitance simplified building model based  on the 5R1C
 network presented in the ISO 13790:2008 Standard. The simplified 5R1C model uses
-five thermal resistances and one thermal capacitance to reproduce the 
-transient thermal behaviour of buildings. The thermal zone is modeled with three 
-temperature nodes, the indoor air temperature <code>TAir</code>, the envelope internal 
+five thermal resistances and one thermal capacitance to reproduce the
+transient thermal behaviour of buildings. The thermal zone is modeled with three
+temperature nodes, the indoor air temperature <code>TAir</code>, the envelope internal
 surface temperature <code>TSur</code> and the building mass temperature <code>TMas</code> (heat port neglected), and two boundary
-condition nodes, supply air temperature <code>TSup</code> and the external air temperature 
-<code>TExt</code>. The five resistances are related to heat transfer by ventilation <code>HVen</code>, 
-windows <code>HWin</code>, opaque components (split between <code>HTra</code> and <code>HMas</code>) and heat 
+condition nodes, supply air temperature <code>TSup</code> and the external air temperature
+<code>TExt</code>. The five resistances are related to heat transfer by ventilation <code>HVen</code>,
+windows <code>HWin</code>, opaque components (split between <code>HTra</code> and <code>HMas</code>) and heat
 transfer between the internal surfaces of walls and the air temperature <code>HThe</code>.
-The thermal capacitance <code>Cm</code> includes the thermal capacity of the entire building. The heating and/or 
+The thermal capacitance <code>Cm</code> includes the thermal capacity of the entire building. The heating and/or
 cooling demand is found by calculating the heating and/or cooling power &Phi;HC that
-needs to be supplied to, or extracted from, the internal air node to maintain a 
+needs to be supplied to, or extracted from, the internal air node to maintain a
 certain set-point. Internal, &Phi;int , and solar, &Phi;sol, heat gains are input values,
 which are split in three components.
 </p>
@@ -240,14 +240,14 @@ The ventilation heat transfer coefficient <code>Hve</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>ve</sub> =&rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>
 </p>
-where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific 
+where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific
 heat of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
 flow rate.
 The coupling conductance <code>H<sub>therm</sub></code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>therm</sub> = h<sub>as</sub>A<sub>tot</sub>
 </p>
-where <i>h<sub>as</sub></i> is the heat transfer coefficient between the air 
+where <i>h<sub>as</sub></i> is the heat transfer coefficient between the air
 node the surface node, with a fixed value of 3.45 W/m<sup>2</sup>K, and
 <i>A<sub>tot</sub></i> is the area of all surfaces facing the building zone.
 The thermal transmission coefficient of windows <code>Hwin</code> is calculated using
@@ -255,16 +255,16 @@ The thermal transmission coefficient of windows <code>Hwin</code> is calculated 
 H<sub>win</sub> =
 &sum;<sub>k</sub>U<sub>win,k</sub>A<sub>win,k</sub>
 </p>
-where <i>U<sub>win,k</sub></i> is the thermal transmittance of window element 
+where <i>U<sub>win,k</sub></i> is the thermal transmittance of window element
 k of the building envelope and <i>A<sub>k</sub></i>  is the area of the window
 element k of the building envelope. The coupling conductance <code>Hmass</code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>mass</sub> =h<sub>ms</sub>f<sub>ms</sub>A<sub>f</sub>
 </p>
-where <i>h<sub>ms</sub></i> is the heat transfer coefficient between the mass 
-node and the surfacenode, with fixed value of 9.1 W/m<sup>2</sup>K, 
+where <i>h<sub>ms</sub></i> is the heat transfer coefficient between the mass
+node and the surfacenode, with fixed value of 9.1 W/m<sup>2</sup>K,
 <i>f<sub>ms</sub></i> is a correction factor, and <i>A<sub>f</sub></i>
-is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed 
+is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed
 2.5 for light and medium building constructions, and 3 for heavy constructions.
 The coupling conductance <code>Htrasm</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
@@ -283,7 +283,7 @@ The three heat gains components are calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>mas</sub> = f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub> (0.5&Phi;<sub>int</sub>+
 &Phi;<sub>sol</sub>)
-</p> 
+</p>
 </html>",
 revisions="<html>
 <ul>

@@ -1,7 +1,6 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GainMass "Mass node heat flow"
   Modelica.Units.SI.Area AMas "Effective mass area (see Table 12 in standard)";
-  Modelica.Units.SI.Power masGai "Heat gains to mass node";
   parameter Modelica.Units.SI.Area ATot "Total area of building's surfaces facing the thermal zone";
   parameter Real facMas "Effective mass area factor";
   parameter Modelica.Units.SI.Area AFlo "Floor area";
@@ -9,7 +8,7 @@ model GainMass "Mass node heat flow"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput solGai(final unit="W") "Solar gains"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput masGaiOut(final unit="W")=masGai "Output of heat gains to mass node"
+  Modelica.Blocks.Interfaces.RealOutput masGai(final unit="W") "Heat gain to mass node"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 equation
