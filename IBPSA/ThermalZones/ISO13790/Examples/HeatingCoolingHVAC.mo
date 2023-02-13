@@ -63,8 +63,9 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
         origin={12,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Fluid.Sources.Boundary_pT sin(redeclare package Medium = IBPSA.Media.Air,
-      nPorts=1) "sink"
+  Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = IBPSA.Media.Air,
+    nPorts=1) "sink"
     annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
 equation
   connect(conHeaPID.y,gaiHea. u)
@@ -81,17 +82,17 @@ equation
     annotation (Line(points={{-17.2,46},{-27.4,46}}, color={0,0,127}));
   connect(gaiCoo.u,conCooPID. y)
     annotation (Line(points={{4.8,46},{-3.4,46}}, color={0,0,127}));
-  connect(TRooAir.T, conCooPID.u_m) annotation (Line(points={{88.8,10},{96,10},
-          {96,32},{-10,32},{-10,38.8}},
+  connect(TRooAir.T, conCooPID.u_m) annotation (Line(points={{88.8,10},{96,10},{
+          96,32},{-10,32},{-10,38.8}},
                                     color={0,0,127}));
   connect(conHeaPID.u_m, TRooAir.T) annotation (Line(points={{-10,64.8},{-10,56},
           {96,56},{96,10},{88.8,10}},              color={0,0,127}));
-  connect(gaiCoo.y, fan.m_flow_in) annotation (Line(points={{18.6,46},{22,46},{
-          22,6},{10,6},{10,-58}},                  color={0,0,127}));
+  connect(gaiCoo.y, fan.m_flow_in) annotation (Line(points={{18.6,46},{22,46},{22,
+          6},{10,6},{10,-58}},                     color={0,0,127}));
   connect(fan.port_b, zonHVAC.ports_b[1]) annotation (Line(points={{20,-70},{62,
           -70},{62,12.05},{52.95,12.05}}, color={0,127,255}));
-  connect(sin.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{70,-70},{
-          64,-70},{64,10},{54,10},{54,12.05},{52.95,12.05}},
+  connect(sin.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{70,-70},{64,
+          -70},{64,10},{54,10},{54,12.05},{52.95,12.05}},
                                              color={0,127,255}));
   connect(TRooAir.port, zonHVAC.TAir) annotation (Line(points={{72,10},{44,10}},
                            color={191,0,0}));
