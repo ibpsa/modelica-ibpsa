@@ -3,7 +3,7 @@ record Generic "Generic data record building mass"
    extends Modelica.Icons.Record;
 
    parameter Real heaC
-    "heat capacity"
+    "Heat capacity"
     annotation (Dialog(group="Heat mass"));
 
   annotation (defaultComponentName="mas",
