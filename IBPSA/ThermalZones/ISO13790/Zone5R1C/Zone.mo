@@ -35,17 +35,17 @@ model Zone "Thermal zone based on 5R1C network"
       G=airRat*VRoo*1005*1.2/3600) "Heat transfer due to ventilation"
    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HTra(
-      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(9.1*facMas*AFlo))) "Heat transfere through opaque elements"
+      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(9.1*facMas*AFlo))) "Heat transfer through opaque elements"
    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(
       G=UWin*sum(AWin)) "Heat transfer through glazed elements"
    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*4.5) "Coupling conductancec betwee air and surface nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*4.5) "Coupling conductance betwee air and surface nodes"
    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=9.1*facMas*AFlo) "Coupling conductancec between surface and mass nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=9.1*facMas*AFlo) "Coupling conductance between surface and mass nodes"
    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -211,21 +211,26 @@ equation
         Text(
           extent={{-104,174},{118,142}},
           textColor={0,0,255},
-          textString="%name")}),Diagram(coordinateSystem(preserveAspectRatio=
+          textString="%name"),
+        Text(
+          extent={{60,-82},{118,-126}},
+          textColor={0,0,0},
+          textString="ISO")}),  Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
 <p>
-This is a lumped-capacitance simplified building model based  on the 5R1C
+This is a lumped-capacity simplified building model based  on the 5R1C
 network presented in the ISO 13790:2008 Standard. The simplified 5R1C model uses
-five thermal resistances and one thermal capacitance to reproduce the
+five thermal resistances and one thermal capacity to reproduce the
 transient thermal behaviour of buildings. The thermal zone is modeled with three
 temperature nodes, the indoor air temperature <code>TAir</code>, the envelope internal
-surface temperature <code>TSur</code> and the building mass temperature <code>TMas</code> (heat port neglected), and two boundary
+surface temperature <code>TSur</code> and the zone's mass temperature <code>TMas</code>
+(the heat port is not shown in the figure), and two boundary
 condition nodes, supply air temperature <code>TSup</code> and the external air temperature
 <code>TExt</code>. The five resistances are related to heat transfer by ventilation <code>HVen</code>,
 windows <code>HWin</code>, opaque components (split between <code>HTra</code> and <code>HMas</code>) and heat
 transfer between the internal surfaces of walls and the air temperature <code>HThe</code>.
-The thermal capacitance <code>Cm</code> includes the thermal capacity of the entire building. The heating and/or
+The thermal capacity <code>Cm</code> includes the thermal capacity of the entire zone. The heating and/or
 cooling demand is found by calculating the heating and/or cooling power &Phi;HC that
 needs to be supplied to, or extracted from, the internal air node to maintain a
 certain set-point. Internal, &Phi;int , and solar, &Phi;sol, heat gains are input values,
@@ -238,14 +243,14 @@ which are split in three components.
 <br>
 The ventilation heat transfer coefficient <code>Hve</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>ve</sub> =&rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>
+H<sub>ve</sub> =&rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>,
 </p>
 where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific
 heat of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
 flow rate.
 The coupling conductance <code>H<sub>therm</sub></code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>therm</sub> = h<sub>as</sub>A<sub>tot</sub>
+H<sub>therm</sub> = h<sub>as</sub>A<sub>tot</sub>,
 </p>
 where <i>h<sub>as</sub></i> is the heat transfer coefficient between the air
 node the surface node, with a fixed value of 3.45 W/m<sup>2</sup>K, and
@@ -253,13 +258,13 @@ node the surface node, with a fixed value of 3.45 W/m<sup>2</sup>K, and
 The thermal transmission coefficient of windows <code>Hwin</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>win</sub> =
-&sum;<sub>k</sub>U<sub>win,k</sub>A<sub>win,k</sub>
+&sum;<sub>k</sub>U<sub>win,k</sub>A<sub>win,k</sub>,
 </p>
 where <i>U<sub>win,k</sub></i> is the thermal transmittance of window element
 k of the building envelope and <i>A<sub>k</sub></i>  is the area of the window
 element k of the building envelope. The coupling conductance <code>Hmass</code> is given by
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>mass</sub> =h<sub>ms</sub>f<sub>ms</sub>A<sub>f</sub>
+H<sub>mass</sub> =h<sub>ms</sub>f<sub>ms</sub>A<sub>f</sub>,
 </p>
 where <i>h<sub>ms</sub></i> is the heat transfer coefficient between the mass
 node and the surfacenode, with fixed value of 9.1 W/m<sup>2</sup>K,
@@ -269,20 +274,21 @@ is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed
 The coupling conductance <code>Htrasm</code> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>trasm</sub> =
-1 &frasl; (1 &frasl; H<sub>op</sub>-1 &frasl; H<sub>mass</sub>)
+1 &frasl; (1 &frasl; H<sub>op</sub>-1 &frasl; H<sub>mass</sub>),
 </p>
 where <i>H<sub>op</sub></i> is the thermal transmission coefficient of opaque elements.
 The three heat gains components are calculated using
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>air</sub> = 0.5&Phi;<sub>int</sub>
+&Phi;<sub>air</sub> = 0.5&Phi;<sub>int</sub>,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>sur</sub> = (1-f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub>
 -H<sub>win</sub> &frasl; h<sub>ms</sub>A<sub>tot</sub>)(0.5&Phi;<sub>int</sub>+
-&Phi;<sub>sol</sub>)</p>
+&Phi;<sub>sol</sub>),
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>mas</sub> = f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub> (0.5&Phi;<sub>int</sub>+
-&Phi;<sub>sol</sub>)
+&Phi;<sub>sol</sub>).
 </p>
 </html>",
 revisions="<html>
