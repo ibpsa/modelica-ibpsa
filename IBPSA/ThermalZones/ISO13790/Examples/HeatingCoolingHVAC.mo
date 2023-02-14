@@ -73,12 +73,12 @@ equation
     annotation (Line(points={{-17.2,46},{-27.4,46}}, color={0,0,127}));
   connect(gaiCoo.u,conCooPID. y)
     annotation (Line(points={{4.8,46},{-3.4,46}}, color={0,0,127}));
-  connect(sin.ports[1], zonHVAC.ports_b[1]) annotation (Line(points={{70,-70},{
-          22,-70},{22,-6},{27,-6}},          color={0,127,255}));
+  connect(sin.ports[1], zonHVAC.ports[1]) annotation (Line(points={{70,-70},{22,
+          -70},{22,-6.2},{27,-6.2}}, color={0,127,255}));
   connect(preHeaCoo.port, zonHVAC.heaPorAir) annotation (Line(points={{58,72},{
           68,72},{68,8},{44,8},{44,10}}, color={191,0,0}));
-  connect(sou.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{0,-70},{
-          20,-70},{20,-6},{27,-6}},       color={0,127,255}));
+  connect(sou.ports[1], zonHVAC.ports[2]) annotation (Line(points={{0,-70},{20,
+          -70},{20,-6.2},{27,-6.2}}, color={0,127,255}));
   connect(sou.m_flow_in, gaiCoo.y) annotation (Line(points={{-22,-62},{-28,-62},
           {-28,34},{26,34},{26,46},{18.6,46}},color={0,0,127}));
   connect(zonHVAC.TAir, conCooPID.u_m) annotation (Line(points={{55,10},{60,10},

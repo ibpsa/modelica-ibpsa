@@ -19,17 +19,16 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
     V=VRoo,
     nPorts=nPorts) "Air volume"
     annotation (Placement(transformation(extent={{-50,32},{-30,52}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports_b[nPorts](
-    redeclare each final package Medium = Medium)
-     "fluid port for adding HVAC system"
-    annotation (
-      Placement(transformation(
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
+      redeclare each final package Medium = Medium)
+    "Fluid port for adding HVAC system, air infiltration and exfiltration"
+    annotation (Placement(transformation(
         extent={{-39,-10},{39,10}},
         rotation=90,
-        origin={-140,-79}),iconTransformation(
-        extent={{-40,-10},{40,10}},
-        rotation=-90,
-        origin={-130,-80})));
+        origin={-140,-80}), iconTransformation(
+        extent={{-39,-10},{39,10}},
+        rotation=90,
+        origin={-130,-82})));
 protected
   constant Modelica.Units.SI.SpecificEnergy h_fg=
       IBPSA.Media.Air.enthalpyOfCondensingGas(273.15 + 37) "Latent heat of water vapor";
@@ -39,9 +38,8 @@ equation
                               color={0,0,127}));
   connect(heaPorAir, vol.heatPort) annotation (Line(points={{40,80},{26,80},{26,
           26},{-54,26},{-54,42},{-50,42}}, color={191,0,0}));
-  connect(vol.ports, ports_b) annotation (Line(points={{-40,32},{-40,20},{-128,
-          20},{-128,-80},{-140,-80},{-140,-79}},
-                               color={0,127,255}));
+  connect(vol.ports, ports) annotation (Line(points={{-40,32},{-40,-16},{-128,
+          -16},{-128,-80},{-140,-80}}, color={0,127,255}));
   connect(intLatGai, mWat_flow.u) annotation (Line(points={{-160,50},{-102,50}},
                                                      color={0,0,127}));
     annotation (defaultComponentName="zonHVAC",Documentation(info="<html>
