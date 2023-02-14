@@ -29,24 +29,31 @@ model PVSingleDiode
     final use_age_in=false,
     final use_heat_port=false);
 
-  parameter Integer n_mod(min=1) "Amount of modules per system";
-
-  parameter Modelica.Units.SI.Angle til "Surface's tilt angle (0:flat)" annotation(Dialog(tab="Module mounting and specifications"));
-  parameter Modelica.Units.SI.Angle azi "Surface's azimut angle (0:South)" annotation(Dialog(tab="Module mounting and specifications"));
-
-  parameter Real groRef(unit="1")=0.2 "Ground refelctance" annotation(Dialog(tab="Module mounting and specifications"));
-  parameter Real glaExtCoe=4 "Glazing extinction coefficient for glass" annotation(Dialog(tab="Module mounting and specifications"));
+  parameter Integer n_mod(min=1)
+    "Amount of modules per system";
+  parameter Modelica.Units.SI.Angle til
+    "Surface's tilt angle (0:flat)"
+    annotation(Dialog(tab="Module mounting and specifications"));
+  parameter Modelica.Units.SI.Angle azi
+    "Surface's azimut angle (0:South)"
+    annotation(Dialog(tab="Module mounting and specifications"));
+  parameter Real groRef(unit="1")=0.2
+    "Ground reflectance"
+    annotation(Dialog(tab="Module mounting and specifications"));
+  parameter Real glaExtCoe=4 "Glazing extinction coefficient for glass"
+    annotation(Dialog(tab="Module mounting and specifications"));
   parameter Modelica.Units.SI.Length glaThi=0.002
-    "Glazing thickness for most PV cell panels it is 0.002 m" annotation(Dialog(tab="Module mounting and specifications"));
+    "Glazing thickness for most PV cell panels it is 0.002 m"
+    annotation(Dialog(tab="Module mounting and specifications"));
   parameter Real refInd=1.526
-    "Effective index of refraction of the cell cover (glass)" annotation(Dialog(tab="Module mounting and specifications"));
-
-  parameter Modelica.Units.SI.Length alt "Site altitude in Meters, default= 1" annotation(Dialog(tab="Site specifications"));
-
-  constant Modelica.Units.SI.Irradiance HGloTil0=1000 "Total solar radiation on the horizontal surface 
-  under standard conditions" annotation(Dialog(tab="Site specifications"));
-
-
+    "Effective index of refraction of the cell cover (glass)"
+    annotation(Dialog(tab="Module mounting and specifications"));
+  parameter Modelica.Units.SI.Length alt
+    "Site altitude in Meters, default= 1"
+    annotation(Dialog(tab="Site specifications"));
+  constant Modelica.Units.SI.Irradiance HGloTil0=1000
+    "Total solar radiation on the horizontal surface under standard conditions"
+     annotation(Dialog(tab="Site specifications"));
 equation
   connect(partialPVElectrical.eta, partialPVThermal.eta) annotation (Line(
         points={{-23.4,-53},{40,-53},{40,-20},{-72,-20},{-72,8.2},{-39.4,8.2}},
@@ -79,8 +86,6 @@ equation
           {-88,220},{-88,182},{-54,182},{-54,73},{-37.2,73}},     color={0,0,127}));
   connect(HDifHor, partialPVOptical.HDifHor) annotation (Line(points={{-120,180},
           {-102,180},{-102,154},{-72,154},{-72,68.2},{-37.2,68.2}}, color={0,0,127}));
-
-
   connect(partialPVOptical.tilSet, Til_in_internal);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

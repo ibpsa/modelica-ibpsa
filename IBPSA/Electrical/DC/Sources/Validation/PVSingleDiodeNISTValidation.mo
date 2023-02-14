@@ -1,12 +1,11 @@
 ﻿within IBPSA.Electrical.DC.Sources.Validation;
 model PVSingleDiodeNISTValidation
   "Validation with empirical data from NIST for the date of June 14th 2016"
-   extends Modelica.Icons.Example;
-  PVSingleDiode pVSystemSingleDiode(
+  extends Modelica.Icons.Example;
+  IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystemSingleDiode(
     til=0.17453292519943,
     azi=0,
-    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountOpenRack
-      partialPVThermal,
+    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountOpenRack partialPVThermal,
     n_mod=312,
     redeclare IBPSA.Electrical.Data.PV.SingleDiodeSharpNUU235F2 data,
     groRef=0.2,
@@ -15,101 +14,110 @@ model PVSingleDiodeNISTValidation
   Modelica.Blocks.Sources.CombiTimeTable NISTdata(
     tableOnFile=true,
     tableName="Roof2016",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
-    columns={3,5,2,4},
-    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://IBPSA/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
+      columns={3,5,2,4},
+      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "The PVSystem model is validaded with measurement data from: https://pvdata.nist.gov/ "
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     annotation (Placement(transformation(extent={{42,-14},{54,-2}})));
-  Modelica.Blocks.Interfaces.RealOutput PSim "Simulated DC output power"
+  Modelica.Blocks.Interfaces.RealOutput PSim
+    "Simulated DC output power"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Modelica.Blocks.Math.Gain kiloWattToWatt(k=1000)
+  Modelica.Blocks.Math.Gain kiloWattToWatt(
+    k=1000)
     annotation (Placement(transformation(extent={{80,-36},{92,-24}})));
-  Modelica.Blocks.Interfaces.RealOutput PMea "Measured DC power"
+  Modelica.Blocks.Interfaces.RealOutput PMea
+    "Measured DC power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(til=
-        pVSystemSingleDiode.til, azi=pVSystemSingleDiode.azi)
+  BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(
+    til=pVSystemSingleDiode.til,
+    azi=pVSystemSingleDiode.azi)
     annotation (Placement(transformation(extent={{38,40},{58,60}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Bus with weather data"
     annotation (Placement(transformation(extent={{16,40},{36,60}})));
-  Modelica.Blocks.Sources.Constant latLon[2](k={lat,lon})
+  Modelica.Blocks.Sources.Constant latLon[2](
+    k={lat,lon})
     "Latitude and Longitude for tilt irradiation block"
     annotation (Placement(transformation(extent={{-98,42},{-82,58}})));
   BoundaryConditions.SolarGeometry.ZenithAngle zen
     annotation (Placement(transformation(extent={{20,72},{40,92}})));
   BoundaryConditions.WeatherData.Bus weaBus1
-                         "Weather data"
+    "Weather data"
     annotation (Placement(transformation(extent={{-44,20},{-24,40}})));
   BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
   BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  BoundaryConditions.WeatherData.BaseClasses.SolarTime       solTim
+  BoundaryConditions.WeatherData.BaseClasses.SolarTime solTim
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime       locTim(timZon=
-        timZon, lon=lon)
+  BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
+    timZon=timZon,
+    lon=lon)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  BoundaryConditions.WeatherData.BaseClasses.EquationOfTime       eqnTim
+  BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Constant nDay(k=(31 + 29 + 31 + 13)*24*3600)
+  Modelica.Blocks.Sources.Constant nDay(
+    k=(31 + 29 + 31 + 13)*24*3600)
     "Number of validation day (June 14th 2016) in seconds"
     annotation (Placement(transformation(extent={{-98,-44},{-82,-28}})));
   IBPSA.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Blocks.Math.Add calcClockTime(k2=-1) "Computes clock time"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-58,-42})));
-
+  Modelica.Blocks.Math.Add calcClockTime(
+    k2=-1)
+    "Computes clock time"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={-58,-42})));
   parameter Modelica.Units.SI.Time timZon=-18000
     "Time zone";
-  parameter Modelica.Units.SI.Angle lon=-1.3476664539029 "Longitude";
-  parameter Modelica.Units.SI.Angle lat=0.68304158408499 "Latitude";
-
-  constant Real G_sc(final quantity="Irradiance",
-  final unit = "W/m2") = 1376 "Solar constant";
-
+  parameter Modelica.Units.SI.Angle lon=-1.3476664539029
+    "Longitude";
+  parameter Modelica.Units.SI.Angle lat=0.68304158408499
+    "Latitude";
+  constant Real G_sc(
+    final quantity="Irradiance",
+    final unit = "W/m2") = 1376
+    "Solar constant";
   Modelica.Units.SI.Irradiance HGloHor;
   Modelica.Units.SI.Irradiance HGloHorDif;
   Real k_t(final unit="1", start=0.5) "Clearness index";
-
-
-  BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle       incAng(
+  BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
     azi=pVSystemSingleDiode.azi,
-    til=pVSystemSingleDiode.til)           annotation (Placement(transformation(extent={{44,-78},{64,
-            -58}})));
-  Modelica.Blocks.Sources.RealExpression souHGloHorDif(y=HGloHorDif)
+    til=pVSystemSingleDiode.til)
+    annotation (Placement(transformation(extent={{44,-78},{64,-58}})));
+  Modelica.Blocks.Sources.RealExpression souHGloHorDif(
+    y=HGloHorDif)
     annotation (Placement(transformation(extent={{6,-102},{26,-82}})));
-  Modelica.Blocks.Sources.Constant souAlt(k=pVSystemSingleDiode.alt) "Altitude"
+  Modelica.Blocks.Sources.Constant souAlt(k=pVSystemSingleDiode.alt)
+    "Altitude"
     annotation (Placement(transformation(extent={{-14,56},{2,72}})));
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
   //NIST data does not contain this measurement so far. Work in progress
- //nDay = floor(modTim.y/86400)*86400
- // "Zero-based day number in seconds (January 1=0, January 2=86400)";
-HGloHor= NISTdata.y[3];
+  //nDay = floor(modTim.y/86400)*86400
+  // "Zero-based day number in seconds (January 1=0, January 2=86400)";
+  HGloHor= NISTdata.y[3];
 
-k_t = if HGloHor <=0.01 then 0
- else
-   min(1,max(0,(HGloHor)/(G_sc*(1.00011+0.034221*
-   cos(2*Modelica.Constants.pi*nDay.k/24/60/60/365)+
-   0.00128*sin(2*Modelica.Constants.pi*nDay.k/24/60/60/365)
-   +0.000719*cos(2*2*Modelica.Constants.pi*nDay.k/24/60/60/365)+0.000077*
-   sin(2*2*Modelica.Constants.pi*nDay.k/24/60/60/365))*cos(zen.y)))) "following (Iqbal,1983)";
+  k_t = if HGloHor <=0.01 then
+          0
+        else
+          min(1,max(0,(HGloHor)/(G_sc*(1.00011+0.034221*
+          cos(2*Modelica.Constants.pi*nDay.k/24/60/60/365)+
+          0.00128*sin(2*Modelica.Constants.pi*nDay.k/24/60/60/365)
+          +0.000719*cos(2*2*Modelica.Constants.pi*nDay.k/24/60/60/365)+0.000077*
+          sin(2*2*Modelica.Constants.pi*nDay.k/24/60/60/365))*cos(zen.y)))) "following (Iqbal,1983)";
 
-// Erb´s diffuse fraction relation
-  HGloHorDif = if HGloHor <=0.01 then 0
-  elseif
-       k_t <= 0.22 then
-  (HGloHor)*(1.0-0.09*k_t)
-   elseif
-       k_t > 0.8 then
-  (HGloHor)*0.165
-   else
-  (HGloHor)*(0.9511-0.1604*k_t+4.388*k_t^2-16.638*k_t^3+12.336*k_t^4);
+  // Erb´s diffuse fraction relation
+  HGloHorDif = if HGloHor <=0.01 then
+                 0
+               elseif k_t <= 0.22 then
+                 (HGloHor)*(1.0-0.09*k_t)
+               elseif k_t > 0.8 then
+                 (HGloHor)*0.165
+               else
+                 (HGloHor)*(0.9511-0.1604*k_t+4.388*k_t^2-16.638*k_t^3+12.336*k_t^4);
+
   connect(NISTdata.y[1], from_degC.u)
     annotation (Line(points={{61,-30},{64,-30},{64,-14},{40.8,-14},{40.8,-8}},
                                                    color={0,0,127}));
