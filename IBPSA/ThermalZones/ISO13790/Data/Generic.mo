@@ -1,5 +1,5 @@
 within IBPSA.ThermalZones.ISO13790.Data;
-record Generic "Generic data record building mass"
+record Generic "Generic data record for building thermal mass"
    extends Modelica.Icons.Record;
 
    parameter Real heaC( final unit="J/(K.m2)")
