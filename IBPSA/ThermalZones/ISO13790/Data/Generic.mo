@@ -1,10 +1,9 @@
 within IBPSA.ThermalZones.ISO13790.Data;
-record Generic "Generic data record building mass"
+record Generic "Generic data record for thermal mass of building"
    extends Modelica.Icons.Record;
 
-   parameter Real heaC
-    "Heat capacity"
-    annotation (Dialog(group="Heat mass"));
+   parameter Real heaC(final unit="J/(K.m2)") "Thermal mass per floor area"
+    annotation (Dialog(group="Thermal mass"));
 
   annotation (defaultComponentName="mas",
 Documentation(revisions="<html>
@@ -16,7 +15,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Building mass data.
+Building thermal mass per unit area of the floor.
 </p>
 </html>"));
 end Generic;

@@ -10,8 +10,8 @@ First implementation.
 </li>
 </ul>
 </html>",
-        info="<html>
+info="<html>
 <p>
-Mass data for light building.
+Thermal mass for light building.
 </p>
 </html>"));

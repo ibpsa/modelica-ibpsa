@@ -10,8 +10,8 @@ First implementation.
 </li>
 </ul>
 </html>",
-        info="<html>
+info="<html>
 <p>
-Mass data for BESTEST600.
+Thermal mass for BESTEST600.
 </p>
 </html>"));

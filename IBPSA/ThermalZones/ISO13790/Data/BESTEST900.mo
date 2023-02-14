@@ -4,6 +4,6 @@ record BESTEST900 =
      annotation (
   Documentation(info="<html>
 <p>
-Package with building mass properties.
+Thermal mass for BESTEST900.
 </p>
 </html>"));
