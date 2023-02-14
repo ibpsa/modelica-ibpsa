@@ -12,6 +12,6 @@ First implementation.
 </html>",
         info="<html>
 <p>
-Mass data for light building.
+Internal heat capacity per unit area of the floor for light buildings.
 </p>
 </html>"));
