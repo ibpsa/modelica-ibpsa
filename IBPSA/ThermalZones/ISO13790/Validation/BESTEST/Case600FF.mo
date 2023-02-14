@@ -24,15 +24,12 @@ model Case600FF "Basic test with light-weight construction and free floating tem
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Constant intGai(k=200) "Internal heat gains"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Math.ContinuousMean conMea
     "Continuous mean of room air temperature"
     annotation (Placement(transformation(extent={{60,-2},{80,18}})));
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor senTem
-    "Temperature sensor"
-    annotation (Placement(transformation(extent={{20,-2},{40,18}})));
   Modelica.Blocks.Sources.CombiTimeTable daiComBESTESTFF(table=[0,0,0,0,0,0,0,0;
         259200,0,0,0,0,0,0,0; 262800,-8.88,-12.04,-12.3,-12.21,-12.1,-12.02,-13.04;
         266400,-10.48,-13.52,-14.1,-13.8,-13.7,-13.5,-14.59; 270000,-11.76,-14.4,
@@ -57,16 +54,14 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(weaDat.weaBus, zon5R1C.weaBus) annotation (Line(
-      points={{-60,10},{-58,10},{-58,11},{-9.4,11}},
+      points={{-60,20},{10,20},{10,11}},
       color={255,204,51},
       thickness=0.5));
 
-  connect(intGai.y, zon5R1C.intSenGai) annotation (Line(points={{-39,-30},{-30,
-          -30},{-30,-12},{-16,-12}}, color={0,0,127}));
-  connect(zon5R1C.TAir, senTem.port)
-    annotation (Line(points={{4,8},{20,8}}, color={191,0,0}));
-  connect(senTem.T, conMea.u)
-    annotation (Line(points={{40,8},{58,8}}, color={0,0,127}));
+  connect(intGai.y, zon5R1C.intSenGai) annotation (Line(points={{-59,-10},{-30,
+          -10},{-30,10},{-16,10}},   color={0,0,127}));
+  connect(zon5R1C.TAir, conMea.u)
+    annotation (Line(points={{15,8},{58,8}}, color={0,0,127}));
  annotation(experiment(
       StopTime=31536000,
       Tolerance=1e-06),

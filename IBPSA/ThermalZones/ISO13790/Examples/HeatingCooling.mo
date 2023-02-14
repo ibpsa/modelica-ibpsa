@@ -43,18 +43,11 @@ model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating 
     reverseActing=false,
     strict=true) "Controller for cooling"
     annotation (Placement(visible=true, transformation(origin={-10,46},extent={{-6,-6},{6,6}},rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir
-    "Room air temperature"
-    annotation (Placement(visible = true, transformation(extent={{78,2},{94,18}},
-                                                                                rotation = 0)));
 equation
   connect(sumHeaCoo.y, preHeaCoo.Q_flow)
     annotation (Line(points={{52.4,60},{58,60}}, color={0,0,127}));
   connect(conHeaPID.y, gaiHea.u)
     annotation (Line(points={{-3.4,72},{4.8,72}}, color={0,0,127}));
-  connect(conHeaPID.u_m, TRooAir.T)
-    annotation (Line(points={{-10,64.8},{-10,62},{0,62},{0,30},{98,30},{98,10},{
-          94.8,10}},                              color={0,0,127}));
   connect(TSetHea.y, conHeaPID.u_s)
     annotation (Line(points={{-27.4,72},{-17.2,72}}, color={0,0,127}));
   connect(multiplex2.y,sumHeaCoo. u)
@@ -74,15 +67,12 @@ equation
                                                  color={0,0,127}));
   connect(gaiCoo.u, conCooPID.y)
     annotation (Line(points={{4.8,46},{-3.4,46}}, color={0,0,127}));
-  connect(TRooAir.T, conCooPID.u_m)
-    annotation (Line(points={{94.8,10},{98,10},{98,30},{-10,30},{-10,38.8}},
-                                      color={0,0,127}));
-  connect(TRooAir.port, zon5R1C.TAir)
-    annotation (Line(points={{78,10},{44,10}},
-                             color={191,0,0}));
-  connect(preHeaCoo.port, zon5R1C.TAir)
-    annotation (Line(points={{70,60},{74,60},{74,10},{44,10}},
-                            color={191,0,0}));
+  connect(preHeaCoo.port, zon5R1C.heaPorAir) annotation (Line(points={{70,60},{
+          80,60},{80,6},{44,6},{44,10}}, color={191,0,0}));
+  connect(zon5R1C.TAir, conCooPID.u_m) annotation (Line(points={{55,10},{60,10},
+          {60,30},{-10,30},{-10,38.8}}, color={0,0,127}));
+  connect(zon5R1C.TAir, conHeaPID.u_m) annotation (Line(points={{55,10},{60,10},
+          {60,30},{-50,30},{-50,60},{-10,60},{-10,64.8}}, color={0,0,127}));
   annotation (experiment(
     StartTime=8640000,
     StopTime=9504000,

@@ -3,7 +3,7 @@ model FreeFloatingHVAC "Illustrates the use of the 5R1C HVAC thermal zone in fre
   extends Modelica.Icons.Example;
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")) "weather data"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Zone5R1C.ZoneHVAC zonHVAC(
     airRat=0.5,
     AWin={0,0,3,0},
@@ -24,18 +24,18 @@ model FreeFloatingHVAC "Illustrates the use of the 5R1C HVAC thermal zone in fre
     redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas) "Thermal zone"
     annotation (Placement(transformation(extent={{26,-12},{54,16}})));
   Modelica.Blocks.Sources.Constant intGains(k=10) "Internal heat gains"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Blocks.Sources.Constant latGains(k=0) "Latent gains"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Modelica.Blocks.Sources.Constant latGains(k=0) "Latent gains"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
   connect(zonHVAC.weaBus, weaDat.weaBus) annotation (Line(
-      points={{30.6,13},{-54,13},{-54,10},{-60,10}},
+      points={{50,13},{50,20},{-60,20}},
       color={255,204,51},
       thickness=0.5));
-  connect(latGains.y, zonHVAC.intLatGai) annotation (Line(points={{-59,-20},{-46,
-          -20},{-46,-2},{24,-2}},     color={0,0,127}));
-  connect(intGains.y, zonHVAC.intSenGai) annotation (Line(points={{-59,-50},{-40,
-          -50},{-40,-10},{24,-10}},     color={0,0,127}));
+  connect(latGains.y, zonHVAC.intLatGai) annotation (Line(points={{-59,-50},{
+          -32,-50},{-32,6},{24,6}},   color={0,0,127}));
+  connect(intGains.y, zonHVAC.intSenGai) annotation (Line(points={{-59,-20},{
+          -40,-20},{-40,12},{24,12}},   color={0,0,127}));
   annotation (experiment(
     StartTime=8640000,
     StopTime=9504000,
