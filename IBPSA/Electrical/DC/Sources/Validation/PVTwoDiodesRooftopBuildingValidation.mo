@@ -32,8 +32,8 @@ model PVTwoDiodesRooftopBuildingValidation
     "Measured DC power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(
-    til=pvSystemTwoDiodes.til,
-    azi=pvSystemTwoDiodes.azi)
+    til=pVSystemTwoDiodes.til,
+    azi=pVSystemTwoDiodes.azi)
     annotation (Placement(transformation(extent={{38,40},{58,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Bus with weather data"
@@ -72,7 +72,7 @@ model PVTwoDiodesRooftopBuildingValidation
     "Time zone";
   parameter Modelica.Units.SI.Angle lon=-1.3476664539029
     "Longitude";
-  parameter Modelica.Units.SI.Anglelat=0.68304158408499
+  parameter Modelica.Units.SI.Angle lat=0.68304158408499
     "Latitude";
   constant Real G_sc(final quantity="Irradiance",
   final unit = "W/m2") = 1376 "Solar constant";
@@ -81,12 +81,12 @@ model PVTwoDiodesRooftopBuildingValidation
   Real k_t(final unit="1", start=0.5)
     "Clearness index";
   BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
-    azi=pvSystemTwoDiodes.azi,
-    til=pvSystemTwoDiodes.til)
+    azi=pVSystemTwoDiodes.azi,
+    til=pVSystemTwoDiodes.til)
     annotation (Placement(transformation(extent={{44,-78},{64,-58}})));
   Modelica.Blocks.Sources.RealExpression souHGloHorDif(y=HGloHorDif)
     annotation (Placement(transformation(extent={{6,-102},{26,-82}})));
-  Modelica.Blocks.Sources.Constant souAlt(k=pvSystemTwoDiodes.alt)
+  Modelica.Blocks.Sources.Constant souAlt(k=pVSystemTwoDiodes.alt)
     "Altitude"
     annotation (Placement(transformation(extent={{-14,56},{2,72}})));
 equation
@@ -118,13 +118,13 @@ equation
     connect(NISTdata.y[1], from_degC.u)
       annotation (Line(points={{61,-30},{64,-30},{64,-14},{40.8,-14},{40.8,-8}},
                                                      color={0,0,127}));
-    connect(from_degC.y, pvSystemTwoDiodes.TDryBul) annotation (Line(points={{54.6,-8},
+    connect(from_degC.y, pVSystemTwoDiodes.TDryBul) annotation (Line(points={{54.6,-8},
             {58,-8},{58,4},{54,4},{54,10.5},{60,10.5}},
                                                color={0,0,127}));
-    connect(NISTdata.y[2], pvSystemTwoDiodes.vWinSpe) annotation (Line(points={{61,-30},
+    connect(NISTdata.y[2], pVSystemTwoDiodes.vWinSpe) annotation (Line(points={{61,-30},
             {64,-30},{64,9},{60,9}},                                   color={0,0,
             127}));
-    connect(pvSystemTwoDiodes.P, PSim)
+    connect(pVSystemTwoDiodes.P, PSim)
       annotation (Line(points={{83,7},{96,7},{96,10},{110,10}},
                                                     color={0,0,127}));
     connect(NISTdata.y[4], kiloWattToWatt.u) annotation (Line(points={{61,-30},{78.8,
@@ -138,9 +138,9 @@ equation
     connect(NISTdata.y[3], weaBus.HGloHor) annotation (Line(points={{61,-30},{64,-30},
             {64,0},{46,0},{46,36},{26,36},{26,50}},
                                     color={0,0,127}));
-    connect(NISTdata.y[3], pvSystemTwoDiodes.HGloHor) annotation (Line(points={{61,-30},
+    connect(NISTdata.y[3], pVSystemTwoDiodes.HGloHor) annotation (Line(points={{61,-30},
             {64,-30},{64,0},{46,0},{46,12},{60,12}}, color={0,0,127}));
-    connect(HGloTil.H, pvSystemTwoDiodes.HGloTil) annotation (Line(points={{59,50},
+    connect(HGloTil.H, pVSystemTwoDiodes.HGloTil) annotation (Line(points={{59,50},
             {64,50},{64,24},{56,24},{56,14},{60,14}},
                                             color={0,0,127}));
     connect(latLon[1].y, weaBus.lat)
@@ -193,16 +193,16 @@ equation
       annotation (Line(points={{1,-70},{26,-70},{26,50}},  color={0,0,127}));
     connect(calcClockTime.y, weaBus.cloTim)
       annotation (Line(points={{-47,-42},{26,-42},{26,50}}, color={0,0,127}));
-    connect(zen.y, pvSystemTwoDiodes.zenAngle)
+    connect(zen.y, pVSystemTwoDiodes.zenAngle)
       annotation (Line(points={{41,82},{64,82},{64,76},{62,76},{62,26},{60,26},{
             60,20}},                                    color={0,0,127}));
     connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-37,10},{-32,10},
             {-32,16},{18,16},{18,28},{32,28},{32,-62.6},{41.8,-62.6}}, color={0,0,
             127}));
-    connect(incAng.incAng, pvSystemTwoDiodes.incAngle) annotation (Line(points={
+    connect(incAng.incAng, pVSystemTwoDiodes.incAngle) annotation (Line(points={
             {65,-68},{70,-68},{70,-4},{86,-4},{86,24},{58,24},{58,26},{54,26},{54,
             18},{60,18}}, color={0,0,127}));
-    connect(souHGloHorDif.y, pvSystemTwoDiodes.HDifHor) annotation (Line(points=
+    connect(souHGloHorDif.y, pVSystemTwoDiodes.HDifHor) annotation (Line(points=
            {{27,-92},{32,-92},{32,-60},{34,-60},{34,18},{52,18},{52,28},{60,28},{60,
             16}}, color={0,0,127}));
     connect(latLon[1].y, incAng.lat) annotation (Line(points={{-81.2,50},{12,50},{

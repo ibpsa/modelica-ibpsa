@@ -4,6 +4,11 @@ record TwoDiodesSolibroSL2CIGS110
    extends IBPSA.Electrical.Data.PV.TwoDiodesData(
     n_ser=150,
     n_par=1,
+    //eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))
+    eta_0 = 1, // dummy value
+    //A_cel=((V_mp0*I_mp0)/(1000*eta_0))/n_ser,
+    A_cel=1.0 // dummy value;
+    T_NOCT=47.5 + 273.15, // dummy value
     A_mod=0.7895*1.190,
     Eg = 1.107,
     RPar = 500.0,

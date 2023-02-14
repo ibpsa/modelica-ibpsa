@@ -9,6 +9,8 @@ partial model PartialPVElectricalTwoDiodes
     "PV Panel data definition" annotation (choicesAllMatching);
 
   // Parameters from module data sheet
+  final parameter Modelica.Units.SI.Area A_mod=data.A_mod
+    "Area of one module (housing)";
   final parameter Integer n_par = data.n_par
     "Number of parallel connected cells within the PV module";
   final parameter Integer n_ser = data.n_ser
@@ -81,6 +83,8 @@ equation
   ISat1 =cs1*TCel*TCel*TCel*Modelica.Math.exp(-(Eg*e)/(k*TCel));
 
   ISat2 =cs2*sqrt(TCel*TCel*TCel*TCel*TCel)*Modelica.Math.exp(-(Eg*e)/(2.0*k*TCel));
+
+  eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0 else P/(radTil*A_mod);
 
     annotation (
   Documentation(info="<html>
