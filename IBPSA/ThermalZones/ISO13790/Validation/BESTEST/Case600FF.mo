@@ -50,7 +50,7 @@ model Case600FF "Basic test with light-weight construction and free floating tem
         345600,-1.03,-4.07,-4.4,-3.92,-3.9,-4.03,-5.14; 345600,0,0,0,0,0,0,0;
         3153600,0,0,0,0,0,0,0]) "Daily comparison BESTEST FF"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Data.BESTESTResultsFF annComBESTESTFF "Annual comparison BESTEST FF"
+  IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600FFResults annComBESTESTFF "Annual comparison BESTEST FF"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(weaDat.weaBus, zon5R1C.weaBus) annotation (Line(

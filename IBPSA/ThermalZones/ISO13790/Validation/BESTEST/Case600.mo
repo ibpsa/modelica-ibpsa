@@ -113,7 +113,7 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
         "modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Data.BESTESTResults annComBESTEST "Annual comparison BESTEST "
+  IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Results annComBESTEST "Annual comparison BESTEST "
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(sumHeaCoo.y,preHeaCoo. Q_flow)
