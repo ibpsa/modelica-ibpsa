@@ -2,7 +2,7 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900FF "Test with heavy-weight construction and free floating temperature"
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600FF(
     zon5R1C(
-      redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST900 buiMas,
+      redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas,
       facMas=2.7),
     daiComBESTESTFF(table=[0,0,0,0,0,0,0,0; 259200,0,0,0,0,0,0,0; 262800,1.61,-0.17,
           -0.9,-1.31,-0.7,-3.46,-2.68; 266400,0.93,-0.79,-1.6,-1.97,-1.4,-3.99,-3.33;

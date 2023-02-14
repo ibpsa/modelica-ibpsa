@@ -2,7 +2,7 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600(
     zon5R1C(
-      redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST900 buiMas,
+      redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas,
       facMas=2.7),
     annComBESTEST(
       EHeaMax=7347600000,
