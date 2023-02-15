@@ -11,7 +11,7 @@ First implementation.
 </li>
 </ul>
 </html>",
-        info="<html>
+info="<html>
 <p>
 Internal heat capacity per unit area of the floor for heavy buildings.
 </p>

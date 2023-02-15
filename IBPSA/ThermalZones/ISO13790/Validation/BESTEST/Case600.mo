@@ -54,9 +54,6 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
         origin={0,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir "Room air temperature"
-    annotation (
-    Placement(visible = true, transformation(extent={{20,-2},{40,18}},      rotation = 0)));
   Modelica.Blocks.Continuous.Integrator ECoo(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -102,20 +99,20 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     AFlo=48,
     VRoo=129.6,
     hInt=2.74,
-    redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST600 buiMas,
+    redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Mass buiMas,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
     surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},
     gFac=0.789)
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
   Modelica.Blocks.Sources.Constant intGai(k=200) "Internal heat gains"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Data.BESTESTResults annComBESTEST "Annual comparison BESTEST "
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+  IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Results annComBESTEST "Annual comparison BESTEST "
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
   connect(sumHeaCoo.y,preHeaCoo. Q_flow)
@@ -130,8 +127,6 @@ equation
     annotation (Line(points={{-7.2,46},{-17.4,46}},  color={0,0,127}));
   connect(conCooPID.y,gaiCoo. u)
     annotation (Line(points={{6.6,46},{14.8,46}}, color={0,0,127}));
-  connect(conHeaPID.y,gaiHea. u)
-    annotation (Line(points={{6.6,72},{14.8,72}}, color={0,0,127}));
   connect(gaiHea.y,multiplex2. u1[1]) annotation (Line(points={{28.6,72},{32,72},
           {32,62},{38,62},{38,62.4},{37.2,62.4}},
                             color={0,0,127}));
@@ -140,26 +135,23 @@ equation
                             color={0,0,127}));
   connect(gaiCoo.u,conCooPID. y)
     annotation (Line(points={{14.8,46},{6.6,46}}, color={0,0,127}));
-  connect(conCooPID.u_m, TRooAir.T) annotation (Line(points={{0,38.8},{0,34},{
-          48,34},{48,8},{41,8}},     color={0,0,127}));
   connect(EHea.u, gaiHea.y) annotation (Line(points={{52.8,82},{44,82},{44,72},
           {28.6,72}}, color={0,0,127}));
   connect(ECoo.u, gaiCoo.y) annotation (Line(points={{52.8,40},{44,40},{44,46},
           {28.6,46}}, color={0,0,127}));
-  connect(conHeaPID.u_m, TRooAir.T) annotation (Line(points={{0,64.8},{0,56},{
-          -34,56},{-34,34},{48,34},{48,8},{41,8}},   color={0,0,127}));
 
-  connect(zon5R1C.TAir, TRooAir.port)
-    annotation (Line(points={{4,8},{20,8}},         color={191,0,0}));
-  connect(preHeaCoo.port, zon5R1C.TAir)
-    annotation (Line(points={{80,60},{90,60},{90,-4},{20,-4},{20,8},{4,8}},
-                                                            color={191,0,0}));
-  connect(intGai.y, zon5R1C.intSenGai) annotation (Line(points={{-39,-30},{-30,
-          -30},{-30,-12},{-16,-12}}, color={0,0,127}));
+  connect(preHeaCoo.port, zon5R1C.heaPorAir) annotation (Line(points={{80,60},{
+          90,60},{90,4},{4,4},{4,8}}, color={191,0,0}));
+  connect(intGai.y, zon5R1C.intSenGai) annotation (Line(points={{-59,-10},{-24,
+          -10},{-24,10},{-16,10}},   color={0,0,127}));
   connect(weaDat.weaBus, zon5R1C.weaBus) annotation (Line(
-      points={{-60,10},{-58,10},{-58,11},{-9.4,11}},
+      points={{-60,20},{10,20},{10,11}},
       color={255,204,51},
       thickness=0.5));
+  connect(zon5R1C.TAir, conCooPID.u_m) annotation (Line(points={{15,8},{20,8},{
+          20,30},{0,30},{0,38.8}}, color={0,0,127}));
+  connect(zon5R1C.TAir, conHeaPID.u_m) annotation (Line(points={{15,8},{20,8},{
+          20,30},{-40,30},{-40,60},{0,60},{0,64.8}}, color={0,0,127}));
  annotation(experiment(
       StopTime=31536000,
       Tolerance=1e-06),

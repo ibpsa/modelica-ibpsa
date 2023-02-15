@@ -1,5 +1,5 @@
-within IBPSA.ThermalZones.ISO13790.Data;
-record BESTESTResultsFF "BESTEST comparison results free-floating"
+within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data;
+record Case600FFResults "BESTEST comparison results free-floating"
   extends Modelica.Icons.Record;
   parameter Modelica.Units.SI.Temperature TavgMax=299.05 "Maximum average annual air temperature";
   parameter Modelica.Units.SI.Temperature TavgMin=297.35 "Minimum average annual air temperature";
@@ -10,4 +10,4 @@ record BESTESTResultsFF "BESTEST comparison results free-floating"
 BESTEST results for annual heating and cooling loads in free-floating mode.
 </p>
 </html>"));
-end BESTESTResultsFF;
+end Case600FFResults;

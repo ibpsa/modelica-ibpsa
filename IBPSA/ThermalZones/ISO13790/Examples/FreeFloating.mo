@@ -4,7 +4,7 @@ model FreeFloating "Illustrates the use of the 5R1C thermal zone in free-floatin
 
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")) "weather data"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Zone5R1C.Zone zon5R1C(
     airRat=0.5,
     AWin={0,0,3,0},
@@ -23,14 +23,14 @@ model FreeFloating "Illustrates the use of the 5R1C thermal zone in free-floatin
     gFac=0.5) "Thermal zone"
     annotation (Placement(transformation(extent={{26,-12},{54,16}})));
   Modelica.Blocks.Sources.Constant intGains(k=10) "internal heat gains in Watt"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   connect(zon5R1C.weaBus, weaDat.weaBus) annotation (Line(
-      points={{30.6,13},{-50,13},{-50,10},{-60,10}},
+      points={{50,13},{50,20},{-60,20}},
       color={255,204,51},
       thickness=0.5));
   connect(zon5R1C.intSenGai, intGains.y)
-    annotation (Line(points={{24,-10},{-48,-10},{-48,-30},{-59,-30}}, color={0,0,127}));
+    annotation (Line(points={{24,12},{-40,12},{-40,-10},{-59,-10}},   color={0,0,127}));
   annotation (experiment(
     StartTime=8640000,
     StopTime=9504000,

@@ -2,7 +2,7 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600(
     zon5R1C(hInt=2.74,
-      redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST900 buiMas),
+      redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas),
     annComBESTEST(
       EHeaMax=7347600000,
       EHeaMin=4212000000,
@@ -35,9 +35,9 @@ model Case900
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case900.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model is used for the basic test case 900 of the BESTEST validation suite. 
-Case 900 is a heavy-weight building with room temperature control set to <i>20</i>&deg;C 
-for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south. 
+This model is used for the basic test case 900 of the BESTEST validation suite.
+Case 900 is a heavy-weight building with room temperature control set to <i>20</i>&deg;C
+for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south.
 </p>
 </html>", revisions="<html><ul>
 <li>

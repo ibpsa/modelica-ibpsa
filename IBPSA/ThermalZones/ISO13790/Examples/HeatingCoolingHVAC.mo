@@ -27,15 +27,12 @@ model HeatingCoolingHVAC "Illustrates the use of the 5R1C HVAC thermal zone conn
         origin={-34,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRooAir "Room air temperature"
-    annotation (
-    Placement(visible = true, transformation(extent={{72,2},{88,18}},       rotation = 0)));
   Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = IBPSA.Media.Air,
     use_m_flow_in=true,
     T=280.15,
     nPorts=1) "source of air"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
     "Set-point for cooling"
     annotation (Placement(
@@ -76,22 +73,18 @@ equation
     annotation (Line(points={{-17.2,46},{-27.4,46}}, color={0,0,127}));
   connect(gaiCoo.u,conCooPID. y)
     annotation (Line(points={{4.8,46},{-3.4,46}}, color={0,0,127}));
-  connect(TRooAir.T, conCooPID.u_m) annotation (Line(points={{88.8,10},{96,10},{
-          96,32},{-10,32},{-10,38.8}},
-                                    color={0,0,127}));
-  connect(conHeaPID.u_m, TRooAir.T) annotation (Line(points={{-10,64.8},{-10,56},
-          {96,56},{96,10},{88.8,10}},              color={0,0,127}));
-  connect(sin.ports[1], zonHVAC.ports_b[1]) annotation (Line(points={{70,-70},{64,
-          -70},{64,10},{54,10},{54,12.05},{52.95,12.05}},
-                                             color={0,127,255}));
-  connect(TRooAir.port, zonHVAC.TAir) annotation (Line(points={{72,10},{44,10}},
-                           color={191,0,0}));
-  connect(preHeaCoo.port, zonHVAC.TAir) annotation (Line(points={{58,72},{68,72},
-          {68,10},{44,10}}, color={191,0,0}));
-  connect(sou.ports[1], zonHVAC.ports_b[2]) annotation (Line(points={{20,-70},{60,
-          -70},{60,12.05},{52.95,12.05}}, color={0,127,255}));
-  connect(sou.m_flow_in, gaiCoo.y) annotation (Line(points={{-2,-62},{-10,-62},{
-          -10,26},{30,26},{30,46},{18.6,46}}, color={0,0,127}));
+  connect(sin.ports[1], zonHVAC.ports[1]) annotation (Line(points={{70,-70},{22,
+          -70},{22,-6.2},{27,-6.2}}, color={0,127,255}));
+  connect(preHeaCoo.port, zonHVAC.heaPorAir) annotation (Line(points={{58,72},{
+          68,72},{68,8},{44,8},{44,10}}, color={191,0,0}));
+  connect(sou.ports[1], zonHVAC.ports[2]) annotation (Line(points={{0,-70},{20,
+          -70},{20,-6.2},{27,-6.2}}, color={0,127,255}));
+  connect(sou.m_flow_in, gaiCoo.y) annotation (Line(points={{-22,-62},{-28,-62},
+          {-28,34},{26,34},{26,46},{18.6,46}},color={0,0,127}));
+  connect(zonHVAC.TAir, conCooPID.u_m) annotation (Line(points={{55,10},{60,10},
+          {60,28},{-10,28},{-10,38.8}}, color={0,0,127}));
+  connect(zonHVAC.TAir, conHeaPID.u_m) annotation (Line(points={{55,10},{60,10},
+          {60,60},{-10,60},{-10,64.8}}, color={0,0,127}));
   annotation (experiment(
       StartTime=8640000,
       StopTime=9504000,

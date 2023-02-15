@@ -1,5 +1,5 @@
-within IBPSA.ThermalZones.ISO13790.Data;
-record BESTESTResults "BESTEST comparison results"
+within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data;
+record Case600Results "BESTEST comparison results"
   extends Modelica.Icons.Record;
   parameter Modelica.Units.SI.Energy EHeaMax=20552400000 "Maximum annual heating load";
   parameter Modelica.Units.SI.Energy EHeaMin=15465600000 "Minimum annaul heating load";
@@ -17,4 +17,4 @@ record BESTESTResults "BESTEST comparison results"
 BESTEST results for annual heating and cooling loads.
 </p>
 </html>"));
-end BESTESTResults;
+end Case600Results;
