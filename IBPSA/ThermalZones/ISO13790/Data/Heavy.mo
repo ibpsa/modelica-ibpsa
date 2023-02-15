@@ -1,6 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.Data;
-record Heavy =
-  ISO13790.Data.Generic (heaC=260000) "Heavy"
+record Heavy = ISO13790.Data.Generic(
+    heaC=260000,
+    facMas=3) "Heavy"
      annotation (
   Documentation(revisions="<html>
 <ul>
@@ -12,6 +13,6 @@ First implementation.
 </html>",
 info="<html>
 <p>
-Thermal mass for heavy building.
+Internal heat capacity per unit area of the floor for heavy buildings.
 </p>
 </html>"));

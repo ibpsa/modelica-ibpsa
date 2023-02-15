@@ -15,7 +15,8 @@ equation
   AMas  = facMas*AFlo;
   masGai=((AMas/ATot)*(0.5*intSenGai + solGai));
 
-  annotation (defaultComponentName="phiMas",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="phiMas",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={255,255,255},
@@ -29,8 +30,9 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-108,136},{114,104}},
-          testColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          textColor={0,0,255},
+          textString="%name")}),
+    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

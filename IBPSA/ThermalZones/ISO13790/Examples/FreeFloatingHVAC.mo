@@ -15,7 +15,6 @@ model FreeFloatingHVAC "Illustrates the use of the 5R1C HVAC thermal zone in fre
     UFlo=1,
     AFlo=16,
     VRoo=16*3,
-    facMas=2.5,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
     surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},

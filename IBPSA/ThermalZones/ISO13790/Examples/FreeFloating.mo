@@ -16,7 +16,6 @@ model FreeFloating "Illustrates the use of the 5R1C thermal zone in free-floatin
     UFlo=1,
     AFlo=16,
     VRoo=16*3,
-    facMas=2.5,
     redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},

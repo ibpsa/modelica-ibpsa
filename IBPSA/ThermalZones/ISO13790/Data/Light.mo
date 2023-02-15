@@ -1,6 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.Data;
-record Light =
-  ISO13790.Data.Generic (heaC=110000) "Light"
+record Light = ISO13790.Data.Generic(
+    heaC=110000,
+    facMas=2.5) "Light"
      annotation (
   Documentation(revisions="<html>
 <ul>
@@ -12,6 +13,6 @@ First implementation.
 </html>",
 info="<html>
 <p>
-Thermal mass for light building.
+Internal heat capacity per unit area of the floor for light buildings.
 </p>
 </html>"));

@@ -1,6 +1,7 @@
-within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data;
-record Case600Mass =
-  ISO13790.Data.Generic (heaC=51289.8) "BESTEST600"
+within IBPSA.ThermalZones.ISO13790.Data;
+record BESTEST600Mass = ISO13790.Data.Generic(
+    heaC=51289.8,
+    facMas=4.522) "BESTEST600"
      annotation (
   Documentation(revisions="<html>
 <ul>

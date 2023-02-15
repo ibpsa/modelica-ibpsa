@@ -20,8 +20,8 @@ model Zone "Thermal zone based on 5R1C network"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area AFlo "Net conditioned floor area";
   parameter Modelica.Units.SI.Volume VRoo "Volume of room";
-  parameter Real facMas "Effective mass area factor";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45 "Heat transfer conductivity between surface and air node";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45 "Heat transfer coefficient between surface and air nodes";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hSur=9.1 "Heat transfer coefficient between mass and surface nodes";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
    annotation (
      choicesAllMatching=true,
@@ -70,20 +70,17 @@ model Zone "Thermal zone based on 5R1C network"
       G=airRat*VRoo*1005*1.2/3600) "Heat transfer due to ventilation"
    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HTra(
-      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(9.1*facMas*AFlo)))
-      "Heat transfer through opaque elements"
+      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(hSur*buiMas.facMas*AFlo))) "Heat transfer through opaque elements"
    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(
       G=UWin*sum(AWin)) "Heat transfer through glazed elements"
    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*4.5)
-  "Coupling conductance betwee air and surface nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*ratSur) "Coupling conductance betwee air and surface nodes"
    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=9.1*facMas*AFlo)
-  "Coupling conductance between surface and mass nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=hSur*buiMas.facMas*AFlo) "Coupling conductance between surface and mass nodes"
    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -121,22 +118,24 @@ model Zone "Thermal zone based on 5R1C network"
     final surAzi=surAzi) "Solar heat gains of opaque elements"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   BaseClasses.GainSurface phiSur(
-    ATot=AFlo*4.5,
-    final facMas=facMas,
-    final AFlo=AFlo,
-    final HWinGai=HWin.G) "Heat flow injected to surface node"
+    ATot=AFlo*ratSur,
+    facMas=buiMas.facMas,
+    AFlo=AFlo,
+    HWinGai=HWin.G) "Heat flow injected to surface node"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
   Modelica.Blocks.Math.Gain phiAir(k=0.5) "Heat flow injected to air node"
     annotation (Placement(transformation(extent={{120,70},{100,90}})));
   BaseClasses.GainMass phiMas(
-    ATot=AFlo*4.5,
-    facMas=facMas,
+    ATot=AFlo*ratSur,
+    facMas=buiMas.facMas,
     AFlo=AFlo) "Heat flow injected to mass node"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TVen "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
 protected
+  parameter Real ratSur=4.5 "Ratio between the internal surfaces area and the floor area";
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTAir
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
@@ -149,6 +148,7 @@ protected
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaMas
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
+
 equation
 
   connect(heaPorSur, HWin.port_b)

@@ -10,7 +10,6 @@ model HeatingCooling "Illustrates the use of the 5R1C thermal zone with heating 
       URoo=1.3,
       AFlo=16,
       VRoo=16*3,
-      facMas=2.5,
       redeclare IBPSA.ThermalZones.ISO13790.Data.Light buiMas,
       gFac=0.5) "Thermal zone");
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
