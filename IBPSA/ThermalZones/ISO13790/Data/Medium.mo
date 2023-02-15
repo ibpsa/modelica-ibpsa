@@ -1,6 +1,6 @@
 within IBPSA.ThermalZones.ISO13790.Data;
 record Medium =
-  ISO13790.Data.Generic (heaC=165000) "Medium"
+  ISO13790.Data.Generic (heaC=165000, facMas=2.5) "Medium"
      annotation (
   Documentation(revisions="<html>
 <ul>

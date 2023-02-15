@@ -13,7 +13,6 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     b=0,
     AFlo=48,
     VRoo=129.6,
-    facMas=4.522,
     hInt=2.74,
     redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST600 buiMas,
     nOrientations=4,

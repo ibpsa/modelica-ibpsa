@@ -101,7 +101,6 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     b=0,
     AFlo=48,
     VRoo=129.6,
-    facMas=4.522,
     hInt=2.74,
     redeclare replaceable IBPSA.ThermalZones.ISO13790.Data.BESTEST600 buiMas,
     nOrientations=4,
