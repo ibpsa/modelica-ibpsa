@@ -5,7 +5,7 @@ record Generic "Generic data record for building thermal mass"
    parameter Real heaC(final unit="J/(K.m2)")
     "Heat capacity per unit area of the floor"
     annotation (Dialog(group="Thermal mass"));
-   parameter Real facMas
+   parameter Real facMas(final unit="1")
     "Effective mass area factor"
     annotation (Dialog(group="Thermal mass"));
   annotation (defaultComponentName="theMas",
@@ -18,7 +18,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Generic record for the internal heat capacity of the building zone per unit area of the floor. 
+Generic record for the internal heat capacity of the building zone per unit area of the floor.
 </p>
 </html>"));
 end Generic;

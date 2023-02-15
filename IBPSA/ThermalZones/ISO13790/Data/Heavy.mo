@@ -1,6 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.Data;
-record Heavy =
-  ISO13790.Data.Generic (heaC=260000, facMas=3) "Heavy"
+record Heavy = ISO13790.Data.Generic(
+    heaC=260000,
+    facMas=3) "Heavy"
      annotation (
   Documentation(revisions="<html>
 <ul>
