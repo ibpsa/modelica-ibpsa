@@ -6,7 +6,7 @@ model Zone "Thermal zone based on 5R1C network"
    annotation (Dialog(group="Windows"));
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin "U-value of windows"
    annotation (Dialog(group="Windows"));
-  parameter Modelica.Units.SI.Area AWal[:] "Area of external walls"
+  parameter Modelica.Units.SI.Area AWal[:] "Area of external walls (only opaque part)"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area ARoo "Area of roof"
    annotation (Dialog(group="Opaque constructions"));
@@ -148,6 +148,11 @@ protected
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaMas
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
+initial equation
+  assert(size(AWin,1) == nOrientations, "The parameter AWin must have the same dimension of nOrientations");
+  assert(size(AWal,1) == nOrientations, "The parameter AWal must have the same dimension of nOrientations");
+  assert(size(surTil,1) == nOrientations, "The parameter surTil must have the same dimension of nOrientations");
+  assert(size(surAzi,1) == nOrientations, "The parameter surAzi must have the same dimension of nOrientations");
 
 equation
 
