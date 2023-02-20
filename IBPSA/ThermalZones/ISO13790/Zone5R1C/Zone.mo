@@ -21,7 +21,6 @@ model Zone "Thermal zone based on 5R1C network"
   parameter Modelica.Units.SI.Area AFlo "Net conditioned floor area";
   parameter Modelica.Units.SI.Volume VRoo "Volume of room";
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45 "Heat transfer coefficient between surface and air nodes";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hSur=9.1 "Heat transfer coefficient between mass and surface nodes";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
    annotation (
      choicesAllMatching=true,
@@ -135,6 +134,7 @@ model Zone "Thermal zone based on 5R1C network"
 
 protected
   parameter Real ratSur=4.5 "Ratio between the internal surfaces area and the floor area";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hSur=9.1 "Heat transfer coefficient between mass and surface nodes";
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTAir
     "Air temperature sensor"
