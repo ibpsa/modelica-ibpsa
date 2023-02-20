@@ -359,6 +359,19 @@ The three heat gains components are calculated using
 &Phi;<sub>mas</sub> = f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub> (0.5&Phi;<sub>int</sub>+
 &Phi;<sub>sol</sub>).
 </p>
+<h4>Tips for parametrization</h4>
+<ul>
+<li>
+The parameters <code>AWin</code>, <code>AWal</code>, <code>surTil</code> and <code>surAzi</code>
+must have the same dimension of <code>nOrientations</code> .
+</li>
+<li>
+The areas in <code>AWal</code> must account only for the opaque parts (excluding windows).
+</li>
+<li>
+If a wall contains only opaque parts, the corresponding windows area must be assigned equal to 0.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
