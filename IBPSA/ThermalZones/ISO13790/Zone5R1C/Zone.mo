@@ -25,7 +25,7 @@ model Zone "Thermal zone based on 5R1C network"
    annotation (
      choicesAllMatching=true,
      Placement(transformation(extent={{-100,-130},{-80,-110}})));
-  parameter Integer nOrientations "Number of orientations for vertical walls";
+  parameter Integer nOrientations(min=1) "Number of orientations for vertical walls";
   parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
   parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
   parameter Real winFra(min=0, max=1)=0.001 "Frame fraction of windows"
