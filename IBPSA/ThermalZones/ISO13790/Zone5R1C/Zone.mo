@@ -249,7 +249,7 @@ equation
           80}}, color={0,0,127}));
   connect(senTSur.T, TSur) annotation (Line(points={{91,30},{136,30},{136,60},{150,
           60}}, color={0,0,127}));
-  annotation (defaultComponentName="zon5R1C", Icon(
+  annotation (defaultComponentName="zon", Icon(
     coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -140},{140,140}}), graphics={Rectangle(
           extent={{-140,140},{140,-140}},
