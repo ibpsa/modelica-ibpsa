@@ -65,14 +65,14 @@ protected
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 equation
   for i in 1:n loop
-  connect(weaBus,HDifTil [i].weaBus) annotation (Line(
+  connect(weaBus,HDifTil[i].weaBus) annotation (Line(
       points={{-100,0},{-90,0},{-90,30},{-80,30}},
       color={255,204,51},
       thickness=0.5));
   end for;
 
   for i in 1:n loop
-  connect(weaBus,HDirTil [i].weaBus) annotation (Line(
+  connect(weaBus,HDirTil[i].weaBus) annotation (Line(
       points={{-100,0},{-90,0},{-90,70},{-80,70}},
       color={255,204,51},
       thickness=0.5));
@@ -161,7 +161,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This model calculates the heat flow by solar gains through each opaque building element <i>k</i>. The heat flow is given by 
+This model calculates the heat flow by solar gains through each opaque building element <i>k</i>. The heat flow is given by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>sol,k</sub> =F<sub>sh,k </sub>I<sub>sol,k </sub> &alpha;<sub>k</sub> R<sub>se</sub> U<sub>k</sub>
@@ -173,7 +173,7 @@ per square meter of surface area, <i>&alpha;<sub>k</sub></i> is the dimensionles
 <i>R<sub>se</sub></i> is the external surface heat resistance of the opaque element in (m K/W), and <i>A<sub>k</sub></i> is the area of the opaque element.
 </p>
 <p>
-The form factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to 
+The form factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to
 thermal radiation to the sky is given by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
