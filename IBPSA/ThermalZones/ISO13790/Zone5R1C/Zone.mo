@@ -2,11 +2,11 @@ within IBPSA.ThermalZones.ISO13790.Zone5R1C;
 model Zone "Thermal zone based on 5R1C network"
   parameter Real airRat(unit="1/h") "Air change rate"
    annotation (Dialog(group="Ventilation"));
-  parameter Modelica.Units.SI.Area AWin[:] "Area of windows"
+  parameter Modelica.Units.SI.Area AWin[nOrientations] "Area of windows"
    annotation (Dialog(group="Windows"));
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin "U-value of windows"
    annotation (Dialog(group="Windows"));
-  parameter Modelica.Units.SI.Area AWal[:] "Area of external walls (only opaque part)"
+  parameter Modelica.Units.SI.Area AWal[nOrientations] "Area of external walls (only opaque part)"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area ARoo "Area of roof"
    annotation (Dialog(group="Opaque constructions"));
@@ -20,14 +20,15 @@ model Zone "Thermal zone based on 5R1C network"
    annotation (Dialog(group="Opaque constructions"));
   parameter Modelica.Units.SI.Area AFlo "Net conditioned floor area";
   parameter Modelica.Units.SI.Volume VRoo "Volume of room";
-  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45 "Heat transfer coefficient between surface and air nodes";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hInt=3.45
+    "Heat transfer coefficient between surface and air nodes";
   replaceable parameter ISO13790.Data.Generic buiMas "Building mass"
    annotation (
      choicesAllMatching=true,
      Placement(transformation(extent={{-100,-130},{-80,-110}})));
   parameter Integer nOrientations(min=1) "Number of orientations for vertical walls";
-  parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
-  parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
+  parameter Modelica.Units.SI.Angle surTil[nOrientations] "Tilt angle of surfaces";
+  parameter Modelica.Units.SI.Angle surAzi[nOrientations] "Azimuth angle of surfaces";
   parameter Real winFra(min=0, max=1)=0.001 "Frame fraction of windows"
    annotation(Dialog(group="Windows"));
   parameter Real gFac(min=0, max=1) "Energy transmittance of glazings"
@@ -40,6 +41,7 @@ model Zone "Thermal zone based on 5R1C network"
   Modelica.Blocks.Interfaces.RealOutput TAir(
     final unit="K",
     displayUnit="degC")
+    "Room air temperature"
     annotation (Placement(
         transformation(extent={{140,70},{160,90}}),
         iconTransformation(extent={{
@@ -69,17 +71,20 @@ model Zone "Thermal zone based on 5R1C network"
       G=airRat*VRoo*1005*1.2/3600) "Heat transfer due to ventilation"
    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HTra(
-      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(hSur*buiMas.facMas*AFlo))) "Heat transfer through opaque elements"
+      G=1/(1/(UWal*sum(AWal) + b*UFlo*AFlo + URoo*ARoo) - 1/(hSur*buiMas.facMas*AFlo)))
+      "Heat transfer through opaque elements"
    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor HWin(
       G=UWin*sum(AWin)) "Heat transfer through glazed elements"
    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*ratSur) "Coupling conductance betwee air and surface nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HThe(G=hInt*AFlo*ratSur)
+    "Coupling conductance betwee air and surface nodes"
    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,40})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=hSur*buiMas.facMas*AFlo) "Coupling conductance between surface and mass nodes"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor HMas(G=hSur*buiMas.facMas*AFlo)
+    "Coupling conductance between surface and mass nodes"
    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -149,10 +154,10 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaMas
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
 initial equation
-  assert(size(AWin,1) == nOrientations, "The parameter AWin must have the same dimension of nOrientations");
-  assert(size(AWal,1) == nOrientations, "The parameter AWal must have the same dimension of nOrientations");
-  assert(size(surTil,1) == nOrientations, "The parameter surTil must have the same dimension of nOrientations");
-  assert(size(surAzi,1) == nOrientations, "The parameter surAzi must have the same dimension of nOrientations");
+  assert(size(AWin,1) == nOrientations, "The parameter AWin must have the same dimension of nOrientations.");
+  assert(size(AWal,1) == nOrientations, "The parameter AWal must have the same dimension of nOrientations.");
+  assert(size(surTil,1) == nOrientations, "The parameter surTil must have the same dimension of nOrientations.");
+  assert(size(surAzi,1) == nOrientations, "The parameter surAzi must have the same dimension of nOrientations.");
 
 equation
 
@@ -310,53 +315,53 @@ which are split in three components.
 <img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Zone/5R1CNetwork.png\" alt=\"image\"/>
 </p>
 <br>
-The ventilation heat transfer coefficient <code>Hve</code> is calculated using
+The ventilation heat transfer coefficient <i>H<sub>ven</sub></i> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>ve</sub> =&rho;<sub>a</sub>c<sub>a</sub>&sum;<sub>k</sub>V&#775;<sub>k</sub>,
+H<sub>ven</sub> = &rho;<sub>a</sub> c<sub>a</sub> &sum;<sub>k</sub>V&#775;<sub>k</sub>,
 </p>
-where <i>&rho;<sub>a</sub></i> is density of air, <i>c<sub>a</sub></i> is specific
-heat of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
+where <i>&rho;<sub>a</sub></i> is the density of air, <i>c<sub>a</sub></i> is the specific
+heat capacity of air and <i>V&#775;<sub>k</sub></i> is the k-th volumetric external air
 flow rate.
-The coupling conductance <code>H<sub>therm</sub></code> is given by
+The coupling conductance <i>H<sub>the</sub></i> is given by
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>therm</sub> = h<sub>as</sub>A<sub>tot</sub>,
+H<sub>the</sub> = h<sub>as</sub> A<sub>tot</sub>,
 </p>
 where <i>h<sub>as</sub></i> is the heat transfer coefficient between the air
-node the surface node, with a fixed value of 3.45 W/m<sup>2</sup>K, and
+node the surface node, with a fixed value of <i>3.45 W/m<sup>2</sup>K</i>, and
 <i>A<sub>tot</sub></i> is the area of all surfaces facing the building zone.
-The thermal transmission coefficient of windows <code>Hwin</code> is calculated using
+The thermal transmission coefficient of windows <i>H<sub>win</sub></i> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
 H<sub>win</sub> =
 &sum;<sub>k</sub>U<sub>win,k</sub>A<sub>win,k</sub>,
 </p>
 where <i>U<sub>win,k</sub></i> is the thermal transmittance of window element
 k of the building envelope and <i>A<sub>k</sub></i>  is the area of the window
-element k of the building envelope. The coupling conductance <code>Hmass</code> is given by
+element k of the building envelope. The coupling conductance <i>H<sub>mas</sub></i> is given by
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>mass</sub> =h<sub>ms</sub>f<sub>ms</sub>A<sub>f</sub>,
+H<sub>mas</sub> =h<sub>ms</sub> f<sub>ms</sub> A<sub>f</sub>,
 </p>
 where <i>h<sub>ms</sub></i> is the heat transfer coefficient between the mass
-node and the surfacenode, with fixed value of 9.1 W/m<sup>2</sup>K,
+node and the surface node, with fixed value of <i>9.1 W/m<sup>2</sup>K</i>,
 <i>f<sub>ms</sub></i> is a correction factor, and <i>A<sub>f</sub></i>
-is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed
-2.5 for light and medium building constructions, and 3 for heavy constructions.
-The coupling conductance <code>Htrasm</code> is calculated using
+is the floor area. The correction factor <i>f<sub>ms</sub></i> can be assumed as
+<i>2.5</i> for light and medium building constructions, and <i>3</i> for heavy constructions.
+The coupling conductance <i>H<sub>tra</sub></i> is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
-H<sub>trasm</sub> =
-1 &frasl; (1 &frasl; H<sub>op</sub>-1 &frasl; H<sub>mass</sub>),
+H<sub>tra</sub> =
+1 &frasl; (1 &frasl; H<sub>op</sub> - 1 &frasl; H<sub>mas</sub>),
 </p>
 where <i>H<sub>op</sub></i> is the thermal transmission coefficient of opaque elements.
 The three heat gains components are calculated using
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>air</sub> = 0.5&Phi;<sub>int</sub>,
+&Phi;<sub>air</sub> = 0.5 &Phi;<sub>int</sub>,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>sur</sub> = (1-f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub>
--H<sub>win</sub> &frasl; h<sub>ms</sub>A<sub>tot</sub>)(0.5&Phi;<sub>int</sub>+
+&Phi;<sub>sur</sub> = (1-f<sub>ms</sub> A<sub>f</sub> &frasl; A<sub>tot</sub>
+-H<sub>win</sub> &frasl; h<sub>ms</sub> A<sub>tot</sub>)(0.5 &Phi;<sub>int</sub>+
 &Phi;<sub>sol</sub>),
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Phi;<sub>mas</sub> = f<sub>ms</sub>A<sub>f</sub> &frasl; A<sub>tot</sub> (0.5&Phi;<sub>int</sub>+
+&Phi;<sub>mas</sub> = f<sub>ms</sub> A<sub>f</sub> &frasl; A<sub>tot</sub> (0.5&Phi;<sub>int</sub> +
 &Phi;<sub>sol</sub>).
 </p>
 <h4>Tips for parametrization</h4>
@@ -366,10 +371,12 @@ The parameters <code>AWin</code>, <code>AWal</code>, <code>surTil</code> and <co
 must have the same dimension of <code>nOrientations</code> .
 </li>
 <li>
-The areas in <code>AWal</code> must account only for the opaque parts (excluding windows).
+The areas in <code>AWal</code> must account only for the opaque parts of the walls (excluding windows).
+The floor and roof area is entered through <code>AFlo</code> and <code>ARoo</code>
+and must not be entered as part of <code>AWal</code>.
 </li>
 <li>
-If a wall contains only opaque parts, the corresponding windows area must be assigned equal to 0.
+If a wall contains only opaque parts, the corresponding window area must be set to <i>0</i>.
 </li>
 </ul>
 </html>",
