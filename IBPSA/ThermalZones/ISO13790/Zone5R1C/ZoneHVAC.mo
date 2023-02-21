@@ -10,12 +10,12 @@ model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
   Modelica.Blocks.Interfaces.RealInput intLatGai(final unit="W") "Internal latent heat gains"
     annotation (Placement(transformation(extent={{-180,30},{-140,70}}),
         iconTransformation(extent={{-180,20},{-140,60}})));
-  Modelica.Blocks.Math.Gain mWat_flow(k=1/h_fg) "Water flow rate due to latent heat gain"
+  Modelica.Blocks.Math.Gain mWat_flow(final k=1/h_fg) "Water flow rate due to latent heat gain"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=1,
+    m_flow_nominal=VRoo*IBPSA.Media.Air.dStp*3/3600,
     V=VRoo,
     nPorts=nPorts) "Air volume"
     annotation (Placement(transformation(extent={{-50,32},{-30,52}})));
@@ -42,12 +42,14 @@ equation
           -16},{-128,-80},{-140,-80}}, color={0,127,255}));
   connect(intLatGai, mWat_flow.u) annotation (Line(points={{-160,50},{-102,50}},
                                                      color={0,0,127}));
-    annotation (defaultComponentName="zonHVAC",Documentation(info="<html>
+    annotation (
+    defaultComponentName="zonHVAC",
+    Documentation(info="<html>
 <p>
 This models is identical to <a href=\"modelica://IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone\">
 IBPSA.ThermalZones.ISO13790.Zone5R1C.Zone</a>, except that a mixing volume is added
-for integration of HVAC systems based on fluid models. Latent heat gains are 
-also considered. 
+for integration of HVAC systems based on fluid models. Latent heat gains are
+also considered.
 </p>
 </html>",
 revisions="<html>
@@ -57,11 +59,6 @@ Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
-</html>",
-        info="<html>
-<p>
-Mass data for heavy building
-</p>
 </html>"),
     Icon(graphics={Text(
           extent={{-180,94},{-116,48}},
