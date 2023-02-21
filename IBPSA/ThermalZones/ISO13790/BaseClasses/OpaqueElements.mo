@@ -68,22 +68,14 @@ equation
   connect(weaBus,HDifTil [i].weaBus) annotation (Line(
       points={{-100,0},{-90,0},{-90,30},{-80,30}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   end for;
 
   for i in 1:n loop
   connect(weaBus,HDirTil [i].weaBus) annotation (Line(
       points={{-100,0},{-90,0},{-90,70},{-80,70}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   end for;
   connect(HDirTil.H, irrOpa.u1) annotation (Line(points={{-59,70},{-50,70},{-50,
           76},{-42,76}}, color={0,0,127}));
@@ -99,19 +91,11 @@ equation
   connect(HDirTilRoo.weaBus, weaBus) annotation (Line(
       points={{-80,-30},{-90,-30},{-90,0},{-100,0}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   connect(HDifTilRof.weaBus, weaBus) annotation (Line(
       points={{-80,-70},{-90,-70},{-90,0},{-100,0}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   connect(irrRoo.y, solRadRoo.u)
     annotation (Line(points={{-19,-30},{-12,-30}}, color={0,0,127}));
   connect(facRoo.y, theRadRoo.u)

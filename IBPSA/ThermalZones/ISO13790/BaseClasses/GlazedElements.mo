@@ -41,22 +41,14 @@ equation
   connect(weaBus,HDifTil[i].weaBus) annotation (Line(
       points={{-100,0},{-72,0},{-72,-30},{-60,-30}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   end for;
 
   for i in 1:n loop
   connect(weaBus,HDirTil[i].weaBus) annotation (Line(
       points={{-100,0},{-72,0},{-72,30},{-60,30}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+      thickness=0.5));
   end for;
   connect(solRad.y, multiSum.u)
     annotation (Line(points={{41,0},{62,0}}, color={0,0,127}));
