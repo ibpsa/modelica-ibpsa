@@ -57,7 +57,7 @@ public
   end ThermodynamicState;
   // There must not be any stateSelect=StateSelect.prefer for
   // the pressure.
-  // Otherwise, translateModel("Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume")
+  // Otherwise, translateModel("IBPSA.Fluid.FMI.ExportContainers.Examples.FMUs.ResistanceVolume")
   // will fail as Dymola does an index reduction and outputs
   //   Differentiated the equation
   //   vol.dynBal.medium.p+res.dp-inlet.p = 0.0;
