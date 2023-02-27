@@ -29,10 +29,15 @@ package PropyleneGlycolWater
   constant Modelica.Units.SI.MassFraction X_a
     "Mass fraction of propylene glycol in water";
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
+public
   redeclare model BaseProperties "Base properties"
-    Temperature T(stateSelect=
-      if preferredMediumStates then StateSelect.prefer else StateSelect.default)
-      "Temperature of medium";
+    Temperature T(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100) "Temperature of medium";
 
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
@@ -54,9 +59,11 @@ package PropyleneGlycolWater
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    Modelica.Units.NonSI.Temperature_degC T_degC=
-        Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
-    Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
+    Modelica.Units.NonSI.Temperature_degC T_degC(
+      nominal=10)
+      "Temperature of medium in [degC]";
+    Modelica.Units.NonSI.Pressure_bar p_bar=
+        Modelica.Units.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
 
     // Local connector definition, used for equation balancing check
@@ -84,7 +91,13 @@ as required from medium model \"" + mediumName + "\".");
 In "   + getInstanceName() + ": Mass fraction x_a exceeded its maximum allowed value of " + String(X_a_max) + "
 as required from medium model \"" + mediumName + "\".");
 
-    h = cp_const*(T-reference_T);
+    if reference_T_is_0degC then
+      T_degC = h/cp_const;
+    else
+      T = reference_T + h/cp_const;
+    end if;
+    T_degC = T - 273.15;
+
     u = h;
     state.T = T;
     state.p = p;
@@ -465,9 +478,15 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </html>", revisions="<html>
 <ul>
 <li>
+October 31, 2022, by Michael Wetter:<br/>
+Changed state to be absolute temperature.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
+<li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
 Now printing different messages if temperature or mass fraction is above or below its limit,
-and adding instance name as JModelica does not print the full instance name in the assertion.
+and adding instance name as JModelica does not print the full instance name in the assertion.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>

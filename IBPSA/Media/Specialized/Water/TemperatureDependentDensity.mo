@@ -27,10 +27,29 @@ package TemperatureDependentDensity
   constant Modelica.Units.SI.SpecificHeatCapacity cp_const=4184
     "Specific heat capacity at constant pressure";
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
+public
   redeclare model extends BaseProperties(
-     preferredMediumStates=true) "Base properties"
+    T(
+      stateSelect=StateSelect.avoid,
+      nominal=100),
+    T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default
+    ),
+    h(nominal=1E4))
+     "Base properties"
+
   equation
-    h = (T - reference_T)*cp_const;
+    if reference_T_is_0degC then
+      T_degC = h/cp_const;
+    else
+      T = reference_T + h/cp_const;
+    end if;
+
     u = h-reference_p/d;
     d = density(state);
     state.T = T;
@@ -859,6 +878,12 @@ Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2022, by Michael Wetter:<br/>
+Set temperature <code>T</code> as the preferred state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
 <li>
 April 5, 2022, by Michael Wetter:<br/>
 Corrected assignment of <code>R_s</code> in <code>BaseProperties</code> to avoid a unit error.<br/>

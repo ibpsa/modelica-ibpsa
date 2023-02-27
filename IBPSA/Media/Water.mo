@@ -1,6 +1,7 @@
 within IBPSA.Media;
 package Water "Package with model for liquid water with constant density"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
+     mediumName="IBPSA.Media.Water",
      p_default=300000,
      reference_p=300000,
      reference_T=273.15,
@@ -12,6 +13,11 @@ package Water "Package with model for liquid water with constant density"
   // cp_const and cv_const have been made final because the model sets u=h.
   extends Modelica.Icons.Package;
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
+public
   redeclare replaceable model BaseProperties "Base properties (p, d, T, h, u, R, MM and X and Xi) of a medium"
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
@@ -19,14 +25,16 @@ package Water "Package with model for liquid water with constant density"
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.Units.SI.Density d=d_const "Density of medium";
-    Temperature T(stateSelect=
-      if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    Temperature T(
+      stateSelect=StateSelect.avoid,
+      nominal=100)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
-    Modelica.Units.SI.SpecificInternalEnergy u
+    Modelica.Units.SI.SpecificInternalEnergy u(
+      nominal=1E4)
       "Specific internal energy of medium";
 
     Modelica.Units.SI.MassFraction[nX] X={1}
@@ -39,9 +47,12 @@ package Water "Package with model for liquid water with constant density"
       "Thermodynamic state record for optional functions";
 
 
-    Modelica.Units.NonSI.Temperature_degC T_degC=
-        Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
-    Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
+    Modelica.Units.NonSI.Temperature_degC T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      "Temperature of medium in [degC]";
+    Modelica.Units.NonSI.Pressure_bar p_bar=
+        Modelica.Units.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
 
     // Local connector definition, used for equation balancing check
@@ -53,7 +64,13 @@ package Water "Package with model for liquid water with constant density"
       "Mass fraction as input signal connector";
 
   equation
-    h = cp_const*(T-reference_T);
+    if reference_T_is_0degC then
+      T_degC = h/cp_const;
+    else
+      T = reference_T + h/cp_const;
+    end if;
+    T_degC = T - 273.15;
+
     u = h;
     state.T = T;
     state.p = p;
@@ -173,6 +190,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2022, by Michael Wetter:<br/>
+Set temperature <code>T</code> as the preferred state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
 <li>
 September 28, 2020, by Michael Wetter:<br/>
 Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>
