@@ -7,6 +7,7 @@ model FlowControlled_dp
     preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
+    final _m_flow_nominal = m_flow_nominal,
     filter(
       final y_start=dp_start,
       u(final unit="Pa"),
@@ -44,6 +45,10 @@ model FlowControlled_dp
     min=0,
     displayUnit="Pa") = 0 "Initial value of pressure raise"
     annotation (Dialog(tab="Dynamics", group="Filtered speed"));
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    final min=Modelica.Constants.small)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
@@ -174,6 +179,13 @@ IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Refactored the model with a new declaration for
+<code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
 <li>
 April 27, 2022, by Hongxiang Fu:<br/>
 Replaced <code>not use_powerCharacteristic</code> with the enumerations
