@@ -46,7 +46,7 @@ model FlowControlled_m_flow
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    min=0,
+    final min=Modelica.Constants.small,
     displayUnit="Pa") = if rho_default < 500 then 500 else 10000
     "Nominal pressure raise, used for default pressure curve if not specified in record per"
     annotation (Dialog(group="Nominal condition"));

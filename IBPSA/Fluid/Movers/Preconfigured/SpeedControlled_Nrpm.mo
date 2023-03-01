@@ -19,10 +19,12 @@ model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as in
     final min=Modelica.Constants.small)
     "Nominal mass flow rate for preconfiguration"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    final min=Modelica.Constants.small)
     "Nominal pressure head for preconfiguration"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal(
+    final min=Modelica.Constants.small)
     "Nominal rotational speed for preconfiguration"
     annotation (Dialog(group="Nominal condition"));
 
