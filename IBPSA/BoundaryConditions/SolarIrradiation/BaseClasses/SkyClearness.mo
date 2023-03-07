@@ -56,7 +56,7 @@ In the <code>IBPSA</code> library, <code>HDirNor</code>
 is always larger than <i>1E-4</i>,
 minus some small undershoot due to regularization. Hence,
 the implementation is not simplified for
-<code>HDirNor&lt; Modelica.Constants.small</code>.
+<code>HDirNor &lt; Modelica.Constants.small</code>.
 </p>
 <p>
 The function call
