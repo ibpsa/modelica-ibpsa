@@ -52,11 +52,11 @@ This component computes the sky clearness.
 </p>
 <h4>Implementation</h4>
 <p>
-In the <code>IBPSA</code> library, <code>HGloHor</code>
+In the <code>IBPSA</code> library, <code>HDirNor</code>
 is always larger than <i>1E-4</i>,
 minus some small undershoot due to regularization. Hence,
 the implementation is not simplified for
-<code>HGloHor &lt; Modelica.Constants.small</code>.
+<code>HDirNor &lt; Modelica.Constants.small</code>.
 </p>
 <p>
 The function call
@@ -66,9 +66,16 @@ is such that the regularization is usually not triggered.
 </html>", revisions="<html>
 <ul>
 <li>
+March 6, 2023, by Ettore Zanetti:<br/>
+Updated Documentation and icon view switching variable from <br/>
+ <code>HGloHor</code> to <code>HDirNor</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1713\">IBPSA, #1713</a>.
+</li>
+<li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
-Changed input connector <code>HGloHor</code> to <code>HDirHor</code>.<br/>
+Changed input connector <code>HGloHor</code> to <code>HDirNor</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
 </li>
@@ -113,7 +120,7 @@ First implementation.
         Text(
           extent={{-48,54},{-100,66}},
           textColor={0,0,127},
-          textString="HGloHor"),
+          textString="HDirNor"),
         Text(
           extent={{-48,-66},{-100,-54}},
           textColor={0,0,127},
