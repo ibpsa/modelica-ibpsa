@@ -56,7 +56,7 @@ In the <code>IBPSA</code> library, <code>HDirNor</code>
 is always larger than <i>1E-4</i>,
 minus some small undershoot due to regularization. Hence,
 the implementation is not simplified for
-<code>HDirNor &lt; Modelica.Constants.small</code>.
+<code>HDirNor&lt; Modelica.Constants.small</code>.
 </p>
 <p>
 The function call
@@ -65,13 +65,6 @@ is such that the regularization is usually not triggered.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-March 6, 2023, by Ettore Zanetti:<br/>
-Updated Documentation and icon view switching variable from <br/>
- <code>HGloHor</code> to <code>HDirNor</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1713\">IBPSA, #1713</a>.
-</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
