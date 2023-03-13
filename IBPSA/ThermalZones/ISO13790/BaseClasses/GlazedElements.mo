@@ -2,13 +2,17 @@ within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GlazedElements
   parameter Integer n;
   parameter Real AWin[:] "Area of windows";
+  parameter Real coeFac[:] "Coefficient of g-factor reduction";
+  parameter Real UWin "U-value of windows";
   parameter Real surTil[:] "Tilt angle of surfaces";
   parameter Real surAzi[:] "Azimuth angle of surfaces";
+  parameter Real eps=0.9 "Emissivity of external surface";
+  parameter Real surRes=0.04 "External surface heat resistance";
   parameter Real gFac "Energy transmittance of glazings";
   parameter Real winFra "Frame fraction of windows";
   parameter Real shaRedFac(
     final min=0,
-    final unit="1")= 0.9 "Shading reduction factor";
+    final unit="1")= 1 "Shading reduction factor";
 
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
@@ -17,10 +21,10 @@ model GlazedElements
   final til=surTil,
   final azi=surAzi)
     "Direct solar irradiation on surface"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Math.Gain solRad[n](final k=AWin*gFac*shaRedFac*(1 - winFra))
-    "Solar radiation"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    "Solar radiation trasmitted through windows"
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Modelica.Blocks.Interfaces.RealOutput solRadWin
     "Solar radiation through windows"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -28,39 +32,67 @@ model GlazedElements
   final til=surTil,
   final azi=surAzi)
     "Diffuse solar irradiation on surface"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Blocks.Math.Gain theRadWin[n](each k=5*eps*11*0.5)
+    "Extra thermal radiation through windows"
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+  Modelica.Blocks.Math.Add addWin[n](each k2=-1)
+    "Total solar gains through windows"
+    annotation (Placement(transformation(extent={{40,-16},{60,4}})));
+  Modelica.Blocks.Math.Product HDirAng[n]
+    "Direct solar irradiation considering incident angle of surface"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Utilities.Math.Polynomial polynomial[n](each a=coeFac)
+    "Ratio of direct solar irradiation considering incident angle of surface"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 protected
   Modelica.Blocks.Math.Add irr[n]
     "Total of direct and diffuse radiation on surface"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Math.MultiSum multiSum(final nu=n) "Sum of all orientations"
-    annotation (Placement(transformation(extent={{62,-6},{74,6}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  Modelica.Blocks.Math.MultiSum multiSum(nu=n) "Sum of all orientations"
+    annotation (Placement(transformation(extent={{74,-6},{86,6}})));
 
+protected
+  Modelica.Blocks.Sources.RealExpression facWin[n](y=UWin*AWin*surRes) "factor"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   for i in 1:n loop
   connect(weaBus,HDifTil[i].weaBus) annotation (Line(
-      points={{-100,0},{-72,0},{-72,-30},{-60,-30}},
+      points={{-100,0},{-90,0},{-90,-30},{-80,-30}},
       color={255,204,51},
       thickness=0.5));
   end for;
 
   for i in 1:n loop
   connect(weaBus,HDirTil[i].weaBus) annotation (Line(
-      points={{-100,0},{-72,0},{-72,30},{-60,30}},
+      points={{-100,0},{-90,0},{-90,30},{-80,30}},
       color={255,204,51},
       thickness=0.5));
   end for;
-  connect(solRad.y, multiSum.u)
-    annotation (Line(points={{41,0},{62,0}}, color={0,0,127}));
   connect(multiSum.y, solRadWin)
-    annotation (Line(points={{75.02,0},{110,0}}, color={0,0,127}));
-  connect(HDirTil.H,irr. u1) annotation (Line(points={{-39,30},{-30,30},{-30,6},
-          {-22,6}}, color={0,0,127}));
-  connect(HDifTil.H,irr. u2) annotation (Line(points={{-39,-30},{-30,-30},{-30,-6},
-          {-22,-6}}, color={0,0,127}));
+    annotation (Line(points={{87.02,0},{110,0}}, color={0,0,127}));
 
   connect(irr.y, solRad.u)
-    annotation (Line(points={{1,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-19,0},{-10,0}},
+                                            color={0,0,127}));
+  connect(facWin.y,theRadWin. u)
+    annotation (Line(points={{-19,-50},{-2,-50}},color={0,0,127}));
+  connect(theRadWin.y, addWin.u2) annotation (Line(points={{21,-50},{30,-50},{30,
+          -12},{38,-12}}, color={0,0,127}));
+  connect(addWin.y, multiSum.u)
+    annotation (Line(points={{61,-6},{68,-6},{68,0},{74,0}}, color={0,0,127}));
+  connect(solRad.y, addWin.u1)
+    annotation (Line(points={{13,0},{38,0}}, color={0,0,127}));
+  connect(HDirTil.H, HDirAng.u2) annotation (Line(points={{-59,30},{-30,30},{-30,
+          44},{-2,44}}, color={0,0,127}));
+  connect(HDifTil.H, irr.u2) annotation (Line(points={{-59,-30},{-50,-30},{-50,-6},
+          {-42,-6}}, color={0,0,127}));
+  connect(HDirAng.y, irr.u1) annotation (Line(points={{21,50},{30,50},{30,20},{-50,
+          20},{-50,6},{-42,6}}, color={0,0,127}));
+  connect(HDirTil.inc, polynomial.u) annotation (Line(points={{-59,26},{-50,26},
+          {-50,70},{-42,70}}, color={0,0,127}));
+  connect(polynomial.y, HDirAng.u1) annotation (Line(points={{-19,70},{-10,70},
+          {-10,56},{-2,56}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={95,95,95},
           fillColor={255,255,255},

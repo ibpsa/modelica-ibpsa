@@ -1,7 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case900
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600(
-    zon5R1C(hInt=2.74,
+    zon5R1C(hInt=2.49,
       redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas),
     annComBESTEST(
       EHeaMax=7347600000,
@@ -30,7 +30,9 @@ model Case900
 
  annotation(experiment(
       StopTime=31536000,
-      Tolerance=1e-06),
+      Interval=3600,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case900.mos"
         "Simulate and plot"), Documentation(info="<html>

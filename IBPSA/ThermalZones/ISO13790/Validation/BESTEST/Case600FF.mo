@@ -2,26 +2,28 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
 model Case600FF "Basic test with light-weight construction and free floating temperature"
   extends Modelica.Icons.Example;
   Zone5R1C.Zone zon5R1C(
-    airRat=0.5,
+    airRat=0.414,
     AWin={0,0,12,0},
-    UWin=2.984,
+    UWin=3.095,
     AWal={21.6,16.2,9.6,16.2},
     ARoo=48,
-    UWal=0.56,
-    URoo=0.33,
-    UFlo=1,
-    b=0,
+    UWal=0.534,
+    URoo=0.327,
+    UFlo=0.0377,
+    b=1,
     AFlo=48,
     VRoo=129.6,
-    hInt=2.74,
+    hInt=2.49,
     redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Mass buiMas,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
     surAzi={3.1415926535898,-1.5707963267949,0,1.5707963267949},
-    gFac=0.789) "Thermal zone"
+    gFac=0.789,
+    coeFac={1,-0.189,0.644,-0.596})
+                "Thermal zone"
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/DRYCOLD.mos"))
+    filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.mos"))
     "Weather data"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Constant intGai(k=200) "Internal heat gains"
@@ -63,7 +65,9 @@ equation
     annotation (Line(points={{15,8},{58,8}}, color={0,0,127}));
  annotation(experiment(
       StopTime=31536000,
-      Tolerance=1e-06),
+      Interval=3600,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case600FF.mos"
         "Simulate and plot"), Documentation(info="<html>
