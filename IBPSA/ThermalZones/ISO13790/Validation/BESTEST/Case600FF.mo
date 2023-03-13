@@ -22,6 +22,7 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     coeFac={1,-0.189,0.644,-0.596})
                 "Thermal zone"
     annotation (Placement(transformation(extent={{-14,-14},{14,14}})));
+
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.mos"))
     "Weather data"
