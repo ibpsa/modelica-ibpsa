@@ -259,8 +259,8 @@ IBPSA.Fluid.Movers.FlowControlled_m_flow</a>.
 </p>
 <p>
 An example that uses manufacturer data can be found in
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.Pump_Nrpm_stratos\">
-IBPSA.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.Pump_y_stratos\">
+IBPSA.Fluid.Movers.Validation.Pump_y_stratos</a>.
 </p>
 <h4>Declaration of the peak condition</h4>
 <p>
