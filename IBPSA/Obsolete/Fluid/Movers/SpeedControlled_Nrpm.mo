@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Movers;
+within IBPSA.Obsolete.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(

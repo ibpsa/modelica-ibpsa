@@ -16,7 +16,7 @@ model ControlledFlowMachinePreconfigured
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal),
-    redeclare IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm fan4(
+    redeclare IBPSA.Obsolete.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm fan4(
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal,

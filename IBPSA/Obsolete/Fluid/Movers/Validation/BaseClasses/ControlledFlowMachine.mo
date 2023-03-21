@@ -83,11 +83,11 @@ model ControlledFlowMachine
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   replaceable
-  IBPSA.Fluid.Movers.SpeedControlled_Nrpm fan4(
+  IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm fan4(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
-    constrainedby IBPSA.Fluid.Movers.SpeedControlled_Nrpm
+    constrainedby IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm
     "Fan with RPM as control input"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=3580) "Converts y to nominal rpm"

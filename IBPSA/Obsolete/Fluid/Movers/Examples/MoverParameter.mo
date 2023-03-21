@@ -51,7 +51,7 @@ model MoverParameter
     dp_nominal=dp_nominal)
     "Pressure drop component for avoiding singular system"
     annotation (Placement(transformation(extent={{26,-90},{46,-70}})));
-  IBPSA.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
+  IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     use_inputFilter=false,
     redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(

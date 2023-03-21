@@ -1,6 +1,6 @@
-within IBPSA.Fluid.Movers.Preconfigured;
+within IBPSA.Obsolete.Fluid.Movers.Preconfigured;
 model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as input signal and pre-configured parameters"
-  extends IBPSA.Fluid.Movers.SpeedControlled_Nrpm(
+  extends IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm(
     final per(
             pressure(
               V_flow=m_flow_nominal/rho_default*{0, 1, 2},
@@ -33,8 +33,8 @@ defaultComponentName="mov",
 Documentation(info="<html>
 <p>
 This model is the preconfigured version for
-<a href=\"Modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
-IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>.
+<a href=\"Modelica://IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm\">
+IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </html>", revisions="<html>
 <ul>
 <li>
