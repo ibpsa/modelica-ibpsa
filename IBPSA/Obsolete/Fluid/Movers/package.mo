@@ -1,6 +1,5 @@
 within IBPSA.Obsolete.Fluid;
-package Movers
-  "Package for obsolete models for fans and pumps"
+package Movers "Package for obsolete models for fans and pumps"
   extends Modelica.Icons.Package;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
