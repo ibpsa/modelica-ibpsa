@@ -157,9 +157,9 @@ record Generic "Generic data record for movers"
     annotation (Dialog(group="Speeds in RPM"));
 
   // Set a parameter in order for
-  // (a) FlowControlled_m_flow and FlowControlled_dp being able to set a reasonable
+  // (a) FlowControlled_m_flow and FlowControlled_dp to be able to set a reasonable
   //     default pressure curve if it is not specified here, and
-  // (b) SpeedControlled_y and SpeedControlled_Nrpm being able to issue an assert
+  // (b) SpeedControlled_y to be able to issue an assert
   //     if no pressure curve is specified.
   final parameter Boolean havePressureCurve=
     sum(pressure.V_flow) > Modelica.Constants.eps and
@@ -248,8 +248,6 @@ declaration such as
 </pre>
 <p>
 This data record can be used with
-<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
-IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>,
 <a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_y\">
 IBPSA.Fluid.Movers.SpeedControlled_y</a>,
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
@@ -289,11 +287,7 @@ The parameters <code>speed_rpm_nominal</code>,
   parameter Real[:] speeds(each final min = 0, each final unit=\"1\") = speeds_rpm/speed_rpm_nominal;
 </pre>
 <p>
-In addition, <code>speed_rpm_nominal</code> is used in
-<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_Nrpm\">
-IBPSA.Fluid.Movers.SpeedControlled_Nrpm</a>
-to normalize the control input signal.
-Otherwise, these speed parameters in RPM are not used in the models.
+Flow-controlled models do not these speed parameters in RPM.
 </p>
 </html>"));
 end Generic;
