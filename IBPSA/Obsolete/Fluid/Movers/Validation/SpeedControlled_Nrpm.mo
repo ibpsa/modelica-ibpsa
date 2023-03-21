@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Movers.Validation;
+within IBPSA.Obsolete.Fluid.Movers.Validation;
 model SpeedControlled_Nrpm "Fan with zero mass flow rate and speed as input"
   extends Modelica.Icons.Example;
  extends IBPSA.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
@@ -27,7 +27,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,
             160}}), graphics),
 experiment(Tolerance=1e-08, StopTime=1.0),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_Nrpm.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Validation/SpeedControlled_Nrpm.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -39,6 +39,12 @@ This ensures that the actual speed is equal to the input signal.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

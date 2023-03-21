@@ -10,7 +10,6 @@ PumpCurveConstruction
 PumpCurveDerivatives
 Pump_stratos
 Pump_y_stratos
-SpeedControlled_Nrpm
 SpeedControlled_y
 SpeedControlled_y_linear
 BaseClasses
