@@ -415,15 +415,12 @@ initial algorithm
            (preVar == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
          per.etaHydMet<>
       IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve with per.etaHydMet set to
-             IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
-             Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead
-             IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided." +
-             "See the user guide to see what assumptions are made in this setting
-             or provide other information to the model.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in "+ getInstanceName()+
+": You are using a flow or pressure controlled mover with the
+default pressure curve while per.etaHydMet is set to .Power_VolumeFlowRate.
+Since this can cause wrong power consumption, the model will override
+this setting and use instead .NotProvided.
+Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or
