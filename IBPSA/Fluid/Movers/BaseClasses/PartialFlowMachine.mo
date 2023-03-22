@@ -395,12 +395,10 @@ initial algorithm
   assert(nominalValuesDefineDefaultPressureCurve or
          per.havePressureCurve or
          (preVar == IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve.
-             This leads to approximate calculations of the electrical power
-             consumption. Add the correct pressure curve in the record per
-             to obtain an accurate computation.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warningin "+ getInstanceName()+
+": You are using a flow or pressure controlled mover with the default pressure curve.
+This leads to approximate calculations of the electrical power consumption.
+Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
@@ -429,10 +427,10 @@ Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.
             or per.etaHydMet ==
                IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
 "*** Warning in "+ getInstanceName()+
-             ": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
-             This requires that per.pressure be provided.
-             Because it is not,
-             the model will override this setting and use .NotProvided instead.",
+": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
+This requires that per.pressure be provided.
+Because it is not,
+the model will override this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
@@ -441,11 +439,11 @@ Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.
             or per.etaMotMet ==
                IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
 "*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve. This requires that per.WMot_nominal be provided
-             or at least per.pressure be provided so that per.WMot_nominal can
-             be estimated. Because neither is provided,
-             the model will override this setting and use .NotProvided instead.",
+": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
+or .GenericCurve. This requires that per.WMot_nominal be provided
+or at least per.pressure be provided so that per.WMot_nominal can
+be estimated. Because neither is provided,
+the model will override this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or
@@ -454,11 +452,11 @@ Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.
             or per.etaMotMet ==
                IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
 "*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve while information is provided for total electric
-             power instead of hydraulic power. This forms an algebraic loop
-             and may cause the simulation to not converge
-             (see the \"Motor efficiency\" section in usersguide).",
+": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
+or .GenericCurve while information is provided for total electric
+power instead of hydraulic power. This forms an algebraic loop
+and the simulation may fail to converge
+(see the \"Motor efficiency\" section in usersguide).",
          level=AssertionLevel.warning);
 
 equation
@@ -680,7 +678,7 @@ Added an <code>assert()</code> warning when the model has to make an unreliable
 guess for efficiency computation using <code>.EulerNumber</code>.
 </li>
 <li>
-Added an <code>assert()</code> warning when the model has to overwrite
+Added an <code>assert()</code> warning when the model has to override
 <code>per.etaMotMet</code>.
 </li>
 </ul>
