@@ -3,6 +3,7 @@ CheckDewPointTemperature
 CheckDryBulbTemperature
 CheckPressure
 ConvertTime
+PartialConvertTime
 EquationOfTime
 LimiterCeilingHeight
 LimiterHorizontalInfraredIrradiation
