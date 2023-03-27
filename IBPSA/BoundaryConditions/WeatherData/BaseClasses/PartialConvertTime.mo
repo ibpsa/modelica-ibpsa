@@ -6,12 +6,8 @@ partial block PartialConvertTime
     "Start time of weather data";
   parameter Modelica.Units.SI.Time weaDatEndTim(displayUnit="d") = 31536000
     "End time of weather data";
-
-  Modelica.Blocks.Interfaces.RealInput modTim(
-    final quantity="Time",
-    final unit="s") "Simulation time"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Units.SI.Time calTimAux;
+  Modelica.Units.SI.Time simTim "Simulation time";
+  Modelica.Units.SI.Time calTimExp "Calendar time";
 
 protected
   parameter Modelica.Units.SI.Time lenWea=weaDatEndTim - weaDatStaTim
@@ -24,12 +20,12 @@ protected
     "Start time of next period";
 
 equation
-  when {initial(), canRepeatWeatherFile and modTim > pre(tNext)} then
+  when {initial(), canRepeatWeatherFile and simTim > pre(tNext)} then
     // simulation time stamp went over the end time of the weather file
     //(last time stamp of the weather file + average increment)
-    tNext = if canRepeatWeatherFile then integer(modTim/lenWea)*lenWea + lenWea else time;
+    tNext = if canRepeatWeatherFile then integer(simTim/lenWea)*lenWea + lenWea else time;
   end when;
-  calTimAux = if canRepeatWeatherFile then modTim - tNext + lenWea else modTim;
+  calTimExp = if canRepeatWeatherFile then simTim - tNext + lenWea else simTim;
 
 
   annotation (

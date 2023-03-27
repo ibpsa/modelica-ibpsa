@@ -2,6 +2,10 @@ within IBPSA.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertTime
   "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year"
   extends PartialConvertTime;
+  Modelica.Blocks.Interfaces.RealInput modTim(
+    final quantity="Time",
+    final unit="s") "Simulation time"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput calTim(
     final quantity="Time",
     final unit="s") "Calendar time"
@@ -13,8 +17,8 @@ protected
 
 
 equation
-  calTim = calTimAux;
-
+  calTim = calTimExp;
+  simTim = modTim;
   assert(canRepeatWeatherFile or noEvent((time - weaDatEndTim) < shiftSolarRad),
     "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
     The simulation time " + String(time) +
