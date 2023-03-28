@@ -1,6 +1,7 @@
 within IBPSA.Obsolete.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
+  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
@@ -70,6 +71,7 @@ equation
           textColor={0,0,127},
           visible=inputType == IBPSA.Fluid.Types.InputType.Continuous or inputType == IBPSA.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("Nrpm", if inputType == IBPSA.Fluid.Types.InputType.Continuous then String(Nrpm, format=".0f") else String(stage)))}),
+    obsolete = "Obsolete model - use IBPSA.Fluid.Movers.SpeedControlled_y instead",
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed speed in revolutions per minute.

@@ -30,6 +30,7 @@ model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as in
 
 annotation (
 defaultComponentName="mov",
+obsolete = "Obsolete model - use IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y instead",
 Documentation(info="<html>
 <p>
 This model is the preconfigured version for
