@@ -89,6 +89,12 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Removed the modification of <code>m_flow_nominal</code>.<br/>
 This is for

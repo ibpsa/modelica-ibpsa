@@ -39,6 +39,12 @@ IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Refactored the model with a new declaration for
 <code>m_flow_nominal</code>.<br/>
