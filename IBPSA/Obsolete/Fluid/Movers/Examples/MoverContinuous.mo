@@ -1,7 +1,7 @@
 within IBPSA.Obsolete.Fluid.Movers.Examples;
 model MoverContinuous
   "Example model of movers using a real input for setting the stage"
-  extends MoverParameter(
+  extends IBPSA.Obsolete.Fluid.Movers.Examples.MoverParameter(
     pump_Nrpm(inputType=IBPSA.Fluid.Types.InputType.Continuous),
     pump_m_flow(inputType=IBPSA.Fluid.Types.InputType.Continuous),
     pump_y(inputType=IBPSA.Fluid.Types.InputType.Continuous),
