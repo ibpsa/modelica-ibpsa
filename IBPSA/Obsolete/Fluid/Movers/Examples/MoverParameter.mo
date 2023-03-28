@@ -27,7 +27,7 @@ model MoverParameter
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   IBPSA.Fluid.Movers.SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
         speeds_rpm=1800*{0,0.5,1}, constantSpeed_rpm=1800),
     use_inputFilter=false,
     inputType=IBPSA.Fluid.Types.InputType.Constant,
@@ -37,7 +37,7 @@ model MoverParameter
   IBPSA.Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
     use_inputFilter=false,
     heads={0,0.5,1}*dp_nominal,
     inputType=IBPSA.Fluid.Types.InputType.Constant,
@@ -54,7 +54,7 @@ model MoverParameter
   IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     use_inputFilter=false,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
         speeds_rpm={0,1000,2000}, constantSpeed_rpm=2000),
     inputType=IBPSA.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)

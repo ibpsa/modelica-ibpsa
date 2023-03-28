@@ -27,7 +27,7 @@ model ControlledFlowMachine
   IBPSA.Fluid.Movers.SpeedControlled_y fan1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     constrainedby IBPSA.Fluid.Movers.SpeedControlled_y
     "Fan with normalized control input between 0 and 1"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
@@ -60,7 +60,7 @@ model ControlledFlowMachine
     redeclare package Medium = Medium,
     m_flow_nominal=6000/3600*1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     constrainedby IBPSA.Fluid.Movers.FlowControlled_dp
     "Fan with head as input"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -69,7 +69,7 @@ model ControlledFlowMachine
     redeclare package Medium = Medium,
     m_flow_nominal=6000/3600*1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     constrainedby IBPSA.Fluid.Movers.FlowControlled_m_flow
     "Fan with mass flow rate as input"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -86,7 +86,7 @@ model ControlledFlowMachine
   IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm fan4(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
+    redeclare IBPSA.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     constrainedby IBPSA.Obsolete.Fluid.Movers.SpeedControlled_Nrpm
     "Fan with RPM as control input"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
