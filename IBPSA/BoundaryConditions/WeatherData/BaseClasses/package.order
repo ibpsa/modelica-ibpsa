@@ -3,7 +3,6 @@ CheckDewPointTemperature
 CheckDryBulbTemperature
 CheckPressure
 ConvertTime
-PartialConvertTime
 EquationOfTime
 LimiterCeilingHeight
 LimiterHorizontalInfraredIrradiation
@@ -13,6 +12,7 @@ LimiterTotalSkyCover
 LimiterWindDirection
 LimiterWindSpeed
 LocalCivilTime
+PartialConvertTime
 PartialLimiter
 PartialLimiterMin
 SolarTime
