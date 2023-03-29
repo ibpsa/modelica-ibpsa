@@ -60,8 +60,7 @@ model PowerSimplified
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
   Modelica.Blocks.Sources.Ramp y(
-    y(quantity="AngularVelocity_rpm",
-      unit="rev/min"),
+    y(unit="1"),
     duration=100,
     startTime=10,
     height=(3400 - 2400)/3040,
@@ -134,14 +133,14 @@ In these models, the power consumption is computed
 using similarity laws, but using the mass flow rate as opposed
 to the speed, because speed is not known in these two models.
 This is an approximation at operating points in which
-the speed is different from the nominal speed <code>speed_rpm_nominal</code>
+the speed is different from the nominal speed <code>y_nominal</code>
 because similarity laws are valid for speed and not for
 mass flow rate.
 </p>
 <p>
 The figure below shows the approximation error for the
-power calculation where the speed <i>N<sub>rpm</sub></i> differs from
-the nominal speed <i>N<sub>rpm,nominal</sub></i>.
+power calculation where the speed <i>y</i> differs from
+the nominal speed <i>y<sub>nominal</sub></i>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png\"/>

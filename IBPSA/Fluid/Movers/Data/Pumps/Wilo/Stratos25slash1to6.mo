@@ -24,17 +24,13 @@ Documentation(info="<html>
 http://productfinder.wilo.com/en/COM/product/00000018000028040002003a/fc_product_datasheet</a>
 </p>
 <p>
-The nominal rpm is arbitrarily chosen as the rpm of the pump curve
-in the data sheet that has the highest rpm,
-without being limited by the maximum power limitation
-(see dotted curve on figure below).
 Pump curves (H(m_flow) and P(m_flow)) from the data sheets
 are digitized using
 <a href=\"https://automeris.io/WebPlotDigitizer/\">web plot digitizer</a>.
 </p>
 <h4>Limitations:</h4>
 <ul>
-<li>The pump curve cap at high rpm that can be seen is not enforced
+<li>The pump curve cap at high speed that can be seen is not enforced
 by the model.
 </li>
 <li>

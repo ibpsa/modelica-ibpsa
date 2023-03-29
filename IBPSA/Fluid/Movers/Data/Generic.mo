@@ -132,15 +132,15 @@ record Generic "Generic data record for movers"
   parameter Real speed_nominal(
     final min=0,
     final unit="1") = 1 "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
+    annotation (Dialog(group="Normalized speeds"));
 
   parameter Real constantSpeed(final min=0, final unit="1") = 1
     "Normalized speed set point, used if inputType = IBPSA.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
+    annotation (Dialog(group="Normalized speeds"));
 
   parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
     "Vector of normalized speed set points, used if inputType = IBPSA.Fluid.Types.InputType.Stages"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
+    annotation (Dialog(group="Normalized speeds"));
 
   // Set a parameter in order for
   // (a) FlowControlled_m_flow and FlowControlled_dp to be able to set a reasonable

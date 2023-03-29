@@ -80,20 +80,15 @@ model Pump_y_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
 
-  Modelica.Blocks.Sources.Constant rpm1(k=2960/2610)
-                                                "Pump speed control signal"
+  Modelica.Blocks.Sources.Constant y1(k=2960/2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,84},{-78,96}})));
-  Modelica.Blocks.Sources.Constant rpm2(k=2610/2610)
-                                                "Pump speed control signal"
+  Modelica.Blocks.Sources.Constant y2(k=2610/2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,34},{-78,46}})));
-  Modelica.Blocks.Sources.Constant rpm3(k=1930/2610)
-                                                "Pump speed control signal"
+  Modelica.Blocks.Sources.Constant y3(k=1930/2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-6},{-78,6}})));
-  Modelica.Blocks.Sources.Constant rpm4(k=3300/2610)
-                                                "Pump speed control signal"
+  Modelica.Blocks.Sources.Constant y4(k=3300/2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-56},{-78,-44}})));
-  Modelica.Blocks.Sources.Constant rpm5(k=900/2610)
-                                               "Pump speed control signal"
+  Modelica.Blocks.Sources.Constant y5(k=900/2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-108},{-78,-96}})));
 
   Modelica.Blocks.Math.Min min1
@@ -123,19 +118,19 @@ model Pump_y_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
         origin={35,-97})));
 
   Modelica.Blocks.Sources.Constant mMax_flow1(k=40/3.6)
-    "Maximum flow rate of the pump at given rpm"
+    "Maximum flow rate of the pump at given speed"
     annotation (Placement(transformation(extent={{2,76},{14,88}})));
   Modelica.Blocks.Sources.Constant mMax_flow2(k=55/3.6)
-    "Maximum flow rate of the pump at given rpm"
+    "Maximum flow rate of the pump at given speed"
     annotation (Placement(transformation(extent={{0,30},{12,42}})));
   Modelica.Blocks.Sources.Constant mMax_flow3(k=40/3.6)
-    "Maximum flow rate of the pump at given rpm"
+    "Maximum flow rate of the pump at given speed"
     annotation (Placement(transformation(extent={{0,-20},{12,-8}})));
   Modelica.Blocks.Sources.Constant mMax_flow4(k=22/3.6)
-    "Maximum flow rate of the pump at given rpm"
+    "Maximum flow rate of the pump at given speed"
     annotation (Placement(transformation(extent={{0,-64},{12,-52}})));
   Modelica.Blocks.Sources.Constant mMax_flow5(k=16/3.6)
-    "Maximum flow rate of the pump at given rpm"
+    "Maximum flow rate of the pump at given speed"
     annotation (Placement(transformation(extent={{0,-112},{12,-100}})));
 
 equation
@@ -145,9 +140,8 @@ equation
   connect(forcedPump1.port_a, pump1.port_b) annotation (Line(
       points={{38,70},{-40,70}},
       color={0,127,255}));
-  connect(pump1.y, rpm1.y) annotation (Line(
-      points={{-50,82},{-50,90},{-77.4,90}},
-      color={0,0,127}));
+  connect(pump1.y, y1.y)
+    annotation (Line(points={{-50,82},{-50,90},{-77.4,90}}, color={0,0,127}));
   connect(pump2.port_a, sou.ports[2]) annotation (Line(
       points={{-60,20},{-70,20},{-70,-22.8},{-100,-22.8}},
       color={0,127,255}));
@@ -173,18 +167,14 @@ equation
   connect(pump5.port_b, forcedPump5.port_a) annotation (Line(
       points={{-40,-120},{38,-120}},
       color={0,127,255}));
-  connect(rpm2.y, pump2.y) annotation (Line(
-      points={{-77.4,40},{-50,40},{-50,32}},
-      color={0,0,127}));
-  connect(rpm3.y, pump3.y) annotation (Line(
-      points={{-77.4,0},{-50,0},{-50,-14}},
-      color={0,0,127}));
-  connect(rpm4.y, pump4.y) annotation (Line(
-      points={{-77.4,-50},{-50,-50},{-50,-58}},
-      color={0,0,127}));
-  connect(rpm5.y, pump5.y) annotation (Line(
-      points={{-77.4,-102},{-50,-102},{-50,-108}},
-      color={0,0,127}));
+  connect(y2.y, pump2.y)
+    annotation (Line(points={{-77.4,40},{-50,40},{-50,32}}, color={0,0,127}));
+  connect(y3.y, pump3.y)
+    annotation (Line(points={{-77.4,0},{-50,0},{-50,-14}}, color={0,0,127}));
+  connect(y4.y, pump4.y) annotation (Line(points={{-77.4,-50},{-50,-50},{-50,-58}},
+        color={0,0,127}));
+  connect(y5.y, pump5.y) annotation (Line(points={{-77.4,-102},{-50,-102},{-50,-108}},
+        color={0,0,127}));
   connect(forcedPump1.m_flow_in, min1.y) annotation (Line(
       points={{48,82},{48,82},{48,91},{40.5,91}},
       color={0,0,127}));
@@ -251,7 +241,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/V
         "Simulate and plot"),
     Documentation(info="<html>
 <p>This example provides a validation for the speed-controlled model.
-A Wilo Stratos 80/1-12 pump is simulated for five different RPMs for load
+A Wilo Stratos 80/1-12 pump is simulated for five different speeds for load
 that changes with time.
 The resulting curves for the pump head and mass flow rate are plotted
 using colored lines over the pump data sheet.
