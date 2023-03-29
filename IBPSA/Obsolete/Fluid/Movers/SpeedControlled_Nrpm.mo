@@ -1,10 +1,7 @@
 within IBPSA.Obsolete.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends IBPSA.Obsolete.BaseClasses.ObsoleteModel;
-  extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
-    redeclare replaceable parameter IBPSA.Obsolete.Fluid.Movers.Data.Generic per
-      constrainedby IBPSA.Obsolete.Fluid.Movers.Data.Generic,
+  extends IBPSA.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
