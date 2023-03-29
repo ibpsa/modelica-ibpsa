@@ -18,8 +18,7 @@ record TopS40slash7 "Pump data for a staged Wilo-Top-S 40/7 pump"
                  dp={    70951.3953488,     69946.0659263,    67225.7989228,
                          63706.4291679,     59843.4165588,    54951.3185253,
                          48807.3201536,     42775.1388251,    34577.6798464,
-                         26835.4759718,     17270.2037493}),
-    speeds_rpm = {0, 2200, 2450, 2650});
+                         26835.4759718,     17270.2037493}));
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
