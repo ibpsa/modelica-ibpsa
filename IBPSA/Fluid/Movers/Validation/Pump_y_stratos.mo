@@ -80,19 +80,19 @@ model Pump_y_stratos "Model validation using a Wilo Stratos 80/1-12 pump"
     "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
 
-  Modelica.Blocks.Sources.Constant rpm1(k=2960/per.speed_rpm_nominal)
+  Modelica.Blocks.Sources.Constant rpm1(k=2960/2610)
                                                 "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,84},{-78,96}})));
-  Modelica.Blocks.Sources.Constant rpm2(k=2610/per.speed_rpm_nominal)
+  Modelica.Blocks.Sources.Constant rpm2(k=2610/2610)
                                                 "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,34},{-78,46}})));
-  Modelica.Blocks.Sources.Constant rpm3(k=1930/per.speed_rpm_nominal)
+  Modelica.Blocks.Sources.Constant rpm3(k=1930/2610)
                                                 "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-6},{-78,6}})));
-  Modelica.Blocks.Sources.Constant rpm4(k=3300/per.speed_rpm_nominal)
+  Modelica.Blocks.Sources.Constant rpm4(k=3300/2610)
                                                 "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-56},{-78,-44}})));
-  Modelica.Blocks.Sources.Constant rpm5(k=900/per.speed_rpm_nominal)
+  Modelica.Blocks.Sources.Constant rpm5(k=900/2610)
                                                "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,-108},{-78,-96}})));
 

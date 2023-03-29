@@ -59,13 +59,13 @@ model PowerSimplified
     nPorts=3,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
-  Modelica.Blocks.Sources.Ramp rotSpe(
+  Modelica.Blocks.Sources.Ramp y(
     y(quantity="AngularVelocity_rpm",
       unit="rev/min"),
     duration=100,
     startTime=10,
-    height=1000,
-    offset=2400) "Ramp for pump rotational speed control signal in rpm"
+    height=(3400 - 2400)/3040,
+    offset=2400/3040) "Ramp for pump normalised speed control signal"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
   Modelica.Blocks.Sources.RealExpression dpSet(y=pump_y.port_b.p - pump_y.port_a.p)
     "Pressure rise across pump"
@@ -75,8 +75,6 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{82,-30},{6,-10}})));
   Modelica.Blocks.Routing.Multiplex3 result
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Math.Gain gai(k=1/per.speed_rpm_nominal)
-    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
 equation
   connect(bou.ports[1], pump_y.port_a) annotation (Line(points={{-82,-1.33333},{
           -82,40},{-60,40}}, color={0,127,255}));
@@ -111,10 +109,8 @@ equation
   connect(dpSet.y, pump_dp.dp_in) annotation (Line(
       points={{2.2,20},{-50,20},{-50,12}},
       color={0,0,127}));
-  connect(rotSpe.y, gai.u)
-    annotation (Line(points={{-69,80},{-52,80}}, color={0,0,127}));
-  connect(gai.y, pump_y.y) annotation (Line(points={{-29,80},{-20,80},{-20,60},
-          {-50,60},{-50,52}}, color={0,0,127}));
+  connect(y.y, pump_y.y)
+    annotation (Line(points={{-69,80},{-50,80},{-50,52}}, color={0,0,127}));
   annotation (    experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos"

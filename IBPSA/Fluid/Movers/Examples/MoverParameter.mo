@@ -28,7 +28,7 @@ model MoverParameter
   IBPSA.Fluid.Movers.SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
     redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
-        speeds_rpm=1800*{0,0.5,1}, constantSpeed_rpm=1800),
+        speeds={0,0.5,1}, constantSpeed=1),
     use_inputFilter=false,
     inputType=IBPSA.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)

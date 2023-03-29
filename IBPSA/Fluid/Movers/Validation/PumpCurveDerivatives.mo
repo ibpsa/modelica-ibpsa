@@ -46,7 +46,7 @@ model PumpCurveDerivatives
     use_inputFilter=false) "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
 
-  Modelica.Blocks.Sources.Constant rpm1(k=1000/per.speed_rpm_nominal)
+  Modelica.Blocks.Sources.Constant rpm1(k=1000/2610)
                                                 "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,54},{-78,66}})));
 
@@ -68,7 +68,7 @@ model PumpCurveDerivatives
   Modelica.Blocks.Sources.Ramp rpm2(
     duration=1,
     startTime=0,
-    height=100/per.speed_rpm_nominal,
+    height=100/2610,
     offset=0) "Ramp signal for speed"
     annotation (Placement(transformation(extent={{-100,-32},{-88,-20}})));
   Sensors.RelativePressure relPre(redeclare package Medium =
