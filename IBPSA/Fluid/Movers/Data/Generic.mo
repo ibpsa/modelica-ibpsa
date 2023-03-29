@@ -134,27 +134,13 @@ record Generic "Generic data record for movers"
     final unit="1") = 1 "Nominal rotational speed for flow characteristic"
     annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
 
-  parameter Real constantSpeed(final min=0, final unit="1") = constantSpeed_rpm/speed_rpm_nominal
+  parameter Real constantSpeed(final min=0, final unit="1") = 1
     "Normalized speed set point, used if inputType = IBPSA.Fluid.Types.InputType.Constant"
     annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
 
-  parameter Real[:] speeds(each final min = 0, each final unit="1") = speeds_rpm/speed_rpm_nominal
+  parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
     "Vector of normalized speed set points, used if inputType = IBPSA.Fluid.Types.InputType.Stages"
     annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal=1500
-    "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm constantSpeed_rpm=
-      speed_rpm_nominal
-    "Speed set point, used if inputType = IBPSA.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm[:] speeds_rpm={
-      speed_rpm_nominal}
-    "Vector of speed set points, used if inputType = IBPSA.Fluid.Types.InputType.Stages"
-    annotation (Dialog(group="Speeds in RPM"));
 
   // Set a parameter in order for
   // (a) FlowControlled_m_flow and FlowControlled_dp to be able to set a reasonable
@@ -171,6 +157,12 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 March 1, 2022, by Hongxiang Fu:<br/>
 <ul>

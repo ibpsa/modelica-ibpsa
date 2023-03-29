@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Movers.Data.Pumps.Wilo;
 record TopS25slash10 "Pump data for a staged Wilo-Top-S 25/10 pump"
   extends Generic(
-    speed_rpm_nominal=2650,
     final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={3.51617440225e-06, 0.000523909985935, 0.000847398030942,
@@ -38,6 +37,12 @@ Documentation(info="<html>
   </p>
   </html>",revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>
