@@ -36,8 +36,8 @@ The formula is based on Michael Wetter's thesis (A4.1):
 <ul>
 <li>
 March 27, 2023, by Ettore Zanetti:<br/>
-Updated to us partial class for conversion from simulation time to calendar time.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">#1716</a>.
+Updated to use partial class for conversion from simulation time to calendar time.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA #1716</a>.
 </li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>

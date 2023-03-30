@@ -39,7 +39,7 @@ IBPSA.BoundaryConditions.SolarGeometry.BaseClasses.Examples.Declination</a>.
 <li>
 March 27, 2023, by Ettore Zanetti:<br/>
 Updated to use partial class for conversion from simulation time to calendar time.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">#1716</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA #1716</a>.
 </li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>

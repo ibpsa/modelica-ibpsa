@@ -40,19 +40,11 @@ or a multiple of it, if this is the length of the weather file.
 <li>
 March 27, 2023, by Ettore Zanetti:<br/>
 Added partial class for conversion from simulation time to calendar time, to be
-used solar models that require calendar time for calculations .<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">#1716</a>.
+used solar models that require calendar time for calculations.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA #1716</a>.
 </li>
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
-        Text(
-          extent={{-98,6},{-74,-4}},
-          textColor={0,0,127},
-          textString="modTim"),
-        Text(
-          extent={{74,6},{98,-4}},
-          textColor={0,0,127},
-          textString="calTim")}));
+            100}})));
 end PartialConvertTime;
