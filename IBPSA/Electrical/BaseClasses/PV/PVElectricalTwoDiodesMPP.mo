@@ -23,7 +23,7 @@ equation
   0 = U / n_ser - lambda * (( RSer * ISat1) / (1.0 * Ut) * Modelica.Math.exp((U / n_ser + (I / n_par) * RSer) / (1.0 * Ut))
     + (RSer * ISat2) / (2.0 * Ut) * Modelica.Math.exp((U / n_ser + (I / n_par) * RSer) / (2.0 * Ut)) + RSer / RPar + 1.0);
 
-  P = I * U;
+  P = I * U * n_mod;
   annotation (
 Documentation(info="<html>
 <p>

@@ -11,7 +11,7 @@ equation
   0 = IPho - ISat1 * (Modelica.Math.exp((U / n_ser + (I / n_par) * RSer)/(1.0 * Ut)) - 1.0)
     - ISat2 * (Modelica.Math.exp((U / n_ser + (I / n_par) * RSer)/(2.0 * Ut)) - 1.0)
     - (U / n_ser + (I / n_par) * RSer) / RPar - I / n_par;
-  P = I * U;
+  P = I * U  * n_mod;
 
   annotation (
 Documentation(info="<html>

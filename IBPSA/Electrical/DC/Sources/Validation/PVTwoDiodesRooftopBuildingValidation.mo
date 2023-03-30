@@ -3,31 +3,30 @@ model PVTwoDiodesRooftopBuildingValidation
   "Validation with empirical data from NIST for the date of June 14th 2016"
   extends Modelica.Icons.Example;
   IBPSA.Electrical.DC.Sources.PVTwoDiodes pVSystemTwoDiodes(
-    til=0.17453292519943,
+    til=0.05235987755983,
     azi=0,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountOpenRack partialPVThermal,
-    n_mod=84,
+    n_mod=6,
     redeclare IBPSA.Electrical.Data.PV.TwoDiodesSolibroSL2CIGS110 data,
     groRef=0.2,
     alt=0.08)
     annotation (Placement(transformation(extent={{62,0},{82,20}})));
-  Modelica.Blocks.Sources.CombiTimeTable NISTdata(
+  Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather1(
     tableOnFile=true,
-    tableName="Roof2016",
+    tableName="ROF-rad_module_temp_2023",
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://IBPSA/Resources/weatherdata/NIST_onemin_Roof_2016.txt"),
-      columns={3,5,2,4},
-      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "The PVSystem model is validaded with measurement data from: https://pvdata.nist.gov/ "
-      annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_radiation_module_temperature_2023.txt"),
+    columns={2,3},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    shiftTime=(31 + 28 + 15)*86400)
+    "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
+    annotation (Placement(transformation(extent={{48,-32},{56,-24}})));
+
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     annotation (Placement(transformation(extent={{42,-14},{54,-2}})));
   Modelica.Blocks.Interfaces.RealOutput PSim
     "Simulated DC output power"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Modelica.Blocks.Math.Gain kiloWattToWatt(
-    k=1000)
-    annotation (Placement(transformation(extent={{80,-36},{92,-24}})));
   Modelica.Blocks.Interfaces.RealOutput PMea
     "Measured DC power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
@@ -59,9 +58,8 @@ model PVTwoDiodesRooftopBuildingValidation
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Constant nDay(
-    k=(31 + 29 + 31 + 13)*24*3600)
-    "Number of validation day (June 14th 2016) in seconds"
+  Modelica.Blocks.Sources.Constant nDay(k=(31 + 28 + 15)*24*3600)
+    "Number of validation day (March 16th 2023) in seconds"
     annotation (Placement(transformation(extent={{-98,-44},{-82,-28}})));
   IBPSA.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
@@ -83,18 +81,49 @@ model PVTwoDiodesRooftopBuildingValidation
   BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
     azi=pVSystemTwoDiodes.azi,
     til=pVSystemTwoDiodes.til)
-    annotation (Placement(transformation(extent={{44,-78},{64,-58}})));
+    annotation (Placement(transformation(extent={{44,-84},{64,-64}})));
   Modelica.Blocks.Sources.RealExpression souHGloHorDif(y=HGloHorDif)
     annotation (Placement(transformation(extent={{6,-102},{26,-82}})));
   Modelica.Blocks.Sources.Constant souAlt(k=pVSystemTwoDiodes.alt)
     "Altitude"
     annotation (Placement(transformation(extent={{-14,56},{2,72}})));
+  Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather2(
+    tableOnFile=true,
+    tableName="ROF_wind-angle_speed_2023",
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_wind-angle_speed_2023.txt"),
+    columns={3},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    shiftTime=(31 + 28 + 15)*86400)
+    "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
+    annotation (Placement(transformation(extent={{48,-44},{56,-36}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable VPTdata_power(
+    tableOnFile=true,
+    tableName="power_2023",
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_P1_1_2_power_2023.txt"),
+    columns={2},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    shiftTime=(31 + 28 + 15)*86400)
+    "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
+    annotation (Placement(transformation(extent={{78,-36},{90,-24}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather3(
+    tableOnFile=true,
+    tableName="ROF_outside_temp_2023",
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023.txt"),
+
+    columns={2},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    shiftTime=(31 + 28 + 15)*86400)
+    "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
+    annotation (Placement(transformation(extent={{48,-56},{56,-48}})));
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
-  //NIST data does not contain this measurement so far. Work in progress
+  //Rooftop building data does not contain this measurement so far. Work in progress
   //nDay = floor(modTim.y/86400)*86400
   // "Zero-based day number in seconds (January 1=0, January 2=86400)";
-  HGloHor= NISTdata.y[3];
+  HGloHor=VPTdata_weather1.y[1];
 
   k_t = if HGloHor <=0.01 then
           0
@@ -115,31 +144,16 @@ equation
                else
                  (HGloHor)*(0.9511-0.1604*k_t+4.388*k_t^2-16.638*k_t^3+12.336*k_t^4);
 
-    connect(NISTdata.y[1], from_degC.u)
-      annotation (Line(points={{61,-30},{64,-30},{64,-14},{40.8,-14},{40.8,-8}},
-                                                     color={0,0,127}));
     connect(from_degC.y, pVSystemTwoDiodes.TDryBul) annotation (Line(points={{54.6,-8},
             {58,-8},{58,4},{54,4},{54,10.5},{60,10.5}},
                                                color={0,0,127}));
-    connect(NISTdata.y[2], pVSystemTwoDiodes.vWinSpe) annotation (Line(points={{61,-30},
-            {64,-30},{64,9},{60,9}},                                   color={0,0,
-            127}));
     connect(pVSystemTwoDiodes.P, PSim)
       annotation (Line(points={{83,7},{96,7},{96,10},{110,10}},
                                                     color={0,0,127}));
-    connect(NISTdata.y[4], kiloWattToWatt.u) annotation (Line(points={{61,-30},{78.8,
-            -30}},                    color={0,0,127}));
-    connect(kiloWattToWatt.y, PMea)
-      annotation (Line(points={{92.6,-30},{110,-30}}, color={0,0,127}));
     connect(HGloTil.weaBus, weaBus) annotation (Line(
         points={{38,50},{26,50}},
         color={255,204,51},
         thickness=0.5));
-    connect(NISTdata.y[3], weaBus.HGloHor) annotation (Line(points={{61,-30},{64,-30},
-            {64,0},{46,0},{46,36},{26,36},{26,50}},
-                                    color={0,0,127}));
-    connect(NISTdata.y[3], pVSystemTwoDiodes.HGloHor) annotation (Line(points={{61,-30},
-            {64,-30},{64,0},{46,0},{46,12},{60,12}}, color={0,0,127}));
     connect(HGloTil.H, pVSystemTwoDiodes.HGloTil) annotation (Line(points={{59,50},
             {64,50},{64,24},{56,24},{56,14},{60,14}},
                                             color={0,0,127}));
@@ -196,19 +210,20 @@ equation
     connect(zen.y, pVSystemTwoDiodes.zenAngle)
       annotation (Line(points={{41,82},{64,82},{64,76},{62,76},{62,26},{60,26},{
             60,20}},                                    color={0,0,127}));
-    connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-37,10},{-32,10},
-            {-32,16},{18,16},{18,28},{32,28},{32,-62.6},{41.8,-62.6}}, color={0,0,
+    connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-37,10},{
+          -32,10},{-32,16},{18,16},{18,28},{32,28},{32,-68.6},{41.8,-68.6}},
+                                                                       color={0,0,
             127}));
-    connect(incAng.incAng, pVSystemTwoDiodes.incAngle) annotation (Line(points={
-            {65,-68},{70,-68},{70,-4},{86,-4},{86,24},{58,24},{58,26},{54,26},{54,
-            18},{60,18}}, color={0,0,127}));
+    connect(incAng.incAng, pVSystemTwoDiodes.incAngle) annotation (Line(points={{65,-74},
+          {70,-74},{70,-4},{86,-4},{86,24},{58,24},{58,26},{54,26},{54,18},{60,
+          18}},           color={0,0,127}));
     connect(souHGloHorDif.y, pVSystemTwoDiodes.HDifHor) annotation (Line(points=
            {{27,-92},{32,-92},{32,-60},{34,-60},{34,18},{52,18},{52,28},{60,28},{60,
             16}}, color={0,0,127}));
-    connect(latLon[1].y, incAng.lat) annotation (Line(points={{-81.2,50},{12,50},{
-            12,12},{36,12},{36,-64},{34,-64},{34,-68},{42,-68}}, color={0,0,127}));
+    connect(latLon[1].y, incAng.lat) annotation (Line(points={{-81.2,50},{12,50},
+          {12,12},{36,12},{36,-64},{34,-64},{34,-74},{42,-74}},  color={0,0,127}));
     connect(solHouAng.solHouAng, incAng.solHouAng) annotation (Line(points={{21,-10},
-            {34,-10},{34,-72.8},{42,-72.8}}, color={0,0,127}));
+          {34,-10},{34,-78.8},{42,-78.8}},   color={0,0,127}));
     connect(souHGloHorDif.y, weaBus.HDifHor) annotation (Line(points={{27,-92},{32,
             -92},{32,-60},{34,-60},{34,34},{26,34},{26,50}}, color={0,0,127}),
         Text(
@@ -223,6 +238,20 @@ equation
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
 
+  connect(VPTdata_weather2.y[1], pVSystemTwoDiodes.vWinSpe) annotation (Line(
+        points={{56.4,-40},{62,-40},{62,6},{60,6},{60,9}}, color={0,0,127}));
+  connect(VPTdata_power.y[1], PMea)
+    annotation (Line(points={{90.6,-30},{110,-30}}, color={0,0,127}));
+  connect(VPTdata_weather1.y[1], pVSystemTwoDiodes.HGloHor) annotation (Line(
+        points={{56.4,-28},{62,-28},{62,4},{52,4},{52,12},{60,12}}, color={0,0,127}));
+  connect(VPTdata_weather1.y[1], weaBus.HGloHor) annotation (Line(points={{56.4,
+          -28},{64,-28},{64,2},{26,2},{26,50}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(VPTdata_weather3.y[1], from_degC.u) annotation (Line(points={{56.4,
+          -52},{58,-52},{58,-18},{38,-18},{38,-8},{40.8,-8}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
@@ -235,26 +264,23 @@ equation
           textString="1 - Air temperature in °C
 2 - Wind speed in m/s
 3 - Global horizontal irradiance in W/m2
-4 - Ouput power in kW")}),
+4 - Ouput power in W")}),
     experiment(
-      StartTime=28684800,
-      StopTime=28771200,
+      StartTime=6393610,
+      StopTime=6480010,
       Interval=10,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVTwoDiodesRooftopBuildingValidation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>The PVSystem model is validaded with empirical data from: <a href=\"https://pvdata.nist.gov/\">https://pvdata.nist.gov/</a> </p>
-<p>The date 14.06.2016 was chosen as an example for the PVSystem model. </p>
-<p>The PV mounting is an open rack system based on the roof. </p>
-<p>The validation model proves that single diode PV models tend to overestimate the power output.</p>
-<p>This is due to the neglection of staining, shading, other loss effects.</p>
+    <p>The PVSystem 2 diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a> </p>
+<p>The date 16.03.2023 was chosen as an example for the PVSystem model. </p>
 </html>",revisions="<html>
 <ul>
 <li>
-Nov 17, 2022, by Laura Maier:<br/>
+March 30, 2023, by Christoph Nytsch-Geusen:<br/>
 First implementation.
 </li>
 </ul>
