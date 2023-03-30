@@ -268,18 +268,5 @@ both have default values and also allow the user to override them easily.
 See <a href=\"https://github.com/modelica/ModelicaSpecification/issues/791\">
 Modelica Specification issue #791</a>.
 </p>
-<h4>Parameters in RPM</h4>
-<p>
-The parameters <code>speed_rpm_nominal</code>,
-<code>constantSpeed_rpm</code> and
-<code>speeds_rpm</code> are used to assign the non-dimensional speeds
-</p>
-<pre>
-  parameter Real constantSpeed(final min=0, final unit=\"1\") = constantSpeed_rpm/speed_rpm_nominal;
-  parameter Real[:] speeds(each final min = 0, each final unit=\"1\") = speeds_rpm/speed_rpm_nominal;
-</pre>
-<p>
-Flow-controlled models do not these speed parameters in RPM.
-</p>
 </html>"));
 end Generic;
