@@ -14,7 +14,7 @@ partial model PartialFlowMachine
       h_outflow(start=h_outflow_start)));
 
   replaceable parameter IBPSA.Obsolete.Fluid.Movers.Data.Generic per
-    constrainedby IBPSA.Fluid.Movers.Data.Generic
+    constrainedby IBPSA.Obsolete.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
