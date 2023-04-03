@@ -15,8 +15,8 @@ protected
   final parameter Modelica.Units.SI.Time diff=-timZon + lon*43200/Modelica.Constants.pi
     "Difference between local and clock time";
 equation
-  simTim = cloTim;
-  locTim = calTimExp + diff;
+  modTimAux = cloTim;
+  locTim = calTimAux + diff;
 
   annotation (
     defaultComponentName="locTim",

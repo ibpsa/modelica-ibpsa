@@ -13,8 +13,8 @@ protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Constant";
   constant Real k2 = 2*Modelica.Constants.pi/365.25 "Constant";
 equation
-  simTim = nDay;
-  decAng = Modelica.Math.asin(-k1 * Modelica.Math.cos((calTimExp/86400 + 10)*k2))
+  modTimeAux = nDay;
+  decAng = Modelica.Math.asin(-k1 * Modelica.Math.cos((calTimAux/86400 + 10)*k2))
     "(A4.5)";
   annotation (
     defaultComponentName="decAng",

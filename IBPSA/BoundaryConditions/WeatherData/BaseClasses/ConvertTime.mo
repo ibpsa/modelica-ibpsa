@@ -17,8 +17,8 @@ protected
 
 
 equation
-  calTim = calTimExp;
-  simTim = modTim;
+  calTim = calTimAux;
+  modTimAux = modTim;
   assert(canRepeatWeatherFile or noEvent((time - weaDatEndTim) < shiftSolarRad),
     "In " + getInstanceName() + ": Insufficient weather data provided for the desired simulation period.
     The simulation time " + String(time) +
