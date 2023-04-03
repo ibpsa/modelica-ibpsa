@@ -14,7 +14,7 @@ block EquationOfTime "Equation of time"
 protected
   Real Bt "Intermediate variable";
 equation
-  modTimeAux = nDay;
+  modTimAux = nDay;
   Bt = Modelica.Constants.pi*((calTimAux + 86400)/86400 - 81)/182
     "Our unit is s instead of day in (A.4.2b)";
   eqnTim = 60*(9.87*Modelica.Math.sin(2*Bt) - 7.53*Modelica.Math.cos(Bt) - 1.5*
