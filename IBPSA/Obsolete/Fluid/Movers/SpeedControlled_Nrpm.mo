@@ -1,7 +1,7 @@
-within IBPSA.Fluid.Movers;
+within IBPSA.Obsolete.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
-  extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
+  extends IBPSA.Obsolete.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
@@ -70,6 +70,7 @@ equation
           textColor={0,0,127},
           visible=inputType == IBPSA.Fluid.Types.InputType.Continuous or inputType == IBPSA.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("Nrpm", if inputType == IBPSA.Fluid.Types.InputType.Continuous then String(Nrpm, format=".0f") else String(stage)))}),
+    obsolete = "Obsolete model - use IBPSA.Fluid.Movers.SpeedControlled_y instead",
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
@@ -86,6 +87,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Removed the modification of <code>m_flow_nominal</code>.<br/>

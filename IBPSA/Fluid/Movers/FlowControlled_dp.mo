@@ -271,8 +271,8 @@ The record has been moved to
 <a href=\"modelica://IBPSA.Fluid.Movers.Data.SpeedControlled_y\">
 IBPSA.Fluid.Movers.Data.SpeedControlled_y</a>
 as it makes sense to use it for the movers
-<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_Nrpm\">
-IBPSA.Fluid.Movers.FlowControlled_Nrpm</a>
+<a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.FlowControlled_Nrpm\">
+IBPSA.Obsolete.Fluid.Movers.FlowControlled_Nrpm</a>
 and
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_y\">
 IBPSA.Fluid.Movers.FlowControlled_y</a>.<br/>
