@@ -23,7 +23,7 @@ equation
     defaultComponentName="eqnTim",
     Documentation(info="<html>
 <p>
-This component computes the difference between solar noon and noon of local civic time.
+This component computes the difference between solar noon and noon of local civil time.
 </p>
 </html>", revisions="<html>
 <ul>
