@@ -54,23 +54,11 @@ model ModularReversible
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 protected
-  Modelica.Blocks.Math.BooleanToReal boolToReal
-    if use_internalSafetyControl and use_TSet
-                                      "Use default ySet value";
-  Modelica.Blocks.Math.RealToBoolean realToBool
-    if use_internalSafetyControl and use_TSet
-                                      "Use default ySet value";
   Modelica.Blocks.Sources.BooleanConstant conRevSetTruSaf(final k=true)
     if not use_rev and use_internalSafetyControl
     "Constant true if machine is not reversible 
     and internal safety control is enabled";
 equation
-  connect(TSet, sigBus.TConOutSet) annotation (Line(points={{-116,40},{-80,40},{
-          -80,-43},{-105,-43}},  color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(safetyControl.sigBus, sigBus) annotation (Line(
         points={{-60.5,-17.1},{-60.5,-16},{-76,-16},{-76,-43},{-105,-43}},
         color={255,204,51},
@@ -88,11 +76,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(realToBool.u, safetyControl.yOut);
-  connect(boolToReal.u, onOffSet);
-  connect(realToBool.y, sigBus.onOffSet);
   connect(conRevSetTruSaf.y, safetyControl.revSet);
-  connect(boolToReal.y, safetyControl.ySet);
   connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{-39,-8},
             {-30,-8},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},     color={0,0,127}),
       Text(

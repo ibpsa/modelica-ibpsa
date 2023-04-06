@@ -43,12 +43,6 @@ partial model PartialReversibleVapourCompressionMachine
     "=true to enable internal safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
 
-  parameter Boolean use_TSet=false
-    "=true to use black-box internal control for supply 
-    temperature of device with the given temperature set point TSet"
-    annotation (
-          choices(checkBox=true),
-          Dialog(enable=not use_busConnectorOnly, group="Input Connectors"));
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
     "Time constant of heat transfer at nominal flow"
@@ -286,7 +280,7 @@ partial model PartialReversibleVapourCompressionMachine
         origin={70,110})));
 
   Modelica.Blocks.Interfaces.RealInput ySet
-    if not use_busConnectorOnly and not use_TSet
+    if not use_busConnectorOnly
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
 
@@ -305,15 +299,6 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={110,100})));
 
-  Modelica.Blocks.Interfaces.RealInput TSet(final unit="K", final
-      displayUnit="degC")
-    if not use_busConnectorOnly and use_TSet
-    "Input signal temperature for internal control"
-    annotation (Placement(transformation(extent={{-132,24},{-100,56}})));
-  Modelica.Blocks.Interfaces.BooleanInput onOffSet
-    if not use_busConnectorOnly and use_TSet
-    "Turn the device on (if internal temperature control is used)"
-    annotation (Placement(transformation(extent={{-132,-36},{-100,-4}})));
   Modelica.Blocks.Interfaces.BooleanInput revSet
     if not use_busConnectorOnly and use_rev "Reverse the operation, =true for main operating mode"
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));

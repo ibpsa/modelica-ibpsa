@@ -16,7 +16,6 @@ model ReversibleCarnotWithLosses
           IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.FunctionalApproach
           iceFacCal(redeclare function iceFacFun =
               IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.WetterAfjei1997),
-
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),
@@ -25,6 +24,7 @@ model ReversibleCarnotWithLosses
     redeclare model VapourCompressionCycleInertia =
         IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
         (refIneFre_constant=refIneFre_constant, nthOrder=nthOrder));
+
   parameter Real quaGra=0.3 "Constant quality grade";
   parameter Modelica.Units.SI.Frequency refIneFre_constant
     "Cut off frequency for inertia of refrigerant cycle";
