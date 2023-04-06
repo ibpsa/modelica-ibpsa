@@ -4,8 +4,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
   extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
         realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
 
-  ReversibleAirToWaterEuropeanNorm2D
-                             revCarWitLosHeaPum(
+  ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
     redeclare package MediumCon = MediumW,
     redeclare package MediumEva = MediumW,
     QUse_flow_nominal=Q_flow_nominal,
@@ -17,7 +16,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     dpEva_nominal(displayUnit="Pa") = 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
+      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrlPar(
       use_minRunTime=false,
       use_minLocTime=true,
@@ -25,12 +24,11 @@ model ReversibleAirToWater2D_OneRoomRadiator
       use_antFre=true,
       TAntFre=275.15),
     redeclare
-      IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201
       datTabHea,
     redeclare
-      IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-      datTabCoo)
-                "Reversible heat pump with losses and carnot approach"
+      IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+      datTabCoo) "Reversible heat pump with losses and carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 equation
   connect(revCarWitLosHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,

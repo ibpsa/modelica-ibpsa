@@ -28,7 +28,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     GEvaIns=20000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
+      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrlPar,
     quaGra=0.4,
     refIneFre_constant=0.003,

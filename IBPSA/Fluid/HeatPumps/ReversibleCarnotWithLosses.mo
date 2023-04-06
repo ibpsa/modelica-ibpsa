@@ -2,27 +2,28 @@ within IBPSA.Fluid.HeatPumps;
 model ReversibleCarnotWithLosses
   "Use a carnot approach, but add reversibility and losses (heat, frost, inertia)"
   extends ModularReversible(
-    redeclare model BlackBoxHeatPumpCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.ConstantQualityGrade (
-        QUseBlaBox_flow_nominal=QCoo_flow_nominal,
-        redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
+    redeclare model RefrigerantCycleHeatPumpCooling =
+        IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade (
+        QUseNoSca_flow_nominal=QCoo_flow_nominal,
+        redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal,
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),
-    redeclare model BlackBoxHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (
+    redeclare model RefrigerantCycleHeatPumpHeating =
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
         redeclare
-          IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.FunctionalApproach
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach
           iceFacCal(redeclare function iceFacFun =
-              IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.Functions.WetterAfjei1997),
+              IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.WetterAfjei1997),
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),
     final use_evaCap,
     final use_conCap,
-    redeclare model VapourCompressionCycleInertia =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
+    redeclare model RefrigerantCycleInertia =
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
         (refIneFre_constant=refIneFre_constant, nthOrder=nthOrder));
 
   parameter Real quaGra=0.3 "Constant quality grade";

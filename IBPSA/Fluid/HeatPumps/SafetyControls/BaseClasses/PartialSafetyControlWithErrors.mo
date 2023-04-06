@@ -51,7 +51,7 @@ equation
   connect(booPasThr.y, notVal.u) annotation (Line(points={{61,0},{68,0},{68,-12},
           {-8,-12},{-8,-110},{-2,-110}},    color={255,0,255}));
   connect(swiErr.y, yOut) annotation (Line(points={{101,0},{110,0},{110,20},{
-          110,20}}, color={0,0,127}));
+          130,20}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>

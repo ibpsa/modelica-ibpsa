@@ -6,14 +6,12 @@ partial block BoundaryMapIcon "PartialModel for the icon of a boundary map"
     annotation (
       Dialog(tab="Safety Control", group="Operational Envelope"),
       choices(checkBox=true));
-  parameter BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab
-    "Data Table of HP"
-      annotation (
-        choicesAllMatching=true,
-        Dialog(
-          tab="Safety Control",
-          group="Operational Envelope",
-          enable=use_opeEnvFroRec));
+  parameter
+    RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab
+    "Data Table of HP" annotation (choicesAllMatching=true, Dialog(
+      tab="Safety Control",
+      group="Operational Envelope",
+      enable=use_opeEnvFroRec));
   parameter Real tabUpp[:,2]
     "Table matrix (grid = first column; e.g., table=[0,2])"
     annotation (

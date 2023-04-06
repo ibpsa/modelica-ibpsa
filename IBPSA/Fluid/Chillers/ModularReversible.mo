@@ -1,20 +1,20 @@
 within IBPSA.Fluid.Chillers;
 model ModularReversible
   "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
-  extends
-    IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
+  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
-    final scaFac=vapComCyc.blaBoxChiCoo.scaFac,
-    final use_internalSafetyControl=false,
+    final scaFac=refCyc.refCycChiCoo.scaFac,
     use_rev=true,
-    redeclare IBPSA.Fluid.Chillers.BaseClasses.BlackBoxVapourCompressionCycle
-      vapComCyc(redeclare model BlackBoxChillerCooling = BlackBoxChillerCooling,
-        redeclare model BlackBoxChillerHeating = BlackBoxChillerHeating));
+    redeclare IBPSA.Fluid.Chillers.BaseClasses.ChillerRefrigerantCycle refCyc(
+        redeclare model RefrigerantCycleChillerCooling =
+          RefrigerantCycleChillerCooling,
+        redeclare model RefrigerantCycleChillerHeating =
+          RefrigerantCycleChillerHeating));
 
-  replaceable model BlackBoxChillerCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox
+  replaceable model RefrigerantCycleChillerCooling =
+      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
       constrainedby
-    IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
+    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -25,10 +25,10 @@ model ModularReversible
        final y_nominal=y_nominal)
   "Black-box model of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
-  replaceable model BlackBoxChillerHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.NoHeating
+  replaceable model RefrigerantCycleChillerHeating =
+      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating
        constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
        final QUse_flow_nominal=0,
        final scaFac=scaFac,
        final TCon_nominal=TEva_nominal,
@@ -41,6 +41,24 @@ model ModularReversible
   "Black-box model of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
+  Modelica.Blocks.Interfaces.BooleanInput coo
+    if not use_busConnectorOnly and use_rev
+    "=true for cooling, =false for heating"
+    annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
+  Modelica.Blocks.Sources.BooleanConstant conCoo(final k=true) if not
+    use_busConnectorOnly and not use_rev
+    "Set cooling mode to true if device is not reversible" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,-110})));
+equation
+  connect(conCoo.y, sigBus.coo)
+    annotation (Line(points={{-79,-110},{-80,-110},{-80,-43},{-105,-43}},
+                                color={255,0,255}));
+  connect(coo, sigBus.coo)
+    annotation (Line(points={{-116,-90},{-80,-90},{-80,-43},{-105,-43}},
+                       color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

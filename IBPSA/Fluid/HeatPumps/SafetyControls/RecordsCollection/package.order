@@ -1,2 +1,2 @@
-DefaultSafetyControl
-HeatPumpSafetyControlBaseDataDefinition
+DefaultHeatPumpSafetyControl
+PartialRefrigerantMachineSafetyControlBaseDataDefinition

@@ -32,23 +32,25 @@ equation
           {-22,-8}},     color={255,0,255}));
   connect(and1.y, booPasThr.u) annotation (Line(points={{1,0},{38,0}},
              color={255,0,255}));
-  connect(hysEva.u, sigBus.m_flowEvaMea) annotation (Line(points={{-62,-20},{-84,
-          -20},{-84,-71},{-105,-71}},color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(hysCon.u, sigBus.m_flowConMea) annotation (Line(points={{-62,20},{-94,
-          20},{-94,-52},{-105,-52},{-105,-71}},
+  connect(hysEva.u, sigBus.m_flowEvaMea) annotation (Line(points={{-62,-20},{
+          -84,-20},{-84,-71},{-125,-71}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySet, swiErr.u1) annotation (Line(points={{-116,20},{-106,20},{-106,76},
-          {72,76},{72,8},{78,8}}, color={0,0,127}));
+  connect(hysCon.u, sigBus.m_flowConMea) annotation (Line(points={{-62,20},{-94,
+          20},{-94,-52},{-125,-52},{-125,-71}},
+                                     color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{-106,20},{-106,
+          76},{72,76},{72,8},{78,8}},
+                                  color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>Safety control to prevent the heat pump from turning on if the volumen flow rate (or mass) is too low in either condenser or evaporator.</p>
+<p>Safety control to prevent the device from turning on if the volumen flow rate (or mass) is too low in either condenser or evaporator.</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

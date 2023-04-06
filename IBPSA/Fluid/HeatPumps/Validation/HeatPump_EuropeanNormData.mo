@@ -4,14 +4,14 @@ model HeatPump_EuropeanNormData
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model VapourCompressionCycleInertia =
-          IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
           (
           refIneFre_constant=refIneFre_constant,
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model BlackBoxHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2D (datTab=
-              IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (datTab=
+              IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
               tableQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
               tablePel=[0,0,10; 35,1300,1500; 55,1900,2300],
               mCon_flow_nominal=6100/5/4184,

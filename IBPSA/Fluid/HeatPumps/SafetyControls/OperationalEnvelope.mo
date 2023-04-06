@@ -30,11 +30,11 @@ block OperationalEnvelope
     annotation (Placement(transformation(extent={{-62,38},{2,102}})));
 
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-116,20},{66,20},{66,8},{78,
-          8}},    color={0,0,127}));
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{66,20},{66,8},{
+          78,8}}, color={0,0,127}));
 
   connect(sigBus.TEvaInMea, toDegCTEvaInMea.u) annotation (Line(
-      points={{-105,-71},{-108,-71},{-108,90},{-102,90}},
+      points={{-125,-71},{-108,-71},{-108,90},{-102,90}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -46,7 +46,7 @@ equation
   connect(bouMap.y, toDegCTConOutMea.y) annotation (Line(points={{-66.48,50.8},
     {-72.74,50.8},{-72.74,50},{-79,50}}, color={0,0,127}));
   connect(sigBus.TConOutMea, toDegCTConOutMea.u) annotation (Line(
-      points={{-105,-71},{-102,-71},{-102,50}},
+      points={{-125,-71},{-102,-71},{-102,50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

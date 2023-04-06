@@ -11,8 +11,8 @@ model ModularReversible_OneRoomRadiator
     redeclare package MediumEva = MediumW,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
-    redeclare model VapourCompressionCycleInertia =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.NoInertia,
+    redeclare model RefrigerantCycleInertia =
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
     use_internalSafetyControl=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
@@ -31,21 +31,22 @@ model ModularReversible_OneRoomRadiator
     GEvaOut=0,
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare model BlackBoxHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (
-        redeclare IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting
+    redeclare model RefrigerantCycleHeatPumpHeating =
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
+        redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal,
         useAirForCon=false,
         useAirForEva=false,
         TAppCon_nominal=0,
         TAppEva_nominal=0),
-    redeclare model BlackBoxHeatPumpCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.NoFrosting iceFacCal,
-          datTab=
-            IBPSA.Fluid.Chillers.BlackBoxData.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+    redeclare model RefrigerantCycleHeatPumpCooling =
+        IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+          iceFacCal, datTab=
+            IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultSafetyControl
+      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrlPar(use_antFre=true, TAntFre=275.15))
     "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));

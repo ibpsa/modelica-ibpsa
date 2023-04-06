@@ -17,13 +17,13 @@ model AntiFreeze "Model to prevent source from freezing"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-116,20},{66,20},{66,8},{78,
-          8}},    color={0,0,127}));
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{66,20},{66,8},{
+          78,8}}, color={0,0,127}));
   connect(min.y, hys.u)
     annotation (Line(points={{-39,-10},{-28,-10},{-28,0},{-22,0}},
                                                    color={0,0,127}));
   connect(sigBus.TConInMea, min.u1) annotation (Line(
-      points={{-105,-71},{-105,-14},{-104,-14},{-104,-4},{-62,-4}},
+      points={{-125,-71},{-125,-14},{-104,-14},{-104,-4},{-62,-4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -32,7 +32,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus.TEvaOutMea, min.u2) annotation (Line(
-      points={{-105,-71},{-105,-16},{-62,-16}},
+      points={{-125,-71},{-125,-16},{-62,-16}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

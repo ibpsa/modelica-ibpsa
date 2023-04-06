@@ -172,14 +172,14 @@ equation
       pattern=LinePattern.Dash));
 
   connect(preOnOff.u, sigBus.onOffMea) annotation (Line(points={{-102,-90},{
-          -108,-90},{-108,-71},{-105,-71}},
+          -108,-90},{-108,-71},{-125,-71}},
                                        color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetOn.u, ySet) annotation (Line(points={{-102,70},{-114,70},{-114,20},
-          {-116,20}}, color={0,0,127}));
+          {-136,20}}, color={0,0,127}));
   connect(andStaOn.u1, ySetOn.y) annotation (Line(points={{-42,50},{-58,50},{-58,
           52},{-74,52},{-74,70},{-79,70}},
                          color={255,0,255}));
@@ -190,7 +190,7 @@ equation
   connect(andStaOff.u2, notSetOn.y) annotation (Line(points={{-42,-38},{-70,-38},
           {-70,28},{-79,28}}, color={255,0,255}));
   connect(lim.u, ySet) annotation (Line(points={{-102,110},{-114,110},{-114,20},
-          {-116,20}},     color={0,0,127}));
+          {-136,20}},     color={0,0,127}));
   connect(isAblToTurOff.u, runTimCtr.y) annotation (Line(points={{38,90},{28,90},
           {28,100},{21,100}}, color={255,0,255}));
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,

@@ -3,7 +3,7 @@ Carnot_y
 LargeScaleWaterToWater
 ModularReversible
 ReversibleCarnotWithLosses
-BlackBoxData
+RefrigerantCycleModels
 Examples
 Validation
 BaseClasses

@@ -6,14 +6,14 @@ model HeatPump_CarnotConstantQuality
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model VapourCompressionCycleInertia =
-          IBPSA.Fluid.HeatPumps.BlackBoxData.VapourCompressionInertias.VariableOrderInertia
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
           (
           refIneFre_constant=refIneFre_constant,
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model BlackBoxHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.BlackBoxData.ConstantQualityGrade (quaGra=
-              qualityGrade)));
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
+            quaGra=qualityGrade)));
   parameter Real qualityGrade=0.4318
     "Constant quality grade" annotation(Evaluate=false);
 

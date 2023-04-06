@@ -30,6 +30,7 @@ partial model PartialHeatPumpValidation
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
     QUse_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.QUseBlaBox_flow_nominal,
+
     y_nominal=1,
     final use_internalSafetyControl=false,
     final use_busConnectorOnly=false,
@@ -54,8 +55,8 @@ partial model PartialHeatPumpValidation
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TCon_start=303.15,
     redeclare model BlackBoxHeatPumpCooling =
-        IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling) "Heat pump"
-    annotation (Placement(transformation(
+        IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling)
+    "Heat pump" annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,
         origin={2,-21})));

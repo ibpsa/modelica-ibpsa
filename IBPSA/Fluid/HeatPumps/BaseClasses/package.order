@@ -1,6 +1,6 @@
-BlackBoxVapourCompressionCycle
+HeatPumpRefrigerantCycle
 LargeScaleWaterToWaterParameters
-PartialBlackBoxVapourCompressionCycle
-PartialReversibleVapourCompressionMachine
+PartialModularRefrigerantCycle
+PartialReversibleRefrigerantMachine
 PartialWaterToWater
 SenTempInflow

@@ -1,19 +1,19 @@
 within IBPSA.Fluid.HeatPumps;
 model ModularReversible
   "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
-  extends
-    IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine(
+  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
-    final scaFac=vapComCyc.blaBoxHeaPumHea.scaFac,
+    final scaFac=refCyc.refCycHeaPumHea.scaFac,
     use_rev=true,
-    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.BlackBoxVapourCompressionCycle
-      vapComCyc(redeclare model BlackBoxHeatPumpHeating =
-          BlackBoxHeatPumpHeating, redeclare model BlackBoxHeatPumpCooling =
-          BlackBoxHeatPumpCooling));
-  replaceable model BlackBoxHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox
+    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.HeatPumpRefrigerantCycle refCyc(
+        redeclare model RefrigerantCycleHeatPumpHeating =
+          RefrigerantCycleHeatPumpHeating,
+        redeclare model RefrigerantCycleHeatPumpCooling =
+          RefrigerantCycleHeatPumpCooling));
+  replaceable model RefrigerantCycleHeatPumpHeating =
+      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle
      constrainedby
-    IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialHeatPumpBlackBox(
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -24,11 +24,11 @@ model ModularReversible
        final y_nominal=y_nominal)
   "Black-box data of a heat pump in heating mode"
     annotation (choicesAllMatching=true);
-  replaceable model BlackBoxHeatPumpCooling =
-      IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.NoCooling
+  replaceable model RefrigerantCycleHeatPumpCooling =
+      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
       constrainedby
-    IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox(
-       final QUse_flow_nominal=vapComCyc.blaBoxHeaPumCoo.QUseBlaBox_flow_nominal,
+    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
+       final QUse_flow_nominal=refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal,
        final scaFac=scaFac,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -39,22 +39,9 @@ model ModularReversible
        final y_nominal=y_nominal)
   "Black-box data of a heat pump in cooling operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
-  replaceable parameter SafetyControls.RecordsCollection.DefaultSafetyControl
-    safCtrlPar
-    constrainedby
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.HeatPumpSafetyControlBaseDataDefinition
-    "Safety control parameters"
-    annotation (Dialog(enable=use_internalSafetyControl, group="Safety Control"),
-    choicesAllMatching=true);
-  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
-    final mEva_flow_nominal=mEva_flow_nominal,
-    final mCon_flow_nominal=mCon_flow_nominal,
-    safCtrlPar=safCtrlPar,
-    final ySet_small=ySet_small) if use_internalSafetyControl
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true) if not
-    use_busConnectorOnly and not use_rev and not use_internalSafetyControl
+    use_busConnectorOnly and not use_rev
     "Set heating mode to true if device is not reversible" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -65,23 +52,6 @@ model ModularReversible
     "=true for heating, =false for cooling"
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 equation
-  connect(safetyControl.sigBus, sigBus) annotation (Line(
-        points={{-62.5,-17.1},{-62.5,-16},{-76,-16},{-76,-43},{-105,-43}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%second",
-        index=1,
-        extent={{-6,3},{-6,3}},
-        horizontalAlignment=TextAlignment.Right));
-  connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{-37,-8},{-30,
-          -8},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},            color={0,0,127}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(ySet, safetyControl.ySet) annotation (Line(points={{-116,20},{-80,20},
-          {-80,-8},{-63.6,-8}},                color={0,0,127}));
   connect(conHea.y, sigBus.hea)
     annotation (Line(points={{-79,-110},{-80,-110},{
           -80,-43},{-105,-43}}, color={255,0,255}));
