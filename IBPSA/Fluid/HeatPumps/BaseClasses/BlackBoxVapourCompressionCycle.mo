@@ -61,6 +61,7 @@ initial equation
 equation
   connect(conStrSou.y, strPasThr.u);
   connect(blaBoxHeaPumCoo.datSouOut,  strPasThr.u);
+  connect(pasTrhModSet.u, sigBus.hea);
   connect(blaBoxHeaPumHea.QCon_flow, swiQCon.u1)
     annotation (Line(points={{56,38},{56,8},{58,8}}, color={0,0,127}));
   connect(blaBoxHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38},{
@@ -104,6 +105,24 @@ equation
       points={{0,102},{0,90},{39.8,90},{39.8,80.8}},
       color={255,204,51},
       thickness=0.5));
+  connect(swiQCon.u2, sigBus.hea) annotation (Line(points={{58,0},{0,0},{0,102}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(swiPEle.u2, sigBus.hea) annotation (Line(points={{2.22045e-15,-58},{
+          2.22045e-15,22},{0,22},{0,102}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(swiQEva.u2, sigBus.hea) annotation (Line(points={{-58,0},{0,0},{0,102},
+          {0,102}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -191,7 +210,7 @@ equation
 <p>This black-box model represents the refrigerant cycle of a heat pump. </p>
 <p>Used in IBPSA.Fluid.HeatPumps.HeatPump, this model serves the simulation of a reversible heat pump. </p>
 <p>Thus, data both of chillers and heat pumps can be used to calculate the three relevant values <code>PEle</code>, <code>QCon</code> and <code>QEva</code>. </p>
-<p>The <code>revSet</code> of the heat pump is used to switch between the black-box data of the chiller and the heat pump. </p>
+<p>The boolean <code>hea</code> of the heat pump is used to switch between the black-box data of the heat pump and the chiller. </p>
 <p>The user can choose between different types of black-box data or implement a new black-box model by extending from the <a href=\"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox\">IBPSA.Fluid.HeatPumps.BlackBoxData.BaseClasses.PartialBlackBox</a> model. </p>
 </html>"));
 end BlackBoxVapourCompressionCycle;

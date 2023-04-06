@@ -299,10 +299,6 @@ partial model PartialReversibleVapourCompressionMachine
         rotation=180,
         origin={110,100})));
 
-  Modelica.Blocks.Interfaces.BooleanInput revSet
-    if not use_busConnectorOnly and use_rev "Reverse the operation, =true for main operating mode"
-    annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
-
   IBPSA.Fluid.Sensors.MassFlowRate mFlow_eva(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
@@ -354,12 +350,6 @@ partial model PartialReversibleVapourCompressionMachine
         origin={90,-40})));
 
 // Line to delete if you don't want to use the bus externally
-  Modelica.Blocks.Sources.BooleanConstant conRevSetTrue(final k=true) if not
-    use_busConnectorOnly and not use_rev and not use_internalSafetyControl
-    "Set revert mode to true" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,-110})));
 protected
   Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus with signal for device control" annotation (
@@ -367,7 +357,7 @@ protected
         iconTransformation(extent={{-108,-52},{-90,-26}})));
 
   parameter Boolean use_busConnectorOnly=false
-    "=true to use bus connector for model inputs (revSet, ySet, TSet, onOffSet).
+    "=true to use bus connector for model inputs (ySet, hea or coo).
     =false to use the bus connector for outputs only. 
     Only possible if no internal safety control is used"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
@@ -514,22 +504,9 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(conRevSetTrue.y, sigBus.revSet) annotation (Line(points={{-79,-110},{-78,
-          -110},{-78,-112},{-76,-112},{-76,-43},{-105,-43}}, color={255,0,255}),
-      Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   if not use_internalSafetyControl then
     connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
           {-105,-43}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-    connect(revSet, sigBus.revSet) annotation (Line(points={{-116,-90},{-76,-90},
-          {-76,-43},{-105,-43}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -647,11 +624,6 @@ equation
 <li>Generik: Losses and inertias can be switched on or off. </li>
 </ol>
 <h4>Concept </h4>
-<p>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The revSet signal chooses the operation type of the vapour compression machine: </p>
-<ul>
-<li>mode = true: Main operation mode (heat pump: heating; chiller: cooling) </li>
-<li>mode = false: Reversible operation mode (heat pump: cooling; chiller: heating) </li>
-</ul>
 <p>To model both on/off and inverter controlled vapour compression machines, the compressor speed is normalizd to a relative value between 0 and 1. </p>
 <p>Possible icing of the evaporator is modelled with an input value between 0 and 1. </p>
 <p>The model structure is as follows. To understand each submodel, please have a look at the corresponding model information: </p>

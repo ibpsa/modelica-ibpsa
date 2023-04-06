@@ -54,7 +54,7 @@ equation
   connect(temAmbBas.y, revCarWitLosHeaPum.TConAmb) annotation (Line(points={{10,-179},
           {10,-166},{-6,-166},{-6,-140},{-1,-140}},       color={0,0,127}));
 
-  connect(oneRoomRadiatorHeatPumpControl.revSet, revCarWitLosHeaPum.revSet)
+  connect(oneRoomRadiatorHeatPumpControl.hea, revCarWitLosHeaPum.hea)
     annotation (Line(points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-159},
           {21.6,-159}}, color={255,0,255}));
   connect(oneRoomRadiatorHeatPumpControl.ySet, revCarWitLosHeaPum.ySet)

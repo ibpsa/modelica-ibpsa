@@ -53,40 +53,41 @@ model ModularReversible
     final ySet_small=ySet_small) if use_internalSafetyControl
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-protected
-  Modelica.Blocks.Sources.BooleanConstant conRevSetTruSaf(final k=true)
-    if not use_rev and use_internalSafetyControl
-    "Constant true if machine is not reversible 
-    and internal safety control is enabled";
+  Modelica.Blocks.Sources.BooleanConstant conHea(final k=true) if not
+    use_busConnectorOnly and not use_rev and not use_internalSafetyControl
+    "Set heating mode to true if device is not reversible" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,-110})));
+  Modelica.Blocks.Interfaces.BooleanInput hea
+    if not use_busConnectorOnly and use_rev
+    "=true for heating, =false for cooling"
+    annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 equation
   connect(safetyControl.sigBus, sigBus) annotation (Line(
-        points={{-60.5,-17.1},{-60.5,-16},{-76,-16},{-76,-43},{-105,-43}},
+        points={{-62.5,-17.1},{-62.5,-16},{-76,-16},{-76,-43},{-105,-43}},
         color={255,204,51},
         thickness=0.5), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-  connect(revSet, safetyControl.revSet) annotation (Line(points={{-116,-90},
-            {-76,-90},{-76,-12},{-61.6,-12}},       color={255,0,255}));
-  connect(safetyControl.revOut, sigBus.revSet) annotation (Line(points={{-38.4,
-            -12.4},{-30,-12.4},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
-        color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(conRevSetTruSaf.y, safetyControl.revSet);
-  connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{-39,-8},
-            {-30,-8},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},     color={0,0,127}),
+  connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{-37,-8},{-30,
+          -8},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},            color={0,0,127}),
       Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ySet, safetyControl.ySet) annotation (Line(points={{-116,20},{-80,
-            20},{-80,-8},{-61.6,-8}},          color={0,0,127}));
-
+  connect(ySet, safetyControl.ySet) annotation (Line(points={{-116,20},{-80,20},
+          {-80,-8},{-63.6,-8}},                color={0,0,127}));
+  connect(conHea.y, sigBus.hea)
+    annotation (Line(points={{-79,-110},{-80,-110},{
+          -80,-43},{-105,-43}}, color={255,0,255}));
+  connect(hea, sigBus.hea)
+    annotation (Line(points={{-116,-90},{-80,-90},{-80,-43},
+          {-105,-43}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},
@@ -176,11 +177,10 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Adding to the concept described in 
-<a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine\">
-IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine</a>, 
-this heat pump model for a reversible, modular heat pump adds 
-safety controls of real devices.</p>
+<p>Adding to the concept described in <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine</a>, this heat pump model for a reversible, modular heat pump adds safety controls of real devices.</p>
 <p>As with all options, the safety controls are optional.</p>
+<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>hea<\\code> signal chooses the operation type of the vapour compression machine: </p>
+<p>hea = true: Main operation mode (heat pump: heating) </p>
+<p>hea = false: Reversible operation mode (heat pump: cooling) </p>
 </html>"));
 end ModularReversible;

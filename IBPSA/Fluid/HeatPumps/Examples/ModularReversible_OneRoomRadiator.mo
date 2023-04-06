@@ -77,9 +77,9 @@ equation
           {-130,-150},{-130,-180},{-122,-180}}, color={255,0,255}));
   connect(temAmbBas.y, modRevHeaPump.TConAmb) annotation (Line(points={{10,-179},
           {10,-162},{-1,-162},{-1,-138}}, color={0,0,127}));
-  connect(modRevHeaPump.revSet, oneRoomRadiatorHeatPumpControl.revSet)
-    annotation (Line(points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},
-          {-132,-92},{-132,-76},{-139,-76}}, color={255,0,255}));
+  connect(modRevHeaPump.hea, oneRoomRadiatorHeatPumpControl.hea) annotation (
+     Line(points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},
+          {-132,-76},{-139,-76}}, color={255,0,255}));
   connect(oneRoomRadiatorHeatPumpControl.ySet, modRevHeaPump.ySet) annotation (
       Line(points={{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>

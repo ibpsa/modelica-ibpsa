@@ -53,7 +53,7 @@ protected
     "Pass through to enable assertion for non-reversible device";
 equation
   assert(
-    use_rev or (use_rev == false and pasTrhModSet.y == true),
+    use_rev or (use_rev == false and pasTrhModSet.y == false),
     "Can't turn to reversible operation mode on 
     irreversible vapour compression machine",
     level=AssertionLevel.error);
@@ -62,25 +62,9 @@ equation
     annotation (Line(points={{-81,0},{-110,0}}, color={0,0,127}));
   connect(swiPEle.y, PEle) annotation (Line(points={{-1.9984e-15,-81},{-1.9984e-15,
           -95.75},{0.5,-95.75},{0.5,-110.5}}, color={0,0,127}));
-  connect(sigBus.revSet, swiPEle.u2) annotation (Line(
-      points={{0,102},{0,22},{2.22045e-15,22},{2.22045e-15,-58}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-
   connect(swiQCon.y, QCon_flow)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(sigBus.revSet, swiQEva.u2) annotation (Line(
-      points={{0,102},{0,0},{-58,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(sigBus.revSet, swiQCon.u2) annotation (Line(
-      points={{0,102},{0,0},{58,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(pasTrhModSet.u, sigBus.revSet);
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -172,8 +156,6 @@ equation
   reversible vapour compression machine. Thus, data both of chillers
   and heat pumps can be used to calculate the three relevant values
   <code>P_el</code>, <code>QCon</code> and <code>QEva</code>. 
-  The <code>revSet</code> of the machine is used to
-  switch between the performance data of the chiller and the heat pump.
 </p>
 <p>
   The user can choose between different types of performance data or

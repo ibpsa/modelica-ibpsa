@@ -38,7 +38,7 @@ model BlackBoxVapourCompressionCycle
     "Negate QEva to match definition of heat flow direction" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}},
                                                rotation=180,
-        origin={-10,12})));
+        origin={-22,12})));
   Modelica.Blocks.Math.Gain gainCon(final k=-1) if use_rev
     "Negate QCon to match definition of heat flow direction" annotation (
       Placement(transformation(
@@ -88,9 +88,10 @@ equation
       thickness=0.5));
 
   connect(blaBoxChiCoo.QEva_flow, gainEva.u) annotation (Line(points={{56.1,38},
-          {56.1,26},{14,26},{14,12},{2,12}},             color={0,0,127}));
-  connect(gainEva.y, swiQEva.u1) annotation (Line(points={{-21,12},{-50,12},{-50,
-          8},{-58,8}}, color={0,0,127}));
+          {56.1,26},{14,26},{14,12},{-10,12}},           color={0,0,127}));
+  connect(gainEva.y, swiQEva.u1) annotation (Line(points={{-33,12},{-50,12},{
+          -50,8},{-58,8}},
+                       color={0,0,127}));
   connect(blaBoxChiHea.QEva_flow, swiQEva.u3) annotation (Line(
       points={{-43.1,35.9},{-42,35.9},{-42,-10},{-52,-10},{-52,-8},{-58,-8}},
       color={0,0,127},
@@ -105,6 +106,24 @@ equation
       pattern=LinePattern.Dash));
   connect(blaBoxChiCoo.QCon_flow, swiQCon.u1) annotation (Line(points={{24.9,38},
           {24.9,36},{24,36},{24,24},{50,24},{50,8},{58,8}}, color={0,0,127}));
+  connect(swiPEle.u2, sigBus.coo) annotation (Line(points={{2.22045e-15,-58},{
+          2.22045e-15,-2},{0,-2},{0,102}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(swiQEva.u2, sigBus.coo) annotation (Line(points={{-58,0},{0,0},{0,102}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(swiQCon.u2, sigBus.coo) annotation (Line(points={{58,0},{0,0},{0,102}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -182,7 +201,7 @@ Used in <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">IBPSA.Flui
 this model serves the simulation of a 
 reversible chiller. Thus, data both of chillers and heat pumps can be used to
 calculate the three relevant values <code>P_el</code>, <code>QCon</code> and 
-<code>QEva</code>. The <code>revSet</code> of the chiller is used to switch
+<code>QEva</code>. The boolean <code>coo</code> of the chiller is used to switch
 between the black-box model of the chiller and the heat pump. </p>
  <p>The user can choose between different types of black-box model or implement 
  a new black-box model by extending from 

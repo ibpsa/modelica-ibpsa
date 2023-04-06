@@ -44,7 +44,7 @@ equation
   connect(oneRoomRadiatorHeatPumpControl.ySet, revCarWitLosHeaPum.ySet)
     annotation (Line(points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}},
         color={0,0,127}));
-  connect(revCarWitLosHeaPum.revSet, oneRoomRadiatorHeatPumpControl.revSet)
+  connect(revCarWitLosHeaPum.hea, oneRoomRadiatorHeatPumpControl.hea)
     annotation (Line(points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-80},
           {-14,-80},{-14,-86},{-134,-86},{-134,-76},{-139,-76}}, color={255,0,255}));
   annotation (

@@ -2,16 +2,16 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 partial block PartialSafetyControl "Safety control with I/O"
   Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
-    annotation (Placement(transformation(extent={{-132,4},{-100,36}}),
-        iconTransformation(extent={{-132,4},{-100,36}})));
+    annotation (Placement(transformation(extent={{-152,4},{-120,36}}),
+        iconTransformation(extent={{-152,4},{-120,36}})));
   Modelica.Blocks.Interfaces.RealOutput yOut
     "Relative speed of compressor. From 0 to 1"
-    annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{120,10},{140,30}}),
+        iconTransformation(extent={{120,10},{140,30}})));
   Interfaces.VapourCompressionMachineControlBus sigBus
     "Bus-connector for the heat pump"
-    annotation (Placement(transformation(extent={{-122,-86},{-88,-56}}),
-        iconTransformation(extent={{-122,-86},{-88,-56}})));
+    annotation (Placement(transformation(extent={{-142,-86},{-108,-56}}),
+        iconTransformation(extent={{-142,-86},{-108,-56}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics={
                                 Rectangle(

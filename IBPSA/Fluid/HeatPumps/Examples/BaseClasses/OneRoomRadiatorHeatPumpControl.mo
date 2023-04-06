@@ -94,7 +94,7 @@ model OneRoomRadiatorHeatPumpControl
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput ySet "Heat pump set speed"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Modelica.Blocks.Interfaces.BooleanOutput revSet if witCoo
+  Modelica.Blocks.Interfaces.BooleanOutput hea if witCoo
     "Heat pump in normal mode"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Logical.Or heaOrCooIsOn "Heating or cooling demand"
@@ -145,7 +145,7 @@ equation
           -30},{-39,-30}}, color={255,0,255}));
   connect(hysCoo.y, heaOrCooIsOn.u2) annotation (Line(points={{-59,-10},{-28,-10},
           {-28,2},{-2,2}}, color={255,0,255}));
-  connect(heaIsOn.y, revSet) annotation (Line(points={{-25,20},{-16,20},{-16,-30},
+  connect(heaIsOn.y, hea) annotation (Line(points={{-25,20},{-16,20},{-16,-30},
           {80,-30},{80,-60},{110,-60}}, color={255,0,255}));
   connect(cooValOrHea.y, swiSecForCoo.u2) annotation (Line(points={{21,-40},{36,
           -40},{36,10},{70,10}}, color={255,0,255}));

@@ -56,24 +56,6 @@ record HeatPumpSafetyControlBaseDataDefinition
       Dialog(group="OnOffControl", descriptionLabel=true),
       choices(checkBox=true));
 
-  parameter Boolean use_deFro
-    "True if defrost control should be enabled(only air-source HPs)"
-    annotation (Dialog(group="Defrost"), choices(checkBox=true));
-  parameter Real minIceFac "Minimal value above which no defrost is necessary"
-    annotation (Dialog(group="Defrost", enable=use_deFro));
-  parameter Real deltaIceFac = 0.1
-    "Bandwitdth for hystereses. 
-    If the icing factor is based on the duration of defrost, 
-    this value is necessary to avoid state-events"
-    annotation (Dialog(group="Defrost", enable=use_deFro));
-  parameter Boolean use_chiller=true
-    "True if defrost operates by changing mode to cooling. 
-    False to use an electrical heater"
-    annotation (Dialog(group="Defrost", enable=use_deFro),
-                                        choices(checkBox=true));
-  parameter Modelica.Units.SI.Power calcPel_deFro
-    "Calculate how much eletrical energy is used to melt ice"
-    annotation (Dialog(enable=not use_chiller and use_deFro, group="Defrost"));
   parameter Boolean use_antFre
     "True if anti freeze control is part of safety control"
     annotation (Dialog(group="Anti Freeze Control"), choices(checkBox=true));

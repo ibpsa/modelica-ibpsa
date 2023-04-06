@@ -59,26 +59,28 @@ block DefrostControl
         rotation=0,
         origin={-29.5,-29.5})));
   Modelica.Blocks.Logical.LogicalSwitch logicalSwitch
-    "If a chiller is used to defrost, revSet will be false"
+    "If a chiller is used to defrost, maiModOut will be false"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Modelica.Blocks.Sources.BooleanConstant conFalseNotUseChi(final k=true)
                                                                        if not
     use_chiller "Just to omit warnings"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Sources.BooleanConstant conTrueUseChi(final k=not use_chiller)
- if use_chiller "Set revSet to false to simulate the defrost cycle"
+ if use_chiller "Set maiModOut to false to simulate the defrost cycle"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Interfaces.BooleanInput revSet "Set value of operation mode"
-    annotation (Placement(transformation(extent={{-132,-36},{-100,-4}}),
-        iconTransformation(extent={{-132,-36},{-100,-4}})));
-  Modelica.Blocks.Interfaces.BooleanOutput revOut
-    "Set value of operation mode" annotation (Placement(transformation(extent={{100,-32},
-            {124,-8}}),          iconTransformation(extent={{100,-34},{120,-14}})));
+  Modelica.Blocks.Interfaces.BooleanInput maiModSet
+    "Set value of main operation mode" annotation (Placement(transformation(
+          extent={{-152,-36},{-120,-4}}), iconTransformation(extent={{-152,-36},
+            {-120,-4}})));
+  Modelica.Blocks.Interfaces.BooleanOutput maiModOut
+    "Set value of main operation mode" annotation (Placement(transformation(
+          extent={{120,-32},{144,-8}}), iconTransformation(extent={{100,-34},{120,
+            -14}})));
 equation
-  connect(ySet, swiErr.u1) annotation (Line(points={{-116,20},{74,20},{74,8},{78,
+  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{74,20},{74,8},{78,
           8}}, color={0,0,127}));
   connect(sigBus.iceFacMea, iceFacGreMinHea.u) annotation (Line(
-      points={{-105,-71},{-82.8,-71},{-82.8,-69.5},{-42.1,-69.5}},
+      points={{-125,-71},{-82.8,-71},{-82.8,-69.5},{-42.1,-69.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -102,7 +104,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus.iceFacMea, iceFacGreMinChi.u) annotation (Line(
-      points={{-105,-71},{-50,-71},{-50,-29.5},{-42.1,-29.5}},
+      points={{-125,-71},{-50,-71},{-50,-29.5},{-42.1,-29.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -128,10 +130,10 @@ equation
       pattern=LinePattern.Dash));
   connect(booPasThr.y, logicalSwitch.u2) annotation (Line(points={{61,0},{66,0},
           {66,-50},{78,-50}}, color={255,0,255}));
-  connect(logicalSwitch.u1, revSet) annotation (Line(points={{78,-42},{-78,-42},
-          {-78,-20},{-116,-20}}, color={255,0,255}));
-  connect(logicalSwitch.y, revOut) annotation (Line(points={{101,-50},{110,-50},
-          {110,-30},{92,-30},{92,-20},{112,-20}}, color={255,0,255}));
+  connect(logicalSwitch.u1, maiModSet) annotation (Line(points={{78,-42},{72,-42},
+          {72,-44},{-114,-44},{-114,-20},{-136,-20}}, color={255,0,255}));
+  connect(logicalSwitch.y, maiModOut) annotation (Line(points={{101,-50},{114,-50},
+          {114,-20},{132,-20}}, color={255,0,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -212,22 +214,9 @@ equation
           rotation=90)}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
-    Documentation(info="<html><p>
-  Basic model for a defrost control. The icing factor is calculated in
-  the heat pump based on functions or other models.
-</p>
-<p>
-  If a given lower boundary is surpassed, the mode of the heat pump
-  will be set to false (eq. Chilling) and the compressor speed is set to
-  1 to make the defrost process as fast as possible.
-</p>
-<ul>
-  <li>
-    <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-  </li>
-</ul>
+    Documentation(info="<html>
+<p>Basic model for a defrost control. The icing factor is calculated in the heat pump based on functions or other models. </p>
+<p>If a given lower boundary is surpassed, the mode of the heat pump will be set to false (eq. Chilling) and the compressor speed is set to 1 to make the defrost process as fast as possible. </p>
 </html>", revisions="<html><ul>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
