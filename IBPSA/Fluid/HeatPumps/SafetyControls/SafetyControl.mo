@@ -194,7 +194,7 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Aggregation of the four main safety measurements of a vapour compression machine (heat pump or chiller). </p>
+<p>Aggregation of the four main safety measurements of a refrigerant machine (heat pump or chiller). </p>
 <p>The order is based on the relevance to the real system. Anti freeze control and mininmal volume flow rate control is put last because of the relevance for the simulation. If the medium temperature falls below or rises above the critical value, the simulation will fail. </p>
 <p>All used functions are optional. See the used models for more info on each safety function: </p>
 <ul>

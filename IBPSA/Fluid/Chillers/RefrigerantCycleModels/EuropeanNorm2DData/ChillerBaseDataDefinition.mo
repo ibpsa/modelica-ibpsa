@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData;
 record ChillerBaseDataDefinition "Basic chiller data"
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.VapourCompressionBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition(
      tableQCon_flow=tableQEva_flow);
 
   parameter Real tableQEva_flow[:,:]
@@ -9,8 +9,8 @@ record ChillerBaseDataDefinition "Basic chiller data"
 
   annotation (Documentation(info="<html><p>
   Base data definition extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition\">
-  IBPSA.Fluid.HeatPumps.BlackBoxData.EuropeanNorm2DData.HeatPumpBaseDataDefinition</a>,
+  \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>,
   the parameters documentation is matched for a chiller. As a result,
   <code>tableQdot_eva</code>
   corresponds to the cooling capacity on the evaporator side of the

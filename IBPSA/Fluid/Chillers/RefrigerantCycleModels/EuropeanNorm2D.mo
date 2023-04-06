@@ -6,7 +6,7 @@ model EuropeanNorm2D
     final datSou=datTab.device_id,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
-    QUseBlaBox_flow_nominal=
+    QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tableConID,
         TCon_nominal - 273.15,

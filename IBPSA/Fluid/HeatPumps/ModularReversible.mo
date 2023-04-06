@@ -147,9 +147,9 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Adding to the concept described in <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine</a>, this heat pump model for a reversible, modular heat pump adds safety controls of real devices.</p>
+<p>Adding to the concept described in <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>, this heat pump model for a reversible, modular heat pump adds safety controls of real devices.</p>
 <p>As with all options, the safety controls are optional.</p>
-<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>hea<\\code> signal chooses the operation type of the vapour compression machine: </p>
+<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>hea<\\code> signal chooses the operation type of the refrigerant machine: </p>
 <p>hea = true: Main operation mode (heat pump: heating) </p>
 <p>hea = false: Reversible operation mode (heat pump: cooling) </p>
 </html>"));

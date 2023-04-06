@@ -36,11 +36,11 @@ initial equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>To simplify the parametrization of the evaporator and condenser volumes and nominal mass flows there exists an option of automatic estimation based on the nominal usable power of the vapour compression machine. This function uses a linear correlation of these parameters, which was established from the linear regression of more than 20 data sets of water-to-water heat pumps from different manufacturers (e.g. Carrier, Trane, Lennox) ranging from about 25kW to 1MW nominal power. The linear regressions with coefficients of determination above 91&percnt; give a good approximation of these parameters. Nevertheless, estimates for machines outside the given range should be checked for plausibility during simulation. </p>
+<p>To simplify the parametrization of the evaporator and condenser volumes and nominal mass flows there exists an option of automatic estimation based on the nominal usable power of the refrigerant machine. This function uses a linear correlation of these parameters, which was established from the linear regression of more than 20 data sets of water-to-water heat pumps from different manufacturers (e.g. Carrier, Trane, Lennox) ranging from about 25kW to 1MW nominal power. The linear regressions with coefficients of determination above 91&percnt; give a good approximation of these parameters. Nevertheless, estimates for machines outside the given range should be checked for plausibility during simulation. </p>
 </html>", revisions="<html><ul>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>
-    Moved from PartialVapourCompressioMachine based on the discussion in this issue <a href=
+    Moved from PartialReversibleRefrigerantMachine based on the discussion in this issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li>
 </ul>

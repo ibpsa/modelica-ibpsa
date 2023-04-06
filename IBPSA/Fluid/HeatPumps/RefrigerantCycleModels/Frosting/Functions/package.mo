@@ -12,8 +12,8 @@ annotation (Documentation(revisions="<html><ul>
 <p>
   This package contains functions for calculation of an icing factor
   used in <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.FunctionalApproach\">
-  IBPSA.Fluid.HeatPumps.BlackBoxData.Frosting.FunctionalApproach</a>.
+  \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach</a>.
 </p>
 </html>"));
 end Functions;

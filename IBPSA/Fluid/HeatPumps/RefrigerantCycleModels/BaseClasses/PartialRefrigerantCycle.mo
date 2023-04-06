@@ -117,7 +117,7 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the <code>sigBus</code> for a vapour compression machine.</p>
+<p>Partial model for calculation of electrical power <code>P_el</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the <code>sigBus</code> for a refrigerant machine.</p>
 <p>To simulate possible icing of the evaporator on air-source devices, the icing factor is used to influence the output as well. </p>
 <p>As the factor resembles the reduction of heat transfer between refrigerant and source, the factor is implemented as follows: </p>
 <p><code>QEva = iceFac * (QCon-P_el)</code> </p>

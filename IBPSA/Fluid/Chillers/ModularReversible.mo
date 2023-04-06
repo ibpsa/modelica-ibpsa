@@ -145,10 +145,10 @@ equation
 </html>", info="<html>
 <p>Model of a reversible, modular chiller.</p>
 <p><br>See the documentation of 
-<a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine\">
-IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleVapourCompressionMachine</a> 
+<a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
+IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> 
 for information on the concept.</p>
-<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>coo<\\code> signal chooses the operation type of the vapour compression machine: </p>
+<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>coo<\\code> signal chooses the operation type of the refrigerant machine: </p>
 <p>coo = true: Main operation mode (chiller: cooling) </p>
 <p>coo = false: Reversible operation mode (chiller: heating) </p>
 </html>"));

@@ -25,7 +25,7 @@ annotation (Icon(graphics={
 </html>", info="<html>
 <p>
   This package contains base classes for the package <a href=
-  \"IBPSA.Fluid.Chillers.BlackBoxData\">IBPSA.Fluid.Chillers.BlackBoxData</a>.
+  \"IBPSA.Fluid.Chillers.RefrigerantCycleModels\">IBPSA.Fluid.Chillers.RefrigerantCycleModels</a>.
 </p>
 </html>"));
 end BaseClasses;

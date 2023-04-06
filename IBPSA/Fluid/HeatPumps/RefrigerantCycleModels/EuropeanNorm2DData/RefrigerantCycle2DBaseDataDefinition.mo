@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData;
 record RefrigerantCycle2DBaseDataDefinition
-  "Basic data for vapour compression machine according to EN 14511"
+  "Basic data for refrigerant machine according to EN 14511"
     extends Modelica.Icons.Record;
   parameter Real tableQCon_flow[:,:]
     "Heating power table; T in degC; Q_flow in W";

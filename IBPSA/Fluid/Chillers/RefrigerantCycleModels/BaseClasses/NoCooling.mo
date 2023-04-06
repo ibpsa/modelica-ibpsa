@@ -6,7 +6,7 @@ model NoCooling
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
       iceFacCal,
     datSou="",
-    QUseBlaBox_flow_nominal=0,
+    QUseNoSca_flow_nominal=0,
     scaFac=0,
     y_nominal=0,
     mEva_flow_nominal=1,

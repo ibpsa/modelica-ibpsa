@@ -44,13 +44,13 @@ partial model PartialCarnot
   Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from bus"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Math.Add addTVapCycNotUse(k1=+1, k2=+1)
-    "Vapour compression cycle temperatur of not useful side " annotation (
+    "Refrigerant cycle temperatur of not useful side " annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,70})));
   Modelica.Blocks.Math.Add addTVapCycUse(k1=+1, k2=+1)
-    "Vapour compression cycle temperatur of useful side " annotation (Placement(
+    "Refrigerant cycle temperatur of useful side " annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

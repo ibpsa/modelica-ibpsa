@@ -29,8 +29,7 @@ partial model PartialHeatPumpValidation
   IBPSA.Fluid.HeatPumps.ModularReversible heaPum(
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
-    QUse_flow_nominal=heaPum.vapComCyc.blaBoxHeaPumHea.QUseBlaBox_flow_nominal,
-
+    QUse_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QUseNoSca_flow_nominal,
     y_nominal=1,
     final use_internalSafetyControl=false,
     final use_busConnectorOnly=false,
@@ -54,7 +53,7 @@ partial model PartialHeatPumpValidation
     use_evaCap=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TCon_start=303.15,
-    redeclare model BlackBoxHeatPumpCooling =
+    redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling)
     "Heat pump" annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
@@ -116,8 +115,7 @@ partial model PartialHeatPumpValidation
   Modelica.Blocks.Interfaces.RealOutput TEvaOutSim(unit="K", displayUnit="degC")
     "Simulated evaporator outlet"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Interfaces.VapourCompressionMachineControlBus sigBus
-    "Signal bus of heat pump"
+  Interfaces.RefrigerantMachineControlBus sigBus "Signal bus of heat pump"
     annotation (Placement(transformation(extent={{0,50},{40,90}}),
         iconTransformation(extent={{0,50},{40,90}})));
 equation

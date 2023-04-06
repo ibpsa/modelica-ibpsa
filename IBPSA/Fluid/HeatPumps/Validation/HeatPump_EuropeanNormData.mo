@@ -3,13 +3,13 @@ model HeatPump_EuropeanNormData
   extends BaseClasses.PartialHeatPumpValidation(heaPum(
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
-      redeclare model VapourCompressionCycleInertia =
+      redeclare model RefrigerantCycleInertia =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
           (
           refIneFre_constant=refIneFre_constant,
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
-      redeclare model BlackBoxHeatPumpHeating =
+      redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (datTab=
               IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
               tableQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],

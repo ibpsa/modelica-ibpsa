@@ -8,10 +8,10 @@ partial block PartialSafetyControl "Safety control with I/O"
     "Relative speed of compressor. From 0 to 1"
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
         iconTransformation(extent={{120,10},{140,30}})));
-  Interfaces.VapourCompressionMachineControlBus sigBus
-    "Bus-connector for the heat pump"
-    annotation (Placement(transformation(extent={{-142,-86},{-108,-56}}),
-        iconTransformation(extent={{-142,-86},{-108,-56}})));
+  Interfaces.RefrigerantMachineControlBus sigBus
+    "Bus-connector for the heat pump" annotation (Placement(transformation(
+          extent={{-142,-86},{-108,-56}}), iconTransformation(extent={{-142,-86},
+            {-108,-56}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),      graphics={
                                 Rectangle(

@@ -203,7 +203,7 @@ calculate the three relevant values <code>P_el</code>, <code>QCon</code> and
 between the black-box model of the chiller and the heat pump. </p>
  <p>The user can choose between different types of black-box model or implement 
  a new black-box model by extending from 
- <a href=\"modelica://IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox\">
- IBPSA.Fluid.Chillers.BlackBoxData.BaseClasses.PartialChillerBlackBox</a>. </p>
+ <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle\">
+ IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle</a>. </p>
 </html>"));
 end ChillerRefrigerantCycle;

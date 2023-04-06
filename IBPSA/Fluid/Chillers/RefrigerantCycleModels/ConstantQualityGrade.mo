@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.RefrigerantCycleModels;
 model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
   extends
     IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
-      QUseBlaBox_flow_nominal=QUse_flow_nominal, datSou=
+      QUseNoSca_flow_nominal=QUse_flow_nominal, datSou=
         "ConstantQualityGradeCarnot");
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialCarnot(
