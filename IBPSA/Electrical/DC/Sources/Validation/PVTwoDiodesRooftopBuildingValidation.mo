@@ -1,6 +1,6 @@
 ﻿within IBPSA.Electrical.DC.Sources.Validation;
 model PVTwoDiodesRooftopBuildingValidation
-  "Validation with empirical data from NIST for the date of June 14th 2016"
+  "Validation with empirical data from a rooftop PV system in at UdK, Berlin"
   extends Modelica.Icons.Example;
   IBPSA.Electrical.DC.Sources.PVTwoDiodes pVSystemTwoDiodes(
     til=0.05235987755983,
@@ -112,12 +112,12 @@ model PVTwoDiodesRooftopBuildingValidation
     tableName="ROF_outside_temp_2023",
     fileName=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023.txt"),
-
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=(31 + 28 + 15)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{48,-56},{56,-48}})));
+
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
   //Rooftop building data does not contain this measurement so far. Work in progress
@@ -256,15 +256,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
-            100,100}}),                                  graphics={
-                                                               Text(
-          extent={{-92,102},{-34,68}},
-          lineColor={28,108,200},
-          horizontalAlignment=TextAlignment.Left,
-          textString="1 - Air temperature in °C
-2 - Wind speed in m/s
-3 - Global horizontal irradiance in W/m2
-4 - Ouput power in W")}),
+            100,100}})),
     experiment(
       StartTime=6393610,
       StopTime=6480010,
