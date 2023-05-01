@@ -48,7 +48,11 @@ equation
     annotation (Line(points={{-40,-10},{0,-10}}, color={0,127,255}));
   connect(mov.port_b, bou2.ports[1])
     annotation (Line(points={{20,-10},{60,-10}}, color={0,127,255}));
-  annotation (Documentation(info="
+  annotation (experiment(Tolerance=1e-6, StopTime=1),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/PressureCurve.mos"
+        "Simulate and plot"),
+        Documentation(info="
 <html>
 <p>
 This model validates the pressure curve provided to the mover.
