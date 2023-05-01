@@ -22,6 +22,7 @@ regNonZeroPower
 regStep
 smoothExponential
 smoothHeaviside
+smoothInterpolation
 smoothLimit
 smoothMax
 smoothMin
