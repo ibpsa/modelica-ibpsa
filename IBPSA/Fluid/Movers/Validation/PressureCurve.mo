@@ -55,7 +55,8 @@ equation
         Documentation(info="
 <html>
 <p>
-This model validates the pressure curve provided to the mover.
+This model validates the pressure curve that is specified in the instance <code>per</code>
+and provided to the mover.
 </p>
 </html>", revisions="<html>
 <ul>
