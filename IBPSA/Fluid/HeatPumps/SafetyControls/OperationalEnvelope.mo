@@ -65,10 +65,7 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  Model for checking if the given condenser return temperature and
-  evaporator inlet temperature are in the given boundaries. If not, the
-  heat pump will switch off.
-</p>
+<p>Model to check if the condenser return temperature and evaporator inlet temperature are inside the given boundaries. If not, the heat pump will switch off. </p>
+<p>This safety control is mainly based on the operational envelope of the compressor. Refrigerant flowsheet and type will influence these values.</p>
 </html>"));
 end OperationalEnvelope;

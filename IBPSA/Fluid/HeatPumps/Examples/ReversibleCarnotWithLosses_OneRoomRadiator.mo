@@ -67,5 +67,9 @@ equation
       StartTime=0,
       StopTime=86400,
       Tolerance=1e-08,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    Documentation(info="<html>
+<p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a> heat pump model. </p>
+<p>Please check the documentation of <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a> for further information on the example.</p>
+</html>"));
 end ReversibleCarnotWithLosses_OneRoomRadiator;

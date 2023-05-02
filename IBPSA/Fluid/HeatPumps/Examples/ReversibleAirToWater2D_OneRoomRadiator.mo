@@ -40,8 +40,8 @@ equation
   connect(revCarWitLosHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,
           -142},{60,-142},{60,-30}}, color={0,127,255}));
   connect(oneRooRadHeaPumCtrl.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
-        points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}}, color
-        ={0,0,127}));
+        points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}}, color=
+         {0,0,127}));
   connect(revCarWitLosHeaPum.hea, oneRooRadHeaPumCtrl.hea) annotation (Line(
         points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-80},{-14,-80},{-14,
           -86},{-134,-86},{-134,-76},{-139,-76}}, color={255,0,255}));
@@ -53,5 +53,9 @@ equation
       StartTime=0,
       StopTime=86400,
       Tolerance=1e-08,
-      __Dymola_Algorithm="Dassl"));
+      __Dymola_Algorithm="Dassl"),
+    Documentation(info="<html>
+<p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a> heat pump model. </p>
+<p>Please check the documentation of <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a> for further information on the example.</p>
+</html>"));
 end ReversibleAirToWater2D_OneRoomRadiator;

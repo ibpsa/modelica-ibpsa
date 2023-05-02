@@ -147,10 +147,22 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Adding to the concept described in <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>, this heat pump model for a reversible, modular heat pump adds safety controls of real devices.</p>
-<p>As with all options, the safety controls are optional.</p>
-<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>hea<\\code> signal chooses the operation type of the refrigerant machine: </p>
-<p>hea = true: Main operation mode (heat pump: heating) </p>
-<p>hea = false: Reversible operation mode (heat pump: cooling) </p>
+<p>Model of a reversible, modular heat pump. You can combine any of the avaiable model approaches for refrigerant for heating and cooling, add inertias, heat losses, and safety controls. All features are optional.</p>
+<p>See the documentation of <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> for information on the concept.</p>
+<p><br>Adding to the partial concept, this model adds the <code>hea</code> signal chooses the operation type of the refrigerant machine: </p>
+<ul>
+<li><code>hea</code> = true: Main operation mode (heat pump: heating) </li>
+<li><code>hea</code> = false: Reversible operation mode (heat pump: cooling) </li>
+</ul>
+<p>For guidance on how to use this model, please check pre-configured approaches here:</p>
+<ul>
+<li><a href=\"IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater\">IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater</a></li>
+<li><a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a></li>
+<li><a href=\"IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a></li>
+</ul>
+<h4>References</h4>
+<ul>
+<li>F. Wuellhorst et al., A Modular Model of Reversible Heat Pumps and Chillers for System Applications, https://doi.org/10.3384/ecp21181561</li>
+</ul>
 </html>"));
 end ModularReversible;

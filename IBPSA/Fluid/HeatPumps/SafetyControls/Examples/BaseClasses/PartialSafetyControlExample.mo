@@ -12,6 +12,12 @@ partial model PartialSafetyControlExample
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={10,-50})));
+  Modelica.Blocks.Interfaces.RealOutput ySet
+    "Relative speed of compressor. From 0 to 1"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput yOut
+    "Relative speed of compressor applied after safety control"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 equation
   connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-1,-50},{-26,-50},
     {-26, -52},{-50,-52}}, color={255,0,255}), Text(

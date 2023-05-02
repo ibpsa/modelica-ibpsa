@@ -12,9 +12,7 @@ record NibeFighter1140_15 "Nibe Fighter 1140-15"
     tableUppBou=[-35,65; 50,65]);
 
   annotation (Documentation(info="<html>
-  <p>Brine-to-water heat pump according to: 
-  <a href=\"https://www.nibe.lv/nibedocuments/10153/031094-4.pdf\">
-  https://www.nibe.lv/nibedocuments/10153/031094-4.pdf</a></p>
+<p>Brine-to-water heat pump according to</p>
 </html>", revisions="<html>
 <ul>
   <li>

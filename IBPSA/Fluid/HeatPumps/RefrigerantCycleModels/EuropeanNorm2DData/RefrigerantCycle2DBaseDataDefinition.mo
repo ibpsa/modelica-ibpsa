@@ -10,18 +10,12 @@ record RefrigerantCycle2DBaseDataDefinition
     "Nominal mass flow rate in condenser";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in evaporator";
-  parameter Real tableUppBou[:,2]
-    "Points to define upper boundary for sink temperature";
   parameter String device_id "Name of the device";
   annotation (Documentation(info="<html>
-<p><b>Overview</b></p>
-<p>Base data definition used in the heat pump model. It defines the table 
-<code>table_Qdot_Co</code> which gives the condenser heat flow rate and 
-<code>table_Pel</code> which gives the electric power consumption of 
-the heat pump. Both tables define the power values depending on the evaporator 
-inlet temperature (defined in first row) and the condenser outlet temperature 
-(defined in first column) in W. The nominal mass flow rate in the condenser 
-and evaporator are also defined as parameters. </p>
+<h4>Overview</h4>
+<p>Base data definition used in the heat pump model. It defines the table <span style=\"font-family: Courier New;\">table_QCon_flow</span> which gives the condenser heat flow rate and <span style=\"font-family: Courier New;\">table_Pel</span> which gives the electric power consumption of the heat pump. </p>
+<p>Both tables define the power values depending on the evaporator inlet temperature (defined in first row) and the condenser outlet temperature (defined in first column) in W. The nominal mass flow rate in the condenser and evaporator are also defined as parameters.</p>
+<p>The device_id ensures that if data for heating and cooling are required, matching data is used.</p>
 </html>",
         revisions="<html><ul>
   <li>

@@ -68,10 +68,12 @@ equation
   connect(modRevHeaPump.hea, oneRooRadHeaPumCtrl.hea) annotation (Line(points={
           {21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},
           {-139,-76}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtrl.ySet, modRevHeaPump.ySet) annotation (Line(points
-        ={{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
+  connect(oneRooRadHeaPumCtrl.ySet, modRevHeaPump.ySet) annotation (Line(points=
+         {{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">ModularReversible</a> heat pump model directly. </p>
+<p>Correct replacement of the replaceable submodels and, thus, flexible aggregation to a new model approach is demonstrated.</p>
+<p>Please check the documentation of <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a> for further information on the example.</p>
 </html>"),
    __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ModularReversible_OneRoomRadiator.mos"

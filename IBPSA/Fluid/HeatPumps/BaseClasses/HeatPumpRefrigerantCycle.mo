@@ -207,5 +207,8 @@ equation
   </li>
 </ul>
 </html>", info="<html>
+<p>Modular refrigerant cycle model for heat pump applications used in the model <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">IBPSA.Fluid.HeatPumps.ModularReversible</a> and extending models of the modular approach.</p>
+<p>This model adds the replaceable model approaches for heating and cooling data. </p>
+<p>Further, an asseration warns if the data-sources or model approaches differ for heating and cooling.</p>
 </html>"));
 end HeatPumpRefrigerantCycle;

@@ -143,13 +143,21 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Model of a reversible, modular chiller.</p>
-<p><br>See the documentation of 
-<a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
-IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> 
-for information on the concept.</p>
-<p><br>Using a signal bus as a connector, all relevant data is aggregated. In order to control both chillers and heat pumps, both flow and return temperature are aggregated. The <code>coo<\\code> signal chooses the operation type of the refrigerant machine: </p>
-<p>coo = true: Main operation mode (chiller: cooling) </p>
-<p>coo = false: Reversible operation mode (chiller: heating) </p>
+<p>Model of a reversible, modular chiller. You can combine any of the avaiable model approaches for refrigerant for heating and cooling, add inertias, heat losses, and safety controls. All features are optional.</p>
+<p>See the documentation of <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> for information on the concept.</p>
+<p><br>Adding to the partial concept, this model adds the <span style=\"font-family: Courier New;\">coo</span> signal chooses the operation type of the refrigerant machine: </p>
+<ul>
+<li><span style=\"font-family: Courier New;\">coo</span> = true: Main operation mode (chiller: cooling) </li>
+<li><span style=\"font-family: Courier New;\">coo</span> = false: Reversible operation mode (chiller: heating) </li>
+</ul>
+<p>For guidance on how to use this model, please check pre-configured approaches here:</p>
+<ul>
+<li><a href=\"IBPSA.Fluid.Chillers.LargeScaleWaterToWater\">IBPSA.Fluid.Chillers.LargeScaleWaterToWater</a></li>
+<li><a href=\"IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses\">IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses</a></li>
+</ul>
+<h4>References</h4>
+<ul>
+<li>F. Wuellhorst et al., A Modular Model of Reversible Heat Pumps and Chillers for System Applications, https://doi.org/10.3384/ecp21181561</li>
+</ul>
 </html>"));
 end ModularReversible;

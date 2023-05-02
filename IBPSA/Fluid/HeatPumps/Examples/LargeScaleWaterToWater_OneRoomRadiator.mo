@@ -50,7 +50,7 @@ equation
   annotation (Documentation(info="<html>
 <p>This example demonstrates the usage of the model <a href=\"IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater\">IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater</a>.</p>
 <p>Contrary to the other models, parameters for heat exchanger inertia (tau) and mass flow rates are calculated automatically based on the heat demand.</p>
-<p>Further, this example demonstrates the warnings which are raised, if the table data boundary conditions (e.g. mEva_flow_nominal) deviates from the parameter in use.</p>
+<p>Furthermore, this example demonstrates the warnings which are raised if the table data boundary conditions (e.g. mEva_flow_nominal) deviates from the parameter in use.</p>
 <p>To fix this issue, the user has to either</p>
 <p>1. Check the assumption of using a different mass flow rate</p>
 <p>2. Adjust the mass flow rates in the hydraulic system. If the deviation is too big, the system would not work in reality anyways.</p>

@@ -215,8 +215,8 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     Documentation(info="<html>
-<p>Basic model for a defrost control. The icing factor is calculated in the heat pump based on functions or other models. </p>
-<p>If a given lower boundary is surpassed, the mode of the heat pump will be set to false (eq. Chilling) and the compressor speed is set to 1 to make the defrost process as fast as possible. </p>
+<p>Simple example of a defrost controller. The icing factor is calculated in the heat pump based on functions or other models. </p>
+<p>If a given lower boundary is surpassed, the mode of the heat pump will be set to false (eq. Chilling) and the compressor speed is set to 1 to realize the defrost process as fast as possible. </p>
 </html>", revisions="<html><ul>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>

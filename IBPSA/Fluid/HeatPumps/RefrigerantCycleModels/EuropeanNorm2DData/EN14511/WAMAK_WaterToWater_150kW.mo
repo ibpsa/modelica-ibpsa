@@ -28,4 +28,7 @@ record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
         85080,87230,89450,91740,94090,96520,99010,101590,104240,106970,109780,
         112670,115650,118710,121870,125110,128450,131890],
     device_id="WAMAK_WaterToWaterr_150kW");
+  annotation (Documentation(info="<html>
+<p>Data for large scale (150 kW) water-to-water heat pump from WAMAK with </p>
+</html>"));
 end WAMAK_WaterToWater_150kW;

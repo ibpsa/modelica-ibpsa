@@ -36,7 +36,9 @@ model LargeScaleWaterToWater
          "Data Table of HP" annotation (choicesAllMatching=true);
   annotation (Documentation(info="<html>
 <p>Model using parameters for a large scale water-to-water heat pump. </p>
-<p>Parameters are based on an automatic estimation, see: <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a></p>
+<p>Parameters are based on an automatic estimation, see: <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a>.</p>
+<p>Currently the only data sheets for heat pumps that large is the record <a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>, hence, the default value.</p>
+<p>But you are free to insert custom data based on the heat pump you want to analyze in your simulations.</p>
 </html>", revisions="<html><ul>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>

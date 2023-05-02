@@ -194,16 +194,8 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This model represents the refrigerant cycle of a chiller. 
-Used in <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">IBPSA.Fluid.Chillers.ModularReversible</a>, 
-this model serves the simulation of a 
-reversible chiller. Thus, data both of chillers and heat pumps can be used to
-calculate the three relevant values <code>P_el</code>, <code>QCon</code> and 
-<code>QEva</code>. The boolean <code>coo</code> of the chiller is used to switch
-between the model of the chiller and the heat pump. </p>
- <p>The user can choose between different types of models or implement 
- a new model by extending from 
- <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle\">
- IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle</a>. </p>
+<p>Modular refrigerant cycle model for chiller applications used in the model <a href=\"IBPSA.Fluid.Chillers.ModularReversible\">IBPSA.Fluid.Chillers.ModularReversible</a> and extending models of the modular approach.</p>
+<p>This model adds the replaceable model approaches for cooling and heating data. </p>
+<p>Further, an asseration warns if the data-sources or model approaches differ for cooling and heating.</p>
 </html>"));
 end ChillerRefrigerantCycle;

@@ -59,9 +59,6 @@ equation
 </html>", info="<html>
 <p>This model uses a constant quality grade approach to model the efficiency of the chiller.</p>
 <p>According to the defined <span style=\"font-family: Courier New;\">QUse_flow_nominal</span>, the chiller supplies its cold. </p>
-<p>The following equations are used:</p>
-<p><br><br><img src=\"modelica://IBPSA/Resources/Images/equations/equation-kDbLGklc.png\" alt=\"Q_Con = P_elNominal * eta_QualityGrade * y_Set * T_ConOutMea / (T_ConOutMea - T_EvaInMea)\"/></p>
-<p><img src=\"modelica://IBPSA/Resources/Images/equations/equation-d0dh1QDk.png\" alt=\"P_elNominal = Q_UseNominal / (eta_QualityGrade * T_ConNominal * y_nominal ) * (T_ConNominal - T_EvaNominal)\"/></p>
 </html>"), Icon(graphics={Text(
           extent={{-78,68},{74,-78}},
           textColor={0,0,127},

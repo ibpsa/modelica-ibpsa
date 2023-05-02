@@ -38,7 +38,8 @@ block SafetyControl "Block including all safety levels"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze antFre(final TAntFre=
-        safCtrlPar.TAntFre) if safCtrlPar.use_antFre
+        safCtrlPar.TAntFre, final dTHys=safCtrlPar.dTHysAntFre)
+                            if safCtrlPar.use_antFre
     "Block for anti freezing in simulation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Interfaces.IntegerOutput opeEnvErr if safCtrlPar.use_opeEnv

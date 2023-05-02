@@ -61,6 +61,9 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   parameter Modelica.Units.SI.ThermodynamicTemperature TAntFre
     "Limit temperature for anti freeze control"
     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
+  parameter Real dTHysAntFre
+    "Hysteresis interval width for anti freeze control"
+    annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
   parameter Boolean use_minFlowCtrl
     "=false to disable minimal mass flow rate requirements"
     annotation (choices(checkBox=true), Dialog(group="Mass flow rates"));
@@ -70,11 +73,13 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   parameter Real m_flowConMinPer
     "Percentage of mass flow rate in condenser required to operate the device"
     annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
-  annotation (
+     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre),
+                Dialog(group="Anti Freeze Control", enable=use_antFre),
     Icon(graphics, coordinateSystem(preserveAspectRatio=false)),
      Diagram(graphics, coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Base data definitions with parameters relevant for safety control.</p>
+<p>Base data definitions with parameters relevant for safety control of refrigerant machines. </p>
+<p>Typically, datasheets of manufacturers provide specific values for these assumptions. </p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
