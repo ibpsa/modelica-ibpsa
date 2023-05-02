@@ -643,7 +643,7 @@ equation
 <p>Possible icing of the evaporator is modelled with an input value between 0 and 1. </p>
 <p>The model structure is as follows. To understand each submodel, please have a look at the corresponding model information: </p>
 <ol>
-<li><a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle</a> (Black-Box): Here, users can use between several input models or just easily create their own, modular black-box model. Please look at the model description for more info. </li>
+<li><a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle</a>: Here, users can use between several input models or just easily create their own, modular black-box model. Please look at the model description for more info. </li>
 <li><a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias</a>: An n-order element may be used (or other SISO models) model system inertias (mass and thermal) of components inside the refrigerant cycle (compressor, pipes, expansion valve) </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>: This new model also enable modelling of thermal interias and heat losses in a heat exchanger. Please look at the model description for more info. </li>
 </ol>

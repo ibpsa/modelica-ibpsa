@@ -16,8 +16,8 @@ partial model PartialOneRoomRadiator
   parameter Modelica.Units.SI.MassFlowRate mHeaPum_flow_nominal=Q_flow_nominal/
       4200/5 "Heat pump nominal mass flow rate";
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
-  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=V*1.2*6/3600
-    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mAirRoo_flow_nominal=V*1.2*6/3600
+    "Nominal mass flow rate of room air";
   parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=Q_flow_nominal/5
     "Internal heat gains of the room";
   parameter Boolean witCoo=true "=true to simulate cooling behaviour";
@@ -26,9 +26,8 @@ partial model PartialOneRoomRadiator
   IBPSA.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mA_flow_nominal,
-    V=V)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    m_flow_nominal=mAirRoo_flow_nominal,
+    V=V) annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=
         Q_flow_nominal/40)
     "Thermal conductance with the ambient"
@@ -158,8 +157,8 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,90})));
-  OneRoomRadiatorHeatPumpControl oneRoomRadiatorHeatPumpControl(final witCoo=
-        witCoo)
+  OneRoomRadiatorHeatPumpControl oneRooRadHeaPumCtrl(final witCoo=witCoo)
+    "Control block for single room heat pump control"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
     "Let the pumps always run, due to inertia of the heat pump" annotation (
@@ -242,12 +241,11 @@ equation
           {-136,-140},{-136,-180},{-122,-180}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-143,-140},
           {-134,-140},{-134,-110},{-122,-110}}, color={255,0,255}));
-  connect(oneRoomRadiatorHeatPumpControl.TRadSup, temSup.T) annotation (Line(
-        points={{-162,-77},{-178,-77},{-178,-76},{-198,-76},{-198,-20},{-81,-20}},
-        color={0,0,127}));
-  connect(oneRoomRadiatorHeatPumpControl.TRooMea, temRoo.T) annotation (Line(
-        points={{-162,-70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}},
-        color={0,0,127}));
+  connect(oneRooRadHeaPumCtrl.TRadSup, temSup.T) annotation (Line(points={{-162,
+          -77},{-178,-77},{-178,-76},{-198,-76},{-198,-20},{-81,-20}}, color={0,
+          0,127}));
+  connect(oneRooRadHeaPumCtrl.TRooMea, temRoo.T) annotation (Line(points={{-162,
+          -70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 Example that simulates one room equipped with a radiator. Hot water is produced

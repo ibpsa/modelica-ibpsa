@@ -1,11 +1,8 @@
 within IBPSA.Fluid.HeatPumps.Examples;
 model ModularReversible_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
-  extends BaseClasses.PartialOneRoomRadiator(
-    mA_flow_nominal=V*1.2*6/3600*10,
-    Q_flow_nominal=200000,
-    sin(nPorts=1),
-    booToReaPumEva(realTrue=modRevHeaPump.mEva_flow_nominal));
+  extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
+        realTrue=modRevHeaPump.mEva_flow_nominal));
   ModularReversible modRevHeaPump(
     redeclare package MediumCon = MediumW,
     redeclare package MediumEva = MediumW,
@@ -51,12 +48,6 @@ model ModularReversible_OneRoomRadiator
     "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 
-  Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
-    "Let the pumps always run, due to inertia of the heat pump" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-148,-150})));
   Modelica.Blocks.Sources.Constant temAmbBas(final k=273.15 + 18)
     "Ambient temperature in basement of building" annotation (Placement(
         transformation(
@@ -72,17 +63,13 @@ equation
           -142},{-70,-142},{-70,-120}}, color={0,127,255}));
   connect(modRevHeaPump.port_a1, temRet.port_b) annotation (Line(points={{20,-142},
           {60,-142},{60,-30}}, color={0,127,255}));
-  connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-137,-150},
-          {-128,-150},{-128,-110},{-122,-110}}, color={255,0,255}));
-  connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-137,-150},
-          {-130,-150},{-130,-180},{-122,-180}}, color={255,0,255}));
   connect(temAmbBas.y, modRevHeaPump.TConAmb) annotation (Line(points={{10,-179},
           {10,-162},{-1,-162},{-1,-138}}, color={0,0,127}));
-  connect(modRevHeaPump.hea, oneRoomRadiatorHeatPumpControl.hea) annotation (
-     Line(points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},
-          {-132,-76},{-139,-76}}, color={255,0,255}));
-  connect(oneRoomRadiatorHeatPumpControl.ySet, modRevHeaPump.ySet) annotation (
-      Line(points={{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
+  connect(modRevHeaPump.hea, oneRooRadHeaPumCtrl.hea) annotation (Line(points={
+          {21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},
+          {-139,-76}}, color={255,0,255}));
+  connect(oneRooRadHeaPumCtrl.ySet, modRevHeaPump.ySet) annotation (Line(points
+        ={{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">ModularReversible</a> heat pump model directly. </p>
 </html>"),

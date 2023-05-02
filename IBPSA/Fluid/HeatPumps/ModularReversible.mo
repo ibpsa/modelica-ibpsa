@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps;
 model ModularReversible
-  "Grey-box model for reversible heat pumps using a black-box to simulate the refrigeration cycle"
+  "Grey-box model for reversible heat pumps using performance data or functional approaches to simulate the refrigeration cycle"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
     final scaFac=refCyc.refCycHeaPumHea.scaFac,
@@ -22,7 +22,7 @@ model ModularReversible
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
-  "Black-box data of a heat pump in heating mode"
+  "Model approach of the refrigerant cycle in heating mode"
     annotation (choicesAllMatching=true);
   replaceable model RefrigerantCycleHeatPumpCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
@@ -37,7 +37,7 @@ model ModularReversible
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
-  "Black-box data of a heat pump in cooling operation mode"
+  "Model approach of the refrigerant cycle in cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true) if not

@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers;
 model ModularReversible
-  "Grey-box model for reversible chillers using a black-box to simulate the refrigeration cycle"
+  "Grey-box model for reversible chillers using performance data or functional approaches to simulate the refrigeration cycle"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
     final scaFac=refCyc.refCycChiCoo.scaFac,
@@ -23,7 +23,7 @@ model ModularReversible
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
-  "Black-box model of a chiller in main operation mode"
+  "Model approach of the refrigerant cycle cooling mode"
     annotation (choicesAllMatching=true);
   replaceable model RefrigerantCycleChillerHeating =
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating
@@ -38,7 +38,7 @@ model ModularReversible
        final mCon_flow_nominal=mEva_flow_nominal,
        final mEva_flow_nominal=mCon_flow_nominal,
        final y_nominal=y_nominal)
-  "Black-box model of a chiller in reversible operation mode"
+  "Model approach of the refrigerant cycle in heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   Modelica.Blocks.Interfaces.BooleanInput coo

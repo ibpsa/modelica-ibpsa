@@ -3,7 +3,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
   "Large scale water to water heat pump connected to a simple room model with radiator"
   extends BaseClasses.PartialOneRoomRadiator(
     witCoo=false,
-    mA_flow_nominal=V*1.2*6/3600*10,
+    mAirRoo_flow_nominal=V*1.2*6/3600*10,
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=larScaWatToWatHeaPum.mEva_flow_nominal));
@@ -35,12 +35,6 @@ model LargeScaleWaterToWater_OneRoomRadiator
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW())
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
-  Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
-    "Let the pumps always run, due to inertia of the heat pump" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-148,-150})));
 equation
   connect(larScaWatToWatHeaPum.port_b2, sin.ports[1]) annotation (Line(points={
           {20,-154},{38,-154},{38,-200},{60,-200}}, color={0,127,255}));
@@ -50,13 +44,9 @@ equation
         points={{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
   connect(larScaWatToWatHeaPum.port_a1, temRet.port_b) annotation (Line(points=
           {{20,-142},{60,-142},{60,-30}}, color={0,127,255}));
-  connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-137,-150},
-          {-128,-150},{-128,-110},{-122,-110}}, color={255,0,255}));
-  connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-137,-150},
-          {-130,-150},{-130,-180},{-122,-180}}, color={255,0,255}));
-  connect(oneRoomRadiatorHeatPumpControl.ySet, larScaWatToWatHeaPum.ySet)
-    annotation (Line(points={{-139,-66},{-62,-66},{-62,-76},{21.6,-76},{21.6,
-          -146}}, color={0,0,127}));
+  connect(oneRooRadHeaPumCtrl.ySet, larScaWatToWatHeaPum.ySet) annotation (Line(
+        points={{-139,-66},{-62,-66},{-62,-76},{21.6,-76},{21.6,-146}}, color={
+          0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example demonstrates the usage of the model <a href=\"IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater\">IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater</a>.</p>
 <p>Contrary to the other models, parameters for heat exchanger inertia (tau) and mass flow rates are calculated automatically based on the heat demand.</p>

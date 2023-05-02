@@ -88,9 +88,11 @@ model OneRoomRadiatorHeatPumpControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-42,-90})));
-  Modelica.Blocks.Interfaces.RealInput TRooMea "Room measurement temperature"
+  Modelica.Blocks.Interfaces.RealInput TRooMea(unit="K", displayUnit="degC")
+                                               "Room measurement temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput TRadSup "Radiator supply temperature"
+  Modelica.Blocks.Interfaces.RealInput TRadSup(displayUnit="degC", unit="K")
+                                               "Radiator supply temperature"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealOutput ySet "Heat pump set speed"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
