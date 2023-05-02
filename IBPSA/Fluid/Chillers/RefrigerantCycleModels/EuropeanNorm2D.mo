@@ -173,13 +173,13 @@ equation
 </ul>
 </html>", info="<html>
 <p>This model uses the 2-dimensional table data given in the DIN EN 14511 
-(formerly EN255) to calculate <code>QEva</code> and <code>P_el</code>. </p>
+(formerly EN255) to calculate <code>QEva</code> and <code>PEle</code>. </p>
 <p>To model an inverter controlled chiller, the relative <b>compressor speed 
 <code>ySet</code> is scaled linearly</b> with the ouput of the tables.</p>
 <p>Furthermore, the design of a chiller is modeled via a scaling factor. 
 As a result, the equations follow below: </p>
 <p><code>QEva = ySet * scaFac * tabQEva_flow.y</code> </p>
-<p><code>P_el = n * scaFac * tabPel.y</code> </p>
+<p><code>PEle = n * scaFac * tabPel.y</code> </p>
 <h4>Known Limitations </h4>
 <p>The model is able to disallow extrapolation by holding the last value. 
 If one extrapolates the given perfomance data, warnings about occuring 

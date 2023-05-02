@@ -19,7 +19,7 @@ equation
         fillPattern=FillPattern.Solid)}),
       Documentation(
   info="<html>
-<p>Partial model for calculation of electrical power <code>P_el</code>, 
+<p>Partial model for calculation of electrical power <code>PEle</code>, 
 condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> 
 based on the values in the sigBus for a chiller.</p>
 </html>"));

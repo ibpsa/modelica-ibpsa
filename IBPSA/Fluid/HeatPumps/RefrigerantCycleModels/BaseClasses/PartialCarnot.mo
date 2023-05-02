@@ -36,8 +36,9 @@ partial model PartialCarnot
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={70,50})));
-  Modelica.Blocks.Sources.Constant constPel
-    annotation (Placement(transformation(
+  Modelica.Blocks.Sources.Constant constPEle
+    "Constant electrical power consumption" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,90})));
@@ -62,7 +63,7 @@ partial model PartialCarnot
     "Temperature difference at useful side"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant constZero(final k=0)
-                                             annotation (Placement(
+    "Constant zero value if off"             annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -85,8 +86,8 @@ equation
                                   color={0,0,127}));
   connect(proPEle.y, proQUse_flow.u1) annotation (Line(points={{70,39},{70,38},{
           -34,38},{-34,56},{-44,56},{-44,52}}, color={0,0,127}));
-  connect(proPEle.u1, constPel.y) annotation (Line(points={{76,62},{76,72},{90,72},
-          {90,79}}, color={0,0,127}));
+  connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,72},{90,
+          72},{90,79}}, color={0,0,127}));
   connect(pasThrYSet.y, proPEle.u2)
     annotation (Line(points={{41,70},{64,70},{64,62}}, color={0,0,127}));
   connect(dTAppNotUse.y, addTVapCycNotUse.u2)
