@@ -48,7 +48,7 @@ protected
     extends Modelica.Icons.Function;
     input Medium.ThermodynamicState state1 "Medium state";
     input Medium.ThermodynamicState state2 "Medium state";
-    input Real errAbs=errAbs "Absolute error threshold";
+    input Real errAbs "Absolute error threshold";
     input String message "Message for error reporting";
 
   protected
