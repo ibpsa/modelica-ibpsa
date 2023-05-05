@@ -63,9 +63,8 @@ model PVSingleDiodeRooftopBuildingValidation
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Constant nDay(
-    k=(31 + 29 + 31 + 13)*24*3600)
-    "Number of validation day (June 14th 2016) in seconds"
+  Modelica.Blocks.Sources.Constant nDay(k=(31 + 28 + 31 + 17)*24*3600)
+    "Number of validation day (April 18th 2023) in seconds"
     annotation (Placement(transformation(extent={{-98,-44},{-82,-28}})));
   IBPSA.Utilities.Time.ModelTime modTim
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
@@ -87,40 +86,40 @@ model PVSingleDiodeRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather1(
     tableOnFile=true,
     tableName="ROF-rad_module_temp_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_radiation_module_temperature_2023.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_radiation_module_temperature_2023_V2.txt"),
     columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{42,-32},{50,-24}})));
 
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather2(
     tableOnFile=true,
     tableName="ROF_wind-angle_speed_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_wind-angle_speed_2023.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_wind-angle_speed_2023_V2.txt"),
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{42,-44},{50,-36}})));
 
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather3(
     tableOnFile=true,
     tableName="ROF_outside_temp_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023_V2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{42,-56},{50,-48}})));
 
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_power(
     tableOnFile=true,
     tableName="power_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_P1_1_2_power_2023.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_P1_1_2_power_2023_V2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{78,-36},{90,-24}})));
 
@@ -259,9 +258,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
             100,100}})),
     experiment(
-      StartTime=6393600,
-      StopTime=7084800,
-      Interval=10.000008,
+      StartTime=9244800,
+      StopTime=10105920,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
@@ -269,7 +267,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>The PVSystem single-diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a> </p>
-<p>The dates 16.03.2023 to 23.03.2023 were chosen as an example for the PVSystem model. </p>
+<p>The dates 18.04.2023 to 28.04.2023 were chosen as an example for the PVSystem model. </p>
 <p>The validation model proves that single diode PV models tend to overestimate the power output.</p>
 <p>This is due to the neglection of staining, shading, other loss effects.</p>
 </html>",revisions="<html>

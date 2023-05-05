@@ -15,10 +15,10 @@ model PVTwoDiodesRooftopBuildingValidation
     tableOnFile=true,
     tableName="ROF-rad_module_temp_2023",
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_radiation_module_temperature_2023.txt"),
+        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_radiation_module_temperature_2023_V2.txt"),
     columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{48,-32},{56,-24}})));
 
@@ -58,7 +58,7 @@ model PVTwoDiodesRooftopBuildingValidation
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   BoundaryConditions.WeatherData.BaseClasses.EquationOfTime eqnTim
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Constant nDay(k=(31 + 28 + 15)*24*3600)
+  Modelica.Blocks.Sources.Constant nDay(k=(31 + 28 + 31 + 17)*24*3600)
     "Number of validation day (March 16th 2023) in seconds"
     annotation (Placement(transformation(extent={{-98,-44},{-82,-28}})));
   IBPSA.Utilities.Time.ModelTime modTim
@@ -86,24 +86,26 @@ model PVTwoDiodesRooftopBuildingValidation
     annotation (Placement(transformation(extent={{6,-102},{26,-82}})));
   Modelica.Blocks.Sources.Constant souAlt(k=pVSystemTwoDiodes.alt)
     "Altitude"
-    annotation (Placement(transformation(extent={{-14,56},{2,72}})));
+    annotation (Placement(transformation(extent={{-18,58},{-2,74}})));
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_weather2(
     tableOnFile=true,
     tableName="ROF_wind-angle_speed_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_wind-angle_speed_2023.txt"),
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_wind-angle_speed_2023_V2.txt"),
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{48,-44},{56,-36}})));
 
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_power(
     tableOnFile=true,
     tableName="power_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_P1_1_2_power_2023.txt"),
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_P1_1_2_power_2023_V2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{78,-36},{90,-24}})));
 
@@ -111,10 +113,10 @@ model PVTwoDiodesRooftopBuildingValidation
     tableOnFile=true,
     tableName="ROF_outside_temp_2023",
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023.txt"),
+        "modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023_V2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=(31 + 28 + 15)*86400)
+    shiftTime=(31 + 28 + 31 + 17)*86400)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{48,-56},{56,-48}})));
 
@@ -231,8 +233,8 @@ equation
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(souAlt.y, weaBus.alt) annotation (Line(points={{2.8,64},{10,64},{10,66},
-            {26,66},{26,50}}, color={0,0,127}), Text(
+    connect(souAlt.y, weaBus.alt) annotation (Line(points={{-1.2,66},{26,66},{26,
+          50}},               color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}},
@@ -258,9 +260,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
             100,100}})),
     experiment(
-      StartTime=6393610,
-      StopTime=6480010,
-      Interval=10,
+      StartTime=9244800,
+      StopTime=9331200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
@@ -268,7 +269,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
     <p>The PVSystem 2 diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a> </p>
-<p>The date 16.03.2023 was chosen as an example for the PVSystem model. </p>
+<p>The date 18.04.2023 was chosen as an example for the PVSystem model. </p>
 </html>",revisions="<html>
 <ul>
 <li>
