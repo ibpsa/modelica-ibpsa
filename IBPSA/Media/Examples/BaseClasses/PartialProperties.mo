@@ -103,6 +103,12 @@ This example checks thermophysical properties of the medium.
 revisions="<html>
 <ul>
 <li>
+May 5, 2023 by Hongxiang Fu:<br/>
+Removed a self-dependent input binding in the function <code>checkState</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3384\">#3384</a>.
+</li>
+<li>
 March 24, 2020, by Kathryn Hinkelman:<br/>
 Expand error message for checkState and added absolute error as input.
 </li>
