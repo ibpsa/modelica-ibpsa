@@ -199,7 +199,11 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
-
+<p>
+See <a href=\"modelica://IBPSA.Fluid.Movers.Validation.PressureCurve\">
+IBPSA.Fluid.Movers.Validation.PressureCurve</a>
+for a small example that validates the pressure curve specification.
+</p>
 <h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
