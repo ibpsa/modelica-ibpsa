@@ -10,13 +10,17 @@ partial model PartialVDI6007
   parameter Real wfGro(unit="1")
     "Weight factor of the ground (0 if not considered)";
   parameter Modelica.Units.SI.Temperature TGro
-    "Temperature of the ground in contact with floor plate";
+    "Constant temperature of the ground in contact with floor plate"
+    annotation(Dialog(enable=not TGroundFromInput));
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer hConWallOut
     "Exterior walls convective coefficient of heat transfer (outdoor)";
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer hRad
     "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
     "Set to true to include longwave radiation exchange"
+    annotation(choices(checkBox = true));
+  parameter Boolean TGroundFromInput=false
+    "Set to true to use TGro_in input connector instead of TGro constant"
     annotation(choices(checkBox = true));
 
   Modelica.Units.SI.Temperature TEqWall[n] "Equivalent wall temperature";
@@ -61,6 +65,20 @@ partial model PartialVDI6007
     extent={{-20,-20},{20,20}},
     rotation=-90,
     origin={0,120})));
+  Modelica.Blocks.Interfaces.RealInput TGro_in(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") if TGroundFromInput
+    "Temperature of the ground in contact with floor plate"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
+
+protected
+  Modelica.Units.SI.Temperature TGroundUsed
+  "Used value for temperature of the ground in contact with floor plate";
 
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGro) > 0.1),
@@ -70,6 +88,11 @@ initial equation
    irrelevant.", level=AssertionLevel.warning);
 
 equation
+  if TGroundFromInput then
+    TGroundUsed=TGro_in;
+  else
+    TGroundUsed=TGro;
+  end if;
   delTEqLW=(TBlaSky - TDryBul)*hRad/(hRad + hConWallOut);
   delTEqSW=HSol*aExt/(hRad + hConWallOut);
   if withLongwave then
@@ -119,6 +142,12 @@ equation
   </html>",
   revisions="<html>
   <ul>
+  <li>
+  May 5, 2023, by Philip Groesdonk:<br/>
+  Added an option for non-constant ground temperature from an input connector.
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">#1744</a>.
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaRad</code> to <code>hRad</code>,
