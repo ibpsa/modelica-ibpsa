@@ -181,7 +181,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
           }
           isHeaderLine = 0;
           foundHeader = 1;
-          rules = (TimeDataTuple **)calloc(sizeof(TimeDataTuple *), scheduleID->n_rows_in);
+          rules = (TimeDataTuple**)calloc(sizeof(TimeDataTuple *), scheduleID->n_rows_in);
           if ( rules == NULL)
             ModelicaFormatError("Failed to allocate memory for rules in WeeklySchedule.c.");
 
