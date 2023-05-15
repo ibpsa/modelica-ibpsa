@@ -4,14 +4,18 @@ model Case900
     zon5R1C(hInt=2.74,
       redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas),
     annComBESTEST(
-      EHeaMax=7347600000,
-      EHeaMin=4212000000,
-      ECooMax=-11394000000,
-      ECooMin=-7686000000,
-      PHeaMax=3797,
-      PHeaMin=2850,
-      PCooMax=-3871,
-      PCooMin=-2888),
+      EHeaMax=1.814*3.6e9,
+      EHeaMin=1.379*3.6e9,
+      ECooMax=-2.714*3.6e9,
+      ECooMin=-2.267*3.6e9,
+      PHeaMax=2.778*1000,
+      PHeaMin=2.443*1000,
+      PCooMax=-3.376*1000,
+      PCooMin=-2.556*1000,
+      heaMax=2.28*3.6e9,
+      heaMin=1.04*3.6e9,
+      cooMax=-2.6*3.6e9,
+      cooMin=-2.35*3.6e9),
     daiComBESTEST(table=[0,0,0,0,0,0,0,0; 259200,0,0,0,0,0,0,0; 262800,2440,3100,
           3100,3390,3210,3080,3400; 266400,2610,3200,3240,3540,3350,3200,3550; 270000,
           2620,3200,3280,3560,3380,3280,3570; 273600,2670,3310,3380,3610,3450,3330,
@@ -40,6 +44,11 @@ Case 900 is a heavy-weight building with room temperature control set to <i>20</
 for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south.
 </p>
 </html>", revisions="<html><ul>
+<li>
+Mar 15, 2023, by Jianjun Hu:<br/>
+Updated the maximum and minimum values based on ASHRAE 140-2020.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1750\">issue 1750</a>.
+</li>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.

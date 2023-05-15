@@ -19,7 +19,7 @@ model Case900FF "Test with heavy-weight construction and free floating temperatu
           2.4,1.05,0.82; 338400,4.74,2.85,2.2,1.66,1.9,0.55,0.42; 342000,4.2,2.47,
           1.7,1.26,1.5,0.15,0.05; 345600,3.66,1.9,1.2,0.83,1,-0.24,-0.34; 345600,
           0,0,0,0,0,0,0; 3153600,0,0,0,0,0,0,0]),
-    annComBESTESTFF(TavgMin=297.65));
+    annComBESTESTFF(TavgMin=24.5+273.15, TavgMax=25.7+273.15));
 
  annotation(experiment(Tolerance=1e-6, StopTime=3.1536e+007),
   __Dymola_Commands(file=
@@ -31,6 +31,11 @@ Case 900FF is a heavy-weight building.
 The room temperature is free floating.
 </p>
 </html>", revisions="<html><ul>
+<li>
+Mar 15, 2023, by Jianjun Hu:<br/>
+Updated the maximum and minimum values based on ASHRAE 140-2020.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1750\">issue 1750</a>.
+</li>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
