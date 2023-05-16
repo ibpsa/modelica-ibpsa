@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.SafetyControls;
-block SafetyControl "Block including all safety levels"
+model SafetyControl "Model including all safety levels"
   extends BaseClasses.PartialSafetyControl;
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Minimal mass flow rate in evaporator required to operate the device"

@@ -9,7 +9,8 @@ model ModularReversible
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling,
         redeclare model RefrigerantCycleChillerHeating =
-          RefrigerantCycleChillerHeating));
+          RefrigerantCycleChillerHeating),
+    safetyControl(opeEnv(final forHeaPum=false)));
 
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle

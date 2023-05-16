@@ -3,13 +3,19 @@ record Vitocal200AWO201 "Vitocal200AWO201Chilling"
   extends
     IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition(
     device_id="Vitocal200AWO201",
-    tablePel=[0,20,25,27,30,35; 7,1380.0,1590.0,1680.0,1800.0,1970.0; 18,950.0,
-        1060.0,1130.0,1200.0,1350.0],
-    tableQEva_flow=[0,20,25,27,30,35; 7,2540.0,2440.0,2370.0,2230.0,2170.0; 18,
-        5270.0,5060.0,4920.0,4610.0,4500.0],
+    tablePel=[
+      0,20,25,27,30,35;
+      7,1380.0,1590.0,1680.0,1800.0,1970.0;
+      18,950.0,1060.0,1130.0,1200.0,1350.0],
+    tableQEva_flow=[
+      0,20,25,27,30,35;
+      7,2540.0,2440.0,2370.0,2230.0,2170.0;
+      18, 5270.0,5060.0,4920.0,4610.0,4500.0],
     mCon_flow_nominal=3960/4180/5,
     mEva_flow_nominal=(2250*1.2)/3600,
-    tableUppBou=[20,20; 35,20]);
+    tableLowBou=[20,20; 35,20],
+    use_conOut=true,
+    use_evaOut=false);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),

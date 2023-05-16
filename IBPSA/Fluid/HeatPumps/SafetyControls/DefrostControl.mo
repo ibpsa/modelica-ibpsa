@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.SafetyControls;
-block DefrostControl
-  "Control block to ensure no frost limits heat flow at the evaporator"
+model DefrostControl
+  "Control model to ensure no frost limits heat flow at the evaporator"
   extends
     IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.PartialSafetyControlWithErrors;
   parameter Real minIceFac "Minimal value above which no defrost is necessary";

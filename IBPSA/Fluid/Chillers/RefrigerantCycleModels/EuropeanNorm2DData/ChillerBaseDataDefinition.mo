@@ -6,7 +6,8 @@ record ChillerBaseDataDefinition "Basic chiller data"
 
   parameter Real tableQEva_flow[:,:]
     "Cooling power table; T in degC; Q_flow in W";
-
+  parameter Real tableLowBou[:,2]
+    "Points to define lower boundary for source temperature";
   annotation (Documentation(info="<html><p>
   Base data definition extending from the <a href=
   \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">

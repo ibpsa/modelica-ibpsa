@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
-partial block BoundaryMapIcon "PartialModel for the icon of a boundary map"
+partial model BoundaryMapIcon "Model for the icon of a boundary map"
 
   parameter Boolean use_opeEnvFroRec=true
     "Use a the operational envelope given in the datasheet"
@@ -24,29 +24,30 @@ partial block BoundaryMapIcon "PartialModel for the icon of a boundary map"
   parameter Real icoMax=70 "Used to set the frame where the icon should appear"
     annotation (Dialog(tab="Dynamic Icon"));
 protected
-  parameter Real tabUpp_internal[:,2]=if use_opeEnvFroRec then datTab.tableUppBou
+  parameter Real tabUpp_internal[:,2](each unit="degC")=if use_opeEnvFroRec then datTab.tableUppBou
        else tabUpp;
-  parameter Real xMax=tabUpp_internal[end, 1]
-    "Maximal value of lower and upper table data";
-  parameter Real xMin=tabUpp_internal[1, 1]
-    "Minimal value of lower and upper table data";
-  parameter Real yMax=max(tabUpp_internal[:, 2])
-    "Maximal value of lower and upper table data";
-  parameter Real yMin=0
-    "Minimal value of lower and upper table data";
-  final Real[size(scaX, 1),2] points=transpose({unScaX,unScaY})
+  parameter Real TEvaMax(unit="degC")=tabUpp_internal[end, 1]
+    "Maximal value of evaporator side";
+  parameter Real TEvaMin(unit="degC")=tabUpp_internal[1, 1]
+    "Minimal temperature at evaporator side";
+  parameter Real TConMax(unit="degC")=max(tabUpp_internal[
+      :, 2]) "Maximal temperature of condenser side";
+  parameter Real TConMin(unit="degC")=0
+    "Minimal value of condenser side";
+  final Real[size(scaTEva, 1),2] points=transpose({unScaTEva,unScaTCon})
     annotation (Hide=false);
-  Real tabMer[:,2]=tabUpp_internal;
-  input Real scaX[:]=tabMer[:, 1];
-  input Real scaY[:]=tabMer[:, 2];
-  Real unScaX[size(scaX, 1)](
+  Real scaTEva[:](each unit="degC")=tabUpp_internal[:, 1]
+    "Helper array with only evaporator values";
+  Real scaTCon[:](each unit="degC")=tabUpp_internal[:, 2]
+    "Helper array with only condenser values";
+  Real unScaTEva[size(scaTEva, 1)](
     each min=-100,
-    each max=100) = (scaX - fill(xMin, size(scaX, 1)))*(icoMax - icoMin)/
-    (xMax - xMin) + fill(icoMin, size(scaX, 1));
-  Real unScaY[size(scaX, 1)](
+    each max=100) = (scaTEva - fill(TEvaMin, size(scaTEva, 1)))*(icoMax -
+    icoMin)/(TEvaMax - TEvaMin) + fill(icoMin, size(scaTEva, 1));
+  Real unScaTCon[size(scaTEva, 1)](
     each min=-100,
-    each max=100) = (scaY - fill(yMin, size(scaY, 1)))*(icoMax - icoMin)/
-    (yMax - yMin) + fill(icoMin, size(scaY, 1));
+    each max=100) = (scaTCon - fill(TConMin, size(scaTCon, 1)))*(icoMax -
+    icoMin)/(TConMax - TConMin) + fill(icoMin, size(scaTCon, 1));
 
   annotation (Icon(
     coordinateSystem(preserveAspectRatio=false,
@@ -79,12 +80,6 @@ protected
   </li>
 </ul>
 </html>", info="<html>
-<p>
-  Icon block used for the icon of the dynamic icon of the model
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap</a>. 
-  Extending this model will display the used
-  operational envelope in the top-layer of the used models.
-</p>
+<p>Icon model used for the dynamic icon of the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap\">IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap</a>. Extending this model will display the used operational envelope in the top-layer of the used models. </p>
 </html>"));
 end BoundaryMapIcon;

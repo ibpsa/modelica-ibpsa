@@ -2,21 +2,11 @@ within IBPSA.Fluid.HeatPumps.BaseClasses;
 model HeatPumpRefrigerantCycle
   "Refrigerant cycle model of a heat pump"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialModularRefrigerantCycle;
-  // Setting all values to zero avoids errors when checking this model.
-  // The values are correctly propagated by the heat pump / chiller model anyway
+  // These models will be replaced by the heat pump model anyway.
+  // Using the NoHeating and NoCooling option disabled warnings
+  // about missing parameters in this model
   replaceable model RefrigerantCycleHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle
-      (
-      QUse_flow_nominal=0,
-      QUseNoSca_flow_nominal=0,
-      scaFac=0,
-      TCon_nominal=0,
-      TEva_nominal=0,
-      dTCon_nominal=0,
-      dTEva_nominal=0,
-      mCon_flow_nominal=1,
-      mEva_flow_nominal=1,
-      y_nominal=0)
      constrainedby
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle
     "Replaceable model for refrigerant cycle of a heat pump in main operation mode"

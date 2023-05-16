@@ -11,10 +11,17 @@ record RefrigerantCycle2DBaseDataDefinition
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in evaporator";
   parameter String device_id "Name of the device";
+  parameter Boolean use_evaOut
+    "=true to use evaporator outlet temperature, false for inlet";
+  parameter Boolean use_conOut
+    "=true to use condenser outlet temperature, false for inlet";
+
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
 <p>Base data definition used in the heat pump model. It defines the table <span style=\"font-family: Courier New;\">table_QCon_flow</span> which gives the condenser heat flow rate and <span style=\"font-family: Courier New;\">table_Pel</span> which gives the electric power consumption of the heat pump. </p>
-<p>Both tables define the power values depending on the evaporator inlet temperature (defined in first row) and the condenser outlet temperature (defined in first column) in W. The nominal mass flow rate in the condenser and evaporator are also defined as parameters.</p>
+<p>Both tables define the power values depending on the evaporator temperature (defined in first row) and the condenser temperature (defined in first column) in W. </p>
+<p>Depending on the type of the device, either inlet or outlet conditions are used. </p>
+<p>The nominal mass flow rate in the condenser and evaporator are also defined as parameters.</p>
 <p>The device_id ensures that if data for heating and cooling are required, matching data is used.</p>
 </html>",
         revisions="<html><ul>

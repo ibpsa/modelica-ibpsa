@@ -6,9 +6,9 @@ model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
         "ConstantQualityGradeCarnot");
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialCarnot(
-                                                                       constPel(
-        final k=QUse_flow_nominal/(quaGra*(TEva_nominal - TAppEva_nominal)*y_nominal)*
-        (TCon_nominal + TAppCon_nominal - TEva_nominal - TAppEva_nominal)),
+    constPEle(final k=QUse_flow_nominal/(quaGra*(TEva_nominal - TAppEva_nominal)
+          *y_nominal)*(TCon_nominal + TAppCon_nominal - TEva_nominal -
+          TAppEva_nominal)),
     dTAppUse(k=-TAppEva_nominal),
     dTAppNotUse(k=TAppCon_nominal));
 

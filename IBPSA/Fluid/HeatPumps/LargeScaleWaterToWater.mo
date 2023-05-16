@@ -2,14 +2,14 @@ within IBPSA.Fluid.HeatPumps;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends ModularReversible(
-    GEvaIns=0,
-    GEvaOut=0,
-    CEva=0,
-    use_evaCap=false,
-    GConIns=0,
-    GConOut=0,
-    CCon=0,
-    use_conCap=false,
+    final GEvaIns=0,
+    final GEvaOut=0,
+    final CEva=0,
+    final use_evaCap=false,
+    final GConIns=0,
+    final GConOut=0,
+    final CCon=0,
+    final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
@@ -19,10 +19,10 @@ model LargeScaleWaterToWater
     final use_rev=false,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
-    mCon_flow_nominal=autCalMCon_flow*scaFac,
-    mEva_flow_nominal=autCalMEva_flow*scaFac,
-    tauCon=autCalVCon*rhoCon/autCalMCon_flow,
-    tauEva=autCalVEva*rhoEva/autCalMEva_flow);
+    final mCon_flow_nominal=autCalMCon_flow*scaFac,
+    final mEva_flow_nominal=autCalMEva_flow*scaFac,
+    final tauCon=autCalVCon*rhoCon/autCalMCon_flow,
+    final tauEva=autCalVEva*rhoEva/autCalMEva_flow);
 
   extends BaseClasses.LargeScaleWaterToWaterParameters(
     final autCalMCon_flow=max(4E-5*QUse_flow_nominal - 0.6162, autCalMMin_flow),

@@ -45,15 +45,15 @@ model EuropeanNorm2D
         rotation=-90,
         origin={-70,50})));
 
-  Modelica.Blocks.Math.UnitConversions.To_degC TConInToDegC
-    "Table input is in degC"                                annotation (extent=[
-        -88,38; -76,50], Placement(transformation(
+  Modelica.Blocks.Math.UnitConversions.To_degC TConToDegC
+    "Table input is in degC" annotation (extent=[-88,38; -76,50], Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,90})));
-  Modelica.Blocks.Math.UnitConversions.To_degC TEvaOutToDegC
-    "Table input is in degC"                                 annotation (extent=
-       [-88,38; -76,50], Placement(transformation(
+  Modelica.Blocks.Math.UnitConversions.To_degC TEvaToDegC
+    "Table input is in degC" annotation (extent=[-88,38; -76,50], Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,90})));
@@ -95,25 +95,22 @@ protected
 
 equation
 
-  connect(TConInToDegC.y, tabQEva_flow.u2) annotation (Line(points={{50,79},{50,
-          86},{44,86},{44,62}}, color={0,0,127}));
-  connect(TConInToDegC.y, tabPel.u2) annotation (Line(points={{50,79},{50,86},{44,
-          86},{44,68},{36,68},{36,70},{-68,70},{-68,72},{-82,72},{-82,62},{-76,62}},
-        color={0,0,127}));
-  connect(TEvaOutToDegC.y, tabPel.u1) annotation (Line(points={{-70,79},{-70,68},
-          {-64,68},{-64,62}}, color={0,0,127}));
-  connect(TEvaOutToDegC.y, tabQEva_flow.u1) annotation (Line(points={{-70,79},{-70,
-          68},{-58,68},{-58,66},{-6,66},{-6,68},{38,68},{38,84},{56,84},{56,62}},
-        color={0,0,127}));
-  connect(sigBus.TEvaOutMea, TEvaOutToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,88},{-6,88},{-6,86},{-54,86},{-54,110},{-70,110},
-          {-70,102}},
+  connect(TConToDegC.y, tabQEva_flow.u2) annotation (Line(points={{50,79},{50,
+          76},{44,76},{44,62}}, color={0,0,127}));
+  connect(TConToDegC.y, tabPel.u2) annotation (Line(points={{50,79},{50,76},{44,
+          76},{44,70},{-76,70},{-76,62}}, color={0,0,127}));
+  connect(TEvaToDegC.y, tabPel.u1) annotation (Line(points={{-70,79},{-70,68},{
+          -64,68},{-64,62}}, color={0,0,127}));
+  connect(TEvaToDegC.y, tabQEva_flow.u1) annotation (Line(points={{-70,79},{-70,
+          72},{56,72},{56,62}}, color={0,0,127}));
+  connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
+      points={{1,104},{0,104},{0,86},{-54,86},{-54,110},{-70,110},{-70,102}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(sigBus.TConInMea, TConInToDegC.u) annotation (Line(
+  connect(sigBus.TConInMea, TConToDegC.u) annotation (Line(
       points={{1,104},{0,104},{0,86},{34,86},{34,108},{50,108},{50,102}},
       color={255,204,51},
       thickness=0.5), Text(
