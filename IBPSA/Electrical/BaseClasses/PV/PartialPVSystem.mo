@@ -44,14 +44,6 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   "If true then shading is real interface else neglected"
   annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
 
-  parameter Boolean use_age_in = false
-  "If true then ageing is real interface else parameter"
-  annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
-
-  parameter Real ageing if not use_age_in
-  "Prescribed ageing factor [0,1] (used if ageig=Parameter)" annotation(Dialog(enable=not use_age_in, tab="Advanced"));
-
-
   Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
     "Global irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -90,7 +82,7 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
           extent={{-160,-40},{-120,0}})));
   Modelica.Blocks.Interfaces.RealInput shaSet(final unit="1") if use_Sha_in
     "Conditional input for shading [0,1]" annotation (Placement(transformation(
-          extent={{-164,-84},{-120,-40}}),iconTransformation(extent={{-160,-80},
+          extent={{-160,-80},{-120,-40}}),iconTransformation(extent={{-156,-76},
             {-120,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput HGloHor(final unit="W/m2")
@@ -154,9 +146,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput Sha_in_internal
   "Needed to connect to conditional shading connector";
 
-  Modelica.Blocks.Interfaces.RealInput Age_in_internal
-  "Needed to connect to conditional ageing connector";
-
   parameter Real Sha = 1 "Dummy Shading parameter";
 
 equation
@@ -181,9 +170,6 @@ equation
     Sha_in_internal = Sha;
   end if;
 
-  if not use_age_in then
-    Age_in_internal = ageing;
-  end if;
 
 annotation(Documentation(info="<html>
 <p>
