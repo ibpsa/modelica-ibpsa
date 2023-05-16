@@ -51,77 +51,93 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   parameter Real ageing if not use_age_in
   "Prescribed ageing factor [0,1] (used if ageig=Parameter)" annotation(Dialog(enable=not use_age_in, tab="Advanced"));
 
-  parameter Boolean use_heat_port = false
-  "If true then heat port is enables as interface"
-  annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
 
   Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
     "Global irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
-        iconTransformation(extent={{-140,120},{-100,160}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,100}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,100})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(final unit="K") "Ambient dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
-        iconTransformation(extent={{-140,50},{-100,90}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-80,100}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-80,100})));
   Modelica.Blocks.Interfaces.RealInput vWinSpe(final unit="m/s") "Wind speed" annotation (
-      Placement(transformation(extent={{-140,20},{-100,60}}),iconTransformation(
-          extent={{-140,20},{-100,60}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_heat_port
-    "Heat port for connection with e.g. building facade or mass"
-    annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
+      Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-120,100}),                                  iconTransformation(
+          extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-120,100})));
 
   //Conditional connectors
   Modelica.Blocks.Interfaces.RealInput MPPTraSet(final unit="1") if use_MPP_in
     "Conditional input for MPP tracking" annotation (Placement(transformation(
-          extent={{-140,-10},{-100,30}}),
-                                        iconTransformation(extent={{-140,-10},{
-            -100,30}})));
+          extent={{-160,40},{-120,80}}),iconTransformation(extent={{-160,40},{
+            -120,80}})));
   Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
     "Conditional input for tilt angle control" annotation (Placement(
-        transformation(extent={{-140,-40},{-100,0}}),  iconTransformation(
-          extent={{-140,-40},{-100,0}})));
+        transformation(extent={{-160,0},{-120,40}}),   iconTransformation(
+          extent={{-160,0},{-120,40}})));
   Modelica.Blocks.Interfaces.RealInput aziSet(final unit="rad") if use_Azi_in
     "Conditional input for azimuth angle control" annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(
-          extent={{-140,-80},{-100,-40}})));
+        transformation(extent={{-160,-40},{-120,0}}),  iconTransformation(
+          extent={{-160,-40},{-120,0}})));
   Modelica.Blocks.Interfaces.RealInput shaSet(final unit="1") if use_Sha_in
     "Conditional input for shading [0,1]" annotation (Placement(transformation(
-          extent={{-144,-124},{-100,-80}}),
-                                          iconTransformation(extent={{-140,-120},
-            {-100,-80}})));
+          extent={{-164,-84},{-120,-40}}),iconTransformation(extent={{-160,-80},
+            {-120,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput ageSet(final unit="1") if use_age_in
-    "Conditional input for ageing [0,1]" annotation (Placement(transformation(
-          extent={{-144,-164},{-100,-120}}),
-                                           iconTransformation(extent={{-140,
-            -160},{-100,-120}})));
   Modelica.Blocks.Interfaces.RealInput HGloHor(final unit="W/m2")
     "Global irradiation on horizontal surface" annotation (Placement(
-        transformation(extent={{-140,80},{-100,120}}),iconTransformation(extent={{-140,80},
-            {-100,120}})));
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-40,100}),                            iconTransformation(extent={{-20,-20},
+            {20,20}},
+        rotation=-90,
+        origin={-40,100})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(final unit="W/m2") if use_HDifHor
     "Diffuse irradiation on horizontal surface" annotation (Placement(
-        transformation(extent={{-140,160},{-100,200}}), iconTransformation(
-          extent={{-140,160},{-100,200}})));
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={40,100}),                               iconTransformation(
+          extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={40,100})));
   Modelica.Blocks.Interfaces.RealInput incAngle(final unit="rad") if use_incAng
     "Incidence angle of irradiation"
-    annotation (Placement(transformation(extent={{-140,200},{-100,240}}),
-        iconTransformation(extent={{-140,200},{-100,240}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={80,100}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={80,100})));
   Modelica.Blocks.Interfaces.RealInput zenAngle(final unit="rad") if use_zenAng "Zenith angle of irradiation"
-    annotation (Placement(transformation(extent={{-140,240},{-100,280}}),
-        iconTransformation(extent={{-140,240},{-100,280}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={120,100}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={120,100})));
   Modelica.Blocks.Interfaces.RealOutput P(final unit="W") "DC Power output"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
+        iconTransformation(extent={{120,-10},{140,10}})));
   replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical partialPVOptical
     "Model with optical characteristics"
-    annotation (Placement(transformation(extent={{-36,64},{-24,76}})));
+    annotation (Placement(transformation(extent={{4,44},{16,56}})));
   replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermal partialPVThermal "Test"
     annotation (
     choicesAllMatching=true,
     Dialog(tab="Module mounting and specifications"),
-    Placement(transformation(extent={{-38,4},{-24,16}})));
+    Placement(transformation(extent={{4,4},{16,16}})));
 
   replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical partialPVElectrical
-    annotation (Placement(transformation(extent={{-36,-56},{-24,-44}})));
+    annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput MPP_in_internal
@@ -148,7 +164,6 @@ equation
   connect(tilSet, Til_in_internal);
   connect(aziSet, Azi_in_internal);
   connect(shaSet, Sha_in_internal);
-  connect(ageSet, Age_in_internal);
 
   if not use_MPP_in then
     MPP_in_internal = MPP;
@@ -187,6 +202,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-140},{100,260}})),
-    Icon(coordinateSystem(extent={{-100,-140},{100,260}})));
+    Diagram(coordinateSystem(extent={{-120,-80},{120,80}})),
+    Icon(coordinateSystem(extent={{-120,-80},{120,80}})));
 end PartialPVSystem;

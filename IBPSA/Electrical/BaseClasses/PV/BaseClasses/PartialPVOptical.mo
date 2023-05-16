@@ -1,19 +1,48 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVOptical
+
+ parameter Boolean use_Til_in = false
+  "If true then tilt via real interface else parameter"
+  annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
+
+ parameter Modelica.Units.SI.Angle til if not use_Til_in
+  "Prescribed tilt angle (used if til=Parameter)" annotation(Dialog(enable=not use_Til_in, tab="Module mounting and specifications"));
+
+
   Modelica.Blocks.Interfaces.RealOutput absRadRat
     "Ratio of absorbed radiation under operating conditions to standard conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad", final
       displayUnit="deg")                                                                 "Zenith angle for object"
-    annotation (Placement(transformation(extent={{-140,68},{-100,108}})));
+    annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
+        iconTransformation(extent={{-140,52},{-100,92}})));
   Modelica.Blocks.Interfaces.RealInput HGloHor(final unit="W/m2") "Global horizontal irradiation"
-    annotation (Placement(transformation(extent={{-140,-10},{-100,30}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+        iconTransformation(extent={{-140,-30},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(final unit="W/m2") "Diffuse horizontal irradiation"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput incAng(final unit="rad", final
       displayUnit="deg")                                                                 "Incidence angle"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
+Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
+  "Conditional input for tilt angle control" annotation (Placement(
+      transformation(extent={{-140,-110},{-100,-70}}),
+                                                     iconTransformation(
+        extent={{-140,-80},{-100,-40}})));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput Til_in_internal
+  "Needed to connect to conditional tilt connector";
+
+equation
+  if not use_Til_in then
+  Til_in_internal = til;
+  end if;
+
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {120,100}}),                                        graphics={
         Ellipse(
           extent={{-78,76},{-22,24}},
           lineColor={0,0,0},
@@ -28,7 +57,7 @@ partial model PartialPVOptical
           points={{-26,32},{44,-14},{-34,-56}},
           color={0,0,0},
           arrow={Arrow.None,Arrow.Filled})}),                    Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
         <p>This is a partial model for the optical surrogate model of a photovoltaic model.</p>
 </html>", revisions="<html>

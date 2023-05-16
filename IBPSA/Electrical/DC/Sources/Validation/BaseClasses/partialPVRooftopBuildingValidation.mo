@@ -37,7 +37,7 @@ partial model partialPVRooftopBuildingValidation
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(til=til,
       azi=azi)
-    annotation (Placement(transformation(extent={{38,40},{58,60}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Bus with weather data"
     annotation (Placement(transformation(extent={{16,40},{36,60}})));
@@ -46,12 +46,12 @@ partial model partialPVRooftopBuildingValidation
     "Latitude and Longitude for tilt irradiation block"
     annotation (Placement(transformation(extent={{-98,42},{-82,58}})));
   BoundaryConditions.SolarGeometry.ZenithAngle zen
-    annotation (Placement(transformation(extent={{20,72},{40,92}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
   BoundaryConditions.WeatherData.Bus weaBus1
     "Weather data"
     annotation (Placement(transformation(extent={{-44,20},{-24,40}})));
   BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
-    annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   BoundaryConditions.WeatherData.BaseClasses.SolarTime solTim
@@ -80,7 +80,7 @@ partial model partialPVRooftopBuildingValidation
     annotation (Placement(transformation(extent={{6,-102},{26,-82}})));
   Modelica.Blocks.Sources.Constant souAlt(k=alt)
     "Altitude"
-    annotation (Placement(transformation(extent={{-14,56},{2,72}})));
+    annotation (Placement(transformation(extent={{-58,62},{-42,78}})));
   Modelica.Blocks.Sources.CombiTimeTable MeaDataRadModTemp(
     tableOnFile=true,
     tableName="ROF-rad_module_temp_2023",
@@ -147,7 +147,7 @@ equation
                  (HGloHor)*(0.9511-0.1604*k_t+4.388*k_t^2-16.638*k_t^3+12.336*k_t^4);
 
   connect(HGloTil.weaBus, weaBus) annotation (Line(
-      points={{38,50},{26,50}},
+      points={{40,70},{26,70},{26,50}},
       color={255,204,51},
       thickness=0.5));
   connect(latLon[1].y, weaBus.lat)
@@ -155,23 +155,23 @@ equation
   connect(latLon[2].y, weaBus.lon)
     annotation (Line(points={{-81.2,50},{26,50}},color={0,0,127}));
   connect(zen.weaBus, weaBus1) annotation (Line(
-      points={{20,82},{-34,82},{-34,30}},
+      points={{0,90},{-34,90},{-34,30}},
       color={255,204,51},
       thickness=0.5));
   connect(zen.y, weaBus.solZen)
-    annotation (Line(points={{41,82},{46,82},{46,64},{26,64},{26,50}},
+    annotation (Line(points={{21,90},{26,90},{26,50}},
                                                     color={0,0,127}));
   connect(latLon[1].y, weaBus1.lat)
     annotation (Line(points={{-81.2,50},{-34,50},{-34,30}}, color={0,0,127}));
-  connect(decAng.decAng, weaBus1.solDec) annotation (Line(points={{-37,10},{-32,
+  connect(decAng.decAng, weaBus1.solDec) annotation (Line(points={{-39,10},{-32,
           10},{-32,14},{-34,14},{-34,30}}, color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus1.solHouAng) annotation (Line(points={{21,-10},
           {26,-10},{26,30},{-34,30}},               color={0,0,127}));
   connect(solTim.solTim, solHouAng.solTim)
     annotation (Line(points={{1,-70},{26,-70},{26,-24},{-8,-24},{-8,-10},{-2,
           -10}},                                   color={0,0,127}));
-  connect(decAng.decAng, weaBus.solDec) annotation (Line(points={{-37,10},{-32,10},
-          {-32,16},{18,16},{18,28},{26,28},{26,50}},
+  connect(decAng.decAng, weaBus.solDec) annotation (Line(points={{-39,10},{-32,
+          10},{-32,16},{18,16},{18,28},{26,28},{26,50}},
                                    color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(points={{21,-10},
           {26,-10},{26,50}},
@@ -185,7 +185,7 @@ equation
   connect(sounDay.y, eqnTim.nDay) annotation (Line(points={{-81.2,-36},{-96,-36},
           {-96,-10},{-82,-10}}, color={0,0,127}));
   connect(sounDay.y, decAng.nDay) annotation (Line(points={{-81.2,-36},{-96,-36},
-          {-96,18},{-68,18},{-68,10},{-60,10}}, color={0,0,127}));
+          {-96,18},{-68,18},{-68,10},{-62,10}}, color={0,0,127}));
   connect(calcClockTime.y, locTim.cloTim) annotation (Line(points={{-47,-42},{
           -46,-42},{-46,-30},{-42,-30}},
                                      color={0,0,127}));
@@ -198,8 +198,9 @@ equation
     annotation (Line(points={{1,-70},{26,-70},{26,50}},  color={0,0,127}));
   connect(calcClockTime.y, weaBus.cloTim)
     annotation (Line(points={{-47,-42},{26,-42},{26,50}}, color={0,0,127}));
-  connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-37,10},{-32,10},
-          {-32,16},{18,16},{18,28},{32,28},{32,-84.6},{37.8,-84.6}}, color={0,0,
+  connect(decAng.decAng, incAng.decAng) annotation (Line(points={{-39,10},{-32,
+          10},{-32,16},{18,16},{18,28},{32,28},{32,-84.6},{37.8,-84.6}},
+                                                                     color={0,0,
           127}));
   connect(latLon[1].y, incAng.lat) annotation (Line(points={{-81.2,50},{12,50},{
           12,12},{36,12},{36,-64},{34,-64},{34,-90},{38,-90}}, color={0,0,127}));
@@ -212,8 +213,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(souAlt.y, weaBus.alt) annotation (Line(points={{2.8,64},{10,64},{10,66},
-          {26,66},{26,50}}, color={0,0,127}), Text(
+  connect(souAlt.y, weaBus.alt) annotation (Line(points={{-41.2,70},{-36,70},{
+          -36,50},{26,50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

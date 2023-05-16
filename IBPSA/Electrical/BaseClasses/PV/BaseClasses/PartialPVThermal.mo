@@ -11,20 +11,24 @@ partial model PartialPVThermal
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(final unit="K", final displayUnit="degC")
     "Ambient temperature (dry bulb)"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
+    annotation (Placement(transformation(extent={{-140,58},{-100,98}}),
+        iconTransformation(extent={{-140,58},{-100,98}})));
   Modelica.Blocks.Interfaces.RealInput winVel(final unit="m/s")
     "Wind velocity"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,6},{-100,46}}),
+        iconTransformation(extent={{-140,6},{-100,46}})));
   Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
     "Total solar irradiance on the tilted surface"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-140,-98},{-100,-58}}),
+        iconTransformation(extent={{-140,-98},{-100,-58}})));
   Modelica.Blocks.Interfaces.RealInput eta(final unit="1")
     "Efficiency of the PV module under operating conditions"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                             Text(extent={{-40,-68},{44,-102}},
-                                                              lineColor={0,0,255},textString= "%name"),
-    Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
+    annotation (Placement(transformation(extent={{-140,-46},{-100,-6}}),
+        iconTransformation(extent={{-140,-46},{-100,-6}})));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -100},{120,100}}),                                  graphics={
+                             Text(extent={{-84,-68},{0,-102}},lineColor={0,0,255},textString= "%name"),
+    Rectangle(extent={{-94,84},{6,-74}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern =                                                                              FillPattern.Solid),
     Rectangle(extent={{-90,24},{-62,-4}},
                                         lineColor={0,0,255},fillColor={0,0,255},
@@ -84,7 +88,8 @@ partial model PartialPVThermal
           extent={{92,4},{-28,-26}},
           lineColor={0,0,0},
           textString="T")}),                                     Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,
+            100}})),
             Documentation(info="<html>
         <p>This is a partial model for the thermal surrogate model of a photovoltaic modelt.</p>
 </html>", revisions="<html>

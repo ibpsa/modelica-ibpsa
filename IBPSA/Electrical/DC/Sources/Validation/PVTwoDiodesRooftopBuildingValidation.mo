@@ -17,26 +17,25 @@ model PVTwoDiodesRooftopBuildingValidation
 equation
 
   connect(from_degC.y, pVSystemTwoDiodes.TDryBul) annotation (Line(points={{54.6,-8},
-          {58,-8},{58,16.25},{63.5385,16.25}},     color={0,0,127}));
+          {58,-8},{58,22.5},{65.3333,22.5}},       color={0,0,127}));
   connect(MeaDataWinAngSpe.y[1], pVSystemTwoDiodes.vWinSpe) annotation (Line(
-        points={{50.4,-40},{58,-40},{58,-8},{63.5385,-8},{63.5385,13.75}},
+        points={{50.4,-40},{58,-40},{58,-8},{62,-8},{62,22.5}},
         color={0,0,127}));
   connect(MeaDataTAmb.y[1], pVSystemTwoDiodes.HGloHor) annotation (Line(points={{50.4,
-          -52},{54,-52},{54,-18},{56,-18},{56,18.75},{63.5385,18.75}},
+          -52},{54,-52},{54,-18},{56,-18},{56,22.5},{68.6667,22.5}},
         color={0,0,127}));
-  connect(HGloTil.H, pVSystemTwoDiodes.HGloTil) annotation (Line(points={{59,50},
-          {66,50},{66,48},{67.0769,48},{67.0769,18.625}}, color={0,0,127}));
+  connect(HGloTil.H, pVSystemTwoDiodes.HGloTil) annotation (Line(points={{61,70},
+          {66,70},{66,48},{72,48},{72,22.5}},             color={0,0,127}));
   connect(souGloHorDif.y, pVSystemTwoDiodes.HDifHor) annotation (Line(points={{79,50},
-          {70.6154,50},{70.6154,18.625}},     color={0,0,127}));
-  connect(pVSystemTwoDiodes.P, PSim) annotation (Line(points={{80.9231,9.375},{
-          110,9.375},{110,10}},
-                            color={0,0,127}));
-  connect(incAng.incAng, pVSystemTwoDiodes.incAngle) annotation (Line(points={{61,
-          -90},{74,-90},{74,-86},{58,-86},{58,26},{74,26},{74,18.625}}, color={0,
+          {75.3333,50},{75.3333,22.5}},       color={0,0,127}));
+  connect(pVSystemTwoDiodes.P, PSim) annotation (Line(points={{82.8333,10},{110,
+          10},{110,10}},    color={0,0,127}));
+  connect(incAng.incAng, pVSystemTwoDiodes.incAngle) annotation (Line(points={{61,-90},
+          {80,-90},{80,-80},{92,-80},{92,26},{78.6667,26},{78.6667,22.5}},
+                                                                        color={0,
           0,127}));
-  connect(zen.y, pVSystemTwoDiodes.zenAngle) annotation (Line(points={{41,82},{
-          58,82},{58,80},{77.3846,80},{77.3846,18.625}},
-                                                      color={0,0,127}));
+  connect(zen.y, pVSystemTwoDiodes.zenAngle) annotation (Line(points={{21,90},{
+          58,90},{58,80},{82,80},{82,22.5}},          color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),

@@ -13,7 +13,8 @@ partial model PartialPVElectrical
     "Cell temperature"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+            -100},{100,100}}),                                  graphics={
      Rectangle(
       lineColor={0,0,0},
       fillColor={255,255,255},
@@ -49,7 +50,8 @@ partial model PartialPVElectrical
           color={0,0,0},
           thickness=0.5,
           smooth=Smooth.Bezier)}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,
+            100}})),
     Documentation(info="<html>
     <p>This is a partial model for the electrical surrogate models of a photovoltaic model.</p>
 </html>", revisions="<html>

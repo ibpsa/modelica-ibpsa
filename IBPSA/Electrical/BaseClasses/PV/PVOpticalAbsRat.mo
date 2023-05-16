@@ -11,13 +11,6 @@ model PVOpticalAbsRat
    "Site altitude in Meters, default= 1"
    annotation(Dialog(group="Location"));
 
- parameter Boolean use_Til_in = false
-  "If true then tilt via real interface else parameter"
-  annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
-
- parameter Modelica.Units.SI.Angle til if not use_Til_in
-  "Prescribed tilt angle (used if til=Parameter)" annotation(Dialog(enable=not use_Til_in, tab="Module mounting and specifications"));
-
  parameter Real groRef(unit="1")       "Ground reflectance"
    annotation ();
 
@@ -83,18 +76,11 @@ model PVOpticalAbsRat
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   //Conditional connectors
-Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
-  "Conditional input for tilt angle control" annotation (Placement(
-      transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(
-        extent={{-140,-80},{-100,-40}})));
 
 protected
 parameter Real tau_0(final unit="1")=exp(-(glaExtCoe*glaThi))*(1 - ((refInd - 1)/(
     refInd + 1))^2)
       "Transmittance at standard conditions (incAng=refAng=0)";
-
-Modelica.Blocks.Interfaces.RealInput Til_in_internal
-"Needed to connect to conditional tilt connector";
 
 
 equation
@@ -175,16 +161,12 @@ airMassModifier.airMasMod*(HDirHor/HGloTil0*R_b*incAngMod
 +HDifHor/HGloTil0*incAngModDif*(0.5*(1+cos(Til_in_internal)*(1+(1-(HDifHor/HGloHor)^2)*sin(Til_in_internal/2)^3)*(1+(1-(HDifHor/HGloHor)^2)*(cos(incAng)^2)*(cos(Til_in_internal)^3))))
 +HGloHor/HGloTil0*groRef*incAngModGro*(1-cos(Til_in_internal))/2);
 
-if not use_Til_in then
-  Til_in_internal = til;
-end if;
 
-connect(tilSet, Til_in_internal);
 
   connect(airMass.airMas, airMassModifier.airMas) annotation (Line(points={{-39,70},
           {18,70}},                        color={0,0,127}));
   connect(zenAng, airMass.zenAng)
-    annotation (Line(points={{-120,88},{-92,88},{-92,70},{-62,70}},
+    annotation (Line(points={{-120,72},{-92,72},{-92,70},{-62,70}},
                                                   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

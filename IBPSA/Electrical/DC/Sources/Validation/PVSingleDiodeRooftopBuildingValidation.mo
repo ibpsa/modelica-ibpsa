@@ -20,23 +20,23 @@ model PVSingleDiodeRooftopBuildingValidation
 equation
 
   connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{59,50},
-          {69.0769,50},{69.0769,18.625}},     color={0,0,127}));
-  connect(pVSystemSingleDiode.P, PSim) annotation (Line(points={{82.9231,9.375},
-          {82.9231,10},{110,10}}, color={0,0,127}));
+          {74,50},{74,22.5}},                 color={0,0,127}));
+  connect(pVSystemSingleDiode.P, PSim) annotation (Line(points={{84.8333,10},{
+          84.8333,10},{110,10}},  color={0,0,127}));
   connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{54.6,-8},
-          {60,-8},{60,16.25},{65.5385,16.25}},          color={0,0,127}));
+          {60,-8},{60,22.5},{67.3333,22.5}},            color={0,0,127}));
   connect(MeaDataWinAngSpe.y[1], pVSystemSingleDiode.vWinSpe) annotation (Line(
-        points={{50.4,-40},{60,-40},{60,-6},{58,-6},{58,13.75},{65.5385,13.75}},
+        points={{50.4,-40},{60,-40},{60,-6},{58,-6},{58,22.5},{64,22.5}},
         color={0,0,127}));
   connect(MeaDataRadModTemp.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
-        points={{50.4,-28},{52,-28},{52,-20},{26,-20},{26,36},{60,36},{60,18.75},
-          {65.5385,18.75}}, color={0,0,127}));
+        points={{50.4,-28},{52,-28},{52,-20},{26,-20},{26,36},{60,36},{60,22.5},
+          {70.6667,22.5}},  color={0,0,127}));
   connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{41,82},
-          {58,82},{58,80},{79.3846,80},{79.3846,18.625}}, color={0,0,127}));
-  connect(incAng.incAng, pVSystemSingleDiode.incAngle) annotation (Line(points={
-          {61,-90},{62,-90},{62,28},{76,28},{76,18.625}}, color={0,0,127}));
+          {58,82},{58,80},{84,80},{84,22.5}},             color={0,0,127}));
+  connect(incAng.incAng, pVSystemSingleDiode.incAngle) annotation (Line(points={{61,-90},
+          {62,-90},{62,28},{80.6667,28},{80.6667,22.5}},  color={0,0,127}));
   connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points={{79,50},
-          {72.6154,50},{72.6154,18.625}},         color={0,0,127}));
+          {77.3333,50},{77.3333,22.5}},           color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),

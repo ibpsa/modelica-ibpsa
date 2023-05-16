@@ -1,4 +1,4 @@
-﻿within IBPSA.Electrical.DC.Sources;
+within IBPSA.Electrical.DC.Sources;
 model PVTwoDiodes
   "Photovoltaic module(s) model based on two diodes approach"
   extends IBPSA.Electrical.BaseClasses.PV.PartialPVSystem(
@@ -26,8 +26,7 @@ model PVTwoDiodes
     final use_Til_in=false,
     final use_Azi_in=false,
     final use_Sha_in=false,
-    final use_age_in=false,
-    final use_heat_port=false);
+    final use_age_in=false);
 
     parameter Integer n_mod(min=1)
       "Amount of modules per system";
@@ -54,38 +53,45 @@ model PVTwoDiodes
     constant Modelica.Units.SI.Irradiance HGloTil0=1000
       "Total solar radiation on the horizontal surface under standard conditions"
        annotation(Dialog(tab="Site specifications"));
-  equation
+equation
     connect(partialPVElectrical.eta, partialPVThermal.eta) annotation (Line(
-          points={{-23.4,-53},{40,-53},{40,-20},{-72,-20},{-72,8.2},{-39.4,8.2}},
+          points={{-23.5,-53},{40,-53},{40,-20},{-72,-20},{-72,8.44},{-36.9231,
+          8.44}},
           color={0,0,127}));
     connect(partialPVThermal.TCel, partialPVElectrical.TCel) annotation (Line(
-          points={{-23.3,10},{0,10},{0,-14},{-58,-14},{-58,-47},{-37.2,-47}},
+          points={{-24.5385,10},{0,10},{0,-14},{-58,-14},{-58,-47},{-35,-47}},
                           color={0,0,127}));
-    connect(partialPVElectrical.P, P) annotation (Line(points={{-23.4,-47},{20,-47},
-            {20,-40},{60,-40},{60,0},{110,0}},
+    connect(partialPVElectrical.P, P) annotation (Line(points={{-23.5,-47},{20,-47},
+          {20,-40},{60,-40},{60,10},{106,10}},
                              color={0,0,127}));
     connect(partialPVOptical.absRadRat, partialPVElectrical.absRadRat)
-      annotation (Line(points={{-23.4,70},{20,70},{20,-34},{-64,-34},{-64,-51.8},{
-            -37.2,-51.8}},  color={0,0,127}));
-    connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-120,100},
-            {-60,100},{-60,80},{-48,80},{-48,70.6},{-37.2,70.6}},
+      annotation (Line(points={{-24.4615,70},{20,70},{20,-34},{-64,-34},{-64,
+          -51.8},{-35,-51.8}},
+                            color={0,0,127}));
+    connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-120,
+          132},{-60,132},{-60,80},{-48,80},{-48,68.44},{-35.0769,68.44}},
                                            color={0,0,127}));
-    connect(HGloTil, partialPVElectrical.radTil) annotation (Line(points={{-120,140},
-            {-100,140},{-100,-54},{-68,-54},{-68,-54.2},{-37.2,-54.2}},
+    connect(HGloTil, partialPVElectrical.radTil) annotation (Line(points={{-74,158},
+          {-100,158},{-100,-54},{-68,-54},{-68,-54.2},{-35,-54.2}},
                                                  color={0,0,127}));
-    connect(TDryBul, partialPVThermal.TDryBul) annotation (Line(points={{-120,70},
-            {-60,70},{-60,15.4},{-39.4,15.4}}, color={0,0,127}));
-    connect(HGloTil, partialPVThermal.HGloTil) annotation (Line(points={{-120,140},
-            {-80,140},{-80,6},{-40,6},{-40,5.8},{-39.4,5.8}},color={0,0,127}));
-    connect(vWinSpe, partialPVThermal.winVel) annotation (Line(points={{-120,40},{
-            -40,40},{-40,28},{-52,28},{-52,13},{-39.4,13}}, color={0,0,127}));
-    connect(zenAngle, partialPVOptical.zenAng) annotation (Line(points={{-120,260},
-            {-44,260},{-44,75.28},{-37.2,75.28}},
+    connect(TDryBul, partialPVThermal.TDryBul) annotation (Line(points={{-120,92},
+          {-60,92},{-60,14.68},{-36.9231,14.68}},
+                                               color={0,0,127}));
+    connect(HGloTil, partialPVThermal.HGloTil) annotation (Line(points={{-74,158},
+          {-80,158},{-80,6},{-40,6},{-40,5.32},{-36.9231,5.32}},
+                                                             color={0,0,127}));
+    connect(vWinSpe, partialPVThermal.winVel) annotation (Line(points={{-120,28},
+          {-40,28},{-40,28},{-52,28},{-52,11.56},{-36.9231,11.56}},
+                                                            color={0,0,127}));
+    connect(zenAngle, partialPVOptical.zenAng) annotation (Line(points={{60,158},
+          {-44,158},{-44,74.68},{-35.0769,74.68}},
                                                 color={0,0,127}));
-    connect(incAngle, partialPVOptical.incAng) annotation (Line(points={{-120,220},
-            {-88,220},{-88,182},{-54,182},{-54,73},{-37.2,73}},     color={0,0,127}));
-    connect(HDifHor, partialPVOptical.HDifHor) annotation (Line(points={{-120,180},
-            {-102,180},{-102,154},{-72,154},{-72,68.2},{-37.2,68.2}}, color={0,0,127}));
+    connect(incAngle, partialPVOptical.incAng) annotation (Line(points={{16,158},
+          {-88,158},{-88,182},{-54,182},{-54,71.56},{-35.0769,71.56}},
+                                                                    color={0,0,127}));
+    connect(HDifHor, partialPVOptical.HDifHor) annotation (Line(points={{-28,158},
+          {-102,158},{-102,154},{-72,154},{-72,65.32},{-35.0769,65.32}},
+                                                                      color={0,0,127}));
     connect(partialPVOptical.tilSet, Til_in_internal);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
