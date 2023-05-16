@@ -15,7 +15,7 @@ record TwoDiodesData
   parameter Modelica.Units.SI.Resistance RSer
     "Serial resistance";
   parameter Modelica.Units.SI.Resistance RPar
-    "Parallel resistance";  
+    "Parallel resistance";
   parameter Real Eg(unit = "eV")
     "Band gap";
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(

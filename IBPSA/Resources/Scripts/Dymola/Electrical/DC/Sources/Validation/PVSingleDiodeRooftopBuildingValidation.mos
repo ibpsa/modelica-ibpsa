@@ -1,5 +1,5 @@
 // Plot commands
-simulateModel("IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation", startTime=6.3936e+06, stopTime=7.0848e+06, method="dassl", tolerance=1e-6, resultFile="PVSingleDiodeValidation");
+simulateModel("IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation", startTime=9244800, stopTime=10108800, outputInterval=300, method="dassl", tolerance=1e-6, resultFile="PVSingleDiodeValidation");
 removePlots();
 Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
