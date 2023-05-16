@@ -298,6 +298,9 @@ Moritz Lauster, RWTH Aachen University, Germany
 Alessandro Maccarini, Aalborg University, Denmark
 </li>
 <li>
+Laura Maier, RWTH Aachen University, Germany
+</li>
+<li>
 Philipp Mehrfeld, RWTH Aachen University, Germany
 </li>
 <li>
