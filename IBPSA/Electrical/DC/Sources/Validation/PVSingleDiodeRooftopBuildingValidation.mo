@@ -45,7 +45,7 @@ equation
     experiment(
       StartTime=9244800,
       StopTime=10108800,
-      Interval=10,
+      Interval=300,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
