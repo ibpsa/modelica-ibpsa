@@ -353,7 +353,7 @@ to be enabled and a differential pressure measurement
 must be connected to
 the pump input <code>dpMea</code>.
 This functionality is demonstrated in
-<a href=\"IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem\">
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem\">
 IBPSA.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </p>
 <p>

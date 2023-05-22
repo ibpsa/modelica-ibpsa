@@ -123,7 +123,7 @@ Changed type of <code>T</code> from
 <code>Modelica.Units.SI.Temperature</code> to <code>Medium.Temperature</code>.
 Otherwise, it has a different start value than <code>BaseProperties.T</code>, which
 causes an error if
-<a href=\"IBPSA.Media.Examples.WaterProperties\">
+<a href=\"modelica://IBPSA.Media.Examples.WaterProperties\">
 IBPSA.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes
