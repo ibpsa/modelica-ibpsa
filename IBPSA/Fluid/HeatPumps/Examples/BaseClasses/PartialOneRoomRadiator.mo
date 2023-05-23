@@ -2,9 +2,9 @@ within IBPSA.Fluid.HeatPumps.Examples.BaseClasses;
 partial model PartialOneRoomRadiator
   "Simple room model with radiator, without a heat pump"
   extends Modelica.Icons.Example;
-  replaceable package MediumA =
+  replaceable package MediumAir =
       IBPSA.Media.Air "Medium model for air";
-  replaceable package MediumW =
+  replaceable package MediumWat =
       IBPSA.Media.Water "Medium model for water";
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=20000
@@ -24,7 +24,7 @@ partial model PartialOneRoomRadiator
 //------------------------------------------------------------------------------//
 
   IBPSA.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare package Medium = MediumA,
+    redeclare package Medium = MediumAir,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mAirRoo_flow_nominal,
     V=V) annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -46,7 +46,7 @@ partial model PartialOneRoomRadiator
              18*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
@@ -55,7 +55,7 @@ partial model PartialOneRoomRadiator
     T_start=TRadSup_nominal)     "Radiator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort temSup(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal)            "Supply water temperature"
       annotation (Placement(transformation(
@@ -70,7 +70,7 @@ partial model PartialOneRoomRadiator
 //----------------------------------------------------------------------------//
 
   IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     m_flow_nominal=mHeaPum_flow_nominal,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
@@ -84,7 +84,7 @@ partial model PartialOneRoomRadiator
 //----------------------------------------------------------------------------//
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort temRet(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     m_flow_nominal=mHeaPum_flow_nominal,
     T_start=TRadSup_nominal) "Return water temperature"
     annotation (Placement(transformation(
@@ -108,7 +108,7 @@ partial model PartialOneRoomRadiator
 //--------------------------------------------------------------------------------------//
 
   IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     m_flow_start=0.85,
     m_flow_nominal=mHeaPum_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
@@ -125,16 +125,16 @@ partial model PartialOneRoomRadiator
         rotation=180,
         origin={-110,-110})));
   IBPSA.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     T=281.15,
     nPorts=1) "Fluid source on source side"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   IBPSA.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     T=283.15) "Fluid sink on source side"
     annotation (Placement(transformation(extent={{80,-210},{60,-190}})));
   IBPSA.Fluid.Sources.Boundary_pT preSou(
-    redeclare package Medium = MediumW,
+    redeclare package Medium = MediumWat,
     T=TRadSup_nominal,
     nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
@@ -157,7 +157,8 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,90})));
-  OneRoomRadiatorHeatPumpControl oneRooRadHeaPumCtrl(final witCoo=witCoo)
+  IBPSA.Fluid.HeatPumps.Examples.BaseClasses.OneRoomRadiatorHeatPumpControl oneRooRadHeaPumCtr(
+    final witCoo=witCoo)
     "Control block for single room heat pump control"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Modelica.Blocks.Sources.BooleanConstant conPumAlwOn(final k=true)
@@ -241,10 +242,10 @@ equation
           {-136,-140},{-136,-180},{-122,-180}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-143,-140},
           {-134,-140},{-134,-110},{-122,-110}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtrl.TRadSup, temSup.T) annotation (Line(points={{-162,
+  connect(oneRooRadHeaPumCtr.TRadSup, temSup.T) annotation (Line(points={{-162,
           -77},{-178,-77},{-178,-76},{-198,-76},{-198,-20},{-81,-20}}, color={0,
           0,127}));
-  connect(oneRooRadHeaPumCtrl.TRooMea, temRoo.T) annotation (Line(points={{-162,
+  connect(oneRooRadHeaPumCtr.TRooMea, temRoo.T) annotation (Line(points={{-162,
           -70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>Example that simulates one room equipped with a radiator. Hot water is produced by a <i>24</i> kW nominal capacity heat pump. The source side water temperature to the heat pump is constant at <i>10</i>&deg;C. </p>

@@ -3,145 +3,62 @@ model EuropeanNorm2D
   "Performance data coming from manufacturer according to European Standards"
   extends
     IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
-    final datSou=datTab.device_id,
+    final datSou=datTab.devIde,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-        tableConID,
+        tabIdeQUse_flow,
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
-
-  parameter Modelica.Blocks.Types.Smoothness smoothness=
-    Modelica.Blocks.Types.Smoothness.LinearSegments
-    "Smoothness of table interpolation";
-  parameter EuropeanNorm2DData.ChillerBaseDataDefinition datTab=
+  extends
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialEuropeanNorm2D(
+    tabQUse_flow(final table=datTab.tabQEva_flow),
+    tabPEle(final table=datTab.tabPEle),
+    final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,
+    final perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100);
+  parameter IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition datTab=
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()
          "Data Table of Chiller" annotation (choicesAllMatching=true);
-  parameter Modelica.Blocks.Types.Extrapolation extrapolation=
-    Modelica.Blocks.Types.Extrapolation.LastTwoPoints
-    "Extrapolation of data outside the definition range";
-
-  Modelica.Blocks.Tables.CombiTable2Ds tabQEva_flow(
-    final smoothness=smoothness,
-    final u1(unit="degC"),
-    final u2(unit="degC"),
-    final y(unit="W", displayUnit="kW"),
-    final extrapolation=extrapolation,
-    final table=datTab.tableQEva_flow) "Evaporator heat flow table"
-                                       annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,50})));
-  Modelica.Blocks.Tables.CombiTable2Ds tabPel(
-    final smoothness=smoothness,
-    final extrapolation=extrapolation,
-    final u1(unit="degC"),
-    final u2(unit="degC"),
-    final y(unit="W", displayUnit="kW"),
-    final table=datTab.tablePel) "Electrical power table" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-70,50})));
-
-  Modelica.Blocks.Math.UnitConversions.To_degC TConToDegC
-    "Table input is in degC" annotation (extent=[-88,38; -76,50], Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,90})));
-  Modelica.Blocks.Math.UnitConversions.To_degC TEvaToDegC
-    "Table input is in degC" annotation (extent=[-88,38; -76,50], Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-70,90})));
-  Modelica.Blocks.Math.Product nTimPel "Scale Pel using ySet and scaFac"
-                                       annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-30,-10})));
-  Modelica.Blocks.Math.Product nTimEva "Scale QEva_flow using ySet and scaFac"
-                                       annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,10})));
-
-  Modelica.Blocks.Math.Product nTimScaFac
-    "Create the product of the scaling factor and relative compressor speed"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={10,20})));
-
-protected
-  Modelica.Blocks.Sources.Constant realCorr(final k=scaFac)
-    "Calculates correction of table output based on scaling factor" annotation (
-     Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-10,50})));
-
-protected
-  parameter Modelica.Blocks.Types.ExternalCombiTable2D tableConID=
-      Modelica.Blocks.Types.ExternalCombiTable2D(
-      "NoName",
-      "NoName",
-      datTab.tableQEva_flow,
-      smoothness,
-      extrapolation,
-      false) "External table object";
 
 equation
-
-  connect(TConToDegC.y, tabQEva_flow.u2) annotation (Line(points={{50,79},{50,
-          76},{44,76},{44,62}}, color={0,0,127}));
-  connect(TConToDegC.y, tabPel.u2) annotation (Line(points={{50,79},{50,76},{44,
-          76},{44,70},{-76,70},{-76,62}}, color={0,0,127}));
-  connect(TEvaToDegC.y, tabPel.u1) annotation (Line(points={{-70,79},{-70,68},{
-          -64,68},{-64,62}}, color={0,0,127}));
-  connect(TEvaToDegC.y, tabQEva_flow.u1) annotation (Line(points={{-70,79},{-70,
-          72},{56,72},{56,62}}, color={0,0,127}));
-  connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{-54,86},{-54,110},{-70,110},{-70,102}},
+  if datTab.use_conOut then
+    connect(sigBus.TConOutMea, TConToDegC.u) annotation (Line(
+      points={{1,104},{0,104},{0,86},{60,86},{60,82}},
+      color={255,204,51},
+      thickness=0.5));
+  else
+    connect(sigBus.TConInMea, TConToDegC.u) annotation (Line(
+      points={{1,104},{0,104},{0,86},{60,86},{60,82}},
+      color={255,204,51},
+      thickness=0.5));
+  end if;
+  if datTab.use_evaOut then
+    connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
+      points={{1,104},{0,104},{0,86},{-40,86},{-40,82}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(sigBus.TConInMea, TConToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{34,86},{34,108},{50,108},{50,102}},
+  else
+    connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
+      points={{1,104},{0,104},{0,86},{-40,86},{-40,82}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(tabPel.y, nTimPel.u2) annotation (Line(points={{-70,39},{-70,10},{-36,
-          10},{-36,2}}, color={0,0,127}));
-  connect(tabQEva_flow.y, nTimEva.u1) annotation (Line(points={{50,39},{50,26},{
-          56,26},{56,22}}, color={0,0,127}));
-
-  connect(nTimPel.y, PEle) annotation (Line(points={{-30,-21},{-30,-94},{0,-94},
-          {0,-110}}, color={0,0,127}));
-  connect(realCorr.y, nTimScaFac.u2)
-    annotation (Line(points={{-10,39},{-10,32},{4,32}}, color={0,0,127}));
-  connect(sigBus.ySet, nTimScaFac.u1) annotation (Line(
-      points={{1,104},{0,104},{0,64},{16,64},{16,32}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(nTimScaFac.y, nTimPel.u1)
-    annotation (Line(points={{10,9},{10,2},{-24,2}}, color={0,0,127}));
-  connect(nTimScaFac.y, nTimEva.u2) annotation (Line(points={{10,9},{10,4},{34,4},
-          {34,28},{44,28},{44,22}}, color={0,0,127}));
-  connect(nTimPel.y, redQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},{
-          64,-48},{64,-58}}, color={0,0,127}));
-  connect(nTimEva.y, proRedQEva.u2) annotation (Line(points={{50,-1},{50,-28},{
-          -44,-28},{-44,-58}}, color={0,0,127}));
+      thickness=0.5));
+  end if;
+  connect(scaFacTimPel.y, PEle) annotation (Line(points={{-40,-11},{-40,-26},{-30,
+          -26},{-30,-94},{0,-94},{0,-110}}, color={0,0,127}));
+  connect(scaFacTimPel.y, redQCon.u2) annotation (Line(points={{-40,-11},{-40,-26},
+          {-30,-26},{-30,-48},{64,-48},{64,-58}}, color={0,0,127}));
+  connect(scaFacTimQUse_flow.y, proRedQEva.u2) annotation (Line(points={{40,-11},
+          {40,-40},{-44,-40},{-44,-58}}, color={0,0,127}));
+  connect(ySetTimScaFac.u1, sigBus.ySet) annotation (Line(points={{-64,48},{-64,
+          100},{-10,100},{-10,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
     Line(points={{0.0,40.0},{0.0,-40.0}}),

@@ -7,12 +7,12 @@ model LargeScaleWaterToWater_OneRoomRadiator
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=larScaWatToWatHeaPum.mEva_flow_nominal));
-  LargeScaleWaterToWater larScaWatToWatHeaPum(
+  IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater larScaWatToWatHeaPum(
     redeclare package MediumCon = MediumW,
     redeclare package MediumEva = MediumW,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
-    use_internalSafetyControl=true,
+    use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
     dpCon_nominal(displayUnit="Pa") = 2000,
@@ -30,7 +30,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrlPar(use_antFre=true, TAntFre=275.15),
+      safCtrPar(use_antFre=true, TAntFre=275.15),
     datTab=
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW())
     "Large scale water to water heat pump"

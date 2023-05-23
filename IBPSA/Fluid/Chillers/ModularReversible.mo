@@ -2,15 +2,14 @@ within IBPSA.Fluid.Chillers;
 model ModularReversible
   "Grey-box model for reversible chillers using performance data or functional approaches to simulate the refrigeration cycle"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
+    safCtr(opeEnv(final forHeaPum=false), final forHeaPum=false),
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
     final scaFac=refCyc.refCycChiCoo.scaFac,
     use_rev=true,
     redeclare IBPSA.Fluid.Chillers.BaseClasses.ChillerRefrigerantCycle refCyc(
         redeclare model RefrigerantCycleChillerCooling =
-          RefrigerantCycleChillerCooling,
-        redeclare model RefrigerantCycleChillerHeating =
-          RefrigerantCycleChillerHeating),
-    safetyControl(opeEnv(final forHeaPum=false)));
+          RefrigerantCycleChillerCooling, redeclare model
+        RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
 
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
@@ -42,12 +41,11 @@ model ModularReversible
   "Model approach of the refrigerant cycle in heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
-  Modelica.Blocks.Interfaces.BooleanInput coo
-    if not use_busConnectorOnly and use_rev
+  Modelica.Blocks.Interfaces.BooleanInput coo if not use_busConOnl and use_rev
     "=true for cooling, =false for heating"
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
-  Modelica.Blocks.Sources.BooleanConstant conCoo(final k=true) if not
-    use_busConnectorOnly and not use_rev
+  Modelica.Blocks.Sources.BooleanConstant conCoo(final k=true)
+    if not use_busConOnl and not use_rev
     "Set cooling mode to true if device is not reversible" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

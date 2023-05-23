@@ -19,14 +19,17 @@ model LargeScaleWaterToWater
     final use_rev=false,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
-    final mCon_flow_nominal=autCalMCon_flow*scaFac,
-    final mEva_flow_nominal=autCalMEva_flow*scaFac,
-    final tauCon=autCalVCon*rhoCon/autCalMCon_flow,
-    final tauEva=autCalVEva*rhoEva/autCalMEva_flow);
+
+    final mCon_flow_nominal=autCalMasCon_flow*scaFac,
+    final mEva_flow_nominal=autCalMasEva_flow*scaFac,
+    final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
+    final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
   extends BaseClasses.LargeScaleWaterToWaterParameters(
-    final autCalMCon_flow=max(4E-5*QUse_flow_nominal - 0.6162, autCalMMin_flow),
-    final autCalMEva_flow=max(4E-5*QUse_flow_nominal - 0.3177, autCalMMin_flow),
+    final autCalMasCon_flow=max(4E-5*QUse_flow_nominal - 0.6162,
+        autCalMMin_flow),
+    final autCalMasEva_flow=max(4E-5*QUse_flow_nominal - 0.3177,
+        autCalMMin_flow),
     final autCalVCon=max(1E-7*QUse_flow_nominal - 94E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 

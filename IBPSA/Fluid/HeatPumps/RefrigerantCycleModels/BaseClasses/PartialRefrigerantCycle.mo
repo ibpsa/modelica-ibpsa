@@ -34,8 +34,8 @@ partial model PartialRefrigerantCycle
   parameter String datSou=""
     "Indicate where the data is coming from";
 
-  replaceable Frosting.NoFrosting iceFacCal constrainedby
-    Frosting.BaseClasses.PartialIcingFactor
+  replaceable IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting iceFacCal
+  constrainedby IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.BaseClasses.PartialIcingFactor
     "Replaceable model to calculate the icing factor" annotation (
     choicesAllMatching=true,
     Dialog(group="Frosting supression", enable=calc_iceFac),
@@ -80,10 +80,10 @@ partial model PartialRefrigerantCycle
   IBPSA.Utilities.IO.Strings.StringOutput datSouOut
   "String output of data source";
 protected
-  Utilities.IO.Strings.ConstStringSource conStrSour(final k=datSou)
+  IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(final k=datSou)
     "Constant String with data source as output";
 equation
-  connect(conStrSour.y, datSouOut);
+  connect(conStrSou.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-50,-81},{-50,-88},
           {0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
                                color={0,0,127}));

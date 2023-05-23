@@ -18,9 +18,11 @@ model SafetyControl "Model including all safety levels"
     "Safety control parameters" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-118,102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope opeEnv(
-    final tabUpp=safCtrlPar.tabUpp,
-    final use_opeEnvFroRec=safCtrlPar.use_opeEnvFroRec,
-    final datTab=safCtrlPar.datTab,
+    final tabUppHea=safCtrlPar.tabUppHea,
+    final tabLowCoo=safCtrlPar.tabLowCoo,
+    final forHeaPum=forHeaPum,
+    use_TEvaIn=safCtrlPar.use_TEvaInForOpeEnv,
+    final use_TConIn=safCtrlPar.use_TConInForOpeEnv,
     final dTHyst=safCtrlPar.dTHystOperEnv) if safCtrlPar.use_opeEnv
     "Block for operational envelope"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -82,6 +84,8 @@ model SafetyControl "Model including all safety levels"
     if not safCtrlPar.use_minFlowCtrl "No minimale volumen flow rate control"
     annotation (Placement(transformation(extent={{60,60},{80,80}})),
       choicesAllMatching=true);
+  parameter Boolean forHeaPum
+    "=true if model is for heat pump, false for chillers";
 equation
 
   connect(sigBus, onOffCtrl.sigBus) annotation (Line(

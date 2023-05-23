@@ -3,25 +3,30 @@ model OperationalEnvelope "Example for usage of operational envelope model"
   extends BaseClasses.PartialSafetyControlExample;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope opeEnv(
-    use_opeEnvFroRec=true,
-    datTab=
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN255.Vitocal350BWH110
-        (),
-    tabUpp=[-40,60; 40,60]) "Safety control for operational envelope"
+    tabUppHea=[-40,60; 40,60],
+    tabLowCoo=[-40,15; 40,15],
+    forHeaPum=true)         "Safety control for operational envelope"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
-    "Pulse signal for ySet"
+  Modelica.Blocks.Sources.Constant
+                                ySetPul(k=1) "Always on"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Modelica.Blocks.Sources.Pulse TConOutEmu(
-    amplitude=40,
-    period=20,
-    offset=303.15) "Emulator for condenser outlet temperature"
+  Modelica.Blocks.Sources.Trapezoid
+                                TConOutEmu(
+    amplitude=60,
+    rising=5,
+    width=20,
+    falling=5,
+    period=50,
+    offset=283.15) "Emulator for condenser outlet temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Sources.Pulse TEvaInEmu(
     amplitude=-10,
     period=15,
     offset=283.15) "Emulator for evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Modelica.Blocks.Sources.BooleanStep hea(startTime=50, startValue=true)
+    "Heating mode"
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 equation
   connect(opeEnv.sigBus, sigBus) annotation (Line(
       points={{-2.5,2.9},{-50,2.9},{-50,-52}},
@@ -51,7 +56,16 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(hea.y, sigBus.hea) annotation (Line(points={{-79,70},{-50,70},{-50,
+          -52}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
 <p>This example shows the usage and effect of the model <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a>.</p>
-</html>"));
+</html>"), experiment(
+      StopTime=100,
+      Interval=1,
+      __Dymola_Algorithm="Dassl"));
 end OperationalEnvelope;

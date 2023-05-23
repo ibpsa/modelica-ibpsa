@@ -9,7 +9,7 @@ partial model PartialModularRefrigerantCycle
     "Signal bus with data for refrigerant models" annotation (Placement(
         transformation(extent={{-18,86},{18,118}}), iconTransformation(extent={{
             -16,88},{18,118}})));
-  Modelica.Blocks.Sources.Constant constZero(final k=0) if not use_rev
+  Modelica.Blocks.Sources.Constant constZer(final k=0) if not use_rev
     "If no heating is used, the switches may still be connected"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
@@ -53,7 +53,7 @@ protected
     "Pass through to enable assertion for non-reversible device";
 equation
   assert(
-    use_rev or (use_rev == false and pasTrhModSet.y == false),
+    use_rev or (use_rev == false and pasTrhModSet.y == true),
     "Can't turn to reversible operation mode on 
     irreversible refrigerant machine",
     level=AssertionLevel.error);

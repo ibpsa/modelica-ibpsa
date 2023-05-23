@@ -2,7 +2,9 @@ within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData;
 record HeatPumpBaseDataDefinition "Basic heat pump data"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition;
-  parameter Real tableUppBou[:,2]
+  parameter Real tabQCon_flow[:,:]
+    "Heating power table, T in degC, Q_flow in W";
+  parameter Real tabUppBou[:,2]
     "Points to define upper boundary for sink temperature";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>

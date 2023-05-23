@@ -33,23 +33,24 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
     annotation (
       Dialog(group="Operational Envelope", enable=use_opeEnv),
       choices(checkBox=true));
-  parameter Boolean use_opeEnvFroRec
-    "Use a the operational envelope given in the datasheet"
-    annotation (
-      Dialog(group="Operational Envelope", enable=use_opeEnv),
-      choices(checkBox=true));
-  parameter
-    RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab
-    "Data Table of HP" annotation (Dialog(group="Operational Envelope", enable=
-          use_opeEnv and use_opeEnvFroRec), choicesAllMatching=true);
-  parameter Real tabUpp[:,2] "Upper boundary of envelope"
+  parameter Real tabUppHea[:,2] "Upper envelope boundary for heating"
     annotation (
       Dialog(group="Operational Envelope",
-      enable=use_opeEnv and not use_opeEnvFroRec));
+      enable=use_opeEnv));
+  parameter Real tabLowCoo[:,2] "Lower envelope boundary for cooling"
+    annotation (
+      Dialog(group="Operational Envelope",
+      enable=use_opeEnv));
   parameter Modelica.Units.SI.TemperatureDifference dTHystOperEnv=5
     "Temperature difference used for both upper 
     and lower hysteresis in the operational envelope."
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+  parameter Boolean use_TEvaInForOpeEnv=true
+    "=true to use evaporator inlet temperature, false for outlet"
+        annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+  parameter Boolean use_TConInForOpeEnv=false
+    "=true to use codensner inlet temperature, false for outlet"
+        annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean preYSet_start "Start value of pre(n) at initial time"
     annotation (
       Dialog(group="OnOffControl", descriptionLabel=true),
@@ -73,7 +74,9 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   parameter Real m_flowConMinPer
     "Percentage of mass flow rate in condenser required to operate the device"
     annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
-     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre),
+    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv),
+                Dialog(group="Operational Envelope", enable=use_opeEnv),
+                 Dialog(group="Anti Freeze Control", enable=use_antFre),
                 Dialog(group="Anti Freeze Control", enable=use_antFre),
     Icon(graphics, coordinateSystem(preserveAspectRatio=false)),
      Diagram(graphics, coordinateSystem(preserveAspectRatio=false)),

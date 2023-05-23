@@ -2,18 +2,18 @@ within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511;
 record Dimplex_LA11AS "Dimplex LA 11 AS"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
-    device_id="Dimplex_LA11AS",
-    tablePel=[
+    devIde="Dimplex_LA11AS",
+    tabPEle=[
       0,-7,2,7,10;
       35,2444,2839,3139,3103;
       45,2783,2974,3097,3013],
-    tableQCon_flow=[
+    tabQCon_flow=[
       0,-7,2,7,10;
       35,6600,8800,11300,12100;
       45,6400,7898,9600,10145],
     mCon_flow_nominal=11300/4180/5,
     mEva_flow_nominal=1,
-    tableUppBou=[-25,58; 35,58],
+    tabUppBou=[-25,58; 35,58],
     use_conOut=true,
     use_evaOut=false);
 

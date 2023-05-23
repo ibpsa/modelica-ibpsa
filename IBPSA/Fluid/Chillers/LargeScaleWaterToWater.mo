@@ -11,6 +11,7 @@ model LargeScaleWaterToWater
     final use_conCap=false,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
+
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating,
     redeclare model RefrigerantCycleChillerCooling =
@@ -18,13 +19,15 @@ model LargeScaleWaterToWater
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
     final use_rev=false,
-    final mCon_flow_nominal=autCalMCon_flow*scaFac,
-    final mEva_flow_nominal=autCalMEva_flow*scaFac,
-    final tauCon=autCalVCon*rhoCon/autCalMCon_flow,
-    final tauEva=autCalVEva*rhoEva/autCalMEva_flow);
+    final mCon_flow_nominal=autCalMasCon_flow*scaFac,
+    final mEva_flow_nominal=autCalMasEva_flow*scaFac,
+    final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
+    final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
   extends IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters(
-    final autCalMCon_flow=max(5E-5*QUse_flow_nominal + 0.3161, autCalMMin_flow),
-    final autCalMEva_flow=max(5E-5*QUse_flow_nominal - 0.5662, autCalMMin_flow),
+    final autCalMasCon_flow=max(5E-5*QUse_flow_nominal + 0.3161,
+        autCalMMin_flow),
+    final autCalMasEva_flow=max(5E-5*QUse_flow_nominal - 0.5662,
+        autCalMMin_flow),
     final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin));
   replaceable parameter RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition

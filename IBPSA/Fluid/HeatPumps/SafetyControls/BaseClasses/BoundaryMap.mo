@@ -2,20 +2,21 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 model BoundaryMap
   "Model which returns false if the input parameters 
   are out of the given charasteristic map"
-  extends IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMapIcon(
-      final icoMin=-70, final icoMax=70);
+  parameter Real tab[:,2]
+    "Table for boundary with second column as useful temperature side";
   parameter Real dT
     "Delta value used to avoid state events when used as a safety control"
   annotation (Dialog(tab="Safety Control", group="Operational Envelope"));
+  parameter Boolean isUppBou "=true if it is an upper boundary, false for lower";
   Modelica.Blocks.Interfaces.BooleanOutput noErr
     "If an error occurs, this will be false"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput TEva(unit="K", displayUnit="degC")
-    "Evaporator side temperature"
+  Modelica.Blocks.Interfaces.RealInput TNotUse(unit="K", displayUnit="degC")
+    "Not useful temperature side"
     annotation (Placement(transformation(extent={{-130,-54},{-102,-26}})));
 
-  Modelica.Blocks.Tables.CombiTable1Ds uppTab(
-    final table=tabUpp_internal,
+  Modelica.Blocks.Tables.CombiTable1Ds tabBou(
+    final table=tab,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     final tableOnFile=false) "Table with envelope data"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
@@ -32,36 +33,65 @@ model BoundaryMap
     final uHigh=0,
     pre_y_start=false) "Hysteresis for right side of envelope"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Sources.Constant conTEvaMin(k=TEvaMin)
-    "Constant evaporator minimal temperature"
+  Modelica.Blocks.Sources.Constant conTNotUseMin(k=TEvaMin)
+    "Constant minimal temperature of not useful temperature side"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Sources.Constant conTEvaMax(k=TEvaMax)
-    "Constant evaporator maximal temperature"
+  Modelica.Blocks.Sources.Constant conTNotUseMax(k=TEvaMax)
+    "Constant maximal temperature of not useful temperature side"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
-  Modelica.Blocks.Math.Add addMax(final k1=+1, final k2=-1)
-    "TEva minus TEvaMax"
+  Modelica.Blocks.Math.Add subMax(final k1=+1, final k2=-1)
+    "TNotUse minus TNotUseMax"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Modelica.Blocks.Math.Add addMin(final k1=-1, final k2=+1)
-    "TEvaMin minus TEva"
+  Modelica.Blocks.Math.Add sub(final k1=-1, final k2=+1)
+    "TNotUseMin minus TNotUse"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Math.UnitConversions.To_degC toDegCTEva
+  Modelica.Blocks.Math.UnitConversions.To_degC toDegCelTNotUse
     "Boundary map takes degC as input" annotation (extent=[-88,38; -76,50],
-      Placement(transformation(extent={{-94,0},{-74,20}})));
-    Modelica.Blocks.Math.UnitConversions.To_degC toDegCTCon
+      Placement(transformation(extent={{-90,0},{-70,20}})));
+    Modelica.Blocks.Math.UnitConversions.To_degC toDegCelTUse
     "Boundary map takes degC as input" annotation (extent=[-88,38; -76,50],
       Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Interfaces.RealInput TCon(unit="K", displayUnit="degC")
-    "Condenser side temperature"
+  Modelica.Blocks.Interfaces.RealInput TUse(unit="K", displayUnit="degC")
+    "Useful temperature side "
     annotation (Placement(transformation(extent={{-128,26},{-100,54}})));
-  Modelica.Blocks.Math.Add subTConMax(final k1=+1, final k2=-1)
-    "Subtract TConMax from current value"
+  Modelica.Blocks.Math.Add subBou(final k1=if isUppBou then 1 else -1, final k2
+      =if isUppBou then -1 else 1)
+    "Subtract boundary from current value depending on lower or upper boundary"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Logical.Hysteresis hysUpp(
+  Modelica.Blocks.Logical.Hysteresis hysBou(
     final uLow=-dT,
     final uHigh=0,
-    pre_y_start=false) "Hysteresis for upper temperature limit"
+    pre_y_start=false) "Hysteresis for temperature limit"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
+
+protected
+  parameter Real icoMin=-70
+    "Used to set the frame where the icon should appear";
+  parameter Real icoMax=70 "Used to set the frame where the icon should appear";
+  parameter Real TEvaMax(unit="degC") = tab[end, 1]
+    "Maximal value of evaporator side";
+  parameter Real TEvaMin(unit="degC") = tab[1, 1]
+    "Minimal temperature at evaporator side";
+  parameter Real TConMax(unit="degC") = max(tab[:, 2])
+    "Maximal temperature of condenser side";
+  parameter Real TConMin(unit="degC")=0
+    "Minimal value of condenser side";
+  final Real points[size(scaTEva, 1),2]=transpose({unScaTEva,unScaTCon})
+    annotation (Hide=false);
+  parameter Real scaTEva[:](each unit="degC") = tab[:, 1]
+    "Helper array with only evaporator values";
+  parameter Real scaTCon[:](each unit="degC") = tab[:, 2]
+    "Helper array with only condenser values";
+  parameter Real unScaTEva[size(scaTEva, 1)](
+    each min=-100,
+    each max=100) = (scaTEva - fill(TEvaMin, size(scaTEva, 1)))*(icoMax -
+    icoMin)/(TEvaMax - TEvaMin) + fill(icoMin, size(scaTEva, 1));
+  parameter Real unScaTCon[size(scaTEva, 1)](
+    each min=-100,
+    each max=100) = (scaTCon - fill(TConMin, size(scaTCon, 1)))*(icoMax -
+    icoMin)/(TConMax - TConMin) + fill(icoMin, size(scaTCon, 1));
+
 equation
   connect(nor.y, noErr)
     annotation (Line(points={{81.5,0},{110,0}}, color={255,0,255}));
@@ -69,35 +99,58 @@ equation
           {60,-2.33333}}, color={255,0,255}));
   connect(hysRig.y, nor.u[2]) annotation (Line(points={{41,-70},{50,-70},{50,-5.55112e-16},
           {60,-5.55112e-16}}, color={255,0,255}));
-  connect(addMax.u2, conTEvaMax.y) annotation (Line(points={{-22,-76},{-32,-76},
+  connect(subMax.u2, conTNotUseMax.y) annotation (Line(points={{-22,-76},{-32,-76},
           {-32,-90},{-39,-90}}, color={0,0,127}));
-  connect(addMin.u2, conTEvaMin.y) annotation (Line(points={{-22,-36},{-32,-36},
+  connect(sub.u2, conTNotUseMin.y) annotation (Line(points={{-22,-36},{-32,-36},
           {-32,-50},{-39,-50}}, color={0,0,127}));
-  connect(addMax.y, hysRig.u)
+  connect(subMax.y, hysRig.u)
     annotation (Line(points={{1,-70},{18,-70}}, color={0,0,127}));
-  connect(addMin.y, hysLef.u)
+  connect(sub.y, hysLef.u)
     annotation (Line(points={{1,-30},{18,-30}}, color={0,0,127}));
-  connect(toDegCTCon.u, TCon) annotation (Line(points={{-62,90},{-96,90},{-96,40},
-          {-114,40}},  color={0,0,127}));
-  connect(uppTab.u, toDegCTEva.y) annotation (Line(points={{-62,50},{-66,50},{-66,
-          10},{-73,10}}, color={0,0,127}));
-  connect(TEva, toDegCTEva.u)
-    annotation (Line(points={{-116,-40},{-98,-40},{-98,10},{-96,10}},
-                                                  color={0,0,127}));
-  connect(toDegCTEva.y, addMin.u1) annotation (Line(points={{-73,10},{-66,10},{-66,
-          -24},{-22,-24}}, color={0,0,127}));
-  connect(toDegCTEva.y, addMax.u1) annotation (Line(points={{-73,10},{-66,10},{-66,
-          -64},{-22,-64}}, color={0,0,127}));
-  connect(hysUpp.u, subTConMax.y)
+  connect(toDegCelTUse.u,TUse)  annotation (Line(points={{-62,90},{-96,90},{-96,
+          40},{-114,40}}, color={0,0,127}));
+  connect(tabBou.u, toDegCelTNotUse.y) annotation (Line(points={{-62,50},{-66,
+          50},{-66,10},{-69,10}}, color={0,0,127}));
+  connect(TNotUse, toDegCelTNotUse.u) annotation (Line(points={{-116,-40},{-98,
+          -40},{-98,10},{-92,10}}, color={0,0,127}));
+  connect(toDegCelTNotUse.y, sub.u1) annotation (Line(points={{-69,10},{-66,10},
+          {-66,-24},{-22,-24}}, color={0,0,127}));
+  connect(toDegCelTNotUse.y, subMax.u1) annotation (Line(points={{-69,10},{-66,
+          10},{-66,-64},{-22,-64}}, color={0,0,127}));
+  connect(hysBou.u, subBou.y)
     annotation (Line(points={{18,10},{6,10},{6,70},{1,70}}, color={0,0,127}));
-  connect(hysUpp.y, nor.u[3]) annotation (Line(points={{41,10},{50,10},{50,2.33333},
+  connect(hysBou.y, nor.u[3]) annotation (Line(points={{41,10},{50,10},{50,2.33333},
           {60,2.33333}}, color={255,0,255}));
-  connect(subTConMax.u1, toDegCTCon.y) annotation (Line(points={{-22,76},{-32,76},
+  connect(subBou.u1, toDegCelTUse.y) annotation (Line(points={{-22,76},{-32,76},
           {-32,90},{-39,90}}, color={0,0,127}));
-  connect(uppTab.y[1], subTConMax.u2) annotation (Line(points={{-39,50},{-30,50},
-          {-30,64},{-22,64}}, color={0,0,127}));
-annotation (Diagram(
-      coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  connect(tabBou.y[1], subBou.u2) annotation (Line(points={{-39,50},{-30,50},{-30,
+          64},{-22,64}}, color={0,0,127}));
+
+
+  annotation (Icon(
+    coordinateSystem(preserveAspectRatio=false,
+    extent={{-100,-100},{100,100}}), graphics={
+                                    Line(points=DynamicSelect(
+      {{-66,-66},{-66,50},{-44,66}, {68,66},{68,-66},{-66,-66}},points),
+      color={238,46,47},
+      thickness=0.5),
+  Polygon(
+    points={{icoMin-20,icoMax},{icoMin-20,icoMax},
+            {icoMin-10,icoMax},{icoMin-15,icoMax+20}},
+    lineColor={95,95,95},
+    fillColor={95,95,95},
+    fillPattern=FillPattern.Solid),
+  Polygon(
+    points={{icoMax+20,icoMin-10},{icoMax,icoMin-4},
+            {icoMax,icoMin-16},{icoMax+20,icoMin-10}},
+    lineColor={95,95,95},
+    fillColor={95,95,95},
+    fillPattern=FillPattern.Solid),
+  Line(points={{icoMin-15,icoMax},
+              {icoMin-15,icoMin-15}}, color={95,95,95}),
+  Line(points={{icoMin-20,icoMin-10},
+              {icoMax+10,icoMin-10}}, color={95,95,95})}),
+      coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
   Documentation(info="<html>
 <p>Given an input of TCon and TEva, the model returns true if the given point is outside of the given operational envelope. </p><p>The maximal and minmal TCon depend on TEva and are defined by the upper and lower boundaries in form of 1Ds-Tables. </p><p>The maximal and minimal TEva values are obtained trough the table and are constant. </p>
 <p>For the boundaries of the TCon input value, a dynamic hysteresis is used to ensure a used device will stay off a certain time after shutdown.</p><p>This is similar to the hysteresis in a pressure-based safety control, which prevents operation outside this envelope in real devices.</p>

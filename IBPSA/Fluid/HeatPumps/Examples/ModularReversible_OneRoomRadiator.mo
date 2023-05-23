@@ -2,15 +2,16 @@ within IBPSA.Fluid.HeatPumps.Examples;
 model ModularReversible_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
   extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
-        realTrue=modRevHeaPump.mEva_flow_nominal));
-  ModularReversible modRevHeaPump(
-    redeclare package MediumCon = MediumW,
-    redeclare package MediumEva = MediumW,
+        realTrue=modRevHeaPum.mEva_flow_nominal));
+  IBPSA.Fluid.HeatPumps.ModularReversible modRevHeaPum(
+    redeclare package MediumCon = MediumWat,
+    redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
-    use_internalSafetyControl=true,
+
+    use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
     mCon_flow_nominal=mHeaPum_flow_nominal,
@@ -41,10 +42,11 @@ model ModularReversible_OneRoomRadiator
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+            ()),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrlPar(use_antFre=true, TAntFre=275.15))
+      safCtrPar(use_antFre=true, TAntFre=275.15))
     "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 
@@ -55,21 +57,21 @@ model ModularReversible_OneRoomRadiator
         rotation=90,
         origin={10,-190})));
 equation
-  connect(modRevHeaPump.port_b2, sin.ports[1]) annotation (Line(points={{20,-154},
+  connect(modRevHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-154},
           {38,-154},{38,-200},{60,-200}}, color={0,127,255}));
-  connect(modRevHeaPump.port_a2, pumHeaPumSou.port_b) annotation (Line(points={
-          {0,-154},{-30,-154},{-30,-170}}, color={0,127,255}));
-  connect(modRevHeaPump.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,
-          -142},{-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(modRevHeaPump.port_a1, temRet.port_b) annotation (Line(points={{20,-142},
+  connect(modRevHeaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(points={{0,
+          -154},{-30,-154},{-30,-170}}, color={0,127,255}));
+  connect(modRevHeaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-142},
+          {-70,-142},{-70,-120}}, color={0,127,255}));
+  connect(modRevHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-142},
           {60,-142},{60,-30}}, color={0,127,255}));
-  connect(temAmbBas.y, modRevHeaPump.TConAmb) annotation (Line(points={{10,-179},
+  connect(temAmbBas.y, modRevHeaPum.TConAmb) annotation (Line(points={{10,-179},
           {10,-162},{-1,-162},{-1,-138}}, color={0,0,127}));
-  connect(modRevHeaPump.hea, oneRooRadHeaPumCtrl.hea) annotation (Line(points={
-          {21.6,-157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},
-          {-139,-76}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtrl.ySet, modRevHeaPump.ySet) annotation (Line(points=
-         {{-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
+  connect(modRevHeaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.6,
+          -157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},{-139,
+          -76}}, color={255,0,255}));
+  connect(oneRooRadHeaPumCtr.ySet, modRevHeaPum.ySet) annotation (Line(points={
+          {-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">ModularReversible</a> heat pump model directly. </p>
 <p>Correct replacement of the replaceable submodels and, thus, flexible aggregation to a new model approach is demonstrated.</p>

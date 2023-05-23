@@ -12,15 +12,19 @@ protected
   parameter Modelica.Units.SI.Volume autCalVMin=0.003
     "Realistic volume minimum for simulation plausibility";
 
-  parameter Modelica.Units.SI.MassFlowRate autCalMEva_flow;
-  parameter Modelica.Units.SI.MassFlowRate autCalMCon_flow;
-  parameter Modelica.Units.SI.Volume autCalVEva;
-  parameter Modelica.Units.SI.Volume autCalVCon;
+  parameter Modelica.Units.SI.MassFlowRate autCalMasEva_flow
+    "Automatically calculated evaporator mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate autCalMasCon_flow
+    "Automatically calculated condenser mass flow rate";
+  parameter Modelica.Units.SI.Volume autCalVEva
+    "Automatically calculated evaporator volume";
+  parameter Modelica.Units.SI.Volume autCalVCon
+    "Automatically calculated condenser volume";
 
 initial equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
   assert(
-    autCalMEva_flow > autCalMMin_flow and autCalMEva_flow <90,
+    autCalMasEva_flow > autCalMMin_flow and autCalMasEva_flow < 90,
     "Given nominal power (QUse_flow_nominal) for auto-calculation of 
     evaporator and condenser data is outside the range of data sheets 
     considered. Please control the auto-calculated mass flows!",

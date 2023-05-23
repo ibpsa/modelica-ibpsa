@@ -14,10 +14,10 @@ partial model Carnot
     "Nominal heating flow rate" annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal(final max=0)=
-       -10 "Temperature difference evaporator outlet-inlet"
+        -10 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal(final min=0)=
-       10 "Temperature difference condenser outlet-inlet"
+        10 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
 
   // Efficiency

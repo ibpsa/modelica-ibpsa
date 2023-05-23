@@ -29,8 +29,10 @@ model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   RefrigerantCycleChillerCooling refCycChiCoo
+    "Regrigerant cycle instance for cooling"
     annotation (Placement(transformation(extent={{21,40},{60,80}}, rotation=0)));
   RefrigerantCycleChillerHeating refCycChiHea
+    "Regrigerant cycle instance for heating"
     annotation (Placement(transformation(extent={{-80,38},{-39,80}}, rotation=0)));
 
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
@@ -65,15 +67,15 @@ equation
       points={{-59.5,35.9},{-58,35.9},{-58,26},{-24,26},{-24,-58},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, swiPEle.u3) annotation (Line(
+  connect(constZer.y, swiPEle.u3) annotation (Line(
       points={{-59,-70},{-34,-70},{-34,-58},{-8,-58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, swiQEva.u3) annotation (Line(
+  connect(constZer.y, swiQEva.u3) annotation (Line(
       points={{-59,-70},{-52,-70},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, swiQCon.u3) annotation (Line(
+  connect(constZer.y, swiQCon.u3) annotation (Line(
       points={{-59,-70},{-52,-70},{-52,-38},{58,-38},{58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));

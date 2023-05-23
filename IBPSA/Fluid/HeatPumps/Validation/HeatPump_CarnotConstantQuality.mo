@@ -1,33 +1,35 @@
 within IBPSA.Fluid.HeatPumps.Validation;
 model HeatPump_CarnotConstantQuality
   extends BaseClasses.PartialHeatPumpValidation(heaPum(
-      QUse_flow_nominal=qualityGrade*PEl_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
+      QUse_flow_nominal=quaGra*PEle_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
            - heaPum.TEva_nominal),
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
           (
-          refIneFre_constant=refIneFre_constant,
+          refIneFre_constant=refIneFreConst,
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
-            quaGra=qualityGrade)));
-  parameter Real qualityGrade=0.4318
-    "Constant quality grade" annotation(Evaluate=false);
+          useAirForCon=false,
+          useAirForEva=false,
+          quaGra=quaGra)));
+  parameter Real quaGra=0.4318 "Calibrated constant quality grade"
+    annotation(Evaluate=false);
 
-  parameter Modelica.Units.SI.Power PEl_nominal=1884.218212;
-//    annotation (Evaluate=false);
+  parameter Modelica.Units.SI.Power PEle_nominal=1884.218212
+    "Calibrated nominal electrical power";
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.407396
-    "Condenser nominal mass flow rate"
+    "Calibrated condenser nominal mass flow rate"
     annotation (Evaluate=false);
   parameter Modelica.Units.SI.Volume VCon=0.0015972
-    "Condenser volume"
+    "Calibrated condenser volume"
     annotation (Evaluate=false);
-  parameter Modelica.Units.SI.Frequency refIneFre_constant=13.2e-3
-    "Cut off frequency for inertia of refrigerant cycle"
+  parameter Modelica.Units.SI.Frequency refIneFreConst=13.2e-3
+    "Calibrated cut off frequency for inertia of refrigerant cycle"
     annotation (Evaluate=false);
 
 annotation (experiment(Tolerance=1e-6, StopTime=14365),

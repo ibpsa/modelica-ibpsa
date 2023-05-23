@@ -2,6 +2,7 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
 record DefaultHeatPumpSafetyControl "Apply the default values according to 
   the conference publication by Wuellhorst et. al."
   extends PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+    tabLowCoo=[-40,10; 40,10],
     dTHysAntFre=2,
     preYSet_start=true,
     ySetMin=0.3,
@@ -14,11 +15,8 @@ record DefaultHeatPumpSafetyControl "Apply the default values according to
     TAntFre=273.15,
     use_antFre=false,
     dTHystOperEnv=5,
-    datTab=
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201(),
-    use_opeEnvFroRec=false,
     use_opeEnv=true,
-    tabUpp=[-40,70; 40,70],
+    tabUppHea=[-40,70; 40,70],
     maxRunPerHou=3,
     minLocTime=1200,
     minRunTime=600);

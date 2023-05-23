@@ -30,7 +30,7 @@ model OneRoomRadiatorHeatPumpControl
   Modelica.Blocks.Logical.Not heaIsOn
     "If lower than hysteresis, heating demand" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={-36,20})));
-  Modelica.Blocks.Logical.Switch swiHeatCooYSet if witCoo
+  Modelica.Blocks.Logical.Switch swiHeaCooYSet if witCoo
     "Switch ySet for heating and cooling" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={40,70},
@@ -57,8 +57,7 @@ model OneRoomRadiatorHeatPumpControl
                                                              if witCoo
     "Room set temperature for cooling"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Sources.Constant constYSetZero(final k=0)
-                                                      "ySet equals zero"
+  Modelica.Blocks.Sources.Constant constYSetZer(final k=0) "ySet equals zero"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Logical.Switch swiYSet "If no demand, switch heat pump off"
     annotation (Placement(transformation(
@@ -108,23 +107,22 @@ model OneRoomRadiatorHeatPumpControl
 equation
   connect(hysHea.y, heaIsOn.u)
     annotation (Line(points={{-59,20},{-48,20}}, color={255,0,255}));
-  connect(swiHeatCooYSet.u2,hysCoo. y) annotation (Line(points={{28,70},{28,-10},
-          {-59,-10}},                        color={255,0,255}));
+  connect(swiHeaCooYSet.u2, hysCoo.y)
+    annotation (Line(points={{28,70},{28,-10},{-59,-10}}, color={255,0,255}));
   connect(swiYSet.u2, heaOrCooIsOn.y) annotation (Line(points={{58,40},{24,40},{
           24,10},{21,10}}, color={255,0,255}));
   connect(heaIsOn.y, heaOrCooIsOn.u1) annotation (Line(points={{-25,20},{-2,20},
           {-2,10}},           color={255,0,255}));
   connect(PIDHea.u_s,constTSetRooHea. y)
     annotation (Line(points={{-2,90},{-19,90}},   color={0,0,127}));
-  connect(PIDHea.y,swiHeatCooYSet. u3)
-    annotation (Line(points={{21,90},{21,84},{28,84},{28,78}},
-                                                          color={0,0,127}));
+  connect(PIDHea.y, swiHeaCooYSet.u3) annotation (Line(points={{21,90},{21,84},
+          {28,84},{28,78}}, color={0,0,127}));
   connect(constTSetRooCoo.y,PIDCoo. u_m) annotation (Line(points={{-39,50},{-14,
           50},{-14,32},{10,32},{10,38}},     color={0,0,127}));
-  connect(swiSecForCoo.u3, constYSetZero.y) annotation (Line(points={{70,2},{50,
+  connect(swiSecForCoo.u3, constYSetZer.y) annotation (Line(points={{70,2},{50,
           2},{50,-90},{21,-90}}, color={0,0,127}));
-  connect(constYSetZero.y,swiYSet. u3) annotation (Line(points={{21,-90},{50,-90},
-          {50,32},{58,32}},         color={0,0,127}));
+  connect(constYSetZer.y, swiYSet.u3) annotation (Line(points={{21,-90},{50,-90},
+          {50,32},{58,32}}, color={0,0,127}));
   connect(hysCoo.u, TRooMea) annotation (Line(points={{-82,-10},{-92,-10},{-92,-2},
           {-120,-2},{-120,0}}, color={0,0,127}));
   connect(TRooMea, hysHea.u) annotation (Line(points={{-120,0},{-106,0},{-106,-2},
@@ -139,9 +137,9 @@ equation
           {-94,72},{-94,0},{-120,0}}, color={0,0,127}));
   connect(PIDHea.u_m, TRooMea) annotation (Line(points={{10,78},{10,72},{-94,72},
           {-94,0},{-120,0}}, color={0,0,127}));
-  connect(PIDCoo.y, swiHeatCooYSet.u1) annotation (Line(points={{21,50},{21,54},
+  connect(PIDCoo.y, swiHeaCooYSet.u1) annotation (Line(points={{21,50},{21,54},
           {28,54},{28,62}}, color={0,0,127}));
-  connect(swiHeatCooYSet.y, swiYSet.u1) annotation (Line(points={{51,70},{56,70},
+  connect(swiHeaCooYSet.y, swiYSet.u1) annotation (Line(points={{51,70},{56,70},
           {56,52},{54,52},{54,48},{58,48}}, color={0,0,127}));
   connect(heaOrCooIsOn.u2, conFal.y) annotation (Line(points={{-2,2},{-28,2},{-28,
           -30},{-39,-30}}, color={255,0,255}));

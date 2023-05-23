@@ -21,8 +21,10 @@ model HeatPumpRefrigerantCycle
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   RefrigerantCycleHeatPumpHeating refCycHeaPumHea
+    "Refrigerant cycle instance for heating"
   annotation (Placement(transformation(extent={{60,40},{20,80}}, rotation=0)));
   RefrigerantCycleHeatPumpCooling refCycHeaPumCoo if use_rev
+    "Refrigerant cycle instance for cooling"
   annotation (Placement(transformation(extent={{-19,42},{-60,82}}, rotation=0)));
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
     "Negate QEva to match definition of heat flow direction" annotation (
@@ -37,9 +39,9 @@ model HeatPumpRefrigerantCycle
         rotation=0,
         origin={30,-8})));
 protected
-  Utilities.IO.Strings.StringPassThrough strPasThr
+  IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
-  Utilities.IO.Strings.ConstStringSource conStrSou(
+  IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
     final k=refCycHeaPumHea.datSou) if not use_rev
     "Constant String data source";
 initial equation
@@ -65,13 +67,13 @@ equation
       points={{-55.9,40},{-56,40},{-56,24},{-52,24},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, swiPEle.u3) annotation (Line(points={{-59,-70},{-40,-70},
-          {-40,-50},{-8,-50},{-8,-58}}, color={0,0,127}));
-  connect(constZero.y, swiQEva.u3) annotation (Line(
+  connect(constZer.y, swiPEle.u3) annotation (Line(points={{-59,-70},{-40,-70},{
+          -40,-50},{-8,-50},{-8,-58}}, color={0,0,127}));
+  connect(constZer.y, swiQEva.u3) annotation (Line(
       points={{-59,-70},{-52,-70},{-52,-8},{-58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(constZero.y, swiQCon.u3) annotation (Line(
+  connect(constZer.y, swiQCon.u3) annotation (Line(
       points={{-59,-70},{-20,-70},{-20,-20},{50,-20},{50,-8},{58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));

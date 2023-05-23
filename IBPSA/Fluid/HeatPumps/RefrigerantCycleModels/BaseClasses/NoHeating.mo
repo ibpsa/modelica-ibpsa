@@ -17,6 +17,7 @@ model NoHeating
       TCon_nominal=273.15,
       QUse_flow_nominal=0);
   Modelica.Blocks.Sources.Constant constZer(final k=0)
+    "No heating, hence, zero"
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
 equation
   connect(constZer.y, feeHeaFloEva.u1) annotation (Line(points={{-67,26},{-62,

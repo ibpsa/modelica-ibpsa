@@ -13,17 +13,17 @@ model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
     dTAppNotUse(k=TAppCon_nominal));
 
 equation
-  connect(switchQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-26,
+  connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-26,
           22},{-26,34},{1,34},{1,104}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(switchPel.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-36},{64,
+  connect(swiPEle.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-36},{64,
           -36},{64,-58}}, color={0,0,127}));
-  connect(switchPel.y, PEle) annotation (Line(points={{50,-1},{50,-8},{0,-8},{0,
-          -110}}, color={0,0,127}));
-  connect(switchPel.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,48},
+  connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-8},{0,-8},{0,-110}},
+        color={0,0,127}));
+  connect(swiPEle.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,48},
           {1,48},{1,104}}, color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -47,8 +47,8 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(switchQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,
-          -30},{-44,-30},{-44,-58}}, color={0,0,127}));
+  connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},
+          {-44,-30},{-44,-58}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

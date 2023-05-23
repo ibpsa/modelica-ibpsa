@@ -4,12 +4,12 @@ model ReversibleAirToWater2D_OneRoomRadiator
   extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
         realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
 
-  ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
+  IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
     redeclare package MediumCon = MediumW,
     redeclare package MediumEva = MediumW,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
-    use_internalSafetyControl=true,
+    use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dpCon_nominal(displayUnit="Pa") = 2000,
     TEva_nominal=sou.T,
@@ -17,7 +17,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrlPar(
+      safCtrPar(
       use_minRunTime=false,
       use_minLocTime=true,
       use_runPerHou=true,

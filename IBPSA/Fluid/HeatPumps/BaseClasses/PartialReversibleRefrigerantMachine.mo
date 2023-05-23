@@ -37,11 +37,11 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean use_rev=true
     "Is the machine reversible?"
     annotation(choices(checkBox=true));
-  parameter Boolean use_internalSafetyControl=true
+  parameter Boolean use_intSafCtr=true
     "=true to enable internal safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
   replaceable parameter
-    SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrlPar
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrPar
     constrainedby
     IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition
     "Safety control parameters" annotation (Dialog(enable=
@@ -128,7 +128,7 @@ partial model PartialReversibleRefrigerantMachine
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal
     "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Flow resistance",
         tab="Evaporator"), Evaluate=true);
-  parameter Real deltaM_eva=0.1
+  parameter Real deltaMEva=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));
   parameter Boolean use_evaCap=true
@@ -241,7 +241,7 @@ partial model PartialReversibleRefrigerantMachine
     final X_start=XCon_start,
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
-    final is_con=true,
+    final isCon=true,
     final C=CCon*scaFac,
     final TCap_start=TConCap_start,
     final GOut=GConOut*scaFac,
@@ -251,7 +251,7 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Placement(transformation(extent={{-20,72},{20,112}})));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
-    final deltaM=deltaM_eva,
+    final deltaM=deltaMEva,
     final tau=tauEva,
     final use_cap=use_evaCap,
     final allowFlowReversal=allowFlowReversalEva,
@@ -262,7 +262,7 @@ partial model PartialReversibleRefrigerantMachine
     final X_start=XEva_start,
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
-    final is_con=false,
+    final isCon=false,
     final C=CEva*scaFac,
     final m_flow_nominal=mEva_flow_nominal,
     final dp_nominal=dpEva_nominal*scaFac,
@@ -270,51 +270,51 @@ partial model PartialReversibleRefrigerantMachine
     final GOut=GEvaOut*scaFac,
     final GInn=GEvaIns*scaFac) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{20,-72},{-20,-112}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTempOutEva
- if use_evaCap "Foreces heat losses according to ambient temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutEva
+    if use_evaCap "Foreces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-100})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTempOutCon
- if use_conCap "Foreces heat losses according to ambient temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutCon
+    if use_conCap "Foreces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,110})));
-  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safetyControl(
+  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safCtr(
     final mEva_flow_nominal=mEva_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
-    safCtrlPar=safCtrlPar,
-    final ySet_small=ySet_small) if use_internalSafetyControl
+    safCtrlPar=safCtrPar,
+    final ySet_small=ySet_small) if use_intSafCtr
+    "Safety control models"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Interfaces.RealInput ySet
-    if not use_busConnectorOnly
+  Modelica.Blocks.Interfaces.RealInput ySet if not use_busConOnl
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", final
-      displayUnit="degC") if use_evaCap and not use_busConnectorOnly
+      displayUnit="degC") if use_evaCap and not use_busConOnl
     "Ambient temperature on the evaporator side" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,-100})));
   Modelica.Blocks.Interfaces.RealInput TConAmb(final unit="K", final
-      displayUnit="degC") if use_conCap and not use_busConnectorOnly
+      displayUnit="degC") if use_conCap and not use_busConOnl
     "Ambient temperature on the condenser side" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={110,100})));
 
-  IBPSA.Fluid.Sensors.MassFlowRate mFlow_eva(redeclare final package Medium =
+  IBPSA.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
         origin={72,-60},
         extent={{10,-10},{-10,10}},
         rotation=0)));
-  IBPSA.Fluid.Sensors.MassFlowRate mFlow_con(final allowFlowReversal=
+  IBPSA.Fluid.Sensors.MassFlowRate mCon_flow(final allowFlowReversal=
         allowFlowReversalEva, redeclare final package Medium = MediumCon)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
         origin={-50,92},
@@ -365,12 +365,11 @@ protected
           extent={{-120,-60},{-90,-26}}), iconTransformation(extent={{-108,-52},
             {-90,-26}})));
 
-  parameter Boolean use_busConnectorOnly=false
-    "=true to use bus connector for model inputs (ySet, hea or coo).
+  parameter Boolean use_busConOnl=false "=true to use bus connector for model inputs (ySet, hea or coo).
     =false to use the bus connector for outputs only. 
     Only possible if no internal safety control is used"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
-          use_internalSafetyControl));
+          use_intSafCtr));
 
 // Line to add if you want to use the bus
 //protected
@@ -386,47 +385,46 @@ protected
 equation
 
   // Non bus connections
-  connect(safetyControl.sigBus, sigBus) annotation (Line(
-        points={{-62.5,-17.1},{-62.5,-16},{-76,-16},{-76,-43},{-105,-43}},
-        color={255,204,51},
-        thickness=0.5), Text(
-        string="%second",
-        index=1,
-        extent={{-6,3},{-6,3}},
-        horizontalAlignment=TextAlignment.Right));
-  connect(safetyControl.yOut, sigBus.ySet) annotation (Line(points={{-37,-8},{-30,
-          -8},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},            color={0,0,127}),
-      Text(
+  connect(safCtr.sigBus, sigBus) annotation (Line(
+      points={{-62.5,-17.1},{-62.5,-16},{-76,-16},{-76,-43},{-105,-43}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-37,-8},{-30,-8},{
+          -30,-66},{-76,-66},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ySet, safetyControl.ySet) annotation (Line(points={{-116,20},{-80,20},
-          {-80,-8},{-63.6,-8}},                color={0,0,127}));
-  connect(TConAmb, varTempOutCon.T) annotation (Line(
+  connect(ySet, safCtr.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-8},
+          {-63.6,-8}}, color={0,0,127}));
+  connect(TConAmb, varTOutCon.T) annotation (Line(
       points={{110,100},{88,100},{88,110},{82,110}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(varTempOutCon.port, con.port_out) annotation (Line(
+  connect(varTOutCon.port, con.port_out) annotation (Line(
       points={{60,110},{40,110},{40,118},{0,118},{0,112}},
       color={191,0,0},
       pattern=LinePattern.Dash));
-  connect(TEvaAmb, varTempOutEva.T) annotation (Line(
+  connect(TEvaAmb, varTOutEva.T) annotation (Line(
       points={{110,-100},{82,-100}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(eva.port_out, varTempOutEva.port) annotation (Line(
+  connect(eva.port_out, varTOutEva.port) annotation (Line(
       points={{0,-112},{0,-118},{54,-118},{54,-100},{60,-100}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60},{-100,
           -60}}, color={0,127,255}));
-  connect(mFlow_eva.port_a, port_a2)
+  connect(mEva_flow.port_a, port_a2)
     annotation (Line(points={{82,-60},{100,-60}}, color={0,127,255}));
-  connect(port_a1, mFlow_con.port_a)
+  connect(port_a1,mCon_flow. port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
                                                   color={0,127,255}));
-  connect(mFlow_eva.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
+  connect(mEva_flow.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
           {32,-92},{20,-92}}, color={0,127,255}));
   connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
           -60},{-100,-60}}, color={0,127,255}));
@@ -442,12 +440,12 @@ equation
   connect(refCycIneCon.u, refCyc.QCon_flow) annotation (Line(points={{-6.66134e-16,
           38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
          {0,0,127}));
-  connect(mFlow_con.port_b, con.port_a)
+  connect(mCon_flow.port_b, con.port_a)
     annotation (Line(points={{-40,92},{-20,92}}, color={0,127,255}));
   connect(con.port_b, port_b1) annotation (Line(points={{20,92},{78,92},{78,60},
           {100,60}}, color={0,127,255}));
   // External bus connections
-  connect(mFlow_eva.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
+  connect(mEva_flow.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
           {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
           -43}},                                                color={0,0,127}),
       Text(
@@ -455,7 +453,7 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(mFlow_con.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-50,81},
+  connect(mCon_flow.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-50,81},
           {-50,32},{-76,32},{-76,-43},{-105,-43}},
                                                  color={0,0,127}), Text(
       string="%second",
@@ -483,7 +481,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(varTempOutCon.T, sigBus.TConAmbMea) annotation (Line(
+  connect(varTOutCon.T, sigBus.TConAmbMea) annotation (Line(
       points={{82,110},{88,110},{88,82},{38,82},{38,32},{-76,32},{-76,-43},{-105,
           -43}},
       color={0,0,127},
@@ -492,7 +490,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(varTempOutEva.T, sigBus.TEvaAmbMea) annotation (Line(
+  connect(varTOutEva.T, sigBus.TEvaAmbMea) annotation (Line(
       points={{82,-100},{88,-100},{88,-118},{-76,-118},{-76,-43},{-105,-43}},
       color={0,0,127},
       pattern=LinePattern.Dash), Text(
@@ -532,7 +530,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  if not use_internalSafetyControl then
+  if not use_intSafCtr then
     connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
           {-105,-43}}, color={0,0,127}), Text(
       string="%second",

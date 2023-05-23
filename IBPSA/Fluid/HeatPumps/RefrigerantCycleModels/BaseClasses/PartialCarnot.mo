@@ -62,19 +62,18 @@ partial model PartialCarnot
   Modelica.Blocks.Sources.Constant dTAppUse
     "Temperature difference at useful side"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Blocks.Sources.Constant constZero(final k=0)
-    "Constant zero value if off"             annotation (Placement(
-        transformation(
+  Modelica.Blocks.Sources.Constant constZer(final k=0)
+    "Constant zero value if off" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,10})));
-  Modelica.Blocks.Logical.Switch switchPel
+  Modelica.Blocks.Logical.Switch swiPEle
     "If HP is off, no heat will be exchanged" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,10})));
-  Modelica.Blocks.Logical.Switch switchQUse
+  Modelica.Blocks.Logical.Switch swiQUse
     "If HP is off, no heat will be exchanged" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -94,15 +93,14 @@ equation
     annotation (Line(points={{-39,90},{-36,90},{-36,82}}, color={0,0,127}));
   connect(dTAppUse.y, addTVapCycUse.u2)
     annotation (Line(points={{-79,90},{-76,90},{-76,82}}, color={0,0,127}));
-  connect(constZero.y,switchPel. u3) annotation (Line(points={{8.88178e-16,21},{
-          8.88178e-16,28},{42,28},{42,22}},
-                        color={0,0,127}));
-  connect(proPEle.y,switchPel. u1) annotation (Line(points={{70,39},{70,34},{58,
+  connect(constZer.y, swiPEle.u3) annotation (Line(points={{8.88178e-16,21},{
+          8.88178e-16,28},{42,28},{42,22}}, color={0,0,127}));
+  connect(proPEle.y, swiPEle.u1) annotation (Line(points={{70,39},{70,34},{58,
           34},{58,22}}, color={0,0,127}));
-  connect(proQUse_flow.y,switchQUse. u1) annotation (Line(points={{-50,29},{-50,
-          28},{-58,28},{-58,22}}, color={0,0,127}));
-  connect(switchQUse.u3, constZero.y) annotation (Line(points={{-42,22},{-42,28},
-          {8.88178e-16,28},{8.88178e-16,21}},         color={0,0,127}));
+  connect(proQUse_flow.y, swiQUse.u1) annotation (Line(points={{-50,29},{-50,28},
+          {-58,28},{-58,22}}, color={0,0,127}));
+  connect(swiQUse.u3, constZer.y) annotation (Line(points={{-42,22},{-42,28},{
+          8.88178e-16,28},{8.88178e-16,21}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialCarnot;

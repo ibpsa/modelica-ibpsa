@@ -1,10 +1,10 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511;
 record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
   extends HeatPumpBaseDataDefinition(
-    tableUppBou=[-5,82; 45,82],
+    tabUppBou=[-5,82; 45,82],
     mEva_flow_nominal=24.17/3600*997,
     mCon_flow_nominal=13.60/3600*997,
-    tablePel=[
+    tabPEle=[
       0,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
         22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40;
       60,20150,20230,20300,20370,20430,20500,20560,20620,20670,20730,20780,
@@ -19,7 +19,7 @@ record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
         30910,31010,31100,31190,31270,31350,31420,31490,31560,31620,31680,
         31740,31790,31850,31900,31950,32000,32040,32090,32130,32180,32220,
         32270,32310,32360],
-    tableQCon_flow=[
+    tabQCon_flow=[
       0,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
         22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40;
       60,58030,59710,61440,63220,65040,66920,68860,70850,72900,75020,77190,
@@ -34,7 +34,7 @@ record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
         71640,73400,75210,77070,78990,80960,82990,85080,87230,89450,91740,
         94090,96520,99010,101590,104240,106970,109780,112670,115650,118710,
         121870,125110,128450,131890],
-    device_id="WAMAK_WaterToWaterr_150kW",
+    devIde="WAMAK_WaterToWaterr_150kW",
     use_conOut=true,
     use_evaOut=false);
   annotation (Documentation(info="<html>

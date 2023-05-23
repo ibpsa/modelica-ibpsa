@@ -6,18 +6,20 @@ model HeatPump_EuropeanNormData
       redeclare model RefrigerantCycleInertia =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
           (
-          refIneFre_constant=refIneFre_constant,
+          refIneFre_constant=refIneFreConst,
           nthOrder=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (datTab=
               IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
-              tableQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
-              tablePel=[0,0,10; 35,1300,1500; 55,1900,2300],
+              tabQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
+              tabPEle=[0,0,10; 35,1300,1500; 55,1900,2300],
               mCon_flow_nominal=6100/5/4184,
               mEva_flow_nominal=4800/5/4184,
-              tableUppBou=[-40,70; 40,70],
-              device_id="Vaillaint_VWL101"))));
+              tabUppBou=[-40,70; 40,70],
+              use_evaOut=false,
+              use_conOut=true,
+              devIde="Vaillaint_VWL101"))));
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.404317
     "Condenser nominal mass flow rate"
@@ -25,7 +27,7 @@ model HeatPump_EuropeanNormData
   parameter Modelica.Units.SI.Volume VCon=0.004473
     "Condenser volume"
     annotation (Evaluate=false);
-  parameter Modelica.Units.SI.Frequency refIneFre_constant=0.011848
+  parameter Modelica.Units.SI.Frequency refIneFreConst=0.011848
     "Cut off frequency for inertia of refrigerant cycle"
     annotation (Evaluate=false);
 

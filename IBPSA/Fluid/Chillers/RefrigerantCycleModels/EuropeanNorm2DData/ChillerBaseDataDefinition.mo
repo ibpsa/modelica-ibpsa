@@ -1,12 +1,11 @@
 within IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData;
 record ChillerBaseDataDefinition "Basic chiller data"
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition(
-     tableQCon_flow=tableQEva_flow);
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition;
 
-  parameter Real tableQEva_flow[:,:]
-    "Cooling power table; T in degC; Q_flow in W";
-  parameter Real tableLowBou[:,2]
+  parameter Real tabQEva_flow[:,:]
+    "Cooling power table, T in degC, Q_flow in W";
+  parameter Real tabLowBou[:,2]
     "Points to define lower boundary for source temperature";
   annotation (Documentation(info="<html><p>
   Base data definition extending from the <a href=

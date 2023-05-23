@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels;
 model EuropeanNorm2D "Data from European Norm in two dimensions"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
-    final datSou=datTab.device_id,
+    final datSou=datTab.devIde,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     QUseNoSca_flow_nominal=
@@ -26,7 +26,7 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
-    final table=datTab.tableQCon_flow,
+    final table=datTab.tabQCon_flow,
     final extrapolation=extrapolation) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
         origin={30,50})));
@@ -35,20 +35,22 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
-    final table=datTab.tablePel,
+    final table=datTab.tabPEle,
     final extrapolation=extrapolation) "Electrical power table" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={70,50})));
 
-  Modelica.Blocks.Math.UnitConversions.To_degC TEvaInToDegC
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=270,
+  Modelica.Blocks.Math.UnitConversions.To_degC TEvaToDegC
+    "Table input is in degC"       annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
         origin={-50,90})));
-  Modelica.Blocks.Math.UnitConversions.To_degC TConOutToDegC
-    annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, rotation=270,
+  Modelica.Blocks.Math.UnitConversions.To_degC TConToDegC
+    "Table input is in degC"      annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
         origin={50,90})));
   Modelica.Blocks.Math.Product nTimesPel annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -81,7 +83,7 @@ protected
       Modelica.Blocks.Types.ExternalCombiTable2D(
       "NoName",
       "NoName",
-      datTab.tableQCon_flow,
+      datTab.tabQCon_flow,
       smoothness,
       extrapolation,
       false) "External table object";
@@ -98,30 +100,36 @@ initial equation
     AssertionLevel.warning);
 
 equation
-  connect(TEvaInToDegC.y, tabQCon_flow.u2) annotation (Line(points={{-50,79},{-50,
-          74},{24,74},{24,62}},
-                            color={0,0,127}));
-  connect(TEvaInToDegC.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,74},
-          {64,74},{64,62}}, color={0,0,127}));
-  connect(TConOutToDegC.y, tabPEle.u1) annotation (Line(points={{50,79},{50,78},
-          {54,78},{54,76},{76,76},{76,62}}, color={0,0,127}));
-  connect(TConOutToDegC.y, tabQCon_flow.u1)
-    annotation (Line(points={{50,79},{50,70},{36,70},{36,62}},
-                                                            color={0,0,127}));
-  connect(sigBus.TConOutMea, TConOutToDegC.u) annotation (Line(
+  connect(TEvaToDegC.y, tabQCon_flow.u2) annotation (Line(points={{-50,79},{-50,
+          74},{24,74},{24,62}}, color={0,0,127}));
+  connect(TEvaToDegC.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,74},{
+          64,74},{64,62}}, color={0,0,127}));
+  connect(TConToDegC.y, tabPEle.u1) annotation (Line(points={{50,79},{50,78},{54,
+          78},{54,76},{76,76},{76,62}}, color={0,0,127}));
+  connect(TConToDegC.y, tabQCon_flow.u1) annotation (Line(points={{50,79},{50,70},
+          {36,70},{36,62}}, color={0,0,127}));
+  if datTab.use_conOut then
+    connect(sigBus.TConOutMea, TConToDegC.u) annotation (Line(
       points={{1,104},{0,104},{0,84},{36,84},{36,108},{50,108},{50,102}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(sigBus.TEvaInMea, TEvaInToDegC.u) annotation (Line(
+      thickness=0.5));
+  else
+    connect(sigBus.TConInMea, TConToDegC.u) annotation (Line(
+      points={{1,104},{0,104},{0,84},{36,84},{36,108},{50,108},{50,102}},
+      color={255,204,51},
+      thickness=0.5));
+  end if;
+  if datTab.use_evaOut then
+    connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
       points={{1,104},{0,104},{0,86},{-34,86},{-34,110},{-50,110},{-50,102}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
+      thickness=0.5));
+  else
+    connect(sigBus.TEvaInMea, TEvaToDegC.u) annotation (Line(
+        points={{1,104},{0,104},{0,86},{-34,86},{-34,110},{-50,110},{-50,102}},
+        color={255,204,51},
+        thickness=0.5));
+  end if;
   connect(tabPEle.y, nTimesPel.u2) annotation (Line(points={{70,39},{70,34},{-24,
           34},{-24,8},{-36,8},{-36,2}}, color={0,0,127}));
   connect(tabQCon_flow.y, nTimesQCon.u1)

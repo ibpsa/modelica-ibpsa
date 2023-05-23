@@ -5,7 +5,7 @@ model EvaporatorCondenserWithCapacity
           m_flow_nominal*tau/rho_default,
     final prescribedHeatFlowRate=true));
 
-  parameter Boolean is_con "Type of heat exchanger"
+  parameter Boolean isCon "Type of heat exchanger"
     annotation (Dialog( descriptionLabel = true),
       choices(
         choice=true "Condenser",

@@ -5,13 +5,13 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
         realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating power";
-  ReversibleCarnotWithLosses revCarWitLosHeaPum(
+  IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses revCarWitLosHeaPum(
     redeclare package MediumCon = MediumW,
     redeclare package MediumEva = MediumW,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_rev=true,
-    use_internalSafetyControl=true,
+    use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
     mCon_flow_nominal=mHeaPum_flow_nominal,
@@ -29,7 +29,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrlPar,
+      safCtrPar,
     quaGra=0.4,
     refIneFre_constant=0.003,
     nthOrder=3) "Reversible heat pump with losses and carnot approach"
