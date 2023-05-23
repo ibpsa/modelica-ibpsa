@@ -64,7 +64,7 @@ model PlugFlowPipe
 <li>
 October 05, 2021, by Baptiste Ravache:<br/>
 Made model symmetrical and extends from
-<a href=\"IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
 IBPSA.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </li>
 <li>
