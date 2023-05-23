@@ -7,156 +7,58 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-        tabConID,
+        tabIdeQUse_flow,
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
+  extends
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialEuropeanNorm2D(
+    perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100,
+    perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100);
+
 
   parameter IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab=
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN255.Vitocal350AWI114()
          "Data Table of HP" annotation (choicesAllMatching=true);
-  parameter Modelica.Blocks.Types.Smoothness smoothness=
-    Modelica.Blocks.Types.Smoothness.LinearSegments
-    "Smoothness of table interpolation";
-  parameter Modelica.Blocks.Types.Extrapolation extrapolation=
-    Modelica.Blocks.Types.Extrapolation.LastTwoPoints
-    "Extrapolation of data outside the definition range";
-
-  Modelica.Blocks.Tables.CombiTable2Ds tabQCon_flow(
-    final smoothness=smoothness,
-    final u1(unit="degC"),
-    final u2(unit="degC"),
-    final y(unit="W", displayUnit="kW"),
-    final table=datTab.tabQCon_flow,
-    final extrapolation=extrapolation) annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={30,50})));
-  Modelica.Blocks.Tables.CombiTable2Ds tabPEle(
-    final smoothness=smoothness,
-    final u1(unit="degC"),
-    final u2(unit="degC"),
-    final y(unit="W", displayUnit="kW"),
-    final table=datTab.tabPEle,
-    final extrapolation=extrapolation) "Electrical power table" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={70,50})));
-
-  Modelica.Blocks.Math.UnitConversions.To_degC TEvaToDegC
-    "Table input is in degC"       annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-50,90})));
-  Modelica.Blocks.Math.UnitConversions.To_degC TConToDegC
-    "Table input is in degC"      annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={50,90})));
-  Modelica.Blocks.Math.Product nTimesPel annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-30,-10})));
-  Modelica.Blocks.Math.Product nTimesQCon annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,-10})));
-
-  Modelica.Blocks.Math.Product nTimesScaFac
-    "Create the product of the scaling factor and relative compressor speed"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={-70,30})));
-
-protected
-  final parameter Real perDevMasFloCon=
-    (mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100
-    "Deviation of nominal mass flow rate at condenser in percent";
-  final parameter Real perDevMasFloEva=
-    (mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100
-    "Deviation of nominal mass flow rate at evaporator in percent";
-
-  Modelica.Blocks.Sources.Constant constScaFac(final k=scaFac)
-    "Calculates correction of table output based on scaling factor"
-    annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, rotation=270,
-        origin={-90,70})));
-  parameter Modelica.Blocks.Types.ExternalCombiTable2D tabConID=
-      Modelica.Blocks.Types.ExternalCombiTable2D(
-      "NoName",
-      "NoName",
-      datTab.tabQCon_flow,
-      smoothness,
-      extrapolation,
-      false) "External table object";
-initial equation
-  assert(perDevMasFloCon < 1,
-      "The deviation of the given mCon_flow_nominal to the table data is " +
-      String(perDevMasFloCon) + " %. Carefully check results, 
-      you are extrapolating the table data!",
-    AssertionLevel.warning);
-  assert(perDevMasFloEva < 1,
-    "The deviation of the given mEva_flow_nominal to the table data is " +
-      String(perDevMasFloEva) + " %. Carefully check results, 
-      you are extrapolating the table data!",
-    AssertionLevel.warning);
 
 equation
-  connect(TEvaToDegC.y, tabQCon_flow.u2) annotation (Line(points={{-50,79},{-50,
-          74},{24,74},{24,62}}, color={0,0,127}));
-  connect(TEvaToDegC.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,74},{
-          64,74},{64,62}}, color={0,0,127}));
-  connect(TConToDegC.y, tabPEle.u1) annotation (Line(points={{50,79},{50,78},{54,
-          78},{54,76},{76,76},{76,62}}, color={0,0,127}));
-  connect(TConToDegC.y, tabQCon_flow.u1) annotation (Line(points={{50,79},{50,70},
-          {36,70},{36,62}}, color={0,0,127}));
+
   if datTab.use_conOut then
     connect(sigBus.TConOutMea, TConToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,84},{36,84},{36,108},{50,108},{50,102}},
+      points={{1,104},{0,104},{0,88},{60,88},{60,82}},
       color={255,204,51},
       thickness=0.5));
   else
     connect(sigBus.TConInMea, TConToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,84},{36,84},{36,108},{50,108},{50,102}},
+      points={{1,104},{0,104},{0,88},{60,88},{60,82}},
       color={255,204,51},
       thickness=0.5));
   end if;
   if datTab.use_evaOut then
     connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{-34,86},{-34,110},{-50,110},{-50,102}},
+      points={{1,104},{0,104},{0,88},{-40,88},{-40,82}},
       color={255,204,51},
       thickness=0.5));
   else
     connect(sigBus.TEvaInMea, TEvaToDegC.u) annotation (Line(
-        points={{1,104},{0,104},{0,86},{-34,86},{-34,110},{-50,110},{-50,102}},
+        points={{1,104},{0,104},{0,88},{-40,88},{-40,82}},
         color={255,204,51},
         thickness=0.5));
   end if;
-  connect(tabPEle.y, nTimesPel.u2) annotation (Line(points={{70,39},{70,34},{-24,
-          34},{-24,8},{-36,8},{-36,2}}, color={0,0,127}));
-  connect(tabQCon_flow.y, nTimesQCon.u1)
-    annotation (Line(points={{30,39},{30,20},{56,20},{56,2}},
-                                                           color={0,0,127}));
-  connect(nTimesPel.y, PEle) annotation (Line(points={{-30,-21},{-30,-80},{0,-80},
-          {0,-110}}, color={0,0,127}));
-  connect(constScaFac.y, nTimesScaFac.u2) annotation (Line(points={{-90,59},{-90,
-          50},{-76,50},{-76,42}},                  color={0,0,127}));
-  connect(sigBus.ySet, nTimesScaFac.u1) annotation (Line(
-      points={{1,104},{0,104},{0,76},{-64,76},{-64,42}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(nTimesScaFac.y, nTimesPel.u1) annotation (Line(points={{-70,19},{-70,14},
-          {-20,14},{-20,6},{-16,6},{-16,2},{-24,2}},             color={0,0,127}));
-  connect(nTimesScaFac.y, nTimesQCon.u2) annotation (Line(points={{-70,19},{-70,
-          14},{46,14},{46,8},{44,8},{44,2}},                    color={0,0,127}));
-  connect(nTimesPel.y, redQCon.u2) annotation (Line(points={{-30,-21},{-30,-48},
-          {64,-48},{64,-58}}, color={0,0,127}));
-  connect(nTimesPel.y, feeHeaFloEva.u2) annotation (Line(points={{-30,-21},{-30,
-          -20},{-56,-20},{-56,-24},{-70,-24},{-70,-18}}, color={0,0,127}));
-  connect(nTimesQCon.y, feeHeaFloEva.u1) annotation (Line(points={{50,-21},{50,
-          -26},{-96,-26},{-96,-10},{-78,-10}}, color={0,0,127}));
+
+  connect(scaFacTimPel.y, feeHeaFloEva.u2) annotation (Line(points={{-40,-11},{-40,
+          -24},{-70,-24},{-70,-18}}, color={0,0,127}));
+  connect(scaFacTimPel.y, PEle) annotation (Line(points={{-40,-11},{-40,-24},{0,
+          -24},{0,-110}}, color={0,0,127}));
+  connect(scaFacTimPel.y, redQCon.u2) annotation (Line(points={{-40,-11},{-40,-24},
+          {64,-24},{64,-58}}, color={0,0,127}));
+  connect(scaFacTimQUse_flow.y, feeHeaFloEva.u1) annotation (Line(points={{40,-11},
+          {40,-18},{-86,-18},{-86,-10},{-78,-10}}, color={0,0,127}));
+  connect(ySetTimScaFac.u1, sigBus.ySet) annotation (Line(points={{-64,48},{-64,
+          94},{1,94},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(graphics={
     Line(points={
           {-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},
