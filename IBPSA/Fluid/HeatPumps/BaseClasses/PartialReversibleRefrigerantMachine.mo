@@ -285,9 +285,8 @@ partial model PartialReversibleRefrigerantMachine
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safCtr(
     final mEva_flow_nominal=mEva_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
-    safCtrlPar=safCtrPar,
-    final ySet_small=ySet_small) if use_intSafCtr
-    "Safety control models"
+    safCtrPar=safCtrPar,
+    final ySet_small=ySet_small) if use_intSafCtr "Safety control models"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Interfaces.RealInput ySet if not use_busConOnl
     "Input signal speed for compressor relative between 0 and 1" annotation (Placement(

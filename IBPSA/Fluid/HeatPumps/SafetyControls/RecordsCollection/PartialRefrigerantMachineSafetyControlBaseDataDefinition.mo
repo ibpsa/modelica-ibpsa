@@ -41,7 +41,7 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
     annotation (
       Dialog(group="Operational Envelope",
       enable=use_opeEnv));
-  parameter Modelica.Units.SI.TemperatureDifference dTHystOperEnv=5
+  parameter Modelica.Units.SI.TemperatureDifference dTHysOpeEnv=5
     "Temperature difference used for both upper 
     and lower hysteresis in the operational envelope."
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
@@ -65,7 +65,7 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   parameter Real dTHysAntFre
     "Hysteresis interval width for anti freeze control"
     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
-  parameter Boolean use_minFlowCtrl
+  parameter Boolean use_minFlowCtr
     "=false to disable minimal mass flow rate requirements"
     annotation (choices(checkBox=true), Dialog(group="Mass flow rates"));
   parameter Real m_flowEvaMinPer

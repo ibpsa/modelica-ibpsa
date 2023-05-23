@@ -25,7 +25,7 @@ model SafetyControl "Model including all safety levels"
     final forHeaPum=forHeaPum,
     use_TEvaIn=safCtrPar.use_TEvaInForOpeEnv,
     final use_TConIn=safCtrPar.use_TConInForOpeEnv,
-    final dTHyst=safCtrPar.dTHystOperEnv) if safCtrPar.use_opeEnv
+    final dTHys=safCtrPar.dTHysOpeEnv) if safCtrPar.use_opeEnv
     "Block for operational envelope"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl onOffCtr(
@@ -60,12 +60,13 @@ model SafetyControl "Model including all safety levels"
 
   IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety minVolFloRatSaf(
     final mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal,
-    final mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal) if safCtrPar.use_minFlowCtrl
+    final mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
+    if safCtrPar.use_minFlowCtr
     "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Modelica.Blocks.Interfaces.IntegerOutput minFlowErr
-    if safCtrPar.use_minFlowCtrl
+    if safCtrPar.use_minFlowCtr
     "Number off errors due to minimal flow rates"                annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -86,7 +87,7 @@ model SafetyControl "Model including all safety levels"
                                                    choicesAllMatching=true,
       Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrMinVolRat
-    if not safCtrPar.use_minFlowCtrl "No minimale volumen flow rate control"
+    if not safCtrPar.use_minFlowCtr  "No minimale volumen flow rate control"
     annotation (
       choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 equation

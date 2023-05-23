@@ -2,13 +2,13 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.Examples;
 model SafetyControl "Example for usage of all safety controls"
   extends BaseClasses.PartialSafetyControlExample;
   extends Modelica.Icons.Example;
-  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safCtrl(
+  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safCtr(
     mEva_flow_nominal=0.01,
     mCon_flow_nominal=0.01,
     ySet_small=0.01,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrlPar(
+      safCtrPar(
       minRunTime=5,
       minLocTime=5,
       use_antFre=true,
@@ -47,7 +47,7 @@ model SafetyControl "Example for usage of all safety controls"
     "Emulator for evaporator mass flow rate"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
 equation
-  connect(safCtrl.sigBus, sigBus) annotation (Line(
+  connect(safCtr.sigBus, sigBus) annotation (Line(
       points={{-2.5,2.9},{-50,2.9},{-50,-52}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -55,8 +55,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySetPul.y, safCtrl.ySet) annotation (Line(points={{-79,30},{-8,30},{
-          -8,12},{-3.6,12}}, color={0,0,127}));
+  connect(ySetPul.y, safCtr.ySet) annotation (Line(points={{-79,30},{-8,30},{-8,
+          12},{-3.6,12}}, color={0,0,127}));
   connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-79,-50},{
           -50,-50},{-50,-52}}, color={0,0,127}), Text(
       string="%second",
@@ -69,9 +69,9 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(hys.u, safCtrl.yOut) annotation (Line(points={{22,-50},{44,-50},{44,
-          12},{23,12}}, color={0,0,127}));
-  connect(safCtrl.yOut, yOut) annotation (Line(points={{23,12},{44,12},{44,-40},
+  connect(hys.u, safCtr.yOut) annotation (Line(points={{22,-50},{44,-50},{44,12},
+          {23,12}}, color={0,0,127}));
+  connect(safCtr.yOut, yOut) annotation (Line(points={{23,12},{44,12},{44,-40},
           {110,-40}}, color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{-8,30},{-8,40},{
           110,40}}, color={0,0,127}));

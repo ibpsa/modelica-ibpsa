@@ -8,8 +8,8 @@ model HeatPump_CarnotConstantQuality
       redeclare model RefrigerantCycleInertia =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
           (
-          refIneFre_constant=refIneFreConst,
-          nthOrder=2,
+          refIneFreConst=refIneFreConst,
+          nthOrd=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (

@@ -14,20 +14,20 @@ model OperationalEnvelope
   parameter Boolean use_TConIn=false
     "=true to use codensner inlet temperature, false for outlet";
 
-  parameter Modelica.Units.SI.TemperatureDifference dTHyst=5
+  parameter Modelica.Units.SI.TemperatureDifference dTHys=5
     "Temperature deadband in the operational envelope"
     annotation (Dialog(enable=use_opeEnv));
 
-  BaseClasses.BoundaryMap bouMapHea(
-    final tab=tabUppHea,                              final dT=dTHyst,
-    final isUppBou=true)
-    "Operational boundary map for heating operation"
+  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap bouMapHea(
+    final tab=tabUppHea,
+    final dT=dTHys,
+    final isUppBou=true) "Operational boundary map for heating operation"
     annotation (Placement(transformation(extent={{-80,60},{-20,120}})));
 
-  BaseClasses.BoundaryMap bouMapCoo(
-    final tab=tabLowCoo,                              final dT=dTHyst,
-    final isUppBou=false)
-    "Operational boundary map for cooling operation"
+  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap bouMapCoo(
+    final tab=tabLowCoo,
+    final dT=dTHys,
+    final isUppBou=false) "Operational boundary map for cooling operation"
     annotation (Placement(transformation(extent={{-80,-120},{-20,-60}})));
   Modelica.Blocks.Logical.LogicalSwitch swiHeaCoo
     "Switch between heating and cooling envelope"

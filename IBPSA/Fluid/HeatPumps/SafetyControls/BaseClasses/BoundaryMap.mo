@@ -76,9 +76,9 @@ protected
   final parameter Real TUseMax(unit="degC") = max(tab[:, 2])
     "Maximal temperature of condenser side";
   final parameter Real TUseMin(unit="degC") = 0 "Minimal value of condenser side";
-  final parameter Real points[size(scaTNotUse, 1),2]=
-    transpose({scaTEvaToPoi,scaTUseToPoi})
-    annotation (Hide=false);
+  final parameter Real poi[size(scaTNotUse, 1),2]=transpose({scaTEvaToPoi,
+      scaTUseToPoi}) "Points for dynamic annotation"
+    annotation (Hide=false, HideResult=false);
   final parameter Real scaTNotUse[:](each unit="degC") = tab[:, 1]
     "Helper array with only not useful temperature side values";
   final parameter Real scaTUse[:](each unit="degC") = tab[:, 2]

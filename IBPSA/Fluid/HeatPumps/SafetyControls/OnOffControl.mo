@@ -38,30 +38,31 @@ model OnOffControl
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPerHou=maxRunPerHou,
-      final delTim=3600) if use_runPerHou "Check number of starts violations"
+  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.RunPerHouBoundary runPerHouBou(
+    final maxRunPerHou=maxRunPerHou,
+    final delTim=3600) if use_runPerHou "Check number of starts violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  BaseClasses.TimeControl locTimCtr(final minRunTime=minLocTime)
-    if use_minLocTime "Check if device should be locked"
+  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.TimeControl locTimCtr(
+    final minRunTime=minLocTime) if use_minLocTime "Check if device should be locked"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  BaseClasses.TimeControl runTimCtr(final minRunTime=minRunTime)
-    if use_minRunTime "Check if device needs to run"
+  IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.TimeControl runTimCtr(
+    final minRunTime=minRunTime) if use_minRunTime "Check if device needs to run"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Logical.And andIsAblToTurOn(
     y(start=true, fixed=true))
     "If output is false, device is locked"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
-  Modelica.Blocks.Sources.BooleanConstant booConRunPerHou(final k=true)
+  Modelica.Blocks.Sources.BooleanConstant booConstRunPerHou(final k=true)
     if not use_runPerHou "Constant value for disabled option"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Modelica.Blocks.Sources.BooleanConstant booConLocTim(final k=true)
+  Modelica.Blocks.Sources.BooleanConstant booConstLocTim(final k=true)
     if not use_minLocTime "Constant value for disabled option"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.BooleanConstant booConstRunTim(final k=true)
-    if not use_minRunTime
+    if not use_minRunTime "Constant value for disabled option"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Logical.Not notSetOn "Device is not set to turn on"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
@@ -150,7 +151,7 @@ equation
       points={{41,-50},{50,-50},{50,-68},{58,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(booConRunPerHou.y, andIsAblToTurOn.u2) annotation (Line(
+  connect(booConstRunPerHou.y, andIsAblToTurOn.u2) annotation (Line(
       points={{41,-90},{50,-90},{50,-68},{58,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
@@ -166,7 +167,7 @@ equation
           -98},{-42,-98}},                       color={255,0,255}));
   connect(notIsOn.y, andTurOn.u1) annotation (Line(points={{-79,-50},{-52,-50},{
           -52,-90},{-42,-90}},                      color={255,0,255}));
-  connect(booConLocTim.y, andIsAblToTurOn.u1) annotation (Line(
+  connect(booConstLocTim.y, andIsAblToTurOn.u1) annotation (Line(
       points={{41,-10},{52,-10},{52,-60},{58,-60}},
       color={255,0,255},
       pattern=LinePattern.Dash));
