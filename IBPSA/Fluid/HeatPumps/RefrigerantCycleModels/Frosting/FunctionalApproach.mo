@@ -14,17 +14,17 @@ model FunctionalApproach
     "Enable usage of bus variables in function call";
   Modelica.Blocks.Routing.RealPassThrough pasThrTEvaOut
     "Enable usage of bus variables in function call";
-  Modelica.Blocks.Routing.RealPassThrough pasThrMFlowEva
+  Modelica.Blocks.Routing.RealPassThrough pasThrMasFlowEva
     "Enable usage of bus variables in function call";
 
 equation
   iceFac =iceFacFun(
     pasThrTEvaIn.y,
     pasThrTEvaOut.y,
-    pasThrMFlowEva.y);
+    pasThrMasFlowEva.y);
   connect(pasThrTEvaOut.u, sigBus.TEvaOutMea);
   connect(pasThrTEvaIn.u, sigBus.TEvaInMea);
-  connect(pasThrMFlowEva.u, sigBus.m_flowEvaMea);
+  connect(pasThrMasFlowEva.u, sigBus.m_flowEvaMea);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-151,147},{149,107}},

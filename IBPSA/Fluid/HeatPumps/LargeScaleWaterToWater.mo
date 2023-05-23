@@ -19,7 +19,6 @@ model LargeScaleWaterToWater
     final use_rev=false,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
-
     final mCon_flow_nominal=autCalMasCon_flow*scaFac,
     final mEva_flow_nominal=autCalMasEva_flow*scaFac,
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
@@ -34,7 +33,7 @@ model LargeScaleWaterToWater
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 
   parameter
-    RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab=
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab=
      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW()
          "Data Table of HP" annotation (choicesAllMatching=true);
   annotation (Documentation(info="<html>

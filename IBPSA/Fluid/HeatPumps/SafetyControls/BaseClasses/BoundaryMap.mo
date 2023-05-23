@@ -33,10 +33,10 @@ model BoundaryMap
     final uHigh=0,
     pre_y_start=false) "Hysteresis for right side of envelope"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Sources.Constant conTNotUseMin(k=TEvaMin)
+  Modelica.Blocks.Sources.Constant conTNotUseMin(k=TNotUseMin)
     "Constant minimal temperature of not useful temperature side"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Sources.Constant conTNotUseMax(k=TEvaMax)
+  Modelica.Blocks.Sources.Constant conTNotUseMax(k=TNotUseMax)
     "Constant maximal temperature of not useful temperature side"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
@@ -55,8 +55,8 @@ model BoundaryMap
   Modelica.Blocks.Interfaces.RealInput TUse(unit="K", displayUnit="degC")
     "Useful temperature side "
     annotation (Placement(transformation(extent={{-128,26},{-100,54}})));
-  Modelica.Blocks.Math.Add subBou(final k1=if isUppBou then 1 else -1, final k2
-      =if isUppBou then -1 else 1)
+  Modelica.Blocks.Math.Add subBou(final k1=if isUppBou then 1 else -1, final k2=
+       if isUppBou then -1 else 1)
     "Subtract boundary from current value depending on lower or upper boundary"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Logical.Hysteresis hysBou(
@@ -69,28 +69,30 @@ protected
   parameter Real icoMin=-70
     "Used to set the frame where the icon should appear";
   parameter Real icoMax=70 "Used to set the frame where the icon should appear";
-  parameter Real TEvaMax(unit="degC") = tab[end, 1]
+  final parameter Real TNotUseMax(unit="degC") = tab[end, 1]
     "Maximal value of evaporator side";
-  parameter Real TEvaMin(unit="degC") = tab[1, 1]
+  final parameter Real TNotUseMin(unit="degC") = tab[1, 1]
     "Minimal temperature at evaporator side";
-  parameter Real TConMax(unit="degC") = max(tab[:, 2])
+  final parameter Real TUseMax(unit="degC") = max(tab[:, 2])
     "Maximal temperature of condenser side";
-  parameter Real TConMin(unit="degC")=0
-    "Minimal value of condenser side";
-  final Real points[size(scaTEva, 1),2]=transpose({unScaTEva,unScaTCon})
+  final parameter Real TUseMin(unit="degC") = 0 "Minimal value of condenser side";
+  final parameter Real points[size(scaTNotUse, 1),2]=
+    transpose({scaTEvaToPoi,scaTUseToPoi})
     annotation (Hide=false);
-  parameter Real scaTEva[:](each unit="degC") = tab[:, 1]
-    "Helper array with only evaporator values";
-  parameter Real scaTCon[:](each unit="degC") = tab[:, 2]
-    "Helper array with only condenser values";
-  parameter Real unScaTEva[size(scaTEva, 1)](
+  final parameter Real scaTNotUse[:](each unit="degC") = tab[:, 1]
+    "Helper array with only not useful temperature side values";
+  final parameter Real scaTUse[:](each unit="degC") = tab[:, 2]
+    "Helper array with only useful temperature side values";
+  final parameter Real scaTEvaToPoi[size(scaTNotUse, 1)](
     each min=-100,
-    each max=100) = (scaTEva - fill(TEvaMin, size(scaTEva, 1)))*(icoMax -
-    icoMin)/(TEvaMax - TEvaMin) + fill(icoMin, size(scaTEva, 1));
-  parameter Real unScaTCon[size(scaTEva, 1)](
+    each max=100) = (scaTNotUse - fill(TNotUseMin, size(scaTNotUse, 1)))*(
+    icoMax - icoMin)/(TNotUseMax - TNotUseMin) + fill(icoMin, size(scaTNotUse, 1))
+    "Scale not useful side to icon size";
+  final parameter Real scaTUseToPoi[size(scaTNotUse, 1)](
     each min=-100,
-    each max=100) = (scaTCon - fill(TConMin, size(scaTCon, 1)))*(icoMax -
-    icoMin)/(TConMax - TConMin) + fill(icoMin, size(scaTCon, 1));
+    each max=100) = (scaTUse - fill(TUseMin, size(scaTUse, 1)))*(icoMax -
+    icoMin)/(TUseMax - TUseMin) + fill(icoMin, size(scaTUse, 1))
+    "Scale useful side to icon size";
 
 equation
   connect(nor.y, noErr)

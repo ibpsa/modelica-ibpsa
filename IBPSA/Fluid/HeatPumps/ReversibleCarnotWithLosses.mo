@@ -17,6 +17,7 @@ model ReversibleCarnotWithLosses
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach
           iceFacCal(redeclare function iceFacFun =
               IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.WetterAfjei1997),
+
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),
@@ -24,12 +25,12 @@ model ReversibleCarnotWithLosses
     final use_conCap,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
-        (refIneFre_constant=refIneFre_constant, nthOrder=nthOrder));
+        (refIneFreConst=refIneFreConst, nthOrd=nthOrd));
 
   parameter Real quaGra=0.3 "Constant quality grade";
-  parameter Modelica.Units.SI.Frequency refIneFre_constant
+  parameter Modelica.Units.SI.Frequency refIneFreConst
     "Cut off frequency for inertia of refrigerant cycle";
-  parameter Integer nthOrder=3 "Order of refrigerant cycle interia";
+  parameter Integer nthOrd=3 "Order of refrigerant cycle interia";
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=QUse_flow_nominal
     "Nominal heat flow rate of cooling operation"
       annotation(Dialog(group="Nominal Design"));

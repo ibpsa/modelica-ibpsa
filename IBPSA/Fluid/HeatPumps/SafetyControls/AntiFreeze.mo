@@ -10,10 +10,10 @@ model AntiFreeze "Model to prevent source from freezing"
   Modelica.Blocks.Logical.Hysteresis hys(
     final uLow=TAntFre,
     final pre_y_start=true,
-    final uHigh=TAntFre + dTHys)
+    final uHigh=TAntFre + dTHys) "Hysteresis to indicate if freezing occurs"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Modelica.Blocks.Math.Min min
+  Modelica.Blocks.Math.Min min "The minimum of both sides indicates freezing"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 equation

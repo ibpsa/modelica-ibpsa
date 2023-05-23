@@ -1,11 +1,10 @@
 within IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses;
 block RunPerHouBoundary "Checks if a maximal run per hour value is in boundary"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
-  parameter Integer maxRunPer_h "Number of maximal on/off cycles per hour";
+  parameter Integer maxRunPerHou "Number of maximal on/off cycles per hour";
   parameter Modelica.Units.SI.Time delTim(displayUnit="h") = 3600
     "Delay time of output with respect to input signal";
- Modelica.Blocks.Logical.LessThreshold
-                              runCouLesMax(threshold=maxRunPer_h)
+  Modelica.Blocks.Logical.LessThreshold runCouLesMax(threshold=maxRunPerHou)
     "Checks if the count of total runs is lower than the maximal value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.MathInteger.TriggeredAdd triAdd "Count number of starts"
@@ -13,7 +12,7 @@ block RunPerHouBoundary "Checks if a maximal run per hour value is in boundary"
   Modelica.Blocks.Sources.IntegerConstant intConPluOne(final k=1)
     "Value for counting"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Modelica.Blocks.Math.IntegerToReal intToReal
+  Modelica.Blocks.Math.IntegerToReal intToRea
     "Convert to real in order to compare and delay"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Math.Add sub(k2=-1) "Diff of current and delayed starts"
@@ -24,11 +23,11 @@ block RunPerHouBoundary "Checks if a maximal run per hour value is in boundary"
 equation
   connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-79,-20},{-74,-20},
           {-74,0},{-64,0}}, color={255,127,0}));
-  connect(intToReal.u, triAdd.y)
+  connect(intToRea.u, triAdd.y)
     annotation (Line(points={{-22,0},{-38,0}}, color={255,127,0}));
-  connect(intToReal.y, sub.u1) annotation (Line(points={{1,0},{30,0},{30,6},{
-          38,6}},             color={0,0,127}));
-  connect(intToReal.y, fixDel.u)
+  connect(intToRea.y, sub.u1)
+    annotation (Line(points={{1,0},{30,0},{30,6},{38,6}}, color={0,0,127}));
+  connect(intToRea.y, fixDel.u)
     annotation (Line(points={{1,0},{6,0},{6,-20},{8,-20}}, color={0,0,127}));
   connect(fixDel.y, sub.u2)
     annotation (Line(points={{31,-20},{31,-6},{38,-6}}, color={0,0,127}));

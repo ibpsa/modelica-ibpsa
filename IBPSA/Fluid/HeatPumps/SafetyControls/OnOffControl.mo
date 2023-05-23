@@ -38,8 +38,8 @@ model OnOffControl
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPer_h=maxRunPerHou, final
-      delTim=3600)       if use_runPerHou "Check number of starts violations"
+  BaseClasses.RunPerHouBoundary runPerHouBou(final maxRunPerHou=maxRunPerHou,
+      final delTim=3600) if use_runPerHou "Check number of starts violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   BaseClasses.TimeControl locTimCtr(final minRunTime=minLocTime)
     if use_minLocTime "Check if device should be locked"
