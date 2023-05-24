@@ -15,7 +15,8 @@ model SimulationTest
     nVol=232,
     griFac=1.1,
     T_ini=307.15,
-    TGro=307.15)
+    TGro=307.15,
+    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock())
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 equation
   connect(combiTimeTable.y[1], boundary.m_flow_in) annotation (Line(points={{-59,
@@ -23,5 +24,6 @@ equation
   connect(boundary.ports[1], aquWel.port_a)
     annotation (Line(points={{0,10},{50,10},{50,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=31536000, __Dymola_Algorithm="Dassl"));
 end SimulationTest;

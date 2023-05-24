@@ -30,6 +30,7 @@ model SingleWell
       Dialog(group="Properties of aquifer"));
   parameter Modelica.Units.SI.Temperature TGro=273.15+12 "Undirsturbed ground temperature" annotation (
       Dialog(group="Properties of ground"));
+  parameter IBPSA.Fluid.Geothermal.Aquifer.Data.Template aquDat "Aquifer thermal properties" annotation (choicesAllMatching=true);
 
   IBPSA.Fluid.MixingVolumes.MixingVolume vol[nVol](
     redeclare final package Medium=Medium,
@@ -124,7 +125,7 @@ equation
 
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
-      connect(vol[i].ports[1], vol[i + 1].ports[1]);
+      connect(vol[i].ports[2], vol[i + 1].ports[1]);
     end for;
   end if;
   if nVol > 1 then
@@ -135,8 +136,6 @@ equation
 
   connect(groTem.port, theRes[nVol].port_b)
     annotation (Line(points={{70,-40},{50,-40}}, color={191,0,0}));
-  connect(bou.ports[1], vol[nVol].ports[2]) annotation (Line(points={{40,0},{1,0},
-          {1,20}},       color={0,127,255}));
 
   connect(vol.heatPort, heaCap.port) annotation (Line(points={{-10,30},{-20,30},
           {-20,-12},{0,-12},{0,-40},{-42,-40}}, color={191,0,0}));
@@ -145,9 +144,10 @@ equation
   connect(port_a, res.port_a)
     annotation (Line(points={{0,100},{0,60},{-80,60},{-80,0},{-60,0}},
                                                 color={0,127,255}));
-  connect(res.port_b, vol[1].ports[1])
-    annotation (Line(points={{-40,0},{-1,0},{-1,20}},
-                                                    color={0,127,255}));
+  connect(res.port_b, vol[1].ports[1]) annotation (Line(points={{-40,0},{-1,0},{
+          -1,20}},              color={0,127,255}));
+  connect(bou.ports[1], vol[nVol].ports[2]) annotation (Line(points={{40,0},{1,0},
+          {1,20}},       color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-20,100},{20,-2}},
