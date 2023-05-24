@@ -22,12 +22,6 @@ model SingleWell
       Dialog(group="Domain discretization"));
   parameter Modelica.Units.SI.Temperature T_ini=273.15+10 "Initial temperature of domain" annotation (
       Dialog(group="Domain discretization"));
-  parameter Modelica.Units.SI.Density rhoAqu=2680 "Density of aquifer" annotation (
-      Dialog(group="Properties of aquifer"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpAqu=833 "Specific heat capacity of aquifer" annotation (
-      Dialog(group="Properties of aquifer"));
-  parameter Modelica.Units.SI.ThermalConductivity kAqu=2.8 "Thermal conductivity of aquifer" annotation (
-      Dialog(group="Properties of aquifer"));
   parameter Modelica.Units.SI.Temperature TGro=273.15+12 "Undirsturbed ground temperature" annotation (
       Dialog(group="Properties of ground"));
   parameter IBPSA.Fluid.Geothermal.Aquifer.Data.Template aquDat "Aquifer thermal properties" annotation (choicesAllMatching=true);
@@ -86,8 +80,8 @@ initial equation
   assert(r_wb < r_max, "Error: Model requires r_wb < r_max");
   assert(0 < r_wb,   "Error: Model requires 0 < r_wb");
 
-  cAqu=rhoAqu*cpAqu*(1-phi);
-  kVol=kWat*phi+kAqu*(1-phi);
+  cAqu=aquDat.dSoi*aquDat.cSoi*(1-phi);
+  kVol=kWat*phi+aquDat.kSoi*(1-phi);
 
   cpWat=Medium.specificHeatCapacityCp(Medium.setState_pTX(
     Medium.p_default,
