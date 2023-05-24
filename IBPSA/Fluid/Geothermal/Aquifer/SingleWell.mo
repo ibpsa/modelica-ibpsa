@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Aquifer;
-model AquiferWell
+model SingleWell
   "Model of a single well for aquifer thermal energy storage"
  replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component" annotation (choices(
@@ -31,37 +31,34 @@ model AquiferWell
   parameter Modelica.Units.SI.Temperature TGro=273.15+12 "Undirsturbed ground temperature" annotation (
       Dialog(group="Properties of ground"));
 
-  IBPSA.Fluid.MixingVolumes.MixingVolume     vol[nVol](
+  IBPSA.Fluid.MixingVolumes.MixingVolume vol[nVol](
     redeclare final package Medium=Medium,
     each T_start=T_ini,
     each m_flow_nominal=1,
-    V=VWat,  each nPorts=2)
+    V=VWat,
+    each nPorts=2)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare final package Medium=Medium)
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  IBPSA.Fluid.Sources.Boundary_pT     bou(redeclare final package Medium=Medium,
+  IBPSA.Fluid.Sources.Boundary_pT bou(redeclare final package Medium=Medium,
     T=T_ini,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor[nVol](C=C, each T(
-        start=T_ini))
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nVol](C=C,
+      each T(start=T_ini))
     annotation (Placement(transformation(extent={{-52,-40},{-32,-20}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor[nVol](R=R)
-               annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=TGro)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theRes[nVol](R=R)
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTem(T=TGro)
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
-
-  Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare final package
-      Medium =         Medium)
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistorWell(each R=R[
-        1])
-    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  IBPSA.Fluid.FixedResistances.PressureDrop res( redeclare final package Medium =
-                       Medium,
-    m_flow_nominal=1,
-    dp_nominal=1)
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  IBPSA.Fluid.FixedResistances.PressureDrop res(redeclare final package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal)
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1
+    "Pressure drop at nominal mass flow rate";
 protected
   parameter Modelica.Units.SI.Radius r[nVol + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
@@ -120,40 +117,37 @@ initial equation
   R[1]=Modelica.Math.log(rC[1]/r_wb)/(2*Modelica.Constants.pi*kVol*h);
   R[nVol+1]=Modelica.Math.log(r_max/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
   for i in 2:nVol loop
-    R[i] = Modelica.Math.log(rC[i]/rC[i-1])/(2*Modelica.Constants.pi*kVol*h);
+  R[i] = Modelica.Math.log(rC[i]/rC[i-1])/(2*Modelica.Constants.pi*kVol*h);
   end for;
 
 equation
 
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
-      connect(vol[i].ports[2], vol[i + 1].ports[1]);
+      connect(vol[i].ports[1], vol[i + 1].ports[1]);
     end for;
   end if;
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
-      connect(heatCapacitor[i+1].port, thermalResistor[i].port_b);
+      connect(heaCap[i + 1].port, theRes[i].port_b);
     end for;
   end if;
 
-  connect(fixedTemperature.port, thermalResistor[nVol].port_b)
+  connect(groTem.port, theRes[nVol].port_b)
     annotation (Line(points={{70,-40},{50,-40}}, color={191,0,0}));
-  connect(temperature.port_b, vol[1].ports[1]) annotation (Line(points={{-30,0},
-          {-1,0},{-1,20}},      color={0,127,255}));
   connect(bou.ports[1], vol[nVol].ports[2]) annotation (Line(points={{40,0},{1,0},
           {1,20}},       color={0,127,255}));
-  connect(thermalResistorWell.port_b, heatCapacitor[1].port)
-    annotation (Line(points={{-70,-40},{-42,-40}},           color={191,0,0}));
 
-  connect(vol.heatPort, heatCapacitor.port) annotation (Line(points={{-10,30},{-20,
-          30},{-20,-12},{0,-12},{0,-40},{-42,-40}}, color={191,0,0}));
-  connect(thermalResistor.port_a, vol.heatPort) annotation (Line(points={{30,-40},
-          {0,-40},{0,-12},{-20,-12},{-20,30},{-10,30}}, color={191,0,0}));
+  connect(vol.heatPort, heaCap.port) annotation (Line(points={{-10,30},{-20,30},
+          {-20,-12},{0,-12},{0,-40},{-42,-40}}, color={191,0,0}));
+  connect(theRes.port_a, vol.heatPort) annotation (Line(points={{30,-40},{0,-40},
+          {0,-12},{-20,-12},{-20,30},{-10,30}}, color={191,0,0}));
   connect(port_a, res.port_a)
-    annotation (Line(points={{0,100},{0,60},{-90,60},{-90,0},{-80,0}},
+    annotation (Line(points={{0,100},{0,60},{-80,60},{-80,0},{-60,0}},
                                                 color={0,127,255}));
-  connect(res.port_b, temperature.port_a)
-    annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
+  connect(res.port_b, vol[1].ports[1])
+    annotation (Line(points={{-40,0},{-1,0},{-1,20}},
+                                                    color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-20,100},{20,-2}},
@@ -195,5 +189,53 @@ equation
           textColor={0,0,255},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-        defaultComponentName="AquWel");
-end AquiferWell;
+        defaultComponentName="aquWel",
+        Documentation(info="<html>
+<p>
+This model simulates aquifer thermal energy storage.
+</p>
+<p>
+To calculate aquifer temperature at different locations over time, the model applies 
+theoretical principles of water flow and heat transfer phenomena. The model is based on 
+the partial differential equation (PDE) for 1D conductive-convective transient 
+radial heat transport in porous media
+<p align=\"center\" style=\"font-style:italic;\">
+&rho; c (&part; T(r,t) &frasl; &part;t) =
+k (&part;&sup2; T(r,t) &frasl; &part;r&sup2;) - &rho;<sub>w</sub> c<sub>w</sub> u(&part; T(r,t) &frasl; &part;t),
+</p>
+<p>
+where
+<i>&rho;</i>
+is the mass density,
+<i>c</i>
+is the specific heat capacity per unit mass,
+<i>T</i>
+is the temperature at location <i>r</i> and time <i>t</i>,
+<i>u</i> is water velocity and
+<i>k</i> is the heat conductivity. The subscript <i>w</i> indicates water.
+The first term on the right hand side of the equation describes the effect of conduction, while
+the second term describes the fluid flow. 
+<h4>Spatial discretization</h4>
+To discretize the conductive-convective equation, the domain is divided into a series 
+of thermal capacitances and thermal resistances along the radial direction. The 
+implementation uses an array of 
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
+and <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
+Fluid flow was modelled by adding a series of fluid volumes, which are connected 
+to the thermal capacitances via heat ports. The fluid stream was developed using 
+the model <a href=\"modelica://IBPSA.Fluid.MixingVolumes.MixingVolume\">IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
+The geometric representation of the model is illustrated in the figure below. 
+
+</p>
+<p align=\"center\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png\" width=\"800\">
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 2023, by Alessandro Maccarini:<br/>
+First Implementation.
+</li>
+</ul>
+</html>"));
+end SingleWell;
