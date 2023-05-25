@@ -66,7 +66,6 @@ Volume 96,
 ISSN 0375-6505,
 https://doi.org/10.1016/j.geothermics.2021.102130.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>

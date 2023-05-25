@@ -214,8 +214,10 @@ is the temperature at location <i>r</i> and time <i>t</i>,
 <i>u</i> is water velocity and
 <i>k</i> is the heat conductivity. The subscript <i>w</i> indicates water.
 The first term on the right hand side of the equation describes the effect of conduction, while
-the second term describes the fluid flow. 
+the second term describes the fluid flow.
+</p>
 <h4>Spatial discretization</h4>
+<p>
 To discretize the conductive-convective equation, the domain is divided into a series 
 of thermal capacitances and thermal resistances along the radial direction. The 
 implementation uses an array of 
