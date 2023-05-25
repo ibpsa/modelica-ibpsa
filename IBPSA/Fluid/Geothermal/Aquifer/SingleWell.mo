@@ -198,10 +198,10 @@ To calculate aquifer temperature at different locations over time, the model app
 theoretical principles of water flow and heat transfer phenomena. The model is based on 
 the partial differential equation (PDE) for 1D conductive-convective transient 
 radial heat transport in porous media
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 &rho; c (&part; T(r,t) &frasl; &part;t) =
 k (&part;&sup2; T(r,t) &frasl; &part;r&sup2;) - &rho;<sub>w</sub> c<sub>w</sub> u(&part; T(r,t) &frasl; &part;t),
-</p>
 </p>
 <p>
 where
