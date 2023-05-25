@@ -32,23 +32,28 @@ model SingleWell
     each m_flow_nominal=1,
     V=VWat,
     each nPorts=2)
+    "Array of fluid volumes representing the fluid flow in the aquifer"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare final package Medium=Medium)
+    "Fluid connector"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   IBPSA.Fluid.Sources.Boundary_pT bou(redeclare final package Medium=Medium,
     T=T_ini,
-    nPorts=1)
+    nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nVol](C=C,
-      each T(start=T_ini))
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nVol](C=C, each T(
+        start=T_ini, fixed=true)) "Array of thermal capacitor"
     annotation (Placement(transformation(extent={{-52,-40},{-32,-20}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor theRes[nVol](R=R)
+    "Array of thermal resistances"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTem(T=TGro)
+    "Boundary condition ground temperature"
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
-  IBPSA.Fluid.FixedResistances.PressureDrop res(redeclare final package Medium = Medium,
+  IBPSA.Fluid.FixedResistances.PressureDrop res(redeclare final package
+      Medium =                                                                   Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal)
+    dp_nominal=dp_nominal) "Pressure drop in the aquifer"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";

@@ -4,12 +4,14 @@ model SimulationTest
   Modelica.Blocks.Sources.CombiTimeTable
                                    combiTimeTable(table=[0.0,1; 86400*120,1; 86400
         *120,0; 86400*180,0.0; 86400*180,-1; 86400*300,-1])
+    "Stages of operation"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Sources.MassFlowSource_T boundary(
     redeclare package Medium = IBPSA.Media.Water,
     use_m_flow_in=true,
     T=393.15,
-    nPorts=1) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    nPorts=1) "Water mass flow rate"
+              annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   SingleWell aquWel(
     redeclare package Medium = IBPSA.Media.Water,
     nVol=232,
@@ -17,6 +19,7 @@ model SimulationTest
     T_ini=307.15,
     TGro=307.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock())
+    "Single well for aquifer thermal energy storage"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 equation
   connect(combiTimeTable.y[1], boundary.m_flow_in) annotation (Line(points={{-59,
