@@ -41,7 +41,8 @@ The main goal of TC2 is to compare aquifer temperatures under a typical operatio
 consisting of injection, falloff, drawdown, and build-up. The injection phase represents the charging period, 
 while the drawdown phase represents the discharge period. 
 Intermediate phases of falloff and build-up represent periods of storage or inactivity. 
-The overall operational period is one year, and the sequence of the different phases is the following: 
+The overall operational period is one year, and the sequence of the different phases is the following:
+</p>
 <ul>
 <li>Injection: Water is pumped at Q = 0.001 m<sup>3</sup> s<sup>-1</sup> and T<sub>inj</sub> = 120°C for 120 days.</li>
 <li>Falloff: Well is shut-in, Q = 0 m<sup>3</sup> s<sup>-1</sup> for 60 days.</li>
@@ -49,7 +50,6 @@ The overall operational period is one year, and the sequence of the different ph
 <li>Build-up phase: Well is shut-in, at Q = 0 m<sup>3</sup> s<sup>-1</sup> for 65.25.</li>
 </ul>
 The figure below shows the temperature vs. time comparison for a virtual sensor located at r = 1 m and r= 10 m from the well. 
-</p>
 <p align=\"center\">
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/results.png\" width=\"600\">
 </p>
