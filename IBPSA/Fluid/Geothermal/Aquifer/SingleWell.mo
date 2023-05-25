@@ -202,6 +202,7 @@ radial heat transport in porous media
 &rho; c (&part; T(r,t) &frasl; &part;t) =
 k (&part;&sup2; T(r,t) &frasl; &part;r&sup2;) - &rho;<sub>w</sub> c<sub>w</sub> u(&part; T(r,t) &frasl; &part;t),
 </p>
+</p>
 <p>
 where
 <i>&rho;</i>
@@ -224,7 +225,6 @@ Fluid flow was modelled by adding a series of fluid volumes, which are connected
 to the thermal capacitances via heat ports. The fluid stream was developed using 
 the model <a href=\"modelica://IBPSA.Fluid.MixingVolumes.MixingVolume\">IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
 The geometric representation of the model is illustrated in the figure below. 
-
 </p>
 <p align=\"center\">
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png\" width=\"800\">
