@@ -28,7 +28,7 @@ equation
     annotation (Line(points={{0,10},{50,10},{50,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=31536000),
+    experiment(StopTime=31536000, Tolerance=1e-6),
     __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Validation/SimulationTest.mos"
         "Simulate and plot"),

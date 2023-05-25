@@ -60,7 +60,7 @@ equation
     annotation (Line(points={{50,20},{70,20},{70,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=7776000),
+    experiment(StopTime=7776000,Tolerance=1e-6),
     __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffce.mos"
         "Simulate and plot"),
