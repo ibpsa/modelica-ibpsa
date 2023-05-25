@@ -47,7 +47,7 @@ Intermediate phases of falloff and build-up represent periods of storage or inac
 The overall operational period is one year, and the sequence of the different phases is the following:
 </p>
 <ul>
-<li>Injection: Water is pumped at Q = 0.001 m<sup>3</sup> s<sup>-1</sup> and T<sub>inj</sub> = 120°C for 120 days.</li>
+<li>Injection: Water is pumped at Q = 0.001 m<sup>3</sup> s<sup>-1</sup> and T<sub>inj</sub> = 120&deg;C for 120 days.</li>
 <li>Falloff: Well is shut-in, Q = 0 m<sup>3</sup> s<sup>-1</sup> for 60 days.</li>
 <li>Drawdown: Water is pumped at Q = -0.001 m<sup>3</sup> s<sup>-1</sup> for 120 days.</li>
 <li>Build-up phase: Well is shut-in, at Q = 0 m<sup>3</sup> s<sup>-1</sup> for 65.25.</li>
