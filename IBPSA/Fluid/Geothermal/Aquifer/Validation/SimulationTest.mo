@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.Geothermal.Aquifer.Validation;
+within IBPSA.Fluid.Geothermal.Aquifer.Validation;
 model SimulationTest
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.CombiTimeTable
@@ -60,7 +60,7 @@ The figure below shows the temperature vs. time comparison for a virtual sensor 
 <p>
 Julian E. Mindel, Peter Alt-Epping, Antoine Armandine Les Landes, Stijn Beernink, Daniel T. Birdsell, 
 Martin Bloemendal, Virginie Hamm, Simon Lopez, Charles Maragna, Carsten M. Nielsen, Sebastia Olivella, 
-Marc Perreaux, Maarten W. Saaltink, Martin O. Saar, Daniela Van den Heuvel, Rubén Vidal, Thomas Driesner,
+Marc Perreaux, Maarten W. Saaltink, Martin O. Saar, Daniela Van den Heuvel, Ruben Vidal, Thomas Driesner,
 <i>Benchmark study of simulators for thermo-hydraulic modelling of low enthalpy geothermal processes</i>,
 Geothermics,
 Volume 96,
