@@ -60,7 +60,10 @@ equation
     annotation (Line(points={{50,20},{70,20},{70,-20}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=7776000, __Dymola_Algorithm="Dassl"),
+    experiment(StopTime=7776000),
+    __Dymola_Commands(file=
+  "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffce.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example shows the application of the model
@@ -68,8 +71,8 @@ This example shows the application of the model
 </p>
 <p>
 The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12°C and 
-after passing through a heat exchanger it is injected in the warm well at 16°C. This represents a typical operation of
-aquifer thermal energy storage systems for cooling of buildings.
+after passing through a heat exchanger it is injected in the warm well at 16°C. This may represent the operation of an
+aquifer thermal energy storage system that cools an office building with a constant load of 30 kW.
 </p>
 
 </html>", revisions="<html>
