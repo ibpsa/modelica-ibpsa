@@ -1,8 +1,10 @@
 within IBPSA.Utilities.IO.Strings;
 connector StringOutput = output String "'output String' as connector"
   annotation (Documentation(info="<html>
-  <p>Output connector for a String. 
-  Used to enable String comparison in optional models.</p>
+<p>
+  Output connector for a String. 
+  Used to enable String comparison in optional models.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

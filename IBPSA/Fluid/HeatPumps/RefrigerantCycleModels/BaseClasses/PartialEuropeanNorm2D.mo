@@ -19,6 +19,10 @@ partial model PartialEuropeanNorm2D
         rotation=270,
         origin={60,70})));
   Modelica.Blocks.Tables.CombiTable2Ds tabPEle(
+    final tableOnFile=false,
+    final tableName="NoName",
+    final fileName="NoName",
+    final verboseRead=true,
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
@@ -29,6 +33,10 @@ partial model PartialEuropeanNorm2D
         rotation=-90,
         origin={80,36})));
   Modelica.Blocks.Tables.CombiTable2Ds tabQUse_flow(
+    final tableOnFile=false,
+    final tableName="NoName",
+    final fileName="NoName",
+    final verboseRead=true,
     final smoothness=smoothness,
     final u1(unit="degC"),
     final u2(unit="degC"),
@@ -55,13 +63,14 @@ partial model PartialEuropeanNorm2D
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,0})));
-protected
   Modelica.Blocks.Sources.Constant constScaFac
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=270,
         origin={-80,70})));
 
+
+protected
   parameter Real perDevMasFloCon=
     (mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100
     "Deviation of nominal mass flow rate at condenser in percent";
@@ -108,6 +117,17 @@ equation
           {34,18},{-70,18},{-70,25}}, color={0,0,127}));
   connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{80,25},{80,26},{
           -34,26},{-34,12}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+  Partial model for equations and componenents used in both heat pump 
+  and chiller models using european norm data in two dimensions.
+</p>
+</html>", revisions="<html>
+<li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</html>"));
 end PartialEuropeanNorm2D;

@@ -35,12 +35,17 @@ model HeatPump_CarnotConstantQuality
 annotation (experiment(Tolerance=1e-6, StopTime=14365),
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/HeatPump_CarnotConstantQuality.mos"
           "Simulate and plot"),
-  Documentation(info="<html><p>This example extends from 
-<a href=\"modelica://IBPSA.Fluid.HeatPumps.Validation.BaseClasses.PartialHeatPumpValidation\">IBPSA.Fluid.HeatPumps.Validation.BaseClasses.PartialHeatPumpValidation</a>.</p>
-<p>It uses a constant quality grade to model the efficiency of the heat pump. </p>
-<p>The approach was calibrated as a comparison to table based data in 
-the conference paper for the heat pump model: 
-<a href=\"https://doi.org/10.3384/ecp21181561\">https://doi.org/10.3384/ecp21181561 </a></p>
+  Documentation(info="<html>
+<p>
+  This validation case uses a constant quality 
+  grade to model the efficiency of the heat pump. 
+</p>
+<p>
+  The approach was calibrated as a comparison to table based data in 
+  the conference paper for the heat pump model: 
+  <a href=\"https://doi.org/10.3384/ecp21181561\">
+  https://doi.org/10.3384/ecp21181561 </a>
+</p>
 </html>",   revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

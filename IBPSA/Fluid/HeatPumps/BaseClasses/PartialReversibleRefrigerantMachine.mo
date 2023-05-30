@@ -338,7 +338,8 @@ partial model PartialReversibleRefrigerantMachine
         rotation=270,
         origin={0,-50})));
 
-  SenTempInflow senTConIn(final y=MediumCon.temperature(MediumCon.setState_phX(
+  IBPSA.Fluid.HeatPumps.BaseClasses.SenTempInflow senTConIn(
+    final y=MediumCon.temperature(MediumCon.setState_phX(
         port_a1.p,
         inStream(port_a1.h_outflow),
         inStream(port_a1.Xi_outflow))))
@@ -347,7 +348,8 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,90})));
-  SenTempInflow senTEvaIn(final y=MediumEva.temperature(MediumEva.setState_phX(
+  IBPSA.Fluid.HeatPumps.BaseClasses.SenTempInflow senTEvaIn(
+    final y=MediumEva.temperature(MediumEva.setState_phX(
         port_a2.p,
         inStream(port_a2.h_outflow),
         inStream(port_a2.Xi_outflow))))

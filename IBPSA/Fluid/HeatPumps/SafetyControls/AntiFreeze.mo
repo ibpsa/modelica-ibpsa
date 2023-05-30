@@ -44,21 +44,29 @@ equation
       points={{1,0},{38,0}},
       color={255,0,255}));
   annotation (Documentation(revisions="<html><ul>
-  <li>
-    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-  </li>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  Adapted based on IBPSA implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+<li>
+  <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
+</li>
 </ul>
 </html>", info="<html>
-This models takes the minimum of the two temperatures evaporator outlet and 
-condenser inlet. If this minimal temperature falls below the given lower 
-boundary, the hystereses will trigger an error and cause 
+<p>
+  This model is used to prevent freezing of 
+  the condenser or evaporator side. 
+  A real device would shut off as well.
+</p>
+<p>
+This models takes the minimum of the two temperatures evaporator 
+outlet and condenser inlet. If this minimal temperature falls below 
+the given lower boundary, the hystereses will trigger an error and cause 
 the device to switch off.
-
-<p>Used to prevent freezing of condenser or evaporator side. 
-A real device would shut off as well.</p>
-
+</p>
 <h4>Assumptions </h4>
 
 Assuming that the outlet temperature of an evaporator is always lower 

@@ -35,7 +35,8 @@ partial model PartialRefrigerantCycle
     "Indicate where the data is coming from";
 
   replaceable IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting iceFacCal
-  constrainedby IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.BaseClasses.PartialIcingFactor
+  constrainedby
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.BaseClasses.PartialIcingFactor
     "Replaceable model to calculate the icing factor" annotation (
     choicesAllMatching=true,
     Dialog(group="Frosting supression", enable=calc_iceFac),
@@ -111,19 +112,53 @@ equation
           rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adapted based on IBPSA implementation. Mainly, the iceFac is added directly 
+    in this partial model (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <li>
     November 26, 2018 by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial model for calculation of electrical power <code>PEle</code>, condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> based on the values in the <code>sigBus</code> for a refrigerant machine.</p>
-<p>To simulate possible icing of the evaporator on air-source devices, the icing factor is used to influence the output as well. </p>
-<p>As the factor resembles the reduction of heat transfer between refrigerant and source, the factor is implemented as follows: </p>
-<p><code>QEva = iceFac * (QCon-PEle)</code> </p>
-<p>With iceFac as a relative value between 0 and 1: </p>
-<p><code>iceFac = kA/kA_noIce</code> </p>
-<p>Finally, to follow the first law of thermodynamics: </p>
+<p>
+  Partial model for calculation of electrical power 
+  <code>PEle</code>, condenser heat flow <code>QCon</code> 
+  and evaporator heat flow <code>QEva</code> based on the 
+  values in the <code>sigBus</code> for a refrigerant machine.
+</p>
+<h4>Frosting performance</h4>
+<p>
+  To simulate possible icing of the evaporator on air-source devices, the 
+  icing factor <code>iceFac> is used to influence the outputs. 
+  The factor models the reduction of heat transfer between refrigerant 
+  and source. Thus, the factor is implemented as follows: 
+</p>
+<p>
+  <code>QEva = iceFac * (QCon_noIce - PEle)</code> 
+</p>
+<p>
+  With <code>iceFac</code> as a relative value between 0 and 1: </p>
+<p><code>iceFac = kA/kA_noIce</code></p>
+<p>Finally, the energy balance must still hold: </p>
 <p><code>QCon = PEle + QEva</code> </p>
+<p>
+  You can select different options for the modeling of the icing factor or
+  implement your own approach.
+</p>
+
+<h4>Scaling factor</h4>
+<p>
+  Furthermore, different designs of the refrigerant machine 
+  are modeled via a scaling factor <code>scaFac</code>. 
+  To linearly scale the outputs of the model according to the specified 
+  <code>QUse_flow_nominal</code>, children of this partial model must
+  specify <code>QUseNoSca_flow_nominal</code> based on the nominal parameters. 
+  Then, the scaling factor is calculated following:
+</p>
+<p><code>scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal</code></p>
 </html>"));
 end PartialRefrigerantCycle;

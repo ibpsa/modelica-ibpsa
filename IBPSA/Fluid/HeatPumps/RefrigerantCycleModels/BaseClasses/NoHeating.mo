@@ -30,8 +30,11 @@ equation
   connect(constZer.y, PEle)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-  <p>Model to use to avoid warnings about partial model must be replaced. 
-  Using this model, the heat pump will always be off.</p>
+<p>
+  Using this model, the heat pump will always be off. 
+  This option is mainly used to avoid warnings about 
+  partial model which must be replaced.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

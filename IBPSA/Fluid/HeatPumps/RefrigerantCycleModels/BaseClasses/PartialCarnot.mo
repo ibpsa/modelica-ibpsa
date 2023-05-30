@@ -101,6 +101,17 @@ equation
           {-58,28},{-58,22}}, color={0,0,127}));
   connect(swiQUse.u3, constZer.y) annotation (Line(points={{-42,22},{-42,28},{
           8.88178e-16,28},{8.88178e-16,21}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
+      Documentation(info="<html>
+<p>
+  Partial model for equations and componenents used in both heat pump 
+  and chiller carnot approaches.
+</p>
+</html>", revisions="<html>
+<li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</html>"));
 end PartialCarnot;

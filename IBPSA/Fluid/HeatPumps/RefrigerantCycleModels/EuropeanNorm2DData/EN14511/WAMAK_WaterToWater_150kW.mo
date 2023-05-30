@@ -39,5 +39,11 @@ record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
     use_evaOut=false);
   annotation (Documentation(info="<html>
 <p>Data for large scale (150 kW) water-to-water heat pump from WAMAK with </p>
+</html>", revisions="<html>
+<ul><li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li></ul>
 </html>"));
 end WAMAK_WaterToWater_150kW;

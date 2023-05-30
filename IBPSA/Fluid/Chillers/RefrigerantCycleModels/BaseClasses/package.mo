@@ -16,16 +16,22 @@ annotation (Icon(graphics={
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Documentation(revisions="<html><ul>
-  <li>
-    <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
-  </li>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  Adapted based on IBPSA implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+<li>
+  <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
+</li>
 </ul>
 </html>", info="<html>
 <p>
   This package contains base classes for the package <a href=
-  \"IBPSA.Fluid.Chillers.RefrigerantCycleModels\">IBPSA.Fluid.Chillers.RefrigerantCycleModels</a>.
+  \"IBPSA.Fluid.Chillers.RefrigerantCycleModels\">
+  IBPSA.Fluid.Chillers.RefrigerantCycleModels</a>.
 </p>
 </html>"));
 end BaseClasses;

@@ -248,33 +248,27 @@ equation
   connect(oneRooRadHeaPumCtr.TRooMea, temRoo.T) annotation (Line(points={{-162,
           -70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>Example that simulates one room equipped with a radiator. Hot water is produced by a <i>24</i> kW nominal capacity heat pump. The source side water temperature to the heat pump is constant at <i>10</i>&deg;C. </p>
-<p>Motivated by the example <a href=\"IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator</a>, this example enables the use of the ModularReversible approach for heat pumps and chillers.</p>
-<p>Both heating and cooling of the room is possible by using the reversible approach. For heating, 20 &deg;C room temperature is the set point, for cooling 23 &deg;C.</p>
-<p>The radiator minimal supply temperature is 23 &deg;C.</p>
+<p>
+  Motivated by the example 
+  <a href=\"IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\">
+  IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator</a>, 
+  this example enables the use of the <code>ModularReversible</code>
+  approach for heat pumps and chillers.
+</p>
+<p>
+  Both heating and cooling of the room is possible by using 
+  the reversible approach. For heating, 20 degC room temperature 
+  is the set point, for cooling 23 degC.
+</p>
+<p>
+  The radiator minimal supply temperature is 23 degC.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 22, 2021, by Michael Wetter:<br/>
-Removed assignments <code>pumHeaPum(y_start=1)</code> and <code>pumHeaPumSou(y_start=1)</code>.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1498\">#1498</a>.
-</li>
-<li>
-April 21, 2021, by Michael Wetter:<br/>
-Corrected error in calculation of design mass flow rate.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2458\">#2458</a>.
-</li>
-<li>
-May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
-</li>
-<li>
-March 3, 2017, by Michael Wetter:<br/>
-Changed mass flow test to use a hysteresis as a threshold test
-can cause chattering.
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 <li>
 January 27, 2017, by Massimo Cimmino:<br/>

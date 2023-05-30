@@ -268,18 +268,21 @@ equation
 </p>
 <p>
   Used in <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">IBPSA.Fluid.HeatPumps.ModularReversible</a>,
+  \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
+  IBPSA.Fluid.HeatPumps.ModularReversible</a> and <a href=
+  \"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
+  IBPSA.Fluid.Chillers.ModularReversible</a>,
   the heat flow to or from the volume is calculated in a black-box.
   Thus the heat is directly added to the medium.
 </p>
 <p>
-  In order to model transient states and inertias of a real heat pump,
+  In order to model transient heat losses of a real heat pump or chiller,
   a capacity is added to the base model <a href=
   \"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">
   IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger</a>.
 </p>
 <p>
-The heat exchange between capacity and medium (<code>GIns</code>)
+  The heat exchange between capacity and medium (<code>GIns</code>)
   is based on a series of heat
   resistances caused by forced convection and conduction through the
   capacity of the heat exchanger. Losses or gains in result of heat

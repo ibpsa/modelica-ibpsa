@@ -16,11 +16,41 @@ record RefrigerantCycle2DBaseDataDefinition
 
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
-<p>Base data definition used in the heat pump model. It defines the table <span style=\"font-family: Courier New;\">table_QCon_flow</span> which gives the condenser heat flow rate and <span style=\"font-family: Courier New;\">table_Pel</span> which gives the electric power consumption of the heat pump. </p>
-<p>Both tables define the power values depending on the evaporator temperature (defined in first row) and the condenser temperature (defined in first column) in W. </p>
-<p>Depending on the type of the device, either inlet or outlet conditions are used. </p>
-<p>The nominal mass flow rate in the condenser and evaporator are also defined as parameters.</p>
-<p>The devIde ensures that if data for heating and cooling are required, matching data is used.</p>
+<p>
+  Base data definition used in the heat pump model. 
+  It defines the table for <code>table_Pel</code> which gives the electric power 
+  consumption of the heat pump or chiller. 
+  Information on heat flow rates are in the corresponding records for 
+  heat pumps and chillers, as it is the condenser and evaporator heat flow rate,
+  respectivly.
+</p>
+<p>
+  Both tables define the power values depending on the evaporator temperature 
+  (defined in first row, in degC) and the condenser temperature 
+  (defined in first column, in degC) in W.
+</p>
+<p>
+  Depending on the type of the device, either inlet or outlet conditions are used.
+  This feature could be required for air-air devices. Here, the room temperature
+  (inlet) and outdoor air temperature (inlet) are used. For air-water devices,
+  the supply temperature (outlet) and the outdoor air temperature (inlet) are
+  used instead.
+  When adding new data, be sure to check if the datasheet means inlet or outlet 
+  conditions. Also, be sure to check if the data is for wet- or dry-bulb 
+  temperatures. The measured temperatures of the modular approach are taken
+  directly from the fluid ports and are, thus, always dry bulb.
+</p>
+<p>
+  The nominal mass flow rate in the condenser and evaporator 
+  are also defined as parameters. These will be used in the model to assert that
+  the mass flow rates in the simulation do not deviate to much from the ones
+  where the normative data is for. 
+</p>
+<p>
+  The <code>devIde</code> ensures that if data for heating and cooling are required, 
+  matching records will be used. This parameter is mainly to avoid modelling 
+  errors.
+</p>
 </html>",
         revisions="<html><ul>
   <li>

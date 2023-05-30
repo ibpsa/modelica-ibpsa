@@ -7,8 +7,10 @@ model StringPassThrough
 equation
   connect(u, y);
   annotation (Documentation(info="<html>
-  <p>Model to pass trough any String. 
-  Used to enable String comparison in optional models.</p>
+<p>
+  Model to pass trough the input String as an output. 
+  Used to enable String comparison in optional models.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

@@ -16,9 +16,24 @@ equation
   connect(feeHeaFloEva.y, proRedQEva.u2)
     annotation (Line(points={{-61,-10},{-44,-10},{-44,-58}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-  <p>Partial refrigerant cycle model for heat pumps. Specifies <code>iceFacHPMea</code>
-  in addition to basic equations.</p>
-</html>", revisions="<html><ul>
+<p>
+  Partial refrigerant cycle model for heat pumps. 
+  Specifies <code>iceFacHPMea</code> in addition to basic 
+  equations to calculate the frosting performance of the heat pump operation.
+</p>
+<p>
+  This model further enables the correct selection of approaches 
+  for heat pumps when using <code>choicesAllMatching</code>.
+<\p>
+</html>",
+revisions="<html>
+<ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adapted based on IBPSA implementation. Mainly, the iceFac is added directly 
+    in this partial model (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

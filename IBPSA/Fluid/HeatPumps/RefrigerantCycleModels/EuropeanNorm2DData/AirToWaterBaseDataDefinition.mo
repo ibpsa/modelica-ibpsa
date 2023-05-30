@@ -9,7 +9,11 @@ record AirToWaterBaseDataDefinition
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li>
 </html>", info="<html>
-<p>This record allow specific selection using choicesAllMatching in models like
-<a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a>.</p>
+<p>
+  This record allows specific selection using 
+  <code>choicesAllMatching</code> in models like 
+  <a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">
+  IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a>.
+</p>
 </html>"));
 end AirToWaterBaseDataDefinition;

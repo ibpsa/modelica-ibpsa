@@ -57,8 +57,36 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This model uses a constant quality grade approach to model the efficiency of the chiller.</p>
-<p>According to the defined <span style=\"font-family: Courier New;\">QUse_flow_nominal</span>, the chiller supplies its cold. </p>
+<p>
+  This model uses a constant quality grade approach and carnot equations 
+  to model the efficiency of the chiller.
+</p>
+<p>
+  According to the defined <code>QUse_flow_nominal</code> and 
+  the nominal conditions <code>PEle_nominal</code> is calculated.
+  <code>PEle_nominal</code> stays constant over all boundary conditions,
+  aside from different compressor speeds.
+  <code>QEva_flow</code> changes according to the carnot COP, which follows:
+</p>
+<p>
+  <code>
+    QEva_flow = PEle_nominal * quaGra * ySet * 
+    (TEva_nominal + TAppEva_nominal) / 
+    (TCon_nominal + TAppCon_nominal - TEva_nominal - TAppEva_nominal)
+  </code>
+</p>    
+<p>
+  <code>
+    PEle = PEle_nominal * ySet 
+  </code>
+</p>    
+<p>
+  This equations follows the Carnot approach of the IBPSA library:
+  <a href=\"modelica://IBPSA.Fluid.Chillers.Carnot_y\">
+  IBPSA.Fluid.Chillers.Carnot_y</a>
+  Similar, the paramateres <code>TAppCon_nominal</code> and
+  <code>TAppEva_nominal</code> define pinch temperature differences.
+</p>
 </html>"), Icon(graphics={Text(
           extent={{-78,68},{74,-78}},
           textColor={0,0,127},

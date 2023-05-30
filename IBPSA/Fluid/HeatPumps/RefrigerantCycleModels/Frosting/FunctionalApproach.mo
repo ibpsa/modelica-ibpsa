@@ -51,8 +51,14 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Model for calculation of the icing factor. The replaceable function
-  uses the inputs to calculate the resulting icing factor.
+  Model using functional approaches for calculation of the icing factor. 
+  The replaceable function uses the inputs on the evaporator side to calculate 
+  the resulting icing factor.
+</p>
+<p>
+  For more information on the <code>iceFac</code>, see the documentation of <a href=
+  \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle</a>
 </p>
 </html>"));
 end FunctionalApproach;

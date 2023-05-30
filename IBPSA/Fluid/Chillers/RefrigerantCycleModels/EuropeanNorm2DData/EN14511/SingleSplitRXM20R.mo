@@ -29,8 +29,12 @@ record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R cooling mode"
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Performance data&nbsp;for&nbsp;Daikin FTXM20R_RXM20R for the cooling mode.</p>
-<p>Boundaries are for dry-bulb temperature.</p>
+<p>
+  Performance data for Daikin FTXM20R_RXM20R for the cooling mode.
+</p>
+<p>
+  Boundaries are for dry-bulb temperature.
+</p>
 </html>", revisions="<html>
 <ul>
   <li>

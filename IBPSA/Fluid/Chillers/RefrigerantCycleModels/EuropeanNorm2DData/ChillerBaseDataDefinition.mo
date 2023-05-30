@@ -7,20 +7,19 @@ record ChillerBaseDataDefinition "Basic chiller data"
     "Cooling power table, T in degC, Q_flow in W";
   parameter Real tabLowBou[:,2]
     "Points to define lower boundary for source temperature";
-  annotation (Documentation(info="<html><p>
-  Base data definition extending from the <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>,
-  the parameters documentation is matched for a chiller. As a result,
-  <code>tableQdot_eva</code>
-  corresponds to the cooling capacity on the evaporator side of the
-  chiller. Furthermore, the values of the tables depend on the
-  condenser inlet temperature (defined in first row) and the evaporator
-  outlet temperature (defined in first column) in W.
+  annotation (Documentation(info="<html>
+  
+  <h4>Overview</h4>
+<p>
+  Base data definition used in the chiller model.
 </p>
 <p>
-  The nominal mass flow rate in the condenser and evaporator are also
-  defined as parameters.
+  Extends <a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
+  to enable correct selection.</p>
+<p>
+  Adds the table data for lower temperature limitations to 
+  the partial record, which is the operational envelope of the compressor.
 </p>
 </html>",
         revisions="<html><ul>

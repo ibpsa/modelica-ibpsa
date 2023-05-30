@@ -23,8 +23,16 @@ block SenTempInflow "Custom block to measure instream fluid temperature"
           extent={{-150,90},{150,50}},
           textString="%name",
           textColor={0,0,255})}), Documentation(info="<html>
-<p>Duplicate of <a href=\"modelica://Modelica.Blocks.Sources.RealExpression\">Modelica.Blocks.Sources.RealExpression</a> adding unit Kelvin to the output.</p>
-<p>Used to output a temperature measurement by evaluating the port temperature directly.</p>
+<p>
+  Extension of 
+  <a href=\"modelica://Modelica.Blocks.Sources.RealExpression\">
+  Modelica.Blocks.Sources.RealExpression</a> 
+  adding unit Kelvin to the output.
+</p>
+<p>
+  Used to output a temperature measurement by 
+  evaluating the port temperature directly.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

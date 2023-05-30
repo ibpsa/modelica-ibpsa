@@ -30,7 +30,7 @@ model OneRoomRadiatorHeatPumpControl
   Modelica.Blocks.Logical.Not heaIsOn
     "If lower than hysteresis, heating demand" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={-36,20})));
-  Modelica.Blocks.Logical.Switch swiHeaCooYSet if witCoo
+  Modelica.Blocks.Logical.Switch swiHeaCooYSet
     "Switch ySet for heating and cooling" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={40,70},
@@ -40,8 +40,7 @@ model OneRoomRadiatorHeatPumpControl
     k=0.03,
     Ti=400,
     yMax=1,
-    yMin=0.3) if witCoo
-              "PID control for cooling, inverse"
+    yMin=0.3) "PID control for cooling, inverse"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Continuous.LimPID PIDHea(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -54,7 +53,6 @@ model OneRoomRadiatorHeatPumpControl
     "Room set temperature for heating"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Constant constTSetRooCoo(final k=TRooSetCoo)
-                                                             if witCoo
     "Room set temperature for cooling"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Constant constYSetZer(final k=0) "ySet equals zero"
@@ -155,6 +153,38 @@ equation
           -48},{-16,-70},{-59,-70}}, color={255,0,255}));
   connect(heaIsOn.y, cooValOrHea.u1) annotation (Line(points={{-25,20},{-16,20},
           {-16,-40},{-2,-40}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  connect(conFal.y, swiHeaCooYSet.u2) annotation (Line(points={{-39,-30},{-28,-30},
+          {-28,-10},{28,-10},{28,70}}, color={255,0,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-151,22},{149,-18}},
+          textColor={0,0,255},
+          textString="%name")}),                                 Diagram(
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+  Helper control model for the example
+  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
+  The control enables a PI control of the heat pumps compressor
+  speed for both heating and cooling. Depending on a hysteresis, 
+  the heating or cooling mode is selected.
+  If the radiator supply temperature drops below a critical 
+  value, the heat pump will turn to heating mode. This prohibits 
+  possible freezing or water condensation.    
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
+</html>"));
 end OneRoomRadiatorHeatPumpControl;

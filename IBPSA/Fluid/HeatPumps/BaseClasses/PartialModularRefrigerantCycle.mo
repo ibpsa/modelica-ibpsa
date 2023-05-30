@@ -149,7 +149,15 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial modular refrigerant cycle models for data and equation based approaches used in the model <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>.</p>
-<p>This partial container only adds outputs and switches both relevant for heat pump and chiller applications.</p>
+<p>
+  Partial modular refrigerant cycle models for data and 
+  equation based approaches used in the model 
+  <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
+  IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>.
+</p>
+<p>
+  This partial container only adds outputs and switches 
+  both relevant for heat pump and chiller applications.
+</p>
 </html>"));
 end PartialModularRefrigerantCycle;

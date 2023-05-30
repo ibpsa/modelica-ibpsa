@@ -7,7 +7,7 @@ model VariableOrderInertia
     "Cut off frequency for inertia of refrigerant cycle" annotation (
       Dialog(enable=use_refIne, group="Refrigerant inertia"),
             Evaluate=true);
-  parameter Integer nthOrd=3 "Order of refrigerant cycle interia"
+  parameter Integer nthOrd=1 "Order of refrigerant cycle interia"
     annotation (Dialog(enable=use_refIne, group="Refrigerant inertia"));
   parameter Real x_start[nthOrd]=zeros(nthOrd)
     "Initial or guess values of states" annotation (Dialog(
@@ -32,15 +32,22 @@ equation
   connect(criDam.y, y)
     annotation (Line(points={{17.6,0},{110,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>Model that uses a variable order delay to account for inertia.</p>
-<p>Following the associated publication by W&uuml;llhorst et. al., 
-this model was used to calibrate the heat pump model.</p>
-<p>In usage, be careful with the order of the delay. 
-While a second or third order delay may result in a better fit
-in calibration, simulation speed is impacted. </p>
-<p>See the discussion in the paper for more information: 
-<a href=\"https://doi.org/10.3384/ecp21181561\">
-https://doi.org/10.3384/ecp21181561 </a></p>
+<p>
+  Model that uses a variable order delay to account for inertia.
+</p>
+<p>
+  Following the associated publication by Wuellhorst et. al., 
+  this model was used to calibrate the heat pump model.
+  If first order is selected, the frequency <code>refIneFreConst</code>
+  equals the inverse of the time constant of a first order delay element.
+</p>
+<p>
+  In usage, be careful with the order of the delay. 
+  While a second or third order delay may result in a better fit
+  in calibration, simulation speed is impacted.
+  See the discussion in the paper for more information: 
+  <a href=\"https://doi.org/10.3384/ecp21181561\">
+  https://doi.org/10.3384/ecp21181561 </a></p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

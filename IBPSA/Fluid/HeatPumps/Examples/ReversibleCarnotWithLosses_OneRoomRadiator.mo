@@ -6,8 +6,8 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating power";
   IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses revCarWitLosHeaPum(
-    redeclare package MediumCon = MediumW,
-    redeclare package MediumEva = MediumW,
+    redeclare package MediumCon = MediumWat,
+    redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_rev=true,
@@ -54,10 +54,10 @@ equation
   connect(temAmbBas.y, revCarWitLosHeaPum.TConAmb) annotation (Line(points={{10,-179},
           {10,-166},{-6,-166},{-6,-140},{-1,-140}},       color={0,0,127}));
 
-  connect(oneRooRadHeaPumCtrl.hea, revCarWitLosHeaPum.hea) annotation (Line(
+  connect(oneRooRadHeaPumCtr.hea, revCarWitLosHeaPum.hea) annotation (Line(
         points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-159},{21.6,-159}},
         color={255,0,255}));
-  connect(oneRooRadHeaPumCtrl.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
+  connect(oneRooRadHeaPumCtr.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
         points={{-139,-66},{28,-66},{28,-148},{21.6,-148}}, color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
@@ -69,7 +69,26 @@ equation
       Tolerance=1e-08,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
-<p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a> heat pump model. </p>
-<p>Please check the documentation of <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a> for further information on the example.</p>
+<p>
+  This example demonstrates how to use the 
+  <a href=\"IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">
+  IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a> 
+  heat pump model. Please check the associated documentation for
+  further information.
+</p>
+<p>
+  Please check the documentation of 
+  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
+  for further information on the example.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"));
 end ReversibleCarnotWithLosses_OneRoomRadiator;

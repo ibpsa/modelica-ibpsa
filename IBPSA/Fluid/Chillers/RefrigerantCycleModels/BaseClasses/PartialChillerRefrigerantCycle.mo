@@ -18,9 +18,28 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}),
       Documentation(
-  info="<html>
-<p>Partial model for calculation of electrical power <code>PEle</code>, 
-condenser heat flow <code>QCon</code> and evaporator heat flow <code>QEva</code> 
-based on the values in the sigBus for a chiller.</p>
+  info="<html> 
+<p>
+  Partial refrigerant cycle model for chillers. 
+  Specifies <code>iceFacChiMea</code> in addition to basic 
+  equations to calculate the frosting performance of the chiller operation.
+</p>
+<p>
+  This model further enables the correct selection of approaches 
+  for chillers when using <code>choicesAllMatching</code>.
+<\p>
+</html>", revisions="<html>
+<ul>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    Adapted based on IBPSA implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+  <li>
+    <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+    First implementation (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
+</ul>
 </html>"));
 end PartialChillerRefrigerantCycle;

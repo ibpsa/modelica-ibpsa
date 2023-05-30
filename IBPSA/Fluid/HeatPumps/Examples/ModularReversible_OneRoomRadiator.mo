@@ -10,7 +10,6 @@ model ModularReversible_OneRoomRadiator
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
-
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
@@ -42,8 +41,7 @@ model ModularReversible_OneRoomRadiator
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201
-            ()),
+            IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrPar(use_antFre=true, TAntFre=275.15))
@@ -73,9 +71,32 @@ equation
   connect(oneRooRadHeaPumCtr.ySet, modRevHeaPum.ySet) annotation (Line(points={
           {-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">ModularReversible</a> heat pump model directly. </p>
-<p>Correct replacement of the replaceable submodels and, thus, flexible aggregation to a new model approach is demonstrated.</p>
-<p>Please check the documentation of <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a> for further information on the example.</p>
+<p>
+  This example demonstrates how to use the 
+  <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">
+  IBPSA.Fluid.HeatPumps.ModularReversible</a> 
+  heat pump model directly. Please check the associated documentation for
+  further information.
+</p>
+<p>
+  Correct replacement of the replaceable submodels 
+  and, thus, flexible aggregation to a new model 
+  approach is demonstrated.
+</p>
+<p>
+  Please check the documentation of 
+  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
+  for further information on the example.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"),
    __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ModularReversible_OneRoomRadiator.mos"

@@ -196,8 +196,19 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Modular refrigerant cycle model for chiller applications used in the model <a href=\"IBPSA.Fluid.Chillers.ModularReversible\">IBPSA.Fluid.Chillers.ModularReversible</a> and extending models of the modular approach.</p>
-<p>This model adds the replaceable model approaches for cooling and heating data. </p>
-<p>Further, an asseration warns if the data-sources or model approaches differ for cooling and heating.</p>
+<p>
+  Modular refrigerant cycle model for chiller applications used in 
+  the model <a href=\"IBPSA.Fluid.Chillers.ModularReversible\">
+  IBPSA.Fluid.Chillers.ModularReversible</a> and extending models 
+  of the modular approach.
+</p>
+<p>
+  This model adds the replaceable model approaches for cooling and heating data
+  to the partial refrigerant cylce.
+</p>
+<p>
+  Further, an asseration warns if the data-sources and, thus, 
+  model approaches differ for cooling and heating.
+</p>
 </html>"));
 end ChillerRefrigerantCycle;

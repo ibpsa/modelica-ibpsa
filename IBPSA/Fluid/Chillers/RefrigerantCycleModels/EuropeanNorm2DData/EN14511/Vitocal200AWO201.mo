@@ -20,11 +20,12 @@ record Vitocal200AWO201 "Vitocal200AWO201Chilling"
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html><p>
-  Data&#160;record&#160;for&#160;type&#160;AWO-M/AWO-M-E-AC&#160;201.A04,
+    Documentation(info="<html>
+<p>
+  Data record for type AWO-M/AWO-M-E-AC 201.A04,
   obtained from the technical guide in the UK. <a href=
   \"https://professionals.viessmann.co.uk/content/dam/vi-brands/UK/PDFs/Datasheets/Vitocal%20Technical%20Guide.PDF/_jcr_content/renditions/original.media_file.download_attachment.file/Vitocal%20Technical%20Guide.PDF\">
-  Link</a> to the datasheet
+  Link</a>to the datasheet
 </p>
 </html>", revisions="<html>
 <ul>

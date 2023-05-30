@@ -16,7 +16,8 @@ model EuropeanNorm2D
     tabQUse_flow(final table=datTab.tabQEva_flow),
     tabPEle(final table=datTab.tabPEle),
     final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,
-    final perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100);
+    final perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100,
+    constScaFac(final k=scaFac));
   parameter IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition datTab=
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()
          "Data Table of Chiller" annotation (choicesAllMatching=true);
@@ -60,7 +61,11 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Icon(graphics={
-    Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},{-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},{60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},{60.0,-40.0}}),
+    Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},
+      {30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},
+      {-60.0,20.0},{60.0,20.0},{60.0,0.0},{-60.0,0.0},{-60.0,-20.0},
+      {60.0,-20.0},{60.0,-40.0},{-60.0,-40.0},{-60.0,40.0},{60.0,40.0},
+      {60.0,-40.0}}),
     Line(points={{0.0,40.0},{0.0,-40.0}}),
     Rectangle(fillColor={255,215,136},
       fillPattern=FillPattern.Solid,
@@ -86,17 +91,54 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This model uses the 2-dimensional table data given in the DIN EN 14511 
-(formerly EN255) to calculate <code>QEva</code> and <code>PEle</code>. </p>
-<p>To model an inverter controlled chiller, the relative <b>compressor speed 
-<code>ySet</code> is scaled linearly</b> with the ouput of the tables.</p>
-<p>Furthermore, the design of a chiller is modeled via a scaling factor. 
-As a result, the equations follow below: </p>
-<p><code>QEva = ySet * scaFac * tabQEva_flow.y</code> </p>
-<p><code>PEle = n * scaFac * tabPel.y</code> </p>
+<p>
+  This model uses the 2-dimensional table data given in the 
+  DIN EN 14511 (formerly EN255) to calculate 
+  <code>QEva_flow</code> and <code>PEle</code>. 
+</p>
+<p>
+  The standard defines two of the three values electrical power consumption, 
+  evaporator heat flow rate, and COP for different condenser outlet and 
+  evaporator inlet temperatures.
+</p>
+<p>
+  Based on the two powers, the equation <code>QCon_flow = QEva_flow + PEle</code>
+  is solved, assuming an adiabatic device. However, as losses are implicitly 
+  included in the measured data, the model still account for such losses.
+  Same hold true for frosting effects, as frosting decreases the COP in the 
+  standard.
+</p>
+
+<h4>Scaling factor</h4>
+For the scaling factor, the table data for evaporator heat flow rate
+is evaluated at nominal conditions. Then, the table data is scaled linearly.
+This implies a constant COP over different design sizes: 
+<p><code>QEva_flow = scaFac * tabQEva_flow.y</code> </p>
+<p><code>PEle = scaFac * tabPel.y</code> 
+
+
 <h4>Known Limitations </h4>
-<p>The model is able to disallow extrapolation by holding the last value. 
-If one extrapolates the given perfomance data, warnings about occuring 
-extrapolations are emitted.</p>
+<ul>
+<li>
+  The standard does not require to provide the compressor speed at wich 
+  the data holds. Thus, nominal values may be obtained at different 
+  compressor speeds and, thus, efficiencies. 
+  Depending on your simulation aim, please check that you use the 
+  maximal possible power information, which is often provided in 
+  the data sheets from the manufacturers. This limitation only 
+  holds for inverter driven chillers.
+</li>
+<li>
+  As the standard does not require the compressor speed, 
+  we assume that the efficiency is contant over the whole
+  compressor speed range. Typically, efficiencies will drop at minimal
+  and maximal compressor speeds.
+  To model an inverter controlled chiller, the relative 
+  compressor speed <code>ySet</code> is used to scale 
+  the ouput of the tables linearly.
+  For models including the compressor speed, check the SDF-Library 
+  dependent refrigerant cycle models in the AixLib.
+</li>
+</ul>
 </html>"));
 end EuropeanNorm2D;

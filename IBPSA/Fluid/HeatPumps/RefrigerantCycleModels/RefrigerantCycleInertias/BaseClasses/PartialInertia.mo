@@ -5,7 +5,7 @@ partial model PartialInertia "Partial inertia model"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Partial model to account for Intertia. Just a SISO model.</p>
+<p>Partial model to account for Intertia. It is a SISO model to enable any options for inertia options.</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

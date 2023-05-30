@@ -8,9 +8,17 @@ record HeatPumpBaseDataDefinition "Basic heat pump data"
     "Points to define upper boundary for sink temperature";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
-<p>Base data definition used in the heat pump model. </p>
-<p>Extends <a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> to enable correct selection.</p>
-<p>Adds the table data for upper temperature limitations to the partial record, which is the operational envelope of the compressor.</p>
+<p>
+  Base data definition used in the heat pump model.
+</p>
+<p>
+  Extends <a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
+  to enable correct selection.</p>
+<p>
+  Adds the table data for upper temperature limitations to 
+  the partial record, which is the operational envelope of the compressor.
+</p>
 </html>",
         revisions="<html><ul>
   <li>

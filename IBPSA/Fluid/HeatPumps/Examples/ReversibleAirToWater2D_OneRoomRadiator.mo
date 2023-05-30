@@ -5,8 +5,8 @@ model ReversibleAirToWater2D_OneRoomRadiator
         realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
 
   IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
-    redeclare package MediumCon = MediumW,
-    redeclare package MediumEva = MediumW,
+    redeclare package MediumCon = MediumWat,
+    redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_intSafCtr=true,
@@ -39,10 +39,10 @@ equation
          {{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
   connect(revCarWitLosHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,
           -142},{60,-142},{60,-30}}, color={0,127,255}));
-  connect(oneRooRadHeaPumCtrl.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
+  connect(oneRooRadHeaPumCtr.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
         points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}}, color=
          {0,0,127}));
-  connect(revCarWitLosHeaPum.hea, oneRooRadHeaPumCtrl.hea) annotation (Line(
+  connect(revCarWitLosHeaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
         points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-80},{-14,-80},{-14,
           -86},{-134,-86},{-134,-76},{-139,-76}}, color={255,0,255}));
   annotation (
@@ -55,7 +55,26 @@ equation
       Tolerance=1e-08,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
-<p>This example demonstrates how to use the <a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a> heat pump model. </p>
-<p>Please check the documentation of <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a> for further information on the example.</p>
+<p>
+  This example demonstrates how to use the 
+  <a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">
+  IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a> 
+  heat pump model. Please check the associated documentation for
+  further information.
+</p>
+<p>
+  Please check the documentation of 
+  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
+  for further information on the example.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"));
 end ReversibleAirToWater2D_OneRoomRadiator;
