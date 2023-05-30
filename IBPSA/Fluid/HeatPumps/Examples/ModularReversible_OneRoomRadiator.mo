@@ -104,6 +104,5 @@ equation
   experiment(
       StartTime=0,
       StopTime=86400,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-08));
 end ModularReversible_OneRoomRadiator;

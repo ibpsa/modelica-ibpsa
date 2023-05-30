@@ -117,6 +117,5 @@ equation
 </ul>
 </html>"), experiment(
       StopTime=100,
-      Interval=1,
-      __Dymola_Algorithm="Dassl"));
+      Interval=1));
 end SafetyControl;

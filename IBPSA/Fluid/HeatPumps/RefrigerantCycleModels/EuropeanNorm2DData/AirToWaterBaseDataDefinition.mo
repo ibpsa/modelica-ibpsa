@@ -14,7 +14,7 @@ record AirToWaterBaseDataDefinition
 <p>
   This record allows specific selection using 
   <code>choicesAllMatching</code> in models like 
-  <a href=\"IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">
   IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a>.
 </p>
 </html>"));

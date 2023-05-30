@@ -12,7 +12,7 @@ record HeatPumpBaseDataDefinition "Basic heat pump data"
   Base data definition used in the heat pump model.
 </p>
 <p>
-  Extends <a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
+  Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
   to enable correct selection.</p>
 <p>

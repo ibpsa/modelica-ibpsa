@@ -143,7 +143,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>Model of a reversible, modular chiller. You can combine any of the avaiable model approaches for refrigerant for heating and cooling, add inertias, heat losses, and safety controls. All features are optional.</p>
-<p>See the documentation of <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> for information on the concept.</p>
+<p>See the documentation of <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> for information on the concept.</p>
 <p><br>Adding to the partial concept, this model adds the <span style=\"font-family: Courier New;\">coo</span> signal chooses the operation type of the refrigerant machine: </p>
 <ul>
 <li><span style=\"font-family: Courier New;\">coo</span> = true: Main operation mode (chiller: cooling) </li>
@@ -151,8 +151,8 @@ equation
 </ul>
 <p>For guidance on how to use this model, please check pre-configured approaches here:</p>
 <ul>
-<li><a href=\"IBPSA.Fluid.Chillers.LargeScaleWaterToWater\">IBPSA.Fluid.Chillers.LargeScaleWaterToWater</a></li>
-<li><a href=\"IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses\">IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses</a></li>
+<li><a href=\"modelica://IBPSA.Fluid.Chillers.LargeScaleWaterToWater\">IBPSA.Fluid.Chillers.LargeScaleWaterToWater</a></li>
+<li><a href=\"modelica://IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses\">IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses</a></li>
 </ul>
 <h4>References</h4>
 <ul>

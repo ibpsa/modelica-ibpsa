@@ -169,7 +169,7 @@ equation
     Documentation(info="<html>
 <p>
   Helper control model for the example
-  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
   The control enables a PI control of the heat pumps compressor
   speed for both heating and cooling. Depending on a hysteresis, 

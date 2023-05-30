@@ -198,7 +198,7 @@ equation
 </html>", info="<html>
 <p>
   Modular refrigerant cycle model for chiller applications used in 
-  the model <a href=\"IBPSA.Fluid.Chillers.ModularReversible\">
+  the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible</a> and extending models 
   of the modular approach.
 </p>

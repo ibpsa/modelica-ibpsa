@@ -35,7 +35,7 @@ model LargeScaleWaterToWater
          "Data Table of Chiller" annotation(choicesAllMatching=true);
   annotation (Documentation(info="<html>
 <p>Model using parameters for a large scale water-to-water chiller. </p>
-<p>Parameters are based on an automatic estimation, see: <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a>.</p>
+<p>Parameters are based on an automatic estimation, see: <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a>.</p>
 </html>", revisions="<html><ul>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>

@@ -250,7 +250,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
   Motivated by the example 
-  <a href=\"IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator</a>, 
   this example enables the use of the <code>ModularReversible</code>
   approach for heat pumps and chillers.

@@ -53,6 +53,5 @@ equation
 </ul>
 </html>"), experiment(
       StopTime=1000,
-      Interval=1,
-      __Dymola_Algorithm="Dassl"));
+      Interval=1));
 end OnOffControl;

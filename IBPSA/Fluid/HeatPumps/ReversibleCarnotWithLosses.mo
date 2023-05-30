@@ -34,7 +34,7 @@ model ReversibleCarnotWithLosses
     "Nominal heat flow rate of cooling operation"
       annotation(Dialog(group="Nominal Design"));
   annotation (Documentation(info="<html>
-<p>This model uses a simple carnot approache with a constant quality grade, similar to the model <a href=\"IBPSA.Fluid.HeatPumps.Carnot_y\">IBPSA.Fluid.HeatPumps.Carnot_y</a>.</p>
+<p>This model uses a simple carnot approache with a constant quality grade, similar to the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">IBPSA.Fluid.HeatPumps.Carnot_y</a>.</p>
 <p>However, it adds the option for reversibility, refrigerant inertia, and heat losses at the heat exchangers.</p>
 </html>"));
 end ReversibleCarnotWithLosses;

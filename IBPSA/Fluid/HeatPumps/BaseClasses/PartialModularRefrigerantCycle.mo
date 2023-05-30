@@ -152,7 +152,7 @@ equation
 <p>
   Partial modular refrigerant cycle models for data and 
   equation based approaches used in the model 
-  <a href=\"IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
   IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>.
 </p>
 <p>

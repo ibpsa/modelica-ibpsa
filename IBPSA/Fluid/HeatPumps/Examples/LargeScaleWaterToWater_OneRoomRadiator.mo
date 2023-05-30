@@ -88,6 +88,5 @@ equation
 </ul>
 </html>"), experiment(
       StopTime=86400,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Dassl"));
+      Tolerance=1e-08));
 end LargeScaleWaterToWater_OneRoomRadiator;

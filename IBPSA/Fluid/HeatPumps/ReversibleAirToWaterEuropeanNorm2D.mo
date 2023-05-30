@@ -39,7 +39,7 @@ model ReversibleAirToWaterEuropeanNorm2D
   annotation (Documentation(info="<html>
 <p>Reversible air-to-water heat pump based on European Norm 2D data from the standard EN 14511.</p>
 <p>Internal inertias and heat losses are neglected, as these are implicitly obtained in the measured data from 14511. Also, icing is disabled as the performance degradation is already contained in the data.</p>
-<p>Please read the documentation of the model for heating here: <a href=\"IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D</a>.</p>
-<p>For cooling, the assumptions are similar. Check this documentation: <a href=\"IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D\">IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D</a></p>
+<p>Please read the documentation of the model for heating here: <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D</a>.</p>
+<p>For cooling, the assumptions are similar. Check this documentation: <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D\">IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D</a></p>
 </html>"));
 end ReversibleAirToWaterEuropeanNorm2D;
