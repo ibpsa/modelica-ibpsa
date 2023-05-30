@@ -62,7 +62,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=7776000,Tolerance=1e-6),
     __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffce.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Geothermal/Aquifer/Examples/CoolingOffice.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
