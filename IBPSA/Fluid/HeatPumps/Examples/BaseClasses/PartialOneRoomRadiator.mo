@@ -232,8 +232,7 @@ equation
           -120},{60,-30}}, color={0,127,255}));
   connect(booToReaPumEva.y, pumHeaPumSou.m_flow_in)
     annotation (Line(points={{-99,-180},{-42,-180}}, color={0,0,127}));
-  if not witCoo then
-  end if;
+
   connect(cooLoa.y, preHeaCoo.Q_flow)
     annotation (Line(points={{-119,90},{-100,90}}, color={0,0,127}));
   connect(preHeaCoo.port, heaCap.port) annotation (Line(points={{-80,90},{-60,90},

@@ -50,7 +50,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
   This example shows the usage of the model
-  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">
   IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a>.
 </p>
 </html>", revisions="<html>

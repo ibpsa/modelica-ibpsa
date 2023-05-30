@@ -73,7 +73,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
   This example demonstrates how to use the 
-  <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
   IBPSA.Fluid.HeatPumps.ModularReversible</a> 
   heat pump model directly. Please check the associated documentation for
   further information.
@@ -85,7 +85,7 @@ equation
 </p>
 <p>
   Please check the documentation of 
-  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
   for further information on the example.
 </p>

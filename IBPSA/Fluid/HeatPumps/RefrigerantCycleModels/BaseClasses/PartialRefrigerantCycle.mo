@@ -105,10 +105,8 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),   Text(
           extent={{-57.5,-35},{57.5,35}},
-          lineColor={0,0,255},
           pattern=LinePattern.Dash,
-          textString="%name
-",        origin={-1.5,113},
+          textString="%name", origin={-1.5,113},
           rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>

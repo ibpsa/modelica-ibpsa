@@ -18,10 +18,8 @@ partial model PartialIcingFactor "Partial model to calculate the icing factor"
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),   Text(
           extent={{-57.5,-35},{57.5,35}},
-          lineColor={0,0,255},
           pattern=LinePattern.Dash,
-          textString="%name
-",        origin={-1.5,105},
+          textString="%name",        origin={-1.5,105},
           rotation=180)}),                                       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

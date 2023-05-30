@@ -49,7 +49,7 @@ equation
       Documentation(info="<html>
 <p>
   This example shows the usage of the model
-  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety\">
   IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety</a>.
 </p>
 </html>", revisions="<html>

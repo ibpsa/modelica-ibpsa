@@ -70,14 +70,14 @@ equation
     Documentation(info="<html>
 <p>
   This example demonstrates how to use the 
-  <a href=\"IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">
   IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a> 
   heat pump model. Please check the associated documentation for
   further information.
 </p>
 <p>
   Please check the documentation of 
-  <a href=\"IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.Examples.BaseClasses.PartialOneRoomRadiator</a>
   for further information on the example.
 </p>
