@@ -70,8 +70,8 @@ This example shows the application of the model
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Aquifer.SingleWell\">IBPSA.Fluid.Geothermal.Aquifer.SingleWell</a>.
 </p>
 <p>
-The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12&deg;C and 
-after passing through a heat exchanger it is injected in the warm well at 16&deg;C. This may represent the operation of an
+The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12C and 
+after passing through a heat exchanger it is injected in the warm well at 16C. This may represent the operation of an
 aquifer thermal energy storage system that cools an office building with a constant load of 30 kW.
 </p>
 

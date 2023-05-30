@@ -8,5 +8,6 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
+ filename = "SimulationTest.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
