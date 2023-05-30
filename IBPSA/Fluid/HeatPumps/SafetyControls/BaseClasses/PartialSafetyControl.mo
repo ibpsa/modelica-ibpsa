@@ -64,8 +64,10 @@ partial model PartialSafetyControl "Safety control with I/O"
   </li>
 </ul>
 </html>", info="<html>
-<p>Partial block for a safety control. Based on the signals in the
-<code>sigBus</code> either the input signals are equal to the output 
-signals or, if an error occurs, set to 0. </p>
+<p>
+  Partial block for a safety control. Based on the signals in the
+  <code>sigBus</code> either the input signals are equal to the output 
+  signals or, if an error occurs, set to 0.
+</p>
 </html>"));
 end PartialSafetyControl;

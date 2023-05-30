@@ -46,7 +46,8 @@ equation
           points={{0,0},{40,0}},
           thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html><p>
+    Documentation(info="<html>
+<p>
   When the input is true, a timer thats counting seconds until it is
   false again. As long as the counted time is smaller than a given
   minimal time, the block yields false.

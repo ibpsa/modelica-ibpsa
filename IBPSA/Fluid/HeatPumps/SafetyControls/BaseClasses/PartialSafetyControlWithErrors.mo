@@ -62,8 +62,11 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.PartialSafetyControl\">
-IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.PartialSafetyControl</a>.</p>
-<p>Adds the output <span style=\"font-family: Courier New;\">err</span>, whch informs about the number of errors in the specific safety block. </p>
+<p>
+  Adds the output <code>err</code>, which informs about the 
+  number of errors in the specific safety block.
+  Required as not all safety controls will inform about the error
+  but most.
+</p>
 </html>"));
 end PartialSafetyControlWithErrors;

@@ -127,8 +127,6 @@ equation
           {-32,90},{-39,90}}, color={0,0,127}));
   connect(tabBou.y[1], subBou.u2) annotation (Line(points={{-39,50},{-30,50},{-30,
           64},{-22,64}}, color={0,0,127}));
-
-
   annotation (Icon(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}), graphics={
@@ -154,8 +152,28 @@ equation
               {icoMax+10,icoMin-10}}, color={95,95,95})}),
       coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
   Documentation(info="<html>
-<p>Given an input of TCon and TEva, the model returns true if the given point is outside of the given operational envelope. </p><p>The maximal and minmal TCon depend on TEva and are defined by the upper and lower boundaries in form of 1Ds-Tables. </p><p>The maximal and minimal TEva values are obtained trough the table and are constant. </p>
-<p>For the boundaries of the TCon input value, a dynamic hysteresis is used to ensure a used device will stay off a certain time after shutdown.</p><p>This is similar to the hysteresis in a pressure-based safety control, which prevents operation outside this envelope in real devices.</p>
+<p>
+  Given an input of <code>TCon</code> and <code>TEva</code>, 
+  the model returns true if the given 
+  point is outside of the given operational envelope. 
+</p>
+<p>
+  The maximal and minmal <code>TCon</code> depend on 
+  <code>TEva</code> and are defined by the 
+  upper and lower boundaries in form of 1Ds-Tables.</p>
+<p>
+  The maximal and minimal <code>TEva</code> values are obtained 
+  trough the table and are constant.
+</p>
+<p>
+  For the boundaries of the <code>TCon</code> input value, a 
+  dynamic hysteresis is used to ensure a used device will 
+  stay off a certain time after shutdown.
+</p>
+<p>
+  This is similar to the hysteresis in a pressure-based safety control, 
+  which prevents operation outside this envelope in real devices.
+</p>
 </html>",
         revisions="<html>
 <ul>

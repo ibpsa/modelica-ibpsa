@@ -1,10 +1,6 @@
 within IBPSA.Fluid.HeatPumps.SafetyControls;
 package BaseClasses "Package with base classes for IBPSA.Controls.HeatPump.SafetyControls"
 
-
-
-
-
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -31,7 +27,8 @@ annotation (Icon(graphics={
 <p>
   This package contains base classes that are used to construct the
   models in <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls\">IBPSA.Fluid.HeatPumps.SafetyControls</a>
+  \"modelica://IBPSA.Fluid.HeatPumps.SafetyControls\">
+  IBPSA.Fluid.HeatPumps.SafetyControls</a>
 </p>
 </html>"));
 end BaseClasses;

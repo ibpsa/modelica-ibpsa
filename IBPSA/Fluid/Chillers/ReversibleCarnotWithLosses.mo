@@ -47,7 +47,7 @@ model ReversibleCarnotWithLosses
 </ul>
 </html>", info="<html>
   This model extends the model 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible</a> and selects the 
   constant quality grade model approaches for chillers 
   (<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade\">
