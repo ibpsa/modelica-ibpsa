@@ -501,7 +501,7 @@ annotation (
 version="4.0.0",
 versionDate="2018-09-28",
 dateModified = "2018-09-28",
-uses(Modelica(version="4.0.0"), SDF(version="0.4.2")),
+uses(Modelica(version="4.0.0")),
 conversion(from(version="3.0.0",
                 script="modelica://IBPSA/Resources/Scripts/Conversion/ConvertIBPSA_from_3.0_to_4.0.mos")),
 preferredView="info",

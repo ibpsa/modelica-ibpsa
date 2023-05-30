@@ -133,7 +133,7 @@ equation
 <h4>Frosting performance</h4>
 <p>
   To simulate possible icing of the evaporator on air-source devices, the 
-  icing factor <code>iceFac> is used to influence the outputs. 
+  icing factor <code>iceFac</code> is used to influence the outputs. 
   The factor models the reduction of heat transfer between refrigerant 
   and source. Thus, the factor is implemented as follows: 
 </p>

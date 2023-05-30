@@ -124,10 +124,10 @@ equation
   and chiller models using european norm data in two dimensions.
 </p>
 </html>", revisions="<html>
-<li>
+<ul><li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
-  </li>
+  </li></ul>
 </html>"));
 end PartialEuropeanNorm2D;
