@@ -6,9 +6,9 @@ ReciprocatingWaterToWater
 ReversibleAirToWaterEuropeanNorm2D
 ReversibleCarnotWithLosses
 ScrollWaterToWater
-RefrigerantCycleModels
 Calibration
 Compressors
+RefrigerantCycleModels
 SafetyControls
 Data
 Examples

@@ -37,11 +37,22 @@ equation
           {110,40}}, color={0,0,127}));
   connect(onOffCtr.yOut, yOut) annotation (Line(points={{23,12},{42,12},{42,-40},
           {110,-40}}, color={0,0,127}));
-  annotation (experiment(
+  annotation (Documentation(info="<html>
+<p>
+  This example shows the usage of the model
+  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl\">
+  IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
+</html>"), experiment(
       StopTime=1000,
       Interval=1,
-      __Dymola_Algorithm="Dassl"),
-                     Documentation(info="<html>
-<p>This example shows the usage and effect of the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl\">IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a>.</p>
-</html>"));
+      __Dymola_Algorithm="Dassl"));
 end OnOffControl;

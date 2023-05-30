@@ -45,8 +45,23 @@ equation
           -40},{110,-40}}, color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{26,30},{26,40},{110,
           40}}, color={0,0,127}));
-  annotation (experiment(StopTime=100, __Dymola_Algorithm="Dassl"),
+  annotation (
       Documentation(info="<html>
-<p>This example shows the usage and effect of the model <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety\">IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety</a>.</p>
-</html>"));
+<p>
+  This example shows the usage of the model
+  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety\">
+  IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
+</html>"), experiment(
+      StopTime=100,
+      Interval=1,
+      __Dymola_Algorithm="Dassl"));
 end MinimalVolumeFlowRateSafety;

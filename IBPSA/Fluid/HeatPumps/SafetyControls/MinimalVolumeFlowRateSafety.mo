@@ -50,8 +50,15 @@ equation
           76},{72,76},{72,8},{78,8}},
                                   color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>Safety control to prevent the device from turning on if the mass flow rate is too low in either condenser or evaporator.</p>
-<p>Used in real devices to prevent overheating or freezing of components.</p>
+<p>
+  Safety control to prevent the device from turning on 
+  if the mass flow rate is too low in either 
+  condenser or evaporator.
+</p>
+<p>
+  Used in real devices to prevent overheating 
+  or freezing of components.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

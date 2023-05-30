@@ -1,5 +1,5 @@
 NoHeating
-PartialRefrigerantCycle
-PartialHeatPumpRefrigerantCycle
 PartialCarnot
 PartialEuropeanNorm2D
+PartialHeatPumpRefrigerantCycle
+PartialRefrigerantCycle

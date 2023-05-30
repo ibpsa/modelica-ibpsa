@@ -204,9 +204,22 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}})),
     Documentation(info="<html>
-<p>Simple example of a defrost controller. The icing factor is calculated in the heat pump based on functions or other models. </p>
-<p>If a given lower boundary is surpassed, the mode of the heat pump will be set to false (eq. Chilling) and the compressor speed is set to 1 to realize the defrost process as fast as possible. </p>
+<p>
+  Simple example of a defrost controller. 
+  The icing factor is calculated in the heat pump based 
+  on functions or other models. </p>
+<p>
+  If a given lower boundary is surpassed, the mode of the 
+  heat pump will be set to false (eq. Chilling) and the 
+  compressor speed is set to 1 to realize the defrost process 
+  as fast as possible.
+</p>
 </html>", revisions="<html><ul>
+  <li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  Adapted based on IBPSA implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+  </li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=

@@ -202,14 +202,30 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Aggregation of the four main safety measurements of a refrigerant machine (heat pump or chiller). </p>
-<p>The order is based on the relevance to the real system. Anti freeze control and mininmal volume flow rate control is put last because of the relevance for the simulation. If the medium temperature falls below or rises above the critical value, the simulation will fail. </p>
-<p>All used functions are optional. See the used models for more info on each safety function: </p>
+<p>
+  Aggregation of the four main safety measurements 
+  of a refrigerant machine (heat pump or chiller).
+</p>
+<p>
+  The order is based on the relevance to the real system. 
+  Anti freeze control and mininmal volume flow rate control is put 
+  last because of the relevance for the simulation. 
+  If the medium temperature falls below or rises above the 
+  critical value, the simulation will fail.
+</p>
+<p>
+All used functions are optional. See the used models for more 
+info on each safety function:
+</p>
 <ul>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl+\">IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a> </li>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a> </li>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a> </li>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety\">IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety</a> </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl+\">
+IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a> </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">
+IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a> </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">
+IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a> </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety\">
+IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety</a> </li>
 </ul>
 </html>"));
 end SafetyControl;

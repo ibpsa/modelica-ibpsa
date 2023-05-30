@@ -34,8 +34,10 @@ equation
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li>
 </ul>
-</html>
-", info="<html>
-<p>Partial example providing interfaces to show usage of safety control blocks.</p>
+</html>", info="<html>
+<p>
+  Partial example providing interfaces to 
+  show usage of safety control models.
+</p>
 </html>"));
 end PartialSafetyControlExample;

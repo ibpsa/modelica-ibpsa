@@ -101,6 +101,22 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
-<p>This example shows the usage and effect of the model <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze\">IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a>.</p>
-</html>"));
+<p>
+  This example shows the usage and effect of 
+  all safety controls aggregates into the model
+  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl\">
+  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
+</html>"), experiment(
+      StopTime=100,
+      Interval=1,
+      __Dymola_Algorithm="Dassl"));
 end SafetyControl;

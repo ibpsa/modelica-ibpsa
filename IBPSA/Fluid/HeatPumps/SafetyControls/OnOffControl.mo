@@ -197,17 +197,39 @@ equation
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,
           70},{28,90},{38,90}}, color={255,0,255}));
   annotation (Documentation(info="<html>
-<p>Checks if the <span style=\"font-family: Courier New;\">ySet</span> value is legal by checking if the device can either be turned on or off, depending on which state it was in. </p>
+<p>
+  Checks if the <code>ySet</code> value is legal by checking if 
+  the device can either be turned on or off, 
+  depending on which state it was in. </p>
 <p>If the device</p>
 <ul>
-<li>is on and <span style=\"font-family: Courier New;\">ySet</span> is greater than <span style=\"font-family: Courier New;\">ySet_small</span></li>
-<li>or is off and <span style=\"font-family: Courier New;\">ySet</span> is 0</li>
-<li>or is on and should turn off, and exceeds the minimal run time (if active)</li>
-<li>or is off and should turn on, and does neither exceed the maximal starts per hour (if active) nor violates the minimal loc-time (off-time, if active).</li>
+<li>
+  is on and <code>ySet</code> is greater 
+  than <code>ySet_small</code></li>
+<li>
+  or is off and <code>ySet</code> is 0
+</li>
+<li>
+  or is on and should turn off, 
+  and exceeds the minimal run time (if active)</li>
+<li>
+  or is off and should turn on, and does neither 
+  exceed the maximal starts per hour (if active) 
+  nor violates the minimal loc-time (off-time, if active).
+</li>
 </ul>
-<p><span style=\"font-family: Courier New;\">yOut</span> equals <span style=\"font-family: Courier New;\">ySet</span>.</p>
-<p>If the device is on and should turn off, but does not exceed the minimal run time (if active), <span style=\"font-family: Courier New;\">yOut</span> equals <span style=\"font-family: Courier New;\">min(ySet, ySetMin)</span>.</p>
-<p>If the device is off and should turn on, but exceeds the maximal starts per hour (if active) or violates the minimal loc-time (off-time, if active), <span style=\"font-family: Courier New;\">yOut</span> equals 0.</p>
+<p><code>yOut</code> equals <code>ySet</code>.
+</p>
+<p>
+  If the device is on and should turn off, but does not exceed 
+  the minimal run time (if active), <code>yOut</code> 
+  equals <code>min(ySet, ySetMin)</code>.
+</p>
+<p>
+  If the device is off and should turn on, but exceeds the maximal 
+  starts per hour (if active) or violates the minimal 
+  loc-time (off-time, if active), <code>yOut</code> equals 0.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

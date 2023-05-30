@@ -28,6 +28,9 @@ package SafetyControls "Contains typical safety controllers for heat pumps"
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>Package with safety controls typically applied in heat pumps and chiller devices.</p>
+<p>
+  Package with safety controls typically 
+  applied in heat pumps and chiller devices.
+</p>
 </html>"));
 end SafetyControls;

@@ -21,8 +21,14 @@ record DefaultHeatPumpSafetyControl "Apply the default values according to
     minLocTime=1200,
     minRunTime=600);
   annotation (Documentation(info="<html>
-<p>Default values according to the conference publication by Wuellhorst et. al. <a href=\"https://doi.org/10.3384/ecp21181561\">https://doi.org/10.3384/ecp21181561</a>.</p>
-<p>These values are conservative estimates based on multiple datasheets. </p>
+<p>
+  Default values according to the conference publication 
+  by Wuellhorst et. al. <a href=\"https://doi.org/10.3384/ecp21181561\">
+  https://doi.org/10.3384/ecp21181561</a>.
+</p>
+<p>
+  These values are conservative estimates based on multiple datasheets.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

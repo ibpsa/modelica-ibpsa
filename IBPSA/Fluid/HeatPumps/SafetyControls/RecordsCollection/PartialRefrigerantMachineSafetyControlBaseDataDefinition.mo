@@ -81,8 +81,15 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
     Icon(graphics, coordinateSystem(preserveAspectRatio=false)),
      Diagram(graphics, coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Base data definitions with parameters relevant for safety control of refrigerant machines. </p>
-<p>Typically, datasheets of manufacturers provide specific values for these assumptions. </p>
+<p>
+  Base data definitions with parameters relevant 
+  for safety control of refrigerant machines.
+</p>
+<p>
+  Typically, datasheets of manufacturers provide 
+  specific values for these assumptions. Some values are 
+  harder to get, e.g. the minimal run- or loc-times. 
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

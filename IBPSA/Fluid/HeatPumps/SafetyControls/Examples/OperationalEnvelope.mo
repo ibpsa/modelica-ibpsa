@@ -63,7 +63,19 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
-<p>This example shows the usage and effect of the model <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a>.</p>
+<p>
+  This example shows the usage of the model
+  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope\">
+  IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"), experiment(
       StopTime=100,
       Interval=1,
