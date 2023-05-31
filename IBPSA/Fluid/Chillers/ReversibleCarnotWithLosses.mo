@@ -46,6 +46,7 @@ model ReversibleCarnotWithLosses
 </li>
 </ul>
 </html>", info="<html>
+<p>
   This model extends the model 
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible</a> and selects the 
@@ -56,15 +57,16 @@ model ReversibleCarnotWithLosses
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade\">
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade</a>)
   to model a reversible chiller.
+</p>
 <p>
   Furthermore, losses are enabled to model 
   the chiller with a more realistic behaviour:
+</p>
 <ul>
 <li>Heat losses to the ambient</li>
 <li>Refrigerant inertia using a first order delay</li>
 <li>Evaporator frosting assuming an air-sink chiller</li>
 </ul>
 You can disable the heat losses if required.
-</p>
 </html>"));
 end ReversibleCarnotWithLosses;

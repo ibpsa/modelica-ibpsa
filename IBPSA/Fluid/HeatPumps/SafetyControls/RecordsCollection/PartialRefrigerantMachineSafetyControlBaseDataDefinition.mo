@@ -4,30 +4,35 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   extends Modelica.Icons.Record;
   parameter Boolean use_minRunTime
     "False if minimal runtime of HP is not considered"
-  annotation (Dialog(group="HP-Security: OnOffControl"), choices(checkBox=true));
+  annotation (Dialog(group="OnOffControl"), choices(checkBox=true));
   parameter Modelica.Units.SI.Time minRunTime
     "Mimimum runtime of heat pump" annotation (Dialog(group=
-          "HP-Security: OnOffControl", enable=use_minRunTime));
-  parameter Real ySetMin
-    "Minimal relative compressor speed to be used if device needs to run longer"
-        annotation (
-          Dialog(group="HP-Security: OnOffControl",
-          enable=use_minRunTime));
+          "OnOffControl", enable=use_minRunTime));
   parameter Boolean use_minLocTime
     "False if minimal locktime of HP is not considered"
-    annotation (Dialog(group="HP-Security: OnOffControl"),
+    annotation (Dialog(group="OnOffControl"),
     choices(checkBox=true));
   parameter Modelica.Units.SI.Time minLocTime
     "Minimum lock time of heat pump" annotation (Dialog(group=
-          "HP-Security: OnOffControl", enable=use_minLocTime));
+          "OnOffControl", enable=use_minLocTime));
   parameter Boolean use_runPerHou
     "False if maximal runs per hour HP are not considered"
-    annotation (Dialog(group="HP-Security: OnOffControl"),
+    annotation (Dialog(group="OnOffControl"),
     choices(checkBox=true));
   parameter Integer maxRunPerHou
     "Maximal number of on/off cycles in one hour. Source: German law"
-    annotation (Dialog(group="HP-Security: OnOffControl",
+    annotation (Dialog(group="OnOffControl",
     enable=use_runPerHou));
+  parameter Real ySetMin
+    "Minimal relative compressor speed to be used if device needs to run longer"
+        annotation (
+          Dialog(group="OnOffControl",
+          enable=use_minRunTime));
+  parameter Boolean preYSet_start "Start value of pre(n) at initial time"
+    annotation (
+      Dialog(group="OnOffControl", descriptionLabel=true),
+      choices(checkBox=true));
+
   parameter Boolean use_opeEnv
     "Use a the operational envelope"
     annotation (
@@ -51,11 +56,6 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   parameter Boolean use_TConInForOpeEnv=false
     "=true to use codensner inlet temperature, false for outlet"
         annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
-  parameter Boolean preYSet_start "Start value of pre(n) at initial time"
-    annotation (
-      Dialog(group="OnOffControl", descriptionLabel=true),
-      choices(checkBox=true));
-
   parameter Boolean use_antFre
     "True if anti freeze control is part of safety control"
     annotation (Dialog(group="Anti Freeze Control"), choices(checkBox=true));

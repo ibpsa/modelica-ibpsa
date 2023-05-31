@@ -18,7 +18,7 @@ record RefrigerantCycle2DBaseDataDefinition
 <h4>Overview</h4>
 <p>
   Base data definition used in the heat pump model. 
-  It defines the table for <code>table_Pel</code> which gives the electric power 
+  It defines the table for <code>table_PEle</code> which gives the electric power 
   consumption of the heat pump or chiller. 
   Information on heat flow rates are in the corresponding records for 
   heat pumps and chillers, as it is the condenser and evaporator heat flow rate,

@@ -3,7 +3,7 @@ record Ochsner_GMLW_19 "Ochsner GMLW 19"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     devIde="Ochsner_GMLW_19",
-    tabPel=[
+    tabPEle=[
       0,-10,2,7;
       35,4300,4400,4600;
       50,6300,6400,6600],

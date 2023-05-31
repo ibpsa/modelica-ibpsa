@@ -2,13 +2,14 @@ within IBPSA.Fluid.Chillers.RefrigerantCycleModels;
 model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
   extends
     IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
-      QUseNoSca_flow_nominal=QUse_flow_nominal, datSou=
-        "ConstantQualityGradeCarnot");
+      final PEle_nominal=QUse_flow_nominal/(quaGra*(TEva_nominal - TAppEva_nominal)
+          *y_nominal)*(TCon_nominal + TAppCon_nominal - TEva_nominal -
+          TAppEva_nominal),
+      QUseNoSca_flow_nominal=QUse_flow_nominal,
+      datSou="ConstantQualityGradeCarnot");
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialCarnot(
-    constPEle(final k=QUse_flow_nominal/(quaGra*(TEva_nominal - TAppEva_nominal)
-          *y_nominal)*(TCon_nominal + TAppCon_nominal - TEva_nominal -
-          TAppEva_nominal)),
+    constPEle(final k=PEle_nominal),
     dTAppUse(k=-TAppEva_nominal),
     dTAppNotUse(k=TAppCon_nominal));
 

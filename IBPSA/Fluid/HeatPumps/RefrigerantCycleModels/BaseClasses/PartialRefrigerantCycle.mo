@@ -5,6 +5,9 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
     "Nominal heat flow rate at useful heat exchanger side"
     annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.Power PEle_nominal
+    "Nominal electrical power"
+    annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
     "Nominal temperature at secondary condenser side"
     annotation (Dialog(group="Nominal Design"));

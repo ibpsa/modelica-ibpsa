@@ -28,6 +28,11 @@ partial model PartialReversibleRefrigerantMachine
 
   parameter Real y_nominal "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal Design"));
+  parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
+    "Nominal electrical power, defined 
+    based on QUse_flow_nominal and nominal conditions"
+    annotation (Dialog(group="Nominal Design"));
+
   replaceable model RefrigerantCycleInertia =
      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia
     constrainedby
@@ -469,7 +474,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
 
-  connect(refCyc.PEle, sigBus.PelMea) annotation (Line(points={{19.89,0.09},{26,
+  connect(refCyc.PEle, sigBus.PEleMea) annotation (Line(points={{19.89,0.09},{26,
           0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
         color={0,0,127}), Text(
       string="%second",
@@ -629,19 +634,45 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>This partial model for a generic grey-box refrigerant machine (heat pump or chiller) uses empirical data or equations to model the refrigerant cycle. The modelling of system inertias and heat losses allow the simulation of transient states. </p>
-<p>Resulting in the chosen model structure, several configurations are possible: </p>
+<p>
+  This partial model for a generic grey-box refrigerant machine 
+  (heat pump or chiller) uses empirical data or equations to model 
+  the refrigerant cycle. The modelling of system inertias and heat 
+  losses allow the simulation of transient states.
+</p>
+<p>
+  Resulting in the chosen model structure, 
+  several configurations are possible:
+</p>
 <ol>
 <li>Compressor type: on/off or inverter controlled </li>
 <li>Reversible operation / only main operation </li>
 <li>Source/Sink: Any combination of mediums is possible </li>
-<li>Generic: Losses and inertias can be switched on or off. The modeling approach of the refrigerant cycle is modular, enabling various modeling approaches.</li>
+<li>
+  Generic: Losses and inertias can be switched on or off. 
+  The modeling approach of the refrigerant cycle is modular, 
+  enabling various modeling approaches.
+</li>
 </ol>
-<h4>Concept </h4>
-<p>To model both on/off and inverter controlled refrigerant machines, the compressor speed is normalizd to a relative value between 0 and 1. </p>
-<p>Possible icing of the evaporator is modelled in the replaceable refrigerant cyle models with a value between 0 and 1. </p>
-<p>Using an expandable bus connector, all relevant signals are aggregated. In order to control both chillers and heat pumps, both flow and return temperature are relevant. </p>
-<p>The model structure is as follows. To understand each submodel, please have a look at the corresponding model information: </p>
+<h4>Concept</h4>
+<p>
+  To model both on/off and inverter controlled refrigerant machines, 
+  the compressor speed is normalizd to a relative value between 0 and 1.
+</p>
+<p>
+  Possible icing of the evaporator is modelled in the 
+  replaceable refrigerant cyle models with a value between 0 and 1.
+</p>
+<p>
+  Using an expandable bus connector, all relevant signals are aggregated. 
+  In order to control both chillers and heat pumps, 
+  both flow and return temperature are relevant.
+</p>
+<p>
+  The model structure is as follows. 
+  To understand each submodel, please have a look at 
+  the corresponding model information:
+</p>
 <ol>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle</a>: Here, users can select between several input models or create their own model. Please look at the model description for more info. </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias</a>: An n-order element may be used (or other SISO models) to model system inertias (mass and thermal) of components inside the refrigerant cycle (compressor, pipes, expansion valve, fluid, etc.) </li>

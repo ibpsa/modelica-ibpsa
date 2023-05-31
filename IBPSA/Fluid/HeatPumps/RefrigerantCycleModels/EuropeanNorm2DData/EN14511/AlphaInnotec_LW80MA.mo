@@ -3,7 +3,7 @@ record AlphaInnotec_LW80MA "Alpha Innotec LW 80 M-A"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     devIde="AlphaInnotec_LW80MA",
-    tabPel=[
+    tabPEle=[
       0,-7,2,7,10,15,20;
       35,2625,2424,2410,2395,2347,2322;
       45,3136,3053,3000,2970,2912,2889;

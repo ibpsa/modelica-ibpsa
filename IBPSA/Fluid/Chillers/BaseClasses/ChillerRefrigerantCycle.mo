@@ -60,6 +60,7 @@ initial equation
     AssertionLevel.warning);
 equation
   connect(conStrSou.y, strPasThr.u);
+  connect(pasTrhModSet.u, sigBus.coo);
   connect(refCycChiHea.datSouOut, strPasThr.u);
   connect(refCycChiCoo.PEle, swiPEle.u1) annotation (Line(points={{40.5,38},{40,
           38},{40,8},{8,8},{8,-58}}, color={0,0,127}));

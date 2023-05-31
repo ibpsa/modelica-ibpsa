@@ -21,7 +21,6 @@ model ModularReversible_OneRoomRadiator
     GConIns=1000,
     TEva_nominal=sou.T,
     dTEva_nominal=5,
-    mEva_flow_nominal=mHeaPum_flow_nominal,
     dpEva_nominal(displayUnit="Pa") = 2000,
     use_evaCap=false,
     CEva=0,

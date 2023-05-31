@@ -84,7 +84,15 @@ protected
       tabQUse_flow.table,
       smoothness,
       extrapolation,
-      false) "External table object";
+      false) "External table object for nominal usefule side conditions";
+  parameter Modelica.Blocks.Types.ExternalCombiTable2D tabIdePEle=
+      Modelica.Blocks.Types.ExternalCombiTable2D(
+      "NoName",
+      "NoName",
+      tabPEle.table,
+      smoothness,
+      extrapolation,
+      false) "External table object for nominal electrical power";
 initial equation
   assert(perDevMasFloCon < 1,
       "The deviation of the given mCon_flow_nominal to the table data is " +

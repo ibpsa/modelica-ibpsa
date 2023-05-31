@@ -30,7 +30,7 @@ model DefrostControl
     if not use_chi "Calculate how much eletrical energy is used to melt ice"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0)));
 
-  Modelica.Blocks.Logical.Switch swiPel if not use_chi
+  Modelica.Blocks.Logical.Switch swiPEle if not use_chi
     "If defrost is on, output will be positive" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -77,18 +77,18 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(PEleDef, swiPel.y) annotation (Line(points={{0,0},{128,0},{128,90},{
+  connect(PEleDef, swiPEle.y) annotation (Line(points={{0,0},{128,0},{128,90},{
           81,90}}, color={0,0,127}));
-  connect(iceFacGreMinHea.y, swiPel.u2) annotation (Line(
+  connect(iceFacGreMinHea.y, swiPEle.u2) annotation (Line(
       points={{-17.95,-69.5},{14,-69.5},{14,90},{58,90}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
-  connect(intConstPEleDef.y, swiPel.u3) annotation (Line(
+  connect(intConstPEleDef.y, swiPEle.u3) annotation (Line(
       points={{11,0},{10,0},{10,82},{58,82}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(swiPel.u1, constZer.y) annotation (Line(
+  connect(swiPEle.u1, constZer.y) annotation (Line(
       points={{58,98},{6,98},{6,0},{11,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));

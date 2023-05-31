@@ -6,6 +6,10 @@ model EuropeanNorm2D
     final datSou=datTab.devIde,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
+    final PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+        tabIdePEle,
+        TCon_nominal - 273.15,
+        TEva_nominal - 273.15) * scaFac,
     QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdeQUse_flow,

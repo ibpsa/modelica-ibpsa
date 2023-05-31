@@ -4,7 +4,7 @@ record DefaultHeatPumpSafetyControl "Apply the default values according to
   extends PartialRefrigerantMachineSafetyControlBaseDataDefinition(
     tabLowCoo=[-40,10; 40,10],
     dTHysAntFre=2,
-    preYSet_start=true,
+    preYSet_start=false,
     ySetMin=0.3,
     m_flowConMinPer=0.1,
     m_flowEvaMinPer=0.1,
