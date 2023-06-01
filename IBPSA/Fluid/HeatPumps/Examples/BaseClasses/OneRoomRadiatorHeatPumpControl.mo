@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.Examples.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
   parameter Boolean witCoo=true "=true to simulate cooling behaviour";

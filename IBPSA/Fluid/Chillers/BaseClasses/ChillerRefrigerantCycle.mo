@@ -31,7 +31,7 @@ model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
   RefrigerantCycleChillerCooling refCycChiCoo
     "Regrigerant cycle instance for cooling"
     annotation (Placement(transformation(extent={{21,40},{60,80}}, rotation=0)));
-  RefrigerantCycleChillerHeating refCycChiHea
+  RefrigerantCycleChillerHeating refCycChiHea if use_rev
     "Regrigerant cycle instance for heating"
     annotation (Placement(transformation(extent={{-80,38},{-39,80}}, rotation=0)));
 

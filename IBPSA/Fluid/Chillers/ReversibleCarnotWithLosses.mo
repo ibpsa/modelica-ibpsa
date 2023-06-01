@@ -15,7 +15,7 @@ model ReversibleCarnotWithLosses
     redeclare model RefrigerantCycleChillerCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade (
         redeclare
-          IBPSA.Fluid.Chillers.RefrigerantCycleModels.Frosting.FunctionalApproach
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach
           iceFacCal(redeclare function iceFacFun =
               IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.WetterAfjei1997),
         useAirForCon=cpCon < 1500,
@@ -68,5 +68,10 @@ model ReversibleCarnotWithLosses
 <li>Evaporator frosting assuming an air-sink chiller</li>
 </ul>
 You can disable the heat losses if required.
+<p>
+  For more information on the approach, please read the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  UsersGuide</a>.
+</p>
 </html>"));
 end ReversibleCarnotWithLosses;

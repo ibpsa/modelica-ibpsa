@@ -213,5 +213,10 @@ equation
   Further, an asseration warns if the data-sources and, thus, 
   model approaches differ for cooling and heating.
 </p>
+<p>
+  For more information on the approach, please read the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  UsersGuide</a>.
+</p>
 </html>"));
 end HeatPumpRefrigerantCycle;

@@ -34,7 +34,38 @@ model ReversibleCarnotWithLosses
     "Nominal heat flow rate of cooling operation"
       annotation(Dialog(group="Nominal Design"));
   annotation (Documentation(info="<html>
-<p>This model uses a simple carnot approache with a constant quality grade, similar to the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">IBPSA.Fluid.HeatPumps.Carnot_y</a>.</p>
-<p>However, it adds the option for reversibility, refrigerant inertia, and heat losses at the heat exchangers.</p>
+<p>
+  This model extends the model 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
+  IBPSA.Fluid.HeatPumps.ModularReversible</a> and selects the 
+  constant quality grade model approaches for heat pumps 
+  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade</a>) 
+  and chillers 
+  (<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade\">IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade</a>)
+  to model a reversible heat pump.
+</p>
+<p>
+  Furthermore, losses are enabled to model 
+  the heat pump with a more realistic behaviour:
+</p>
+<ul>
+<li>Heat losses to the ambient</li>
+<li>Refrigerant inertia using a first order delay</li>
+<li>Evaporator frosting assuming an air-sink chiller</li>
+</ul>
+  You can disable the heat losses if required.
+<p>
+  For more information on the approach, please read the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  UsersGuide</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"));
 end ReversibleCarnotWithLosses;

@@ -2,6 +2,13 @@ within IBPSA.Fluid.HeatPumps;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends ModularReversible(
+    dpEva_nominal=0,
+    dpCon_nominal=0,
+    final dTEva_nominal=(QUse_flow_nominal - PEle_nominal)/cpEva/
+        mEva_flow_nominal,
+    final dTCon_nominal=QUse_flow_nominal/cpCon/mCon_flow_nominal,
+    redeclare package MediumCon = IBPSA.Media.Water,
+    redeclare package MediumEva = IBPSA.Media.Water,
     final GEvaIns=0,
     final GEvaOut=0,
     final CEva=0,
@@ -37,10 +44,48 @@ model LargeScaleWaterToWater
      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW()
          "Data Table of HP" annotation (choicesAllMatching=true);
   annotation (Documentation(info="<html>
-<p>Model using parameters for a large scale water-to-water heat pump. </p>
-<p>Parameters are based on an automatic estimation, see: <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a>.</p>
-<p>Currently the only data sheets for heat pumps that large is the record <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW\">IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>, hence, the default value.</p>
-<p>But you are free to insert custom data based on the heat pump you want to analyze in your simulations.</p>
+<p>
+  Model using parameters for a large scale water-to-water heat pump,
+  using the ModularReversible model approach.
+</p>
+<p>
+  For more information on the approach, please read the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  UsersGuide</a>.
+</p>
+<p>
+  Parameters are based on an automatic estimation, see: 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">
+  IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a>.
+</p>
+<p>
+  Please read the documentation of the model for heating here: 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D</a>.
+</p>
+<p>
+  Currently the only data sheets for heat pumps that large is the record 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>, 
+  hence, the default value.
+</p>
+<p>
+  But you are free to insert custom data based on 
+  the heat pump you want to analyze in your simulations.
+</p>
+<h4>Assumptions</h4>
+<ul>
+<li>
+  As heat losses are implicitly included in the table 
+  data according to EN 14511, heat losses are disabled.
+</li>
+<li>
+  Pressure losses are not provided in datasheets. As typical 
+  values are unknown, the pressure loss is set to 0 to enable 
+  easier usage. However, the parameter is not final and should be
+  replaced if mover power is of interest for your simulation aim.
+</li>
+</ul>   
 </html>", revisions="<html><ul>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>

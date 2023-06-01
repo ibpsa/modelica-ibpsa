@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511;
 record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
-  extends HeatPumpBaseDataDefinition(
+  extends IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
     tabUppBou=[-5,82; 45,82],
     mEva_flow_nominal=24.17/3600*997,
     mCon_flow_nominal=13.60/3600*997,

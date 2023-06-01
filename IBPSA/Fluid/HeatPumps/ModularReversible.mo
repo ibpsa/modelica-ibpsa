@@ -148,22 +148,29 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Model of a reversible, modular heat pump. You can combine any of the avaiable model approaches for refrigerant for heating and cooling, add inertias, heat losses, and safety controls. All features are optional.</p>
-<p>See the documentation of <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a> for information on the concept.</p>
-<p><br>Adding to the partial concept, this model adds the <span style=\"font-family: Courier New;\">hea</span> signal to choose the operation type of the heat pump: </p>
+<p>
+  Model of a reversible, modular heat pump. 
+  You can combine any of the avaiable model approaches 
+  for refrigerant for heating and cooling, add inertias, 
+  heat losses, and safety controls. 
+  All features are optional.
+</p>
+<p>
+<p>
+  Adding to the partial model (
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
+  IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>), 
+  this model adds the <code>hea</code> signal to choose 
+  the operation type of the heat pump:
+</p>
 <ul>
-<li><span style=\"font-family: Courier New;\">hea</span> = true: Main operation mode (heat pump: heating) </li>
-<li><span style=\"font-family: Courier New;\">hea</span> = false: Reversible operation mode (heat pump: cooling) </li>
+<li><code>hea = true</code>: Main operation mode (heat pump: heating) </li>
+<li><code>hea = false</code>: Reversible operation mode (heat pump: cooling) </li>
 </ul>
-<p>For guidance on how to use this model, please check pre-configured approaches here:</p>
-<ul>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater\">IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater</a></li>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a></li>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a></li>
-</ul>
-<h4>References</h4>
-<ul>
-<li>F. Wuellhorst et al., A Modular Model of Reversible Heat Pumps and Chillers for System Applications, https://doi.org/10.3384/ecp21181561</li>
-</ul>
+<p>
+  For more information on the approach, please read the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  UsersGuide</a>.
+</p>
 </html>"));
 end ModularReversible;

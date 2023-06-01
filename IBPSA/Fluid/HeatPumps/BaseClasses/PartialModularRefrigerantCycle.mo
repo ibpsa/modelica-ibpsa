@@ -159,5 +159,10 @@ equation
   This partial container only adds outputs and switches 
   both relevant for heat pump and chiller applications.
 </p>
+<p>
+  For more information on the approach, please read the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  UsersGuide</a>.
+</p>
 </html>"));
 end PartialModularRefrigerantCycle;

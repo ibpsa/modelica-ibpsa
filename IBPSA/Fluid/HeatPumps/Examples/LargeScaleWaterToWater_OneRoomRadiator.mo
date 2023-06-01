@@ -10,16 +10,12 @@ model LargeScaleWaterToWater_OneRoomRadiator
     booToReaPumEva(realTrue=larScaWatToWatHeaPum.mEva_flow_nominal),
     oneRooRadHeaPumCtr(PIDHea(Ti=10)));
   IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater larScaWatToWatHeaPum(
-    redeclare package MediumCon = MediumWat,
-    redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
-    dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
     dpCon_nominal(displayUnit="Pa") = 2000,
     TEva_nominal=sou.T,
-    dTEva_nominal=5,
     dpEva_nominal(displayUnit="Pa") = 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
@@ -41,7 +37,15 @@ equation
   connect(oneRooRadHeaPumCtr.ySet, larScaWatToWatHeaPum.ySet) annotation (Line(
         points={{-139,-66},{-62,-66},{-62,-76},{21.6,-76},{21.6,-146}}, color={
           0,0,127}));
-  annotation (Documentation(
+  annotation (
+     __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ReversibleAirToWater2D_OneRoomRadiator.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
+      StopTime=86400,
+      Tolerance=1e-08),
+  Documentation(
    info="<html>
 <p>
   This example demonstrates how to use the 
