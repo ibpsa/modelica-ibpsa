@@ -20,7 +20,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrPar(use_antFre=true, TAntFre=275.15),
+      safCtrParEurNor,
     datTab=
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW())
     "Large scale water to water heat pump"

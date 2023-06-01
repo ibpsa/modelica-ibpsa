@@ -19,9 +19,11 @@ record Carrier30XWP1012_1MW
       18,161024,183752,210396,240550,274249],
     mCon_flow_nominal=49.85,
     mEva_flow_nominal=49.85,
-    tabLowBou=[3, 18; 50, 18],
+    tabLowBou=[20, 3; 50, 3],
     devIde="Carrier30XWP1012",
-    use_conOut=true,
+    use_TConOutForOpeEnv=true,
+    use_TEvaOutForOpeEnv=true,
+    use_conOut=false,
     use_evaOut=true);
 
   annotation (
@@ -36,11 +38,11 @@ record Carrier30XWP1012_1MW
 </p>
 </html>", revisions="<html>
 <ul>
-  <li>
-    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-  </li>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
 </ul>
 </html>"));
 end Carrier30XWP1012_1MW;

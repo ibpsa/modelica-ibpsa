@@ -6,13 +6,13 @@ model LargeScaleWaterToWater
   package MediumEva = IBPSA.Media.Water "Medium model";
 
   IBPSA.Fluid.Chillers.LargeScaleWaterToWater larScaWatToWatChi(
+    redeclare
+      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
+      safCtrParEurNor,
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QUse_flow_nominal=1000000,
     y_nominal=1,
-    redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrPar,
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     TEva_nominal=278.15,
@@ -58,9 +58,6 @@ model LargeScaleWaterToWater
     startTime=900,
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{52,-40},{72,-20}})));
-  Modelica.Blocks.Sources.BooleanStep chi(startTime=2100, startValue=true)
-    "Chilling mode on"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(souCon.ports[1], larScaWatToWatChi.port_a1) annotation (Line(
       points={{-40,16},{-20,16},{-20,15},{-5.55112e-16,15}},
@@ -89,8 +86,6 @@ equation
   connect(ySet.y, larScaWatToWatChi.ySet) annotation (Line(points={{-39,60},{
           -16,60},{-16,11.6667},{-1.6,11.6667}},
                                              color={0,0,127}));
-  connect(chi.y, larScaWatToWatChi.coo) annotation (Line(points={{-39,-50},{-22,
-          -50},{-22,2.5},{-1.6,2.5}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/Examples/LargeScaleWaterToWater.mos"
         "Simulate and plot"),

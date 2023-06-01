@@ -2,8 +2,7 @@ within IBPSA.Fluid.HeatPumps;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends ModularReversible(
-    dpEva_nominal=0,
-    dpCon_nominal=0,
+    final safCtrPar=safCtrParEurNor,
     final dTEva_nominal=(QUse_flow_nominal - PEle_nominal)/cpEva/
         mEva_flow_nominal,
     final dTCon_nominal=QUse_flow_nominal/cpCon/mCon_flow_nominal,
@@ -39,10 +38,22 @@ model LargeScaleWaterToWater
     final autCalVCon=max(1E-7*QUse_flow_nominal - 94E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 
-  parameter
+  replaceable parameter
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab=
      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW()
          "Data Table of HP" annotation (choicesAllMatching=true);
+  replaceable parameter
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
+    constrainedby
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+      final tabUppHea=datTab.tabUppBou,
+      final tabLowCoo=datTab.tabUppBou,
+      final use_TUseOut=datTab.use_TConOutForOpeEnv,
+      final use_TNotUseOut=datTab.use_TEvaOutForOpeEnv)
+    "Safety control parameters" annotation (Dialog(enable=
+          use_internalSafetyControl, group="Safety Control"),
+      choicesAllMatching=true);
+    // Lower boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>
 <p>
   Model using parameters for a large scale water-to-water heat pump,
@@ -78,12 +89,6 @@ model LargeScaleWaterToWater
 <li>
   As heat losses are implicitly included in the table 
   data according to EN 14511, heat losses are disabled.
-</li>
-<li>
-  Pressure losses are not provided in datasheets. As typical 
-  values are unknown, the pressure loss is set to 0 to enable 
-  easier usage. However, the parameter is not final and should be
-  replaced if mover power is of interest for your simulation aim.
 </li>
 </ul>   
 </html>", revisions="<html><ul>

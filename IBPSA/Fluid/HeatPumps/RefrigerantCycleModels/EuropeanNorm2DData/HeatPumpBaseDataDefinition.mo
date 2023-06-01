@@ -6,6 +6,10 @@ record HeatPumpBaseDataDefinition "Basic heat pump data"
     "Heating power table, T in degC, Q_flow in W";
   parameter Real tabUppBou[:,2]
     "Points to define upper boundary for sink temperature";
+  parameter Boolean use_TEvaOutForOpeEnv=false
+    "=true to use evaporator outlet temperature for operational envelope, false for inlet";
+  parameter Boolean use_TConOutForOpeEnv=true
+    "=true to use condenser outlet temperature for operational envelope, false for inlet";
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
 <p>

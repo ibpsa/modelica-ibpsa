@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Chillers;
 model LargeScaleWaterToWater "Large scale water to water chiller"
   extends ModularReversible(
+    final safCtrPar=safCtrParEurNor,
     dpEva_nominal=0,
     dpCon_nominal=0,
     final dTEva_nominal=QUse_flow_nominal/cpEva/mEva_flow_nominal,
@@ -39,6 +40,18 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   replaceable parameter IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW
     datTab constrainedby RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition
          "Data Table of Chiller" annotation(choicesAllMatching=true);
+  replaceable parameter
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
+    constrainedby
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+      final tabUppHea=datTab.tabLowBou,
+      final tabLowCoo=datTab.tabLowBou,
+      final use_TUseOut=datTab.use_TEvaOutForOpeEnv,
+      final use_TNotUseOut=datTab.use_TConOutForOpeEnv)
+    "Safety control parameters" annotation (Dialog(enable=
+          use_internalSafetyControl, group="Safety Control"),
+      choicesAllMatching=true);
+    // Upper boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>
 <p>
   Model using parameters for a large scale water-to-water chiller,

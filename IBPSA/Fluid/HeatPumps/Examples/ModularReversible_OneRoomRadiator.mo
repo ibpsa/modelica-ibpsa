@@ -43,7 +43,11 @@ model ModularReversible_OneRoomRadiator
             IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrPar(use_antFre=true, TAntFre=275.15))
+      safCtrPar(
+      use_TUseOut=true,
+      use_TNotUseOut=false,
+      use_antFre=true,
+      TAntFre=275.15))
     "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 

@@ -22,6 +22,8 @@ record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R cooling mode"
     mEva_flow_nominal=(9.642*1.2)/60,
     tabLowBou=[-10, 18; 50, 18],
     devIde="DaikinRXM20R",
+    use_TConOutForOpeEnv=false,
+    use_TEvaOutForOpeEnv=false,
     use_conOut=false,
     use_evaOut=false);
 
@@ -37,11 +39,11 @@ record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R cooling mode"
 </p>
 </html>", revisions="<html>
 <ul>
-  <li>
-    <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
-  </li>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
 </ul>
 </html>"));
 end SingleSplitRXM20R;

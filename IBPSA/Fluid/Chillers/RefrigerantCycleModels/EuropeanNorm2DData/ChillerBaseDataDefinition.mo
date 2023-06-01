@@ -7,6 +7,10 @@ record ChillerBaseDataDefinition "Basic chiller data"
     "Cooling power table, T in degC, Q_flow in W";
   parameter Real tabLowBou[:,2]
     "Points to define lower boundary for source temperature";
+  parameter Boolean use_TEvaOutForOpeEnv=false
+    "=true to use evaporator outlet temperature for operational envelope, false for inlet";
+  parameter Boolean use_TConOutForOpeEnv=false
+    "=true to use condenser outlet temperature for operational envelope, false for inlet";
   annotation (Documentation(info="<html>
   
   <h4>Overview</h4>

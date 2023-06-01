@@ -36,7 +36,7 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
   parameter Boolean use_opeEnv
     "Use a the operational envelope"
     annotation (
-      Dialog(group="Operational Envelope", enable=use_opeEnv),
+      Dialog(group="Operational Envelope"),
       choices(checkBox=true));
   parameter Real tabUppHea[:,2] "Upper envelope boundary for heating"
     annotation (
@@ -50,12 +50,13 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
     "Temperature difference used for both upper 
     and lower hysteresis in the operational envelope."
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
-  parameter Boolean use_TEvaInForOpeEnv=true
-    "=true to use evaporator inlet temperature, false for outlet"
-        annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
-  parameter Boolean use_TConInForOpeEnv=false
-    "=true to use codensner inlet temperature, false for outlet"
-        annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+
+  parameter Boolean use_TUseOut=false
+    "=true to use usefule side outlet temperature for envelope, false for inlet"
+    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+  parameter Boolean use_TNotUseOut=true
+    "=true to use not useful sides outlet temperature for envelope, false for inlet"
+    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean use_antFre
     "True if anti freeze control is part of safety control"
     annotation (Dialog(group="Anti Freeze Control"), choices(checkBox=true));
@@ -75,6 +76,10 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
     "Percentage of mass flow rate in condenser required to operate the device"
     annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv),
+                Dialog(group="Operational Envelope", enable=use_opeEnv),
+                Dialog(group="Operational Envelope", enable=use_opeEnv),
+                Dialog(group="Operational Envelope", enable=use_opeEnv),
+                Dialog(group="Operational Envelope", enable=use_opeEnv),
                 Dialog(group="Operational Envelope", enable=use_opeEnv),
                  Dialog(group="Anti Freeze Control", enable=use_antFre),
                 Dialog(group="Anti Freeze Control", enable=use_antFre),

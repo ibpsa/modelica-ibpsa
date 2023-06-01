@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps;
 model ReversibleAirToWaterEuropeanNorm2D
   "Reversibel air to water heat pump based on 2D manufacturer data in europe"
-  extends ModularReversible(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible(
+    final safCtrPar=safCtrParEurNor,
     dTEva_nominal=0,
     mEva_flow_nominal=datTabHea.mEva_flow_nominal*refCyc.refCycHeaPumHea.scaFac,
     mCon_flow_nominal=datTabHea.mCon_flow_nominal*refCyc.refCycHeaPumHea.scaFac,
@@ -36,6 +37,18 @@ model ReversibleAirToWaterEuropeanNorm2D
     datTabCoo constrainedby
     IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition
     "Data Table of Chiller" annotation (choicesAllMatching=true);
+  replaceable parameter
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
+    constrainedby
+    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+      final tabUppHea=datTabHea.tabUppBou,
+      final tabLowCoo=datTabCoo.tabLowBou,
+      final use_TUseOut=datTabHea.use_TConOutForOpeEnv,
+      final use_TNotUseOut=datTabCoo.use_TEvaOutForOpeEnv)
+    "Safety control parameters" annotation (Dialog(enable=
+          use_internalSafetyControl, group="Safety Control"),
+      choicesAllMatching=true);
+
   annotation (Documentation(info="<html>
 <p>
   Reversible air-to-water heat pump based on 

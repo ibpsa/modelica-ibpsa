@@ -23,8 +23,6 @@ model SafetyControl "Model including all safety levels"
     final tabUppHea=safCtrPar.tabUppHea,
     final tabLowCoo=safCtrPar.tabLowCoo,
     final forHeaPum=forHeaPum,
-    use_TEvaIn=safCtrPar.use_TEvaInForOpeEnv,
-    final use_TConIn=safCtrPar.use_TConInForOpeEnv,
     final dTHys=safCtrPar.dTHysOpeEnv) if safCtrPar.use_opeEnv
     "Block for operational envelope"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));

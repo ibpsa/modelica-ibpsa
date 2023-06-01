@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.SafetyControls;
+﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 model OperationalEnvelope
   "Model which computes an error if the current 
   values are outside of the given operatinal envelope"
@@ -9,10 +9,10 @@ model OperationalEnvelope
     "Lower boundary for cooling with second column as useful temperature side";
   parameter Boolean forHeaPum
     "=true if model is for heat pump, false for chillers";
-  parameter Boolean use_TEvaIn=true
-    "=true to use evaporator inlet temperature, false for outlet";
-  parameter Boolean use_TConIn=false
-    "=true to use codensner inlet temperature, false for outlet";
+  parameter Boolean use_TUseOut=false
+    "=true to use usefule side outlet temperature for envelope, false for inlet";
+  parameter Boolean use_TNotUseOut=true
+    "=true to use not useful sides outlet temperature for envelope, false for inlet";
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys=5
     "Temperature deadband in the operational envelope"
@@ -83,64 +83,63 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-
-  if forHeaPum then
-    if use_TConIn then
-      connect(bouMapCoo.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,
-              -78},{-104,-78},{-104,-71},{-125,-71}},
-                                                color={0,0,127}));
-      connect(bouMapHea.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,
-              102},{-94,102},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
-                                                                  color={0,0,127}));
-    else
+ if forHeaPum then
+    if use_TUseOut then
       connect(bouMapCoo.TUse, sigBus.TConOutMea) annotation (Line(points={{-84.2,
               -78},{-104,-78},{-104,-71},{-125,-71}},
                                                 color={0,0,127}));
       connect(bouMapHea.TUse, sigBus.TConOutMea) annotation (Line(points={{-84.2,
               102},{-94,102},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
                                                                   color={0,0,127}));
-    end if;
-    if use_TEvaIn then
-      connect(bouMapHea.TNotUse, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-              78},{-94,78},{-94,-71},{-125,-71}}, color={0,0,127}));
-      connect(bouMapCoo.TNotUse, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-              -102},{-104,-102},{-104,-71},{-125,-71}}, color={0,0,127}));
     else
+      connect(bouMapCoo.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,
+              -78},{-104,-78},{-104,-71},{-125,-71}},
+                                                color={0,0,127}));
+      connect(bouMapHea.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,
+              102},{-94,102},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
+                                                                  color={0,0,127}));
+    end if;
+    if use_TNotUseOut then
       connect(bouMapHea.TNotUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
               78},{-94,78},{-94,-71},{-125,-71}}, color={0,0,127}));
       connect(bouMapCoo.TNotUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
               -102},{-104,-102},{-104,-71},{-125,-71}}, color={0,0,127}));
+    else
+      connect(bouMapHea.TNotUse, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
+              78},{-94,78},{-94,-71},{-125,-71}}, color={0,0,127}));
+      connect(bouMapCoo.TNotUse, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
+              -102},{-104,-102},{-104,-71},{-125,-71}}, color={0,0,127}));
     end if;
   else
-    if use_TConIn then
-      connect(bouMapCoo.TNotUse, sigBus.TConInMea) annotation (Line(points={{-84.8,
-              -102},{-104,-102},{-104,-71},{-125,-71}},
-                                                color={0,0,127}));
-      connect(bouMapHea.TNotUse, sigBus.TConInMea) annotation (Line(points={{-84.8,
-              78},{-94,78},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
-                                                                  color={0,0,127}));
-    else
+    if use_TNotUseOut then
       connect(bouMapCoo.TNotUse, sigBus.TConOutMea) annotation (Line(points={{-84.8,
               -102},{-104,-102},{-104,-71},{-125,-71}},
                                                 color={0,0,127}));
       connect(bouMapHea.TNotUse, sigBus.TConOutMea) annotation (Line(points={{-84.8,
               78},{-94,78},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
                                                                   color={0,0,127}));
-    end if;
-    if use_TEvaIn then
-      connect(bouMapHea.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
-              102},{-94,102},{-94,-71},{-125,-71}},
-                                                  color={0,0,127}));
-      connect(bouMapCoo.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
-              -78},{-104,-78},{-104,-71},{-125,-71}},   color={0,0,127}));
     else
+      connect(bouMapCoo.TNotUse, sigBus.TConInMea) annotation (Line(points={{-84.8,
+              -102},{-104,-102},{-104,-71},{-125,-71}},
+                                                color={0,0,127}));
+      connect(bouMapHea.TNotUse, sigBus.TConInMea) annotation (Line(points={{-84.8,
+              78},{-94,78},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
+                                                                  color={0,0,127}));
+    end if;
+    if use_TUseOut then
       connect(bouMapHea.TUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,
               102},{-94,102},{-94,-71},{-125,-71}},
                                                   color={0,0,127}));
       connect(bouMapCoo.TUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,
               -78},{-104,-78},{-104,-71},{-125,-71}},   color={0,0,127}));
+    else
+      connect(bouMapHea.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
+              102},{-94,102},{-94,-71},{-125,-71}},
+                                                  color={0,0,127}));
+      connect(bouMapCoo.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
+              -78},{-104,-78},{-104,-71},{-125,-71}},   color={0,0,127}));
     end if;
-  end if;
+ end if;
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
@@ -150,13 +149,88 @@ equation
   </li>
 </ul>
 </html>", info="<html>
-<p>Model to check if the operating conditions are inside the given boundaries. If not, the heat pump or chiller will switch off. </p>
-<p>This safety control is mainly based on the operational envelope of the compressor. Refrigerant flowsheet and type will influence these values.</p>
-<p>Depending on the underlying datasheet in use, you have think thorougly if you need inlet or outlet conditions, and possibly transpose given boundaries.</p>
-<p>If the model in use is a heat pump, the useful side is always the side of TConOutMea and TConInMea. In the chiller, the useful side is always the side of TEvaOutMea or TEvaInMea. </p>
-<p>Possible cases:</p>
-<p>1. The envelopes for air-to-water heat pumps often contain water supply temperature (TConOutMea) on the y-axis and ambient temperatures (TEvaInMea) on the x axis. In these cases, tabUppHea is based on the y-axis maximal values and tabLowCoo based on the y-axis minimal values.</p>
-<p>2. The envelopes for air-to-air devices often contain ambient inlet (TConInMea) as y and room (TEvaInMea) inlet temperatures as x variables. In these cases, tabUppHea is based on the x-axis maximal values and tabLowCoo based on the x-axis minimal values.</p>
-<p>3. Compressor datasheets often provice evaporating and condensing temperatures or pressure levels. Those are not avaiable in the simpified model approach. Thus, you have to assume pinch temperatures to convert it to either in- or outflow temperature levels of the secondary side temperatures (i.e. TConOutMea, TConInMea, TEvaInMea, TEvaOutMea).</p>
+<p>
+  Model to check if the operating conditions are inside 
+  the given boundaries. If not, the heat pump or chiller will switch off.
+</p>
+<p>
+  This safety control is mainly based on the operational 
+  envelope of the compressor. 
+  Refrigerant flowsheet and type will influence these values.
+</p>
+<h4>Limitations</h4>
+
+<ul>
+<li>
+  Only three sides of the real envelope are implemented. 
+  The real operational envelope implies continuous operation.
+  This means start-up from e.g. a cold heat pump supply temperature
+  is possible in reality. To avoid additional equations for startup and
+  continuous operation, we neither implement the 
+  lower boundary for heating nor the upper boundary for cooling devices. 
+  This would lead to devices never being able to turn on.
+</li>
+<li>
+  From all the influences on the real envelope, the compressor frequency 
+  impacts the possible range of operation. However, the compressor speed 
+  dependent envelopes are typcially not provided in datasheets.
+  Further, including a third dimension requires 3D-table data. This is
+  currently not supported by IBPSA or Modelica Standard Library.
+</li>
+</ul>
+
+<h4>Existing envelopes</h4>
+
+Technical datasheets according to EN 14511 often contain 
+information about the operationsl envelope.
+The device records for heat pumps 
+(<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData\">
+IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData</a>)
+and chillers 
+(<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData\">
+IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData</a>)
+contain typical values. Older devices typically have lower limits
+while new refrigerant machines based on Propane or advanced flowsheets
+are able to achieve temperature over 70 °C for heating.
+
+<h4>Parameterization from datasheets</h4>
+<p>
+  Depending on the underlying datasheet in use, you have think 
+  thoroughly if you need inlet or outlet conditions, 
+  and possibly transpose given boundaries.
+</p>
+<p>
+  If the model in use is a heat pump, 
+  the useful side is always the side of 
+  <code>TConOutMea</code> and <code>TConInMea</code>. 
+  In the chiller, the useful side is always the side of 
+  <code>TEvaOutMea</code> or <code>TEvaInMea</code>.
+</p>
+<ol>
+<li>
+  The envelopes for air-to-water heat pumps 
+  often contain water supply temperature (<code>TConOutMea</code>) 
+  on the y-axis and ambient temperatures (<code>TEvaInMea</code>) 
+  on the x axis. In these cases, <code>tabUppHea</code> is based 
+  on the y-axis maximal values and <code>tabLowCoo</code> 
+  based on the y-axis minimal values.
+</li>
+<li>
+  The envelopes for air-to-air devices often 
+  contain ambient inlet (<code>TConInMea</code>) as y and 
+  room (<code>TEvaInMea</code>) inlet temperatures as x variables. 
+  In these cases, <code>tabUppHea</code> is based on the x-axis maximal 
+  values and tabLowCoo based on the x-axis minimal values.
+</li>
+<li>
+  Compressor datasheets often provice evaporating and condensing 
+  temperatures or pressure levels. Those are not avaiable in the 
+  simpified model approach. Thus, you have to assume pinch 
+  temperatures to convert it to either in- or outflow temperature 
+  levels of the secondary side temperatures 
+  (i.e. <code>TConOutMea</code>, <code>TConInMea</code>, 
+  <code>TEvaInMea</code>, <code>TEvaOutMea</code>).
+</li>
+</ol>
 </html>"));
 end OperationalEnvelope;

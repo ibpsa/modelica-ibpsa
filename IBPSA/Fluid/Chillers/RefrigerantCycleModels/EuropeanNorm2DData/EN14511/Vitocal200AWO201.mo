@@ -14,6 +14,8 @@ record Vitocal200AWO201 "Vitocal200AWO201Chilling"
     mCon_flow_nominal=3960/4180/5,
     mEva_flow_nominal=(2250*1.2)/3600,
     tabLowBou=[10,7; 45,7],
+    use_TConOutForOpeEnv=false,
+    use_TEvaOutForOpeEnv=false,
     use_conOut=true,
     use_evaOut=false);
 
@@ -23,9 +25,7 @@ record Vitocal200AWO201 "Vitocal200AWO201Chilling"
     Documentation(info="<html>
 <p>
   Data record for type AWO-M/AWO-M-E-AC 201.A04,
-  obtained from the technical guide in the UK. <a href=
-  \"https://professionals.viessmann.co.uk/content/dam/vi-brands/UK/PDFs/Datasheets/Vitocal%20Technical%20Guide.PDF/_jcr_content/renditions/original.media_file.download_attachment.file/Vitocal%20Technical%20Guide.PDF\">
-  Link</a>to the datasheet
+  obtained from the technical guide in the UK.
 </p>
 </html>", revisions="<html>
 <ul>

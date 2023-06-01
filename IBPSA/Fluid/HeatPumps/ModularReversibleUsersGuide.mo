@@ -12,7 +12,6 @@ package ModularReversibleUsersGuide
   All features are optional.
 </p>
 <p>
-<p>
   Adding to the partial model (
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
   IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>), 
@@ -146,9 +145,6 @@ Pumps and Chillers for System Applications,
 https://doi.org/10.3384/ecp21181561
 </li>
 </ul>
-  
-<h4>Port variables</h4>
-
 
 </html>", revisions="<html>
 <ul>

@@ -156,7 +156,6 @@ equation
   All features are optional.
 </p>
 <p>
-<p>
   Adding to the partial model (
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
   IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>), 

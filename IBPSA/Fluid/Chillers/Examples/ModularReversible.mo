@@ -15,7 +15,7 @@ model ModularReversible
         (refIneFreConst=1/300, nthOrd=1),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrPar,
+      safCtrPar(use_opeEnv=true),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,
