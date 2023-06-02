@@ -71,11 +71,9 @@ partial model PartialEuropeanNorm2D
 
 
 protected
-  parameter Real perDevMasFloCon=
-    (mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100
+  parameter Real perDevMasFloCon
     "Deviation of nominal mass flow rate at condenser in percent";
-  parameter Real perDevMasFloEva=
-    (mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100
+  parameter Real perDevMasFloEva
     "Deviation of nominal mass flow rate at evaporator in percent";
   parameter Modelica.Blocks.Types.ExternalCombiTable2D tabIdeQUse_flow=
       Modelica.Blocks.Types.ExternalCombiTable2D(

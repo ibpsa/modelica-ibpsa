@@ -14,6 +14,7 @@ model ModularReversible
         RefrigerantCycleHeatPumpCooling = RefrigerantCycleHeatPumpCooling));
   replaceable model RefrigerantCycleHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle
+      (QUseNoSca_flow_nominal=0)
      constrainedby
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
        final QUse_flow_nominal=QUse_flow_nominal,

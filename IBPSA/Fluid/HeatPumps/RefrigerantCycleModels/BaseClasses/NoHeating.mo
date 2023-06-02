@@ -2,6 +2,7 @@ within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses;
 model NoHeating
   "No heating, used to avoid warnings about partial model must be replaced"
   extends PartialHeatPumpRefrigerantCycle(
+    PEle_nominal=0,
     redeclare final
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
       iceFacCal,
@@ -13,8 +14,8 @@ model NoHeating
       mCon_flow_nominal=0,
       dTEva_nominal=0,
       dTCon_nominal=0,
-      TEva_nominal=273.15,
-      TCon_nominal=273.15,
+    TEva_nominal=273.15,
+    TCon_nominal=273.15,
       QUse_flow_nominal=0);
   Modelica.Blocks.Sources.Constant constZer(final k=0)
     "No heating, hence, zero"
