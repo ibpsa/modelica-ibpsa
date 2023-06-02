@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 model OperationalEnvelope
   "Model which computes an error if the current 
   values are outside of the given operatinal envelope"

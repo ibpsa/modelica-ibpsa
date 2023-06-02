@@ -27,7 +27,8 @@ model ReversibleCarnotWithLosses
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
         (
         final refIneFreConst=1/refIneTimCon,
-        final nthOrd=1));
+        final nthOrd=1,
+        initType=Modelica.Blocks.Types.Init.InitialOutput));
 
   parameter Real quaGra=0.3 "Constant quality grade";
   parameter Modelica.Units.SI.Time refIneTimCon = 300

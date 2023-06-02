@@ -17,15 +17,16 @@ model VariableOrderInertia
   parameter Real yRefIne_start=0 "Initial or guess value of output (= state)"
     annotation (Dialog(tab="Initialization", group="Refrigerant inertia",
       enable=initType == Init.InitialOutput and use_refIne));
+  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
+    "Type of initialization (1: no init, 2: 
+    steady state, 3: initial state, 4: initial output)";
   Modelica.Blocks.Continuous.CriticalDamping criDam(
     final n=nthOrd,
     final f=refIneFreConst,
     initType=initType,
     final x_start=x_start) "Variable order damping model"
     annotation (Placement(transformation(extent={{-16,-16},{16,16}})));
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
-    "Type of initialization (1: no init, 2: 
-    steady state, 3: initial state, 4: initial output)";
+
 equation
   connect(u, criDam.u)
     annotation (Line(points={{-120,0},{-19.2,0}}, color={0,0,127}));

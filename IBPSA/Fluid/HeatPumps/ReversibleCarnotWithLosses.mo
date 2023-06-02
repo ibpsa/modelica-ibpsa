@@ -24,7 +24,10 @@ model ReversibleCarnotWithLosses
     final use_conCap,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
-        (refIneFreConst=refIneFreConst, nthOrd=nthOrd));
+        (
+        refIneFreConst=refIneFreConst,
+        nthOrd=nthOrd,
+        initType=Modelica.Blocks.Types.Init.InitialOutput));
 
   parameter Real quaGra=0.3 "Constant quality grade";
   parameter Modelica.Units.SI.Frequency refIneFreConst
