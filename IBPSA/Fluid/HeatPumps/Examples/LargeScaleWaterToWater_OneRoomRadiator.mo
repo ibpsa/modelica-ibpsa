@@ -90,7 +90,5 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"), experiment(
-      StopTime=86400,
-      Tolerance=1e-08));
+</html>"));
 end LargeScaleWaterToWater_OneRoomRadiator;
