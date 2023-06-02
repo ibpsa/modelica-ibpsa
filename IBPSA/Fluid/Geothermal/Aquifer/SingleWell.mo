@@ -22,7 +22,7 @@ model SingleWell
       Dialog(group="Domain discretization"));
   parameter Modelica.Units.SI.Temperature T_ini=273.15+10 "Initial temperature of domain" annotation (
       Dialog(group="Domain discretization"));
-  parameter Modelica.Units.SI.Temperature TGro=273.15+12 "Undirsturbed ground temperature" annotation (
+  parameter Modelica.Units.SI.Temperature TGro=273.15+12 "Undisturbed ground temperature" annotation (
       Dialog(group="Properties of ground"));
   parameter IBPSA.Fluid.Geothermal.Aquifer.Data.Template aquDat "Aquifer thermal properties" annotation (choicesAllMatching=true);
 
@@ -41,8 +41,9 @@ model SingleWell
     T=T_ini,
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nVol](C=C, each T(
-        start=T_ini, fixed=true)) "Array of thermal capacitor"
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nVol](
+    C=C,
+    each T(start=T_ini, fixed=true)) "Array of thermal capacitor"
     annotation (Placement(transformation(extent={{-52,-40},{-32,-20}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor theRes[nVol](R=R)
     "Array of thermal resistances"
