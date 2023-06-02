@@ -188,7 +188,7 @@ to the section <b>Refrigerant cycle models</b>.
   The ambient temperatures <code>TEvaAmb</code> and <code>TConAmb</code> are
   only relevant for the heat losses.
   The fluid ports are explained in more detail here:
-<a href=modelica://IBPSA.Fluid.UsersGuide\">IBPSA.Fluid.UsersGuide</a>.
+<a href=\"modelica://IBPSA.Fluid.UsersGuide\">IBPSA.Fluid.UsersGuide</a>.
 </p>
 
 <h5>Compressor speed</h5>
@@ -274,7 +274,7 @@ to the section <b>Refrigerant cycle models</b>.
   according to some reference point. Accordingly, we follow
   the basic IBPSA concept for nominal conditions, explained in 
   detail here: 
-  <a href=modelica://IBPSA.Fluid.UsersGuide\">IBPSA.Fluid.UsersGuide</a>
+  <a href=\"modelica://IBPSA.Fluid.UsersGuide\">IBPSA.Fluid.UsersGuide</a>
 </p>
 <p>
   The nominal heat flow rate of the device for its main 
@@ -444,6 +444,7 @@ for heating and cooling.
 <p>
   <code>QCon_flow = PEle + QEva_flow</code>
 </p>
+<p>
   Depending on your application, you may need to model
   the heat losses to the ambient, as those may 
   impact the overall efficiency of the heat pump or chiller.

@@ -72,13 +72,13 @@ model ModularReversible
     offset=1,
     startTime=500)  "Compressor control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Modelica.Blocks.Sources.Ramp TCon_in(
+  Modelica.Blocks.Sources.Ramp TConIn(
     height=10,
     duration=60,
     offset=273.15 + 30,
     startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Modelica.Blocks.Sources.Ramp TEva_in(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     height=10,
     duration=60,
     startTime=900,
@@ -104,11 +104,11 @@ equation
       points={{-40,-20},{-10,-20},{-10,5},{-5.55112e-16,5}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TCon_in.y, souCon.T_in) annotation (Line(
+  connect(TConIn.y, souCon.T_in) annotation (Line(
       points={{-69,20},{-62,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TEva_in.y, souEva.T_in) annotation (Line(
+  connect(TEvaIn.y, souEva.T_in) annotation (Line(
       points={{75,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));

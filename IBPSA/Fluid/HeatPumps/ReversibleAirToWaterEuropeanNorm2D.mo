@@ -4,8 +4,8 @@ model ReversibleAirToWaterEuropeanNorm2D
   extends IBPSA.Fluid.HeatPumps.ModularReversible(
     final safCtrPar=safCtrParEurNor,
     dTEva_nominal=0,
-    mEva_flow_nominal=datTabHea.mEva_flow_nominal*refCyc.refCycHeaPumHea.scaFac,
-    mCon_flow_nominal=datTabHea.mCon_flow_nominal*refCyc.refCycHeaPumHea.scaFac,
+    mEva_flow_nominal=datTabHea.mEva_flow_nominal*scaFac,
+    mCon_flow_nominal=datTabHea.mCon_flow_nominal*scaFac,
     dTCon_nominal=QUse_flow_nominal/cpCon/mCon_flow_nominal,
     final GEvaIns=0,
     final GEvaOut=0,

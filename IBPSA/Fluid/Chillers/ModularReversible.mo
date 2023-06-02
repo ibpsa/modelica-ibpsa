@@ -12,8 +12,8 @@ model ModularReversible
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling, redeclare model
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
-    refCyc.refCycChiCoo.scaFac * refCyc.refCycChiHea.QUseNoSca_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal= 
+	refCyc.refCycChiHea.QUseNoSca_flow_nominal*scaFac
     "Nominal heat flow rate of heating operation"
       annotation(Dialog(group="Nominal Design", enable=use_rev));
 

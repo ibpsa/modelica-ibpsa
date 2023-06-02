@@ -42,7 +42,7 @@ model ModularReversible
   "Model approach of the refrigerant cycle in cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
-    refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal*refCyc.refCycHeaPumHea.scaFac
+    refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal*scaFac
     "Nominal heat flow rate of cooling operation"
       annotation(Dialog(group="Nominal Design", enable=use_rev));
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
