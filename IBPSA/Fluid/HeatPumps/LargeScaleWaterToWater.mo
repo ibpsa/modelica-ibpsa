@@ -23,10 +23,11 @@ model LargeScaleWaterToWater
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
     final use_rev=false,
+    final QCoo_flow_nominal=0,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
-    final mCon_flow_nominal=autCalMasCon_flow*scaFac,
-    final mEva_flow_nominal=autCalMasEva_flow*scaFac,
+    final mCon_flow_nominal=autCalMasCon_flow,
+    final mEva_flow_nominal=autCalMasEva_flow,
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
