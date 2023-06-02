@@ -1,11 +1,11 @@
 within IBPSA.Fluid.Chillers;
 model ReversibleCarnotWithLosses
   "Reversible chiller using carnot approach with losses (frost, heat, inertia)"
-  extends ModularReversible(
+  extends IBPSA.Fluid.Chillers.ModularReversible(
     y_nominal=1,
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
-        QUseNoSca_flow_nominal=QHea_flow_nominal,
+        QUseNoSca_flow_nominal=QUse_flow_nominal,
         redeclare
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal,
@@ -33,9 +33,6 @@ model ReversibleCarnotWithLosses
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Delay time of first order element for inertia of refrigerant cycle";
   parameter Integer nthOrd=1 "Order of refrigerant cycle interia";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=QUse_flow_nominal
-    "Nominal heat flow rate of heating operation"
-      annotation(Dialog(group="Nominal Design"));
 
   annotation (Documentation(revisions="<html>
 <ul>

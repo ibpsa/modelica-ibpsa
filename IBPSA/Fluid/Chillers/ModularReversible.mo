@@ -12,6 +12,10 @@ model ModularReversible
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling, redeclare model
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
+    refCyc.refCycChiCoo.scaFac * refCyc.refCycChiHea.QUseNoSca_flow_nominal
+    "Nominal heat flow rate of heating operation"
+      annotation(Dialog(group="Nominal Design", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
@@ -31,7 +35,7 @@ model ModularReversible
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating
        constrainedby
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
-       final QUse_flow_nominal=0,
+       final QUse_flow_nominal=QHea_flow_nominal,
        final scaFac=scaFac,
        final TCon_nominal=TEva_nominal,
        final TEva_nominal=TCon_nominal,

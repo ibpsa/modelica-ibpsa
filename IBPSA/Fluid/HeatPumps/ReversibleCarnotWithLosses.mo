@@ -4,7 +4,7 @@ model ReversibleCarnotWithLosses
   extends ModularReversible(
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade (
-        QUseNoSca_flow_nominal=QCoo_flow_nominal,
+        QUseNoSca_flow_nominal=QUse_flow_nominal,
         redeclare
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal,
@@ -30,9 +30,7 @@ model ReversibleCarnotWithLosses
   parameter Modelica.Units.SI.Frequency refIneFreConst
     "Cut off frequency for inertia of refrigerant cycle";
   parameter Integer nthOrd=3 "Order of refrigerant cycle interia";
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=QUse_flow_nominal
-    "Nominal heat flow rate of cooling operation"
-      annotation(Dialog(group="Nominal Design"));
+
   annotation (Documentation(info="<html>
 <p>
   This model extends the model 

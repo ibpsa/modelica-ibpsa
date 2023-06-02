@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection;
 record DefaultHeatPumpSafetyControl "Apply the default values according to 
   the conference publication by Wuellhorst et. al."
   extends PartialRefrigerantMachineSafetyControlBaseDataDefinition(
-    tabLowCoo=[-40,10; 40,10],
+    tabLowCoo=[-10,10; 60,10],
     dTHysAntFre=2,
     preYSet_start=false,
     ySetMin=0.3,

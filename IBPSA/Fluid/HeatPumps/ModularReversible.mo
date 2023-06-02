@@ -41,7 +41,10 @@ model ModularReversible
        final y_nominal=y_nominal)
   "Model approach of the refrigerant cycle in cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
-
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
+    refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal*refCyc.refCycHeaPumHea.scaFac
+    "Nominal heat flow rate of cooling operation"
+      annotation(Dialog(group="Nominal Design", enable=use_rev));
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
     if not use_busConOnl and not use_rev
     "Set heating mode to true if device is not reversible" annotation (

@@ -12,7 +12,11 @@ model ReversibleCarnotWithLosses
     y_nominal=1,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrPar,
+      safCtrPar(
+      minLocTime=100,
+      use_runPerHou=false,
+      tabUppHea=[-10,40; 60,40],
+      use_TUseOut=true),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,
@@ -20,8 +24,8 @@ model ReversibleCarnotWithLosses
     GConOut=0,
     GConIns=0,
     TEva_nominal=278.15,
-    dTEva_nominal=10,
-    dTCon_nominal=10,
+    dTEva_nominal(displayUnit="K") = 10,
+    dTCon_nominal(displayUnit="K") = 5,
     dpEva_nominal(displayUnit="Pa") = 6000,
     use_evaCap=false,
     CEva=0,
@@ -50,11 +54,11 @@ model ReversibleCarnotWithLosses
   IBPSA.Fluid.Sources.Boundary_pT sinEva(nPorts=1, redeclare package Medium =
         MediumEva) "Evaporator sink" annotation (Placement(transformation(extent={
             {-10,-10},{10,10}}, origin={-50,-20})));
-  Modelica.Blocks.Sources.Ramp ySet(
-    height=-1,
-    duration=900,
+  Modelica.Blocks.Sources.SawTooth ySet(
+    amplitude=-1,
+    period=500,
     offset=1,
-    startTime=1800) "Compressor control signal"
+    startTime=500)  "Compressor control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
@@ -68,7 +72,7 @@ model ReversibleCarnotWithLosses
     startTime=900,
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{52,-40},{72,-20}})));
-  Modelica.Blocks.Sources.BooleanStep chi(startTime=2100, startValue=true)
+  Modelica.Blocks.Sources.BooleanStep chi(startTime=1800, startValue=true)
     "Chilling mode on"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
@@ -121,6 +125,12 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   model directly.
   The chiller control signal is the compressor speed 
   <code>ySet</code> and the mode <code>coo</code>.
+</p>
+<p>
+  As the model contains internal safety controls, the 
+  compressor set speed <code>ySet</code> and actually applied
+  speed <code>yOut</code> are plotted to show the influence of 
+  the safety control.
 </p>
 </html>"));
 end ReversibleCarnotWithLosses;

@@ -15,7 +15,9 @@ model ModularReversible
         (refIneFreConst=1/300, nthOrd=1),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
-      safCtrPar(use_opeEnv=true),
+      safCtrPar(
+      minLocTime=100,
+      use_opeEnv=false),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,
@@ -23,8 +25,8 @@ model ModularReversible
     GConOut=0,
     GConIns=0,
     TEva_nominal=278.15,
-    dTEva_nominal=10,
-    dTCon_nominal=10,
+    dTEva_nominal=5,
+    dTCon_nominal=5,
     dpEva_nominal(displayUnit="Pa") = 6000,
     use_evaCap=false,
     CEva=0,
@@ -64,11 +66,11 @@ model ModularReversible
   IBPSA.Fluid.Sources.Boundary_pT sinEva(nPorts=1, redeclare package Medium =
         MediumEva) "Evaporator sink" annotation (Placement(transformation(extent={
             {-10,-10},{10,10}}, origin={-50,-20})));
-  Modelica.Blocks.Sources.Ramp ySet(
-    height=-1,
-    duration=900,
+  Modelica.Blocks.Sources.SawTooth ySet(
+    amplitude=-1,
+    period=500,
     offset=1,
-    startTime=1800) "Compressor control signal"
+    startTime=500)  "Compressor control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
@@ -131,6 +133,12 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   Example that simulates a chiller based on the modular reversible approach
   The chiller control signal is the compressor speed 
   <code>ySet</code> and the mode <code>coo</code>.
+</p>
+<p>  
+  As the model contains internal safety controls, the 
+  compressor set speed <code>ySet</code> and actually applied
+  speed <code>yOut</code> are plotted to show the influence of 
+  the safety control.
 </p>
 <p>
   The example further demonstrates how to redeclare the replaceable options 
