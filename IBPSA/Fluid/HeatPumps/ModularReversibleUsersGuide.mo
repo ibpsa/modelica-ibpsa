@@ -5,8 +5,8 @@ package ModularReversibleUsersGuide
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-  The packages <a href=\"IBPSA.Fluid.HeatPumps\">IBPSA.Fluid.HeatPumps</a>
-  and <a href=\"IBPSA.Fluid.Chillers\">IBPSA.Fluid.Chillers</a> contain 
+  The packages <a href=\"modelica://IBPSA.Fluid.HeatPumps\">IBPSA.Fluid.HeatPumps</a>
+  and <a href=\"modelica://IBPSA.Fluid.Chillers\">IBPSA.Fluid.Chillers</a> contain 
   the modular approach to model reversible refrigeration 
   machines (heat pumps and chillers) based on grey-box approaches.
   Either empirical data or physical equations are used to model 
@@ -423,7 +423,7 @@ for heating and cooling.
   Note however, that this only simulated the efficiency reduction 
   due to frosting. If you frosting approach enables the simulation
   of a defrost cycle, you can use an external control model like this one:
-  <a href=\"IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl\">
   IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl</a> to simulate 
   a reverse cycle defrost and analyze the impact on source 
   and sink temperatures. 
