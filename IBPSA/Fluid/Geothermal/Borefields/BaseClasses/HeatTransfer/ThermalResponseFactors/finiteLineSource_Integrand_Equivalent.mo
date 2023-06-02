@@ -51,8 +51,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Integrand of the finite line source solution for use in
-<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes\">
-IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes</a>.
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent\">
+IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent</a>.
 </p>
 </html>", revisions="<html>
 <ul>
