@@ -162,7 +162,7 @@ equation
 
 <ul>
 <li>
-  Only three sides of the real envelope are implemented. 
+  Only three sides of the real envelope are implemented (cf. Figure 2 and 3).
   The real operational envelope implies continuous operation.
   This means start-up from e.g. a cold heat pump supply temperature
   is possible in reality. To avoid additional equations for startup and
@@ -181,23 +181,31 @@ equation
 
 <h4>Existing envelopes</h4>
 
-Technical datasheets according to EN 14511 often contain 
-information about the operationsl envelope.
-The device records for heat pumps 
-(<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData\">
-IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData</a>)
-and chillers 
-(<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData\">
-IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData</a>)
-contain typical values. Older devices typically have lower limits
-while new refrigerant machines based on Propane or advanced flowsheets
-are able to achieve temperature over 70 °C for heating.
+  Technical datasheets according to EN 14511 often contain 
+  information about the operationsl envelope.
+  The device records for heat pumps 
+  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData</a>)
+  and chillers 
+  (<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData\">
+  IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData</a>)
+  contain typical values. Older devices typically have lower limits
+  while new refrigerant machines based on Propane or advanced flowsheets
+  are able to achieve temperature over 70 °C for heating.
 
 <h4>Parameterization from datasheets</h4>
 <p>
   Depending on the underlying datasheet in use, you have think 
-  thoroughly if you need inlet or outlet conditions, 
-  and possibly transpose given boundaries.
+  thoroughly if you need inlet or outlet conditions, and if 
+  you are modelling a heat pump or chiller.
+  Figure 1 depicts possible upper and lower boundaries as well as
+  names for the x- and y-axis.
+  Depending on your setup, you even have to transpose existing boundaries.
+  For instance, when using an envelope designed for a 
+  heat pump in a chiller model, the useful side (column 2 of the data) 
+  is not the condenser but the evaporator. Thus, you have to 
+  switch column 1 and 2.
+  The following examples aim to explain how to obtain the envelopes:
 </p>
 <p>
   If the model in use is a heat pump, 
@@ -214,6 +222,7 @@ are able to achieve temperature over 70 °C for heating.
   on the x axis. In these cases, <code>tabUppHea</code> is based 
   on the y-axis maximal values and <code>tabLowCoo</code> 
   based on the y-axis minimal values.
+  Figure 2 depicts this setup.
 </li>
 <li>
   The envelopes for air-to-air devices often 
@@ -221,6 +230,7 @@ are able to achieve temperature over 70 °C for heating.
   room (<code>TEvaInMea</code>) inlet temperatures as x variables. 
   In these cases, <code>tabUppHea</code> is based on the x-axis maximal 
   values and tabLowCoo based on the x-axis minimal values.
+  Figure 3 depicts this setup.
 </li>
 <li>
   Compressor datasheets often provice evaporating and condensing 
@@ -232,5 +242,33 @@ are able to achieve temperature over 70 °C for heating.
   <code>TEvaInMea</code>, <code>TEvaOutMea</code>).
 </li>
 </ol>
+
+<p align=\"center\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_1.png\" border=\"1\"/>
+</p>
+<p align=\"center\">
+Figure 1: Possible upper and lower boundaries 
+as well as temperature specifications in datasheets
+</p>
+
+<p align=\"center\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_2.png\" border=\"1\"/>
+</p>
+<p align=\"center\">
+Figure 2: Example for an air-to-water heat pump or chiller. 
+The supply temperature is the temperature leaving the device 
+into the hydraulic circuit of the building. 
+Red crosses indicate the point to write into the 2D table in Modelica.
+</p>
+
+<p align=\"center\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_3.png\" border=\"1\"/>
+</p>
+<p align=\"center\">
+Figure 3: Example for an air-to-air heat pump or chiller. 
+The room temperature acts as an inflow to the device. 
+Red crosses indicate the point to write into the 2D table in Modelica.
+</p>
+
 </html>"));
 end OperationalEnvelope;
