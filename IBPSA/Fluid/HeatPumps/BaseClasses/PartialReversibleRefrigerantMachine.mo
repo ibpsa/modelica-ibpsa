@@ -247,12 +247,12 @@ partial model PartialReversibleRefrigerantMachine
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
     final isCon=true,
-    final C=CCon*scaFac,
+    final C=CCon,
     final TCap_start=TConCap_start,
-    final GOut=GConOut*scaFac,
+    final GOut=GConOut,
     final m_flow_nominal=mCon_flow_nominal,
-    final dp_nominal=dpCon_nominal*scaFac,
-    final GInn=GConIns*scaFac) "Heat exchanger model for the condenser"
+    final dp_nominal=dpCon_nominal,
+    final GInn=GConIns) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,72},{20,112}})));
   IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
@@ -268,12 +268,12 @@ partial model PartialReversibleRefrigerantMachine
     final from_dp=from_dp,
     final energyDynamics=energyDynamics,
     final isCon=false,
-    final C=CEva*scaFac,
+    final C=CEva,
     final m_flow_nominal=mEva_flow_nominal,
-    final dp_nominal=dpEva_nominal*scaFac,
+    final dp_nominal=dpEva_nominal,
     final TCap_start=TEvaCap_start,
-    final GOut=GEvaOut*scaFac,
-    final GInn=GEvaIns*scaFac) "Heat exchanger model for the evaporator"
+    final GOut=GEvaOut,
+    final GInn=GEvaIns) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{20,-72},{-20,-112}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutEva
     if use_evaCap "Foreces heat losses according to ambient temperature"

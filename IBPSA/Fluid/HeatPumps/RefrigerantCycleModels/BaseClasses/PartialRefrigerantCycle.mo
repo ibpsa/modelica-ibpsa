@@ -127,8 +127,8 @@ equation
 </html>", info="<html>
 <p>
   Partial model for calculation of electrical power 
-  <code>PEle</code>, condenser heat flow <code>QCon</code> 
-  and evaporator heat flow <code>QEva</code> based on the 
+  <code>PEle</code>, condenser heat flow <code>QCon_flow</code> 
+  and evaporator heat flow <code>QEva_flow</code> based on the 
   values in the <code>sigBus</code> for a refrigerant machine.
 </p>
 <h4>Frosting performance</h4>
@@ -139,13 +139,13 @@ equation
   and source. Thus, the factor is implemented as follows: 
 </p>
 <p>
-  <code>QEva = iceFac * (QCon_noIce - PEle)</code> 
+  <code>QEva_flow = iceFac * (QConNoIce_flow - PEle)</code> 
 </p>
 <p>
   With <code>iceFac</code> as a relative value between 0 and 1: </p>
 <p><code>iceFac = kA/kA_noIce</code></p>
 <p>Finally, the energy balance must still hold: </p>
-<p><code>QCon = PEle + QEva</code> </p>
+<p><code>QCon_flow = PEle + QEva_flow</code> </p>
 <p>
   You can select different options for the modeling of the icing factor or
   implement your own approach.
