@@ -13,12 +13,8 @@ record TwoDiodesSolibroSL2CIGS110
     c1 = 0.0011962052,
     c2 = 0.001542755,
     cs1 = 9.490919,
-    cs2 = 0.007634368);
-    //eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))
-               // dummy value
-    //A_cel=((V_mp0*I_mp0)/(1000*eta_0))/n_ser,
-              // dummy value;
-                          // dummy value
+    cs2 = 0.007634368,
+    T_NOCT=51 + 273.15);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end TwoDiodesSolibroSL2CIGS110;

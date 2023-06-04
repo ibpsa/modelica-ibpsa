@@ -4,6 +4,8 @@ model PVTwoDiodesRooftopBuildingValidation
   extends Modelica.Icons.Example;
   extends IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation;
   IBPSA.Electrical.DC.Sources.PVTwoDiodes pVSystemTwoDiodes(
+    PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
+
     til=0.05235987755983,
     azi=0,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountOpenRack partialPVThermal,

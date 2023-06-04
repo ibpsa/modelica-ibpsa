@@ -19,8 +19,8 @@ model PVSingleDiodeRooftopBuildingValidation
 
 equation
 
-  connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{59,50},
-          {74,50},{74,22.5}},                 color={0,0,127}));
+  connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{61,70},
+          {74,70},{74,22.5}},                 color={0,0,127}));
   connect(pVSystemSingleDiode.P, PSim) annotation (Line(points={{84.8333,10},{
           84.8333,10},{110,10}},  color={0,0,127}));
   connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{54.6,-8},
@@ -31,8 +31,8 @@ equation
   connect(MeaDataRadModTemp.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
         points={{50.4,-28},{52,-28},{52,-20},{26,-20},{26,36},{60,36},{60,22.5},
           {70.6667,22.5}},  color={0,0,127}));
-  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{41,82},
-          {58,82},{58,80},{84,80},{84,22.5}},             color={0,0,127}));
+  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{21,90},
+          {58,90},{58,80},{84,80},{84,22.5}},             color={0,0,127}));
   connect(incAng.incAng, pVSystemSingleDiode.incAngle) annotation (Line(points={{61,-90},
           {62,-90},{62,28},{80.6667,28},{80.6667,22.5}},  color={0,0,127}));
   connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points={{79,50},

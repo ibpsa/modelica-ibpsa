@@ -84,7 +84,7 @@ equation
 
   ISat2 =cs2*sqrt(TCel*TCel*TCel*TCel*TCel)*Modelica.Math.exp(-(Eg*e)/(2.0*k*TCel));
 
-  eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0 else P/(radTil*A_mod);
+  eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0 else P/(radTil*A_mod*n_mod);
 
     annotation (
   Documentation(info="<html>
