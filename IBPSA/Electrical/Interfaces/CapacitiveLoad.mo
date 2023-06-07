@@ -51,7 +51,7 @@ Model included into the IBPSA library.
 </html>", info="<html>
 <p>
 This is a model of a generic capacitive load. This model is an extension of the base load model
-<a href=\"IBPSA.Electrical.Interfaces.Load\">IBPSA.Electrical.Interfaces.Load</a>.
+<a href=\"modelica://IBPSA.Electrical.Interfaces.Load\">IBPSA.Electrical.Interfaces.Load</a>.
 </p>
 <p>
 This model assumes a fixed power factor <code>pf</code> when the flag <code>use_pf_in = false</code>
