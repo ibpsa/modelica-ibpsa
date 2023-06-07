@@ -1,23 +1,23 @@
 within IBPSA.Electrical.DC.Sources.Validation;
-model PVSingleDiodeRooftopBuildingValidation
+model PVSingleDiodeRooftopBuildingValidationNew
   "Validation with empirical data from a rooftop PV system in at UdK, Berlin"
   extends
-    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation;
+    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidationNew(
+      HGloTil(H(start=100)));
   extends Modelica.Icons.Example;
 
   IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystemSingleDiode(
     PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
     til(displayUnit="rad") = til,
     azi(displayUnit="deg") = azi,
-    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountContactToGround
+    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
       partialPVThermal,
     n_mod=6,
     redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS110 data,
     groRef=rho,
-    alt=2,
+    alt=0.08,
     E_g0=1.92261e-19)
     annotation (Placement(transformation(extent={{64,0},{92,20}})));
-
 
 equation
 
@@ -25,28 +25,21 @@ equation
           {78,70},{78,22.5}},                 color={0,0,127}));
   connect(pVSystemSingleDiode.P, PSim) annotation (Line(points={{93.1667,10},{
           110,10}},               color={0,0,127}));
-  connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{54.6,-8},
-          {60,-8},{60,22.5},{68.6667,22.5}},            color={0,0,127}));
   connect(MeaDataWinAngSpe.y[1], pVSystemSingleDiode.vWinSpe) annotation (Line(
-        points={{50.4,-40},{60,-40},{60,-6},{58,-6},{58,22.5},{64,22.5}},
-        color={0,0,127}));
+        points={{-72.8,10},{-48,10},{-48,40},{64,40},{64,22.5}}, color={0,0,127}));
   connect(MeaDataRadModTemp.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
-        points={{88.4,-64},{52,-64},{52,-20},{26,-20},{26,36},{60,36},{60,22.5},
-          {73.3333,22.5}},  color={0,0,127}));
-  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{21,90},
-          {58,90},{58,80},{92,80},{92,22.5}},             color={0,0,127}));
-  connect(incAng.incAng, pVSystemSingleDiode.incAngle) annotation (Line(points={{61,-90},
-          {62,-90},{62,28},{87.3333,28},{87.3333,22.5}},  color={0,0,127}));
-  connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points={{79,50},
-          {82.6667,50},{82.6667,22.5}},           color={0,0,127}));
-  connect(decAng.decAng, weaBus.solDec) annotation (Line(points={{-39,10},{-6,
-          10},{-6,50},{26,50}}, color={0,0,127}));
-  connect(latLon[1].y, weaBus.lat) annotation (Line(points={{-81.2,50},{-28,50},
-          {-28,50},{26,50}}, color={0,0,127}));
-  connect(latLon[2].y, weaBus.lon)
-    annotation (Line(points={{-81.2,50},{26,50}}, color={0,0,127}));
-  connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(points={{21,
-          -10},{22,-10},{22,50},{26,50}}, color={0,0,127}));
+        points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,48},{73.3333,48},{
+          73.3333,22.5}}, color={0,0,127}));
+  connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points=
+          {{-79,-24},{-8,-24},{-8,-16},{58,-16},{58,54},{82.6667,54},{82.6667,
+          22.5}}, color={0,0,127}));
+  connect(incAng.y, pVSystemSingleDiode.incAngle) annotation (Line(points={{
+          26.5,-29},{52,-29},{52,22.5},{87.3333,22.5}}, color={0,0,127}));
+  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{61,-50},
+          {72,-50},{72,-4},{96,-4},{96,22.5},{92,22.5}}, color={0,0,127}));
+  connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{
+          -49.4,-52},{-42,-52},{-42,-6},{-44,-6},{-44,22.5},{68.6667,22.5}},
+        color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
@@ -74,4 +67,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PVSingleDiodeRooftopBuildingValidation;
+end PVSingleDiodeRooftopBuildingValidationNew;

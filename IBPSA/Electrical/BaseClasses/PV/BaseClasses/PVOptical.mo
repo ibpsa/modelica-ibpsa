@@ -48,8 +48,8 @@ First implementation.
     "This block computes the air mass modifier based on selected PV technology"
     extends Modelica.Blocks.Icons.Block;
 
-    parameter IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType
-        .MonoSI "Type of PV technology";
+    parameter IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.
+         MonoSI "Type of PV technology";
 
     Modelica.Blocks.Interfaces.RealInput airMas(final unit="1") "Air mass of atmosphere"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));

@@ -17,7 +17,9 @@ model PVSingleDiode
     redeclare IBPSA.Electrical.BaseClasses.PV.PVElectricalSingleDiodeMPP
       partialPVElectrical(redeclare IBPSA.Electrical.Data.PV.SingleDiodeData
         data=data,
-        final n_mod=n_mod),
+        final n_mod=n_mod,
+      E_g0=E_g0,
+      C=C),
     replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermalEmp
       partialPVThermal(
       redeclare IBPSA.Electrical.Data.PV.SingleDiodeData data=data),
@@ -51,6 +53,10 @@ model PVSingleDiode
   constant Modelica.Units.SI.Irradiance HGloTil0=1000
     "Total solar radiation on the horizontal surface under standard conditions"
      annotation(Dialog(tab="Site specifications"));
+  parameter Modelica.Units.SI.Energy E_g0=1.79604e-19
+    "Band gap energy under standard conditions. For Si: 1.79604e-19";
+  parameter Real C=0.0002677
+    "Band gap temperature coefficient. For Si: 0.0002677";
 equation
   connect(partialPVElectrical.eta, partialPVThermal.eta) annotation (Line(
         points={{16.5,-33},{40,-33},{40,-20},{-72,-20},{-72,8.44},{4.92308,8.44}},
@@ -64,9 +70,6 @@ equation
   connect(partialPVOptical.absRadRat, partialPVElectrical.absRadRat)
     annotation (Line(points={{15.4545,50},{20,50},{20,-34},{-64,-34},{-64,-31.8},
           {5,-31.8}},     color={0,0,127}));
-  connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-40,100},
-          {-60,100},{-60,80},{-48,80},{-48,49.4},{2.90909,49.4}},
-                                         color={0,0,127}));
   connect(HGloTil, partialPVElectrical.radTil) annotation (Line(points={{0,100},
           {-100,100},{-100,-54},{-68,-54},{-68,-34.2},{5,-34.2}},
                                                color={0,0,127}));
@@ -87,6 +90,8 @@ equation
           40,70},{-72,70},{-72,47},{2.90909,47}},                   color={0,0,127}));
   connect(partialPVOptical.tilSet, Til_in_internal);
 
+  connect(HGloHor, partialPVOptical.HGloHor) annotation (Line(points={{-40,100},
+          {-20,100},{-20,49.4},{2.90909,49.4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>

@@ -6,7 +6,7 @@ model ReaderTMY3HDirNor
         Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
       HSou=IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor)
     "Weather data reader with radiation data obtained from the inputs' connectors"
-    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
+    annotation (Placement(transformation(extent={{68,-8},{88,12}})));
 protected
   Modelica.Blocks.Sources.Sine HGloHor1(
     f=1/86400,
@@ -31,12 +31,13 @@ equation
           {-34,6}}, color={0,0,127}));
   connect(HGloHor1.y, add.u2) annotation (Line(points={{-67,-20},{-50.5,-20},{-50.5,
           -6},{-34,-6}}, color={0,0,127}));
-  connect(add.y, weaDatInpCon.HGloHor_in) annotation (Line(points={{-11,0},{28,0},
-          {28,-13},{67,-13}}, color={0,0,127}));
+  connect(add.y, weaDatInpCon.HGloHor_in) annotation (Line(points={{-11,0},{28,
+          0},{28,-11},{67,-11}},
+                              color={0,0,127}));
   connect(add.y, gaiHDifHor.u) annotation (Line(points={{-11,0},{-6,0},{-6,0},{
           -6,20},{-2,20}},   color={0,0,127}));
   connect(gaiHDifHor.y, weaDatInpCon.HDifHor_in) annotation (Line(points={{21,20},
-          {21,20},{50,20},{50,-7.6},{67,-7.6}},   color={0,0,127}));
+          {50,20},{50,-7.5},{67,-7.5}},           color={0,0,127}));
   annotation (experiment(StopTime=86400, Tolerance=1e-06),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Validation/ReaderTMY3HDirNor.mos"
         "Simulate and plot"),

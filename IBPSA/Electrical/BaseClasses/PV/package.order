@@ -4,5 +4,6 @@ PVElectricalTwoDiodes
 PVElectricalTwoDiodesMPP
 PVOpticalAbsRat
 PVThermalEmpMountCloseToGround
+PVThermalEmpMountContactToGround
 PVThermalEmpMountOpenRack
 BaseClasses

@@ -11,9 +11,9 @@ record SingleDiodeSolibroSL2CIGS110 "Single-diode: record also used for validati
     V_mp0=72.4,
     I_mp0=1.52,
     P_mp0=110,
-    TCoeff_Isc=0.0,
-    TCoeff_Voc=-0.29,
-    gamma_Pmp=-0.38,
+    TCoeff_Isc=0.000676,
+    TCoeff_Voc=-0.27,
+    gamma_Pmp=-0.0038,
     T_NOCT=51 + 273.15);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

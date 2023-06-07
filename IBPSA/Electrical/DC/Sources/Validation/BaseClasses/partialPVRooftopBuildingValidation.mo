@@ -1,6 +1,6 @@
 ﻿within IBPSA.Electrical.DC.Sources.Validation.BaseClasses;
 partial model partialPVRooftopBuildingValidation
-  "Partial model for validation with empirical data from a rooftop PV system in at UdK, Berlin"
+  "Partial model for validation with empirical data from a rooftop PV system in at UdK, Berlin, from May 21st to May 31st"
   extends Modelica.Icons.Example;
     parameter Modelica.Units.SI.Time timZon=+7200
     "Time zone";
@@ -8,14 +8,14 @@ partial model partialPVRooftopBuildingValidation
     "Longitude";
   parameter Modelica.Units.SI.Angle lat=0.82481257
     "Latitude";
-  parameter Real nDay=(31 + 28 + 31 + 17)*24*3600 "Day at which simulation starts"
-                                                                                  annotation(final unit="s");
+  parameter Real nDay=(31 + 28 + 31 + 30 + 21)*24*3600 "Day at which simulation starts"
+                                                                                       annotation(final unit="s");
   parameter Modelica.Units.SI.Angle azi=0
     "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
   parameter Modelica.Units.SI.Angle til=0.05235987755983
     "Surface tilt. til=90 degree for walls; til=0 for ceilings; til=180 for roof";
-  parameter Real alt= 0.08 "Site altitude"
-                                          annotation(final unit="m");
+  parameter Real alt= 2 "Site altitude"
+                                       annotation(final unit="m");
 
   constant Real G_sc(
     final quantity="Irradiance",
@@ -36,7 +36,8 @@ partial model partialPVRooftopBuildingValidation
     "Measured DC power"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(til=til,
-      azi=azi)
+      azi=azi,
+    rho=rho)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Bus with weather data"
@@ -49,7 +50,7 @@ partial model partialPVRooftopBuildingValidation
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   BoundaryConditions.WeatherData.Bus weaBus1
     "Weather data"
-    annotation (Placement(transformation(extent={{-44,20},{-24,40}})));
+    annotation (Placement(transformation(extent={{-36,24},{-16,44}})));
   BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
@@ -84,17 +85,17 @@ partial model partialPVRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable MeaDataRadModTemp(
     tableOnFile=true,
     tableName="ROF-rad_module_temp_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_radiation_module_temperature_2023_V2.txt"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/UdK_VPT_ROF_radiation_module_temperature_2023_V2.txt"),
     columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
-    annotation (Placement(transformation(extent={{42,-32},{50,-24}})));
+    annotation (Placement(transformation(extent={{80,-68},{88,-60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable MeaDataWinAngSpe(
     tableOnFile=true,
     tableName="ROF_wind-angle_speed_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_wind-angle_speed_2023_V2.txt"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/UdK_VPT_ROF_wind-angle_speed_2023_V2.txt"),
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay)
@@ -104,7 +105,7 @@ partial model partialPVRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable MeaDataTAmb(
     tableOnFile=true,
     tableName="ROF_outside_temp_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_outside_temperature_2023_V2.txt"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/UdK_VPT_ROF_outside_temperature_2023_V2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay)
@@ -114,15 +115,16 @@ partial model partialPVRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable VPTdata_power(
     tableOnFile=true,
     tableName="power_2023",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/UdK_VPT_ROF_P1_1_2_power_2023_V2.txt"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/UdK_VPT_ROF_P1_1_2_power_2023_V2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=nDay)
+    shiftTime=nDay + 600)
     "The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de"
     annotation (Placement(transformation(extent={{78,-36},{90,-24}})));
 
   Modelica.Blocks.Sources.RealExpression souGloHorDif(y=HGloHorDif)
     annotation (Placement(transformation(extent={{100,40},{80,60}})));
+  parameter Real rho=0.2 "Ground reflectance";
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
   //NIST data does not contain this measurement so far. Work in progress
@@ -155,26 +157,26 @@ equation
   connect(latLon[2].y, weaBus.lon)
     annotation (Line(points={{-81.2,50},{26,50}},color={0,0,127}));
   connect(zen.weaBus, weaBus1) annotation (Line(
-      points={{0,90},{-34,90},{-34,30}},
+      points={{0,90},{-26,90},{-26,34}},
       color={255,204,51},
       thickness=0.5));
   connect(zen.y, weaBus.solZen)
     annotation (Line(points={{21,90},{26,90},{26,50}},
                                                     color={0,0,127}));
   connect(latLon[1].y, weaBus1.lat)
-    annotation (Line(points={{-81.2,50},{-34,50},{-34,30}}, color={0,0,127}));
+    annotation (Line(points={{-81.2,50},{-26,50},{-26,34}}, color={0,0,127}));
   connect(decAng.decAng, weaBus1.solDec) annotation (Line(points={{-39,10},{-32,
-          10},{-32,14},{-34,14},{-34,30}}, color={0,0,127}));
+          10},{-32,34},{-26,34}},          color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus1.solHouAng) annotation (Line(points={{21,-10},
-          {26,-10},{26,30},{-34,30}},               color={0,0,127}));
+          {26,-10},{26,34},{-26,34}},               color={0,0,127}));
   connect(solTim.solTim, solHouAng.solTim)
     annotation (Line(points={{1,-70},{26,-70},{26,-24},{-8,-24},{-8,-10},{-2,
           -10}},                                   color={0,0,127}));
   connect(decAng.decAng, weaBus.solDec) annotation (Line(points={{-39,10},{-32,
-          10},{-32,16},{18,16},{18,28},{26,28},{26,50}},
+          10},{-32,16},{-6,16},{-6,50},{26,50}},
                                    color={0,0,127}));
   connect(solHouAng.solHouAng, weaBus.solHouAng) annotation (Line(points={{21,-10},
-          {26,-10},{26,50}},
+          {21,50},{26,50}},
         color={0,0,127}));
   connect(locTim.locTim, solTim.locTim) annotation (Line(points={{-19,-30},{-20,
           -30},{-20,-44},{-36,-44},{-36,-75.4},{-22,-75.4}},
@@ -223,8 +225,9 @@ equation
     annotation (Line(points={{90.6,-30},{110,-30}}, color={0,0,127}));
   connect(MeaDataTAmb.y[1], from_degC.u) annotation (Line(points={{50.4,-52},{54,
           -52},{54,-18},{40.8,-18},{40.8,-8}}, color={0,0,127}));
-  connect(MeaDataRadModTemp.y[1], weaBus.HGloHor) annotation (Line(points={{50.4,
-          -28},{52,-28},{52,-20},{26,-20},{26,50}}, color={0,0,127}));
+  connect(MeaDataRadModTemp.y[1], weaBus.HGloHor) annotation (Line(points={{88.4,
+          -64},{92,-64},{92,-40},{60,-40},{60,50},{26,50}},
+                                                    color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),

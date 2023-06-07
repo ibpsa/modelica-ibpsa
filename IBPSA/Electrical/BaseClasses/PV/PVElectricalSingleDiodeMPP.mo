@@ -102,8 +102,6 @@ equation
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/V_oc)
      + 1)) else 0;
 
-//I-V curve equation - use if P at a given V is needed (e.g. battery loading scenarios without MPP tracker)
-//I = I_ph - I_s*(exp((V+I*R_s)/(a))-1) - (V + I*R_s)/(R_sh);
 
 // Efficiency and Performance
 
