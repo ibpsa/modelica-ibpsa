@@ -27,7 +27,7 @@ Model included in the IBPSA library.
 </html>", info="<html>
 <p>
 This model extends the base class
-<a href=\"IBPSA.Electrical.Interfaces.PartialTwoPort\">
+<a href=\"modelica://IBPSA.Electrical.Interfaces.PartialTwoPort\">
 IBPSA.Electrical.Interfaces.PartialTwoPort</a>
 model and declares the variables
 <code>v_p</code> and <code>i_p</code> that represents the voltage and the
