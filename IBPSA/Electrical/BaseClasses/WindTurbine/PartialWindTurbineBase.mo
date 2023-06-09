@@ -55,5 +55,11 @@ January 10, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
+</html>"),
+    preferredView="info",
+    Documentation(info =                           "<html>
+<p>
+This package contains base classes that are used model the WindTurbine models.
+</p>
 </html>"));
 end PartialWindTurbineBase;
