@@ -256,13 +256,13 @@ equation
     annotation (Line(points={{27,64},{40,64},{40,31},{43,31}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
   <p>This example shows the application of
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements\">
+  <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements\">
   IBPSA.ThermalZones.ReducedOrder.RC.ThreeElements</a>
   in combination with
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+  <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
   IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
   and
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
+  <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
   IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   IBPSA. The thermal zone is a simple room defined in Guideline

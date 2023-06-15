@@ -342,14 +342,14 @@ equation
 <li>
 October 15, 2021, by Michael Wetter:<br/>
 Moved model to <code>BaseClasses</code>. This allows
-<a href=\"IBPSA.Fluid.FixedResistances.PlugFlowPipe\">IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>
+<a href=\"modelica://IBPSA.Fluid.FixedResistances.PlugFlowPipe\">IBPSA.Fluid.FixedResistances.PlugFlowPipe</a>
 to redeclare the resistance as final, thereby avoiding that a GUI presents this instance
 to users as a replaceable class.
 </li>
 <li>
 October 05, 2021, by Baptiste Ravache:<br/>
 Made model symmetrical and extends from
-<a href=\"IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
 IBPSA.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </li>
 <li>

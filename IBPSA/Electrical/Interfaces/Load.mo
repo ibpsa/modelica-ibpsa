@@ -178,7 +178,7 @@ IBPSA.Electrical.Interfaces.Terminal</a>
 that can be redeclared.
 The generalized load is modeled as an impedance whose value can change. The value of the impedance
 can change depending on the value of the parameter <code>mode</code>, which is of type
-<a href=\"IBPSA.Electrical.Types.Load\">IBPSA.Electrical.Types.Load</a>:
+<a href=\"modelica://IBPSA.Electrical.Types.Load\">IBPSA.Electrical.Types.Load</a>:
 </p>
 
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">

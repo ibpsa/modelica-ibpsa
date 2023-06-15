@@ -232,13 +232,13 @@ equation
     0,127}));
   annotation ( Documentation(info="<html>
   <p>This example shows the application of
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.RC.TwoElements\">
+  <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.RC.TwoElements\">
   IBPSA.ThermalZones.ReducedOrder.RC.TwoElements</a>
   in combination with
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+  <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
  IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
   and
-  <a href=\"IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
+  <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
   IBPSA.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   IBPSA. The thermal zone is a simple room defined in Guideline

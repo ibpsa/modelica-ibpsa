@@ -71,7 +71,7 @@ defaultComponentName="line",
 info="<html>
 <p>
 This model represents an AC single phase cable. The model is based on
-<a href=\"IBPSA.Electrical.AC.OnePhase.Lines.TwoPortRLC\">
+<a href=\"modelica://IBPSA.Electrical.AC.OnePhase.Lines.TwoPortRLC\">
 IBPSA.Electrical.AC.OnePhase.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>,
 either using commercial cables or using default values.

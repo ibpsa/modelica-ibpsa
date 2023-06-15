@@ -668,7 +668,7 @@ Removed the option to use <code>h_start</code>, as this
 is not needed for building simulation.
 Also removed the reference to <code>Modelica.Fluid.System</code>.
 Moved parameters and medium to
-<a href=\"IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations\">
 IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>

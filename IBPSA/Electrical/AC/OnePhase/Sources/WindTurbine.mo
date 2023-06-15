@@ -81,7 +81,7 @@ Added <code>replaceable</code> for terminal.
 February 26, 2016, by Michael Wetter:<br/>
 In load, set <code>P_nominal = 0</code> as it is not used.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">issue 426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 <li>
 August 5, 2014, by Marco Bonvini:<br/>

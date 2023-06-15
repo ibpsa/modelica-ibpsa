@@ -32,7 +32,7 @@ Adapter that connect 3 single phase connectors with a connector that has 3 phase
 <li>
 February 25, 2016, by Michael Wetter:<br/>
 First implementation for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">issue 426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 </ul>
 </html>"));

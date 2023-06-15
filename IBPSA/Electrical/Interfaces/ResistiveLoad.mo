@@ -28,7 +28,7 @@ added to the library.
 </html>", info="<html>
 <p>
 This is a model of a generic resistive load. This model is an extension of the base load model
-<a href=\"IBPSA.Electrical.Interfaces.Load\">
+<a href=\"modelica://IBPSA.Electrical.Interfaces.Load\">
 IBPSA.Electrical.Interfaces.Load</a>.
 </p>
 </html>"));

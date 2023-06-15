@@ -67,7 +67,7 @@ First implementation based on previous
 <code>IBPSA.Electrical.AC.ThreePhasesUnbalanced.InterfacesConnection3to4_p</code>
 which did not conform to the Modelica Language Definition.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">issue 426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>

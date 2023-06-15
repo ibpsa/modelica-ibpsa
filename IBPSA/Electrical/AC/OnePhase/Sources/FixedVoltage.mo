@@ -66,8 +66,8 @@ and the phase shift.
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Added <code>replaceable</code> to terminal redeclaration as they are redeclared by
-<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage\">
-Buildings.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage</a>.
+<a href=\"modelica://IBPSA.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage\">
+IBPSA.Electrical.AC.ThreePhasesBalanced.Sources.FixedVoltage</a>.
 </li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>

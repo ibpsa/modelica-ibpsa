@@ -55,7 +55,7 @@ equation
 November 3, 2016, by Michael Wetter:<br/>
 Linearized load to avoid large nonlinear system of equations.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/568\">issue 568</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/568\">issue 568</a>.
 </li>
 <li>
 October 3, 2014, by Marco Bonvini:<br/>

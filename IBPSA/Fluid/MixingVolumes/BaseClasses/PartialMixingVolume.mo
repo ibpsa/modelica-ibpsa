@@ -506,7 +506,7 @@ as a state. See ticket Dynasim #13596.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations\">
 IBPSA.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>
