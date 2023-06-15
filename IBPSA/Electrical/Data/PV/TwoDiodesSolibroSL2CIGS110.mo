@@ -7,7 +7,7 @@ record TwoDiodesSolibroSL2CIGS110
     eta_0 = 1,
     A_cel=1.0,
     A_mod=0.7895*1.190,
-    Eg = 1.2,
+    Eg = 1.107,
     RPar = 500.0,
     RSer = 0.027484527,
     c1 = 0.0011962052,
