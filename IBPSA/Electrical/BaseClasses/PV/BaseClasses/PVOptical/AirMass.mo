@@ -27,7 +27,7 @@ equation
         It bases on an exact empirical approach by Kasten et al. and bases on the zenith angle of the object as well as its height.</p>
         <h4>References</h4>
 <p>
-Kasten, F., &amp Young, A. T. (1989). Revised optical air mass tables and 
+Kasten, F., &amp; Young, A. T. (1989). Revised optical air mass tables and 
 approximation formula. Applied optics, 28(22), 4735-4738.
 <a href=\"https://doi.org/10.1364/AO.28.004735\">
 https://doi.org/10.1364/AO.28.004735</a>

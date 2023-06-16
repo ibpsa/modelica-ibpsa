@@ -168,14 +168,14 @@ to the parameter values at standard conditions following (DeSoto et al.,2006).</
   <span style=\"color: #008000\">References</span>
 </h4>
 <p>
-Batzelis, E. I., &amp Papathanassiou, S. A. (2015). A method for the analytical
+Batzelis, E. I., &amp; Papathanassiou, S. A. (2015). A method for the analytical
 extraction of the single-diode PV model parameters. IEEE Transactions on
 Sustainable Energy, 7(2), 504-512.
 <a href=\"https://doi.org/10.1109/TSTE.2015.2503435\">
 https://doi.org/10.1109/TSTE.2015.2503435</a>
 </p>
 <p>
-De Soto, W., Klein, S. A., &amp Beckman, W. A. (2006). Improvement and validation
+De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88,
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>

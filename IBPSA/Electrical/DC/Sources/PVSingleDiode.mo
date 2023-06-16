@@ -97,7 +97,7 @@ equation
                 Documentation(info="<html>
 <p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings.<br/>
 The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:<br/>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" </p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" alt='Single Diode Scheme'> </p>
 <p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.<br/>
 <i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub><br/>
 <i>I</i><sub>d</sub> derives from the Shockley equation </p>

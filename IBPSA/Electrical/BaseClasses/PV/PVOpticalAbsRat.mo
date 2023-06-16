@@ -183,13 +183,13 @@ IBPSA.BoundaryConditions.UsersGuide</a>.
   <span style=\"color: #008000\">References</span>
   </h4>
 <p>
-De Soto, W., Klein, S. A., &amp Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation 
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
 </p>
 <p>
-De Soto, W., Klein, S. A., &amp Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation 
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
