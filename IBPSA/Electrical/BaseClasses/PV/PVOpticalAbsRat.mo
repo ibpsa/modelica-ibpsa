@@ -4,7 +4,7 @@ model PVOpticalAbsRat
 
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical;
 
- parameter BaseClasses.PVOptical.PVType PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+  parameter BaseClasses.PVOptical.PVType PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
     "Type of PV technology";
 
  parameter Modelica.Units.SI.Height alt
@@ -65,11 +65,10 @@ model PVOpticalAbsRat
 
   Modelica.Units.SI.Angle zen "Zenith angle";
 
-  BaseClasses.PVOptical.AirMass airMass(final alt=alt)
-                                        "Air mass computation"
+  BaseClasses.PVOptical.AirMass airMass(final alt=alt) "Air mass computation"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   BaseClasses.PVOptical.AirMassModifier airMassModifier(final PVTechType=
-        PVTechType)                                     "Air mass modifier computation depending on PV type"
+        PVTechType) "Air mass modifier computation depending on PV type"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Interfaces.RealOutput absRadRat(final unit="1")
     "Ratio of absorbed radiation under operating conditions to standard conditions"
@@ -184,13 +183,13 @@ IBPSA.BoundaryConditions.UsersGuide</a>.
   <span style=\"color: #008000\">References</span>
   </h4>
 <p>
-De Soto, W., Klein, S. A., & Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., &amp Beckman, W. A. (2006). Improvement and validation 
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
 </p>
 <p>
-De Soto, W., Klein, S. A., & Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., &amp Beckman, W. A. (2006). Improvement and validation 
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
