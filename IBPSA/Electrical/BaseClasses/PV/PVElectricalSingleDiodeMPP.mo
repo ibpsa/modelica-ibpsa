@@ -117,7 +117,6 @@ equation
   <span style=\"color: #008000\">Overview</span>
 </h4>
 <p>
-  <br/>
   Analytical 5-p model for determining the I-V characteristics of a PV
   array (Batzelis et al.,2016) with temp. dependency of the 5
   parameters following (DeSoto et al.,2006).
@@ -133,7 +132,7 @@ information.
   The parameters are first determined for standard boundary conditions denoted with index 0.
   The analytical approach bases on simplifications that result in explicit equations.
   These can be solved more easily by the solver resulting in higher simulation speed.
-  The resulting five unknown parameters at standard conditions basing non explicit functions are </br>
+  The resulting five unknown parameters at standard conditions basing non explicit functions are
   the modified ideality factor </p> 
   <p align=\"center\" style=\"font-style:italic;\">a<sub>0</sub> = U<sub>L,0</sub> (1- T<sub>cell,0</sub> &beta;<sub>U,L</sub>) &frasl; (50.1 - T<sub>cell,0</sub> &alpha;<sub>I,K</sub>),</p>
   <p> the serial resistance </p> 

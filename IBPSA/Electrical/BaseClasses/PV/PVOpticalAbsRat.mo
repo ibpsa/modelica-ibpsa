@@ -173,7 +173,6 @@ airMassModifier.airMasMod*(HDirHor/HGloTil0*R_b*incAngMod
         Documentation(info="<html>
 <p>
 This is an optical model to calculate the absorption ratio of a PV cell based on the radiation.
-<br/>
 The model computes the air mass AM = 
 </p>
 <p>
