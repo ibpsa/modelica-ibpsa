@@ -96,7 +96,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>
 <p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings.<br/>
-The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:<br/>
+The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:<br/></p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" alt='Single Diode Scheme'> </p>
 <p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.<br/>
 <i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub><br/>
@@ -112,7 +112,7 @@ the number of serial cells <i>N</i><sub>s</sub>,<br/>
 the ideality factor <i>n</i><sub>I</sub>,<br/>
 the Boltzman constant k,<br/>
 the elementary charge q,
-<br/>and the cell temperature <i>T</i><sub>cell</sub>.</p>
+<br/>and the cell temperature <i>T</i><sub>cell</sub>.
 <i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.<br/>
 The parallel resistance <i>R</i><sub>sh</sub> accounts for the leakage currents along the cell's side<br/>
 and <i>I</i><sub>sh</sub> is the resulting leakage current.<br/>

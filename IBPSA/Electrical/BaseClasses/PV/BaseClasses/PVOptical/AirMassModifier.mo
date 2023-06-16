@@ -64,7 +64,7 @@ b_0 + b_1*(airMas^1) + b_2*(airMas^2) + b_3*(airMas^3) + b_4*(airMas^4);
         compared to standard conditions.</p>
         <h4>References</h4>
 <p>
-Fanney, A. H., Dougherty, B. P., &amp Davis, M. W. (2003). 
+Fanney, A. H., Dougherty, B. P., &amp; Davis, M. W. (2003). 
 Short-term characterization of building integrated photovoltaic panels. 
 J. Sol. Energy Eng., 125(1), 13-20.
 <a href=\"https://doi.org/10.1115/1.1531642\">
