@@ -7,17 +7,20 @@ partial model PartialEuropeanNorm2D
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=
     Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
-
+  parameter Boolean use_evaOut
+    "=true to use evaporator outlet temperature, false for inlet";
+  parameter Boolean use_conOut
+    "=true to use condenser outlet temperature, false for inlet";
   Modelica.Blocks.Math.UnitConversions.To_degC TEvaToDegC
     "Table input is in degC"       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-40,70})));
+        origin={-40,60})));
   Modelica.Blocks.Math.UnitConversions.To_degC TConToDegC
     "Table input is in degC"      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={60,70})));
+        origin={60,60})));
   Modelica.Blocks.Tables.CombiTable2Ds tabPEle(
     final tableOnFile=false,
     final tableName="NoName",
@@ -31,7 +34,7 @@ partial model PartialEuropeanNorm2D
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,36})));
+        origin={80,30})));
   Modelica.Blocks.Tables.CombiTable2Ds tabQUse_flow(
     final tableOnFile=false,
     final tableName="NoName",
@@ -44,7 +47,7 @@ partial model PartialEuropeanNorm2D
     final extrapolation=extrapolation) "Table for useful heat flow rate"
                                        annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={40,36})));
+        origin={40,30})));
   Modelica.Blocks.Math.Product ySetTimScaFac
     "Create the product of the scaling factor and relative compressor speed"
     annotation (Placement(transformation(
@@ -70,6 +73,30 @@ partial model PartialEuropeanNorm2D
         origin={-80,70})));
 
 
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaIn if not use_evaOut
+    "Used to enable conditional bus connection" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-50,90})));
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if not use_conOut
+    "Used to enable conditional bus connection" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={40,90})));
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if use_evaOut
+    "Used to enable conditional bus connection" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-20,90})));
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if use_conOut
+    "Used to enable conditional bus connection" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={70,90})));
 protected
   parameter Real perDevMasFloCon
     "Deviation of nominal mass flow rate at condenser in percent";
@@ -105,24 +132,32 @@ initial equation
 
 
 equation
-  connect(TConToDegC.y,tabQUse_flow. u1) annotation (Line(points={{60,59},{60,48},
-          {46,48}},         color={0,0,127}));
-  connect(TEvaToDegC.y,tabQUse_flow. u2) annotation (Line(points={{-40,59},{-40,
-          54},{34,54},{34,48}}, color={0,0,127}));
-  connect(TEvaToDegC.y,tabPEle. u2) annotation (Line(points={{-40,59},{-40,54},{
-          74,54},{74,48}}, color={0,0,127}));
-  connect(TConToDegC.y,tabPEle. u1) annotation (Line(points={{60,59},{60,58},{64,
-          58},{64,56},{86,56},{86,48}}, color={0,0,127}));
+  connect(TConToDegC.y,tabQUse_flow. u1) annotation (Line(points={{60,49},{60,42},
+          {46,42}},         color={0,0,127}));
+  connect(TEvaToDegC.y,tabQUse_flow. u2) annotation (Line(points={{-40,49},{-40,
+          48},{34,48},{34,42}}, color={0,0,127}));
+  connect(TEvaToDegC.y,tabPEle. u2) annotation (Line(points={{-40,49},{-40,48},{
+          74,48},{74,42}}, color={0,0,127}));
+  connect(TConToDegC.y,tabPEle. u1) annotation (Line(points={{60,49},{60,48},{86,
+          48},{86,42}},                 color={0,0,127}));
   connect(constScaFac.y, ySetTimScaFac.u2)
     annotation (Line(points={{-80,59},{-80,48},{-76,48}}, color={0,0,127}));
   connect(scaFacTimPel.u2, ySetTimScaFac.y) annotation (Line(points={{-46,12},{-46,
           18},{-70,18},{-70,25}}, color={0,0,127}));
-  connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{40,25},
-          {42,25},{42,12},{46,12}}, color={0,0,127}));
+  connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{40,19},
+          {42,19},{42,12},{46,12}}, color={0,0,127}));
   connect(scaFacTimQUse_flow.u2, ySetTimScaFac.y) annotation (Line(points={{34,12},
           {34,18},{-70,18},{-70,25}}, color={0,0,127}));
-  connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{80,25},{80,26},{
-          -34,26},{-34,12}}, color={0,0,127}));
+  connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{80,19},{80,18},{
+          -34,18},{-34,12}}, color={0,0,127}));
+  connect(reaPasThrTConOut.y, TConToDegC.u) annotation (Line(points={{70,79},{70,
+          76},{60,76},{60,72}}, color={0,0,127}));
+  connect(TConToDegC.u, reaPasThrTConIn.y) annotation (Line(points={{60,72},{60,
+          76},{40,76},{40,79}}, color={0,0,127}));
+  connect(reaPasThrTEvaOut.y, TEvaToDegC.u) annotation (Line(points={{-20,79},{-20,
+          76},{-40,76},{-40,72}}, color={0,0,127}));
+  connect(reaPasThrTEvaIn.y, TEvaToDegC.u) annotation (Line(points={{-50,79},{-50,
+          76},{-40,76},{-40,72}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

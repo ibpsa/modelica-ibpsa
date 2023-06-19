@@ -17,6 +17,8 @@ model EuropeanNorm2D
         TEva_nominal - 273.15));
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialEuropeanNorm2D(
+    final use_conOut=datTab.use_conOut,
+    final use_evaOut=datTab.use_evaOut,
     tabQUse_flow(final table=datTab.tabQEva_flow),
     tabPEle(final table=datTab.tabPEle),
     final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,
@@ -27,31 +29,7 @@ model EuropeanNorm2D
          "Data Table of Chiller" annotation (choicesAllMatching=true);
 
 equation
-  if datTab.use_conOut then
-    connect(sigBus.TConOutMea, TConToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{60,86},{60,82}},
-      color={255,204,51},
-      thickness=0.5));
-  else
-    connect(sigBus.TConInMea, TConToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{60,86},{60,82}},
-      color={255,204,51},
-      thickness=0.5));
-  end if;
-  if datTab.use_evaOut then
-    connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{-40,86},{-40,82}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  else
-    connect(sigBus.TEvaOutMea, TEvaToDegC.u) annotation (Line(
-      points={{1,104},{0,104},{0,86},{-40,86},{-40,82}},
-      color={255,204,51},
-      thickness=0.5));
-  end if;
+
   connect(scaFacTimPel.y, PEle) annotation (Line(points={{-40,-11},{-40,-26},{-30,
           -26},{-30,-94},{0,-94},{0,-110}}, color={0,0,127}));
   connect(scaFacTimPel.y, redQCon.u2) annotation (Line(points={{-40,-11},{-40,-26},
@@ -63,6 +41,30 @@ equation
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(reaPasThrTEvaOut.u, sigBus.TEvaOutMea) annotation (Line(points={{-20,102},
+          {-20,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(reaPasThrTEvaIn.u, sigBus.TEvaInMea) annotation (Line(points={{-50,102},
+          {-50,106},{0,106},{0,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(reaPasThrTConIn.u, sigBus.TConInMea) annotation (Line(points={{40,102},
+          {40,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(reaPasThrTConOut.u, sigBus.TConOutMea) annotation (Line(points={{70,102},
+          {70,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},
