@@ -31,7 +31,7 @@ model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
   RefrigerantCycleChillerCooling refCycChiCoo
     "Regrigerant cycle instance for cooling"
     annotation (Placement(transformation(extent={{21,40},{60,80}}, rotation=0)));
-  RefrigerantCycleChillerHeating refCycChiHea if use_rev
+  RefrigerantCycleChillerHeating refCycChiHea
     "Regrigerant cycle instance for heating"
     annotation (Placement(transformation(extent={{-80,38},{-39,80}}, rotation=0)));
 
@@ -40,7 +40,7 @@ model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
         transformation(extent={{-10,-10},{10,10}},
                                                rotation=180,
         origin={-22,12})));
-  Modelica.Blocks.Math.Gain gainCon(final k=-1) if use_rev
+  Modelica.Blocks.Math.Gain gainCon(final k=-1)
     "Negate QCon to match definition of heat flow direction" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -50,7 +50,7 @@ protected
   IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
   IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
-    final k=refCycChiCoo.datSou) if not use_rev
+    final k=refCycChiCoo.datSou)
    "Constant String data source";
 initial equation
   assert(
@@ -59,25 +59,18 @@ initial equation
     Only continue if this is intended",
     AssertionLevel.warning);
 equation
-  connect(conStrSou.y, strPasThr.u);
+  if use_rev then
+    connect(refCycChiHea.datSouOut, strPasThr.u);
+  else
+    connect(conStrSou.y, strPasThr.u);
+  end if;
+
   connect(pasTrhModSet.u, sigBus.coo);
-  connect(refCycChiHea.datSouOut, strPasThr.u);
+
   connect(refCycChiCoo.PEle, swiPEle.u1) annotation (Line(points={{40.5,38},{40,
           38},{40,8},{8,8},{8,-58}}, color={0,0,127}));
   connect(refCycChiHea.PEle, swiPEle.u3) annotation (Line(
       points={{-59.5,35.9},{-58,35.9},{-58,26},{-24,26},{-24,-58},{-8,-58}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(constZer.y, swiPEle.u3) annotation (Line(
-      points={{-59,-70},{-34,-70},{-34,-58},{-8,-58}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(constZer.y, swiQEva.u3) annotation (Line(
-      points={{-59,-70},{-52,-70},{-52,-8},{-58,-8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(constZer.y, swiQCon.u3) annotation (Line(
-      points={{-59,-70},{-52,-70},{-52,-38},{58,-38},{58,-8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus,refCycChiHea.sigBus)  annotation (Line(

@@ -9,9 +9,6 @@ partial model PartialModularRefrigerantCycle
     "Signal bus with data for refrigerant models" annotation (Placement(
         transformation(extent={{-18,86},{18,118}}), iconTransformation(extent={{
             -16,88},{18,118}})));
-  Modelica.Blocks.Sources.Constant constZer(final k=0) if not use_rev
-    "If no heating is used, the switches may still be connected"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final unit="W", final displayUnit="kW")
     "Heat Flow to condenser"

@@ -3,13 +3,12 @@ function WetterAfjei1997
   "Correction of COP (Icing, Defrost) according to Wetter, Afjei 1997"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.PartialBaseFunction;
-
+protected
   parameter Real offLin=0.03 "First factor for linear term, offset";
   parameter Real sloLin=-0.004 "Second factor for linear term, slope";
   parameter Real gauFac=0.1534 "Parameter for gaussian curve, factor";
   parameter Real gauMea=0.8869 "Parameter for gaussian curve, mean";
   parameter Real gauSig=26.06 "Parameter for gaussian curve, sigma";
-protected
   Real fac "Probability of icing";
   Real linTer "Linear part of equation";
   Real gauTer "Gaussian part of equation";
