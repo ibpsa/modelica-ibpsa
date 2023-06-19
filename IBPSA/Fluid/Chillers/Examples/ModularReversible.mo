@@ -12,7 +12,10 @@ model ModularReversible
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
-        (refIneFreConst=1/300, nthOrd=1),
+        (
+        refIneFreConst=1/300,
+        nthOrd=1,
+        initType=Modelica.Blocks.Types.Init.InitialState),
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrPar(
