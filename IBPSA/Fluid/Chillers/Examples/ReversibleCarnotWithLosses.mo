@@ -23,6 +23,7 @@ model ReversibleCarnotWithLosses
     CCon=0,
     GConOut=0,
     GConIns=0,
+    cpCon=4184,
     TEva_nominal=278.15,
     dTEva_nominal(displayUnit="K") = 10,
     dTCon_nominal(displayUnit="K") = 5,
@@ -31,6 +32,7 @@ model ReversibleCarnotWithLosses
     CEva=0,
     GEvaOut=0,
     GEvaIns=0,
+    cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Chiller instance with reversbile carnot approach"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

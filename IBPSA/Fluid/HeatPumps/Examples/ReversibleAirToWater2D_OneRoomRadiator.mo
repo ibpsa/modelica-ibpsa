@@ -1,18 +1,26 @@
 within IBPSA.Fluid.HeatPumps.Examples;
 model ReversibleAirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
-  extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
-        realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
+  extends BaseClasses.PartialOneRoomRadiator(
+    mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
+    mCon_flow_nominal=revCarWitLosHeaPum.mCon_flow_nominal,
+    sin(nPorts=1, redeclare package Medium = MediumAir),
+    booToReaPumEva(realTrue=revCarWitLosHeaPum.mEva_flow_nominal),
+    pumHeaPumSou(
+      redeclare package Medium = MediumAir),
+    sou(redeclare package Medium = MediumAir));
 
   IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
     redeclare package MediumCon = MediumWat,
-    redeclare package MediumEva = MediumWat,
+    redeclare package MediumEva = MediumAir,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
+    mCon_flow_nominal=0.717225,
     dpCon_nominal(displayUnit="Pa") = 2000,
     TEva_nominal=sou.T,
+    mEva_flow_nominal=2.3116,
     dpEva_nominal(displayUnit="Pa") = 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare

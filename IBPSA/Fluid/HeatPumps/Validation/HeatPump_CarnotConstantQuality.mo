@@ -16,21 +16,17 @@ model HeatPump_CarnotConstantQuality
           useAirForCon=false,
           useAirForEva=false,
           quaGra=quaGra)));
-  parameter Real quaGra=0.4318 "Calibrated constant quality grade"
-    annotation(Evaluate=false);
+  parameter Real quaGra=0.4318 "Calibrated constant quality grade";
 
   parameter Modelica.Units.SI.Power PEle_nominal=1884.218212
     "Calibrated nominal electrical power";
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.407396
-    "Calibrated condenser nominal mass flow rate"
-    annotation (Evaluate=false);
+    "Calibrated condenser nominal mass flow rate";
   parameter Modelica.Units.SI.Volume VCon=0.0015972
-    "Calibrated condenser volume"
-    annotation (Evaluate=false);
+    "Calibrated condenser volume";
   parameter Modelica.Units.SI.Frequency refIneFreConst=13.2e-3
-    "Calibrated cut off frequency for inertia of refrigerant cycle"
-    annotation (Evaluate=false);
+    "Calibrated cut off frequency for inertia of refrigerant cycle";
 
 annotation (experiment(Tolerance=1e-6, StopTime=14365),
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/HeatPump_CarnotConstantQuality.mos"

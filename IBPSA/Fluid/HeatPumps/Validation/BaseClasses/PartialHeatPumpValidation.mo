@@ -58,8 +58,8 @@ partial model PartialHeatPumpValidation
         rotation=270,
         origin={2,-21})));
 
-  IBPSA.Fluid.Sources.Boundary_pT sinSidFixBou(redeclare final package Medium
-      = MediumSin, nPorts=1) "Fixed boundary at the outlet of the sink side"
+  IBPSA.Fluid.Sources.Boundary_pT sinSidFixBou(redeclare final package Medium =
+        MediumSin, nPorts=1) "Fixed boundary at the outlet of the sink side"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

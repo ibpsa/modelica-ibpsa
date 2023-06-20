@@ -13,8 +13,10 @@ partial model PartialOneRoomRadiator
     "Radiator nominal supply water temperature";
   parameter Modelica.Units.SI.Temperature TRadRet_nominal=273.15 + 45
     "Radiator nominal return water temperature";
-  parameter Modelica.Units.SI.MassFlowRate mHeaPum_flow_nominal=Q_flow_nominal/
-      4200/5 "Heat pump nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=Q_flow_nominal/4200
+      /5 "Heat pump nominal mass flow rate in condenser";
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+    "Heat pump nominal mass flow rate in evaporator";
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   parameter Modelica.Units.SI.MassFlowRate mAirRoo_flow_nominal=V*1.2*6/3600
     "Nominal mass flow rate of room air";
@@ -51,14 +53,14 @@ partial model PartialOneRoomRadiator
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal,
-    m_flow_nominal=mHeaPum_flow_nominal,
-    T_start=TRadSup_nominal)     "Radiator"
+    m_flow_nominal=mCon_flow_nominal,
+    T_start=TRadSup_nominal) "Radiator"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   IBPSA.Fluid.Sensors.TemperatureTwoPort temSup(
     redeclare package Medium = MediumWat,
-    m_flow_nominal=mHeaPum_flow_nominal,
-    T_start=TRadSup_nominal)            "Supply water temperature"
-      annotation (Placement(transformation(
+    m_flow_nominal=mCon_flow_nominal,
+    T_start=TRadSup_nominal) "Supply water temperature" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-70,-20})));
@@ -71,13 +73,13 @@ partial model PartialOneRoomRadiator
 
   IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
-    m_flow_nominal=mHeaPum_flow_nominal,
+    m_flow_nominal=mCon_flow_nominal,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Pump for radiator side"
-    annotation (Placement(transformation(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Pump for radiator side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-70,-110})));
@@ -85,9 +87,9 @@ partial model PartialOneRoomRadiator
 
   IBPSA.Fluid.Sensors.TemperatureTwoPort temRet(
     redeclare package Medium = MediumWat,
-    m_flow_nominal=mHeaPum_flow_nominal,
-    T_start=TRadSup_nominal) "Return water temperature"
-    annotation (Placement(transformation(
+    m_flow_nominal=mCon_flow_nominal,
+    T_start=TRadSup_nominal) "Return water temperature" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-20})));
@@ -110,7 +112,7 @@ partial model PartialOneRoomRadiator
   IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumWat,
     m_flow_start=0.85,
-    m_flow_nominal=mHeaPum_flow_nominal,
+    m_flow_nominal=mEva_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -118,9 +120,8 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-180})));
-  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(realTrue=
-        mHeaPum_flow_nominal, y(start=0)) "Pump signal" annotation (Placement(
-        transformation(
+  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(realTrue=mCon_flow_nominal,
+      y(start=0)) "Pump signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,-110})));

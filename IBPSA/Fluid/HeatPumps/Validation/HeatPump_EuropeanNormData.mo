@@ -22,14 +22,11 @@ model HeatPump_EuropeanNormData
               devIde="Vaillaint_VWL101"))));
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.404317
-    "Condenser nominal mass flow rate"
-    annotation (Evaluate=false);
+    "Condenser nominal mass flow rate";
   parameter Modelica.Units.SI.Volume VCon=0.004473
-    "Condenser volume"
-    annotation (Evaluate=false);
+    "Condenser volume";
   parameter Modelica.Units.SI.Frequency refIneFreConst=0.011848
-    "Cut off frequency for inertia of refrigerant cycle"
-    annotation (Evaluate=false);
+    "Cut off frequency for inertia of refrigerant cycle";
 
   annotation (experiment(Tolerance=1e-6, StopTime=14365),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/HeatPump_EuropeanNormData.mos"

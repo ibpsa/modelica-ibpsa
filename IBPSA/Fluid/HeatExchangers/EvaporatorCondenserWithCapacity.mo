@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatExchangers;
 model EvaporatorCondenserWithCapacity
+  "Evaporaotr / Condenser model with added capacity for heat losses to the ambient"
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol(final V=
           m_flow_nominal*tau/rho_default,

@@ -1,8 +1,11 @@
 within IBPSA.Fluid.HeatPumps.Examples;
 model ReversibleCarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with carnot approach connected to a simple room model with radiator"
-  extends BaseClasses.PartialOneRoomRadiator(sin(nPorts=1), booToReaPumEva(
-        realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
+  extends Examples.BaseClasses.PartialOneRoomRadiator(
+    mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
+    mCon_flow_nominal=revCarWitLosHeaPum.mCon_flow_nominal,
+    sin(nPorts=1),
+    booToReaPumEva(realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating power";
   IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses revCarWitLosHeaPum(
@@ -14,7 +17,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
-    mCon_flow_nominal=mHeaPum_flow_nominal,
+    mCon_flow_nominal=mCon_flow_nominal,
     dpCon_nominal(displayUnit="Pa") = 2000,
     CCon=5000,
     GConOut=perHeaLos*Q_flow_nominal/(TRadSup_nominal - temAmbBas.k),
@@ -25,6 +28,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     CEva=5000,
     GEvaOut=perHeaLos*Q_flow_nominal/(temAmbBas.k - sou.T),
     GEvaIns=20000,
+    cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl

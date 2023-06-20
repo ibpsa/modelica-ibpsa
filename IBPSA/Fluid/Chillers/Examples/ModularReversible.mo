@@ -27,6 +27,7 @@ model ModularReversible
     CCon=0,
     GConOut=0,
     GConIns=0,
+    cpCon=4184,
     TEva_nominal=278.15,
     dTEva_nominal=5,
     dTCon_nominal=5,
@@ -35,6 +36,7 @@ model ModularReversible
     CEva=0,
     GEvaOut=0,
     GEvaIns=0,
+    cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
     redeclare model RefrigerantCycleChillerCooling =
