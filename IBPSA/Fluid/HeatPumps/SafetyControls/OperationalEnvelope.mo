@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.SafetyControls;
+﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 model OperationalEnvelope
   "Model which computes an error if the current 
   values are outside of the given operatinal envelope"
@@ -15,8 +15,7 @@ model OperationalEnvelope
     "=true to use not useful sides outlet temperature for envelope, false for inlet";
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys=5
-    "Temperature deadband in the operational envelope"
-    annotation (Dialog(enable=use_opeEnv));
+    "Temperature deadband in the operational envelope";
 
   IBPSA.Fluid.HeatPumps.SafetyControls.BaseClasses.BoundaryMap bouMapHea(
     final tab=tabUppHea,

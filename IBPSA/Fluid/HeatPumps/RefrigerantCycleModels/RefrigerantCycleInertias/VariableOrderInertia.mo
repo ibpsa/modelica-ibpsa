@@ -5,18 +5,17 @@ model VariableOrderInertia
 
   parameter Modelica.Units.SI.Frequency refIneFreConst
     "Cut off frequency for inertia of refrigerant cycle" annotation (
-      Dialog(enable=use_refIne, group="Refrigerant inertia"),
+      Dialog(group="Refrigerant inertia"),
             Evaluate=true);
   parameter Integer nthOrd=1 "Order of refrigerant cycle interia"
-    annotation (Dialog(enable=use_refIne, group="Refrigerant inertia"));
+    annotation (Dialog(group="Refrigerant inertia"));
   parameter Real x_start[nthOrd]=zeros(nthOrd)
     "Initial or guess values of states" annotation (Dialog(
       tab="Initialization",
-      group="Refrigerant inertia",
-      enable=use_refIne));
+      group="Refrigerant inertia"));
   parameter Real yRefIne_start=0 "Initial or guess value of output (= state)"
     annotation (Dialog(tab="Initialization", group="Refrigerant inertia",
-      enable=initType == Init.InitialOutput and use_refIne));
+      enable=initType == Modelica.Blocks.Types.Init.InitialOutput));
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: 
     steady state, 3: initial state, 4: initial output)";

@@ -3,8 +3,7 @@ model AntiFreeze "Model to prevent source from freezing"
   extends BaseClasses.PartialSafetyControlWithErrors;
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TAntFre=276.15
-    "Limit temperature for anti freeze control"
-    annotation (Dialog(enable=use_antFre));
+    "Limit temperature for anti freeze control";
   parameter Real dTHys=2
     "Hysteresis interval width";
   Modelica.Blocks.Logical.Hysteresis hys(

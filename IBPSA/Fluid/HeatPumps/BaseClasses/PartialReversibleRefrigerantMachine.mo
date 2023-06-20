@@ -66,8 +66,7 @@ partial model PartialReversibleRefrigerantMachine
     "Manual input of the nominal mass flow rate (if not automatically calculated)"
     annotation (Dialog(
       group="Nominal Design",
-      tab="Condenser",
-      enable=not use_autoCalc));
+      tab="Condenser"));
 
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
@@ -127,8 +126,7 @@ partial model PartialReversibleRefrigerantMachine
     "Manual input of the nominal mass flow rate (if not automatically calculated)"
     annotation (Dialog(
       group="Nominal Design",
-      tab="Evaporator",
-      enable=not use_autoCalc));
+      tab="Evaporator"));
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Flow resistance",

@@ -30,7 +30,7 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
           enable=use_minRunTime));
   parameter Boolean preYSet_start "Start value of pre(n) at initial time"
     annotation (
-      Dialog(group="OnOffControl", descriptionLabel=true),
+      Dialog(group="OnOffControl"),
       choices(checkBox=true));
 
   parameter Boolean use_opeEnv
@@ -71,19 +71,11 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
     annotation (choices(checkBox=true), Dialog(group="Mass flow rates"));
   parameter Real m_flowEvaMinPer
     "Percentage of mass flow rate in evaporator required to operate the device"
-    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
+    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtr));
   parameter Real m_flowConMinPer
     "Percentage of mass flow rate in condenser required to operate the device"
-    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtrl));
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv),
-                Dialog(group="Operational Envelope", enable=use_opeEnv),
-                Dialog(group="Operational Envelope", enable=use_opeEnv),
-                Dialog(group="Operational Envelope", enable=use_opeEnv),
-                Dialog(group="Operational Envelope", enable=use_opeEnv),
-                Dialog(group="Operational Envelope", enable=use_opeEnv),
-                 Dialog(group="Anti Freeze Control", enable=use_antFre),
-                Dialog(group="Anti Freeze Control", enable=use_antFre),
-    Icon(graphics, coordinateSystem(preserveAspectRatio=false)),
+    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtr));
+    annotation (Icon(graphics, coordinateSystem(preserveAspectRatio=false)),
      Diagram(graphics, coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

@@ -4,11 +4,9 @@ model MinimalVolumeFlowRateSafety
   extends BaseClasses.PartialSafetyControlWithErrors;
 
   parameter Modelica.Units.SI.MassFlowRate mEvaMin_flow
-    "Minimal mass flow rate in evaporator required to operate the device"
-    annotation (Dialog(enable=use_minFlowCtrl));
+    "Minimal mass flow rate in evaporator required to operate the device";
   parameter Modelica.Units.SI.MassFlowRate mConMin_flow
-    "Minimal mass flow rate in condenser required to operate the device"
-    annotation (Dialog(enable=use_minFlowCtrl));
+    "Minimal mass flow rate in condenser required to operate the device";
   Modelica.Blocks.Logical.Hysteresis hysCon(
     final uLow=mConMin_flow,
     final uHigh=max(mConMin_flow*1.1, Modelica.Constants.eps),
