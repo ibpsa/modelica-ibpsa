@@ -15,7 +15,7 @@ partial model PartialOneRoomRadiator
     "Radiator nominal return water temperature";
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=Q_flow_nominal/4200
       /5 "Heat pump nominal mass flow rate in condenser";
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal(min=Modelica.Constants.eps)
     "Heat pump nominal mass flow rate in evaporator";
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   parameter Modelica.Units.SI.MassFlowRate mAirRoo_flow_nominal=V*1.2*6/3600
