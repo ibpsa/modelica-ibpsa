@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
+within IBPSA.Fluid.HeatPumps.SafetyControls;
 model OperationalEnvelope
   "Model which computes an error if the current 
   values are outside of the given operatinal envelope"
@@ -246,27 +246,27 @@ equation
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_1.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
-Figure 1: Possible upper and lower boundaries 
-as well as temperature specifications in datasheets
+  Figure 1: Possible upper and lower boundaries 
+  as well as temperature specifications in datasheets
 </p>
 
 <p align=\"center\">
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_2.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
-Figure 2: Example for an air-to-water heat pump or chiller. 
-The supply temperature is the temperature leaving the device 
-into the hydraulic circuit of the building. 
-Red crosses indicate the point to write into the 2D table in Modelica.
+  Figure 2: Example for an air-to-water heat pump or chiller. 
+  The supply temperature is the temperature leaving the device 
+  into the hydraulic circuit of the building. 
+  Red crosses indicate the point to write into the 2D table in Modelica.
 </p>
 
 <p align=\"center\">
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_3.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
-Figure 3: Example for an air-to-air heat pump or chiller. 
-The room temperature acts as an inflow to the device. 
-Red crosses indicate the point to write into the 2D table in Modelica.
+  Figure 3: Example for an air-to-air heat pump or chiller. 
+  The room temperature acts as an inflow to the device. 
+  Red crosses indicate the point to write into the 2D table in Modelica.
 </p>
 
 </html>"));
