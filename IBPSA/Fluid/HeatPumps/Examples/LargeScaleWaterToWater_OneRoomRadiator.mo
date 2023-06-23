@@ -41,7 +41,7 @@ equation
           0,0,127}));
   annotation (
      __Dymola_Commands(file=
-     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/ReversibleAirToWater2D_OneRoomRadiator.mos"
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Examples/LargeScaleWaterToWater_OneRoomRadiator.mos"
         "Simulate and plot"),
   experiment(
       StartTime=0,
