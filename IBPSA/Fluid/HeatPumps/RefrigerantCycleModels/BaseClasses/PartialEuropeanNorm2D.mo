@@ -118,7 +118,7 @@ protected
       smoothness,
       extrapolation,
       false) "External table object for nominal electrical power";
-initial equation
+initial algorithm
   assert(perDevMasFloCon < 1,
       "The deviation of the given mCon_flow_nominal to the table data is " +
       String(perDevMasFloCon) + " %. Carefully check results, 
