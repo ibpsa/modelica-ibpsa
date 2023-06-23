@@ -52,7 +52,7 @@ protected
   IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
     final k=refCycChiCoo.datSou)
    "Constant String data source";
-initial equation
+initial algorithm
   assert(
     strPasThr.y ==refCycChiCoo.datSou,
     "Data sources for reversible operation are not equal! 
