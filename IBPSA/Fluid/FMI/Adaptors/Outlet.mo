@@ -153,6 +153,11 @@ for how to use this model.
 </html>", revisions="<html>
 <ul>
 <li>
+June 29, 2023, by Michael Wetter:<br/>
+Corrected dimension of <code>X</code> in function call.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1768\">#1768</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air and water.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
