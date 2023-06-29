@@ -15,6 +15,7 @@ IntegratorWithReset
 InverseXRegularized
 Max
 Min
+MovingAverage
 Polynomial
 PowerLinearized
 QuadraticLinear
