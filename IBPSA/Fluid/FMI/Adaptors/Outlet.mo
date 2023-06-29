@@ -85,7 +85,7 @@ equation
   bacPro_internal.T  = Medium.temperature_phX(
     p = p_in_internal,
     h = port_a.h_outflow,
-    X = port_a.Xi_outflow);
+    X = cat(1, port_a.Xi_outflow, {1-sum(port_a.Xi_outflow)}));
   bacPro_internal.C  = port_a.C_outflow;
 
   // Conditional connectors for pressure
