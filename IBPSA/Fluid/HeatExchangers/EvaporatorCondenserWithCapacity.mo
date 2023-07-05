@@ -153,12 +153,6 @@ equation
           fillPattern=FillPattern.Solid,
           textString="V"),
         Rectangle(
-          extent={{-4,-42},{4,-50}},
-          pattern=LinePattern.None,
-          fillColor={191,0,0},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Rectangle(
           extent={{-107,5},{-44,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -185,7 +179,7 @@ equation
           color={0,0,0},
           pattern=LinePattern.None),
         Rectangle(
-          extent={{0,-98},{0,-48}},
+          extent={{0,-98},{0,-60}},
           lineColor={238,46,47},
           pattern=LinePattern.None,
           fillColor={191,0,0},
@@ -255,7 +249,14 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=not is_con)}), Documentation(revisions="<html><ul>
+          visible=not is_con),
+        Text(
+          extent={{-100,-100},{100,-60}},
+          textColor={28,108,200},
+          pattern=LinePattern.Dash,
+          fillColor={255,215,136},
+          fillPattern=FillPattern.Solid,
+          textString="Q_flow")}),Documentation(revisions="<html><ul>
   <li>
     <i>November 26, 2018&#160;</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
