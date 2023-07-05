@@ -1,6 +1,5 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData;
-record RefrigerantCycle2DBaseDataDefinition
-  "Basic data for refrigerant machine according to EN 14511"
+within IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D;
+record Generic "Basic data for refrigerant machine according to EN 14511"
     extends Modelica.Icons.Record;
   parameter Real tabPEle[:,:]
     "Electrical power table, T in degC, Q_flow in W";
@@ -69,4 +68,4 @@ record RefrigerantCycle2DBaseDataDefinition
 </ul>
 </html>
 "),Icon);
-end RefrigerantCycle2DBaseDataDefinition;
+end Generic;

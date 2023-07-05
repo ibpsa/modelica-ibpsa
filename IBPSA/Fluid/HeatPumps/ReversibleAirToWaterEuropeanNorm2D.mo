@@ -28,9 +28,8 @@ model ReversibleAirToWaterEuropeanNorm2D
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia);
 
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.AirToWaterBaseDataDefinition
-    datTabHea constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.AirToWaterBaseDataDefinition
+    IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericAirToWater datTabHea
+    constrainedby IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericAirToWater
     "Data Table of HP" annotation (choicesAllMatching=true);
   replaceable parameter IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.Generic
     datTabCoo constrainedby IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.Generic

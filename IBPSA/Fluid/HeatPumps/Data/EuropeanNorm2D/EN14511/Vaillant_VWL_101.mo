@@ -1,18 +1,11 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511;
+within IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511;
 record Vaillant_VWL_101 "Vaillant VWL10-1"
-  extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
+  extends IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericHeatPump(
     devIde="Vaillant_VWL_101",
-    tabPEle=[
-      0,-15,-7,2,7;
-      35,2138,2177,2444,2444;
-      45,2558,2673,2864,3055;
-      55,2902,3131,3360,3513],
-    tabQCon_flow=[
-      0,-15,-7,2,7;
-      35,5842,7523,9776,10807;
-      45,5842,7332,9050,10387;
-      55,5728,7179,9050,10043],
+    tabPEle=[0,-15,-7,2,7; 35,2138,2177,2444,2444; 45,2558,2673,2864,3055; 55,
+        2902,3131,3360,3513],
+    tabQCon_flow=[0,-15,-7,2,7; 35,5842,7523,9776,10807; 45,5842,7332,9050,
+        10387; 55,5728,7179,9050,10043],
     mCon_flow_nominal=9776/4180/5,
     mEva_flow_nominal=1,
     tabUppBou=[-25,65; 40,65],

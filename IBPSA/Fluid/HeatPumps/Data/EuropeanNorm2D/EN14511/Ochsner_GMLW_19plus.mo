@@ -1,18 +1,11 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511;
+within IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511;
 record Ochsner_GMLW_19plus "Ochsner GMLW 19 plus"
-  extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition(
+  extends IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericHeatPump(
     devIde="Ochsner_GMLW_19plus",
-    tabPEle=[
-      0,-10,2,7;
-      35,4100,4300,4400;
-      50,5500,5700,5800;
-      60,6300,6500, 6600],
-    tabQCon_flow=[
-      0,-10,2,7;
-      35,12600,16800,19800;
-      50,11700,15900,18900;
-      60,11400,15600,18600],
+    tabPEle=[0,-10,2,7; 35,4100,4300,4400; 50,5500,5700,5800; 60,6300,6500,6600],
+
+    tabQCon_flow=[0,-10,2,7; 35,12600,16800,19800; 50,11700,15900,18900; 60,
+        11400,15600,18600],
     mCon_flow_nominal=19800/4180/5,
     mEva_flow_nominal=1,
     tabUppBou=[-24,52; -15,55; -10,65; 40,65],

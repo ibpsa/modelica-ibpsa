@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData;
-record AirToWaterBaseDataDefinition
+within IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D;
+record GenericAirToWater
   "Partial record to allow automatic selection of air-to-water heat pump devices"
-  extends HeatPumpBaseDataDefinition;
+  extends GenericHeatPump;
   annotation (Documentation(revisions="<html>
 <ul>
   <li>
@@ -18,4 +18,4 @@ record AirToWaterBaseDataDefinition
   IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a>.
 </p>
 </html>"));
-end AirToWaterBaseDataDefinition;
+end GenericAirToWater;

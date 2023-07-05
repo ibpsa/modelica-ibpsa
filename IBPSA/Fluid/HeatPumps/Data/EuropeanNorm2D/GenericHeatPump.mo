@@ -1,7 +1,6 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData;
-record HeatPumpBaseDataDefinition "Basic heat pump data"
-  extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition;
+within IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D;
+record GenericHeatPump "Basic heat pump data"
+  extends IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.Generic;
   parameter Real tabQCon_flow[:,:]
     "Heating power table, T in degC, Q_flow in W";
   parameter Real tabUppBou[:,2]
@@ -16,7 +15,7 @@ record HeatPumpBaseDataDefinition "Basic heat pump data"
   Base data definition used in the heat pump model.
 </p>
 <p>
-  Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition\">
+  Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.Generic\">
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
   to enable correct selection.</p>
 <p>
@@ -41,4 +40,4 @@ record HeatPumpBaseDataDefinition "Basic heat pump data"
 </ul>
 </html>
 "),Icon);
-end HeatPumpBaseDataDefinition;
+end GenericHeatPump;

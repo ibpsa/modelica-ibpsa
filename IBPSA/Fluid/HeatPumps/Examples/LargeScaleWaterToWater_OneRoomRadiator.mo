@@ -24,7 +24,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrParEurNor,
     datTab=
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW())
+        IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW())
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 equation
