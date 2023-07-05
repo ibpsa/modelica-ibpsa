@@ -46,9 +46,9 @@ partial model PartialReversibleRefrigerantMachine
     "=true to enable internal safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrPar
+    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl safCtrPar
     constrainedby
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition
+    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition
     "Safety control parameters" annotation (Dialog(enable=
           use_internalSafetyControl, group="Safety Control"),
       choicesAllMatching=true);
@@ -285,7 +285,7 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,110})));
-  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl safCtr(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl safCtr(
     final mEva_flow_nominal=mEva_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     safCtrPar=safCtrPar,
@@ -421,8 +421,8 @@ equation
       points={{0,-112},{0,-118},{54,-118},{54,-100},{60,-100}},
       color={191,0,0},
       pattern=LinePattern.Dash));
-  connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60},{-100,
-          -60}}, color={0,127,255}));
+  connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60}},
+                 color={0,127,255}));
   connect(mEva_flow.port_a, port_a2)
     annotation (Line(points={{82,-60},{100,-60}}, color={0,127,255}));
   connect(port_a1,mCon_flow. port_a)

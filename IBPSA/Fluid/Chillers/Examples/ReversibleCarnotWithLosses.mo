@@ -11,7 +11,7 @@ model ReversibleCarnotWithLosses
     QUse_flow_nominal=30000,
     y_nominal=1,
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
+      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrPar(
       minLocTime=100,
       use_runPerHou=false,

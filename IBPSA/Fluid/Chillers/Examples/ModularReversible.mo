@@ -17,7 +17,7 @@ model ModularReversible
         nthOrd=1,
         initType=Modelica.Blocks.Types.Init.InitialState),
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
+      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrPar(
       minLocTime=100,
       use_opeEnv=false),

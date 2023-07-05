@@ -7,7 +7,7 @@ model LargeScaleWaterToWater
 
   IBPSA.Fluid.Chillers.LargeScaleWaterToWater larScaWatToWatChi(
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
+      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrParEurNor,
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,

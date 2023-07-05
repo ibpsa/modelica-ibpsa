@@ -47,7 +47,7 @@ model ModularReversible_OneRoomRadiator
           iceFacCal, datTab=
             IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
     redeclare
-      IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl
+      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
       safCtrPar(
       use_TUseOut=true,
       use_TNotUseOut=false,

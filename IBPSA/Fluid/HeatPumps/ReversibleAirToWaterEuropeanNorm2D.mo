@@ -35,9 +35,9 @@ model ReversibleAirToWaterEuropeanNorm2D
     datTabCoo constrainedby IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.Generic
     "Data Table of Chiller" annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
+    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
     constrainedby
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
       final tabUppHea=datTabHea.tabUppBou,
       final tabLowCoo=datTabCoo.tabLowBou,
       final use_TUseOut=datTabHea.use_TConOutForOpeEnv,
