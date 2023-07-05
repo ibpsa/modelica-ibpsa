@@ -38,9 +38,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
         autCalMMin_flow),
     final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin));
-  replaceable parameter IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW
-    datTab constrainedby RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition
-         "Data Table of Chiller" annotation(choicesAllMatching=true);
+  replaceable parameter
+    IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Carrier30XWP1012_1MW
+    datTab constrainedby Data.EuropeanNorm2D.Generic "Data Table of Chiller"
+    annotation (choicesAllMatching=true);
   replaceable parameter
     IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
     constrainedby
@@ -75,7 +76,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </p>
 <p>
   Currently the only data sheets for chillers that large is the record 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW\">
+  <a href=\"modelica://IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Carrier30XWP1012_1MW\">
   IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW</a>, 
   hence, the default value.
 </p>

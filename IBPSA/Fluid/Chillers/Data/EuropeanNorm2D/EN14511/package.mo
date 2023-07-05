@@ -1,7 +1,8 @@
-within IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData;
+within IBPSA.Fluid.Chillers.Data.EuropeanNorm2D;
 package EN14511
 
-annotation (Documentation(revisions="<html><ul>
+annotation (preferredView="info",
+Documentation(revisions="<html><ul>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   Adapted based on IBPSA implementation (see issue <a href=

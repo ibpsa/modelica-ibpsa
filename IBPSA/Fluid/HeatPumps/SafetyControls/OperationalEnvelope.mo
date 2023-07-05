@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.SafetyControls;
+﻿within IBPSA.Fluid.HeatPumps.SafetyControls;
 model OperationalEnvelope
   "Model which computes an error if the current 
   values are outside of the given operatinal envelope"
@@ -186,7 +186,7 @@ equation
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData\">
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData</a>)
   and chillers 
-  (<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData\">
+  (<a href=\"modelica://IBPSA.Fluid.Chillers.Data.EuropeanNorm2D\">
   IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData</a>)
   contain typical values. Older devices typically have lower limits
   while new refrigerant machines based on Propane or advanced flowsheets

@@ -32,10 +32,8 @@ model ReversibleAirToWaterEuropeanNorm2D
     datTabHea constrainedby
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.AirToWaterBaseDataDefinition
     "Data Table of HP" annotation (choicesAllMatching=true);
-  replaceable parameter
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition
-    datTabCoo constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition
+  replaceable parameter IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.Generic
+    datTabCoo constrainedby IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.Generic
     "Data Table of Chiller" annotation (choicesAllMatching=true);
   replaceable parameter
     IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor

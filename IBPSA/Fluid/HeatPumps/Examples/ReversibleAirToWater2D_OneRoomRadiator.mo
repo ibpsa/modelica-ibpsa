@@ -26,8 +26,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     redeclare
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201
       datTabHea,
-    redeclare
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201
+    redeclare IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
       datTabCoo,
     redeclare
       IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl

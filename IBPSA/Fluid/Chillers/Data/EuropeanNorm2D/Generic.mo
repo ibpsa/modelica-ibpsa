@@ -1,5 +1,5 @@
-within IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData;
-record ChillerBaseDataDefinition "Basic chiller data"
+within IBPSA.Fluid.Chillers.Data.EuropeanNorm2D;
+record Generic "Basic chiller data"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition;
 
@@ -35,4 +35,4 @@ record ChillerBaseDataDefinition "Basic chiller data"
 </ul>
 </html>"),
    Icon);
-end ChillerBaseDataDefinition;
+end Generic;
