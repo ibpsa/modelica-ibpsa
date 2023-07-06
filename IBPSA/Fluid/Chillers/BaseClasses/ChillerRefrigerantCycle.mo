@@ -4,18 +4,7 @@ model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
   // Setting all values to zero avoids errors when checking this model.
   // The values are correctly propagated by the heat pump / chiller model anyway
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
-      (
-      QUse_flow_nominal=0,
-      QUseNoSca_flow_nominal=0,
-      scaFac=0,
-      TCon_nominal=0,
-      TEva_nominal=0,
-      dTCon_nominal=0,
-      dTEva_nominal=0,
-      mCon_flow_nominal=0,
-      mEva_flow_nominal=0,
-      y_nominal=0)
+      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
     constrainedby
     IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
     "Replaceable model for refrigerant cycle of a chiller in main operation mode"
