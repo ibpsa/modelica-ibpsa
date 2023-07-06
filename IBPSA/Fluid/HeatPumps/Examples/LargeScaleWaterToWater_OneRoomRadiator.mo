@@ -20,8 +20,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     TEva_nominal=sou.T,
     dpEva_nominal(displayUnit="Pa") = 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare
-      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
+    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
     datTab=
         IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW())

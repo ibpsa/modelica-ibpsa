@@ -28,8 +28,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       datTabHea,
     redeclare IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
       datTabCoo,
-    redeclare
-      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
+    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor(
         use_minRunTime=false,
         use_minLocTime=true,

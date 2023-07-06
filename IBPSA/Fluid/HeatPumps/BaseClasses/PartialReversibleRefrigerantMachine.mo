@@ -46,9 +46,8 @@ partial model PartialReversibleRefrigerantMachine
     "=true to enable internal safety control"
     annotation (Dialog(group="Safety Control"), choices(checkBox=true));
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl safCtrPar
-    constrainedby
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition
+    IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+    constrainedby IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (Dialog(enable=
           use_internalSafetyControl, group="Safety Control"),
       choicesAllMatching=true);

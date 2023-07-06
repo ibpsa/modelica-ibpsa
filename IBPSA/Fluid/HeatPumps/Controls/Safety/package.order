@@ -4,6 +4,6 @@ MinimalVolumeFlowRateSafety
 OnOffControl
 OperationalEnvelope
 SafetyControl
-RecordsCollection
+Data
 Examples
 BaseClasses

@@ -43,9 +43,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     datTab constrainedby Data.EuropeanNorm2D.Generic "Data Table of Chiller"
     annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
-    safCtrParEurNor constrainedby
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
+    constrainedby IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic(
     final tabUppHea=datTab.tabLowBou,
     final tabLowCoo=datTab.tabLowBou,
     final use_TUseOut=datTab.use_TEvaOutForOpeEnv,

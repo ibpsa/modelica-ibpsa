@@ -46,8 +46,8 @@ model ModularReversible_OneRoomRadiator
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
           iceFacCal, datTab=
             IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
-    redeclare
-      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
+
+    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       use_TUseOut=true,
       use_TNotUseOut=false,

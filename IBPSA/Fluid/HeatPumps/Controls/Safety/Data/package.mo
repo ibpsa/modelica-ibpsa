@@ -1,10 +1,10 @@
-within IBPSA.Fluid.HeatPumps.Controls.SafetyControls;
-package RecordsCollection
-  extends Modelica.Icons.RecordsPackage;
+within IBPSA.Fluid.HeatPumps.Controls.Safety;
+package Data "Package with parameters for safety control blocks"
+  extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info="<html>
 <p>
-  Package with record data to boundle the parameterization 
+  Package with record data to bundle the parameterization 
   of the safety controls into one class.
 </p>
 </html>", revisions="<html><ul>
@@ -16,4 +16,4 @@ annotation (Documentation(info="<html>
 </ul>
 </html>
 "));
-end RecordsCollection;
+end Data;

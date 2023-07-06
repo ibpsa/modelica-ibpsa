@@ -13,10 +13,8 @@ model SafetyControl "Model including all safety levels"
   parameter Boolean forHeaPum
     "=true if model is for heat pump, false for chillers";
 
-  replaceable parameter
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition
-    safCtrPar constrainedby
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition
+  replaceable parameter IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic
+    safCtrPar constrainedby IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-118,102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope opeEnv(

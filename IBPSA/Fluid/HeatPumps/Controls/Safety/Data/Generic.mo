@@ -1,6 +1,5 @@
-within IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection;
-record PartialRefrigerantMachineSafetyControlBaseDataDefinition
-  "Base data definition for refrigerant machines safety models"
+within IBPSA.Fluid.HeatPumps.Controls.Safety.Data;
+record Generic "Generic record definition for safety control blocks"
   extends Modelica.Icons.Record;
   parameter Boolean use_minRunTime
     "False if minimal runtime of HP is not considered"
@@ -96,4 +95,4 @@ record PartialRefrigerantMachineSafetyControlBaseDataDefinition
 </ul>
 </html>
 "));
-end PartialRefrigerantMachineSafetyControlBaseDataDefinition;
+end Generic;

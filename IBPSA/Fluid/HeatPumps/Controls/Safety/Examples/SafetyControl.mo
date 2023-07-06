@@ -7,8 +7,7 @@ model SafetyControl "Example for usage of all safety controls"
     mCon_flow_nominal=0.01,
     ySet_small=0.01,
     forHeaPum=true,
-    redeclare
-      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
+    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       minRunTime=5,
       minLocTime=5,

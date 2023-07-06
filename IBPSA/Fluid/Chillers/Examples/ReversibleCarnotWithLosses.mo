@@ -10,8 +10,7 @@ model ReversibleCarnotWithLosses
     redeclare package MediumEva = MediumEva,
     QUse_flow_nominal=30000,
     y_nominal=1,
-    redeclare
-      IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl
+    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       minLocTime=100,
       use_runPerHou=false,

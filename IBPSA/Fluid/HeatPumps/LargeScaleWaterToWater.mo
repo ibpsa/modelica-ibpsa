@@ -44,9 +44,8 @@ model LargeScaleWaterToWater
       IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW()
     "Data Table of HP" annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
-    constrainedby
-    IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
+    constrainedby IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic(
       final tabUppHea=datTab.tabUppBou,
       final tabLowCoo=datTab.tabUppBou,
       final use_TUseOut=datTab.use_TConOutForOpeEnv,

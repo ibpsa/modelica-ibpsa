@@ -1,7 +1,7 @@
-within IBPSA.Fluid.HeatPumps.Controls.Safety.RecordsCollection;
-record DefaultHeatPumpSafetyControl "Apply the default values according to 
-  the conference publication by Wuellhorst et. al."
-  extends PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+within IBPSA.Fluid.HeatPumps.Controls.Safety.Data;
+record Wuellhorst2021
+  "Apply the default values according to the conference publication by Wuellhorst et al. (2021)"
+  extends Generic(
     tabLowCoo=[-10,10; 60,10],
     dTHysAntFre=2,
     preYSet_start=false,
@@ -38,4 +38,4 @@ record DefaultHeatPumpSafetyControl "Apply the default values according to
 </ul>
 </html>
 "));
-end DefaultHeatPumpSafetyControl;
+end Wuellhorst2021;
