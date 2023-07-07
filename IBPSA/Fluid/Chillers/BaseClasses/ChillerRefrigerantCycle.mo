@@ -1,8 +1,6 @@
 within IBPSA.Fluid.Chillers.BaseClasses;
 model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialModularRefrigerantCycle;
-  // Setting all values to zero avoids errors when checking this model.
-  // The values are correctly propagated by the heat pump / chiller model anyway
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
     constrainedby
