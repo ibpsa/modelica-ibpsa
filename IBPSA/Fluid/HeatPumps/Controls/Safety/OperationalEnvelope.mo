@@ -1,8 +1,8 @@
-﻿within IBPSA.Fluid.HeatPumps.Controls.Safety;
+within IBPSA.Fluid.HeatPumps.Controls.Safety;
 model OperationalEnvelope
   "Model which computes an error if the current 
   values are outside of the given operatinal envelope"
-  extends BaseClasses.PartialSafetyControlWithErrors;
+  extends BaseClasses.PartialSafetyWithErrors;
   parameter Real tabUppHea[:,2]
     "Upper boundary for heating with second column as useful temperature side";
   parameter Real tabLowCoo[:,2]

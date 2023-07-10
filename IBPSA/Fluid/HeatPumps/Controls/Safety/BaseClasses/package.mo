@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety;
-package BaseClasses "Package with base classes for IBPSA.Controls.HeatPump.SafetyControls"
+package BaseClasses "Package with base classes for IBPSA.Fluid.HeatPump.Controls.Safety"
 
 annotation (Icon(graphics={
         Rectangle(

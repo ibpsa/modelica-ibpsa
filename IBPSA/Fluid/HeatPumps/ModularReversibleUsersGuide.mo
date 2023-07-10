@@ -357,8 +357,8 @@ for heating and cooling.
   All ModularReversible models account for such safety controls. 
   All options can be disabled, if required. 
   Please look at the model description for more info:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl\">
-  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.Safety\">
+  IBPSA.Fluid.HeatPumps.Controls.Safety.Safety</a>
 </p>
 
 <h4>Refrigerant cycle inertia</h4>

@@ -284,7 +284,7 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,110})));
-  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl safCtr(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.Safety safCtr(
     final mEva_flow_nominal=mEva_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     safCtrPar=safCtrPar,

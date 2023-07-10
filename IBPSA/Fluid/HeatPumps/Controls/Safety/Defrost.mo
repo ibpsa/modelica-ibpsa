@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.Controls.Safety;
 model Defrost
   "Control model to ensure no frost limits heat flow at the evaporator"
   extends
-    IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.PartialSafetyControlWithErrors;
+    IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.PartialSafetyWithErrors;
   parameter Real minIceFac "Minimal value above which no defrost is necessary";
   parameter Boolean use_chi=true
     "True if defrost by reverse cycle, false if by heater" annotation(choices(checkBox=true));

@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
-model MinimalVolumeFlowRateSafety
+model MinimalFlowRate
   "Example for usage of minimal flowrate safety control"
-  extends BaseClasses.PartialSafetyControl;
+  extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate minFloRatSaf(
       mEvaMin_flow=0.1, mConMin_flow=0.1)
@@ -63,4 +63,4 @@ equation
 </html>"), experiment(
       StopTime=100,
       Interval=1));
-end MinimalVolumeFlowRateSafety;
+end MinimalFlowRate;

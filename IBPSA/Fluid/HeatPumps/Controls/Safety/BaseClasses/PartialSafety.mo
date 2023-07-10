@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses;
-partial model PartialSafetyControl "Safety control with I/O"
+partial model PartialSafety "Safety control with I/O"
   Modelica.Blocks.Interfaces.RealInput ySet
     "Set value relative speed of compressor. Analog from 0 to 1"
     annotation (Placement(transformation(extent={{-152,4},{-120,36}}),
@@ -69,4 +69,4 @@ partial model PartialSafetyControl "Safety control with I/O"
   signals or, if an error occurs, set to 0.
 </p>
 </html>"));
-end PartialSafetyControl;
+end PartialSafety;

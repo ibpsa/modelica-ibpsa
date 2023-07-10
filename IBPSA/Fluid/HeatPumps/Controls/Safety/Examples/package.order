@@ -1,6 +1,6 @@
 AntiFreeze
-MinimalVolumeFlowRateSafety
-OnOffControl
+MinimalFlowRate
+OnOff
 OperationalEnvelope
-SafetyControl
+Safety
 BaseClasses

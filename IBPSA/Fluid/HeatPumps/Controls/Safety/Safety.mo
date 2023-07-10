@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety;
-model SafetyControl "Model including all safety levels"
-  extends BaseClasses.PartialSafetyControl;
+model Safety "Model including all safety levels"
+  extends BaseClasses.PartialSafety;
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Minimal mass flow rate in evaporator required to operate the device"
     annotation (Dialog(group="Mass flow rates"));
@@ -215,8 +215,8 @@ All used functions are optional. See the used models for more
 info on each safety function:
 </p>
 <ul>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl+\">
-IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl</a> </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff\">
+IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff</a> </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope\">
 IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope</a> </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze\">
@@ -225,4 +225,4 @@ IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze</a> </li>
 IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate</a> </li>
 </ul>
 </html>"));
-end SafetyControl;
+end Safety;

@@ -1,5 +1,5 @@
 BoundaryMap
-PartialSafetyControl
-PartialSafetyControlWithErrors
-RunPerHouBoundary
+PartialSafety
+PartialSafetyWithErrors
+RunPerHourBoundary
 TimeControl

@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
-model OnOffControl "Example for on off controller"
-  extends BaseClasses.PartialSafetyControl(       hys(pre_y_start=true));
+model OnOff "Example for on off controller"
+  extends BaseClasses.PartialSafety(       hys(pre_y_start=true));
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff onOffCtr(
@@ -54,4 +54,4 @@ equation
 </html>"), experiment(
       StopTime=1000,
       Interval=1));
-end OnOffControl;
+end OnOff;

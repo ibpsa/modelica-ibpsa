@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
-model SafetyControl "Example for usage of all safety controls"
-  extends BaseClasses.PartialSafetyControl;
+model Safety "Example for usage of all safety controls"
+  extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
-  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl safCtr(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.Safety safCtr(
     mEva_flow_nominal=0.01,
     mCon_flow_nominal=0.01,
     ySet_small=0.01,
@@ -104,8 +104,8 @@ equation
 <p>
   This example shows the usage and effect of 
   all safety controls aggregates into the model
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl\">
-  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.Safety\">
+  IBPSA.Fluid.HeatPumps.Controls.Safety.Safety</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -118,4 +118,4 @@ equation
 </html>"), experiment(
       StopTime=100,
       Interval=1));
-end SafetyControl;
+end Safety;

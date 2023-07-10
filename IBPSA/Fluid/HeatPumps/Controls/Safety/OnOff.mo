@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety;
 model OnOff
   "Controlls if the minimal runtime, stoptime and max. runs per hour are inside given boundaries"
-  extends BaseClasses.PartialSafetyControl;
+  extends BaseClasses.PartialSafety;
   parameter Boolean use_minRunTime
     "False if minimal runtime of HP is not considered"
     annotation(choices(checkBox=true));
@@ -38,7 +38,7 @@ model OnOff
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.RunPerHouBoundary runPerHouBou(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.RunPerHourBoundary runPerHouBou(
    final maxRunPerHou=maxRunPerHou,
    final delTim=3600) if use_runPerHou
     "Check number of starts violations"

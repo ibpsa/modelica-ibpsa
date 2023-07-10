@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses;
-partial model PartialSafetyControlWithErrors
+partial model PartialSafetyWithErrors
    "Safety control which adds an error counter to the I/O"
-  extends PartialSafetyControl;
+  extends PartialSafety;
 
   Modelica.Blocks.Logical.Switch swiErr
     "If an error occurs, the value of the conZero block will be used(0)"
@@ -69,4 +69,4 @@ equation
   but most.
 </p>
 </html>"));
-end PartialSafetyControlWithErrors;
+end PartialSafetyWithErrors;

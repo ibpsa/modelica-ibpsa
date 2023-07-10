@@ -3,7 +3,7 @@ Defrost
 MinimalFlowRate
 OnOff
 OperationalEnvelope
-SafetyControl
+Safety
 Data
 Examples
 BaseClasses
