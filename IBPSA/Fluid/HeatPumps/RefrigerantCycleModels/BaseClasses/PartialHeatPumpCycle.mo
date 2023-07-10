@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses;
-partial model PartialHeatPumpRefrigerantCycle
+partial model PartialHeatPumpCycle
   "Partial model to allow selection of only heat pump options"
   extends PartialRefrigerantCycle;
   Modelica.Blocks.Math.Feedback feeHeaFloEva
@@ -41,4 +41,4 @@ revisions="<html>
   </li>
 </ul>
 </html>"));
-end PartialHeatPumpRefrigerantCycle;
+end PartialHeatPumpCycle;

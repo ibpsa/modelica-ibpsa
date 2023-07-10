@@ -85,8 +85,8 @@ package ModularReversibleUsersGuide
 </p>
 <p>
   All modular heat pump or chiller models base on the model 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle</a>.
   This partial model declares all common interfaces, parameters etc.
 </p>
 
@@ -104,8 +104,8 @@ between the operation type of the heat pump:
 
 Furthermore, the refrigerant cycle is redeclared to use the one for 
 the heat pump 
-<a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.HeatPumpRefrigerantCycle\">
-IBPSA.Fluid.HeatPumps.BaseClasses.HeatPumpRefrigerantCycle</a>.
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.RefrigerantCycle\">
+IBPSA.Fluid.HeatPumps.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the 
 heating and cooling operation of the heat pump.
 Available approaches can be found in the package: 
@@ -150,8 +150,8 @@ between the operation type of the chiller:
 
 Furthermore, the refrigerant cycle is redeclared to use the one for 
 the chiller
-<a href=\"modelica://IBPSA.Fluid.Chillers.BaseClasses.HeatPumpRefrigerantCycle\">
-IBPSA.Fluid.Chillers.BaseClasses.HeatPumpRefrigerantCycle</a>.
+<a href=\"modelica://IBPSA.Fluid.Chillers.BaseClasses.HeatPumpCycle\">
+IBPSA.Fluid.Chillers.BaseClasses.HeatPumpCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the 
 cooling and heating operation of the chiller.
 Available approaches can be found in the package: 
@@ -232,8 +232,8 @@ to the section <b>Refrigerant cycle models</b>.
   and evaporator heat flow <code>QEva_flow</code> based on the 
   values in the <code>sigBus</code>.
   Extending the model 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle</a>
   for heat pumps and 
   <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle\">
   IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle</a>

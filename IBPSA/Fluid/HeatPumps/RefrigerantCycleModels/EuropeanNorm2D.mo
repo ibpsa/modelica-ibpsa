@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels;
 model EuropeanNorm2D "Data from European Norm in two dimensions"
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle(
     final datSou=datTab.devIde,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,

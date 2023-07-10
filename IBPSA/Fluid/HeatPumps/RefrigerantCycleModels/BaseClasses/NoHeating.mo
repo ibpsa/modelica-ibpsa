@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses;
 model NoHeating
   "No heating, used to avoid warnings about partial model must be replaced"
-  extends PartialHeatPumpRefrigerantCycle(
+  extends PartialHeatPumpCycle(
     PEle_nominal=0,
     redeclare final
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting

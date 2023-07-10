@@ -8,15 +8,15 @@ model ModularReversible
     mEva_flow_nominal=(QUse_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
     final scaFac=refCyc.refCycHeaPumHea.scaFac,
     use_rev=true,
-    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.HeatPumpRefrigerantCycle refCyc(
+    redeclare IBPSA.Fluid.HeatPumps.BaseClasses.RefrigerantCycle refCyc(
         redeclare model RefrigerantCycleHeatPumpHeating =
           RefrigerantCycleHeatPumpHeating, redeclare model
         RefrigerantCycleHeatPumpCooling = RefrigerantCycleHeatPumpCooling));
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle
+      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle
       (QUseNoSca_flow_nominal=0)
      constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpRefrigerantCycle(
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle(
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
