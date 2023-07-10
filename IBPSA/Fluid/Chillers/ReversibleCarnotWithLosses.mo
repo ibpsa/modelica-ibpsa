@@ -15,7 +15,7 @@ model ReversibleCarnotWithLosses
     redeclare model RefrigerantCycleChillerCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade (
         redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalIcingFactor
           iceFacCal(redeclare function iceFacFun =
               IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.wetterAfjei1997),
         useAirForCon=cpCon < 1500,
@@ -24,7 +24,7 @@ model ReversibleCarnotWithLosses
     use_evaCap,
     use_conCap,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
         (
         final refIneFreConst=1/refIneTimCon,
         final nthOrd=1,

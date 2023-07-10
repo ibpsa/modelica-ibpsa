@@ -12,7 +12,7 @@ model ModularReversible_OneRoomRadiator
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia,
 
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,

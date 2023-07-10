@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.BaseClasses;
+within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.BaseClasses;
 partial model PartialInertia "Partial inertia model"
   extends Modelica.Blocks.Interfaces.SISO;
 

@@ -373,8 +373,8 @@ for heating and cooling.
 </p>
 <p>
   The package 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias</a>
   holds existing approaches. In the contribution, an empirical 
   validation showed that a third-order critical damping element 
   fits the inertia most closely. At the same time, literature models
@@ -390,8 +390,8 @@ for heating and cooling.
 <p>
   If you find in real data that another approach might be better suited
   (e.g. a deadband), you can extend the model
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.BaseClasses.PartialInertia\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.BaseClasses.PartialInertia
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.BaseClasses.PartialInertia\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.BaseClasses.PartialInertia
   </a>
   and implement your own approach.
 </p>

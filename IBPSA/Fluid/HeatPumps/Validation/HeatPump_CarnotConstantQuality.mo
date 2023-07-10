@@ -6,7 +6,7 @@ model HeatPump_CarnotConstantQuality
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
+          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
           (
           refIneFreConst=refIneFreConst,
           nthOrd=2,

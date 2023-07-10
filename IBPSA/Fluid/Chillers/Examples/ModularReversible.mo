@@ -11,7 +11,7 @@ model ModularReversible
     QUse_flow_nominal=30000,
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.VariableOrderInertia
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
         (
         refIneFreConst=1/300,
         nthOrd=1,

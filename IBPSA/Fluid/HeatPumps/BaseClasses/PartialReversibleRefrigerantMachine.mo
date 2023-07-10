@@ -34,9 +34,9 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Dialog(group="Nominal Design"));
 
   replaceable model RefrigerantCycleInertia =
-     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia
+     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia
     constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.BaseClasses.PartialInertia
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.BaseClasses.PartialInertia
       "Inertia between the refrigerant cycle outputs and the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
   parameter Boolean use_rev=true

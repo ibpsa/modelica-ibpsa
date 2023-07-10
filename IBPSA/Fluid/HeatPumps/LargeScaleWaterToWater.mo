@@ -25,7 +25,7 @@ model LargeScaleWaterToWater
     final use_rev=false,
     final QCoo_flow_nominal=0,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia,
     final mCon_flow_nominal=autCalMasCon_flow,
     final mEva_flow_nominal=autCalMasEva_flow,
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,

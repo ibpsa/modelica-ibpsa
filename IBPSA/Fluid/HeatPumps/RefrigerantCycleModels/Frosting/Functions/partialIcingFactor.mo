@@ -27,8 +27,8 @@ partial function partialIcingFactor
 </p>
 <p>
   This function is used in the model <a href=
-  \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach</a>.
+  \"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalIcingFactor\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalIcingFactor</a>.
 </p>
 <p>
   Typically, functions should only require evaporator side data for calculation of 

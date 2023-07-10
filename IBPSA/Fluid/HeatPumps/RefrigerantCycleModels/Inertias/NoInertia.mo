@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias;
+within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias;
 model NoInertia "No inertia"
   extends BaseClasses.PartialInertia;
 equation

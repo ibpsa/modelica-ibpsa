@@ -17,7 +17,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia,
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating,
     redeclare model RefrigerantCycleChillerCooling =

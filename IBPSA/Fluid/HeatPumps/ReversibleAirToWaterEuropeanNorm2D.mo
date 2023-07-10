@@ -25,7 +25,7 @@ model ReversibleAirToWaterEuropeanNorm2D
           iceFacCal, final datTab=datTabHea),
     final use_rev=true,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias.NoInertia);
+        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia);
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericAirToWater datTabHea

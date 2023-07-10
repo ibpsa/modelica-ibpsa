@@ -1,5 +1,5 @@
-within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.RefrigerantCycleInertias;
-model VariableOrderInertia
+within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias;
+model VariableOrder
   "Inertia using a critical damper with variable order"
   extends BaseClasses.PartialInertia;
 
@@ -74,4 +74,4 @@ equation
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           points={{92,-82},{70,-74},{70,-90},{92,-82}})}));
-end VariableOrderInertia;
+end VariableOrder;

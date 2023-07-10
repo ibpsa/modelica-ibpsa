@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting;
-model FunctionalApproach
+model FunctionalIcingFactor
   "Estimate the frosting supression using a function"
   extends BaseClasses.PartialIcingFactor;
 
@@ -61,4 +61,4 @@ equation
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle</a>
 </p>
 </html>"));
-end FunctionalApproach;
+end FunctionalIcingFactor;
