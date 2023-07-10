@@ -16,7 +16,7 @@ model ReversibleCarnotWithLosses
         redeclare
           IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalApproach
           iceFacCal(redeclare function iceFacFun =
-              IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.WetterAfjei1997),
+              IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.wetterAfjei1997),
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),

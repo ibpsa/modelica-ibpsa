@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions;
-function WetterAfjei1997
+function wetterAfjei1997
   "Correction of COP (Icing, Defrost) according to Wetter, Afjei 1997"
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.PartialBaseFunction;
+    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.partialIcingFactor;
 protected
   parameter Real offLin=0.03 "First factor for linear term, offset";
   parameter Real sloLin=-0.004 "Second factor for linear term, slope";
@@ -44,4 +44,4 @@ algorithm
   </li>
 </ul>
 </html>"));
-end WetterAfjei1997;
+end wetterAfjei1997;

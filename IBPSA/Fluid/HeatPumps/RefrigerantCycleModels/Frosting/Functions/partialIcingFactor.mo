@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions;
-partial function PartialBaseFunction
+partial function partialIcingFactor
   "Base function for all icing factor functions"
   extends Modelica.Icons.Function;
   input Modelica.Units.SI.ThermodynamicTemperature TEvaInMea
@@ -40,4 +40,4 @@ For more information on the <code>iceFac</code>, see the documentation of <a hre
 IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle</a>
 </p>
 </html>"));
-end PartialBaseFunction;
+end partialIcingFactor;
