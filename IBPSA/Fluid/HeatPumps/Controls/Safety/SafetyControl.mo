@@ -56,9 +56,9 @@ model SafetyControl "Model including all safety levels"
         rotation=270,
         origin={30,-130})));
 
-  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety minVolFloRatSaf(final
-      mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal, final
-      mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
+  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety minVolFloRatSaf(
+	  final mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal, 
+	  final mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
     if safCtrPar.use_minFlowCtr "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 

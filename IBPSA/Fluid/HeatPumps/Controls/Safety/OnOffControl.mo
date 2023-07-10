@@ -38,18 +38,19 @@ model OnOffControl
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.RunPerHouBoundary runPerHouBou(final
-      maxRunPerHou=maxRunPerHou, final delTim=3600) if use_runPerHou
+  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.RunPerHouBoundary runPerHouBou(
+	  final maxRunPerHou=maxRunPerHou, 
+	  final delTim=3600) if use_runPerHou
     "Check number of starts violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.TimeControl locTimCtr(final
-      minRunTime=minLocTime) if use_minLocTime
+  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.TimeControl locTimCtr(
+	  final minRunTime=minLocTime) if use_minLocTime
     "Check if device should be locked"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.TimeControl runTimCtr(final
-      minRunTime=minRunTime) if use_minRunTime "Check if device needs to run"
+  IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.TimeControl runTimCtr(
+      final minRunTime=minRunTime) if use_minRunTime "Check if device needs to run"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Logical.And andIsAblToTurOn(
     y(start=true, fixed=true))
