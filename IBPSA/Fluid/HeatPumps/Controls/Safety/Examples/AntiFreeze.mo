@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
 model AntiFreeze "Example for usage of anti freeze model"
-  extends BaseClasses.PartialSafetyControlExample;
+  extends BaseClasses.PartialSafetyControl;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze antFre
     "Safety control for anti freezing"

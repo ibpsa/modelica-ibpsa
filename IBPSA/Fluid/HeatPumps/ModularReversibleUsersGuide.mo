@@ -423,8 +423,8 @@ for heating and cooling.
   Note however, that this only simulated the efficiency reduction 
   due to frosting. If you frosting approach enables the simulation
   of a defrost cycle, you can use an external control model like this one:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.DefrostControl\">
-  IBPSA.Fluid.HeatPumps.Controls.Safety.DefrostControl</a> to simulate 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.Defrost\">
+  IBPSA.Fluid.HeatPumps.Controls.Safety.Defrost</a> to simulate 
   a reverse cycle defrost and analyze the impact on source 
   and sink temperatures. 
   The <code>iceFac</code> approach was already used in a 

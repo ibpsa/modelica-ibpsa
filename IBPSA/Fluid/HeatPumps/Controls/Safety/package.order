@@ -1,6 +1,6 @@
 AntiFreeze
-DefrostControl
-MinimalVolumeFlowRateSafety
+Defrost
+MinimalFlowRate
 OnOff
 OperationalEnvelope
 SafetyControl

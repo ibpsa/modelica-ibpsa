@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples.BaseClasses;
-partial model PartialSafetyControlExample
+partial model PartialSafetyControl
 
   Interfaces.RefrigerantMachineControlBus sigBus
     "Bus-connector for the heat pump"
@@ -40,4 +40,4 @@ equation
   show usage of safety control models.
 </p>
 </html>"));
-end PartialSafetyControlExample;
+end PartialSafetyControl;

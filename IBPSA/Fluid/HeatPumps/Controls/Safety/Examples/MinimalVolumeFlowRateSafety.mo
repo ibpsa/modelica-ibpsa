@@ -1,9 +1,9 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
 model MinimalVolumeFlowRateSafety
   "Example for usage of minimal flowrate safety control"
-  extends BaseClasses.PartialSafetyControlExample;
+  extends BaseClasses.PartialSafetyControl;
   extends Modelica.Icons.Example;
-  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety minFloRatSaf(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate minFloRatSaf(
       mEvaMin_flow=0.1, mConMin_flow=0.1)
     "Safety block for minimal flow rate safety"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -49,8 +49,8 @@ equation
       Documentation(info="<html>
 <p>
   This example shows the usage of the model
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety\">
-  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate\">
+  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate</a>.
 </p>
 </html>", revisions="<html>
 <ul>

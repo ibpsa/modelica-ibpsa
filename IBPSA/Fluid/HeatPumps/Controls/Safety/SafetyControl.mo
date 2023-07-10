@@ -56,9 +56,9 @@ model SafetyControl "Model including all safety levels"
         rotation=270,
         origin={30,-130})));
 
-  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety minVolFloRatSaf(
-   final mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal,
-   final mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
+  IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate minVolFloRatSaf(final
+      mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal, final
+      mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
     if safCtrPar.use_minFlowCtr "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
@@ -221,8 +221,8 @@ IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl</a> </li>
 IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope</a> </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze\">
 IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze</a> </li>
-<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety\">
-IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety</a> </li>
+<li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate\">
+IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalFlowRate</a> </li>
 </ul>
 </html>"));
 end SafetyControl;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety;
-model DefrostControl
+model Defrost
   "Control model to ensure no frost limits heat flow at the evaporator"
   extends
     IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.PartialSafetyControlWithErrors;
@@ -21,7 +21,8 @@ model DefrostControl
         origin={-29.5,-69.5})));
   Modelica.Blocks.Interfaces.RealOutput PEleDef if not use_chi
     "Relative speed of compressor. From 0 to 1" annotation (Placement(
-        transformation(extent={{10,-10},{-10,10}}, rotation=180)));
+        transformation(extent={{10,-10},{-10,10}}, rotation=180,
+        origin={130,90})));
   Modelica.Blocks.Sources.BooleanConstant constTruNotUseChi(final k=true)
     if not use_chi
     "If ice is melted with an additional heater, HP can continue running"
@@ -69,7 +70,7 @@ equation
   connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{74,20},{74,8},{78,
           8}}, color={0,0,127}));
   connect(sigBus.iceFacMea, iceFacGreMinHea.u) annotation (Line(
-      points={{-125,-71},{-82.8,-71},{-82.8,-69.5},{-42.1,-69.5}},
+      points={{-119,-73},{-82.8,-73},{-82.8,-69.5},{-42.1,-69.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -77,8 +78,8 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(PEleDef, swiPEle.y) annotation (Line(points={{0,0},{128,0},{128,90},{
-          81,90}}, color={0,0,127}));
+  connect(PEleDef, swiPEle.y) annotation (Line(points={{130,90},{81,90}},
+                   color={0,0,127}));
   connect(iceFacGreMinHea.y, swiPEle.u2) annotation (Line(
       points={{-17.95,-69.5},{14,-69.5},{14,90},{58,90}},
       color={255,0,255},
@@ -93,7 +94,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus.iceFacMea, iceFacGreMinChi.u) annotation (Line(
-      points={{-125,-71},{-50,-71},{-50,-29.5},{-42.1,-29.5}},
+      points={{-119,-73},{-50,-73},{-50,-29.5},{-42.1,-29.5}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -227,4 +228,4 @@ equation
   </li>
 </ul>
 </html>"));
-end DefrostControl;
+end Defrost;

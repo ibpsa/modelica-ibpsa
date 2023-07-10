@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
 model OperationalEnvelope "Example for usage of operational envelope model"
-  extends BaseClasses.PartialSafetyControlExample;
+  extends BaseClasses.PartialSafetyControl;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope opeEnv(
     tabUppHea=[-40,60; 40,60],

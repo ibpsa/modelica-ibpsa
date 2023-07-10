@@ -1,6 +1,5 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety;
-model MinimalVolumeFlowRateSafety
-  "Safety control for minimal volume flow rate"
+model MinimalFlowRate "Safety control for minimal volume flow rate"
   extends BaseClasses.PartialSafetyControlWithErrors;
 
   parameter Modelica.Units.SI.MassFlowRate mEvaMin_flow
@@ -31,14 +30,14 @@ equation
   connect(and1.y, booPasThr.u) annotation (Line(points={{1,0},{38,0}},
              color={255,0,255}));
   connect(hysEva.u, sigBus.m_flowEvaMea) annotation (Line(points={{-62,-20},{
-          -84,-20},{-84,-71},{-125,-71}},
+          -84,-20},{-84,-73},{-119,-73}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(hysCon.u, sigBus.m_flowConMea) annotation (Line(points={{-62,20},{-94,
-          20},{-94,-52},{-125,-52},{-125,-71}},
+          20},{-94,-52},{-119,-52},{-119,-73}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -66,4 +65,4 @@ equation
 </ul>
 </html>
 "));
-end MinimalVolumeFlowRateSafety;
+end MinimalFlowRate;

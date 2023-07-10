@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety.Examples;
 model SafetyControl "Example for usage of all safety controls"
-  extends BaseClasses.PartialSafetyControlExample;
+  extends BaseClasses.PartialSafetyControl;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl safCtr(
     mEva_flow_nominal=0.01,
