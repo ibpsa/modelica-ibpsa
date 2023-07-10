@@ -358,7 +358,7 @@ for heating and cooling.
   All options can be disabled, if required. 
   Please look at the model description for more info:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl</a>
+  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl</a>
 </p>
 
 <h4>Refrigerant cycle inertia</h4>
@@ -424,7 +424,7 @@ for heating and cooling.
   due to frosting. If you frosting approach enables the simulation
   of a defrost cycle, you can use an external control model like this one:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.DefrostControl\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl</a> to simulate 
+  IBPSA.Fluid.HeatPumps.Controls.Safety.DefrostControl</a> to simulate 
   a reverse cycle defrost and analyze the impact on source 
   and sink temperatures. 
   The <code>iceFac</code> approach was already used in a 

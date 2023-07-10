@@ -51,7 +51,7 @@ equation
 <p>
   This example shows the usage of the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a>.
+  IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze</a>.
 </p>
 </html>", revisions="<html>
 <ul>

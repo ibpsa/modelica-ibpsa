@@ -26,7 +26,7 @@ model SafetyControl "Model including all safety levels"
     final dTHys=safCtrPar.dTHysOpeEnv) if safCtrPar.use_opeEnv
     "Block for operational envelope"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl onOffCtr(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff onOffCtr(
     final minRunTime=safCtrPar.minRunTime,
     final minLocTime=safCtrPar.minLocTime,
     final use_minRunTime=safCtrPar.use_minRunTime,
@@ -57,8 +57,8 @@ model SafetyControl "Model including all safety levels"
         origin={30,-130})));
 
   IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety minVolFloRatSaf(
-	  final mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal, 
-	  final mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
+   final mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal,
+   final mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
     if safCtrPar.use_minFlowCtr "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
@@ -216,13 +216,13 @@ info on each safety function:
 </p>
 <ul>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl+\">
-IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a> </li>
+IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl</a> </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope\">
-IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a> </li>
+IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope</a> </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze\">
-IBPSA.Fluid.HeatPumps.SafetyControls.AntiFreeze</a> </li>
+IBPSA.Fluid.HeatPumps.Controls.Safety.AntiFreeze</a> </li>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety\">
-IBPSA.Fluid.HeatPumps.SafetyControls.MinimalVolumeFlowRateSafety</a> </li>
+IBPSA.Fluid.HeatPumps.Controls.Safety.MinimalVolumeFlowRateSafety</a> </li>
 </ul>
 </html>"));
 end SafetyControl;

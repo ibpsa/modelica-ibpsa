@@ -105,7 +105,7 @@ equation
   This example shows the usage and effect of 
   all safety controls aggregates into the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl</a>.
+  IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>

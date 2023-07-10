@@ -66,7 +66,7 @@ equation
 <p>
   This example shows the usage of the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.OperationalEnvelope</a>.
+  IBPSA.Fluid.HeatPumps.Controls.Safety.OperationalEnvelope</a>.
 </p>
 </html>", revisions="<html>
 <ul>

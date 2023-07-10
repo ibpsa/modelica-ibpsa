@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.Controls.Safety;
-model OnOffControl
+model OnOff
   "Controlls if the minimal runtime, stoptime and max. runs per hour are inside given boundaries"
   extends BaseClasses.PartialSafetyControl;
   parameter Boolean use_minRunTime
@@ -39,12 +39,12 @@ model OnOffControl
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.RunPerHouBoundary runPerHouBou(
-	  final maxRunPerHou=maxRunPerHou, 
-	  final delTim=3600) if use_runPerHou
+   final maxRunPerHou=maxRunPerHou,
+   final delTim=3600) if use_runPerHou
     "Check number of starts violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   IBPSA.Fluid.HeatPumps.Controls.Safety.BaseClasses.TimeControl locTimCtr(
-	  final minRunTime=minLocTime) if use_minLocTime
+   final minRunTime=minLocTime) if use_minLocTime
     "Check if device should be locked"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
@@ -175,7 +175,7 @@ equation
       pattern=LinePattern.Dash));
 
   connect(preOnOff.u, sigBus.onOffMea) annotation (Line(points={{-102,-90},{
-          -108,-90},{-108,-71},{-125,-71}},
+          -108,-90},{-108,-73},{-119,-73}},
                                        color={255,0,255}), Text(
       string="%second",
       index=1,
@@ -255,4 +255,4 @@ equation
           textColor={0,0,127},
           textString="See 
 equations")}));
-end OnOffControl;
+end OnOff;

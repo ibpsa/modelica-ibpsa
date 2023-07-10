@@ -3,7 +3,7 @@ model OnOffControl "Example for on off controller"
   extends BaseClasses.PartialSafetyControlExample(hys(pre_y_start=true));
   extends Modelica.Icons.Example;
 
-  IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl onOffCtr(
+  IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff onOffCtr(
     maxRunPerHou=4,
     minLocTime(displayUnit="s") = 200,
     minRunTime(displayUnit="s") = 444,
@@ -40,8 +40,8 @@ equation
   annotation (Documentation(info="<html>
 <p>
   This example shows the usage of the model
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OnOffControl\">
-  IBPSA.Fluid.HeatPumps.SafetyControls.OnOffControl</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff\">
+  IBPSA.Fluid.HeatPumps.Controls.Safety.OnOff</a>.
 </p>
 </html>", revisions="<html>
 <ul>

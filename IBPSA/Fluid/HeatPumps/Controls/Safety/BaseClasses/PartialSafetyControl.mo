@@ -10,12 +10,11 @@ partial model PartialSafetyControl "Safety control with I/O"
         iconTransformation(extent={{120,10},{140,30}})));
   Interfaces.RefrigerantMachineControlBus sigBus
     "Bus-connector for the heat pump" annotation (Placement(transformation(
-          extent={{-142,-86},{-108,-56}}), iconTransformation(extent={{-142,-86},
-            {-108,-56}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics={
-                                Rectangle(
-        extent={{-100,-100},{100,100}},
+          extent={{-136,-88},{-102,-58}}), iconTransformation(extent={{-136,-88},
+            {-102,-58}})));
+  annotation (Icon(coordinateSystem(extent={{-120,-120},{120,120}}),
+                   graphics={   Rectangle(
+        extent={{-120,-120},{120,120}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
