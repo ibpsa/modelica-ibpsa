@@ -40,13 +40,12 @@ model LargeScaleWaterToWater
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.HeatPumpBaseDataDefinition datTab=
-     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW()
-         "Data Table of HP" annotation (choicesAllMatching=true);
+    IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericHeatPump datTab=
+      IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW()
+    "Data Table of HP" annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.DefaultHeatPumpSafetyControl safCtrParEurNor
-    constrainedby
-    IBPSA.Fluid.HeatPumps.SafetyControls.RecordsCollection.PartialRefrigerantMachineSafetyControlBaseDataDefinition(
+    IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
+    constrainedby IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic(
       final tabUppHea=datTab.tabUppBou,
       final tabLowCoo=datTab.tabUppBou,
       final use_TUseOut=datTab.use_TConOutForOpeEnv,
@@ -77,7 +76,7 @@ model LargeScaleWaterToWater
 </p>
 <p>
   Currently the only data sheets for heat pumps that large is the record 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW\">
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>, 
   hence, the default value.
 </p>

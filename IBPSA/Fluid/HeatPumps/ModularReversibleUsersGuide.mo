@@ -357,7 +357,7 @@ for heating and cooling.
   All ModularReversible models account for such safety controls. 
   All options can be disabled, if required. 
   Please look at the model description for more info:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.SafetyControl\">
   IBPSA.Fluid.HeatPumps.SafetyControls.SafetyControl</a>
 </p>
 
@@ -423,7 +423,7 @@ for heating and cooling.
   Note however, that this only simulated the efficiency reduction 
   due to frosting. If you frosting approach enables the simulation
   of a defrost cycle, you can use an external control model like this one:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Controls.Safety.DefrostControl\">
   IBPSA.Fluid.HeatPumps.SafetyControls.DefrostControl</a> to simulate 
   a reverse cycle defrost and analyze the impact on source 
   and sink temperatures. 

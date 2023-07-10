@@ -24,9 +24,9 @@ model EuropeanNorm2D
     final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,
     final perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100,
     constScaFac(final k=scaFac));
-  parameter IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.ChillerBaseDataDefinition datTab=
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Vitocal200AWO201()
-         "Data Table of Chiller" annotation (choicesAllMatching=true);
+  parameter IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.Generic datTab=
+      IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()
+    "Data Table of Chiller" annotation (choicesAllMatching=true);
 
 equation
 
