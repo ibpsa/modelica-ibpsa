@@ -30,7 +30,7 @@ model ModularReversible
   replaceable model RefrigerantCycleHeatPumpCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
       constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
+    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle(
        final QUse_flow_nominal=refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal,
        final scaFac=scaFac,
        final TCon_nominal=TCon_nominal,

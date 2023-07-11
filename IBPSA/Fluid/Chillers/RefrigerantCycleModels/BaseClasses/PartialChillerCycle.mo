@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses;
-partial model PartialChillerRefrigerantCycle
+partial model PartialChillerCycle
   "Partial model of refrigerant cycle used for chiller applications"
   extends
     IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle;
@@ -42,4 +42,4 @@ equation
   </li>
 </ul>
 </html>"));
-end PartialChillerRefrigerantCycle;
+end PartialChillerCycle;

@@ -150,8 +150,8 @@ between the operation type of the chiller:
 
 Furthermore, the refrigerant cycle is redeclared to use the one for 
 the chiller
-<a href=\"modelica://IBPSA.Fluid.Chillers.BaseClasses.HeatPumpCycle\">
-IBPSA.Fluid.Chillers.BaseClasses.HeatPumpCycle</a>.
+<a href=\"modelica://IBPSA.Fluid.Chillers.BaseClasses.RefrigerantCycle\">
+IBPSA.Fluid.Chillers.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the 
 cooling and heating operation of the chiller.
 Available approaches can be found in the package: 
@@ -235,8 +235,8 @@ to the section <b>Refrigerant cycle models</b>.
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle\">
   IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle</a>
   for heat pumps and 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle\">
+  IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle</a>
   for chillers enables just that.
 </p>
 <p>

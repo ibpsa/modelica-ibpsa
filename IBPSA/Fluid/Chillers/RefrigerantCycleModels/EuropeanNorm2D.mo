@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.RefrigerantCycleModels;
 model EuropeanNorm2D
   "Performance data coming from manufacturer according to European Standards"
   extends
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
+    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle(
     final datSou=datTab.devIde,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,

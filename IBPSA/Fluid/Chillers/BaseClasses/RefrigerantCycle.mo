@@ -1,10 +1,10 @@
 within IBPSA.Fluid.Chillers.BaseClasses;
-model ChillerRefrigerantCycle "Refrigerant cycle model of a chiller"
+model RefrigerantCycle "Refrigerant cycle model of a chiller"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
     constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
+    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
@@ -192,4 +192,4 @@ equation
   model approaches differ for cooling and heating.
 </p>
 </html>"));
-end ChillerRefrigerantCycle;
+end RefrigerantCycle;

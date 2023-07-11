@@ -8,7 +8,7 @@ model ModularReversible
     mCon_flow_nominal=(QUse_flow_nominal - PEle_nominal)/(dTCon_nominal*cpCon),
     final scaFac=refCyc.refCycChiCoo.scaFac,
     use_rev=true,
-    redeclare IBPSA.Fluid.Chillers.BaseClasses.ChillerRefrigerantCycle refCyc(
+    redeclare IBPSA.Fluid.Chillers.BaseClasses.RefrigerantCycle refCyc(
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling, redeclare model
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
@@ -18,10 +18,10 @@ model ModularReversible
       annotation(Dialog(group="Nominal Design", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle
+      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle
       (QUseNoSca_flow_nominal=0)
       constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerRefrigerantCycle(
+    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle(
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,

@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses;
 model NoCooling
   "No Cooling. Used to avoid warnings about partial model must be replaced"
-  extends PartialChillerRefrigerantCycle(
+  extends PartialChillerCycle(
     PEle_nominal=0,
     redeclare final
       IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
