@@ -19,7 +19,7 @@ record Generic "Basic chiller data"
 </p>
 <p>
   Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.Generic\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
   to enable correct selection.</p>
 <p>
   Adds the table data for lower temperature limitations to 

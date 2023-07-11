@@ -6,13 +6,13 @@ model HeatPump_CarnotConstantQuality
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.VariableOrder
           (
           refIneFreConst=refIneFreConst,
           nthOrd=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade (
           useAirForCon=false,
           useAirForEva=false,
           quaGra=quaGra)));

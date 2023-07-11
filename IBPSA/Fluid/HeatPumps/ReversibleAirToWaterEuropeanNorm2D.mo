@@ -16,16 +16,16 @@ model ReversibleAirToWaterEuropeanNorm2D
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+        IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, final datTab=datTabCoo),
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, final datTab=datTabHea),
     final use_rev=true,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia);
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.NoInertia);
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericAirToWater datTabHea
@@ -65,14 +65,14 @@ model ReversibleAirToWaterEuropeanNorm2D
 </p>
 <p>
   Please read the documentation of the model for heating here: 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D</a>.
 </p>
 <p>
   For cooling, the assumptions are similar. 
   Check this documentation: 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D\">
+  IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D</a>
 </p>
 </html>"));
 end ReversibleAirToWaterEuropeanNorm2D;

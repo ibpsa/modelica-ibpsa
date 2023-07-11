@@ -2,16 +2,16 @@ within IBPSA.Fluid.Chillers.BaseClasses;
 model RefrigerantCycle "Refrigerant cycle model of a chiller"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
+      IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.NoCooling
     constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle
+    IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleChillerHeating =
-      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating
+      IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.NoHeating
     constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle
+    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a chiller in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 

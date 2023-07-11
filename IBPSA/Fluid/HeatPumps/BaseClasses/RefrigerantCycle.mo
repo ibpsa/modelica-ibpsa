@@ -6,16 +6,16 @@ model RefrigerantCycle
   // Using the NoHeating and NoCooling option disabled warnings
   // about missing parameters in this model
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle
+      IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
      constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle
+    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling
+      IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.NoCooling
       constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle
+    IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of 
     a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);

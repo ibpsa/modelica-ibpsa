@@ -11,7 +11,7 @@ model ModularReversible
     QUse_flow_nominal=30000,
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.VariableOrder
         (
         refIneFreConst=1/300,
         nthOrd=1,
@@ -39,14 +39,14 @@ model ModularReversible
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
     redeclare model RefrigerantCycleChillerCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade (
+        IBPSA.Fluid.Chillers.RefrigerantCycle.ConstantQualityGrade (
         datSou="Override to avoid warnings during simulation for CI",
         useAirForCon=modRevChi.cpCon < 1500,
         useAirForEva=modRevChi.cpEva < 1500,
         quaGra=0.35),
     redeclare model RefrigerantCycleChillerHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
             IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN255.Vitocal350BWH110(
              devIde="Override to avoid warnings during simulation for CI")))

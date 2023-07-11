@@ -17,15 +17,15 @@ model LargeScaleWaterToWater
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling,
+        IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
     final use_rev=false,
     final QCoo_flow_nominal=0,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.NoInertia,
     final mCon_flow_nominal=autCalMasCon_flow,
     final mEva_flow_nominal=autCalMasEva_flow,
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
@@ -71,13 +71,13 @@ model LargeScaleWaterToWater
 </p>
 <p>
   Please read the documentation of the model for heating here: 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D</a>.
 </p>
 <p>
   Currently the only data sheets for heat pumps that large is the record 
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>, 
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>, 
   hence, the default value.
 </p>
 <p>

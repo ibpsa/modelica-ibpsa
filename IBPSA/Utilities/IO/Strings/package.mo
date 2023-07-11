@@ -8,8 +8,8 @@ annotation (Documentation(info="<html>
 </p>
 <p>
   For an example usage, see the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialRefrigerantCycle</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle</a>
   model and the 
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialModularRefrigerantCycle\">
   IBPSA.Fluid.HeatPumps.BaseClasses.PartialModularRefrigerantCycle</a> model.

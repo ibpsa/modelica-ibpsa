@@ -85,8 +85,8 @@ package ModularReversibleUsersGuide
 </p>
 <p>
   All modular heat pump or chiller models base on the model 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>.
   This partial model declares all common interfaces, parameters etc.
 </p>
 
@@ -109,8 +109,8 @@ IBPSA.Fluid.HeatPumps.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the 
 heating and cooling operation of the heat pump.
 Available approaches can be found in the package: 
-<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels\">
-IBPSA.Fluid.HeatPumps.RefrigerantCycleModels</a>
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle\">
+IBPSA.Fluid.HeatPumps.RefrigerantCycle</a>
 For more information on the refrigerant cycle models, we refer
 to the section <b>Refrigerant cycle models</b>.
 
@@ -155,8 +155,8 @@ IBPSA.Fluid.Chillers.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the 
 cooling and heating operation of the chiller.
 Available approaches can be found in the package: 
-<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels\">
-IBPSA.Fluid.Chillers.RefrigerantCycleModels</a>. 
+<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle\">
+IBPSA.Fluid.Chillers.RefrigerantCycle</a>. 
 For more information on the refrigerant cycle models, we refer
 to the section <b>Refrigerant cycle models</b>.
 
@@ -232,11 +232,11 @@ to the section <b>Refrigerant cycle models</b>.
   and evaporator heat flow <code>QEva_flow</code> based on the 
   values in the <code>sigBus</code>.
   Extending the model 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>
   for heat pumps and 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle\">
+  IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>
   for chillers enables just that.
 </p>
 <p>
@@ -373,8 +373,8 @@ for heating and cooling.
 </p>
 <p>
   The package 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias</a>
   holds existing approaches. In the contribution, an empirical 
   validation showed that a third-order critical damping element 
   fits the inertia most closely. At the same time, literature models
@@ -390,8 +390,8 @@ for heating and cooling.
 <p>
   If you find in real data that another approach might be better suited
   (e.g. a deadband), you can extend the model
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.BaseClasses.PartialInertia\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.BaseClasses.PartialInertia
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.BaseClasses.PartialInertia\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.BaseClasses.PartialInertia
   </a>
   and implement your own approach.
 </p>
@@ -416,8 +416,8 @@ for heating and cooling.
 <p>
   You can select different options for the modeling of the icing factor or
   implement your own approach by extending 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.BaseClasses.PartialIcingFactor\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.BaseClasses.PartialIcingFactor</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor</a>
 </p>
 <p>
   Note however, that this only simulated the efficiency reduction 

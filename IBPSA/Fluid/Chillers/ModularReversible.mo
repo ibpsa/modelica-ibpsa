@@ -18,10 +18,10 @@ model ModularReversible
       annotation(Dialog(group="Nominal Design", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle
+      IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle
       (QUseNoSca_flow_nominal=0)
       constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.PartialChillerCycle(
+    IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -33,9 +33,9 @@ model ModularReversible
   "Model approach of the refrigerant cycle cooling mode"
     annotation (choicesAllMatching=true);
   replaceable model RefrigerantCycleChillerHeating =
-      IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating
+      IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.NoHeating
        constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.PartialHeatPumpCycle(
+    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final QUse_flow_nominal=QHea_flow_nominal,
        final scaFac=scaFac,
        final TCon_nominal=TEva_nominal,

@@ -184,10 +184,10 @@ equation
   information about the operationsl envelope.
   The device records for heat pumps 
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2DData</a>)
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2DData</a>)
   and chillers 
   (<a href=\"modelica://IBPSA.Fluid.Chillers.Data.EuropeanNorm2D\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData</a>)
+  IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2DData</a>)
   contain typical values. Older devices typically have lower limits
   while new refrigerant machines based on Propane or advanced flowsheets
   are able to achieve temperature over 70 °C for heating.

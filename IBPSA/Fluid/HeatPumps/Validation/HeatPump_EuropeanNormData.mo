@@ -4,13 +4,13 @@ model HeatPump_EuropeanNormData
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.VariableOrder
           (
           refIneFreConst=refIneFreConst,
           nthOrd=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.EuropeanNorm2D (datTab=
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.EuropeanNorm2D (datTab=
               IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericHeatPump(
               tabQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
               tabPEle=[0,0,10; 35,1300,1500; 55,1900,2300],

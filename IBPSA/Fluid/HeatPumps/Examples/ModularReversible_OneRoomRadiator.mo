@@ -12,7 +12,7 @@ model ModularReversible_OneRoomRadiator
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.NoInertia,
 
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
@@ -33,17 +33,17 @@ model ModularReversible_OneRoomRadiator
     cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade (
         redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
         useAirForCon=false,
         useAirForEva=false,
         TAppCon_nominal=0,
         TAppEva_nominal=0),
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+        IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
             IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
 

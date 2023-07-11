@@ -4,27 +4,27 @@ model ReversibleCarnotWithLosses
   extends IBPSA.Fluid.Chillers.ModularReversible(
     y_nominal=1,
     redeclare model RefrigerantCycleChillerHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade (
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade (
         QUseNoSca_flow_nominal=QUse_flow_nominal,
         redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),
     redeclare model RefrigerantCycleChillerCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade (
+        IBPSA.Fluid.Chillers.RefrigerantCycle.ConstantQualityGrade (
         redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.FunctionalIcingFactor
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.FunctionalIcingFactor
           iceFacCal(redeclare function iceFacFun =
-              IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.Functions.wetterAfjei1997),
+              IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
         quaGra=quaGra),
     use_evaCap,
     use_conCap,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.VariableOrder
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.VariableOrder
         (
         final refIneFreConst=1/refIneTimCon,
         final nthOrd=1,
@@ -49,11 +49,11 @@ model ReversibleCarnotWithLosses
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible</a> and selects the 
   constant quality grade model approaches for chillers 
-  (<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.ConstantQualityGrade</a>) 
+  (<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle.ConstantQualityGrade\">
+  IBPSA.Fluid.Chillers.RefrigerantCycle.ConstantQualityGrade</a>) 
   and heat pumps 
-  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade\">
-  IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.ConstantQualityGrade</a>)
+  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade\">
+  IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible chiller.
 </p>
 <p>

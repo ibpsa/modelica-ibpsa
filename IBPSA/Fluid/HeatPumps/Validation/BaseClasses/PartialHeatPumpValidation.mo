@@ -52,7 +52,7 @@ partial model PartialHeatPumpValidation
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TCon_start=303.15,
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.BaseClasses.NoCooling)
+        IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.NoCooling)
     "Heat pump" annotation (Placement(transformation(
         extent={{-24,-29},{24,29}},
         rotation=270,

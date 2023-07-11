@@ -17,12 +17,12 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Inertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.NoInertia,
     redeclare model RefrigerantCycleChillerHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.BaseClasses.NoHeating,
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.NoHeating,
     redeclare model RefrigerantCycleChillerCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycleModels.Frosting.NoFrosting
+        IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D (redeclare
+          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
     final use_rev=false,
     final QHea_flow_nominal=0,
@@ -70,13 +70,13 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </p>
 <p>
   Please read the documentation of the model for heating here: 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D\">
+  IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D</a>.
 </p>
 <p>
   Currently the only data sheets for chillers that large is the record 
   <a href=\"modelica://IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Carrier30XWP1012_1MW\">
-  IBPSA.Fluid.Chillers.RefrigerantCycleModels.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW</a>, 
+  IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW</a>, 
   hence, the default value.
 </p>
 <p>
