@@ -15,7 +15,7 @@ model ReversibleCarnotWithLosses
         IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade (
         redeclare
           IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.FunctionalIcingFactor
-          iceFacCal(redeclare function iceFacFun =
+          iceFacCal(redeclare function icingFactor =
               IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
