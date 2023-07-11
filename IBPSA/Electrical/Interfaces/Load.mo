@@ -25,7 +25,7 @@ model Load "Partial model for a generic load"
   max=IBPSA.Electrical.Types.InitMode.linearized) = IBPSA.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"  annotation(Dialog(tab = "Initialization"));
 
-  Modelica.Units.SI.Voltage v[:](start=PhaseSystem.phaseVoltages(V_nominal))=
+  Modelica.Units.SI.Voltage v[:](start=PhaseSystem.phaseVoltages(V_nominal)) =
     terminal.v "Voltage vector";
   Modelica.Units.SI.Current i[:](each start=0) = terminal.i "Current vector";
   Modelica.Units.SI.Power S[PhaseSystem.n]=PhaseSystem.phasePowers_vi(v, -i)
@@ -141,15 +141,15 @@ This is for
 <li>
 September 24, 2015 by Michael Wetter:<br/>
 Provided value for <code>P_nominal</code> if
-<code>mode &lt;&gt; Buildings.Electrical.Types.Load.VariableZ_P_input</code>.
+<code>mode &lt;&gt; IBPSA.Electrical.Types.Load.VariableZ_P_input</code>.
 This avoids a warning during translation of
-<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterRenewables\">
-Buildings.Examples.ChillerPlant.DataCenterRenewables</a>.
+<a href=\"modelica://IBPSA.Examples.ChillerPlant.DataCenterRenewables\">
+IBPSA.Examples.ChillerPlant.DataCenterRenewables</a>.
 </li>
 <li>
 September 4, 2014, by Michael Wetter:<br/>
 Changed the parameter from <code>linear</code> to <code>linearized</code>
-because <code>Buildings.Fluid</code> also uses <code>linearized</code>.
+because <code>IBPSA.Fluid</code> also uses <code>linearized</code>.
 This change has been done to use a consistent naming across the library.
 </li>
 <li>June 17, 2014, by Marco Bonvini:<br/>

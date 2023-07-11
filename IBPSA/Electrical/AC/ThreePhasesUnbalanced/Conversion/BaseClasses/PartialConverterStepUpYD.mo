@@ -27,20 +27,19 @@ equation
       smooth=Smooth.None));
 
   connect(conv1.terminal_n,ada3to3_n. terminals[1]) annotation (Line(points={{-10,52},
-          {-20,52},{-20,-0.266667},{-30.2,-0.266667}},   color={0,0,0}));
+          {-20,52},{-20,-0.533333},{-30,-0.533333}},     color={0,0,0}));
   connect(conv2.terminal_n,ada3to3_n. terminals[2])
-    annotation (Line(points={{-10,0},{-30.2,0},{-30.2,0}},
-                                                       color={0,0,0}));
+    annotation (Line(points={{-10,0},{-26,0},{-30,0}}, color={0,0,0}));
   connect(conv3.terminal_n,ada3to3_n. terminals[3]) annotation (Line(points={{-10,-60},
-          {-20,-60},{-20,0.266667},{-30.2,0.266667}},    color={0,0,0}));
+          {-20,-60},{-20,0.533333},{-30,0.533333}},      color={0,0,0}));
   connect(wye_to_wyeg.wyeg, ada3to3_n.terminal)
     annotation (Line(points={{-62,0},{-56,0},{-50,0}}, color={0,120,120}));
   connect(conv1.terminal_p, ada3to3_p.terminals[3]) annotation (Line(points={{10,52},
-          {20,52},{20,0.266667},{26.2,0.266667}},   color={0,0,0}));
+          {20,52},{20,0.533333},{26,0.533333}},     color={0,0,0}));
   connect(conv2.terminal_p, ada3to3_p.terminals[1]) annotation (Line(points={{10,0},{
-          28,0},{28,-0.266667},{26.2,-0.266667}},   color={0,0,0}));
-  connect(conv3.terminal_p, ada3to3_p.terminals[2]) annotation (Line(points={{10,-60},
-          {10,-60},{16,-60},{16,-60},{20,-60},{20,0},{26.2,0},{26.2,0}},  color=
+          28,0},{28,-0.533333},{26,-0.533333}},     color={0,0,0}));
+  connect(conv3.terminal_p, ada3to3_p.terminals[2]) annotation (Line(points={{10,
+          -60},{10,-60},{16,-60},{16,-60},{20,-60},{20,0},{26,0},{26,0}}, color=
          {0,0,0}));
   connect(ada3to3_p.terminal, delta_to_wye.delta)
     annotation (Line(points={{46,0},{53,0},{60,0}}, color={0,120,120}));
