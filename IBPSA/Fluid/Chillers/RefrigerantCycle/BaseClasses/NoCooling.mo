@@ -4,7 +4,7 @@ model NoCooling
   extends PartialChillerCycle(
     PEle_nominal=0,
     redeclare final
-      IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
       iceFacCal,
     datSou="",
     QUseNoSca_flow_nominal=1,

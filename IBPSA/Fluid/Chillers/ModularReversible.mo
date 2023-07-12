@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers;
 model ModularReversible
   "Grey-box model for reversible chillers using performance data or functional approaches to simulate the refrigeration cycle"
-  extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     safCtr(final forHeaPum=false),
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
@@ -33,9 +33,9 @@ model ModularReversible
   "Model approach of the refrigerant cycle cooling mode"
     annotation (choicesAllMatching=true);
   replaceable model RefrigerantCycleChillerHeating =
-      IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.NoHeating
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
        constrainedby
-    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final QUse_flow_nominal=QHea_flow_nominal,
        final scaFac=scaFac,
        final TCon_nominal=TEva_nominal,
@@ -152,8 +152,8 @@ equation
 </p>
 <p>
   Adding to the partial model (
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine\">
-  IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine</a>), 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine</a>), 
   this model adds the <code>hea</code> signal to choose 
   the operation type of the chiller:
 </p>
@@ -163,7 +163,7 @@ equation
 </ul>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>
 </html>"));

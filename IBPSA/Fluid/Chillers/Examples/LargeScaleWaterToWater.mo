@@ -6,7 +6,7 @@ model LargeScaleWaterToWater
   package MediumEva = IBPSA.Media.Water "Medium model";
 
   IBPSA.Fluid.Chillers.LargeScaleWaterToWater larScaWatToWatChi(
-    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,

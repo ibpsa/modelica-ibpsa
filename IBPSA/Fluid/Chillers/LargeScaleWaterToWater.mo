@@ -17,12 +17,12 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.NoInertia,
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     redeclare model RefrigerantCycleChillerHeating =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.NoHeating,
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating,
     redeclare model RefrigerantCycleChillerCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D (redeclare
-          IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
     final use_rev=false,
     final QHea_flow_nominal=0,
@@ -31,7 +31,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
-  extends IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters(
     final autCalMasCon_flow=max(5E-5*QUse_flow_nominal + 0.3161,
         autCalMMin_flow),
     final autCalMasEva_flow=max(5E-5*QUse_flow_nominal - 0.5662,
@@ -43,8 +43,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     datTab constrainedby Data.EuropeanNorm2D.Generic "Data Table of Chiller"
     annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
-    constrainedby IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Generic(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
+    constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
     final tabUppHea=datTab.tabLowBou,
     final tabLowCoo=datTab.tabLowBou,
     final use_TUseOut=datTab.use_TEvaOutForOpeEnv,
@@ -60,13 +60,13 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </p>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>
 <p>
   Parameters are based on an automatic estimation, see: 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters\">
-  IBPSA.Fluid.HeatPumps.BaseClasses.LargeScaleWaterToWaterParameters</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters</a>.
 </p>
 <p>
   Please read the documentation of the model for heating here: 

@@ -16,7 +16,7 @@ model EuropeanNorm2D
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialEuropeanNorm2D(
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialEuropeanNorm2D(
     final use_conOut=datTab.use_conOut,
     final use_evaOut=datTab.use_evaOut,
     tabQUse_flow(final table=datTab.tabQEva_flow),

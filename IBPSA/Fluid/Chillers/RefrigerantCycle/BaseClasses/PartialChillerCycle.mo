@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses;
 partial model PartialChillerCycle
   "Partial model of refrigerant cycle used for chiller applications"
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle;
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle;
 
 equation
   connect(iceFacCal.iceFac, sigBus.iceFacChiMea) annotation (Line(points={{-79,

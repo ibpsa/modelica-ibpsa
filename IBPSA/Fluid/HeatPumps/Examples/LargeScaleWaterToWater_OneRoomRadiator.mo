@@ -11,7 +11,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     sin(nPorts=1),
     booToReaPumEva(realTrue=larScaWatToWatHeaPum.mEva_flow_nominal),
     oneRooRadHeaPumCtr(PIDHea(Ti=10)));
-  IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater larScaWatToWatHeaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater larScaWatToWatHeaPum(
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_intSafCtr=true,
@@ -20,7 +20,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     TEva_nominal=sou.T,
     dpEva_nominal(displayUnit="Pa") = 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
     datTab=
         IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN14511.WAMAK_WaterToWater_150kW())
@@ -50,8 +50,8 @@ equation
    info="<html>
 <p>
   This example demonstrates how to use the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater\">
-  IBPSA.Fluid.HeatPumps.LargeScaleWaterToWater</a> 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a> 
   heat pump model. Please check the associated documentation for
   further information.
 </p>

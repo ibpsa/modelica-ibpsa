@@ -10,7 +10,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir));
 
-  IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     QUse_flow_nominal=Q_flow_nominal,
@@ -28,7 +28,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       datTabHea,
     redeclare IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
       datTabCoo,
-    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor(
         use_minRunTime=false,
         use_minLocTime=true,
@@ -63,8 +63,8 @@ equation
     Documentation(info="<html>
 <p>
   This example demonstrates how to use the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ReversibleAirToWaterEuropeanNorm2D</a> 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D</a> 
   heat pump model. Please check the associated documentation for
   further information.
 </p>

@@ -8,7 +8,7 @@ model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
       QUseNoSca_flow_nominal=QUse_flow_nominal,
       datSou="ConstantQualityGradeCarnot");
   extends
-    IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialCarnot(
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
     constPEle(final k=PEle_nominal),
     dTAppUse(k=-TAppEva_nominal),
     dTAppNotUse(k=TAppCon_nominal));

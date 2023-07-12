@@ -8,7 +8,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     booToReaPumEva(realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating power";
-  IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses revCarWitLosHeaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses revCarWitLosHeaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
@@ -30,7 +30,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     GEvaIns=20000,
     cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
     quaGra=0.4,
     refIneFreConst=0.003,
@@ -72,8 +72,8 @@ equation
     Documentation(info="<html>
 <p>
   This example demonstrates how to use the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.HeatPumps.ReversibleCarnotWithLosses</a> 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a> 
   heat pump model. Please check the associated documentation for
   further information.
 </p>
