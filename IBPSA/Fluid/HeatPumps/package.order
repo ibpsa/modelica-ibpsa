@@ -1,7 +1,7 @@
 Carnot_TCon
 Carnot_y
 LargeScaleWaterToWater
-ModularReversible
+ModularReversibleT
 ModularReversibleUsersGuide
 ReciprocatingWaterToWater
 ReversibleAirToWaterEuropeanNorm2D
@@ -15,3 +15,4 @@ Data
 Examples
 Validation
 BaseClasses
+ModularReversible

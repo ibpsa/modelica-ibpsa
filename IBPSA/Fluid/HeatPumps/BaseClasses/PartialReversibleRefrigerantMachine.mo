@@ -389,21 +389,23 @@ equation
 
   // Non bus connections
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{-62.5,-17.1},{-62.5,-16},{-76,-16},{-76,-43},{-105,-43}},
+      points={{-59.9167,-16.0833},{-59.9167,-16},{-76,-16},{-76,-43},{-105,-43}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-37,-8},{-30,-8},{
-          -30,-66},{-76,-66},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
+  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-39.1667,-8.33333},
+          {-30,-8.33333},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+                                                    color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(ySet, safCtr.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-8},
-          {-63.6,-8}}, color={0,0,127}));
+  connect(ySet, safCtr.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,
+          -8.33333},{-61.3333,-8.33333}},
+                       color={0,0,127}));
   connect(TConAmb, varTOutCon.T) annotation (Line(
       points={{110,100},{88,100},{88,110},{82,110}},
       color={0,0,127},
@@ -645,11 +647,11 @@ equation
 </ul>
 <p>
   The model <code>refCyc</code> is replaced by the 
-  ModularReversible models of both heat pumps and chillers.
+  ModularReversibleT models of both heat pumps and chillers.
 </p>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
   UsersGuide</a>.
 </p>
 </html>"));

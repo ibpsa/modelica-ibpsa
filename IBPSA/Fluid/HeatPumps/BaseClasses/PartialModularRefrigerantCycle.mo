@@ -158,7 +158,7 @@ equation
 </p>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
   UsersGuide</a>.
 </p>
 </html>"));

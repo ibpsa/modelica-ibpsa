@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps;
 model ReversibleCarnotWithLosses
   "Use a carnot approach, but add reversibility and losses (heat, frost, inertia)"
-  extends ModularReversible(
+  extends IBPSA.Fluid.HeatPumps.ModularReversibleT(
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.RefrigerantCycle.ConstantQualityGrade (
         QUseNoSca_flow_nominal=QUse_flow_nominal,
@@ -23,8 +23,7 @@ model ReversibleCarnotWithLosses
     final use_evaCap,
     final use_conCap,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.VariableOrder
-        (
+        IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.VariableOrder (
         refIneFreConst=refIneFreConst,
         nthOrd=nthOrd,
         initType=Modelica.Blocks.Types.Init.InitialOutput));
@@ -37,8 +36,8 @@ model ReversibleCarnotWithLosses
   annotation (Documentation(info="<html>
 <p>
   This model extends the model 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible</a> and selects the 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleT\">
+  IBPSA.Fluid.HeatPumps.ModularReversibleT</a> and selects the 
   constant quality grade model approaches for heat pumps 
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.HeatPumps.RefrigerantCycle.ConstantQualityGrade</a>) 
   and chillers 
@@ -57,7 +56,7 @@ model ReversibleCarnotWithLosses
   You can disable the heat losses if required.
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
   UsersGuide</a>.
 </p>
 </html>", revisions="<html>

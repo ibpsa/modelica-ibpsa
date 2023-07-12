@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps;
-model ModularReversible
+model ModularReversibleT
   "Grey-box model for reversible heat pumps using performance data or functional approaches to simulate the refrigeration cycle"
   extends IBPSA.Fluid.HeatPumps.BaseClasses.PartialReversibleRefrigerantMachine(
     safCtr(final forHeaPum=true),
@@ -13,8 +13,8 @@ model ModularReversible
           RefrigerantCycleHeatPumpHeating, redeclare model
         RefrigerantCycleHeatPumpCooling = RefrigerantCycleHeatPumpCooling));
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
-      (QUseNoSca_flow_nominal=0)
+      IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle (
+       QUseNoSca_flow_nominal=0)
      constrainedby
     IBPSA.Fluid.HeatPumps.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final QUse_flow_nominal=QUse_flow_nominal,
@@ -172,8 +172,8 @@ equation
 </ul>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
   UsersGuide</a>.
 </p>
 </html>"));
-end ModularReversible;
+end ModularReversibleT;

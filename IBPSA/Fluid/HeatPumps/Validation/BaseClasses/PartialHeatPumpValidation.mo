@@ -26,7 +26,7 @@ partial model PartialHeatPumpValidation
         extent={{-11,11},{11,-11}},
         rotation=0,
         origin={-31,11})));
-  IBPSA.Fluid.HeatPumps.ModularReversible heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversibleT heaPum(
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
     QUse_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QUseNoSca_flow_nominal,

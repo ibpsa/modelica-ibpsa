@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps;
 model ReversibleAirToWaterEuropeanNorm2D
   "Reversibel air to water heat pump based on 2D manufacturer data in europe"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible(
+  extends IBPSA.Fluid.HeatPumps.ModularReversibleT(
     final safCtrPar=safCtrParEurNor,
     dTEva_nominal=0,
     mEva_flow_nominal=datTabHea.mEva_flow_nominal*scaFac,
@@ -53,7 +53,7 @@ model ReversibleAirToWaterEuropeanNorm2D
 </p>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
   UsersGuide</a>.
 </p>
 <p>

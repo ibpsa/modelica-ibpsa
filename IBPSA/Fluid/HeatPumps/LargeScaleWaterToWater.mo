@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
-  extends ModularReversible(
+  extends IBPSA.Fluid.HeatPumps.ModularReversibleT(
     final safCtrPar=safCtrParEurNor,
     final dTEva_nominal=(QUse_flow_nominal - PEle_nominal)/cpEva/
         mEva_flow_nominal,
@@ -61,7 +61,7 @@ model LargeScaleWaterToWater
 </p>
 <p>
   For more information on the approach, please read the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleTUsersGuide\">
   UsersGuide</a>.
 </p>
 <p>

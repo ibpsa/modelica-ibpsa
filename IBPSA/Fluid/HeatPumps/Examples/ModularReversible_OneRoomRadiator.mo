@@ -6,14 +6,13 @@ model ModularReversible_OneRoomRadiator
     mCon_flow_nominal=modRevHeaPum.mCon_flow_nominal,
                                              sin(nPorts=1), booToReaPumEva(
         realTrue=modRevHeaPum.mEva_flow_nominal));
-  IBPSA.Fluid.HeatPumps.ModularReversible modRevHeaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversibleT modRevHeaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.RefrigerantCycle.Inertias.NoInertia,
-
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
@@ -46,7 +45,6 @@ model ModularReversible_OneRoomRadiator
           IBPSA.Fluid.HeatPumps.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
             IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
-
     redeclare IBPSA.Fluid.HeatPumps.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       use_TUseOut=true,
@@ -80,8 +78,8 @@ equation
   annotation (Documentation(info="<html>
 <p>
   This example demonstrates how to use the 
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible</a> 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleT\">
+  IBPSA.Fluid.HeatPumps.ModularReversibleT</a> 
   heat pump model directly. Please check the associated documentation for
   further information.
 </p>

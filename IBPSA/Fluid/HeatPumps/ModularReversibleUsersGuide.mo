@@ -92,8 +92,8 @@ package ModularReversibleUsersGuide
 
 <h5>Heat pump models</h5>
 <p> 
-For heat pumps, the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible\">
-IBPSA.Fluid.HeatPumps.ModularReversible</a> extends the partial model and adds
+For heat pumps, the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversibleT\">
+IBPSA.Fluid.HeatPumps.ModularReversibleT</a> extends the partial model and adds
 the connector <code>hea</code> to choose 
 between the operation type of the heat pump:
 </p>
