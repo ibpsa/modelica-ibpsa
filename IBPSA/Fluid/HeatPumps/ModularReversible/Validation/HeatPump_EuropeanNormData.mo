@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
 model HeatPump_EuropeanNormData
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialHeatPumpValidation(heaPum(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialHeatPumpValidation(      heaPum(
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =

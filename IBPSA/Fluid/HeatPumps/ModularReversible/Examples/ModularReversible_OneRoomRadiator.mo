@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ModularReversible_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=modRevHeaPum.mEva_flow_nominal,
     mCon_flow_nominal=modRevHeaPum.mCon_flow_nominal,
                                              sin(nPorts=1), booToReaPumEva(
@@ -42,10 +43,10 @@ model ModularReversible_OneRoomRadiator
         TAppCon_nominal=0,
         TAppEva_nominal=0),
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2D (redeclare
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
+            IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()),
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       use_TUseOut=true,

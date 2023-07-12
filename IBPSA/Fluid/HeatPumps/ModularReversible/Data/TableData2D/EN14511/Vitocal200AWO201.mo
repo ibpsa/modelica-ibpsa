@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record Vitocal200AWO201
   "Vitocal200AWO201"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater(
     tabPEle=[
       0,-15,-7,2,7,10,20,30;
       35,2220,2310,1765,1597,1578,1601,1416;

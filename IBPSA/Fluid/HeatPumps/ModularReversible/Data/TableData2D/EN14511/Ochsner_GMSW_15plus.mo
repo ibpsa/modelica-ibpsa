@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record Ochsner_GMSW_15plus "Ochsner GMSW 15 plus"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
     devIde="Ochsner_GMSW_15plus",
     tabPEle=[
       0,-5,0,5;

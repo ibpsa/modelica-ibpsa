@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record Dimplex_LA11AS "Dimplex LA 11 AS"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
     devIde="Dimplex_LA11AS",
     tabPEle=[
       0,-7,2,7,10;

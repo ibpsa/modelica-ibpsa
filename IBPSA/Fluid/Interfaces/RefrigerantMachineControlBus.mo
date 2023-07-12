@@ -9,8 +9,8 @@ expandable connector RefrigerantMachineControlBus
 <p>
   Used in the reversbile modular approaches for chiller 
   and heat pump in the models 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible</a> and 
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and 
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a>.
 </p>

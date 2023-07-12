@@ -138,8 +138,8 @@ to the section <b>Refrigerant cycle models</b>.
 <h5>Chiller models</h5>
 
 <p> 
-For chillers, the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
-IBPSA.Fluid.Chillers.ModularReversible</a> extends the partial model and adds
+For chillers, the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
+IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> extends the partial model and adds
 the connector <code>coo</code> to choose 
 between the operation type of the chiller:
 </p>
@@ -150,13 +150,13 @@ between the operation type of the chiller:
 
 Furthermore, the refrigerant cycle is redeclared to use the one for 
 the chiller
-<a href=\"modelica://IBPSA.Fluid.Chillers.BaseClasses.RefrigerantCycle\">
-IBPSA.Fluid.Chillers.BaseClasses.RefrigerantCycle</a>.
+<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle\">
+IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the 
 cooling and heating operation of the chiller.
 Available approaches can be found in the package: 
-<a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle\">
-IBPSA.Fluid.Chillers.RefrigerantCycle</a>. 
+<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle\">
+IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle</a>. 
 For more information on the refrigerant cycle models, we refer
 to the section <b>Refrigerant cycle models</b>.
 
@@ -168,12 +168,12 @@ to the section <b>Refrigerant cycle models</b>.
 </p>
 <ul>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.Chillers.LargeScaleWaterToWater\">
-  IBPSA.Fluid.Chillers.LargeScaleWaterToWater</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater\">
+  IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater</a>
 </li>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.Chillers.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses\">
+  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses</a>
 </li>
 </ul>
 
@@ -235,8 +235,8 @@ to the section <b>Refrigerant cycle models</b>.
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>
   for heat pumps and 
-  <a href=\"modelica://IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle\">
-  IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle\">
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>
   for chillers enables just that.
 </p>
 <p>

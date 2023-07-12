@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255;
 record Vitocal350AWI114 "Vitocal 350 AWI 114"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater(
     devIde="Vitocal350AWI114",
     tabPEle=[
       0,-20,-15,-10,-5,0,5,10,15,20,25,30;

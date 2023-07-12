@@ -186,8 +186,8 @@ equation
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
   and chillers 
-  (<a href=\"modelica://IBPSA.Fluid.Chillers.Data.EuropeanNorm2D\">
-  IBPSA.Fluid.Chillers.RefrigerantCycle.EuropeanNorm2DData</a>)
+  (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D\">
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
   contain typical values. Older devices typically have lower limits
   while new refrigerant machines based on Propane or advanced flowsheets
   are able to achieve temperature over 70 °C for heating.

@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   // These models will be replaced by the heat pump model anyway.
   // Using the NoHeating and NoCooling option disabled warnings
   // about missing parameters in this model
@@ -13,9 +14,9 @@ model RefrigerantCycle
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.NoCooling
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
       constrainedby
-    IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.PartialChillerCycle
+    IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of 
     a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);

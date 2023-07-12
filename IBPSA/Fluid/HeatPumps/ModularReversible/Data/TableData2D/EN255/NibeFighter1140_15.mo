@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255;
 record NibeFighter1140_15 "Nibe Fighter 1140-15"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
     devIde="NibeFighter1140_15",
     tabPEle=[
       0,-5.0,0.0,2,5.0,10;

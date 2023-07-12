@@ -17,7 +17,7 @@ model LargeScaleWaterToWater
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.RefrigerantCycle.BaseClasses.NoCooling,
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D
         (                                                                        redeclare

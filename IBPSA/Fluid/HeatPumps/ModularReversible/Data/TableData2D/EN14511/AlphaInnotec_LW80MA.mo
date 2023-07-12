@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record AlphaInnotec_LW80MA "Alpha Innotec LW 80 M-A"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
     devIde="AlphaInnotec_LW80MA",
     tabPEle=[
       0,-7,2,7,10,15,20;

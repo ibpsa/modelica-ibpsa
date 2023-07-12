@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ReversibleAirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
     mCon_flow_nominal=revCarWitLosHeaPum.mCon_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
@@ -26,7 +27,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201
       datTabHea,
-    redeclare IBPSA.Fluid.Chillers.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
+    redeclare IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
       datTabCoo,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor(

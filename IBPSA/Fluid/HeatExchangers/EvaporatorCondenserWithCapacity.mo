@@ -272,8 +272,8 @@ equation
   Used in <a href=
   \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and <a href=
-  \"modelica://IBPSA.Fluid.Chillers.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible</a>,
+  \"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a>,
   the heat flow to or from the volume is calculated in a black-box.
   Thus the heat is directly added to the medium.
 </p>

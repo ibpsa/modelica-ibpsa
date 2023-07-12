@@ -14,7 +14,8 @@ model Safety "Model including all safety levels"
     "=true if model is for heat pump, false for chillers";
 
   replaceable parameter IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
-    safCtrPar constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
+    safCtrPar constrainedby
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-118,102},{-104,118}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope opeEnv(

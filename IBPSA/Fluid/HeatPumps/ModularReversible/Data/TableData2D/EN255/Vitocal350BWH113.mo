@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255;
 record Vitocal350BWH113 "Vitocal 350 BWH 113"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
     devIde="Vitocal350BWH113",
     tabPEle=[
       0,-5.0,0.0,5.0,10.0,15.0;

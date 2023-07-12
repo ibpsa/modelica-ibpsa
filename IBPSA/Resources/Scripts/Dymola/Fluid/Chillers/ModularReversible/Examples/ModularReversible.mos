@@ -1,0 +1,4 @@
+simulateModel("IBPSA.Fluid.Chillers.ModularReversible.Examples.ModularReversible", tolerance=1e-6, stopTime=3600, method="CVode", resultFile="ModularReversible");
+createPlot(id=2, position={75, 70, 1210, 980}, y={"modRevChi.refCyc.sigBus.TConInMea", "modRevChi.refCyc.sigBus.TConOutMea", "modRevChi.refCyc.sigBus.TEvaOutMea", "modRevChi.refCyc.sigBus.TEvaInMea"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="ModularReversible.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=2, position={75, 70, 1210, 240}, y={"modRevChi.refCyc.QCon_flow", "modRevChi.refCyc.QEva_flow", "modRevChi.refCyc.PEle"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={75, 70, 1210, 240}, y={"modRevChi.safCtr.ySet", "modRevChi.safCtr.yOut"}, range={0.0, 3600.0, 0.0, 1.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

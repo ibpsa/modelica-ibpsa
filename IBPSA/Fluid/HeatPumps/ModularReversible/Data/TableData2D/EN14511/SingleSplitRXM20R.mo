@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R heating mode"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
     tabPEle=[
       0,-15,-10,-5,0,7,10;
       15,1190,1430,1670,1940,2590,2810;
