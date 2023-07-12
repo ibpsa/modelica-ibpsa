@@ -364,7 +364,7 @@ partial model PartialReversibleRefrigerantMachine
 
 // Line to delete if you don't want to use the bus externally
 protected
-  Interfaces.RefrigerantMachineControlBus sigBus
+  RefrigerantMachineControlBus sigBus
     "Bus with signal for device control" annotation (Placement(transformation(
           extent={{-120,-60},{-90,-26}}), iconTransformation(extent={{-108,-52},
             {-90,-26}})));

@@ -57,7 +57,7 @@ partial model PartialRefrigerantCycle
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,-110})));
-  IBPSA.Fluid.Interfaces.RefrigerantMachineControlBus sigBus
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector used in a heat pump" annotation (Placement(transformation(
         extent={{-15,-14},{15,14}},
         rotation=0,

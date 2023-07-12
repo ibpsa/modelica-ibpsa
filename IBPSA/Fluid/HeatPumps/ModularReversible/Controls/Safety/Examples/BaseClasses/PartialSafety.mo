@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Examples.BaseClasses;
 partial model PartialSafety
 
-  Interfaces.RefrigerantMachineControlBus sigBus
+  ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector for the heat pump"
     annotation (Placement(transformation(extent={{-70,-72},{-30,-32}})));
   Modelica.Blocks.Logical.Hysteresis hys(

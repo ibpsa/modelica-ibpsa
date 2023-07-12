@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses;
 partial model PartialIcingFactor "Partial model to calculate the icing factor"
-  Interfaces.RefrigerantMachineControlBus sigBus
+  ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector used in a heat pump" annotation (Placement(transformation(
         extent={{-15,-14},{15,14}},
         rotation=0,

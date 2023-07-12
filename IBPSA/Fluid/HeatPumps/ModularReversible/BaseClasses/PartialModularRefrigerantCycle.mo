@@ -5,7 +5,7 @@ partial model PartialModularRefrigerantCycle
   parameter Boolean use_rev=true
     "True if the refrigerant machine is reversible";
 
-  IBPSA.Fluid.Interfaces.RefrigerantMachineControlBus sigBus
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Signal bus with data for refrigerant models" annotation (Placement(
         transformation(extent={{-18,86},{18,118}}), iconTransformation(extent={{
             -16,88},{18,118}})));

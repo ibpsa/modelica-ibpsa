@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Interfaces;
+within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 expandable connector RefrigerantMachineControlBus
   "Bus connector for reversible heat pump and chiller model"
   extends Modelica.Icons.SignalBus;

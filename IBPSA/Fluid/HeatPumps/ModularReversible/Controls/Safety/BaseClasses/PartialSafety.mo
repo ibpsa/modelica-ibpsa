@@ -8,7 +8,7 @@ partial model PartialSafety "Safety control with I/O"
     "Relative speed of compressor. From 0 to 1"
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
         iconTransformation(extent={{120,10},{140,30}})));
-  Interfaces.RefrigerantMachineControlBus sigBus
+  ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector for the heat pump" annotation (Placement(transformation(
           extent={{-136,-88},{-102,-58}}), iconTransformation(extent={{-136,-88},
             {-102,-58}})));

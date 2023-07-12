@@ -13,7 +13,6 @@ PartialTwoPortInterface
 PartialTwoPortTransport
 PartialTwoPortVector
 PrescribedOutlet
-RefrigerantMachineControlBus
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger
