@@ -1,6 +1,7 @@
 within IBPSA.Fluid.Chillers.ModularReversible.BaseClasses;
 model RefrigerantCycle "Refrigerant cycle model of a chiller"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
     constrainedby

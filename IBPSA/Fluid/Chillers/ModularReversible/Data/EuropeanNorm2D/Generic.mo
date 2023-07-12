@@ -1,7 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D;
 record Generic "Basic chiller data"
-  extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
 
   parameter Real tabQEva_flow[:,:]
     "Cooling power table, T in degC, Q_flow in W";
