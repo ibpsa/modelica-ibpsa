@@ -53,27 +53,27 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
-      points={{-99.95,0.05},{-20,0.05},{-20,30},{-10,30}},
+      points={{-100,0},{-20,0},{-20,30},{-10,30}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_n.phase[2], phase2.terminal_n) annotation (Line(
-      points={{-99.95,0.05},{-54,0.05},{-54,0},{-10,0}},
+      points={{-100,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_n.phase[3], phase3.terminal_n) annotation (Line(
-      points={{-99.95,0.05},{-20,0.05},{-20,-30},{-10,-30}},
+      points={{-100,4.44089e-16},{-20,4.44089e-16},{-20,-30},{-10,-30}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase1.terminal_p, terminal_p.phase[1]) annotation (Line(
-      points={{10,30},{20,30},{20,0.05},{100.05,0.05}},
+      points={{10,30},{20,30},{20,4.44089e-16},{100,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase2.terminal_p, terminal_p.phase[2]) annotation (Line(
-      points={{10,0},{56,0},{56,0.05},{100.05,0.05}},
+      points={{10,0},{100,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase3.terminal_p, terminal_p.phase[3]) annotation (Line(
-      points={{10,-30},{20,-30},{20,0.05},{100.05,0.05}},
+      points={{10,-30},{20,-30},{20,4.44089e-16},{100,4.44089e-16}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(cableTemp.port, neutral.heatPort) annotation (Line(
@@ -83,11 +83,11 @@ equation
 
   // Neutral cable connection
   connect(terminal_n.phase[4], neutral.terminal_n) annotation (Line(
-      points={{-99.95,0.05},{-20,0.05},{-20,-60},{-10,-60}},
+      points={{-100,4.44089e-16},{-20,4.44089e-16},{-20,-60},{-10,-60}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_p.phase[4], neutral.terminal_p) annotation (Line(
-      points={{100.05,0.05},{20,0.05},{20,-60},{10,-60}},
+      points={{100,4.44089e-16},{20,4.44089e-16},{20,-60},{10,-60}},
       color={0,120,120},
       smooth=Smooth.None));
   annotation (
