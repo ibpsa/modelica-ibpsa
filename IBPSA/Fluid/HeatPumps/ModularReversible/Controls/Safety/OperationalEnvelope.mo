@@ -183,7 +183,7 @@ equation
   Technical datasheets according to EN 14511 often contain 
   information about the operationsl envelope.
   The device records for heat pumps 
-  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D\">
+  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
   and chillers 
   (<a href=\"modelica://IBPSA.Fluid.Chillers.Data.EuropeanNorm2D\">

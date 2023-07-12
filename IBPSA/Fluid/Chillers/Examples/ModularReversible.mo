@@ -48,7 +48,7 @@ model ModularReversible
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D (redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN255.Vitocal350BWH110(
+            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350BWH110(
              devIde="Override to avoid warnings during simulation for CI")))
                  "Modular reversible chiller instance"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

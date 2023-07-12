@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers.Data.EuropeanNorm2D;
 record Generic "Basic chiller data"
   extends
-    IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.Generic;
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
 
   parameter Real tabQEva_flow[:,:]
     "Cooling power table, T in degC, Q_flow in W";
@@ -18,7 +18,7 @@ record Generic "Basic chiller data"
   Base data definition used in the chiller model.
 </p>
 <p>
-  Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.Generic\">
+  Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
   to enable correct selection.</p>
 <p>

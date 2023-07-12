@@ -30,7 +30,7 @@ model HeatPump_CarnotConstantQuality
     "Calibrated cut off frequency for inertia of refrigerant cycle";
 
 annotation (experiment(Tolerance=1e-6, StopTime=14365),
-  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/HeatPump_CarnotConstantQuality.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/HeatPump_CarnotConstantQuality.mos"
           "Simulate and plot"),
   Documentation(info="<html>
 <p>

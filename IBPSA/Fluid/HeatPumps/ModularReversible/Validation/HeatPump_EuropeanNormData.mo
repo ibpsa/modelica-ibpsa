@@ -12,7 +12,7 @@ model HeatPump_EuropeanNormData
       redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D
           (                                                                        datTab=
-              IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericHeatPump(
+              IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
               tabQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
               tabPEle=[0,0,10; 35,1300,1500; 55,1900,2300],
               mCon_flow_nominal=6100/5/4184,
@@ -30,7 +30,7 @@ model HeatPump_EuropeanNormData
     "Cut off frequency for inertia of refrigerant cycle";
 
   annotation (experiment(Tolerance=1e-6, StopTime=14365),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/HeatPump_EuropeanNormData.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/HeatPump_EuropeanNormData.mos"
             "Simulate and plot"),
     Documentation(info="<html>
 <p>

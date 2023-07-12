@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.Validation;
+within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
 package BaseClasses "Partial validation models"
   extends Modelica.Icons.BasesPackage;
 

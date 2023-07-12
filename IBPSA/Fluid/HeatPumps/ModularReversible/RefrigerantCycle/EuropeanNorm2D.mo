@@ -25,8 +25,8 @@ model EuropeanNorm2D "Data from European Norm in two dimensions"
     tabPEle(final table=datTab.tabPEle));
 
 
-  parameter IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.GenericHeatPump datTab=
-      IBPSA.Fluid.HeatPumps.Data.EuropeanNorm2D.EN255.Vitocal350AWI114()
+  parameter IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab=
+      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350AWI114()
     "Data Table of HP" annotation (choicesAllMatching=true);
 
 equation
