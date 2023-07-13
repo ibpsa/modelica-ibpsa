@@ -117,12 +117,14 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
 
-  connect(antFre.err, antFreErr) annotation (Line(points={{43,20},{43,-54},{30,
-          -54},{30,-130}},          color={255,127,0}));
-  connect(opeEnv.err, opeEnvErr) annotation (Line(points={{3,20},{3,-54},{-10,
-          -54},{-10,-130}},           color={255,127,0}));
+  connect(antFre.err, antFreErr) annotation (Line(points={{40.8333,21.6667},{
+          40.8333,-54},{30,-54},{30,-130}},
+                                    color={255,127,0}));
+  connect(opeEnv.err, opeEnvErr) annotation (Line(points={{0.833333,21.6667},{
+          0.833333,-54},{-10,-54},{-10,-130}},
+                                      color={255,127,0}));
   connect(minVolFloRatSaf.yOut, yOut) annotation (Line(
-      points={{83,32},{88,32},{88,20},{130,20}},
+      points={{80.8333,31.6667},{88,31.6667},{88,20},{130,20}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus, minVolFloRatSaf.sigBus) annotation (Line(
@@ -134,8 +136,9 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
 
-  connect(minVolFloRatSaf.err, minFlowErr) annotation (Line(points={{83,20},{83,
-          -54},{70,-54},{70,-130}},          color={255,127,0}));
+  connect(minVolFloRatSaf.err, minFlowErr) annotation (Line(points={{80.8333,
+          21.6667},{80.8333,-54},{70,-54},{70,-130}},
+                                             color={255,127,0}));
   connect(reaPasThrOnOff.y, reaPasThrOpeEnv.u)
     annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
   connect(reaPasThrOpeEnv.y, reaPasThrAntFre.u)
@@ -146,41 +149,44 @@ equation
       points={{81,70},{92,70},{92,20},{130,20}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(onOffCtr.yOut, opeEnv.ySet) annotation (Line(points={{-37,32},{-36,32},
-          {-36,32},{-30,32},{-30,32},{-23.6,32}}, color={0,0,127}));
-  connect(opeEnv.yOut, antFre.ySet) annotation (Line(points={{3,32},{4,32},{4,
-          32},{10,32},{10,32},{16.4,32}},                             color={0,0,
+  connect(onOffCtr.yOut, opeEnv.ySet) annotation (Line(points={{-39.1667,31.6667},
+          {-36,31.6667},{-36,32},{-30,32},{-30,31.6667},{-21.3333,31.6667}},
+                                                  color={0,0,127}));
+  connect(opeEnv.yOut, antFre.ySet) annotation (Line(points={{0.833333,31.6667},{
+          4,31.6667},{4,32},{10,32},{10,31.6667},{18.6667,31.6667}},  color={0,0,
           127}));
-  connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{43,32},{
-          44,32},{44,32},{50,32},{50,32},{56.4,32}},                    color={0,
+  connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{40.8333,
+          31.6667},{44,31.6667},{44,32},{50,32},{50,31.6667},{58.6667,31.6667}},
+                                                                        color={0,
           0,127}));
   connect(antFre.yOut, reaPasThrMinVolRat.u) annotation (Line(
-      points={{43,32},{43,32},{52,32},{52,70},{58,70}},
+      points={{40.8333,31.6667},{40.8333,31.6667},{52,31.6667},{52,70},{58,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrAntFre.y, minVolFloRatSaf.ySet) annotation (Line(
-      points={{41,70},{52,70},{52,32},{56.4,32}},
+      points={{41,70},{52,70},{52,31.6667},{58.6667,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(opeEnv.yOut, reaPasThrAntFre.u) annotation (Line(
-      points={{3,32},{3,32},{12,32},{12,70},{18,70}},
+      points={{0.833333,31.6667},{0.833333,31.6667},{12,31.6667},{12,70},{18,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrOpeEnv.y, antFre.ySet) annotation (Line(
-      points={{1,70},{12,70},{12,32},{16.4,32}},
+      points={{1,70},{12,70},{12,31.6667},{18.6667,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(onOffCtr.yOut, reaPasThrOpeEnv.u) annotation (Line(
-      points={{-37,32},{-37,32},{-32,32},{-32,70},{-22,70}},
+      points={{-39.1667,31.6667},{-39.1667,31.6667},{-32,31.6667},{-32,70},{-22,
+          70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrOnOff.y, opeEnv.ySet) annotation (Line(
-      points={{-39,70},{-32,70},{-32,32},{-26,32},{-26,32},{-23.6,32}},
+      points={{-39,70},{-32,70},{-32,32},{-26,32},{-26,31.6667},{-21.3333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
 
   connect(ySet, onOffCtr.ySet) annotation (Line(
-      points={{-136,20},{-82,20},{-82,32},{-63.6,32}},
+      points={{-136,20},{-82,20},{-82,31.6667},{-61.3333,31.6667}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(ySet, reaPasThrOnOff.u) annotation (Line(
