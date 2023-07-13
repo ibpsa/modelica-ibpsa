@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatExchangers;
+within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model EvaporatorCondenserWithCapacity
   "Evaporaotr / Condenser model with added capacity for heat losses to the ambient"
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(

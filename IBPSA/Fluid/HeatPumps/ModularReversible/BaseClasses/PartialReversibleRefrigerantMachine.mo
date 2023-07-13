@@ -231,7 +231,7 @@ partial model PartialReversibleRefrigerantMachine
     "Value of ySet at which the device is considered turned on. 
     Default is 1 % as heat pumps and chillers currently invert down to 15 %."
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
-  IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity con(
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = MediumCon,
     final allowFlowReversal=allowFlowReversalCon,
     final m_flow_small=1E-4*abs(mCon_flow_nominal),
@@ -252,7 +252,7 @@ partial model PartialReversibleRefrigerantMachine
     final dp_nominal=dpCon_nominal,
     final GInn=GConIns) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,72},{20,112}})));
-  IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity eva(
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
     final deltaM=deltaMEva,
     final tau=tauEva,

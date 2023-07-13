@@ -457,8 +457,8 @@ for heating and cooling.
   parameterize the required values.
   For more information, please look at the model 
   description for more info:
-  <a href=\"modelica://IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity\">
-  IBPSA.Fluid.HeatExchangers.EvaporatorCondenserWithCapacity</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity</a>
 </p>
   
 <h4>References</h4>
