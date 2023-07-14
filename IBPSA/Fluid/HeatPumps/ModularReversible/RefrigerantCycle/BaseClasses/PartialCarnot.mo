@@ -104,7 +104,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
       Documentation(info="<html>
 <p>
-  Partial model for equations and componenents used in both heat pump 
+  Partial model for equations and componenents used in both heat pump
   and chiller carnot approaches.
 </p>
 </html>", revisions="<html>

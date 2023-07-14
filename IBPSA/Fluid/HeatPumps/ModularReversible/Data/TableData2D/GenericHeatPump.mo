@@ -16,10 +16,10 @@ record GenericHeatPump "Basic heat pump data"
 </p>
 <p>
   Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>
   to enable correct selection.</p>
 <p>
-  Adds the table data for upper temperature limitations to 
+  Adds the table data for upper temperature limitations to
   the partial record, which is the operational envelope of the compressor.
 </p>
 </html>",

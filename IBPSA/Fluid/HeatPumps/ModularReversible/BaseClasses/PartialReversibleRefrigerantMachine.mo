@@ -29,7 +29,7 @@ partial model PartialReversibleRefrigerantMachine
   parameter Real y_nominal "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
-    "Nominal electrical power, defined 
+    "Nominal electrical power, defined
     based on QUse_flow_nominal and nominal conditions"
     annotation (Dialog(group="Nominal Design"));
 
@@ -79,25 +79,25 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Dialog(group="Heat Losses", tab="Condenser"),
                                           choices(checkBox=true));
   parameter Modelica.Units.SI.HeatCapacity CCon
-    "Heat capacity of Condenser (= cp*m). If you want to neglace the dry mass 
+    "Heat capacity of Condenser (= cp*m). If you want to neglace the dry mass
     of the condenser, you can set this value to zero"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
   parameter Modelica.Units.SI.ThermalConductance GConOut
-    "Constant parameter for heat transfer to the ambient. 
-    Represents a sum of thermal resistances such as conductance, 
-    insulation and natural convection. If you want to simulate a condenser 
-    with additional dry mass but without external heat losses, 
+    "Constant parameter for heat transfer to the ambient.
+    Represents a sum of thermal resistances such as conductance,
+    insulation and natural convection. If you want to simulate a condenser
+    with additional dry mass but without external heat losses,
     set the value to zero"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
   parameter Modelica.Units.SI.ThermalConductance GConIns
-    "Constant parameter for heat transfer to heat exchangers capacity. 
-    Represents a sum of thermal resistances such as forced convection 
+    "Constant parameter for heat transfer to heat exchangers capacity.
+    Represents a sum of thermal resistances such as forced convection
     and conduction inside of the capacity"
     annotation (Dialog(
       group="Heat Losses",
@@ -139,24 +139,24 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Dialog(group="Heat Losses", tab="Evaporator"),
                                           choices(checkBox=true));
   parameter Modelica.Units.SI.HeatCapacity CEva
-    "Heat capacity of Evaporator (= cp*m). If you want to neglace the dry mass 
+    "Heat capacity of Evaporator (= cp*m). If you want to neglace the dry mass
     of the evaporator, you can set this value to zero"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.ThermalConductance GEvaOut
-    "Constant parameter for heat transfer to the ambient. Represents a sum of 
-    thermal resistances such as conductance, insulation and natural convection. 
-    If you want to simulate a evaporator with additional dry mass but 
+    "Constant parameter for heat transfer to the ambient. Represents a sum of
+    thermal resistances such as conductance, insulation and natural convection.
+    If you want to simulate a evaporator with additional dry mass but
     without external heat losses, set the value to zero"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.ThermalConductance GEvaIns
-    "Constant parameter for heat transfer to heat exchangers capacity. 
-    Represents a sum of thermal resistances such as forced convection 
+    "Constant parameter for heat transfer to heat exchangers capacity.
+    Represents a sum of thermal resistances such as forced convection
     and conduction inside of the capacity"
     annotation ( Dialog(
       group="Heat Losses",
@@ -217,7 +217,7 @@ partial model PartialReversibleRefrigerantMachine
 //Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Type of energy balance: dynamic (3 initialization options) 
+    "Type of energy balance: dynamic (3 initialization options)
     or steady state (only affects fluid-models)"
     annotation (Dialog(tab="Dynamics", group="Equation"));
 //Advanced
@@ -228,7 +228,7 @@ partial model PartialReversibleRefrigerantMachine
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
   parameter Real ySet_small=0.01
-    "Value of ySet at which the device is considered turned on. 
+    "Value of ySet at which the device is considered turned on.
     Default is 1 % as heat pumps and chillers currently invert down to 15 %."
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity con(
@@ -370,7 +370,7 @@ protected
             {-90,-26}})));
 
   parameter Boolean use_busConOnl=false "=true to use bus connector for model inputs (ySet, hea or coo).
-    =false to use the bus connector for outputs only. 
+    =false to use the bus connector for outputs only.
     Only possible if no internal safety control is used"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
           use_intSafCtr));
@@ -636,7 +636,7 @@ equation
 </html>", info="<html>
 <p>
   This partial model defines all components which are equally required
-  for heat pump and chillers. This encompasses 
+  for heat pump and chillers. This encompasses
 </p>
 <ul>
 <li>the heat exchangers (evaporator and condenser),</li>
@@ -647,11 +647,11 @@ equation
 <li>and the replaceable refrigerant cycle model <code>refCyc</code></li>
 </ul>
 <p>
-  The model <code>refCyc</code> is replaced by the 
+  The model <code>refCyc</code> is replaced by the
   ModularReversible.ModularReversible models of both heat pumps and chillers.
 </p>
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>

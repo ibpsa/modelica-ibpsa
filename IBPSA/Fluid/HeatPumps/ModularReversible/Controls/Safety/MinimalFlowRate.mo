@@ -48,12 +48,12 @@ equation
                                   color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-  Safety control to prevent the device from turning on 
-  if the mass flow rate is too low in either 
+  Safety control to prevent the device from turning on
+  if the mass flow rate is too low in either
   condenser or evaporator.
 </p>
 <p>
-  Used in real devices to prevent overheating 
+  Used in real devices to prevent overheating
   or freezing of components.
 </p>
 </html>", revisions="<html><ul>

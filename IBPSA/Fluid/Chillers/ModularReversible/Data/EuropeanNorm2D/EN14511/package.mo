@@ -16,7 +16,7 @@ Documentation(revisions="<html><ul>
 </ul>
 </html>", info="<html>
 <p>
-  This package contains data records for chiller 
+  This package contains data records for chiller
   data according to European Norm 14511.
 </p>
 </html>"));

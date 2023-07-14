@@ -25,14 +25,14 @@ initial equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
   assert(
     autCalMasEva_flow > autCalMMin_flow and autCalMasEva_flow < 90,
-    "Given nominal power (QUse_flow_nominal) for auto-calculation of 
-    evaporator and condenser data is outside the range of data sheets 
+    "Given nominal power (QUse_flow_nominal) for auto-calculation of
+    evaporator and condenser data is outside the range of data sheets
     considered. Please control the auto-calculated mass flows!",
     level=AssertionLevel.warning);
   assert(
     autCalVEva > autCalVMin and autCalVEva < 0.43,
-  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator 
-  and condenser data is outside the range of data sheets considered. 
+  "Given nominal power (QUse_flow_nominal) for auto-calculation of evaporator
+  and condenser data is outside the range of data sheets considered.
   Please control the auto-calculated volumes!",
     level=AssertionLevel.warning);
 
@@ -41,20 +41,20 @@ initial equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  To simplify the parametrization of the evaporator and condenser volumes 
-  and nominal mass flows there exists an option of automatic 
-  estimation based on the nominal usable power of the refrigerant machine. 
-  This function uses a linear correlation of these parameters, 
-  which was established from the linear regression of more than 20 data 
-  sets of water-to-water heat pumps from different manufacturers 
-  (e.g. Carrier, Trane, Lennox) ranging from about 25 kW 
-  to 1 MW nominal power. The linear regressions with coefficients 
-  of determination above 91 % give a good approximation of these 
-  parameters. Nevertheless, estimates for machines outside 
+  To simplify the parametrization of the evaporator and condenser volumes
+  and nominal mass flows there exists an option of automatic
+  estimation based on the nominal usable power of the refrigerant machine.
+  This function uses a linear correlation of these parameters,
+  which was established from the linear regression of more than 20 data
+  sets of water-to-water heat pumps from different manufacturers
+  (e.g. Carrier, Trane, Lennox) ranging from about 25 kW
+  to 1 MW nominal power. The linear regressions with coefficients
+  of determination above 91 % give a good approximation of these
+  parameters. Nevertheless, estimates for machines outside
   the given range should be checked for plausibility during simulation.
 </p>
 <p>
-For more info, please check out the .xlsx file contained here: 
+For more info, please check out the .xlsx file contained here:
 IBPSA\\Resources\\Data\\Fluid\\HeatPumps\\BaseClasses\\LargeScaleWaterToWaterParameters.xlsx
 </p>
 </html>", revisions="<html><ul>

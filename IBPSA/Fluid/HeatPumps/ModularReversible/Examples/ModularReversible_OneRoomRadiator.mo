@@ -79,19 +79,19 @@ equation
           {-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-  This example demonstrates how to use the 
+  This example demonstrates how to use the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> 
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a>
   heat pump model directly. Please check the associated documentation for
   further information.
 </p>
 <p>
-  Correct replacement of the replaceable submodels 
-  and, thus, flexible aggregation to a new model 
+  Correct replacement of the replaceable submodels
+  and, thus, flexible aggregation to a new model
   approach is demonstrated.
 </p>
 <p>
-  Please check the documentation of 
+  Please check the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator</a>
   for further information on the example.

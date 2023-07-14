@@ -11,17 +11,17 @@ record Generic "Basic chiller data"
   parameter Boolean use_TConOutForOpeEnv=false
     "=true to use condenser outlet temperature for operational envelope, false for inlet";
   annotation (Documentation(info="<html>
-  
+
   <h4>Overview</h4>
 <p>
   Base data definition used in the chiller model.
 </p>
 <p>
   Extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a> 
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>
   to enable correct selection.</p>
 <p>
-  Adds the table data for lower temperature limitations to 
+  Adds the table data for lower temperature limitations to
   the partial record, which is the operational envelope of the compressor.
 </p>
 </html>",

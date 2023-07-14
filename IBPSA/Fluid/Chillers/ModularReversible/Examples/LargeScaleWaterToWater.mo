@@ -99,17 +99,17 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 </html>", info="<html>
 <p>
   Example that simulates a chiller based on the modular reversible approach
-  using the 
+  using the
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater\">
   IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater</a>.
   model directly.
-  The chiller control signal is the compressor speed 
+  The chiller control signal is the compressor speed
   <code>ySet</code> and the mode <code>coo</code>.
 </p>
 <p>
-  As the model contains internal safety controls, the 
+  As the model contains internal safety controls, the
   compressor set speed <code>ySet</code> and actually applied
-  speed <code>yOut</code> are plotted to show the influence of 
+  speed <code>yOut</code> are plotted to show the influence of
   the safety control.
 </p>
 

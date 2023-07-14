@@ -71,14 +71,14 @@ equation
       Tolerance=1e-08),
     Documentation(info="<html>
 <p>
-  This example demonstrates how to use the 
+  This example demonstrates how to use the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a> 
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a>
   heat pump model. Please check the associated documentation for
   further information.
 </p>
 <p>
-  Please check the documentation of 
+  Please check the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator</a>
   for further information on the example.

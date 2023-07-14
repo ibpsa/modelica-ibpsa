@@ -63,7 +63,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Adds the output <code>err</code>, which informs about the 
+  Adds the output <code>err</code>, which informs about the
   number of errors in the specific safety block.
   Required as not all safety controls will inform about the error
   but most.

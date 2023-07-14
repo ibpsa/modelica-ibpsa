@@ -18,14 +18,14 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid)}),
       Documentation(
-  info="<html> 
+  info="<html>
 <p>
-  Partial refrigerant cycle model for chillers. 
-  Specifies <code>iceFacChiMea</code> in addition to basic 
+  Partial refrigerant cycle model for chillers.
+  Specifies <code>iceFacChiMea</code> in addition to basic
   equations to calculate the frosting performance of the chiller operation.
 </p>
 <p>
-  This model further enables the correct selection of approaches 
+  This model further enables the correct selection of approaches
   for chillers when using <code>choicesAllMatching</code>.
 <\p>
 </html>", revisions="<html>

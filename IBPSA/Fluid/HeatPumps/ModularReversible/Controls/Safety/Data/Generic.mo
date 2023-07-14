@@ -46,7 +46,7 @@ record Generic "Generic record definition for safety control blocks"
       Dialog(group="Operational Envelope",
       enable=use_opeEnv));
   parameter Modelica.Units.SI.TemperatureDifference dTHysOpeEnv=5
-    "Temperature difference used for both upper 
+    "Temperature difference used for both upper
     and lower hysteresis in the operational envelope."
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
 
@@ -78,13 +78,13 @@ record Generic "Generic record definition for safety control blocks"
      Diagram(graphics, coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  Base data definitions with parameters relevant 
+  Base data definitions with parameters relevant
   for safety control of refrigerant machines.
 </p>
 <p>
-  Typically, datasheets of manufacturers provide 
-  specific values for these assumptions. Some values are 
-  harder to get, e.g. the minimal run- or loc-times. 
+  Typically, datasheets of manufacturers provide
+  specific values for these assumptions. Some values are
+  harder to get, e.g. the minimal run- or loc-times.
 </p>
 </html>", revisions="<html><ul>
   <li>

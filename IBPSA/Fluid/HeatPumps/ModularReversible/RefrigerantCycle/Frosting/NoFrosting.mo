@@ -5,7 +5,7 @@ equation
   iceFac = 1;
   annotation (Documentation(info="<html>
 <p>
-  Don't account for frosting. 
+  Don't account for frosting.
   May be used to disable frosting.
 </p>
 </html>", revisions="<html>

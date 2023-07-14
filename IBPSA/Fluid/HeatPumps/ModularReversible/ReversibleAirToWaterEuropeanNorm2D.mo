@@ -47,30 +47,30 @@ model ReversibleAirToWaterEuropeanNorm2D
 
   annotation (Documentation(info="<html>
 <p>
-  Reversible air-to-water heat pump based on 
+  Reversible air-to-water heat pump based on
   European Norm 2D data from the standard EN 14511,
   using the ModularReversible model approach.
 </p>
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>
 <p>
-  Internal inertias and heat losses are neglected, 
-  as these are implicitly obtained in the measured 
-  data from EN 14511. 
-  Also, icing is disabled as the performance degradation 
+  Internal inertias and heat losses are neglected,
+  as these are implicitly obtained in the measured
+  data from EN 14511.
+  Also, icing is disabled as the performance degradation
   is already contained in the data.
 </p>
 <p>
-  Please read the documentation of the model for heating here: 
+  Please read the documentation of the model for heating here:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>.
 </p>
 <p>
-  For cooling, the assumptions are similar. 
-  Check this documentation: 
+  For cooling, the assumptions are similar.
+  Check this documentation:
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>
 </p>

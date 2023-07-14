@@ -22,7 +22,7 @@ record Wuellhorst2021
     minRunTime=600);
   annotation (Documentation(info="<html>
 <p>
-  Default values according to the conference publication 
+  Default values according to the conference publication
   by Wuellhorst et. al. <a href=\"https://doi.org/10.3384/ecp21181561\">
   https://doi.org/10.3384/ecp21181561</a>.
 </p>

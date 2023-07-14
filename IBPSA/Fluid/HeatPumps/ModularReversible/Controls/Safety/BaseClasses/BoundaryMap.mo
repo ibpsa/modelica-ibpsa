@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 model BoundaryMap
-  "Model which returns false if the input parameters 
+  "Model which returns false if the input parameters
   are out of the given charasteristic map"
   parameter Real tab[:,2]
     "Table for boundary with second column as useful temperature side";
@@ -153,25 +153,25 @@ equation
       coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
   Documentation(info="<html>
 <p>
-  Given an input of <code>TCon</code> and <code>TEva</code>, 
-  the model returns true if the given 
-  point is outside of the given operational envelope. 
+  Given an input of <code>TCon</code> and <code>TEva</code>,
+  the model returns true if the given
+  point is outside of the given operational envelope.
 </p>
 <p>
-  The maximal and minmal <code>TCon</code> depend on 
-  <code>TEva</code> and are defined by the 
+  The maximal and minmal <code>TCon</code> depend on
+  <code>TEva</code> and are defined by the
   upper and lower boundaries in form of 1Ds-Tables.</p>
 <p>
-  The maximal and minimal <code>TEva</code> values are obtained 
+  The maximal and minimal <code>TEva</code> values are obtained
   trough the table and are constant.
 </p>
 <p>
-  For the boundaries of the <code>TCon</code> input value, a 
-  dynamic hysteresis is used to ensure a used device will 
+  For the boundaries of the <code>TCon</code> input value, a
+  dynamic hysteresis is used to ensure a used device will
   stay off a certain time after shutdown.
 </p>
 <p>
-  This is similar to the hysteresis in a pressure-based safety control, 
+  This is similar to the hysteresis in a pressure-based safety control,
   which prevents operation outside this envelope in real devices.
 </p>
 </html>",
@@ -184,8 +184,8 @@ equation
   </li>
   <li>
     <i>November 26, 2018;</i> by Fabian Wuellhorst:<br/>
-    First implementation (see issue 
-    <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>) 
+    First implementation (see issue
+    <a href=\"https://github.com/RWTH-EBC/AixLib/issues/577\">AixLib #577</a>)
   </li>
 </ul>
 </html>"));

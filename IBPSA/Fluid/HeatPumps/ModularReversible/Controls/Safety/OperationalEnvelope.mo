@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OperationalEnvelope
-  "Model which computes an error if the current 
+  "Model which computes an error if the current
   values are outside of the given operatinal envelope"
   extends BaseClasses.PartialSafetyWithErrors;
   parameter Real tabUppHea[:,2]
@@ -149,12 +149,12 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Model to check if the operating conditions are inside 
+  Model to check if the operating conditions are inside
   the given boundaries. If not, the heat pump or chiller will switch off.
 </p>
 <p>
-  This safety control is mainly based on the operational 
-  envelope of the compressor. 
+  This safety control is mainly based on the operational
+  envelope of the compressor.
   Refrigerant flowsheet and type will influence these values.
 </p>
 <h4>Limitations</h4>
@@ -165,13 +165,13 @@ equation
   The real operational envelope implies continuous operation.
   This means start-up from e.g. a cold heat pump supply temperature
   is possible in reality. To avoid additional equations for startup and
-  continuous operation, we neither implement the 
-  lower boundary for heating nor the upper boundary for cooling devices. 
+  continuous operation, we neither implement the
+  lower boundary for heating nor the upper boundary for cooling devices.
   This would lead to devices never being able to turn on.
 </li>
 <li>
-  From all the influences on the real envelope, the compressor frequency 
-  impacts the possible range of operation. However, the compressor speed 
+  From all the influences on the real envelope, the compressor frequency
+  impacts the possible range of operation. However, the compressor speed
   dependent envelopes are typcially not provided in datasheets.
   Further, including a third dimension requires 3D-table data. This is
   currently not supported by IBPSA or Modelica Standard Library.
@@ -180,12 +180,12 @@ equation
 
 <h4>Existing envelopes</h4>
 
-  Technical datasheets according to EN 14511 often contain 
+  Technical datasheets according to EN 14511 often contain
   information about the operationsl envelope.
-  The device records for heat pumps 
+  The device records for heat pumps
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
-  and chillers 
+  and chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
   contain typical values. Older devices typically have lower limits
@@ -194,50 +194,50 @@ equation
 
 <h4>Parameterization from datasheets</h4>
 <p>
-  Depending on the underlying datasheet in use, you have think 
-  thoroughly if you need inlet or outlet conditions, and if 
+  Depending on the underlying datasheet in use, you have think
+  thoroughly if you need inlet or outlet conditions, and if
   you are modelling a heat pump or chiller.
   Figure 1 depicts possible upper and lower boundaries as well as
   names for the x- and y-axis.
   Depending on your setup, you even have to transpose existing boundaries.
-  For instance, when using an envelope designed for a 
-  heat pump in a chiller model, the useful side (column 2 of the data) 
-  is not the condenser but the evaporator. Thus, you have to 
+  For instance, when using an envelope designed for a
+  heat pump in a chiller model, the useful side (column 2 of the data)
+  is not the condenser but the evaporator. Thus, you have to
   switch column 1 and 2.
   The following examples aim to explain how to obtain the envelopes:
 </p>
 <p>
-  If the model in use is a heat pump, 
-  the useful side is always the side of 
-  <code>TConOutMea</code> and <code>TConInMea</code>. 
-  In the chiller, the useful side is always the side of 
+  If the model in use is a heat pump,
+  the useful side is always the side of
+  <code>TConOutMea</code> and <code>TConInMea</code>.
+  In the chiller, the useful side is always the side of
   <code>TEvaOutMea</code> or <code>TEvaInMea</code>.
 </p>
 <ol>
 <li>
-  The envelopes for air-to-water heat pumps 
-  often contain water supply temperature (<code>TConOutMea</code>) 
-  on the y-axis and ambient temperatures (<code>TEvaInMea</code>) 
-  on the x axis. In these cases, <code>tabUppHea</code> is based 
-  on the y-axis maximal values and <code>tabLowCoo</code> 
+  The envelopes for air-to-water heat pumps
+  often contain water supply temperature (<code>TConOutMea</code>)
+  on the y-axis and ambient temperatures (<code>TEvaInMea</code>)
+  on the x axis. In these cases, <code>tabUppHea</code> is based
+  on the y-axis maximal values and <code>tabLowCoo</code>
   based on the y-axis minimal values.
   Figure 2 depicts this setup.
 </li>
 <li>
-  The envelopes for air-to-air devices often 
-  contain ambient inlet (<code>TConInMea</code>) as y and 
-  room (<code>TEvaInMea</code>) inlet temperatures as x variables. 
-  In these cases, <code>tabUppHea</code> is based on the x-axis maximal 
+  The envelopes for air-to-air devices often
+  contain ambient inlet (<code>TConInMea</code>) as y and
+  room (<code>TEvaInMea</code>) inlet temperatures as x variables.
+  In these cases, <code>tabUppHea</code> is based on the x-axis maximal
   values and tabLowCoo based on the x-axis minimal values.
   Figure 3 depicts this setup.
 </li>
 <li>
-  Compressor datasheets often provice evaporating and condensing 
-  temperatures or pressure levels. Those are not avaiable in the 
-  simpified model approach. Thus, you have to assume pinch 
-  temperatures to convert it to either in- or outflow temperature 
-  levels of the secondary side temperatures 
-  (i.e. <code>TConOutMea</code>, <code>TConInMea</code>, 
+  Compressor datasheets often provice evaporating and condensing
+  temperatures or pressure levels. Those are not avaiable in the
+  simpified model approach. Thus, you have to assume pinch
+  temperatures to convert it to either in- or outflow temperature
+  levels of the secondary side temperatures
+  (i.e. <code>TConOutMea</code>, <code>TConInMea</code>,
   <code>TEvaInMea</code>, <code>TEvaOutMea</code>).
 </li>
 </ol>
@@ -246,7 +246,7 @@ equation
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_1.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
-  Figure 1: Possible upper and lower boundaries 
+  Figure 1: Possible upper and lower boundaries
   as well as temperature specifications in datasheets
 </p>
 
@@ -254,9 +254,9 @@ equation
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_2.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
-  Figure 2: Example for an air-to-water heat pump or chiller. 
-  The supply temperature is the temperature leaving the device 
-  into the hydraulic circuit of the building. 
+  Figure 2: Example for an air-to-water heat pump or chiller.
+  The supply temperature is the temperature leaving the device
+  into the hydraulic circuit of the building.
   Red crosses indicate the point to write into the 2D table in Modelica.
 </p>
 
@@ -264,8 +264,8 @@ equation
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/SafetyControls/OperationalEnvelope_3.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
-  Figure 3: Example for an air-to-air heat pump or chiller. 
-  The room temperature acts as an inflow to the device. 
+  Figure 3: Example for an air-to-air heat pump or chiller.
+  The room temperature acts as an inflow to the device.
   Red crosses indicate the point to write into the 2D table in Modelica.
 </p>
 

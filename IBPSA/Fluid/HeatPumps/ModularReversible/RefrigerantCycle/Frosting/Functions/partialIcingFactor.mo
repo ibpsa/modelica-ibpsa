@@ -9,7 +9,7 @@ partial function partialIcingFactor
   input Modelica.Units.SI.MassFlowRate mEva_flow
     "Mass flow rate at the evaporator";
   output Real iceFac(min=0, max=1)
-    "Efficiency factor to estimate influence 
+    "Efficiency factor to estimate influence
     of icing (0: full icing, 1: no icing)";
 
   annotation (Documentation(revisions="<html><ul>
@@ -31,7 +31,7 @@ partial function partialIcingFactor
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.FunctionalIcingFactor</a>.
 </p>
 <p>
-  Typically, functions should only require evaporator side data for calculation of 
+  Typically, functions should only require evaporator side data for calculation of
   the <code>iceFac</code>.
 </p>
 <p>

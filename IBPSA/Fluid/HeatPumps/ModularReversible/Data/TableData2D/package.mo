@@ -5,7 +5,7 @@ package TableData2D "Package with two-dimensional data based on european standar
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-  This package contains data records for heat pump 
+  This package contains data records for heat pump
   data according to European Norm.
 </p>
 </html>"));

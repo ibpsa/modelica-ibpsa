@@ -22,7 +22,7 @@ model OnOff
   parameter Boolean preYSet_start=true
     "Start value of pre(ySet) at initial time";
   parameter Real ySet_small
-    "Value of ySet at which the device is considered turned on, 
+    "Value of ySet at which the device is considered turned on,
     default is 1 % as heat pumps and chillers currently invert down to 15 %";
   parameter Real ySetMin=ySet_small
     "Minimal relative compressor speed to be used if device needs to run longer";
@@ -200,36 +200,36 @@ equation
           70},{28,90},{38,90}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
-  Checks if the <code>ySet</code> value is legal by checking if 
-  the device can either be turned on or off, 
+  Checks if the <code>ySet</code> value is legal by checking if
+  the device can either be turned on or off,
   depending on which state it was in. </p>
 <p>If the device</p>
 <ul>
 <li>
-  is on and <code>ySet</code> is greater 
+  is on and <code>ySet</code> is greater
   than <code>ySet_small</code></li>
 <li>
   or is off and <code>ySet</code> is 0
 </li>
 <li>
-  or is on and should turn off, 
+  or is on and should turn off,
   and exceeds the minimal run time (if active)</li>
 <li>
-  or is off and should turn on, and does neither 
-  exceed the maximal starts per hour (if active) 
+  or is off and should turn on, and does neither
+  exceed the maximal starts per hour (if active)
   nor violates the minimal loc-time (off-time, if active).
 </li>
 </ul>
 <p><code>yOut</code> equals <code>ySet</code>.
 </p>
 <p>
-  If the device is on and should turn off, but does not exceed 
-  the minimal run time (if active), <code>yOut</code> 
+  If the device is on and should turn off, but does not exceed
+  the minimal run time (if active), <code>yOut</code>
   equals <code>min(ySet, ySetMin)</code>.
 </p>
 <p>
-  If the device is off and should turn on, but exceeds the maximal 
-  starts per hour (if active) or violates the minimal 
+  If the device is off and should turn on, but exceeds the maximal
+  starts per hour (if active) or violates the minimal
   loc-time (off-time, if active), <code>yOut</code> equals 0.
 </p>
 </html>", revisions="<html><ul>
@@ -253,6 +253,6 @@ equation
           fillPattern=FillPattern.Solid), Text(
           extent={{60,60},{120,-6}},
           textColor={0,0,127},
-          textString="See 
+          textString="See
 equations")}));
 end OnOff;

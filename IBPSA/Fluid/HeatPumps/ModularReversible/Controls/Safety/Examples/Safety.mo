@@ -102,7 +102,7 @@ equation
       horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
 <p>
-  This example shows the usage and effect of 
+  This example shows the usage and effect of
   all safety controls aggregates into the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety</a>.

@@ -4,7 +4,7 @@ package Data "Package with parameters for safety control blocks"
 
 annotation (Documentation(info="<html>
 <p>
-  Package with record data to bundle the parameterization 
+  Package with record data to bundle the parameterization
   of the safety controls into one class.
 </p>
 </html>", revisions="<html><ul>

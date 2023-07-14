@@ -43,7 +43,7 @@ protected
 initial algorithm
   assert(
     strPasThr.y ==refCycChiCoo.datSou,
-    "Data sources for reversible operation are not equal! 
+    "Data sources for reversible operation are not equal!
     Only continue if this is intended",
     AssertionLevel.warning);
 equation
@@ -179,9 +179,9 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Modular refrigerant cycle model for chiller applications used in 
+  Modular refrigerant cycle model for chiller applications used in
   the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and extending models 
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and extending models
   of the modular approach.
 </p>
 <p>
@@ -189,7 +189,7 @@ equation
   to the partial refrigerant cylce.
 </p>
 <p>
-  Further, an asseration warns if the data-sources and, thus, 
+  Further, an asseration warns if the data-sources and, thus,
   model approaches differ for cooling and heating.
 </p>
 </html>"));

@@ -49,21 +49,21 @@ equation
   Documentation(
    info="<html>
 <p>
-  This example demonstrates how to use the 
+  This example demonstrates how to use the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a> 
+  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
   heat pump model. Please check the associated documentation for
   further information.
 </p>
 <p>
-  Contrary to the other models, parameters for heat exchanger 
-  inertia (tau) and mass flow rates are calculated 
+  Contrary to the other models, parameters for heat exchanger
+  inertia (tau) and mass flow rates are calculated
   automatically based on the heat demand.
 </p>
 <p>
-  Furthermore, this example demonstrates the warnings which 
-  are raised if the table data boundary conditions 
-  (e.g. <code>mEva_flow_nominal</code>) deviates from 
+  Furthermore, this example demonstrates the warnings which
+  are raised if the table data boundary conditions
+  (e.g. <code>mEva_flow_nominal</code>) deviates from
   the parameter in use.
 </p>
 <p>
@@ -73,12 +73,12 @@ equation
   1. Check the assumption of using a different mass flow rate
 </p>
 <p>
-  2. Adjust the mass flow rates in the hydraulic system. 
-  If the deviation is too big, the system would not 
+  2. Adjust the mass flow rates in the hydraulic system.
+  If the deviation is too big, the system would not
   work in reality anyways.
 </p>
 <p>
-  Please check the documentation of 
+  Please check the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator</a>
   for further information on the example.

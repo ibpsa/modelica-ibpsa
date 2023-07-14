@@ -102,51 +102,51 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses the 2-dimensional table data given in the 
-  DIN EN 14511 (formerly EN255) to calculate 
-  <code>QCon_flow</code> and <code>PEle</code>. 
+  This model uses the 2-dimensional table data given in the
+  DIN EN 14511 (formerly EN255) to calculate
+  <code>QCon_flow</code> and <code>PEle</code>.
 </p>
 <p>
-  The standard defines two of the three values electrical power consumption, 
-  condenser heat flow rate, and COP for different condenser outlet and 
+  The standard defines two of the three values electrical power consumption,
+  condenser heat flow rate, and COP for different condenser outlet and
   evaporator inlet temperatures.
 </p>
 <p>
   Based on the two powers, the equation <code>QEva_flow = QCon_flow - PEle</code>
-  is solved, assuming an adiabatic device. However, as losses are implicitly 
+  is solved, assuming an adiabatic device. However, as losses are implicitly
   included in the measured data, the model still account for such losses.
-  Same hold true for frosting effects, as frosting decreases the COP in the 
+  Same hold true for frosting effects, as frosting decreases the COP in the
   standard.
 </p>
 
 <h4>Scaling factor</h4>
 For the scaling factor, the table data for condenser heat flow rate
 is evaluated at nominal conditions. Then, the table data is scaled linearly.
-This implies a constant COP over different design sizes: 
+This implies a constant COP over different design sizes:
 <p><code>QCon_flow = scaFac * tabQCon_flow.y</code> </p>
-<p><code>PEle = scaFac * tabPel.y</code> 
+<p><code>PEle = scaFac * tabPel.y</code>
 
 
 <h4>Known Limitations </h4>
 <ul>
 <li>
-  The standard does not require to provide the compressor speed at wich 
-  the data holds. Thus, nominal values may be obtained at different 
-  compressor speeds and, thus, efficiencies. 
-  Depending on your simulation aim, please check that you use the 
-  maximal possible power information, which is often provided in 
-  the data sheets from the manufacturers. This limitation only 
+  The standard does not require to provide the compressor speed at wich
+  the data holds. Thus, nominal values may be obtained at different
+  compressor speeds and, thus, efficiencies.
+  Depending on your simulation aim, please check that you use the
+  maximal possible power information, which is often provided in
+  the data sheets from the manufacturers. This limitation only
   holds for inverter driven heat pumps.
 </li>
 <li>
-  As the standard does not require the compressor speed, 
+  As the standard does not require the compressor speed,
   we assume that the efficiency is contant over the whole
   compressor speed range. Typically, efficiencies will drop at minimal
   and maximal compressor speeds.
-  To model an inverter controlled heat pump, the relative 
-  compressor speed <code>ySet</code> is used to scale 
+  To model an inverter controlled heat pump, the relative
+  compressor speed <code>ySet</code> is used to scale
   the ouput of the tables linearly.
-  For models including the compressor speed, check the SDF-Library 
+  For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the AixLib.
 </li>
 </ul>

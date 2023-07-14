@@ -47,19 +47,19 @@ model ReversibleCarnotWithLosses
 </ul>
 </html>", info="<html>
 <p>
-  This model extends the model 
+  This model extends the model
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and selects the 
-  constant quality grade model approaches for chillers 
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and selects the
+  constant quality grade model approaches for chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>) 
-  and heat pumps 
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
+  and heat pumps
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible chiller.
 </p>
 <p>
-  Furthermore, losses are enabled to model 
+  Furthermore, losses are enabled to model
   the chiller with a more realistic behaviour:
 </p>
 <ul>
@@ -69,7 +69,7 @@ model ReversibleCarnotWithLosses
 </ul>
 You can disable the heat losses if required.
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>

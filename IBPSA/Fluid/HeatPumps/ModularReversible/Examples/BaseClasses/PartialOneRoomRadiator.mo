@@ -249,15 +249,15 @@ equation
           -70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-  Motivated by the example 
+  Motivated by the example
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator\">
-  IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator</a>, 
+  IBPSA.Fluid.HeatPumps.Examples.ScrollWaterToWater_OneRoomRadiator</a>,
   this example enables the use of the <code>ModularReversible</code>
   approach for heat pumps and chillers.
 </p>
 <p>
-  Both heating and cooling of the room is possible by using 
-  the reversible approach. For heating, 20 degC room temperature 
+  Both heating and cooling of the room is possible by using
+  the reversible approach. For heating, 20 degC room temperature
   is the set point, for cooling 23 degC.
 </p>
 <p>

@@ -51,7 +51,7 @@ protected
 equation
   assert(
     use_rev or (use_rev == false and pasTrhModSet.y == true),
-    "Can't turn to reversible operation mode on 
+    "Can't turn to reversible operation mode on
     irreversible refrigerant machine",
     level=AssertionLevel.error);
 
@@ -147,17 +147,17 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Partial modular refrigerant cycle models for data and 
-  equation based approaches used in the model 
+  Partial modular refrigerant cycle models for data and
+  equation based approaches used in the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine</a>.
 </p>
 <p>
-  This partial container only adds outputs and switches 
+  This partial container only adds outputs and switches
   both relevant for heat pump and chiller applications.
 </p>
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>

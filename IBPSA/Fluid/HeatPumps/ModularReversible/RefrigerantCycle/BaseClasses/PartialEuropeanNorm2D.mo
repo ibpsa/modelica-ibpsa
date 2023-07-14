@@ -121,12 +121,12 @@ protected
 initial algorithm
   assert(perDevMasFloCon < 1,
       "The deviation of the given mCon_flow_nominal to the table data is " +
-      String(perDevMasFloCon) + " %. Carefully check results, 
+      String(perDevMasFloCon) + " %. Carefully check results,
       you are extrapolating the table data!",
     AssertionLevel.warning);
   assert(perDevMasFloEva < 1,
     "The deviation of the given mEva_flow_nominal to the table data is " +
-      String(perDevMasFloEva) + " %. Carefully check results, 
+      String(perDevMasFloEva) + " %. Carefully check results,
       you are extrapolating the table data!",
     AssertionLevel.warning);
 
@@ -161,7 +161,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  Partial model for equations and componenents used in both heat pump 
+  Partial model for equations and componenents used in both heat pump
   and chiller models using european norm data in two dimensions.
 </p>
 </html>", revisions="<html>

@@ -162,11 +162,11 @@ equation
     experiment(Tolerance=1e-6, StopTime=3600),
     Documentation(info="<html>
 <p>
-  Partial model for the validation of different modular heat pump approaches 
-  based on measured data of a brine-to-water heat pump at the Institute for 
+  Partial model for the validation of different modular heat pump approaches
+  based on measured data of a brine-to-water heat pump at the Institute for
   Energy Efficient Building and Indoor Climate.</p>
 <p>
-  If questions regarding the data or model 
+  If questions regarding the data or model
   arises, please raise an issue and link Fabian Wuellhorst.
 </p>
 </html>", revisions="<html><ul>

@@ -17,7 +17,7 @@ model RefrigerantCycle
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
-    "Replaceable model for refrigerant cycle of 
+    "Replaceable model for refrigerant cycle of
     a heat pump in reversible operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
@@ -48,7 +48,7 @@ protected
 initial algorithm
   assert(
     strPasThr.y ==refCycHeaPumHea.datSou,
-    "Data sources for reversible operation are not equal! 
+    "Data sources for reversible operation are not equal!
     Only continue if this is intended",
     AssertionLevel.warning);
 equation
@@ -194,9 +194,9 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Modular refrigerant cycle model for heat pump applications used in 
+  Modular refrigerant cycle model for heat pump applications used in
   the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and extending models 
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and extending models
   of the modular approach.
 </p>
 <p>
@@ -204,11 +204,11 @@ equation
   to the partial refrigerant cylce.
 </p>
 <p>
-  Further, an asseration warns if the data-sources and, thus, 
+  Further, an asseration warns if the data-sources and, thus,
   model approaches differ for cooling and heating.
 </p>
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>

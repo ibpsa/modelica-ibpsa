@@ -8,7 +8,7 @@ model Safety "Model including all safety levels"
     "Minimal mass flow rate in condenser required to operate the device"
     annotation (Dialog(group="Mass flow rates"));
   parameter Real ySet_small
-    "Value of ySet at which the device is considered turned on. 
+    "Value of ySet at which the device is considered turned on.
     Default is 1 % as heat pumps and chillers currently invert down to 15 %";
   parameter Boolean forHeaPum
     "=true if model is for heat pump, false for chillers";
@@ -207,18 +207,18 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Aggregation of the four main safety measurements 
+  Aggregation of the four main safety measurements
   of a refrigerant machine (heat pump or chiller).
 </p>
 <p>
-  The order is based on the relevance to the real system. 
-  Anti freeze control and mininmal volume flow rate control is put 
-  last because of the relevance for the simulation. 
-  If the medium temperature falls below or rises above the 
+  The order is based on the relevance to the real system.
+  Anti freeze control and mininmal volume flow rate control is put
+  last because of the relevance for the simulation.
+  If the medium temperature falls below or rises above the
   critical value, the simulation will fail.
 </p>
 <p>
-All used functions are optional. See the used models for more 
+All used functions are optional. See the used models for more
 info on each safety function:
 </p>
 <ul>

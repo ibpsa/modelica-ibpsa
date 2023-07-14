@@ -56,18 +56,18 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model is used to prevent freezing of 
-  the condenser or evaporator side. 
+  This model is used to prevent freezing of
+  the condenser or evaporator side.
   A real device would shut off as well.
 </p>
 <p>
-  This models takes the minimum of the two temperatures evaporator 
-  outlet and condenser inlet. If this minimal temperature falls below 
-  the given lower boundary, the hystereses will trigger an error and cause 
+  This models takes the minimum of the two temperatures evaporator
+  outlet and condenser inlet. If this minimal temperature falls below
+  the given lower boundary, the hystereses will trigger an error and cause
   the device to switch off.
 </p>
 <h4>Assumptions</h4>
-  Assuming that the outlet temperature of an evaporator is always lower 
+  Assuming that the outlet temperature of an evaporator is always lower
   than the inlet temperature (for the condenser vice versa).
 </html>"));
 end AntiFreeze;

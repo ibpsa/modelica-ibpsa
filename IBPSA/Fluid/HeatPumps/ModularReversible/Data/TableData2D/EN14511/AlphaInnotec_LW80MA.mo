@@ -22,7 +22,7 @@ record AlphaInnotec_LW80MA "Alpha Innotec LW 80 M-A"
 
   annotation (Documentation(info="<html>
 <p>Data for air-to-water heat pump Alpha Innotec LW 80 M-A.</p>
-<p>Operational envelope data is not from the data table, as it 
+<p>Operational envelope data is not from the data table, as it
 is not given. Instead, default values are used.</p>
 </html>", revisions="<html>
 <ul>

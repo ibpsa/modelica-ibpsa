@@ -13,10 +13,10 @@ annotation (Documentation(revisions="<html><ul>
 </ul>
 </html>", info="<html>
 <p>
-  This package contains models and data to approximate 
+  This package contains models and data to approximate
   dynamic refrigerant cycles with stationary data points.</p>
 <p>
-  Besides, models and functional approaches for evaporator 
+  Besides, models and functional approaches for evaporator
   frosting and refrigerant cycle inertia exist.
 </p>
 </html>"));

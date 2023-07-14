@@ -36,12 +36,12 @@ annotation (experiment(Tolerance=1e-6, StopTime=14365),
           "Simulate and plot"),
   Documentation(info="<html>
 <p>
-  This validation case uses a constant quality 
-  grade to model the efficiency of the heat pump. 
+  This validation case uses a constant quality
+  grade to model the efficiency of the heat pump.
 </p>
 <p>
-  The approach was calibrated as a comparison to table based data in 
-  the conference paper for the heat pump model: 
+  The approach was calibrated as a comparison to table based data in
+  the conference paper for the heat pump model:
   <a href=\"https://doi.org/10.3384/ecp21181561\">
   https://doi.org/10.3384/ecp21181561 </a>
 </p>

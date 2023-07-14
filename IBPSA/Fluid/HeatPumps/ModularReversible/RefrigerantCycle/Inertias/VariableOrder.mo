@@ -17,7 +17,7 @@ model VariableOrder
     annotation (Dialog(tab="Initialization", group="Refrigerant inertia",
       enable=initType == Modelica.Blocks.Types.Init.InitialOutput));
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
-    "Type of initialization (1: no init, 2: 
+    "Type of initialization (1: no init, 2:
     steady state, 3: initial state, 4: initial output)";
   Modelica.Blocks.Continuous.CriticalDamping criDam(
     final n=nthOrd,
@@ -36,16 +36,16 @@ equation
   Model that uses a variable order delay to account for inertia.
 </p>
 <p>
-  Following the associated publication by Wuellhorst et. al., 
+  Following the associated publication by Wuellhorst et. al.,
   this model was used to calibrate the heat pump model.
   If first order is selected, the frequency <code>refIneFreConst</code>
   equals the inverse of the time constant of a first order delay element.
 </p>
 <p>
-  In usage, be careful with the order of the delay. 
+  In usage, be careful with the order of the delay.
   While a second or third order delay may result in a better fit
   in calibration, simulation speed is impacted.
-  See the discussion in the paper for more information: 
+  See the discussion in the paper for more information:
   <a href=\"https://doi.org/10.3384/ecp21181561\">
   https://doi.org/10.3384/ecp21181561 </a></p>
 </html>", revisions="<html><ul>

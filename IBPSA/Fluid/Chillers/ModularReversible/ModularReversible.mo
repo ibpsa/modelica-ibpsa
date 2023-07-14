@@ -144,17 +144,17 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Model of a reversible, modular chiller. 
-  You can combine any of the avaiable model approaches 
-  for refrigerant for heating and cooling, add inertias, 
-  heat losses, and safety controls. 
+  Model of a reversible, modular chiller.
+  You can combine any of the avaiable model approaches
+  for refrigerant for heating and cooling, add inertias,
+  heat losses, and safety controls.
   All features are optional.
 </p>
 <p>
   Adding to the partial model (
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine</a>), 
-  this model adds the <code>hea</code> signal to choose 
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine</a>),
+  this model adds the <code>hea</code> signal to choose
   the operation type of the chiller:
 </p>
 <ul>
@@ -162,7 +162,7 @@ equation
 <li><code>coo = false</code>: Reversible operation mode (chiller: heating) </li>
 </ul>
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>

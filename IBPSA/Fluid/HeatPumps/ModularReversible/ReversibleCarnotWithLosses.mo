@@ -38,17 +38,17 @@ model ReversibleCarnotWithLosses
 
   annotation (Documentation(info="<html>
 <p>
-  This model extends the model 
+  This model extends the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and selects the 
-  constant quality grade model approaches for heat pumps 
-  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>) 
-  and chillers 
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and selects the
+  constant quality grade model approaches for heat pumps
+  (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
+  and chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible heat pump.
 </p>
 <p>
-  Furthermore, losses are enabled to model 
+  Furthermore, losses are enabled to model
   the heat pump with a more realistic behaviour:
 </p>
 <ul>
@@ -58,7 +58,7 @@ model ReversibleCarnotWithLosses
 </ul>
   You can disable the heat losses if required.
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>

@@ -7,10 +7,10 @@ expandable connector RefrigerantMachineControlBus
   Bus connector for a refrigerant machine.
 </p>
 <p>
-  Used in the reversbile modular approaches for chiller 
-  and heat pump in the models 
+  Used in the reversbile modular approaches for chiller
+  and heat pump in the models
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and 
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a>.
 </p>

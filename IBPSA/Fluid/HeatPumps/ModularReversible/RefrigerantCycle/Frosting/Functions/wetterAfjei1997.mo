@@ -24,9 +24,9 @@ algorithm
   iceFac:=1 - fac;
   annotation (Documentation(info="<html>
 <p>
-  Correction of the coefficient of performance due to 
-  icing/frosting according to Wetter and Afjei 1997 
-  (Dual stage compressor heat pump including frost and cycle losses, 
+  Correction of the coefficient of performance due to
+  icing/frosting according to Wetter and Afjei 1997
+  (Dual stage compressor heat pump including frost and cycle losses,
   <a href=\"https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf\">
   https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>)
 </p>

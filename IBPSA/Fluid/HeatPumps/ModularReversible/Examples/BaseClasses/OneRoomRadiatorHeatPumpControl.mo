@@ -172,11 +172,11 @@ equation
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator</a>
   The control enables a PI control of the heat pumps compressor
-  speed for both heating and cooling. Depending on a hysteresis, 
+  speed for both heating and cooling. Depending on a hysteresis,
   the heating or cooling mode is selected.
-  If the radiator supply temperature drops below a critical 
-  value, the heat pump will turn to heating mode. This prohibits 
-  possible freezing or water condensation.    
+  If the radiator supply temperature drops below a critical
+  value, the heat pump will turn to heating mode. This prohibits
+  possible freezing or water condensation.
 </p>
 </html>", revisions="<html>
 <ul>

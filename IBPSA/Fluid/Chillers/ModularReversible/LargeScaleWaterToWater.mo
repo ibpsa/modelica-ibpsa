@@ -60,43 +60,43 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   using the ModularReversible model approach.
 </p>
 <p>
-  For more information on the approach, please read the 
+  For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
 </p>
 <p>
-  Parameters are based on an automatic estimation, see: 
+  Parameters are based on an automatic estimation, see:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters</a>.
 </p>
 <p>
-  Please read the documentation of the model for heating here: 
+  Please read the documentation of the model for heating here:
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>.
 </p>
 <p>
-  Currently the only data sheets for chillers that large is the record 
+  Currently the only data sheets for chillers that large is the record
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Carrier30XWP1012_1MW\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW</a>, 
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW</a>,
   hence, the default value.
 </p>
 <p>
-  But you are free to insert custom data based on 
+  But you are free to insert custom data based on
   the heat pump you want to analyze in your simulations.
 </p>
 <h4>Assumptions</h4>
 <ul>
 <li>
-  As heat losses are implicitly included in the table 
+  As heat losses are implicitly included in the table
   data according to EN 14511, heat losses are disabled.
 </li>
 <li>
-  Pressure losses are not provided in datasheets. As typical 
-  values are unknown, the pressure loss is set to 0 to enable 
+  Pressure losses are not provided in datasheets. As typical
+  values are unknown, the pressure loss is set to 0 to enable
   easier usage. However, the parameter is not final and should be
   replaced if mover power is of interest for your simulation aim.
 </li>
-</ul>   
+</ul>
 </html>", revisions="<html><ul>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>

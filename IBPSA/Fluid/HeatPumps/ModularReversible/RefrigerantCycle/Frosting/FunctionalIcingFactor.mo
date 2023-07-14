@@ -51,8 +51,8 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Model using functional approaches for calculation of the icing factor. 
-  The replaceable function uses the inputs on the evaporator side to calculate 
+  Model using functional approaches for calculation of the icing factor.
+  The replaceable function uses the inputs on the evaporator side to calculate
   the resulting icing factor.
 </p>
 <p>

@@ -32,8 +32,8 @@ equation
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-  Using this model, the heat pump will always be off. 
-  This option is mainly used to avoid warnings about 
+  Using this model, the heat pump will always be off.
+  This option is mainly used to avoid warnings about
   partial model which must be replaced.
 </p>
 </html>", revisions="<html><ul>

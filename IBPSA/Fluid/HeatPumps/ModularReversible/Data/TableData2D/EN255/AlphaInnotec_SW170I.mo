@@ -18,7 +18,7 @@ record AlphaInnotec_SW170I "Alpha Innotec SW 170 I"
     use_evaOut=false);
 
   annotation (Documentation(info="<html>
-  <p>Data for a brine-to-water heat pump of Alpha Innotec. 
+  <p>Data for a brine-to-water heat pump of Alpha Innotec.
   Data according to: <a href=\"https://www.forum-hausbau.de/data/PruefResSW090923.pdf\">
   https://www.forum-hausbau.de/data/PruefResSW090923.pdf</a></p>
 </html>", revisions="<html>

@@ -36,7 +36,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Partial example providing interfaces to 
+  Partial example providing interfaces to
   show usage of safety control models.
 </p>
 </html>"));
