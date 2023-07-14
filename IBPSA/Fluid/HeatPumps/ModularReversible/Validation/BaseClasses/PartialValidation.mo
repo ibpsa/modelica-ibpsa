@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses;
-partial model PartialHeatPumpValidation
+partial model PartialValidation
   "Validation base case for the reversible heat pump model."
 
   replaceable package MediumSin = IBPSA.Media.Water
@@ -177,4 +177,4 @@ equation
   </li>
 </ul>
 </html>"));
-end PartialHeatPumpValidation;
+end PartialValidation;

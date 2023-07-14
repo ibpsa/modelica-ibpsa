@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
-model HeatPump_CarnotConstantQuality
+model CarnotConstantQuality
   extends Modelica.Icons.Example;
   extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialHeatPumpValidation(      heaPum(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(      heaPum(
       QUse_flow_nominal=quaGra*PEle_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
            - heaPum.TEva_nominal),
       mCon_flow_nominal=mCon_flow_nominal,
@@ -32,7 +32,7 @@ model HeatPump_CarnotConstantQuality
     "Calibrated cut off frequency for inertia of refrigerant cycle";
 
 annotation (experiment(Tolerance=1e-6, StopTime=14365),
-  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/HeatPump_CarnotConstantQuality.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/CarnotConstantQuality.mos"
           "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -53,4 +53,4 @@ annotation (experiment(Tolerance=1e-6, StopTime=14365),
   </li>
 </ul>
 </html>"));
-end HeatPump_CarnotConstantQuality;
+end CarnotConstantQuality;

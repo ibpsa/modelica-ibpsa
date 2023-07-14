@@ -1,8 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
-model HeatPump_EuropeanNormData
+model EuropeanNormData
   extends Modelica.Icons.Example;
   extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialHeatPumpValidation(      heaPum(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(      heaPum(
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
@@ -32,7 +32,7 @@ model HeatPump_EuropeanNormData
     "Cut off frequency for inertia of refrigerant cycle";
 
   annotation (experiment(Tolerance=1e-6, StopTime=14365),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/HeatPump_EuropeanNormData.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/EuropeanNormData.mos"
             "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -52,4 +52,4 @@ model HeatPump_EuropeanNormData
   </li>
 </ul>
 </html>"));
-end HeatPump_EuropeanNormData;
+end EuropeanNormData;
