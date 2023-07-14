@@ -104,12 +104,5 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li>
 </ul>
-</html>", revisions="<html><ul>
-  <li>
-    <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>
-    Implemented <a href=
-    \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
-  </li>
-</ul>
 </html>"));
 end LargeScaleWaterToWater;
