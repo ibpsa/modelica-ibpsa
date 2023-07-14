@@ -1,5 +1,5 @@
 within IBPSA.Utilities.IO.Strings;
-model ConstStringSource "Constant String value source"
+model Constant "Constant String value source"
   parameter String k "Constant String value";
   StringOutput y "Output of constant value"
     annotation (Placement(transformation(extent={{100,-10},
@@ -43,4 +43,4 @@ Documentation(info="<html>
   </li>
 </ul>
 </html>"));
-end ConstStringSource;
+end Constant;

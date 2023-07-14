@@ -84,7 +84,7 @@ partial model PartialRefrigerantCycle
   IBPSA.Utilities.IO.Strings.StringOutput datSouOut
   "String output of data source";
 protected
-  IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(final k=datSou)
+  IBPSA.Utilities.IO.Strings.Constant conStrSou(final k=datSou)
     "Constant String with data source as output";
 equation
   connect(conStrSou.y, datSouOut);

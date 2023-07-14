@@ -37,7 +37,7 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
 protected
   IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
-  IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
+  IBPSA.Utilities.IO.Strings.Constant conStrSou(
     final k=refCycChiCoo.datSou)
    "Constant String data source";
 initial algorithm

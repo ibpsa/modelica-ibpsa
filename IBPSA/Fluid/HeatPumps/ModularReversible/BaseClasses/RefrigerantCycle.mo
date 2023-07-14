@@ -42,7 +42,7 @@ model RefrigerantCycle
 protected
   IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
-  IBPSA.Utilities.IO.Strings.ConstStringSource conStrSou(
+  IBPSA.Utilities.IO.Strings.Constant conStrSou(
     final k=refCycHeaPumHea.datSou)
     "Constant String data source";
 initial algorithm
