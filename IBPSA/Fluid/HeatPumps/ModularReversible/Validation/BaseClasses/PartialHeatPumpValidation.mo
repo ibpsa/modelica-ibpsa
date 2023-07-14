@@ -1,7 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses;
 partial model PartialHeatPumpValidation
   "Validation base case for the reversible heat pump model."
- extends Modelica.Icons.Example;
 
   replaceable package MediumSin = IBPSA.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -20,8 +19,10 @@ partial model PartialHeatPumpValidation
     T=275.15) "Ideal mass flow source at the inlet of the source side"
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
 
-  IBPSA.Fluid.Sources.Boundary_pT souSidFixBou(nPorts=1, redeclare package Medium
-      =        MediumSou) "Fixed boundary at the outlet of the source side"
+  IBPSA.Fluid.Sources.Boundary_pT souSidFixBou(
+    nPorts=1,
+    redeclare package Medium = MediumSou)
+    "Fixed boundary at the outlet of the source side"
     annotation (Placement(transformation(
         extent={{-11,11},{11,-11}},
         rotation=0,

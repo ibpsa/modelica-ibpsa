@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
 model HeatPump_EuropeanNormData
+  extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialHeatPumpValidation(      heaPum(
       mCon_flow_nominal=mCon_flow_nominal,

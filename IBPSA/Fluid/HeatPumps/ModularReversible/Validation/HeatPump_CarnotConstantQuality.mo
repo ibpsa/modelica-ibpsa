@@ -1,5 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
 model HeatPump_CarnotConstantQuality
+  extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialHeatPumpValidation(      heaPum(
       QUse_flow_nominal=quaGra*PEle_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
