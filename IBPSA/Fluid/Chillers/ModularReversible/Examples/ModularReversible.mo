@@ -2,8 +2,8 @@ within IBPSA.Fluid.Chillers.ModularReversible.Examples;
 model ModularReversible
   "Test model for chiller based on ModularReversible approach"
   extends Modelica.Icons.Example;
-  package MediumCon = IBPSA.Media.Water "Medium model";
-  package MediumEva = IBPSA.Media.Water "Medium model";
+  package MediumCon = IBPSA.Media.Water "Medium model for condenser";
+  package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible modRevChi(
     redeclare package MediumCon = MediumCon,

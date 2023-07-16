@@ -2,8 +2,8 @@ within IBPSA.Fluid.Chillers.ModularReversible.Examples;
 model LargeScaleWaterToWater
   "Test model for chiller based on LargeScaleWaterToWater model"
   extends Modelica.Icons.Example;
-  package MediumCon = IBPSA.Media.Water "Medium model";
-  package MediumEva = IBPSA.Media.Water "Medium model";
+  package MediumCon = IBPSA.Media.Water "Medium model for condenser";
+  package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
   IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater larScaWatToWatChi(
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
