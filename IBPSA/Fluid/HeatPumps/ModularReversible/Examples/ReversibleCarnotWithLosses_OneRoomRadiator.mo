@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ReversibleCarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with carnot approach connected to a simple room model with radiator"
+  extends Modelica.Icons.Example;
   extends Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
     mCon_flow_nominal=revCarWitLosHeaPum.mCon_flow_nominal,

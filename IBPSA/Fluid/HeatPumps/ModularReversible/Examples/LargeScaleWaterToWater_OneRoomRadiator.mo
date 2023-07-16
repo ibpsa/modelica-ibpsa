@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model LargeScaleWaterToWater_OneRoomRadiator
   "Large scale water to water heat pump connected to a simple room model with radiator"
+  extends Modelica.Icons.Example;
   extends BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=larScaWatToWatHeaPum.mEva_flow_nominal,
     mCon_flow_nominal=larScaWatToWatHeaPum.mCon_flow_nominal,

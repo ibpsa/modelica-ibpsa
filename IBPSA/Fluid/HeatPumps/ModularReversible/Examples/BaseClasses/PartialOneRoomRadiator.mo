@@ -1,7 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 partial model PartialOneRoomRadiator
   "Simple room model with radiator, without a heat pump"
-  extends Modelica.Icons.Example;
   replaceable package MediumAir =
       IBPSA.Media.Air "Medium model for air";
   replaceable package MediumWat =

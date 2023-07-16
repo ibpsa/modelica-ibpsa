@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ReversibleAirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
+  extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
