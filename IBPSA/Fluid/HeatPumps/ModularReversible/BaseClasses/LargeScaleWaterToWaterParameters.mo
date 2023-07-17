@@ -54,7 +54,7 @@ initial equation
   the given range should be checked for plausibility during simulation.
 </p>
 <p>
-For more info, please check out the .xlsx file contained here:
+For more information, please refer to:
 IBPSA\\Resources\\Data\\Fluid\\HeatPumps\\BaseClasses\\LargeScaleWaterToWaterParameters.xlsx
 </p>
 </html>", revisions="<html><ul>

@@ -137,7 +137,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 </ul>
 </html>", info="<html>
 <p>
-  Example that simulates a chiller based on the modular reversible approach
+  Example that simulates a chiller based on the modular reversible approach.
   The chiller control signal is the compressor speed
   <code>ySet</code> and the mode <code>coo</code>.
 </p>

@@ -274,13 +274,13 @@ partial model PartialReversibleRefrigerantMachine
     final GInn=GEvaIns) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{20,-72},{-20,-112}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutEva
-    if use_evaCap "Foreces heat losses according to ambient temperature"
+    if use_evaCap "Forces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-100})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutCon
-    if use_conCap "Foreces heat losses according to ambient temperature"
+    if use_conCap "Forces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

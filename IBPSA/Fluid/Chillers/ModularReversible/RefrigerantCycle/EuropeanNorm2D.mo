@@ -126,8 +126,8 @@ This implies a constant COP over different design sizes:
 <h4>Known Limitations </h4>
 <ul>
 <li>
-  The standard does not require to provide the compressor speed at wich
-  the data holds. Thus, nominal values may be obtained at different
+  The standard does not require providing the compressor speed at which
+  the data are measured. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
   Depending on your simulation aim, please check that you use the
   maximal possible power information, which is often provided in

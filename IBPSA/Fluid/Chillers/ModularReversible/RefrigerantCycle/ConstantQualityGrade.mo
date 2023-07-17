@@ -82,10 +82,10 @@ equation
   </code>
 </p>
 <p>
-  This equations follows the Carnot approach of the IBPSA library:
+  These equations follow the same methods used in
   <a href=\"modelica://IBPSA.Fluid.Chillers.Carnot_y\">
   IBPSA.Fluid.Chillers.Carnot_y</a>
-  Similar, the paramateres <code>TAppCon_nominal</code> and
+  Similarly, the parameters <code>TAppCon_nominal</code> and
   <code>TAppEva_nominal</code> define pinch temperature differences.
 </p>
 </html>"), Icon(graphics={Text(

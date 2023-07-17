@@ -158,7 +158,7 @@ equation
   point is outside of the given operational envelope.
 </p>
 <p>
-  The maximal and minmal <code>TCon</code> depend on
+  The maximal and minimal <code>TCon</code> depend on
   <code>TEva</code> and are defined by the
   upper and lower boundaries in form of 1Ds-Tables.</p>
 <p>
