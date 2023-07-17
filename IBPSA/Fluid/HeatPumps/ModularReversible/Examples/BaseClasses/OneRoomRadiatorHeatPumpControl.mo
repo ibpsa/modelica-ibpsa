@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
   parameter Boolean witCoo=true "=true to simulate cooling behaviour";
@@ -40,20 +40,20 @@ model OneRoomRadiatorHeatPumpControl
     k=0.03,
     Ti=400,
     yMax=1,
-    yMin=0.3) "PID control for cooling, inverse"
+    yMin=0.3) "PI control for cooling, inverse"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Continuous.LimPID PIDHea(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.03,
     Ti=400,
     yMax=1,
-    yMin=0.3) "PID control for heating"
+    yMin=0.3) "PI control for heating"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Modelica.Blocks.Sources.Constant constTSetRooHea(final k=TRooSetHea)
-    "Room set temperature for heating"
+    "Room set point temperature for heating"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Sources.Constant constTSetRooCoo(final k=TRooSetCoo)
-    "Room set temperature for cooling"
+    "Room set point temperature for cooling"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Constant constYSetZer(final k=0) "ySet equals zero"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
@@ -96,11 +96,11 @@ model OneRoomRadiatorHeatPumpControl
   Modelica.Blocks.Interfaces.BooleanOutput hea if witCoo
     "Heat pump in normal mode"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.Blocks.Logical.Or heaOrCooIsOn "Heating or cooling demand"
+  Modelica.Blocks.Logical.Or heaOrCooIsOn "Heating or cooling is on"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={10,10})));
 
   Modelica.Blocks.Logical.Or cooValOrHea
-    "Cooling safety is only valid if the device is not heating" annotation (
+    "Cooling safety control is used only when the device is not heating" annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={10,-40})));
 equation
   connect(hysHea.y, heaIsOn.u)

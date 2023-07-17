@@ -19,7 +19,7 @@ record GenericHeatPump "Basic heat pump data"
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>
   to enable correct selection.</p>
 <p>
-  Adds the table data for upper temperature limitations to
+  Adds the table data for upper temperature limits to
   the partial record, which is the operational envelope of the compressor.
 </p>
 </html>",

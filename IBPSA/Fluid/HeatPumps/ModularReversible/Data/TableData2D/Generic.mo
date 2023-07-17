@@ -34,20 +34,20 @@ record Generic "Basic data for refrigerant machine according to EN 14511"
   (inlet) and outdoor air temperature (inlet) are used. For air-water devices,
   the supply temperature (outlet) and the outdoor air temperature (inlet) are
   used instead.
-  When adding new data, be sure to check if the datasheet means inlet or outlet
+  When adding new data, be sure to check if the datasheet uses inlet or outlet
   conditions. Also, be sure to check if the data is for wet- or dry-bulb
   temperatures. The measured temperatures of the modular approach are taken
   directly from the fluid ports and are, thus, always dry bulb.
 </p>
 <p>
-  The nominal mass flow rate in the condenser and evaporator
+  The nominal mass flow rates in the condenser and evaporator
   are also defined as parameters. These will be used in the model to assert that
   the mass flow rates in the simulation do not deviate to much from the ones
   where the normative data is for.
 </p>
 <p>
-  The <code>devIde</code> ensures that if data for heating and cooling are required,
-  matching records will be used. This parameter is mainly to avoid modelling
+  The string <code>devIde</code> ensures that if data for heating and cooling are required,
+  matching records will be used. This parameter is mainly to avoid manual input
   errors.
 </p>
 </html>",
