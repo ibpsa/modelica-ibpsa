@@ -13,7 +13,7 @@ partial model PartialSafety
         rotation=180,
         origin={10,-50})));
   Modelica.Blocks.Interfaces.RealOutput ySet
-    "Relative speed of compressor. From 0 to 1"
+    "Relative speed of compressor from 0 to 1"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput yOut
     "Relative speed of compressor applied after safety control"

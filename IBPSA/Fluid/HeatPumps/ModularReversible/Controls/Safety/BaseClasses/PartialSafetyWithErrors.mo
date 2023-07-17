@@ -19,7 +19,7 @@ partial model PartialSafetyWithErrors
         rotation=0,
         origin={90,-100})));
   Modelica.Blocks.Interfaces.IntegerOutput err
-    "Integer for displaying number off Errors during simulation"
+    "Integer for displaying number of errors during simulation"
                                                annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0,
         origin={130,-100})));

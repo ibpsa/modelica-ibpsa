@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Examples;
 model MinimalFlowRate
-  "Example for usage of minimal flowrate safety control"
+  "Example for usage of minimal flow rate safety control"
   extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate minFloRatSaf(

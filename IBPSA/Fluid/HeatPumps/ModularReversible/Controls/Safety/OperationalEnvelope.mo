@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OperationalEnvelope
   "Model which computes an error if the current
   values are outside of the given operatinal envelope"
@@ -10,7 +10,7 @@ model OperationalEnvelope
   parameter Boolean forHeaPum
     "=true if model is for heat pump, false for chillers";
   parameter Boolean use_TUseOut=false
-    "=true to use usefule side outlet temperature for envelope, false for inlet";
+    "=true to use useful side outlet temperature for envelope, false for inlet";
   parameter Boolean use_TNotUseOut=true
     "=true to use not useful sides outlet temperature for envelope, false for inlet";
 
@@ -161,7 +161,7 @@ equation
 
 <ul>
 <li>
-  Only three sides of the real envelope are implemented (cf. Figure 2 and 3).
+  Only three sides of the real envelope are implemented (Figures 2 and 3).
   The real operational envelope implies continuous operation.
   This means start-up from e.g. a cold heat pump supply temperature
   is possible in reality. To avoid additional equations for startup and
@@ -171,8 +171,8 @@ equation
 </li>
 <li>
   From all the influences on the real envelope, the compressor frequency
-  impacts the possible range of operation. However, the compressor speed
-  dependent envelopes are typcially not provided in datasheets.
+  impacts the possible range of operation. However, the compressor
+  speed-dependent envelopes are typcially not provided in datasheets.
   Further, including a third dimension requires 3D-table data. This is
   currently not supported by IBPSA or Modelica Standard Library.
 </li>
@@ -181,7 +181,7 @@ equation
 <h4>Existing envelopes</h4>
 
   Technical datasheets according to EN 14511 often contain
-  information about the operationsl envelope.
+  information about the operational envelope.
   The device records for heat pumps
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
@@ -189,12 +189,12 @@ equation
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2DData</a>)
   contain typical values. Older devices typically have lower limits
-  while new refrigerant machines based on Propane or advanced flowsheets
+  while new refrigerant machines based on propane or advanced flowsheets
   are able to achieve temperature over 70 °C for heating.
 
 <h4>Parameterization from datasheets</h4>
 <p>
-  Depending on the underlying datasheet in use, you have think
+  Depending on the underlying datasheet in use, you have to think
   thoroughly if you need inlet or outlet conditions, and if
   you are modelling a heat pump or chiller.
   Figure 1 depicts possible upper and lower boundaries as well as
@@ -232,7 +232,7 @@ equation
   Figure 3 depicts this setup.
 </li>
 <li>
-  Compressor datasheets often provice evaporating and condensing
+  Compressor datasheets often provide evaporating and condensing
   temperatures or pressure levels. Those are not avaiable in the
   simpified model approach. Thus, you have to assume pinch
   temperatures to convert it to either in- or outflow temperature

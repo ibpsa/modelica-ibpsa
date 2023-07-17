@@ -1,11 +1,11 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialSafety "Safety control with I/O"
   Modelica.Blocks.Interfaces.RealInput ySet
-    "Set value relative speed of compressor. Analog from 0 to 1"
+    "Input for relative compressor speed from 0 to 1"
     annotation (Placement(transformation(extent={{-152,4},{-120,36}}),
         iconTransformation(extent={{-152,4},{-120,36}})));
   Modelica.Blocks.Interfaces.RealOutput yOut
-    "Relative speed of compressor. From 0 to 1"
+    "Output for relative compressor speed from 0 to 1"
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
         iconTransformation(extent={{120,10},{140,30}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus

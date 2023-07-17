@@ -15,10 +15,11 @@ block RunPerHourBoundary "Checks if a maximal run per hour value is in boundary"
   Modelica.Blocks.Math.IntegerToReal intToRea
     "Convert to real in order to compare and delay"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Math.Add sub(k2=-1) "Diff of current and delayed starts"
+  Modelica.Blocks.Math.Add sub(k2=-1)
+    "Difference of current and delayed starts"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixDel(final delayTime=delTim)
-    "Apply delay to enable starts per delTim"
+    "Apply delay to enable starts per delay time"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 equation
   connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-79,-20},{-74,-20},

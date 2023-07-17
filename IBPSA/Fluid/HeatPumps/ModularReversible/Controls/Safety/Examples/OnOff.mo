@@ -18,7 +18,7 @@ model OnOff "Example for on off controller"
   Modelica.Blocks.Sources.Sine ySetSin(
     amplitude=0.5,
     f=1/180,
-    offset=0.5) "Sinus signal for ySet"
+    offset=0.5) "Sine signal for ySet"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 equation
   connect(onOffCtr.yOut, hys.u) annotation (Line(points={{23,12},{42,12},{42,

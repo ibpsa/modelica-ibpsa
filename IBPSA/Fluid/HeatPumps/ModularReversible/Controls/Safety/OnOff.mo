@@ -3,21 +3,21 @@ model OnOff
   "Controlls if the minimal runtime, stoptime and max. runs per hour are inside given boundaries"
   extends BaseClasses.PartialSafety;
   parameter Boolean use_minRunTime
-    "False if minimal runtime of HP is not considered"
+    "=false to ignore minimum runtime constraint"
     annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minRunTime(displayUnit="min")
-    "Mimimum runtime of heat pump"
+    "Minimum runtime"
     annotation (Dialog(enable=use_minRunTime));
   parameter Boolean use_minLocTime
-    "False if minimal locktime of HP is not considered"
+    "=false to ignore minimum lock time constraint"
     annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minLocTime(displayUnit="min")
-    "Minimum lock time of heat pump"
+    "Minimum lock time"
      annotation (Dialog(enable=use_minLocTime));
   parameter Boolean use_runPerHou
-    "False if maximal runs per hour of HP are not considered"
+    "=false to ignore runs per hour constraint"
     annotation(choices(checkBox=true));
-  parameter Integer maxRunPerHou "Maximal number of on/off cycles in one hour"
+  parameter Integer maxRunPerHou "Maximum number of on/off cycles in one hour"
     annotation (Dialog(enable=use_runPerHou));
   parameter Boolean preYSet_start=true
     "Start value of pre(ySet) at initial time";
@@ -29,11 +29,11 @@ model OnOff
   Modelica.Blocks.Logical.Hysteresis ySetOn(
     final pre_y_start=preYSet_start,
     final uHigh=ySet_small,
-    final uLow=ySet_small/2) "True if device is set on"
+    final uLow=ySet_small/2) "=true if device is set on"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Routing.BooleanPassThrough isAblToTurOff(
     y(start=true, fixed=true))
-    "y equals true if the device is able to turn off, else false"
+    "=true if the device is allowed to turn off, else false"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
@@ -54,7 +54,7 @@ model OnOff
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Logical.And andIsAblToTurOn(
     y(start=true, fixed=true))
-    "If output is false, device is locked"
+    "=false to lock the device off"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
   Modelica.Blocks.Sources.BooleanConstant booConstRunPerHou(final k=true)
@@ -78,10 +78,10 @@ model OnOff
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Modelica.Blocks.Logical.And andStaOn
-    "True if the device is on and wants to stay on"
+    "=true if the device is on and wants to stay on"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Logical.And andStaOff
-    "True if the device is off and wants to stay off"
+    "=true if the device is off and wants to stay off"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=ySetMin) "Keep device off"
     annotation (Placement(transformation(

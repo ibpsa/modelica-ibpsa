@@ -42,16 +42,16 @@ model Safety "Model including all safety levels"
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre(final TAntFre=
         safCtrPar.TAntFre, final dTHys=safCtrPar.dTHysAntFre)
-    if safCtrPar.use_antFre "Block for anti freezing in simulation"
+    if safCtrPar.use_antFre "Antifreeze control"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Interfaces.IntegerOutput opeEnvErr if safCtrPar.use_opeEnv
-    "Number off errors due to operational envelope"
+    "Number of errors from violating the operational envelope"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,-130})));
   Modelica.Blocks.Interfaces.IntegerOutput antFreErr if safCtrPar.use_antFre
-    "Number off errors due to anti freezing"
+    "Number of errors from antifreeze control"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -65,7 +65,8 @@ model Safety "Model including all safety levels"
 
   Modelica.Blocks.Interfaces.IntegerOutput minFlowErr
     if safCtrPar.use_minFlowCtr
-    "Number off errors due to minimal flow rates"                annotation (
+    "Number of errors from violating minimum flow rates"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -73,19 +74,19 @@ model Safety "Model including all safety levels"
   Modelica.Blocks.Routing.RealPassThrough reaPasThrOnOff if not (
     safCtrPar.use_minRunTime or safCtrPar.use_minLocTime or
     safCtrPar.use_runPerHou)
-    "No on off controllers" annotation (
+    "No on off control" annotation (
                          choicesAllMatching=true, Placement(transformation(
           extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrOpeEnv
-    if not safCtrPar.use_opeEnv "No oeprational envelope control"  annotation (
+    if not safCtrPar.use_opeEnv "No operational envelope control"  annotation (
                                                            choicesAllMatching=true,
       Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrAntFre
-    if not safCtrPar.use_antFre "No anti freeze control"  annotation (
+    if not safCtrPar.use_antFre "No antifreeze control"  annotation (
                                                    choicesAllMatching=true,
       Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrMinVolRat
-    if not safCtrPar.use_minFlowCtr  "No minimale volumen flow rate control"
+    if not safCtrPar.use_minFlowCtr  "No minimum flow rate control"
     annotation (
       choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 equation
@@ -207,19 +208,19 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Aggregation of the four main safety measurements
+  Aggregation of the four main safety controls
   of a refrigerant machine (heat pump or chiller).
 </p>
 <p>
-  The order is based on the relevance to the real system.
-  Anti freeze control and mininmal volume flow rate control is put
+  The order is based on the relevance to a real system.
+  Antifreeze control and mininmum flow rate control are put
   last because of the relevance for the simulation.
   If the medium temperature falls below or rises above the
-  critical value, the simulation will fail.
+  critical values, the simulation will fail.
 </p>
 <p>
 All used functions are optional. See the used models for more
-info on each safety function:
+information on each safety function:
 </p>
 <ul>
 <li><a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff\">

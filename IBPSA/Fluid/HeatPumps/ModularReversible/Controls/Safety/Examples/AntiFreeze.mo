@@ -1,9 +1,9 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Examples;
-model AntiFreeze "Example for usage of anti freeze model"
+model AntiFreeze "Example for usage of antifreeze model"
   extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre
-    "Safety control for anti freezing"
+    "Safety control for antifreeze"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
     "Pulse signal for ySet"

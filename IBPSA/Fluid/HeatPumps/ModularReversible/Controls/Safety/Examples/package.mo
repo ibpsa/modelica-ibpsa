@@ -5,7 +5,7 @@ package Examples "Examples package"
   annotation (Documentation(info="<html>
 <p>
   Package with examples showing the
-  use of single safety control
+  use of single safety control.
 </p>
 </html>"));
 end Examples;
