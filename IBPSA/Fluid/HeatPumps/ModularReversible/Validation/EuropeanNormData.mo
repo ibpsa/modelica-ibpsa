@@ -36,7 +36,7 @@ model EuropeanNormData
             "Simulate and plot"),
     Documentation(info="<html>
 <p>
-  This validation case uses table based data for the heat pump.
+  This validation case uses table-based data for the heat pump.
 </p>
 <p>
   The approach was calibrated as a comparison to constant quality grade

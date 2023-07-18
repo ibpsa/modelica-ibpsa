@@ -77,11 +77,12 @@ partial model PartialValidation
         rotation=270,
         origin={30,30})));
 
-  Modelica.Blocks.Math.Gain gainMasFlowEva(final k=heaPum.mEva_flow_nominal)
-    "Gain to ensure mEva_flow"
+  Modelica.Blocks.Math.Gain mEva_flow(final k=heaPum.mEva_flow_nominal)
+    "Gain to scale the time table output to flow rate"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Math.Gain gainMasFlowCon(final k=heaPum.mCon_flow_nominal)
-    "Gain to ensure mCon_flow" annotation (Placement(transformation(
+  Modelica.Blocks.Math.Gain mCon_flow(final k=heaPum.mCon_flow_nominal)
+    "Gain to scale the time table output to flow rate" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,50})));
@@ -131,14 +132,14 @@ equation
           -45},{16.5,-50},{40,-50}}, color={0,127,255}));
   connect(heaPum.port_a1, sinSidMasFlowSou.ports[1]) annotation (Line(points={{
           16.5,3},{16.5,12},{30,12},{30,20}}, color={0,127,255}));
-  connect(gainMasFlowEva.y, souSidMasFlowSou.m_flow_in)
+  connect(mEva_flow.y, souSidMasFlowSou.m_flow_in)
     annotation (Line(points={{-59,-30},{-42,-30},{-42,-44}}, color={0,0,127}));
-  connect(sinSidMasFlowSou.m_flow_in, gainMasFlowCon.y)
+  connect(sinSidMasFlowSou.m_flow_in, mCon_flow.y)
     annotation (Line(points={{38,42},{38,50},{21,50}}, color={0,0,127}));
-  connect(tabMea.y[5], gainMasFlowEva.u) annotation (Line(points={{-79,90},{-74,
-          90},{-74,26},{-88,26},{-88,-30},{-82,-30}}, color={0,0,127}));
-  connect(tabMea.y[7], gainMasFlowCon.u) annotation (Line(points={{-79,90},{-74,
-          90},{-74,50},{-2,50}}, color={0,0,127}));
+  connect(tabMea.y[5], mEva_flow.u) annotation (Line(points={{-79,90},{-74,90},
+          {-74,26},{-88,26},{-88,-30},{-82,-30}}, color={0,0,127}));
+  connect(tabMea.y[7], mCon_flow.u) annotation (Line(points={{-79,90},{-74,90},
+          {-74,50},{-2,50}}, color={0,0,127}));
   connect(tabMea.y[6], heaPum.ySet) annotation (Line(points={{-79,90},{-74,90},{
           -74,26},{6.83333,26},{6.83333,6.84}}, color={0,0,127}));
   connect(tabMea.y[9], souSidMasFlowSou.T_in) annotation (Line(points={{-79,90},

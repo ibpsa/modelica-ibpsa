@@ -40,7 +40,7 @@ annotation (experiment(Tolerance=1e-6, StopTime=14365),
   grade to model the efficiency of the heat pump.
 </p>
 <p>
-  The approach was calibrated as a comparison to table based data in
+  The approach was calibrated as a comparison to table-based data in
   the conference paper for the heat pump model:
   <a href=\"https://doi.org/10.3384/ecp21181561\">
   https://doi.org/10.3384/ecp21181561 </a>
