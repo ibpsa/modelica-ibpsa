@@ -7,23 +7,23 @@ package UsersGuide
 <p>
   The packages <a href=\"modelica://IBPSA.Fluid.HeatPumps\">IBPSA.Fluid.HeatPumps</a>
   and <a href=\"modelica://IBPSA.Fluid.Chillers\">IBPSA.Fluid.Chillers</a> contain
-  the modular approach to model reversible refrigeration
+  models for reversible refrigerant
   machines (heat pumps and chillers) based on grey-box approaches.
   Either empirical data or physical equations are used to model
   the refrigerant cycle. The model for a refrigerant cycle calculates
   the electrical power consumption <code>PEle</code>,
   the condenser heat flow <code>QCon_flow</code>,
   and the evaporator heat flow <code>QEva_flow</code>
-  based on available variables of the sink- and source-stream.
+  based on available variables of the sink and source streams.
   Thus, this model does not enable closed-loop simulations of
-  the refrigerant cycle. However, such models are (1)
-  either instable or commercial and (2) require substainial computing times.
+  the refrigerant cycle. However, such models are either
+  unstable, (2) commercial, or (3) highly demanding in terms computation time.
   When simulating the refrigerant machine in a more complex energy system,
   this modular approach enables (1) detailed performance and
   dynamic behaviour and (2) fast computating times.
 </p>
 <p>
-  This UserGuide will help you understand how to use the models associated
+  This user guide will help you understand how to use the models associated
   with the modular approach.
   The approach was presented at the Modelica Conference 2021.
   If you want to check out the paper, please see the section <b>References</b>.
@@ -35,26 +35,22 @@ package UsersGuide
 </p>
 <ul>
 <li>
-  They use different sources (air, water, brine, etc.)
-  and sinks (air, water, brine, etc.)
+  They may use various source or sink media (e.g. air, water, brine, etc.);
 </li>
 <li>
-  They may be on/off and inverter driven
+  They may be on/off and inverter driven;
 </li>
 <li>
-  They are able reverse the operation from heating to cooling
-  and vice versa
+  They are able reverse the operation between heating to cooling;
 </li>
 <li>
-  The application limits (or operational envelopes) can
-  strongly influence whether using the device is even
-  possible
+  They operate in a limited characteristic range (operational envelope);
 </li>
 <li>
-  The design depends on several nominal boundary conditions
+  The design depends on various nominal boundary conditions;
 </li>
 <li>
-  Internal safety controls influence the control
+  Safety features are part of their control sequence.
 </li>
 </ul>
 <p>
@@ -64,22 +60,21 @@ package UsersGuide
   and a realistic control behaviour.
 </p>
 <p>
-  The modular approach let's you disable any irrelevant features,
-  select existing model approaches and most importantly enables and
-  easy addition of new model approaches.
+  The modular approach allows you to disable any irrelevant features,
+  select readily made functional modules, and most importantly
+  easily add new model modules.
   Relevant components are declared as <code>replaceable</code>.
   Replaceable models are <code>constrainedby</code> partial models
   which you are free to extend. Thus, you can insert new model approaches
-  into the framework of the ModularReversible model approach.
+  into the framework of the modular reversible model approach.
   If you are not familiar with replaceable models in Modelica,
-  pre-defined model options exist. With these, you don't have to worry
-  about redclaring replaceable models.
+  there are readily assembled models as well.
 </p>
 
 <h4>Package and model structure</h4>
 
 <p>
-  This sections explain the inheritance and model package structure
+  This section explains the inheritance and model package structure
   to help you navigate through all options and check out the
   detailed documentation of each model for further information.
 </p>
@@ -87,7 +82,7 @@ package UsersGuide
   All modular heat pump or chiller models base on the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>.
-  This partial model declares all common interfaces, parameters etc.
+  This partial model declares all common interfaces, parameters, etc.
 </p>
 
 <h5>Heat pump models</h5>
@@ -95,11 +90,11 @@ package UsersGuide
 For heat pumps, the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
 IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> extends the partial model and adds
 the connector <code>hea</code> to choose
-between the operation type of the heat pump:
+between the operation modes of the heat pump:
 </p>
 <ul>
 <li><code>hea = true</code>: Main operation mode (heating) </li>
-<li><code>hea = false</code>: Reversible operation mode (cooling) </li>
+<li><code>hea = false</code>: Reversed operation mode (cooling) </li>
 </ul>
 
 Furthermore, the refrigerant cycle is redeclared to use the one for
@@ -108,15 +103,14 @@ the heat pump
 IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the
 heating and cooling operation of the heat pump.
-Available approaches can be found in the package:
+Available modules can be found in the package:
 <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle\">
 IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle</a>
-For more information on the refrigerant cycle models, we refer
+For more information on the refrigerant cycle models, refer
 to the section <b>Refrigerant cycle models</b>.
 
 <p>
-  Extending the ModularReversible model,
-  several pre-configured approaches exist.
+  There are a number of preconfigured models provided in the package.
   Please check out the documentation of each approach
   to check if this approach may suit you.
 </p>
@@ -141,11 +135,11 @@ to the section <b>Refrigerant cycle models</b>.
 For chillers, the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
 IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> extends the partial model and adds
 the connector <code>coo</code> to choose
-between the operation type of the chiller:
+between the operation mode of the chiller:
 </p>
 <ul>
 <li><code>coo = true</code>: Main operation mode (cooling) </li>
-<li><code>coo = false</code>: Reversible operation mode (heating) </li>
+<li><code>coo = false</code>: Reversed operation mode (heating) </li>
 </ul>
 
 Furthermore, the refrigerant cycle is redeclared to use the one for
@@ -154,15 +148,14 @@ the chiller
 IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle</a>.
 This refrigerant cycle in turn contains replaceable models for the
 cooling and heating operation of the chiller.
-Available approaches can be found in the package:
+Available modules can be found in the package:
 <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle\">
 IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle</a>.
-For more information on the refrigerant cycle models, we refer
+For more information on the refrigerant cycle models, refer
 to the section <b>Refrigerant cycle models</b>.
 
 <p>
-  Extending the ModularReversible model,
-  several pre-configured approaches exist.
+  There are a number of preconfigured models provided in the package.
   Please check out the documentation of each approach
   to check if this approach may suit you.
 </p>
@@ -182,7 +175,7 @@ to the section <b>Refrigerant cycle models</b>.
 <p>
   Aside from the aforementioned Boolean signals
   <code>hea</code> and <code>coo</code>, the following
-  connectors are relevant to understand how the model works:
+  connectors are relevant to understanding how the model works:
   Compressor speed and the expandable bus connector.
 
   The ambient temperatures <code>TEvaAmb</code> and <code>TConAmb</code> are
@@ -196,61 +189,59 @@ to the section <b>Refrigerant cycle models</b>.
 <p>
   The input <code>ySet</code> represents the relative compressor speed.
   To model both on/off and inverter controlled refrigerant machines,
-  the compressor speed is normalizd to a relative value between 0 and 1.
-  If you do not want to model an inverter driven heat pump, you have
-  to limit the value yourself.
+  the compressor speed is normalised to a relative value between 0 and 1.
+  If you do not want to model an inverter driven heat pump,
+  You can impose other signal limits.
+
 
   If your application contains data in Hz or similar, consider converting
-  the input according to the maximal allowed value.
+  the input according to the maximum allowed value.
 </p>
 <p>
-  We use the notation <code>Set</code> to indicate that this is not
-  necessarily the applied compressor speed. As internal safety controls
-  may prohibit certain operating points, the applied compressor speed
-  is the one contained in the bus connector <code>sigBus</code>, which
-  is equal to the output <code>yOut</code> of the safety control.
+  We use the notation <code>Set</code> to indicate a set value.
+  It may be modified by the safety control blocks which produces a signal
+  With the <code>Out</code> notation. For example, the compressor
+  speed <code>ySet</code> from the buss connector <code>sigBus</code>
+  is modified by the safety control block to <code>yOut</code>.
 </p>
 
 <h5>Expandable bus connector</h5>
 
 <p>
-  As the modular approach may require arbitrary information to model
-  the refrigerant cycle behaviour, all available states and outputs
+  As the modular approach may require different information to model
+  the refrigerant cycle depending on configuration, all available states and outputs
   are aggregated in the expandable bus connector <code>sigBus</code>.
   For instance, in order to control both chillers and heat pumps,
-  both flow and return temperature are relevant. The bus connector
-  offers valuable information when analyzing the model behaviour, as
-  all relevant variables are contained within.
+  both flow and return temperature are relevant.
 </p>
 
 <h4>Refrigerant cycle models</h4>
 
 <p>
   A replaceable refrigerant cycle model for heating or
-  cooling has to calculate the electrical power consumption
+  cooling calculates the electrical power consumption
   <code>PEle</code>, condenser heat flow <code>QCon_flow</code>
   and evaporator heat flow <code>QEva_flow</code> based on the
   values in the <code>sigBus</code>.
-  Extending the model
+  Heat pumps models extend
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>
-  for heat pumps and
+  and chiller models extend
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>
-  for chillers enables just that.
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>.
 </p>
 <p>
-  Currently, two approaches for refrigerant cycle models exist in the IBPSA.
+  Currently, two modules for refrigerant cycle are implemented.
   First, the <code>ConstantQualityGrade</code> model uses the same
   equations as the existing Carnot models in the IBPSA.
   Second, the <code>EuropeanNorm2D</code> provides performance data
   based on the European Norm 14511 using 2D-tables.
 </p>
 <p>
-  Two additional approaches exist in the AixLib library.
+  Two additional modules exist in the AixLib library.
   These approaches require the use of the SDF-library, as
   the compressor speed influences the model output as a third
-  dimension. Currently, more than 2D tables are not supported in
+  dimension. Currently, tables with more than two dimensions are not supported in
   the Modelica Standard Library.
   The first approach is similar to <code>EuropeanNorm2D</code>
   approach buts adds the 3rd dimension of compressor speed.
@@ -271,7 +262,7 @@ to the section <b>Refrigerant cycle models</b>.
 </p>
 <p>
   Still, the user needs to size the device or the system
-  according to some reference point. Accordingly, we follow
+  according to some reference points. Accordingly, we follow
   the basic IBPSA concept for nominal conditions, explained in
   detail here:
   <a href=\"modelica://IBPSA.Fluid.UsersGuide\">IBPSA.Fluid.UsersGuide</a>
@@ -310,7 +301,7 @@ to the section <b>Refrigerant cycle models</b>.
 </ul>
 <p>
   The temperature differences and mass flow rates presuppose each other.
-  The temperature levels are whithout further specification of
+  The temperature levels are left without further specification of
   inlet or outlet on purpose. Some refrigerant cycle models will
   use the inlet, some the outlet to determine the outputs.
 </p>
@@ -318,7 +309,7 @@ to the section <b>Refrigerant cycle models</b>.
 Other parameters, such as the nominal pressure drops or
 advanced model settings will not influence the refrigerant cycle
 models. Thus, only the listed nominal conditions are contained
-in both the ModularReversible models and the refrigerant cycle models
+in both the <code>ModularReversible</code> models and the refrigerant cycle models
 for heating and cooling.
 </p>
 
@@ -327,10 +318,9 @@ for heating and cooling.
 
 <p>
   At the nominal conditions, the refrigerant cycle model will
-  calculate the useful nominal heat flow rate, which is
+  calculate the unscaled useful nominal heat flow rate, which is
   named <code>QUseNoSca_flow_nominal</code>. This value is probably
-  not equal to the required <code>QUse_flow_nominal</code>,
-  which is the required sizing for the energy system.
+  different to <code>QUse_flow_nominal</code> which is for sizing.
   For instance, say you need a 7.6 kW heat pump,
   but the EN 14511 datasheets may only provide 5 kW and 10 kW options.
   In such cases, the performance data and relevant parameters
@@ -343,7 +333,7 @@ for heating and cooling.
   Both <code>QUseNoSca_flow_nominal</code> and <code>scaFac</code>
   are calculated in the refrigerant cycle models.
   The <code>scaFac</code> is propagated to the
-  uppermost layer of the ModularReversible models.
+  uppermost layer of the <code>ModularReversible</code> models.
   If both heating and cooling operation is enabled
   using <code>use_rev</code>, the scaling of the secondary
   operation is overwritten by the one in the primary operation.
@@ -354,7 +344,7 @@ for heating and cooling.
 <p>
   Refrigerant machines contain internal safety controls,
   prohibiting operations in possibly unsafe points.
-  All ModularReversible models account for such safety controls.
+  All <code>ModularReversible</code> models account for those.
   All options can be disabled, if required.
   Please look at the model description for more info:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety\">
@@ -365,27 +355,26 @@ for heating and cooling.
 
 <p>
   As the currently existing refrigerant cycle model approaches
-  are based on stationary data points, any intertia
+  are based on stationary data points, any inertia
   (mass and thermal) of components inside the refrigerant cycle
   (compressor, pipes, expansion valve, fluid, etc.) is neglected.
-  To overcome this issue, a replaceable SISO model
+  To overcome this issue, a replaceable SISO block
   enables you to model the refrigerant cycle inertia based on your needs.
 </p>
 <p>
   The package
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias</a>
-  holds existing approaches. In the contribution, an empirical
+  contains implemented inertia modules. In the contribution, an empirical
   validation showed that a third-order critical damping element
-  fits the inertia most closely. At the same time, literature models
-  often use first order delay blocks to account for inertia.
-  Additionally, higher-order elements require more computational time.
+  fits the inertia most closely. At the same time, models in literature
+  often use first-order delay blocks.
+  Additionally, higher-order elements require more computation time.
   At the end, your simulation aim will define the required level
   of detail.
 </p>
 <p>
-  If you do not want to model the inertia at all, just select the option
-  NoInertia.
+  If you do not want to model the inertia at all, use <code>NoInertia</code>.
 </p>
 <p>
   If you find in real data that another approach might be better suited
@@ -393,7 +382,7 @@ for heating and cooling.
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.BaseClasses.PartialInertia\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.BaseClasses.PartialInertia
   </a>
-  and implement your own approach.
+  and implement your own module.
 </p>
 
 
@@ -401,7 +390,7 @@ for heating and cooling.
 
 <p>
   To simulate possible icing of the evaporator on air-source devices, the
-  icing factor <code>iceFac</code> is used to influence the outputs.
+  icing factor <code>iceFac</code> is used to modify the outputs.
   The factor models the reduction of heat transfer between refrigerant
   and source. Thus, the factor is implemented as follows:
 </p>
@@ -415,16 +404,14 @@ for heating and cooling.
 <p><code>QCon_flow = PEle + QEva_flow</code> </p>
 <p>
   You can select different options for the modeling of the icing factor or
-  implement your own approach by extending
+  implement your own module by extending
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor</a>
 </p>
 <p>
-  Note however, that this only simulated the efficiency reduction
-  due to frosting. If you frosting approach enables the simulation
-  of a defrost cycle, you have to implement an external control to simulate
-  a reverse cycle defrost and analyze the impact on source
-  and sink temperatures.
+  Note however, that this only simulates the efficiency reduction
+  due to frosting. If your frosting module enables the simulation
+  of a defrost cycle, you have to implement external controls.
   The <code>iceFac</code> approach was already used in a
   <a href=\"https://doi.org/10.1016/j.enconman.2021.114888\">contribution</a>
   to account for reverse cycle defrost based on validated literature-data.
@@ -451,7 +438,7 @@ for heating and cooling.
   The parameterization may be challenging, as datasheets
   do not contain parameters for the required values.
   Besides empirical calibration, simplified
-  assumptions (e.g. 2 % heat loss) may be used to
+  assumptions (e.g. 2% heat loss) may be used to
   parameterize the required values.
   For more information, please look at the model
   description for more info:
@@ -467,14 +454,6 @@ https://doi.org/10.3384/ecp21181561
 </li>
 </ul>
 
-</html>", revisions="<html>
-<ul>
-<li>
-  <i>May 31, 2022</i> by Fabian Wuellhorst:<br/>
-  First implementation (see issue <a href=
-  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
-</li>
-</ul>
 </html>"));
 
 end UsersGuide;
