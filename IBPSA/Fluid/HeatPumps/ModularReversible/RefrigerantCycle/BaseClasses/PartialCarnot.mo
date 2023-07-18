@@ -42,22 +42,22 @@ partial model PartialCarnot
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,90})));
-  Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from bus"
+  Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from signal bus"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Math.Add addTVapCycNotUse(k1=+1, k2=+1)
-    "Refrigerant cycle temperatur of not useful side " annotation (
+    "Refrigerant cycle temperature of not useful side " annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,70})));
   Modelica.Blocks.Math.Add addTVapCycUse(k1=+1, k2=+1)
-    "Refrigerant cycle temperatur of useful side " annotation (Placement(
+    "Refrigerant cycle temperature of useful side " annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,70})));
   Modelica.Blocks.Sources.Constant dTAppNotUse
-    "Temperature difference at unuseful side"
+    "Temperature difference at not useful side"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Modelica.Blocks.Sources.Constant dTAppUse
     "Temperature difference at useful side"
@@ -68,13 +68,13 @@ partial model PartialCarnot
         rotation=90,
         origin={0,10})));
   Modelica.Blocks.Logical.Switch swiPEle
-    "If HP is off, no heat will be exchanged" annotation (Placement(
+    "If device is off, no heat exchange occurs" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,10})));
   Modelica.Blocks.Logical.Switch swiQUse
-    "If HP is off, no heat will be exchanged" annotation (Placement(
+    "If device is off, no heat exchange occurs" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -105,7 +105,7 @@ equation
       Documentation(info="<html>
 <p>
   Partial model for equations and componenents used in both heat pump
-  and chiller carnot approaches.
+  and chiller with the Carnot approach.
 </p>
 </html>", revisions="<html>
 <ul><li>

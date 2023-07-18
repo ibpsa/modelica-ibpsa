@@ -109,7 +109,7 @@ protected
       tabQUse_flow.table,
       smoothness,
       extrapolation,
-      false) "External table object for nominal usefule side conditions";
+      false) "External table object for nominal useful side conditions";
   parameter Modelica.Blocks.Types.ExternalCombiTable2D tabIdePEle=
       Modelica.Blocks.Types.ExternalCombiTable2D(
       "NoName",

@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ReversibleAirToWaterEuropeanNorm2D
-  "Reversibel air to water heat pump based on 2D manufacturer data in europe"
+  "Reversible air to water heat pump based on 2D manufacturer data in Europe"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
     final safCtrPar=safCtrParEurNor,
     dTEva_nominal=0,

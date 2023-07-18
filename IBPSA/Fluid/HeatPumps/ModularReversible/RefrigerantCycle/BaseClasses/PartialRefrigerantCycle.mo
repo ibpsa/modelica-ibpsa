@@ -46,24 +46,24 @@ partial model PartialRefrigerantCycle
     Placement(transformation(extent={{-100,-52},{-80,-32}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
-        "kW") "Electrical Power consumed by HP" annotation (Placement(
+        "kW") "Electrical Power consumed by the device" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-110})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W", final
-      displayUnit="kW") "Heat flow rate through Condenser" annotation (
+      displayUnit="kW") "Heat flow rate through condenser" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,-110})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
-    "Bus-connector used in a heat pump" annotation (Placement(transformation(
+    "Bus-connector" annotation (Placement(transformation(
         extent={{-15,-14},{15,14}},
         rotation=0,
         origin={1,104})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W", final
-      displayUnit="kW") "Heat flow rate through Evaporator" annotation (
+      displayUnit="kW") "Heat flow rate through evaporator" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -75,7 +75,7 @@ partial model PartialRefrigerantCycle
         rotation=270,
         origin={70,-70})));
   Modelica.Blocks.Math.Product proRedQEva
-    "Based on the icing factor, the heat flow to the evaporator is reduced"
+    "Reduce heat flow to the evaporator based on the icing factor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -142,9 +142,9 @@ equation
   <code>QEva_flow = iceFac * (QConNoIce_flow - PEle)</code>
 </p>
 <p>
-  With <code>iceFac</code> as a relative value between 0 and 1: </p>
+  With <code>iceFac</code> as a relative value between 0 and 1:</p>
 <p><code>iceFac = kA/kA_noIce</code></p>
-<p>Finally, the energy balance must still hold: </p>
+<p>Finally, the energy balance must still hold:</p>
 <p><code>QCon_flow = PEle + QEva_flow</code> </p>
 <p>
   You can select different options for the modeling of the icing factor or

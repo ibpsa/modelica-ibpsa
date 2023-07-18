@@ -36,7 +36,7 @@ equation
   Model that uses a variable order delay to account for inertia.
 </p>
 <p>
-  Following the associated publication by Wuellhorst et. al.,
+Following the associated publication by Wuellhorst et al. (2021),
   this model was used to calibrate the heat pump model.
   If first order is selected, the frequency <code>refIneFreConst</code>
   equals the inverse of the time constant of a first order delay element.

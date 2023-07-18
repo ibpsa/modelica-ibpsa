@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting;
-model NoFrosting "No frosting, iceFac=1"
+model NoFrosting "Placeholder block to ignore frosting"
   extends BaseClasses.PartialIcingFactor;
 equation
   iceFac = 1;
   annotation (Documentation(info="<html>
 <p>
-  Don't account for frosting.
-  May be used to disable frosting.
+This block is used to ignore frosting effects by setting the icing factor
+to constant 1.
 </p>
 </html>", revisions="<html>
 <ul><li>
