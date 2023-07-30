@@ -18,12 +18,9 @@ equation
   annotation (Documentation(info="<html>
 <p>
   Partial refrigerant cycle model for heat pumps.
-  Specifies <code>iceFacHPMea</code> in addition to basic
-  equations to calculate the frosting performance of the heat pump operation.
-</p>
-<p>
-  This model further enables the correct selection of approaches
-  for heat pumps when using <code>choicesAllMatching</code>.
+  It adds the specification for frosting calculation
+  and restricts to the intended choices under
+  <code>choicesAllMatching</code>.
 <\p>
 </html>",
 revisions="<html>

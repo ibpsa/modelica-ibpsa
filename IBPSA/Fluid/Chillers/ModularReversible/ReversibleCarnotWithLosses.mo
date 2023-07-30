@@ -67,7 +67,6 @@ model ReversibleCarnotWithLosses
 <li>Refrigerant inertia using a first order delay</li>
 <li>Evaporator frosting assuming an air-sink chiller</li>
 </ul>
-You can disable the heat losses if required.
 <p>
   For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">

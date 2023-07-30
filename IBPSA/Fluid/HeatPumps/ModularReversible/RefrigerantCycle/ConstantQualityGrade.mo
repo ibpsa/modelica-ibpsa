@@ -63,7 +63,7 @@ equation
 </html>", info="<html>
 <p>
   This model uses a constant quality grade approach and carnot equations
-  to model the efficiency of the heat pump.
+  to compute the efficiency of the heat pump.
 </p>
 <p>
   <code>PEle_nominal</code> is computed from the provided

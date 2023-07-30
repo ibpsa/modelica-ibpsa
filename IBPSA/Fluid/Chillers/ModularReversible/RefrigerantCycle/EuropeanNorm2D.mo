@@ -129,10 +129,10 @@ This implies a constant COP over different design sizes:
   The standard does not require providing the compressor speed at which
   the data are measured. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
-  Depending on your simulation aim, please check that you use the
-  maximal possible power information, which is often provided in
-  the data sheets from the manufacturers. This limitation only
-  holds for inverter driven chillers.
+  To accurately model the available thermal output, 
+  please check that you use tables of the maximal thermal output, 
+  which is often provided in the data sheets from the manufacturers. 
+  This limitation only holds for inverter driven chillers.
 </li>
 <li>
   We assume that the efficiency is contant over the whole

@@ -27,21 +27,21 @@ model ReversibleCarnotWithLosses
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
         (
-        refIneFreConst=refIneFreConst,
+        refIneFreConst=1/refIneTimCon,
         nthOrd=nthOrd,
         initType=Modelica.Blocks.Types.Init.InitialOutput));
 
   parameter Real quaGra=0.3 "Constant quality grade";
-  parameter Modelica.Units.SI.Frequency refIneFreConst
-    "Cut off frequency for inertia of refrigerant cycle";
-  parameter Integer nthOrd=3 "Order of refrigerant cycle interia";
+  parameter Modelica.Units.SI.Time refIneTimCon = 300
+    "Refrigerant cycle inertia time constant for first order delay";
+  parameter Integer nthOrd=1 "Order of refrigerant cycle interia";
 
   annotation (Documentation(info="<html>
 <p>
-  This model extends the model
+  This model extends
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and selects the
-  constant quality grade model approaches for heat pumps
+  constant quality grade module for heat pumps
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   and chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
@@ -52,11 +52,10 @@ model ReversibleCarnotWithLosses
   the heat pump with a more realistic behaviour:
 </p>
 <ul>
-<li>Heat losses to the ambient</li>
+<li>Heat losses to the ambient (can be disabled)</li>
 <li>Refrigerant inertia using a first order delay</li>
 <li>Evaporator frosting assuming an air-sink chiller</li>
 </ul>
-  You can disable the heat losses if required.
 <p>
   For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">

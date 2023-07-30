@@ -3,33 +3,33 @@ record Generic "Generic record definition for safety control blocks"
   extends Modelica.Icons.Record;
   parameter Boolean use_minRunTime
     "=false to ignore minimum runtime constraint"
-  annotation (Dialog(group="OnOffControl"), choices(checkBox=true));
+  annotation (Dialog(group="On/Off Control"), choices(checkBox=true));
   parameter Modelica.Units.SI.Time minRunTime
     "Mimimum runtime" annotation (Dialog(group=
-          "OnOffControl", enable=use_minRunTime));
+          "On/Off Control", enable=use_minRunTime));
   parameter Boolean use_minLocTime
     "=false to ignore minimum lock time"
-    annotation (Dialog(group="OnOffControl"),
+    annotation (Dialog(group="On/Off Control"),
     choices(checkBox=true));
   parameter Modelica.Units.SI.Time minLocTime
     "Minimum lock time" annotation (Dialog(group=
-          "OnOffControl", enable=use_minLocTime));
+          "On/Off Control", enable=use_minLocTime));
   parameter Boolean use_runPerHou
     "=false to ignore maximum runs per hour constraint"
-    annotation (Dialog(group="OnOffControl"),
+    annotation (Dialog(group="On/Off Control"),
     choices(checkBox=true));
   parameter Integer maxRunPerHou
     "Maximum number of on/off cycles in one hour"
-    annotation (Dialog(group="OnOffControl",
+    annotation (Dialog(group="On/Off Control",
     enable=use_runPerHou));
   parameter Real ySetRed
     "Reduced relative compressor speed to allow longer runtime"
         annotation (
-          Dialog(group="OnOffControl",
+          Dialog(group="On/Off Control",
           enable=use_minRunTime));
   parameter Boolean preYSet_start "Start value of pre(n) at initial time"
     annotation (
-      Dialog(group="OnOffControl"),
+      Dialog(group="On/Off Control"),
       choices(checkBox=true));
 
   parameter Boolean use_opeEnv
@@ -66,13 +66,13 @@ record Generic "Generic record definition for safety control blocks"
     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
   parameter Boolean use_minFlowCtr
     "=false to disable minimum mass flow rate requirements"
-    annotation (choices(checkBox=true), Dialog(group="Mass flow rates"));
+    annotation (choices(checkBox=true), Dialog(group="Minimal Flow Rates"));
   parameter Real r_mEvaMinPer_flow
     "Percentage of mass flow rate in evaporator required to operate the device"
-    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtr));
+    annotation (Dialog(group="Minimal Flow Rates", enable=use_minFlowCtr));
   parameter Real r_mConMinPer_flow
     "Percentage of mass flow rate in condenser required to operate the device"
-    annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtr));
+    annotation (Dialog(group="Minimal Flow Rates", enable=use_minFlowCtr));
     annotation (Icon(graphics, coordinateSystem(preserveAspectRatio=false)),
      Diagram(graphics, coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

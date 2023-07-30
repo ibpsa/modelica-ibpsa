@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ModularReversible
-  "Grey-box model for reversible heat pumps using performance data or functional approaches to simulate the refrigeration cycle"
+  "Grey-box model for reversible heat pumps"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     safCtr(final forHeaPum=true),
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
@@ -25,7 +25,7 @@ model ModularReversible
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
-  "Model approach of the refrigerant cycle in heating mode"
+  "Refrigerant cycle module for the heating mode"
     annotation (choicesAllMatching=true);
   replaceable model RefrigerantCycleHeatPumpCooling =
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
@@ -40,15 +40,15 @@ model ModularReversible
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
-  "Model approach of the refrigerant cycle in cooling mode"
+  "Refrigerant cycle module for the cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
     refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal*scaFac
-    "Nominal heat flow rate of cooling operation"
+    "Nominal heat flow rate for cooling"
       annotation(Dialog(group="Nominal Design", enable=use_rev));
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
     if not use_busConOnl and not use_rev
-    "Set heating mode to true if device is not reversible" annotation (
+    "Locks the device in heating mode if designated to be not reversible" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -154,8 +154,8 @@ equation
 </html>", info="<html>
 <p>
   Model of a reversible, modular heat pump.
-  You can combine any of the avaiable model approaches
-  for refrigerant for heating and cooling, add inertias,
+  You can combine any of the available modules
+  for refrigerant heating or cooling cycles, inertias,
   heat losses, and safety controls.
   All features are optional.
 </p>
@@ -163,13 +163,9 @@ equation
   Adding to the partial model (
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine</a>),
-  this model adds the <code>hea</code> signal to choose
-  the operation type of the heat pump:
+  this model has the <code>hea</code> signal to choose
+  the operation mode of the heat pump.
 </p>
-<ul>
-<li><code>hea = true</code>: Main operation mode (heat pump: heating) </li>
-<li><code>hea = false</code>: Reversible operation mode (heat pump: cooling) </li>
-</ul>
 <p>
   For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
