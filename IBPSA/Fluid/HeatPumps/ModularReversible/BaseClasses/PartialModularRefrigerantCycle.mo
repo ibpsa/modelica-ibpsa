@@ -11,26 +11,27 @@ partial model PartialModularRefrigerantCycle
             -16,88},{18,118}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final unit="W", final displayUnit="kW")
-    "Heat Flow to condenser"
+    "Heat flow rate from the refrigerant to the condenser medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final unit="W", final displayUnit="kW")
-    "Heat flow from evaporator"
+    "Heat flow rate from the evaporator medium to the refrigerant"
     annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
   Modelica.Blocks.Logical.Switch swiQEva(
     u1(final unit="W", final displayUnit="kW"),
     u3(final unit="W", final displayUnit="kW"),
     y(final unit="W", final displayUnit="kW"))
-    "If mode is false, Condenser becomes Evaporator and vice versa"
+    "Routing block that picks the component acting as evaporator"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Modelica.Blocks.Logical.Switch swiQCon(
     y(final unit="W", final displayUnit="kW"),
     u1(final unit="W", final displayUnit="kW"),
     u3(final unit="W", final displayUnit="kW"))
-    "If mode is false, Condenser becomes Evaporator and vice versa"
+    "Routing block that picks the component acting as condenser"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit="kW")
-    "Electrical power consumed by compressor" annotation (Placement(
+    "Routing block that picks the component for electric power"
+    annotation (Placement(
         transformation(
         extent={{-10.5,-10.5},{10.5,10.5}},
         rotation=-90,

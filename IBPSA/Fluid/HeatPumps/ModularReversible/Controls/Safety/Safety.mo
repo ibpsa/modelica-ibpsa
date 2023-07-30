@@ -2,14 +2,13 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model Safety "Model including all safety levels"
   extends BaseClasses.PartialSafety;
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
-    "Minimal mass flow rate in evaporator required to operate the device"
+    "Nominal mass flow rate in evaporator medium"
     annotation (Dialog(group="Mass flow rates"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
-    "Minimal mass flow rate in condenser required to operate the device"
+    "Nominal mass flow rate in condenser medium"
     annotation (Dialog(group="Mass flow rates"));
   parameter Real ySet_small
-    "Value of ySet at which the device is considered turned on.
-    Default is 1 % as heat pumps and chillers currently invert down to 15 %";
+    "Threshold for relative speed for the device to be considered on";
   parameter Boolean forHeaPum
     "=true if model is for heat pump, false for chillers";
 
@@ -36,7 +35,7 @@ model Safety "Model including all safety levels"
     final maxRunPerHou=safCtrPar.maxRunPerHou,
     final preYSet_start=safCtrPar.preYSet_start,
     final ySet_small=ySet_small,
-    final ySetMin=safCtrPar.ySetMin) if safCtrPar.use_minRunTime or safCtrPar.use_minLocTime
+    final ySetRed=safCtrPar.ySetRed) if safCtrPar.use_minRunTime or safCtrPar.use_minLocTime
      or safCtrPar.use_runPerHou "On off control block"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
@@ -57,10 +56,11 @@ model Safety "Model including all safety levels"
         rotation=270,
         origin={30,-130})));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate minVolFloRatSaf(final
-      mEvaMin_flow=safCtrPar.m_flowEvaMinPer*mEva_flow_nominal, final
-      mConMin_flow=safCtrPar.m_flowConMinPer*mCon_flow_nominal)
-    if safCtrPar.use_minFlowCtr "Block to ensure minimal flow rates"
+  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate
+    minVolFloRatSaf(final mEvaMin_flow=safCtrPar.r_mEvaMinPer_flow*
+        mEva_flow_nominal, final mConMin_flow=safCtrPar.r_mConMinPer_flow*
+        mCon_flow_nominal) if safCtrPar.use_minFlowCtr
+    "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   Modelica.Blocks.Interfaces.IntegerOutput minFlowErr
@@ -92,7 +92,8 @@ model Safety "Model including all safety levels"
 equation
 
   connect(sigBus, onOffCtr.sigBus) annotation (Line(
-      points={{-125,-71},{-112,-71},{-112,-10},{-66,-10},{-66,22.9},{-62.5,22.9}},
+      points={{-119,-73},{-112,-73},{-112,-10},{-66,-10},{-66,23.9167},{-59.9167,
+          23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -101,7 +102,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus, opeEnv.sigBus) annotation (Line(
-      points={{-125,-71},{-112,-71},{-112,-10},{-28,-10},{-28,22.9},{-22.5,22.9}},
+      points={{-119,-73},{-112,-73},{-112,-10},{-28,-10},{-28,23.9167},{-19.9167,
+          23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -110,7 +112,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus, antFre.sigBus) annotation (Line(
-      points={{-125,-71},{-112,-71},{-112,-10},{14,-10},{14,22.9},{17.5,22.9}},
+      points={{-119,-73},{-112,-73},{-112,-10},{14,-10},{14,23.9167},{20.0833,
+          23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -129,7 +132,8 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus, minVolFloRatSaf.sigBus) annotation (Line(
-      points={{-125,-71},{-112,-71},{-112,-10},{56,-10},{56,22.9},{57.5,22.9}},
+      points={{-119,-73},{-112,-73},{-112,-10},{56,-10},{56,23.9167},{60.0833,
+          23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

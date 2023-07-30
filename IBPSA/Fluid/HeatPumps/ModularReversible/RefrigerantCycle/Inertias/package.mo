@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
-package Inertias "Package with approaches to model inertia of refrigerant cycles"
+package Inertias "Package with modules to model inertia of refrigerant cycles"
 
 
 annotation (Documentation(info="<html>

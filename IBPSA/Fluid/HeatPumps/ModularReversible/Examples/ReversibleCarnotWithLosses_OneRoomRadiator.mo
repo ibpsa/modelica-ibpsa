@@ -8,7 +8,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     sin(nPorts=1),
     booToReaPumEva(realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
   parameter Real perHeaLos=0.1
-    "Percentage of heat losses in the heat exchangers to the nominal heating power";
+    "Percentage of heat losses in the heat exchangers to the nominal heating output";
   IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses revCarWitLosHeaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,

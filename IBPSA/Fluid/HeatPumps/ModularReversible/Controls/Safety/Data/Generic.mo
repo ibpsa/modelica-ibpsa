@@ -22,8 +22,8 @@ record Generic "Generic record definition for safety control blocks"
     "Maximum number of on/off cycles in one hour"
     annotation (Dialog(group="OnOffControl",
     enable=use_runPerHou));
-  parameter Real ySetMin
-    "Minimum relative compressor speed to be used if device needs to run longer"
+  parameter Real ySetRed
+    "Reduced relative compressor speed to allow longer runtime"
         annotation (
           Dialog(group="OnOffControl",
           enable=use_minRunTime));
@@ -67,10 +67,10 @@ record Generic "Generic record definition for safety control blocks"
   parameter Boolean use_minFlowCtr
     "=false to disable minimum mass flow rate requirements"
     annotation (choices(checkBox=true), Dialog(group="Mass flow rates"));
-  parameter Real m_flowEvaMinPer
+  parameter Real r_mEvaMinPer_flow
     "Percentage of mass flow rate in evaporator required to operate the device"
     annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtr));
-  parameter Real m_flowConMinPer
+  parameter Real r_mConMinPer_flow
     "Percentage of mass flow rate in condenser required to operate the device"
     annotation (Dialog(group="Mass flow rates", enable=use_minFlowCtr));
     annotation (Icon(graphics, coordinateSystem(preserveAspectRatio=false)),

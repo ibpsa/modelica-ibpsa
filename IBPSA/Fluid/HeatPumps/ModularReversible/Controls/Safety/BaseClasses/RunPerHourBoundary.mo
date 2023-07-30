@@ -66,12 +66,10 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  Everytime the boolean input signal has a rising edge, a counter is
-  triggered and adds 1 to the total sum. This represents an on-turning
-  of a certain device. With a delay this number is being substracted
-  again, as this block counts the number of rising edges in a given
-  amount of time (e.g. 1 hour). If this value is higher than a given
-  maximal value, the output turns to false.
+  The block counts the number of times the device is turned on
+  in a given time interval by tracking the rising edge of the boolean
+  input signal. If this number is higher than a set value, the block
+  indicates an error.
 </p>
 </html>", revisions="<html><ul>
   <li>

@@ -24,13 +24,13 @@ block SenTempInflow "Custom block to measure instream fluid temperature"
           textString="%name",
           textColor={0,0,255})}), Documentation(info="<html>
 <p>
-  Extension of
+  This model extends
   <a href=\"modelica://Modelica.Blocks.Sources.RealExpression\">
   Modelica.Blocks.Sources.RealExpression</a>
-  adding unit Kelvin to the output.
+  and adds the unit \"Kelvin\" to the output.
 </p>
 <p>
-  Used to output a temperature measurement by
+  It is used to output a temperature measurement by
   evaluating the port temperature directly.
 </p>
 </html>", revisions="<html><ul>

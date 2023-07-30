@@ -1,7 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 model BoundaryMap
-  "Model which returns false if the input parameters
-  are out of the given charasteristic map"
+  "Block that checks if the inputs are within the characteristic map"
   parameter Real tab[:,2]
     "Table for boundary with second column as useful temperature side";
   parameter Real dT
@@ -9,7 +8,7 @@ model BoundaryMap
   annotation (Dialog(tab="Safety Control", group="Operational Envelope"));
   parameter Boolean isUppBou "=true if it is an upper boundary, false for lower";
   Modelica.Blocks.Interfaces.BooleanOutput noErr
-    "If an error occurs, this will be false"
+    "=false when an error occurs"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TNotUse(unit="K", displayUnit="degC")
     "Not useful temperature side"
@@ -21,7 +20,7 @@ model BoundaryMap
     final tableOnFile=false) "Table with envelope data"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.MathBoolean.Nor nor(nu=3)
-    "If no condition violates the envelope, this is true"
+    "=true if the operational envelope is not violated"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Logical.Hysteresis hysLef(
     final uLow=-0.05,
@@ -64,7 +63,6 @@ model BoundaryMap
     final uHigh=0,
     pre_y_start=false) "Hysteresis for temperature limit"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-
 protected
   parameter Real icoMin=-70
     "Used to set the frame where the icon should appear";

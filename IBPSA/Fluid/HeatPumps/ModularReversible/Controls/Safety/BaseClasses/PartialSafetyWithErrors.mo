@@ -4,10 +4,10 @@ partial model PartialSafetyWithErrors
   extends PartialSafety;
 
   Modelica.Blocks.Logical.Switch swiErr
-    "If an error occurs, the value of the conZero block will be used(0)"
+    "Switches to zero when an error occurs"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Modelica.Blocks.Sources.Constant conZer(final k=0)
-    "If an error occurs, the compressor speed is set to zero"
+    "Constant zero"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.MathInteger.TriggeredAdd disErr(
     y_start=0,
@@ -63,10 +63,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Adds the output <code>err</code>, which informs about the
-  number of errors in the specific safety block.
-  Required as not all safety controls will inform about the error
-  but most.
+  This block counts the number of errors occurred in a specific safety block.
 </p>
 </html>"));
 end PartialSafetyWithErrors;

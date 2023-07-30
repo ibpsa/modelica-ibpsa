@@ -60,14 +60,15 @@ equation
 </html>", info="<html>
 <p>
   This model uses a constant quality grade approach and carnot equations
-  to model the efficiency of the chiller.
+  to compute the efficiency of the chiller.
 </p>
 <p>
-  According to the defined <code>QUse_flow_nominal</code> and
-  the nominal conditions <code>PEle_nominal</code> is calculated.
-  <code>PEle_nominal</code> stays constant over all boundary conditions,
-  aside from different compressor speeds.
-  <code>QEva_flow</code> changes according to the carnot COP, which follows:
+  <code>PEle_nominal</code> is computed from the provided
+  <code>QUse_flow_nominal</code> and other nominal conditions.
+  <code>PEle_nominal</code> stays constant over all boundary conditions
+  and is used to calculate <code>PEle</code> by multiplying it with the
+  relative compressor speed.
+  <code>QEva_flow</code> is computed using the carnot approach:
 </p>
 <p>
   <code>
@@ -80,7 +81,7 @@ equation
   <code>
     PEle = PEle_nominal * ySet
   </code>
-</p>
+</p>    
 <p>
   These equations follow the same methods used in
   <a href=\"modelica://IBPSA.Fluid.Chillers.Carnot_y\">

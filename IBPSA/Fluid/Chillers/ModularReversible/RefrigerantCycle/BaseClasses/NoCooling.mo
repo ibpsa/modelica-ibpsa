@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses;
 model NoCooling
-  "No Cooling. Used to avoid warnings about partial model must be replaced"
+  "Placeholder to disable cooling"
   extends PartialChillerCycle(
     PEle_nominal=0,
     redeclare final

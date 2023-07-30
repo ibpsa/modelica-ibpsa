@@ -21,13 +21,9 @@ equation
   info="<html>
 <p>
   Partial refrigerant cycle model for chillers.
-  Specifies <code>iceFacChiMea</code> in addition to basic
-  equations to calculate the frosting performance of the chiller operation.
-</p>
-<p>
-  This model further enables the correct selection of approaches
-  for chillers when using <code>choicesAllMatching</code>.
-<\p>
+  It adds the specification for frosting calculation
+  and restricts to the intended choices under
+  <code>choicesAllMatching</code>.</p>
 </html>", revisions="<html>
 <ul>
   <li>

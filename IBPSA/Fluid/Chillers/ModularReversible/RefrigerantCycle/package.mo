@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible;
-package RefrigerantCycle "Collection refrigerant cycle models for chillers"
+package RefrigerantCycle "Package for chiller refrigerant cycle modules"
    extends Modelica.Icons.MaterialPropertiesPackage;
 
 
@@ -13,11 +13,9 @@ annotation (Documentation(revisions="<html><ul>
 </ul>
 </html>", info="<html>
 <p>
-  This package contains models and data to approximate
-  dynamic refrigerant cycles with stationary data points.</p>
-<p>
-  Besides, models and functional approaches for evaporator
-  frosting and refrigerant cycle inertia exist.
+  This package contains models and data to for
+  dynamic refrigerant cycles with stationary data points,
+  evaporator frosting, and cycle inertia.
 </p>
 </html>"));
 end RefrigerantCycle;

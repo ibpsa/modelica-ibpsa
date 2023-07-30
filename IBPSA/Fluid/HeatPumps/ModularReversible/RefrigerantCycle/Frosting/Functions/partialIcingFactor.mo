@@ -9,8 +9,7 @@ partial function partialIcingFactor
   input Modelica.Units.SI.MassFlowRate mEva_flow
     "Mass flow rate at the evaporator";
   output Real iceFac(min=0, max=1)
-    "Efficiency factor to estimate influence
-    of icing (0: full icing, 1: no icing)";
+    "Icing factor (0: no heat transfer; 1: no effect)";
 
   annotation (Documentation(revisions="<html><ul>
   <li>
@@ -21,8 +20,8 @@ partial function partialIcingFactor
 </ul>
 </html>", info="<html>
 <p>
-  Base function for calculation of the icing factor. The <code>iceFac</code>
-  represents reduction of heat exchange as a result of icing of
+  Base function for calculation of the icing factor <code>iceFac</code>.
+  It represents the reduction of heat exchange as a result of icing of
   the evaporator.
 </p>
 <p>

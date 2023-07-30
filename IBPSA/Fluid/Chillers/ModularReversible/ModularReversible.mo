@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible;
 model ModularReversible
-  "Grey-box model for reversible chillers using performance data or functional approaches to simulate the refrigeration cycle"
+  "Grey-box model for reversible chillers"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     safCtr(final forHeaPum=false),
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
@@ -14,7 +14,7 @@ model ModularReversible
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
  refCyc.refCycChiHea.QUseNoSca_flow_nominal*scaFac
-    "Nominal heat flow rate of heating operation"
+    "Nominal heat flow rate for heating"
       annotation(Dialog(group="Nominal Design", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
@@ -30,7 +30,7 @@ model ModularReversible
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
        final y_nominal=y_nominal)
-  "Model approach of the refrigerant cycle cooling mode"
+  "Refrigerant cycle module for the cooling mode"
     annotation (choicesAllMatching=true);
   replaceable model RefrigerantCycleChillerHeating =
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
@@ -45,7 +45,7 @@ model ModularReversible
        final mCon_flow_nominal=mEva_flow_nominal,
        final mEva_flow_nominal=mCon_flow_nominal,
        final y_nominal=y_nominal)
-  "Model approach of the refrigerant cycle in heating mode"
+  "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   Modelica.Blocks.Interfaces.BooleanInput coo if not use_busConOnl and use_rev
@@ -53,7 +53,7 @@ model ModularReversible
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
   Modelica.Blocks.Sources.BooleanConstant conCoo(final k=true)
     if not use_busConOnl and not use_rev
-    "Set cooling mode to true if device is not reversible" annotation (
+    "Locks the device in cooling mode if designated to be not reversible" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -145,8 +145,8 @@ equation
 </html>", info="<html>
 <p>
   Model of a reversible, modular chiller.
-  You can combine any of the avaiable model approaches
-  for refrigerant for heating and cooling, add inertias,
+  You can combine any of the available modules
+  for refrigerant heating or cooling cycles, inertias,
   heat losses, and safety controls.
   All features are optional.
 </p>
@@ -154,13 +154,9 @@ equation
   Adding to the partial model (
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine</a>),
-  this model adds the <code>hea</code> signal to choose
-  the operation type of the chiller:
+  this model has the <code>coo</code> signal to choose
+  the operation mode of the chiller.
 </p>
-<ul>
-<li><code>coo = true</code>: Main operation mode (chiller: cooling) </li>
-<li><code>coo = false</code>: Reversible operation mode (chiller: heating) </li>
-</ul>
 <p>
   For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">

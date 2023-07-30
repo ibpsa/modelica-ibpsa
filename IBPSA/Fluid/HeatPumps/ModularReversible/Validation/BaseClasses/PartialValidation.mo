@@ -168,7 +168,7 @@ equation
   Energy Efficient Building and Indoor Climate.</p>
 <p>
   If questions regarding the data or model
-  arises, please raise an issue and link Fabian Wuellhorst.
+  arises, please raise an issue and link FWuellhorst.
 </p>
 </html>", revisions="<html><ul>
   <li>

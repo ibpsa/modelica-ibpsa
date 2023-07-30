@@ -1,12 +1,12 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model EvaporatorCondenserWithCapacity
-  "Evaporaotr / Condenser model with added capacity for heat losses to the ambient"
+  "Evaporaotr or condenser model with added capacity for heat losses to the ambient"
   extends IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final IBPSA.Fluid.MixingVolumes.MixingVolume vol(final V=
           m_flow_nominal*tau/rho_default,
     final prescribedHeatFlowRate=true));
 
-  parameter Boolean isCon "Type of heat exchanger"
+  parameter Boolean isCon "=true for condenser, false for evaporator"
     annotation (Dialog( descriptionLabel = true),
       choices(
         choice=true "Condenser",
@@ -73,21 +73,21 @@ model EvaporatorCondenserWithCapacity
         rotation=270,
         origin={0,-70})));
   Modelica.Blocks.Interfaces.RealInput Q_flow
-    "Heat flow rate to the medium"
+    "Heat flow rate from the refrigerant to the medium"
     annotation (
       Placement(transformation(extent={{-20,-20},{20,20}},
       rotation=90,
         origin={0,-120})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senT
-    "Heat flow rate of the condenser" annotation (Placement(transformation(
+    "Temperature sensor for the condenser volume" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={50,-50})));
   Modelica.Blocks.Interfaces.RealOutput T(
     final unit="K",
     final displayUnit="degC")
-    "Absolute temperature as output signal" annotation (Placement(
+    "Temperature of the condenser volume" annotation (Placement(
         transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent=
            {{100,-62},{124,-38}})));
 equation
@@ -278,26 +278,19 @@ equation
   Thus the heat is directly added to the medium.
 </p>
 <p>
-  In order to model transient heat losses of a real heat pump or chiller,
-  a capacity is added to the base model <a href=
-  \"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+  Transient heat losses are modelled by adding a capacity
+  and two convection components to
+  <a href=\"modelica://IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger\">
   IBPSA.Fluid.Interfaces.TwoPortHeatMassExchanger</a>.
+  One of the convection component is between the capacity and the volume
+  (with thermal conductance <code>GInn</code>) and the other between
+  the capacity and the ambient heat port (with <code>GOut</code>).
 </p>
+<h4>Implementation</h4>
 <p>
-  The heat exchange between capacity and medium (<code>GIns</code>)
-  is based on a series of heat
-  resistances caused by forced convection and conduction through the
-  capacity of the heat exchanger. Losses or gains in result of heat
-  exchange with the ambient are modeled through the heat exchange
-  coefficient <code>GOut</code> is
-  represented by a series of conductive resistances and the convection
-  to the ambient.
-</p>
-<p>
-  Both parameters <code>GIns</code>
-  and <code>GOut</code> are variable
-  so that the calculation can follow a temperature or flow-rate based
-  approach.
+  Both <code>GInn</code> and <code>GOut</code> are constants
+  but declared without a <code>parameter</code> keyword so that
+  the calculation can follow a temperature or flow-rate based approach.
 </p>
 </html>"));
 end EvaporatorCondenserWithCapacity;

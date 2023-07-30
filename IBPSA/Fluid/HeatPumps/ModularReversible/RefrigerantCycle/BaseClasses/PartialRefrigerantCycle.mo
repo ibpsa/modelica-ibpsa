@@ -31,8 +31,7 @@ partial model PartialRefrigerantCycle
   parameter Real scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal
     "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.HeatFlowRate QUseNoSca_flow_nominal
-    "Nominal heat flow rate at useful heat exchanger in the
-    unscaled data model, used to calculate the scaling factor"
+    "Nominal heat flow rate at useful heat exchanger unscaled"
     annotation (Dialog(group="Nominal Design"));
   parameter String datSou=""
     "Indicate where the data is coming from";

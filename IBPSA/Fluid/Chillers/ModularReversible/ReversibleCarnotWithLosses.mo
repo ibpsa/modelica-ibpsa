@@ -34,7 +34,7 @@ model ReversibleCarnotWithLosses
 
   parameter Real quaGra=0.3 "Constant quality grade";
   parameter Modelica.Units.SI.Time refIneTimCon = 300
-    "Delay time of first order element for inertia of refrigerant cycle";
+    "Refrigerant cycle inertia time constant for first order delay";
   parameter Integer nthOrd=1 "Order of refrigerant cycle interia";
 
   annotation (Documentation(revisions="<html>
@@ -47,10 +47,10 @@ model ReversibleCarnotWithLosses
 </ul>
 </html>", info="<html>
 <p>
-  This model extends the model
+  This model extends
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and selects the
-  constant quality grade model approaches for chillers
+  constant quality grade module for chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   and heat pumps
@@ -63,7 +63,7 @@ model ReversibleCarnotWithLosses
   the chiller with a more realistic behaviour:
 </p>
 <ul>
-<li>Heat losses to the ambient</li>
+<li>Heat losses to the ambient (can be disabled)</li>
 <li>Refrigerant inertia using a first order delay</li>
 <li>Evaporator frosting assuming an air-sink chiller</li>
 </ul>

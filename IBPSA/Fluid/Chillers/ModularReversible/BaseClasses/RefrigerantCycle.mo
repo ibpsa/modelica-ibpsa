@@ -13,7 +13,7 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
     constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
-    "Replaceable model for refrigerant cycle of a chiller in reversible operation mode"
+    "Replaceable model for refrigerant cycle of a chiller in reversed operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   RefrigerantCycleChillerCooling refCycChiCoo
@@ -189,8 +189,9 @@ equation
   to the partial refrigerant cylce.
 </p>
 <p>
-  Further, an asseration warns if the data-sources and, thus,
-  model approaches differ for cooling and heating.
+  Further, an asseration warning is raised if the model approaches or 
+  sources for performance data differ. This indicates that they are not 
+  for the same device.
 </p>
 </html>"));
 end RefrigerantCycle;

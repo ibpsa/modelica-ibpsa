@@ -6,7 +6,7 @@ partial model PartialIcingFactor "Partial model to calculate the icing factor"
         rotation=0,
         origin={-101,0})));
   Modelica.Blocks.Interfaces.RealOutput iceFac
-    "Efficiency factor (0..1) to estimate influence of icing"
+    "Icing factor from 0 to 1 to estimate influence of icing"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -23,15 +23,21 @@ partial model PartialIcingFactor "Partial model to calculate the icing factor"
           rotation=180)}),                                       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-    <p>Model to calculate the icing factor based on the data available in the
-    signal bus <code>sigBus</code> of the heat pump.</p>
-    <p>The icing factor is an efficiency based factor between 0 and 1
-    to estimate influence of icing.
-    0 means no heat is transferred through heat exchanger (fully frozen).
-    1 means no icing/frosting.</p>
-    <p>See the documentation of <a href=
-    \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle\">IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle</a>
-    for further information.</p>
+<p>
+  Model to calculate the icing factor based on the data available in the
+  signal bus <code>sigBus</code> of the heat pump.
+</p>
+<p>
+  The icing factor is a heat transfer modifier between 0 and 1.
+  0 indicates no heat transfer occurs.
+  1 indicates the heat transfer is unaffected.
+</p>
+<p>
+  See the documentation of <a href=
+  \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle</a>
+  for further information.
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

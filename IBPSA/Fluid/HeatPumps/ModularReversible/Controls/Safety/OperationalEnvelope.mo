@@ -1,7 +1,6 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
+within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OperationalEnvelope
-  "Model which computes an error if the current
-  values are outside of the given operatinal envelope"
+  "Block that determines if the operational condition is within a defined envelope"
   extends BaseClasses.PartialSafetyWithErrors;
   parameter Real tabUppHea[:,2]
     "Upper boundary for heating with second column as useful temperature side";
@@ -67,7 +66,7 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(booPasThrCoo.u, sigBus.coo) annotation (Line(
-      points={{-82,-40},{-100,-40},{-100,-71},{-125,-71}},
+      points={{-82,-40},{-100,-40},{-100,-73},{-119,-73}},
       color={255,0,255},
       pattern=LinePattern.Dash), Text(
       string="%second",
@@ -75,7 +74,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(booPasThrHea.u, sigBus.hea) annotation (Line(
-      points={{-82,40},{-108,40},{-108,-10},{-125,-10},{-125,-71}},
+      points={{-82,40},{-108,40},{-108,-10},{-119,-10},{-119,-73}},
       color={255,0,255},
       pattern=LinePattern.Dash), Text(
       string="%second",
@@ -84,59 +83,55 @@ equation
       horizontalAlignment=TextAlignment.Right));
  if forHeaPum then
     if use_TUseOut then
-      connect(bouMapCoo.TUse, sigBus.TConOutMea) annotation (Line(points={{-84.2,
-              -78},{-104,-78},{-104,-71},{-125,-71}},
-                                                color={0,0,127}));
-      connect(bouMapHea.TUse, sigBus.TConOutMea) annotation (Line(points={{-84.2,
-              102},{-94,102},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
+      connect(bouMapCoo.TUse, sigBus.TConOutMea) annotation (Line(points={{-84.2,-78},
+              {-104,-78},{-104,-73},{-119,-73}},color={0,0,127}));
+      connect(bouMapHea.TUse, sigBus.TConOutMea) annotation (Line(points={{-84.2,102},
+              {-94,102},{-94,-72},{-104,-72},{-104,-73},{-119,-73}},
                                                                   color={0,0,127}));
     else
-      connect(bouMapCoo.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,
-              -78},{-104,-78},{-104,-71},{-125,-71}},
-                                                color={0,0,127}));
-      connect(bouMapHea.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,
-              102},{-94,102},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
+      connect(bouMapCoo.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,-78},
+              {-104,-78},{-104,-73},{-119,-73}},color={0,0,127}));
+      connect(bouMapHea.TUse, sigBus.TConInMea) annotation (Line(points={{-84.2,102},
+              {-94,102},{-94,-72},{-104,-72},{-104,-73},{-119,-73}},
                                                                   color={0,0,127}));
     end if;
     if use_TNotUseOut then
       connect(bouMapHea.TNotUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
-              78},{-94,78},{-94,-71},{-125,-71}}, color={0,0,127}));
+              78},{-94,78},{-94,-73},{-119,-73}}, color={0,0,127}));
       connect(bouMapCoo.TNotUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
-              -102},{-104,-102},{-104,-71},{-125,-71}}, color={0,0,127}));
+              -102},{-104,-102},{-104,-73},{-119,-73}}, color={0,0,127}));
     else
       connect(bouMapHea.TNotUse, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-              78},{-94,78},{-94,-71},{-125,-71}}, color={0,0,127}));
+              78},{-94,78},{-94,-73},{-119,-73}}, color={0,0,127}));
       connect(bouMapCoo.TNotUse, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-              -102},{-104,-102},{-104,-71},{-125,-71}}, color={0,0,127}));
+              -102},{-104,-102},{-104,-73},{-119,-73}}, color={0,0,127}));
     end if;
   else
     if use_TNotUseOut then
       connect(bouMapCoo.TNotUse, sigBus.TConOutMea) annotation (Line(points={{-84.8,
-              -102},{-104,-102},{-104,-71},{-125,-71}},
+              -102},{-104,-102},{-104,-73},{-119,-73}},
                                                 color={0,0,127}));
       connect(bouMapHea.TNotUse, sigBus.TConOutMea) annotation (Line(points={{-84.8,
-              78},{-94,78},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
+              78},{-94,78},{-94,-72},{-104,-72},{-104,-73},{-119,-73}},
                                                                   color={0,0,127}));
     else
       connect(bouMapCoo.TNotUse, sigBus.TConInMea) annotation (Line(points={{-84.8,
-              -102},{-104,-102},{-104,-71},{-125,-71}},
+              -102},{-104,-102},{-104,-73},{-119,-73}},
                                                 color={0,0,127}));
       connect(bouMapHea.TNotUse, sigBus.TConInMea) annotation (Line(points={{-84.8,
-              78},{-94,78},{-94,-72},{-104,-72},{-104,-71},{-125,-71}},
+              78},{-94,78},{-94,-72},{-104,-72},{-104,-73},{-119,-73}},
                                                                   color={0,0,127}));
     end if;
     if use_TUseOut then
-      connect(bouMapHea.TUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,
-              102},{-94,102},{-94,-71},{-125,-71}},
-                                                  color={0,0,127}));
-      connect(bouMapCoo.TUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,
-              -78},{-104,-78},{-104,-71},{-125,-71}},   color={0,0,127}));
+      connect(bouMapHea.TUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,102},
+              {-94,102},{-94,-73},{-119,-73}},    color={0,0,127}));
+      connect(bouMapCoo.TUse, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,-78},
+              {-104,-78},{-104,-73},{-119,-73}},        color={0,0,127}));
     else
-      connect(bouMapHea.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
-              102},{-94,102},{-94,-71},{-125,-71}},
-                                                  color={0,0,127}));
-      connect(bouMapCoo.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
-              -78},{-104,-78},{-104,-71},{-125,-71}},   color={0,0,127}));
+      connect(bouMapHea.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,102},
+              {-94,102},{-94,-73},{-119,-73}},    color={0,0,127}));
+      connect(bouMapCoo.TUse, sigBus.TEvaInMea) annotation (Line(points={{-84.2,-78},
+              {-104,-78},{-104,-73},{-119,-73}},        color={0,0,127}));
     end if;
  end if;
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),

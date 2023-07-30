@@ -28,7 +28,8 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetPul.y, antFre.ySet) annotation (Line(points={{-79,30},{-8,30},{-8,
-          12},{-3.6,12}}, color={0,0,127}));
+          11.6667},{-1.33333,11.6667}},
+                          color={0,0,127}));
   connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-79,-50},{
           -76,-50},{-76,-52},{-50,-52}}, color={0,0,127}), Text(
       string="%second",
@@ -41,10 +42,12 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(hys.u, antFre.yOut) annotation (Line(points={{22,-50},{44,-50},{44,12},
-          {23,12}}, color={0,0,127}));
-  connect(antFre.yOut, yOut) annotation (Line(points={{23,12},{44,12},{44,-40},
-          {110,-40}}, color={0,0,127}));
+  connect(hys.u, antFre.yOut) annotation (Line(points={{22,-50},{44,-50},{44,
+          11.6667},{20.8333,11.6667}},
+                    color={0,0,127}));
+  connect(antFre.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
+          11.6667},{44,-40},{110,-40}},
+                      color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{-8,30},{-8,40},{
           110,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>

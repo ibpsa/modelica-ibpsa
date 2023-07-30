@@ -1,7 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 block TimeControl
-  "Counts seconds a device is turned on and
-  returns true if the time is inside given boundaries"
+  "Returns true if the device stays on for longer than a threshold time"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
 
   parameter Modelica.Units.SI.Time minRunTime
@@ -48,9 +47,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  When the input is true, a timer thats counting seconds until it is
-  false again. As long as the counted time is smaller than a given
-  minimal time, the block yields false.
+  This block delays a true signal and only returns true
+  if the device stays on (true) for longer than a threshold time.
+  If the device is switched off before the threshold time,
+  this block continues returning false.
 </p>
 <p>
   This block is used to check the mimimal run- or loctime of a device.

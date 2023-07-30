@@ -12,8 +12,9 @@ model AntiFreeze "Model to prevent source from freezing"
     final uHigh=TAntFre + dTHys) "Hysteresis to indicate if freezing occurs"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Modelica.Blocks.Math.Min min "The minimum of both sides indicates freezing"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Modelica.Blocks.Math.Min min
+    "Minimum of evaporator outlet and condenser inlet temperatures"
+   annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 equation
   connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{66,20},{66,8},{
@@ -22,7 +23,7 @@ equation
     annotation (Line(points={{-39,-10},{-28,-10},{-28,0},{-22,0}},
                                                    color={0,0,127}));
   connect(sigBus.TConInMea, min.u1) annotation (Line(
-      points={{-125,-71},{-125,-14},{-104,-14},{-104,-4},{-62,-4}},
+      points={{-119,-73},{-119,-14},{-104,-14},{-104,-4},{-62,-4}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -31,7 +32,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus.TEvaOutMea, min.u2) annotation (Line(
-      points={{-125,-71},{-125,-16},{-62,-16}},
+      points={{-119,-73},{-119,-16},{-62,-16}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -67,7 +68,7 @@ equation
   the device to switch off.
 </p>
 <h4>Assumptions</h4>
-  Assuming that the outlet temperature of an evaporator is always lower
-  than the inlet temperature (for the condenser vice versa).
+  This block does not check the evaporator inlet or condenser outlet temperatures
+  because they are assumed to be always higher than the other side.
 </html>"));
 end AntiFreeze;

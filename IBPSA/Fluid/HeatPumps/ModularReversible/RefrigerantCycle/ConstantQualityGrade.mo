@@ -66,11 +66,12 @@ equation
   to model the efficiency of the heat pump.
 </p>
 <p>
-  According to the defined <code>QUse_flow_nominal</code> and
-  the nominal conditions <code>PEle_nominal</code> is calculated.
-  <code>PEle_nominal</code> stays constant over all boundary conditions,
-  aside from different compressor speeds.
-  <code>QCon_flow</code> changes according to the carnot COP, which follows:
+  <code>PEle_nominal</code> is computed from the provided
+  <code>QUse_flow_nominal</code> and other nominal conditions.
+  <code>PEle_nominal</code> stays constant over all boundary conditions
+  and is used to calculate <code>PEle</code> by multiplying it with the
+  relative compressor speed.
+  <code>QCon_flow</code> is computed using the carnot approach:
 </p>
 <p>
   <code>

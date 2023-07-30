@@ -21,7 +21,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating,
     redeclare model RefrigerantCycleChillerCooling =
-        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D(
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D (
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=datTab),

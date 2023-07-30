@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers;
-package ModularReversible "Package with models and packages for the modular reversible chiller approach."
+package ModularReversible "Package for the modular reversible chillers"
 extends Modelica.Icons.VariantsPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

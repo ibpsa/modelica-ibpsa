@@ -41,14 +41,12 @@ initial equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  To simplify the parametrization of the evaporator and condenser volumes
-  and nominal mass flows there exists an option of automatic
-  estimation based on the nominal usable power of the refrigerant machine.
-  This function uses a linear correlation of these parameters,
-  which was established from the linear regression of more than 20 data
-  sets of water-to-water heat pumps from different manufacturers
-  (e.g. Carrier, Trane, Lennox) ranging from about 25 kW
-  to 1 MW nominal power. The linear regressions with coefficients
+  This model provides declarations that auto-populate nominal mass flow rates 
+  and time constants (i.e. volumes) of the heat exchange based on 
+  the nominal electric power of the chiller or heat pump.
+  It is based on more than 20 datasets of water-to-water heat pumps
+  from multiple manufacturers ranging from about 25 kW
+  to 1 MW in nominal electric power. The linear regressions with coefficients
   of determination above 91 % give a good approximation of these
   parameters. Nevertheless, estimates for machines outside
   the given range should be checked for plausibility during simulation.
@@ -60,7 +58,7 @@ IBPSA\\Resources\\Data\\Fluid\\HeatPumps\\BaseClasses\\LargeScaleWaterToWaterPar
 </html>", revisions="<html><ul>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>
-    Moved from PartialReversibleRefrigerantMachine based on the discussion in this issue <a href=
+    First implemented based on the discussion in this issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li>
 </ul>

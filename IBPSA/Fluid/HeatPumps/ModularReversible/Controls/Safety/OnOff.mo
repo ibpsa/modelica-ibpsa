@@ -22,10 +22,9 @@ model OnOff
   parameter Boolean preYSet_start=true
     "Start value of pre(ySet) at initial time";
   parameter Real ySet_small
-    "Value of ySet at which the device is considered turned on,
-    default is 1 % as heat pumps and chillers currently invert down to 15 %";
-  parameter Real ySetMin=ySet_small
-    "Minimal relative compressor speed to be used if device needs to run longer";
+    "Threshold for relative speed for the device to be considered on";
+  parameter Real ySetRed=ySet_small
+    "Reduced relative compressor speed to allow longer runtime";
   Modelica.Blocks.Logical.Hysteresis ySetOn(
     final pre_y_start=preYSet_start,
     final uHigh=ySet_small,
@@ -83,7 +82,7 @@ model OnOff
   Modelica.Blocks.Logical.And andStaOff
     "=true if the device is off and wants to stay off"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=ySetMin) "Keep device off"
+  Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=ySetRed) "Keep device off"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -97,7 +96,7 @@ protected
   Integer devNorOpe(start=1, fixed=true)
     "Indicates if device is at normal operation";
 equation
-  yOut = ySet * devNorOpe + 0 * devTurOff + ySetMin * devRunMin;
+  yOut = ySet * devNorOpe + 0 * devTurOff +ySetRed  * devRunMin;
   when edge(andTurOn.y) then
     if andIsAblToTurOn.y then
       devTurOff = 0;
@@ -203,7 +202,7 @@ equation
   Checks if the <code>ySet</code> value is legal by checking if
   the device can either be turned on or off,
   depending on which state it was in. </p>
-<p>If the device</p>
+<p>The output <code>yOut</code> equals <code>ySet</code>, if the device</p>
 <ul>
 <li>
   is on and <code>ySet</code> is greater
@@ -220,8 +219,6 @@ equation
   nor violates the minimal loc-time (off-time, if active).
 </li>
 </ul>
-<p><code>yOut</code> equals <code>ySet</code>.
-</p>
 <p>
   If the device is on and should turn off, but does not exceed
   the minimal run time (if active), <code>yOut</code>

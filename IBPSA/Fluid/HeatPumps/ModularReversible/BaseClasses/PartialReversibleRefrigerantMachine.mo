@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 partial model PartialReversibleRefrigerantMachine
-  "Grey-box model for reversible heat pumps and chillers using modular models to simulate the refrigerant cycle"
+  "Model for reversible heat pumps and chillers with a refrigerant cycle"
   extends IBPSA.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = MediumCon,
     redeclare final package Medium2 = MediumEva,
@@ -13,10 +13,10 @@ partial model PartialReversibleRefrigerantMachine
 
   //General
   replaceable package MediumCon =
-    Modelica.Media.Interfaces.PartialMedium "Medium at sink side"
+    Modelica.Media.Interfaces.PartialMedium "Medium on condenser side"
     annotation (Dialog(tab = "Condenser"),choicesAllMatching=true);
   replaceable package MediumEva =
-    Modelica.Media.Interfaces.PartialMedium "Medium at source side"
+    Modelica.Media.Interfaces.PartialMedium "Medium on evaporator side"
     annotation (Dialog(tab = "Evaporator"),choicesAllMatching=true);
   replaceable PartialModularRefrigerantCycle refCyc constrainedby
     PartialModularRefrigerantCycle(final use_rev=use_rev)
@@ -40,7 +40,7 @@ partial model PartialReversibleRefrigerantMachine
       "Inertia between the refrigerant cycle outputs and the heat exchangers."
     annotation (choicesAllMatching=true, Dialog(group="Inertia"));
   parameter Boolean use_rev=true
-    "Is the machine reversible?"
+    "=true if the chiller or heat pump is reversible"
     annotation(choices(checkBox=true));
   parameter Boolean use_intSafCtr=true
     "=true to enable internal safety control"
@@ -54,16 +54,16 @@ partial model PartialReversibleRefrigerantMachine
       choicesAllMatching=true);
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
-    "Time constant of heat transfer at nominal flow"
+    "Condenser heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Condenser", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
-    "Nominal flow temperature at secondary condenser side"
+    "Nominal flow temperature of condenser medium"
     annotation (Dialog(group="Nominal Design", tab="Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
-    "Nominal temperature difference at secondary condenser side"
+    "Nominal temperature difference in condenser medium"
     annotation (Dialog(group="Nominal Design", tab="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
-    "Manual input of the nominal mass flow rate (if not automatically calculated)"
+    "Nominal mass flow rate of the condenser medium"
     annotation (Dialog(
       group="Nominal Design",
       tab="Condenser"));
@@ -75,55 +75,48 @@ partial model PartialReversibleRefrigerantMachine
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Condenser", group="Flow resistance"));
   parameter Boolean use_conCap=true
-    "If heat losses at capacitor side are considered or not"
+    "=true if using capacitor model for condenser heat loss estimation"
     annotation (Dialog(group="Heat Losses", tab="Condenser"),
                                           choices(checkBox=true));
   parameter Modelica.Units.SI.HeatCapacity CCon
-    "Heat capacity of Condenser (= cp*m). If you want to neglace the dry mass
-    of the condenser, you can set this value to zero"
+    "Heat capacity of the condenser"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
   parameter Modelica.Units.SI.ThermalConductance GConOut
-    "Constant parameter for heat transfer to the ambient.
-    Represents a sum of thermal resistances such as conductance,
-    insulation and natural convection. If you want to simulate a condenser
-    with additional dry mass but without external heat losses,
-    set the value to zero"
+    "Outer thermal conductance for condenser heat loss calculations"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
   parameter Modelica.Units.SI.ThermalConductance GConIns
-    "Constant parameter for heat transfer to heat exchangers capacity.
-    Represents a sum of thermal resistances such as forced convection
-    and conduction inside of the capacity"
+    "Inner thermal conductance for condenser heat loss calculations"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
 
   parameter Modelica.Units.SI.Density rhoCon=MediumCon.density(staCon_nominal)
-    "Density of medium / fluid in condenser"
+    "Condenser medium density"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
       MediumCon.specificHeatCapacityCp(staCon_nominal)
-    "Specific heat capacaity of medium / fluid in condenser"
+    "Condenser medium specific heat capacity"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
 
   //Evaporator
   parameter Modelica.Units.SI.Time tauEva=30
-    "Time constant of heat transfer at nominal flow"
+    "Evaporator heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Evaporator", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TEva_nominal
-    "Nominal flow temperature at secondary evaporator side"
+    "Nominal flow temperature of evaporator medium"
     annotation (Dialog(group="Nominal Design", tab="Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
-    "Nominal temperature difference at secondary evaporator side"
+    "Nominal temperature difference in evaporator medium"
     annotation (Dialog(group="Nominal Design", tab="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
-    "Manual input of the nominal mass flow rate (if not automatically calculated)"
+    "Nominal mass flow rate of the evaporator medium"
     annotation (Dialog(
       group="Nominal Design",
       tab="Evaporator"));
@@ -135,39 +128,33 @@ partial model PartialReversibleRefrigerantMachine
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));
   parameter Boolean use_evaCap=true
-    "If heat losses at capacitor side are considered or not"
+    "=true if using capacitor model for evaporator heat loss estimation"
     annotation (Dialog(group="Heat Losses", tab="Evaporator"),
                                           choices(checkBox=true));
   parameter Modelica.Units.SI.HeatCapacity CEva
-    "Heat capacity of Evaporator (= cp*m). If you want to neglace the dry mass
-    of the evaporator, you can set this value to zero"
+    "Heat capacity of the evaporator"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.ThermalConductance GEvaOut
-    "Constant parameter for heat transfer to the ambient. Represents a sum of
-    thermal resistances such as conductance, insulation and natural convection.
-    If you want to simulate a evaporator with additional dry mass but
-    without external heat losses, set the value to zero"
+    "Outer thermal conductance for evaporator heat loss calculations"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.ThermalConductance GEvaIns
-    "Constant parameter for heat transfer to heat exchangers capacity.
-    Represents a sum of thermal resistances such as forced convection
-    and conduction inside of the capacity"
+    "Inner thermal conductance for evaporator heat loss calculations"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   parameter Modelica.Units.SI.Density rhoEva=MediumEva.density(staEva_nominal)
-    "Density of medium / fluid in evaporator"
+    "Evaporator medium density"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
       MediumEva.specificHeatCapacityCp(staEva_nominal)
-    "Specific heat capacaity of medium / fluid in evaporator"
+    "Evaporator medium specific heat capacity"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
 
 //Assumptions
@@ -228,8 +215,7 @@ partial model PartialReversibleRefrigerantMachine
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
   parameter Real ySet_small=0.01
-    "Value of ySet at which the device is considered turned on.
-    Default is 1 % as heat pumps and chillers currently invert down to 15 %."
+    "Threshold for relative speed for the device to be considered on"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = MediumCon,
@@ -292,7 +278,7 @@ partial model PartialReversibleRefrigerantMachine
     final ySet_small=ySet_small) if use_intSafCtr "Safety control models"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Interfaces.RealInput ySet if not use_busConOnl
-    "Input signal speed for compressor relative between 0 and 1" annotation (Placement(
+    "Relative compressor speed between 0 and 1" annotation (Placement(
         transformation(extent={{-132,4},{-100,36}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", final
@@ -377,14 +363,14 @@ protected
 
 // Line to add if you want to use the bus
 //protected
-  parameter Real scaFac "Scaling-factor of machine";
+  parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
-      "Nominal / default state of condenser medium";
+      "Nominal state of condenser medium";
 
   parameter MediumEva.ThermodynamicState staEva_nominal=MediumEva.setState_pTX(
       T=MediumEva.T_default, p=MediumEva.p_default, X=MediumEva.X_default)
-      "Nominal / default state of evaporator medium";
+      "Nominal state of evaporator medium";
 
 equation
 
@@ -647,8 +633,12 @@ equation
 <li>and the replaceable refrigerant cycle model <code>refCyc</code></li>
 </ul>
 <p>
-  The model <code>refCyc</code> is replaced by the
-  ModularReversible.ModularReversible models of both heat pumps and chillers.
+  The model <code>refCyc</code> is replaced in the ModularReversible
+  model for heat pumps and chillers, e.g. by 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle</a>
+  in <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a>.
 </p>
 <p>
   For more information on the approach, please read the

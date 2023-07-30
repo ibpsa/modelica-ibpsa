@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle;
 model EuropeanNorm2D
-  "Performance data coming from manufacturer according to European Standards"
+  "Two-Dimensional performance data"
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
     final datSou=datTab.devIde,
@@ -135,8 +135,7 @@ This implies a constant COP over different design sizes:
   holds for inverter driven chillers.
 </li>
 <li>
-  As the standard does not require the compressor speed,
-  we assume that the efficiency is contant over the whole
+  We assume that the efficiency is contant over the whole
   compressor speed range. Typically, efficiencies will drop at minimal
   and maximal compressor speeds.
   To model an inverter controlled chiller, the relative

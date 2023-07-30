@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model NoHeating
-  "No heating, used to avoid warnings about partial model must be replaced"
+  "Placeholder to disable heating"
   extends PartialHeatPumpCycle(
     PEle_nominal=0,
     redeclare final

@@ -56,7 +56,7 @@ equation
   the resulting icing factor.
 </p>
 <p>
-  For more information on the <code>iceFac</code>, see the documentation of <a href=
+  For more information, see the documentation of <a href=
   \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle</a>
 </p>

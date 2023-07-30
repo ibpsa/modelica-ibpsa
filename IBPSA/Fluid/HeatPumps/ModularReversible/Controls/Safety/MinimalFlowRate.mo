@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
-model MinimalFlowRate "Safety control for minimal volume flow rate"
+model MinimalFlowRate "Safety control for minimum mass flow rate"
   extends BaseClasses.PartialSafetyWithErrors;
 
   parameter Modelica.Units.SI.MassFlowRate mEvaMin_flow
