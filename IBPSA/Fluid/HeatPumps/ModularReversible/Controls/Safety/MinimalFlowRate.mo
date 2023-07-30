@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model MinimalFlowRate "Safety control for minimum mass flow rate"
-  extends BaseClasses.PartialSafetyWithErrors;
+  extends BaseClasses.PartialSafetyWithCounter;
 
   parameter Modelica.Units.SI.MassFlowRate mEvaMin_flow
     "Minimal mass flow rate in evaporator required to operate the device";

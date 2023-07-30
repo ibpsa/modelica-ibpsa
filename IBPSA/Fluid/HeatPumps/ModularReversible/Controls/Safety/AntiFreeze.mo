@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model AntiFreeze "Model to prevent source from freezing"
-  extends BaseClasses.PartialSafetyWithErrors;
+  extends BaseClasses.PartialSafetyWithCounter;
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TAntFre=276.15
     "Limit temperature for anti freeze control";

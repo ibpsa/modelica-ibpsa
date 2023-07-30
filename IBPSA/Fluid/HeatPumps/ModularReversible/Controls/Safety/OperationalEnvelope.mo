@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OperationalEnvelope
   "Block that determines if the operational condition is within a defined envelope"
-  extends BaseClasses.PartialSafetyWithErrors;
+  extends BaseClasses.PartialSafetyWithCounter;
   parameter Real tabUppHea[:,2]
     "Upper boundary for heating with second column as useful temperature side";
   parameter Real tabLowCoo[:,2]

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
-partial model PartialSafetyWithErrors
+partial model PartialSafetyWithCounter
    "Safety control which adds an error counter to the I/O"
   extends PartialSafety;
 
@@ -66,4 +66,4 @@ equation
   This block counts the number of errors occurred in a specific safety block.
 </p>
 </html>"));
-end PartialSafetyWithErrors;
+end PartialSafetyWithCounter;

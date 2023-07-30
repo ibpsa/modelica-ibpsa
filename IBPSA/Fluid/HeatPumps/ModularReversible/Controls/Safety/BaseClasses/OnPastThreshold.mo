@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
-block TimeControl
+block OnPastThreshold
   "Returns true if the device stays on for longer than a threshold time"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
 
@@ -68,4 +68,4 @@ equation
   </li>
 </ul>
 </html>"));
-end TimeControl;
+end OnPastThreshold;

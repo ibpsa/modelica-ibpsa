@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
-block SenTempInflow "Custom block to measure instream fluid temperature"
+block InflowTemperatureSensor "Custom block to measure instream fluid temperature"
 
   Modelica.Blocks.Interfaces.RealOutput y(
     final unit="K",
@@ -42,4 +42,4 @@ block SenTempInflow "Custom block to measure instream fluid temperature"
 </ul>
 </html>"));
 
-end SenTempInflow;
+end InflowTemperatureSensor;
