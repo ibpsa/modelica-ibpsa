@@ -437,7 +437,7 @@ equation
   connect(con.port_b, port_b1) annotation (Line(points={{20,92},{78,92},{78,60},
           {100,60}}, color={0,127,255}));
   // External bus connections
-  connect(mEva_flow.m_flow, sigBus.m_flowEvaMea) annotation (Line(points={{72,-49},
+  connect(mEva_flow.m_flow, sigBus.mEvaMea_flow) annotation (Line(points={{72,-49},
           {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
           -43}},                                                color={0,0,127}),
       Text(
@@ -445,7 +445,7 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(mCon_flow.m_flow, sigBus.m_flowConMea) annotation (Line(points={{-50,81},
+  connect(mCon_flow.m_flow, sigBus.mConMea_flow) annotation (Line(points={{-50,81},
           {-50,32},{-76,32},{-76,-43},{-105,-43}},
                                                  color={0,0,127}), Text(
       string="%second",

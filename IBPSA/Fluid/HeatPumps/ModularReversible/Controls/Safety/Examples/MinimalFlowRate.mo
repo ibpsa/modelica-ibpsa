@@ -31,13 +31,13 @@ equation
   connect(ySetPul.y, minFloRatSaf.ySet) annotation (Line(points={{-79,30},{-50,30},
           {-50,11.6667},{-1.33333,11.6667}},
                                color={0,0,127}));
-  connect(mConEmu_flow.y, sigBus.m_flowConMea) annotation (Line(points={{-79,-10},
+  connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{-79,-10},
           {-50,-10},{-50,-52}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(mEvaEmu_flow.y, sigBus.m_flowEvaMea) annotation (Line(points={{-79,-50},
+  connect(mEvaEmu_flow.y, sigBus.mEvaMea_flow) annotation (Line(points={{-79,-50},
           {-50,-50},{-50,-52}}, color={0,0,127}), Text(
       string="%second",
       index=1,

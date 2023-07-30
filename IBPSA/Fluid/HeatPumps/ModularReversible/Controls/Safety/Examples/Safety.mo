@@ -98,13 +98,13 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(mEvaEmu_flow.y, sigBus.m_flowEvaMea) annotation (Line(points={{1,-90},{
+  connect(mEvaEmu_flow.y, sigBus.mEvaMea_flow) annotation (Line(points={{1,-90},{
           4,-90},{4,-64},{-50,-64},{-50,-52}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(mConEmu_flow.y, sigBus.m_flowConMea) annotation (Line(points={{41,-90},
+  connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{41,-90},
           {50,-90},{50,-64},{-50,-64},{-50,-52}}, color={0,0,127}), Text(
       string="%second",
       index=1,

@@ -24,7 +24,7 @@ equation
     pasThrMasFlowEva.y);
   connect(pasThrTEvaOut.u, sigBus.TEvaOutMea);
   connect(pasThrTEvaIn.u, sigBus.TEvaInMea);
-  connect(pasThrMasFlowEva.u, sigBus.m_flowEvaMea);
+  connect(pasThrMasFlowEva.u, sigBus.mEvaMea_flow);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-151,147},{149,107}},

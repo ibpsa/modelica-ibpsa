@@ -29,14 +29,14 @@ equation
           {-22,-8}},     color={255,0,255}));
   connect(and1.y, booPasThr.u) annotation (Line(points={{1,0},{38,0}},
              color={255,0,255}));
-  connect(hysEva.u, sigBus.m_flowEvaMea) annotation (Line(points={{-62,-20},{
+  connect(hysEva.u, sigBus.mEvaMea_flow) annotation (Line(points={{-62,-20},{
           -84,-20},{-84,-73},{-119,-73}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(hysCon.u, sigBus.m_flowConMea) annotation (Line(points={{-62,20},{-94,
+  connect(hysCon.u, sigBus.mConMea_flow) annotation (Line(points={{-62,20},{-94,
           20},{-94,-52},{-119,-52},{-119,-73}},
                                      color={0,0,127}), Text(
       string="%second",
