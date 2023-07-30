@@ -9,8 +9,8 @@ model Safety "Example for usage of all safety controls"
     forHeaPum=true,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-      minRunTime=5,
-      minLocTime=5,
+      minOnTime=5,
+      minOffTime=5,
       use_antFre=true,
       TAntFre=276.15)) "Safety control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -18,24 +18,32 @@ model Safety "Example for usage of all safety controls"
     "Pulse signal for ySet"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.Pulse TConInEmu(
-    amplitude=-10,
+    amplitude=10,
     period=20,
-    offset=283.15) "Emulator for condenser inlet temperature"
+    offset=303.15,
+    y(unit="K", displayUnit="degC"))
+                   "Emulator for condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Sources.Pulse TEvaOutEmu(
     amplitude=-10,
     period=15,
-    offset=283.15) "Emulator for evaporator outlet temperature"
+    offset=287.15,
+    y(unit="K", displayUnit="degC"))
+                   "Emulator for evaporator outlet temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Sources.Pulse TConOutEmu(
     amplitude=40,
     period=20,
-    offset=303.15) "Emulator for condenser outlet temperature"
+    offset=313.15,
+    y(unit="K", displayUnit="degC"))
+                   "Emulator for condenser outlet temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Sources.Pulse TEvaInEmu(
     amplitude=-10,
     period=15,
-    offset=283.15) "Emulator for evaporator inlet temperature"
+    offset=288.15,
+    y(unit="K", displayUnit="degC"))
+                   "Emulator for evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Modelica.Blocks.Sources.Pulse mConEmu_flow(
     amplitude=1,
@@ -117,7 +125,13 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"), experiment(
+</html>"),
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Controls/Safety/Examples/Safety.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
       StopTime=100,
-      Interval=1));
+      Interval=1,
+      Tolerance=1e-08));
 end Safety;

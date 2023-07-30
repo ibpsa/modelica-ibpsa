@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
 record GenericHeatPump "Basic heat pump data"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
   parameter Real tabQCon_flow[:,:]
-    "Heating power table, T in degC, Q_flow in W";
+    "Heating output table, T in degC, Q_flow in W";
   parameter Real tabUppBou[:,2]
     "Points to define upper boundary for sink temperature";
   parameter Boolean use_TEvaOutForOpeEnv=false

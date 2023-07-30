@@ -9,7 +9,6 @@ equation
   annotation (Documentation(info="<html>
 <p>
   Model to pass trough the input String as an output. 
-  Used to enable String comparison in optional models.
 </p>
 </html>", revisions="<html><ul>
   <li>

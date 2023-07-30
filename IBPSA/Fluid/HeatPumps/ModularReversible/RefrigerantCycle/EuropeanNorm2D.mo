@@ -134,7 +134,7 @@ This implies a constant COP over different design sizes:
   the data holds. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
   Depending on your simulation aim, please check that you use the
-  maximal possible power information, which is often provided in
+  maximal possible heating output information, which is often provided in
   the data sheets from the manufacturers. This limitation only
   holds for inverter driven heat pumps.
 </li>

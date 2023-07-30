@@ -11,16 +11,19 @@ model AntiFreeze "Example for usage of antifreeze model"
   Modelica.Blocks.Sources.Pulse TConInEmu(
     amplitude=-10,
     period=20,
-    offset=283.15) "Emulator for condenser inlet temperature"
+    offset=283.15,
+    y(unit="K", displayUnit="K"))   "Emulator for condenser inlet temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Sources.Pulse TEvaOutEmu(
     amplitude=-10,
     period=15,
-    offset=283.15) "Emulator for evaporator outlet temperature"
+    offset=283.15,
+    y(unit="K", displayUnit="K"))
+                   "Emulator for evaporator outlet temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 equation
   connect(antFre.sigBus, sigBus) annotation (Line(
-      points={{-2.5,2.9},{-50,2.9},{-50,-52}},
+      points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -36,8 +39,8 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TConInEmu.y, sigBus.TConInMea) annotation (Line(points={{-79,-10},{
-          -50,-10},{-50,-52}}, color={0,0,127}), Text(
+  connect(TConInEmu.y, sigBus.TConInMea) annotation (Line(points={{-79,-10},{-50,-10},
+          {-50,-52}},          color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -64,7 +67,13 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"), experiment(
+</html>"),
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Controls/Safety/Examples/AntiFreeze.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
       StopTime=100,
-      Interval=1));
+      Interval=1,
+      Tolerance=1e-08));
 end AntiFreeze;

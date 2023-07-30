@@ -12,7 +12,7 @@ model ReversibleCarnotWithLosses
     y_nominal=1,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-      minLocTime=100,
+      minOffTime=100,
       use_runPerHou=false,
       tabUppHea=[-10,40; 60,40],
       use_TUseOut=true),

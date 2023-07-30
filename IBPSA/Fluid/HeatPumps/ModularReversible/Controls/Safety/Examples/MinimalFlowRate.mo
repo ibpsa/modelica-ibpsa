@@ -63,7 +63,13 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"), experiment(
+</html>"),
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Controls/Safety/Examples/MinimalFlowRate.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
       StopTime=100,
-      Interval=1));
+      Interval=1,
+      Tolerance=1e-08));
 end MinimalFlowRate;

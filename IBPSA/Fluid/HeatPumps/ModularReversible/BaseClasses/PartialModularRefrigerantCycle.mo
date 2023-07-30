@@ -30,7 +30,7 @@ partial model PartialModularRefrigerantCycle
     "Routing block that picks the component acting as condenser"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit="kW")
-    "Routing block that picks the component for electric power"
+    "Routing block that picks the component for electric power consumption"
     annotation (Placement(
         transformation(
         extent={{-10.5,-10.5},{10.5,10.5}},
@@ -41,7 +41,7 @@ partial model PartialModularRefrigerantCycle
     u1(final unit="W", final displayUnit="kW"),
     u3(final unit="W", final displayUnit="kW"),
     y(final unit="W", final displayUnit="kW"))
-    "Whether to use cooling or heating power consumption" annotation (Placement(
+    "Whether to use cooling or heating power output" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

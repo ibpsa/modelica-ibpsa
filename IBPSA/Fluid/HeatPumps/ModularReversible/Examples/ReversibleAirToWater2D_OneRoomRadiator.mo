@@ -32,8 +32,8 @@ model ReversibleAirToWater2D_OneRoomRadiator
       datTabCoo,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor(
-        use_minRunTime=false,
-        use_minLocTime=true,
+        use_minOnTime=false,
+        use_minOffTime=true,
         use_runPerHou=true,
         use_antFre=true,
         TAntFre=275.15))

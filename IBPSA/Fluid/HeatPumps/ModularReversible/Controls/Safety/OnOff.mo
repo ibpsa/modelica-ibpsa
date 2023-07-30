@@ -1,19 +1,19 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OnOff
-  "Controlls if the minimal runtime, stoptime and max. runs per hour are inside given boundaries"
+  "Controlls if the minimal on-time, stoptime and max. runs per hour are inside given boundaries"
   extends BaseClasses.PartialSafety;
-  parameter Boolean use_minRunTime
-    "=false to ignore minimum runtime constraint"
+  parameter Boolean use_minOnTime
+    "=false to ignore minimum on-time constraint"
     annotation(choices(checkBox=true));
-  parameter Modelica.Units.SI.Time minRunTime(displayUnit="min")
-    "Minimum runtime"
-    annotation (Dialog(enable=use_minRunTime));
-  parameter Boolean use_minLocTime
-    "=false to ignore minimum lock time constraint"
+  parameter Modelica.Units.SI.Time minOnTime(displayUnit="min")
+    "Minimum on-time"
+    annotation (Dialog(enable=use_minOnTime));
+  parameter Boolean use_minOffTime
+    "=false to ignore minimum off time constraint"
     annotation(choices(checkBox=true));
-  parameter Modelica.Units.SI.Time minLocTime(displayUnit="min")
-    "Minimum lock time"
-     annotation (Dialog(enable=use_minLocTime));
+  parameter Modelica.Units.SI.Time minOffTime(displayUnit="min")
+    "Minimum off time"
+     annotation (Dialog(enable=use_minOffTime));
   parameter Boolean use_runPerHou
     "=false to ignore runs per hour constraint"
     annotation(choices(checkBox=true));
@@ -24,7 +24,7 @@ model OnOff
   parameter Real ySet_small
     "Threshold for relative speed for the device to be considered on";
   parameter Real ySetRed=ySet_small
-    "Reduced relative compressor speed to allow longer runtime";
+    "Reduced relative compressor speed to allow longer on-time";
   Modelica.Blocks.Logical.Hysteresis ySetOn(
     final pre_y_start=preYSet_start,
     final uHigh=ySet_small,
@@ -43,13 +43,13 @@ model OnOff
     "Check number of starts violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.OnPastThreshold locTimCtr(
-   final minRunTime=minLocTime) if use_minLocTime
+   final minOnTime=minOffTime) if use_minOffTime
     "Check if device should be locked"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.OnPastThreshold runTimCtr(
-      final minRunTime=minRunTime) if use_minRunTime "Check if device needs to run"
+      final minOnTime=minOnTime) if use_minOnTime "Check if device needs to run"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Logical.And andIsAblToTurOn(
     y(start=true, fixed=true))
@@ -60,10 +60,10 @@ model OnOff
     if not use_runPerHou "Constant value for disabled option"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Modelica.Blocks.Sources.BooleanConstant booConstLocTim(final k=true)
-    if not use_minLocTime "Constant value for disabled option"
+    if not use_minOffTime "Constant value for disabled option"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.BooleanConstant booConstRunTim(final k=true)
-    if not use_minRunTime "Constant value for disabled option"
+    if not use_minOnTime "Constant value for disabled option"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Logical.Not notSetOn "Device is not set to turn on"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
@@ -212,7 +212,7 @@ equation
 </li>
 <li>
   or is on and should turn off,
-  and exceeds the minimal run time (if active)</li>
+  and exceeds the minimal on-time (if active)</li>
 <li>
   or is off and should turn on, and does neither
   exceed the maximal starts per hour (if active)
@@ -221,7 +221,7 @@ equation
 </ul>
 <p>
   If the device is on and should turn off, but does not exceed
-  the minimal run time (if active), <code>yOut</code>
+  the minimal on-time (if active), <code>yOut</code>
   equals <code>min(ySet, ySetMin)</code>.
 </p>
 <p>

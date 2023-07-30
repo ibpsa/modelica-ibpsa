@@ -22,7 +22,7 @@ record Vitocal350BWH110 "Vitocal 350 BWH 110"
     use_evaOut=false);
 
   annotation (Documentation(info="<html>
-<p>Data for VitoCal350 brine-to-water heat pump, around 11 kW.</p>
+<p>Data for VitoCal350 brine-to-water heat pump, around 11 kW heating output.</p>
 </html>", revisions="<html>
 <ul>
   <li>

@@ -29,7 +29,7 @@ partial model PartialReversibleRefrigerantMachine
   parameter Real y_nominal "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
-    "Nominal electrical power, defined
+    "Nominal electrical power consumption, defined
     based on QUse_flow_nominal and nominal conditions"
     annotation (Dialog(group="Nominal Design"));
 

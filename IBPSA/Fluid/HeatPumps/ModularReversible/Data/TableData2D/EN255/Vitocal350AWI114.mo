@@ -20,7 +20,7 @@ record Vitocal350AWI114 "Vitocal 350 AWI 114"
     use_evaOut=false);
 
   annotation (Documentation(info="<html>
-<p>Data for VitoCal350 air-to-water heat pump, around 11 kW.</p>
+<p>Data for VitoCal350 air-to-water heat pump, around 11 kW heating output.</p>
 </html>", revisions="<html>
 <ul>
   <li>

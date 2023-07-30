@@ -4,12 +4,12 @@ model OnOff "Example for on off controller"
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff onOffCtr(
-    maxRunPerHou=4,
-    minLocTime(displayUnit="s") = 200,
-    minRunTime(displayUnit="s") = 444,
+    maxRunPerHou=2,
+    minOffTime(displayUnit="s") = 200,
+    minOnTime(displayUnit="s") = 300,
     preYSet_start=false,
-    use_minLocTime=true,
-    use_minRunTime=false,
+    use_minOffTime=true,
+    use_minOnTime=true,
     use_runPerHou=true,
     ySet_small=hys.uHigh,
     ySetRed=0.5) "Example case for on off control"
@@ -54,7 +54,13 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"), experiment(
-      StopTime=1000,
-      Interval=1));
+</html>"),
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Controls/Safety/Examples/OnOff.mos"
+        "Simulate and plot"),
+  experiment(
+      StopTime=7200,
+      Interval=1,
+      Tolerance=1e-08,
+      __Dymola_Algorithm="Cvode"));
 end OnOff;

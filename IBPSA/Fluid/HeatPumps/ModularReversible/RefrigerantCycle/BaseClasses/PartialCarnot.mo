@@ -31,7 +31,7 @@ partial model PartialCarnot
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-50,40})));
-  Modelica.Blocks.Math.Product proPEle "Calculate electrical power" annotation (
+  Modelica.Blocks.Math.Product proPEle "Calculate electrical power consumption" annotation (
      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

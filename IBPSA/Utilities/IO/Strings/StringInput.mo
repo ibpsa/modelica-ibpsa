@@ -3,7 +3,6 @@ connector StringInput = input String "'input String' as connector"
 annotation (Documentation(info="<html>
 <p>
   Input connector for a String. 
-  Used to enable String comparison in optional models.
 </p>
 </html>", revisions="<html><ul>
   <li>

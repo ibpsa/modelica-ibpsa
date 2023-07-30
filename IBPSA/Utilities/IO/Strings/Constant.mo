@@ -33,7 +33,6 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
 Documentation(info="<html>
 <p>
   Constant String value source. 
-  Used to enable String comparison in optional models.
 </p>
 </html>", revisions="<html><ul>
   <li>

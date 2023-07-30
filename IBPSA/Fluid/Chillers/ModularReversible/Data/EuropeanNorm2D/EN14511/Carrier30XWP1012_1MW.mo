@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511;
 record Carrier30XWP1012_1MW
-  "Data for model 30XW-P 1012 from Carrier with roughly 1 MW nominal power"
+  "Data for model 30XW-P 1012 from Carrier with roughly 1 MW cooling output"
   extends IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.Generic(
     tabQEva_flow=[
       0,25,30,35,40,45;

@@ -3,7 +3,6 @@ connector StringOutput = output String "'output String' as connector"
   annotation (Documentation(info="<html>
 <p>
   Output connector for a String. 
-  Used to enable String comparison in optional models.
 </p>
 </html>", revisions="<html><ul>
   <li>

@@ -18,7 +18,7 @@ model ModularReversible
         initType=Modelica.Blocks.Types.Init.InitialState),
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-        minLocTime=100,
+        minOffTime=100,
         use_opeEnv=false),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,

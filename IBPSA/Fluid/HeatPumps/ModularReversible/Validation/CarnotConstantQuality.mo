@@ -22,7 +22,7 @@ model CarnotConstantQuality
   parameter Real quaGra=0.4318 "Calibrated constant quality grade";
 
   parameter Modelica.Units.SI.Power PEle_nominal=1884.218212
-    "Calibrated nominal electrical power";
+    "Calibrated nominal electrical power consumption";
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.407396
     "Calibrated condenser nominal mass flow rate";

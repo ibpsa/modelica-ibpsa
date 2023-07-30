@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
 record Generic "Basic data for refrigerant machine according to EN 14511"
     extends Modelica.Icons.Record;
   parameter Real tabPEle[:,:]
-    "Electrical power table, T in degC, Q_flow in W";
+    "Electrical power consumption table, T in degC, Q_flow in W";
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in condenser";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal

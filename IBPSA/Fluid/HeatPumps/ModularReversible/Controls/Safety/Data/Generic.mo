@@ -1,19 +1,19 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data;
 record Generic "Generic record definition for safety control blocks"
   extends Modelica.Icons.Record;
-  parameter Boolean use_minRunTime
-    "=false to ignore minimum runtime constraint"
+  parameter Boolean use_minOnTime
+    "=false to ignore minimum on-time constraint"
   annotation (Dialog(group="On/Off Control"), choices(checkBox=true));
-  parameter Modelica.Units.SI.Time minRunTime
-    "Mimimum runtime" annotation (Dialog(group=
-          "On/Off Control", enable=use_minRunTime));
-  parameter Boolean use_minLocTime
-    "=false to ignore minimum lock time"
+  parameter Modelica.Units.SI.Time minOnTime
+    "Mimimum on-time" annotation (Dialog(group=
+          "On/Off Control", enable=use_minOnTime));
+  parameter Boolean use_minOffTime
+    "=false to ignore minimum off time"
     annotation (Dialog(group="On/Off Control"),
     choices(checkBox=true));
-  parameter Modelica.Units.SI.Time minLocTime
-    "Minimum lock time" annotation (Dialog(group=
-          "On/Off Control", enable=use_minLocTime));
+  parameter Modelica.Units.SI.Time minOffTime
+    "Minimum off time" annotation (Dialog(group=
+          "On/Off Control", enable=use_minOffTime));
   parameter Boolean use_runPerHou
     "=false to ignore maximum runs per hour constraint"
     annotation (Dialog(group="On/Off Control"),
@@ -23,10 +23,10 @@ record Generic "Generic record definition for safety control blocks"
     annotation (Dialog(group="On/Off Control",
     enable=use_runPerHou));
   parameter Real ySetRed
-    "Reduced relative compressor speed to allow longer runtime"
+    "Reduced relative compressor speed to allow longer on-time"
         annotation (
           Dialog(group="On/Off Control",
-          enable=use_minRunTime));
+          enable=use_minOnTime));
   parameter Boolean preYSet_start "Start value of pre(n) at initial time"
     annotation (
       Dialog(group="On/Off Control"),
@@ -83,7 +83,7 @@ record Generic "Generic record definition for safety control blocks"
 <p>
   Typically, datasheets of manufacturers provide
   specific values for these assumptions. Some values are
-  harder to get, e.g. the minimum and maximum for runtime or lock time.
+  harder to get, e.g. the minimum and maximum for on-time or off time.
 </p>
 </html>", revisions="<html><ul>
   <li>

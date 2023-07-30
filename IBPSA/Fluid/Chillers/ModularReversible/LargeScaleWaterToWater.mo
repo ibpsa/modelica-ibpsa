@@ -94,7 +94,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   Pressure losses are not provided in datasheets. As typical
   values are unknown, the pressure loss is set to 0 to enable
   easier usage. However, the parameter is not final and should be
-  replaced if mover power is of interest for your simulation aim.
+  replaced if mover electrical power consumption is of interest for your simulation aim.
 </li>
 </ul>
 </html>", revisions="<html><ul>

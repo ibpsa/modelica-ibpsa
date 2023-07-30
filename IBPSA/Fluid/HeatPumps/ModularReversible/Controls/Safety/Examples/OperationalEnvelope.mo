@@ -17,19 +17,23 @@ model OperationalEnvelope "Example for usage of operational envelope model"
     width=20,
     falling=5,
     period=50,
-    offset=283.15) "Emulator for condenser outlet temperature"
+    offset=283.15,
+    y(unit="K", displayUnit="degC"))
+                   "Emulator for condenser outlet temperature"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Sources.Pulse TEvaInEmu(
     amplitude=-10,
     period=15,
-    offset=283.15) "Emulator for evaporator inlet temperature"
+    offset=283.15,
+    y(unit="K", displayUnit="degC"))
+                   "Emulator for evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Blocks.Sources.BooleanStep hea(startTime=50, startValue=true)
     "Heating mode"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
 equation
   connect(opeEnv.sigBus, sigBus) annotation (Line(
-      points={{-2.5,2.9},{-50,2.9},{-50,-52}},
+      points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -37,11 +41,14 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(ySetPul.y, opeEnv.ySet) annotation (Line(points={{-79,30},{-8,30},{-8,
-          12},{-3.6,12}}, color={0,0,127}));
-  connect(hys.u, opeEnv.yOut) annotation (Line(points={{22,-50},{44,-50},{44,12},
-          {23,12}}, color={0,0,127}));
-  connect(opeEnv.yOut, yOut) annotation (Line(points={{23,12},{44,12},{44,-40},
-          {110,-40}}, color={0,0,127}));
+          11.6667},{-1.33333,11.6667}},
+                          color={0,0,127}));
+  connect(hys.u, opeEnv.yOut) annotation (Line(points={{22,-50},{44,-50},{44,
+          11.6667},{20.8333,11.6667}},
+                    color={0,0,127}));
+  connect(opeEnv.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
+          11.6667},{44,-40},{110,-40}},
+                      color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{-8,30},{-8,40},{
           110,40}}, color={0,0,127}));
   connect(TConOutEmu.y, sigBus.TConOutMea) annotation (Line(points={{-79,-10},{
@@ -62,6 +69,18 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(TConOutEmu.y, sigBus.TConInMea) annotation (Line(points={{-79,-10},{-50,
+          -10},{-50,-52}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TEvaInEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-79,-50},{-76,
+          -50},{-76,-52},{-50,-52}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (Documentation(info="<html>
 <p>
   This example shows the usage of the model
@@ -76,7 +95,13 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"), experiment(
+</html>"),
+   __Dymola_Commands(file=
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Controls/Safety/Examples/OperationalEnvelope.mos"
+        "Simulate and plot"),
+  experiment(
+      StartTime=0,
       StopTime=100,
-      Interval=1));
+      Interval=1,
+      Tolerance=1e-08));
 end OperationalEnvelope;

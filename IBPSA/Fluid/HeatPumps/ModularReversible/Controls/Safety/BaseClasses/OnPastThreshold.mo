@@ -3,13 +3,13 @@ block OnPastThreshold
   "Returns true if the device stays on for longer than a threshold time"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
 
-  parameter Modelica.Units.SI.Time minRunTime
+  parameter Modelica.Units.SI.Time minOnTime
     "Minimal time the device is turned on or off";
   Modelica.Blocks.Logical.Timer runTim
     "Counts the seconds the heat pump is locked still"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold runTimGreMin(final threshold=
-        minRunTime) "Checks if the runtime is greater than the minimal runtime"
+        minOnTime) "Checks if the on-time is greater than the minimal on-time"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(runTimGreMin.y, y)
@@ -53,7 +53,7 @@ equation
   this block continues returning false.
 </p>
 <p>
-  This block is used to check the mimimal run- or loctime of a device.
+  This block is used to check the mimimal on- or off-time of a device.
 </p>
 </html>", revisions="<html><ul>
   <li>

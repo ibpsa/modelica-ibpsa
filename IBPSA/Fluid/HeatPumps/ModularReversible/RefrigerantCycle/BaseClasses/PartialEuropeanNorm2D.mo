@@ -30,7 +30,7 @@ partial model PartialEuropeanNorm2D
     final u1(unit="degC"),
     final u2(unit="degC"),
     final y(unit="W", displayUnit="kW"),
-    final extrapolation=extrapolation) "Electrical power table" annotation (
+    final extrapolation=extrapolation) "Electrical power consumption table" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -56,7 +56,7 @@ partial model PartialEuropeanNorm2D
         origin={-70,36})));
 
 
-  Modelica.Blocks.Math.Product scaFacTimPel "Scale electrical power"
+  Modelica.Blocks.Math.Product scaFacTimPel "Scale electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -117,7 +117,7 @@ protected
       tabPEle.table,
       smoothness,
       extrapolation,
-      false) "External table object for nominal electrical power";
+      false) "External table object for nominal electrical power consumption";
 initial algorithm
   assert(perDevMasFloCon < 1,
       "The deviation of the given mCon_flow_nominal to the table data is " +

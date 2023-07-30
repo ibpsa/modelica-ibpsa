@@ -6,7 +6,7 @@ partial model PartialRefrigerantCycle
     "Nominal heat flow rate at useful heat exchanger side"
     annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.Power PEle_nominal
-    "Nominal electrical power"
+    "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal Design"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
     "Nominal temperature at secondary condenser side"
@@ -125,7 +125,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  Partial model for calculation of electrical power
+  Partial model for calculation of electrical power consumption
   <code>PEle</code>, condenser heat flow <code>QCon_flow</code>
   and evaporator heat flow <code>QEva_flow</code> based on the
   values in the <code>sigBus</code> for a refrigerant machine.
