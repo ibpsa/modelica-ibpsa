@@ -17,7 +17,6 @@ record Generic "Basic chiller data"
   Base data definition used in the chiller model.
 </p>
 <p>
-<p>
   It extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>
   to restrict to intended selections.</p>
