@@ -61,6 +61,5 @@ equation
   experiment(
       StopTime=7200,
       Interval=1,
-      Tolerance=1e-08,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-08));
 end OnOff;
