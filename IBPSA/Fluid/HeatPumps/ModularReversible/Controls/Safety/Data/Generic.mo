@@ -14,14 +14,13 @@ record Generic "Generic record definition for safety control blocks"
   parameter Modelica.Units.SI.Time minOffTime
     "Minimum off time" annotation (Dialog(group=
           "On/Off Control", enable=use_minOffTime));
-  parameter Boolean use_runPerHou
-    "=false to ignore maximum runs per hour constraint"
+  parameter Boolean use_maxCycRat
+    "=false to ignore maximum cycle rate constraint"
     annotation (Dialog(group="On/Off Control"),
     choices(checkBox=true));
-  parameter Integer maxRunPerHou
-    "Maximum number of on/off cycles in one hour"
+  parameter Integer maxCycRat "Maximum cycle rate"
     annotation (Dialog(group="On/Off Control",
-    enable=use_runPerHou));
+    enable=use_maxCycRat));
   parameter Real ySetRed
     "Reduced relative compressor speed to allow longer on-time"
         annotation (

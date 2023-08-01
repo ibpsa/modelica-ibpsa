@@ -1,10 +1,10 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
-block RunPerHourBoundary "Checks if a maximal run per hour value is in boundary"
+block CycleRateBoundary "Checks if a maximal cycle rate is in boundary"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
-  parameter Integer maxRunPerHou "Number of maximal on/off cycles per hour";
+  parameter Integer maxCycRat "Maximal cycle rate";
   parameter Modelica.Units.SI.Time delTim(displayUnit="h") = 3600
     "Delay time of output with respect to input signal";
-  Modelica.Blocks.Logical.LessThreshold runCouLesMax(threshold=maxRunPerHou)
+  Modelica.Blocks.Logical.LessThreshold runCouLesMax(threshold=maxCycRat)
     "Checks if the count of total runs is lower than the maximal value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.MathInteger.TriggeredAdd triAdd "Count number of starts"
@@ -84,4 +84,4 @@ equation
   </li>
 </ul>
 </html>"));
-end RunPerHourBoundary;
+end CycleRateBoundary;

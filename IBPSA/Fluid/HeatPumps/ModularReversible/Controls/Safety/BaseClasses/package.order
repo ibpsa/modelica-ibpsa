@@ -1,5 +1,5 @@
 BoundaryMap
+CycleRateBoundary
 OnPastThreshold
 PartialSafety
 PartialSafetyWithCounter
-RunPerHourBoundary

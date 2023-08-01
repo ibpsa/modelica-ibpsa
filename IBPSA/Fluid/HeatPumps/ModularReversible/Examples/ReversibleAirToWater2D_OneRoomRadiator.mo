@@ -12,7 +12,8 @@ model ReversibleAirToWater2D_OneRoomRadiator
       redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D revCarWitLosHeaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D
+    revCarWitLosHeaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     QUse_flow_nominal=Q_flow_nominal,
@@ -28,16 +29,17 @@ model ReversibleAirToWater2D_OneRoomRadiator
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201
       datTabHea,
-    redeclare IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
+    redeclare
+      IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
       datTabCoo,
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+    redeclare
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor(
-        use_minOnTime=false,
-        use_minOffTime=true,
-        use_runPerHou=true,
-        use_antFre=true,
-        TAntFre=275.15))
-                 "Reversible heat pump with losses and carnot approach"
+      use_minOnTime=false,
+      use_minOffTime=true,
+      use_maxCycRat=true,
+      use_antFre=true,
+      TAntFre=275.15)) "Reversible heat pump with losses and carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 equation
   connect(revCarWitLosHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,

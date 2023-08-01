@@ -4,13 +4,13 @@ model OnOff "Example for on off controller"
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff onOffCtr(
-    maxRunPerHou=2,
+    maxCycRat=2,
     minOffTime(displayUnit="s") = 200,
     minOnTime(displayUnit="s") = 300,
     preYSet_start=false,
     use_minOffTime=true,
     use_minOnTime=true,
-    use_runPerHou=true,
+    use_maxCycRat=true,
     ySet_small=hys.uHigh,
     ySetRed=0.5) "Example case for on off control"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));

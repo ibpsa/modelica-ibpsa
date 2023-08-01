@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OnOff
-  "Controlls if the Safety constraints for on-time, off-time, and runs per hour"
+  "Controlls if the Safety constraints for on-time, off-time, and cycle rate"
   extends BaseClasses.PartialSafety;
   parameter Boolean use_minOnTime
     "=false to ignore minimum on-time constraint"
@@ -14,11 +14,11 @@ model OnOff
   parameter Modelica.Units.SI.Time minOffTime(displayUnit="min")
     "Minimum off time"
      annotation (Dialog(enable=use_minOffTime));
-  parameter Boolean use_runPerHou
-    "=false to ignore runs per hour constraint"
+  parameter Boolean use_maxCycRat
+    "=false to ignore maximal cycle rate constraint"
     annotation(choices(checkBox=true));
-  parameter Integer maxRunPerHou "Maximum number of on/off cycles in one hour"
-    annotation (Dialog(enable=use_runPerHou));
+  parameter Integer maxCycRat "Maximum cycle rate"
+    annotation (Dialog(enable=use_maxCycRat));
   parameter Boolean preYSet_start=true
     "Start value of pre(ySet) at initial time";
   parameter Real ySet_small
@@ -37,10 +37,9 @@ model OnOff
   Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.RunPerHourBoundary runPerHouBou(
-   final maxRunPerHou=maxRunPerHou,
-   final delTim=3600) if use_runPerHou
-    "Check number of starts violations"
+  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.CycleRateBoundary
+    cycRatBou(final maxCycRat=maxCycRat, final delTim=3600) if use_maxCycRat
+    "Check cycle rate violations"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.OnPastThreshold locTimCtr(
    final minOnTime=minOffTime) if use_minOffTime
@@ -56,8 +55,8 @@ model OnOff
     "=false to lock the device off"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 
-  Modelica.Blocks.Sources.BooleanConstant booConstRunPerHou(final k=true)
-    if not use_runPerHou "Constant value for disabled option"
+  Modelica.Blocks.Sources.BooleanConstant booConstCycRat(final k=true)
+    if not use_maxCycRat "Constant value for disabled option"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Modelica.Blocks.Sources.BooleanConstant booConstLocTim(final k=true)
     if not use_minOffTime "Constant value for disabled option"
@@ -134,9 +133,8 @@ equation
     devRunMin = 0;
     devNorOpe = 1;
   end when;
-  connect(preOnOff.y, runPerHouBou.u) annotation (Line(points={{-79,-90},{-66,-90},
-          {-66,-66},{-24,-66},{-24,-50},{18,-50}},
-                                     color={255,0,255}));
+  connect(preOnOff.y, cycRatBou.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
+          -66},{-24,-66},{-24,-50},{18,-50}}, color={255,0,255}));
   connect(preOnOff.y, notIsOn.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
           -66},{-108,-66},{-108,-50},{-102,-50}},     color={255,0,255}));
   connect(notIsOn.y, locTimCtr.u) annotation (Line(points={{-79,-50},{-52,-50},{
@@ -148,11 +146,11 @@ equation
       points={{41,20},{52,20},{52,-60},{58,-60}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(runPerHouBou.y, andIsAblToTurOn.u2) annotation (Line(
+  connect(cycRatBou.y, andIsAblToTurOn.u2) annotation (Line(
       points={{41,-50},{50,-50},{50,-68},{58,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
-  connect(booConstRunPerHou.y, andIsAblToTurOn.u2) annotation (Line(
+  connect(booConstCycRat.y, andIsAblToTurOn.u2) annotation (Line(
       points={{41,-90},{50,-90},{50,-68},{58,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
@@ -215,8 +213,8 @@ equation
   and exceeds the minimal on-time (if active)</li>
 <li>
   or is off and should turn on, and does neither
-  exceed the maximal starts per hour (if active)
-  nor violates the minimal loc-time (off-time, if active).
+  exceed the maximal cycle rate (if active)
+  nor violates the minimal off-time (if active).
 </li>
 </ul>
 <p>
@@ -226,8 +224,8 @@ equation
 </p>
 <p>
   If the device is off and should turn on, but exceeds the maximal
-  starts per hour (if active) or violates the minimal
-  loc-time (off-time, if active), <code>yOut</code> equals 0.
+  cycle rate (if active) or violates the minimal
+  off-time (if active), <code>yOut</code> equals 0.
 </p>
 </html>", revisions="<html><ul>
   <li>

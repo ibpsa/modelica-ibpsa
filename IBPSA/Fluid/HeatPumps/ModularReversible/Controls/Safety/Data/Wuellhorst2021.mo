@@ -9,7 +9,7 @@ record Wuellhorst2021
     r_mConMinPer_flow=0.1,
     r_mEvaMinPer_flow=0.1,
     use_minFlowCtr=true,
-    use_runPerHou=true,
+    use_maxCycRat=true,
     use_minOffTime=true,
     use_minOnTime=true,
     TAntFre=273.15,
@@ -17,7 +17,7 @@ record Wuellhorst2021
     dTHysOpeEnv=5,
     use_opeEnv=true,
     tabUppHea=[-40,70; 40,70],
-    maxRunPerHou=3,
+    maxCycRat=3,
     minOffTime=1200,
     minOnTime=600);
   annotation (Documentation(info="<html>

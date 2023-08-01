@@ -5,15 +5,17 @@ model ReversibleCarnotWithLosses
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
-  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses revCarWitLosChi(
+  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses
+    revCarWitLosChi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QUse_flow_nominal=30000,
     y_nominal=1,
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+    redeclare
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       minOffTime=100,
-      use_runPerHou=false,
+      use_maxCycRat=false,
       tabUppHea=[-10,40; 60,40],
       use_TUseOut=true),
     TCon_nominal=313.15,
@@ -101,9 +103,8 @@ equation
       points={{73,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, revCarWitLosChi.ySet) annotation (Line(points={{-39,60},{-16,
-          60},{-16,11.6667},{-1.6,11.6667}},
-                                         color={0,0,127}));
+  connect(ySet.y, revCarWitLosChi.ySet) annotation (Line(points={{-39,60},{-16,60},
+          {-16,11.6667},{-1.6,11.6667}}, color={0,0,127}));
   connect(chi.y, revCarWitLosChi.coo) annotation (Line(points={{-39,-50},{-22,-50},
           {-22,2.5},{-1.6,2.5}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),

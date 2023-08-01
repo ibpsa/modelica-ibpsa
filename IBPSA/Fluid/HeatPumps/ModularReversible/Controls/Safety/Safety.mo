@@ -31,12 +31,12 @@ model Safety "Model including all safety levels"
     final minOffTime=safCtrPar.minOffTime,
     final use_minOnTime=safCtrPar.use_minOnTime,
     final use_minOffTime=safCtrPar.use_minOffTime,
-    final use_runPerHou=safCtrPar.use_runPerHou,
-    final maxRunPerHou=safCtrPar.maxRunPerHou,
+    final use_maxCycRat=safCtrPar.use_maxCycRat,
+    final maxCycRat=safCtrPar.maxCycRat,
     final preYSet_start=safCtrPar.preYSet_start,
     final ySet_small=ySet_small,
     final ySetRed=safCtrPar.ySetRed) if safCtrPar.use_minOnTime or safCtrPar.use_minOffTime
-     or safCtrPar.use_runPerHou "On off control block"
+     or safCtrPar.use_maxCycRat "On off control block"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.AntiFreeze antFre(final TAntFre=
@@ -71,9 +71,8 @@ model Safety "Model including all safety levels"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={70,-130})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrOnOff if not (
-    safCtrPar.use_minOnTime or safCtrPar.use_minOffTime or
-    safCtrPar.use_runPerHou)
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrOnOff if not (safCtrPar.use_minOnTime
+     or safCtrPar.use_minOffTime or safCtrPar.use_maxCycRat)
     "No on off control" annotation (
                          choicesAllMatching=true, Placement(transformation(
           extent={{-60,60},{-40,80}})));
