@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OnOff
-  "Controlls if the minimal on-time, stoptime and max. runs per hour are inside given boundaries"
+  "Controlls if the Safety constraints for on-time, off-time, and runs per hour"
   extends BaseClasses.PartialSafety;
   parameter Boolean use_minOnTime
     "=false to ignore minimum on-time constraint"
