@@ -1,7 +1,8 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
+within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
-  parameter Boolean witCoo=true "=true to simulate cooling behaviour";
+  parameter Boolean witCoo=true
+    "=true to simulate cooling behaviour";
   parameter Modelica.Units.SI.Temperature TRooSetHea=293.15
     "Room set temperature for heating";
   parameter Modelica.Units.SI.Temperature TRooSetCoo=296.15
