@@ -1,6 +1,6 @@
 EvaporatorCondenserWithCapacity
 InflowTemperatureSensor
-LargeScaleWaterToWaterParameters
+LargeScaleWaterToWaterDeclarations
 PartialModularRefrigerantCycle
 PartialReversibleRefrigerantMachine
 RefrigerantCycle

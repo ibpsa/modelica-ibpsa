@@ -31,7 +31,7 @@ model LargeScaleWaterToWater
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations(
     final autCalMasCon_flow=max(4E-5*QUse_flow_nominal - 0.6162,
         autCalMMin_flow),
     final autCalMasEva_flow=max(4E-5*QUse_flow_nominal - 0.3177,
@@ -66,8 +66,8 @@ model LargeScaleWaterToWater
 </p>
 <p>
   Parameters are based on an automatic estimation, see:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterParameters</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
 </p>
 <p>
   Please read the documentation of the model for heating here:

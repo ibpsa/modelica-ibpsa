@@ -107,16 +107,13 @@ equation
   <code>QCon_flow</code> and <code>PEle</code>.
 </p>
 <p>
-  The standard defines two of the three values electrical power consumption,
-  condenser heat flow rate, and COP for different condenser outlet and
-  evaporator inlet temperatures.
+  Under different condenser outlet and evaporator inlet temperatures,
+  the standard provides two of the three following values:
+  electrical power consumption, evaporator heat flow rate, and COP.
 </p>
 <p>
-  Based on the two powers, the equation <code>QEva_flow = QCon_flow - PEle</code>
-  is solved, assuming an adiabatic device. However, as losses are implicitly
-  included in the measured data, the model still account for such losses.
-  Same hold true for frosting effects, as frosting decreases the COP in the
-  standard.
+  Note that losses are often implicitly included in measured data.
+  In this case, the frosting modules should be disabled.
 </p>
 
 <h4>Scaling factor</h4>

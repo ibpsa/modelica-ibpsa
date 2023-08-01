@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
-partial model LargeScaleWaterToWaterParameters
+partial model LargeScaleWaterToWaterDeclarations
   "Model with parameters for large scale water-to-water heat pump"
 
   //Automatic calculation of mass flow rates and volumes of the evaporator
@@ -63,4 +63,4 @@ IBPSA\\Resources\\Data\\Fluid\\HeatPumps\\BaseClasses\\LargeScaleWaterToWaterPar
   </li>
 </ul>
 </html>"));
-end LargeScaleWaterToWaterParameters;
+end LargeScaleWaterToWaterDeclarations;

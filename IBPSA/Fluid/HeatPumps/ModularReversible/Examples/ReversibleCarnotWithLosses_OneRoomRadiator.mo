@@ -33,9 +33,8 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
-    quaGra=0.4,
-    refIneFreConst=0.003,
-    nthOrd=3) "Reversible heat pump with losses and carnot approach"
+    quaGra=0.4)
+              "Reversible heat pump with losses and carnot approach"
     annotation (Placement(transformation(extent={{20,-162},{0,-138}})));
   Modelica.Blocks.Sources.Constant temAmbBas(final k=273.15 + 18)
     "Ambient temperature in basement of building" annotation (Placement(
