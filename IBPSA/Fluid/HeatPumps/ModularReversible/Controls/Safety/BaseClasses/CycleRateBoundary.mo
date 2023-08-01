@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
-block CycleRateBoundary "Checks if a maximal cycle rate is in boundary"
+block CycleRateBoundary "Checks if the cycle rate is in boundary"
   extends Modelica.Blocks.Interfaces.BooleanSISO;
   parameter Integer maxCycRat "Maximal cycle rate";
   parameter Modelica.Units.SI.Time delTim(displayUnit="h") = 3600
