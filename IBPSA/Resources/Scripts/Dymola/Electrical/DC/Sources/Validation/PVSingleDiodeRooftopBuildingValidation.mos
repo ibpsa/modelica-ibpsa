@@ -1,5 +1,5 @@
 // Plot commands
-simulateModel("IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation", startTime=9244800, stopTime=10108800, outputInterval=300, method="dassl", tolerance=1e-6, resultFile="PVSingleDiodeValidation");
+simulateModel("IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation", startTime=18057600, stopTime=19094400, outputInterval=900, method="dassl", tolerance=1e-6, resultFile="PVSingleDiodeValidation");
 removePlots();
 Advanced.FilenameInLegend = false;
 Advanced.SequenceInLegend = true;
@@ -7,7 +7,7 @@ Advanced.PlotLegendTooltip = true;
 Advanced.FullPlotTooltip = true;
 createPlot(id=1,
 position={0, 0, 1340, 565},
-y={"PMea","PSim"},
+y={"PDCMea","PDCSim"},
 range={0.0, 1.0, 4.0, 8.0},
 autoscale=true,
 autoerase=true,

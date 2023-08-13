@@ -3,7 +3,9 @@ model PVSingleDiodeRooftopBuildingValidation
   "Validation with empirical data from a rooftop PV system with CIGS modules at UdK, Berlin"
   extends
     IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation(
-      HGloTil(H(start=100)));
+      HGloTil(H(start=100)), MeaDatWinAngSpe(fileName=
+          ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Wind_angle_speed_PV.txt"),
+        extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints));
   extends Modelica.Icons.Example;
 
   IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystemSingleDiode(
@@ -23,13 +25,12 @@ equation
 
   connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{61,70},
           {78,70},{78,22.5}},                 color={0,0,127}));
-  connect(pVSystemSingleDiode.P, PSim) annotation (Line(points={{93.1667,10},{
-          110,10}},               color={0,0,127}));
-  connect(MeaDataWinAngSpe.y[1], pVSystemSingleDiode.vWinSpe) annotation (Line(
-        points={{-72.8,10},{-48,10},{-48,40},{64,40},{64,22.5}}, color={0,0,127}));
-  connect(MeaDataRadModTemp.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
+  connect(pVSystemSingleDiode.P, PDCSim)
+    annotation (Line(points={{93.1667,10},{110,10}}, color={0,0,127}));
+  connect(MeaDatHGloHor.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
         points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,48},{73.3333,48},{
-          73.3333,22.5}}, color={0,0,127}));
+          73.3333,22.5}},
+                  color={0,0,127}));
   connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points={{-79,-24},
           {-8,-24},{-8,-16},{58,-16},{58,54},{82.6667,54},{82.6667,22.5}},
                   color={0,0,127}));
@@ -40,15 +41,17 @@ equation
   connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{-49.4,
           -52},{-42,-52},{-42,-6},{-44,-6},{-44,22.5},{68.6667,22.5}},
         color={0,0,127}));
+  connect(MeaDatWinAngSpe.y[2], pVSystemSingleDiode.vWinSpe) annotation (Line(
+        points={{-76.9,11},{-56,11},{-56,36},{64,36},{64,22.5}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
             100,100}})),
     experiment(
-      StartTime=12614400,
-      StopTime=12700800,
-      Interval=900.00288,
+      StartTime=18057600,
+      StopTime=19094400,
+      Interval=900,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
@@ -56,8 +59,8 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>The PVSystem single-diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a> </p>
-<p>The dates 18.04.2023 to 28.04.2023 were chosen as an example for the PVSystem model. </p>
-<p>The validation model proves that single diode PV models tend to overestimate the power output.</p>
+<p>The dates 28.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model. </p>
+<p>The validation model proves that single-diode PV models tend to overestimate the power output.</p>
 <p>This is due to the neglection of staining, shading, other loss effects.</p>
 </html>",revisions="<html>
 <ul>
@@ -66,5 +69,6 @@ Nov 17, 2022, by Laura Maier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_experimentSetupOutput(events=false));
 end PVSingleDiodeRooftopBuildingValidation;

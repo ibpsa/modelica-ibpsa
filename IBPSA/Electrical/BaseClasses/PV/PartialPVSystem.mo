@@ -122,13 +122,13 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical partialPVOptical
     "Model with optical characteristics"
     annotation (Placement(transformation(extent={{4,44},{16,56}})));
-  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermal partialPVThermal "Test"
+  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermal partialPVThermal "Model with thermal characteristics"
     annotation (
     choicesAllMatching=true,
     Dialog(tab="Module mounting and specifications"),
     Placement(transformation(extent={{4,4},{16,16}})));
 
-  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical partialPVElectrical
+  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical partialPVElectrical "Model with electrical characteristics"
     annotation (Placement(transformation(extent={{4,-36},{16,-24}})));
 
 protected
