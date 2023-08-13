@@ -58,7 +58,7 @@ equation
 February 26, 2016, by Michael Wetter:<br/>
 Replaced <code>connection3to4</code> with new model.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-IBPSA/issues/426\">issue 426</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/426\">issue 426</a>.
 </li>
 <li>
 October 9, 2014, by Marco Bonvini:<br/>

@@ -34,21 +34,19 @@ equation
           {-60,-70},{-60,-6},{-60.1,-6}}, color={0,120,120}));
   connect(connection3to4_n.terminal4, ada3to3_n.terminal)
     annotation (Line(points={{-60,0},{-55,0},{-50,0}}, color={0,120,120}));
-  connect(ada3to3_n.terminals[1], conv1.terminal_n) annotation (Line(points={{-30.2,
-          -0.266667},{-26,-0.266667},{-20,-0.266667},{-20,52},{-10,52}}, color={
+  connect(ada3to3_n.terminals[1], conv1.terminal_n) annotation (Line(points={{-30,
+          -0.533333},{-26,-0.533333},{-20,-0.533333},{-20,52},{-10,52}}, color={
           0,0,0}));
   connect(ada3to3_n.terminals[2], conv2.terminal_n)
-    annotation (Line(points={{-30.2,0},{-30.2,0},{-10,0}},
-                                                       color={0,0,0}));
-  connect(ada3to3_n.terminals[3], conv3.terminal_n) annotation (Line(points={{-30.2,
-          0.266667},{-20,0.266667},{-20,-60},{-10,-60}}, color={0,0,0}));
+    annotation (Line(points={{-30,0},{-20,0},{-10,0}}, color={0,0,0}));
+  connect(ada3to3_n.terminals[3], conv3.terminal_n) annotation (Line(points={{-30,
+          0.533333},{-20,0.533333},{-20,-60},{-10,-60}}, color={0,0,0}));
   connect(conv1.terminal_p, ada3to3_p.terminals[1]) annotation (Line(points={{10,52},
-          {20,52},{20,-0.266667},{30.2,-0.266667}},   color={0,0,0}));
+          {20,52},{20,-0.533333},{30,-0.533333}},     color={0,0,0}));
   connect(conv2.terminal_p, ada3to3_p.terminals[2])
-    annotation (Line(points={{10,0},{30.2,0},{30.2,0}},
-                                                    color={0,0,0}));
+    annotation (Line(points={{10,0},{20,0},{30,0}}, color={0,0,0}));
   connect(conv3.terminal_p, ada3to3_p.terminals[3]) annotation (Line(points={{10,-60},
-          {20,-60},{20,0.266667},{30.2,0.266667}},    color={0,0,0}));
+          {20,-60},{20,0.533333},{30,0.533333}},      color={0,0,0}));
   connect(ada3to3_p.terminal, connection3to4_p.terminal4)
     annotation (Line(points={{50,0},{55,0},{60,0}}, color={0,120,120}));
   annotation (    Documentation(revisions="<html>

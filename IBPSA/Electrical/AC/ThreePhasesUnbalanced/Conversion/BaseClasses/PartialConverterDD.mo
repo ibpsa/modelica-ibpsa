@@ -30,20 +30,19 @@ equation
     annotation (Line(points={{-56,0},{-50,0}}, color={0,120,120}));
   connect(wye_to_delta.delta, ada_p.terminal)
     annotation (Line(points={{58,0},{50,0}}, color={0,120,120}));
-  connect(conv1.terminal_n, ada_n.terminals[1]) annotation (Line(points={{-10,52},
-          {-20,52},{-20,-0.266667},{-30.2,-0.266667}},   color={0,0,0}));
+  connect(conv1.terminal_n, ada_n.terminals[1]) annotation (Line(points={{-10,
+          52},{-20,52},{-20,0.533333},{-30.2,0.533333}}, color={0,0,0}));
   connect(conv2.terminal_n, ada_n.terminals[2]) annotation (Line(points={{-10,0},
           {-20,0},{-20,0},{-30.2,0}}, color={0,0,0}));
-  connect(conv3.terminal_n, ada_n.terminals[3]) annotation (Line(points={{-10,-60},
-          {-20,-60},{-20,-14},{-20,0.266667},{-30.2,0.266667}},        color={0,
+  connect(conv3.terminal_n, ada_n.terminals[3]) annotation (Line(points={{-10,
+          -60},{-20,-60},{-20,-14},{-20,-0.533333},{-30.2,-0.533333}}, color={0,
           0,0}));
   connect(conv1.terminal_p, ada_p.terminals[1]) annotation (Line(points={{10,52},
-          {20,52},{20,-0.266667},{30.2,-0.266667}},
-                                                  color={0,0,0}));
+          {20,52},{20,0.533333},{30.2,0.533333}}, color={0,0,0}));
   connect(conv2.terminal_p, ada_p.terminals[2])
     annotation (Line(points={{10,0},{20,0},{20,0},{30.2,0}}, color={0,0,0}));
-  connect(conv3.terminal_p, ada_p.terminals[3]) annotation (Line(points={{10,-60},
-          {20,-60},{20,-26},{20,0.266667},{30.2,0.266667}},        color={0,0,0}));
+  connect(conv3.terminal_p, ada_p.terminals[3]) annotation (Line(points={{10,
+          -60},{20,-60},{20,-26},{20,-0.533333},{30.2,-0.533333}}, color={0,0,0}));
   annotation(Documentation(revisions="<html>
 <ul>
 <li>
