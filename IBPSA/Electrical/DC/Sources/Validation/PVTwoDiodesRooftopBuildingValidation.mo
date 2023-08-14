@@ -3,41 +3,46 @@ model PVTwoDiodesRooftopBuildingValidation
   "Validation with empirical data from a rooftop PV system with CIGS modules at UdK, Berlin"
   extends Modelica.Icons.Example;
   extends
-    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation;
+    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation(
+      MeaDatHGloHor(shiftTime=nDay));
   IBPSA.Electrical.DC.Sources.PVTwoDiodes pVSystemTwoDiodes(
     PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
     til=til,
-    azi=azi,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
-      partialPVThermal,
+      PVThermal,
     n_mod=6,
-    redeclare IBPSA.Electrical.Data.PV.TwoDiodesSolibroSL2CIGS110 data(Eg=1.14),
+    redeclare IBPSA.Electrical.Data.PV.TwoDiodesSolibroSL2CIGS110 data,
     groRef=rho,
     alt=0.08)
-    annotation (Placement(transformation(extent={{64,0},{84,20}})));
+    annotation (Placement(transformation(extent={{62,20},{82,40}})));
 
 equation
   connect(HGloTil.H, pVSystemTwoDiodes.HGloTil)
-    annotation (Line(points={{61,70},{74,70},{74,22.5}}, color={0,0,127}));
-  connect(pVSystemTwoDiodes.P, PDCSim)
-    annotation (Line(points={{84.8333,10},{110,10}}, color={0,0,127}));
+    annotation (Line(points={{41,50},{59.5,50},{59.5,24}},
+                                                         color={0,0,127}));
+  connect(pVSystemTwoDiodes.PDC, PDCSim)
+    annotation (Line(points={{83.25,30},{110,30}}, color={0,0,127}));
   connect(MeaDatHGloHor.y[1], pVSystemTwoDiodes.HGloHor) annotation (Line(
-        points={{-79,-90},{52,-90},{52,-20},{26,-20},{26,36},{60,36},{60,22.5},
-          {70.6667,22.5}}, color={0,0,127}));
-  connect(zen.y, pVSystemTwoDiodes.zenAngle) annotation (Line(points={{61,-50},
-          {58,-50},{58,80},{84,80},{84,22.5}},            color={0,0,127}));
-  connect(souGloHorDif.y, pVSystemTwoDiodes.HDifHor) annotation (Line(points={{-79,-24},
-          {77.3333,-24},{77.3333,22.5}},          color={0,0,127}));
-
-  connect(incAng.y, pVSystemTwoDiodes.incAngle) annotation (Line(points={{26.5,
-          -29},{28,-29},{28,16},{60,16},{60,28},{80.6667,28},{80.6667,22.5}},
+        points={{-79,-90},{-60,-90},{-60,-80},{-40,-80},{-40,-40},{-38,-40},{
+          -38,-6},{-42,-6},{-42,40},{50,40},{50,48},{59.5,48},{59.5,27}},
         color={0,0,127}));
-  connect(from_degC.y, pVSystemTwoDiodes.TDryBul) annotation (Line(points={{-49.4,
-          -52},{-42,-52},{-42,-6},{-44,-6},{-44,22.5},{67.3333,22.5}},
+  connect(zen.y, pVSystemTwoDiodes.zenAngle) annotation (Line(points={{41,-50},
+          {46,-50},{46,50},{86,50},{86,39},{59.5,39}},    color={0,0,127}));
+  connect(souGloHorDif.y, pVSystemTwoDiodes.HDifHor) annotation (Line(points={{-79,-24},
+          {-48,-24},{-48,2},{-42,2},{-42,26},{-40,26},{-40,38},{52,38},{52,44},
+          {56,44},{56,21},{59.5,21}},             color={0,0,127}));
+
+  connect(incAng.y, pVSystemTwoDiodes.incAngle) annotation (Line(points={{38.8,
+          -10},{54,-10},{54,46},{74,46},{74,48},{59.5,48},{59.5,36}},
+        color={0,0,127}));
+  connect(from_degC.y, pVSystemTwoDiodes.TDryBul) annotation (Line(points={{-41.2,
+          -50},{-42,-50},{-42,-6},{-44,-6},{-44,38},{44,38},{44,52},{59.5,52},{
+          59.5,30}},
         color={0,0,127}));
   connect(MeaDatWinAngSpe.y[2], pVSystemTwoDiodes.vWinSpe) annotation (Line(
-        points={{-76.9,11},{-54,11},{-54,36},{66,36},{66,22.5},{64,22.5}},
-        color={0,0,127}));
+        points={{-79,10},{-79,10},{-42,10},{-42,36},{42,36},{42,54},{59.5,54},{
+          59.5,33}},
+                  color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
@@ -45,7 +50,7 @@ equation
             100,100}})),
     experiment(
       StartTime=18057600,
-      StopTime=19008000,
+      StopTime=19094400,
       Interval=300,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),

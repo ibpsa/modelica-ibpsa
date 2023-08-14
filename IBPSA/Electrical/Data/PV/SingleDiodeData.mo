@@ -4,6 +4,11 @@ record SingleDiodeData
   extends Modelica.Icons.Record;
   extends IBPSA.Electrical.Data.PV.Generic;
 
+  parameter Modelica.Units.SI.Efficiency eta_0
+    "Efficiency under standard conditions.
+    If not found in data sheet, use eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))"
+    annotation (Dialog(group="General"));
+
   parameter Modelica.Units.SI.ElectricCurrent I_mp0
     "MPP current under standard conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
@@ -16,8 +21,8 @@ record SingleDiodeData
   parameter Real TCoeff_Voc(unit = "V/K")
     "Temperature coefficient for open circuit voltage, <0. If not found in data sheet, use TCoeff_Voc=beta_Voc*V_oc0 and type in beta_Voc manually"
     annotation(Dialog(group="Cell specific: Electrical characteristics"));
-  parameter Modelica.Units.SI.LinearTemperatureCoefficient alpha_Isc
-    =TCoeff_Isc/I_sc0
+  parameter Modelica.Units.SI.LinearTemperatureCoefficient alpha_Isc=
+     TCoeff_Isc/I_sc0
     "Normalized temperature coefficient for short circuit current, >0"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
   parameter Modelica.Units.SI.LinearTemperatureCoefficient beta_Voc=TCoeff_Voc/
@@ -36,6 +41,8 @@ record SingleDiodeData
   parameter Modelica.Units.SI.Voltage V_mp0
     "MPP voltage under standard conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
+  parameter Real C
+    "Band gap temperature coefficient; for Silicon: 0.0002677";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));

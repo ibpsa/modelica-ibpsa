@@ -14,39 +14,29 @@ model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V
     "Series resistance under standard conditions";
   Modelica.Units.SI.Resistance R_sh0
     "Shunt resistance under standard conditions";
- Real a_0(unit = "V")
+  Real a_0(unit = "V")
     "Modified diode ideality factor under standard conditions";
- Real w_0(final unit = "1")
+  Real w_0(final unit = "1")
     "MPP auxiliary correlation coefficient under standard conditions";
 
 // Additional parameters and constants
 
- constant Real e=Modelica.Math.exp(1.0)
+  constant Real euler=Modelica.Math.exp(1.0)
    "Euler's constant";
- constant Real pi=Modelica.Constants.pi
-   "Pi";
- constant Real k(final unit="J/K") = 1.3806503e-23
-   "Boltzmann's constant";
- constant Real q( unit = "A.s")= 1.602176620924561e-19
+  constant Real q(unit = "A.s")= 1.602176620924561e-19
    "Electron charge";
- parameter Modelica.Units.SI.Energy E_g0=1.79604e-19
-    "Band gap energy under standard conditions for Si";
- parameter Real C=0.0002677
-    "Band gap temperature coefficient for Si";
 
-  Modelica.Units.SI.ElectricCurrent I_mp(start=0.5*I_mp0) "MPP current";
+  Modelica.Units.SI.ElectricCurrent I_mp(start=0.5*I_mp0) "MPP current at operating conditions";
 
-  Modelica.Units.SI.Voltage V_mp "MPP voltage";
+  Modelica.Units.SI.Voltage V_mp "MPP voltage at operating conditions";
 
-  Modelica.Units.SI.Energy E_g "Band gap energy";
+  Modelica.Units.SI.Energy Eg "Band gap energy at operating conditions";
 
-  Modelica.Units.SI.ElectricCurrent I_s "Saturation current";
+  Modelica.Units.SI.ElectricCurrent I_s "Saturation current at operating conditions";
 
-  Modelica.Units.SI.ElectricCurrent I_ph "Photo current";
+  Modelica.Units.SI.Resistance R_s "Series resistance at operating conditions";
 
-  Modelica.Units.SI.Resistance R_s "Series resistance";
-
-  Modelica.Units.SI.Resistance R_sh "Shunt resistance";
+  Modelica.Units.SI.Resistance R_sh "Shunt resistance at operating conditions";
 
   Real a(final unit = "V", start = 1.3)
     "Modified diode ideality factor";
@@ -79,9 +69,9 @@ equation
 
   a/a_0 = TCel/TCel0;
 
-  I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(E_g0/TCel0-E_g/TCel));
+  I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(Eg0*q/TCel0-Eg/TCel));
 
-  E_g/E_g0 = 1-C*(TCel-TCel0);
+  Eg/(Eg0*q) = 1-data.C*(TCel-TCel0);
 
   R_s = R_s0;
 
@@ -105,14 +95,16 @@ equation
 
 // Efficiency and Performance
 
-  eta= if noEvent(radTil <= Modelica.Constants.eps*10) then 0 else P_mod/(radTil*A_pan);
+  eta=if noEvent(HGloTil <= Modelica.Constants.eps*10) then 0 else P_mod/(
+    HGloTil*A_pan);
 
   P_mod = V_mp*I_mp;
 
   P=max(0, min(P_Max*n_mod, P_mod*n_mod));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
+            {100,80}})),                                         Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
     Documentation(info="<html><h4>
   <span style=\"color: #008000\">Overview</span>
 </h4>

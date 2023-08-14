@@ -3,16 +3,14 @@ partial model PartialPVThermalEmp
   "Empirical thermal models for PV cells to calculate cell temperature"
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermal;
 
-  final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
-    "Efficiency under standard conditions";
-
   final parameter Modelica.Units.SI.Temperature T_NOCT=data.T_NOCT
     "Cell temperature under NOCT conditions";
 
   final parameter Modelica.Units.SI.Irradiance HNOCT= 800
     "Irradiance under NOCT conditions";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {120,100}}),                                        graphics={
                              Text(extent={{-40,-68},{44,-102}},
                                                               lineColor={0,0,255},textString= "%name"),
     Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
@@ -75,7 +73,7 @@ partial model PartialPVThermalEmp
           extent={{92,4},{-28,-26}},
           lineColor={0,0,0},
           textString="T")}),                                     Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
         <p>This is a partial model for the thermal surrogate model of a photovoltaic model based on empirical descriptions.</p>
 </html>", revisions="<html>

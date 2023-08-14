@@ -2,7 +2,7 @@ within IBPSA.Electrical.BaseClasses.PV.BaseClasses.Icons;
 partial model partialPVIcon "Partial model for basic PV model icon"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -80},{100,80}}),                                    graphics={
-    Rectangle(extent={{-50,80},{50,-78}},lineColor={215,215,215},fillColor={215,215,215},
+    Rectangle(extent={{-50,80},{50,-80}},lineColor={215,215,215},fillColor={215,215,215},
             fillPattern =                                                                              FillPattern.Solid),
     Rectangle(extent={{-46,18},{-18,-10}},
                                         lineColor={0,0,255},fillColor={0,0,255},

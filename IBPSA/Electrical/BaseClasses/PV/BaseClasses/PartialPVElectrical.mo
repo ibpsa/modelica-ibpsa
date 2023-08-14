@@ -9,12 +9,48 @@ partial model PartialPVElectrical
     // Adjustable parameters
 
   parameter Integer n_mod "Number of connected PV modules";
+
+  final parameter Modelica.Units.SI.Area A_mod=data.A_mod
+    "Area of one module (housing)";
+
+  final parameter Integer n_ser=data.n_ser
+    "Number of cells connected in series on the PV panel";
+
+  final parameter Integer n_par = data.n_par
+    "Number of parallel connected cells within the PV module";
+
+  final parameter Real Eg0(
+    unit = "eV") = data.Eg0
+    "Band gap energy under standard conditions";
+
+  Modelica.Units.SI.ElectricCurrent I_ph
+    "Photo current";
   Modelica.Blocks.Interfaces.RealInput TCel(final unit="K",final displayUnit="degC")
     "Cell temperature"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-            -100},{100,100}}),                                  graphics={
+public
+  Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
+    "Ratio of absorbed radiation under operating conditions to standard conditions"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+  Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
+    "Total solar irradiance on the tilted surface"
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+  Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
+    "Efficiency of the PV module under operating conditions"
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
+    "DC power output"
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+
+protected
+  final constant Real e(unit = "A.s") = Modelica.Constants.F/Modelica.Constants.N_A
+    "Elementary charge";
+  final constant Real k(unit = "J/K") = Modelica.Constants.R/Modelica.Constants.N_A
+    "Boltzmann constant";
+
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
+            {100,100}}),                                        graphics={
      Rectangle(
       lineColor={0,0,0},
       fillColor={255,255,255},
@@ -50,8 +86,7 @@ partial model PartialPVElectrical
           color={0,0,0},
           thickness=0.5,
           smooth=Smooth.Bezier)}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,
-            100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
     <p>This is a partial model for the electrical surrogate models of a photovoltaic model.</p>
 </html>", revisions="<html>
@@ -62,5 +97,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end PartialPVElectrical;

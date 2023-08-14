@@ -5,44 +5,43 @@ model PVSingleDiodeRooftopBuildingValidation
     IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation(
       HGloTil(H(start=100)), MeaDatWinAngSpe(fileName=
           ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Wind_angle_speed_PV.txt"),
-        extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints));
+        extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints),
+    MeaDatHGloHor(shiftTime=nDay));
   extends Modelica.Icons.Example;
 
   IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystemSingleDiode(
     PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
+    use_Til_in=false,
     til(displayUnit="rad") = til,
-    azi(displayUnit="deg") = azi,
-    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountOpenRack
-      partialPVThermal,
     n_mod=6,
     redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS110 data,
     groRef=rho,
     alt=0.08,
-    E_g0=1.7736095e-19)
+    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
+      PVThermal)
     annotation (Placement(transformation(extent={{64,0},{92,20}})));
 
 equation
-
-  connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{61,70},
-          {78,70},{78,22.5}},                 color={0,0,127}));
-  connect(pVSystemSingleDiode.P, PDCSim)
-    annotation (Line(points={{93.1667,10},{110,10}}, color={0,0,127}));
+  connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{41,50},
+          {60.5,50},{60.5,4}},                color={0,0,127}));
+  connect(pVSystemSingleDiode.PDC, PDCSim) annotation (Line(points={{93.75,10},{
+          102,10},{102,30},{110,30}}, color={0,0,127}));
   connect(MeaDatHGloHor.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
-        points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,48},{73.3333,48},{
-          73.3333,22.5}},
+        points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,48},{60.5,48},{60.5,7}},
                   color={0,0,127}));
   connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points={{-79,-24},
-          {-8,-24},{-8,-16},{58,-16},{58,54},{82.6667,54},{82.6667,22.5}},
+          {-60,-24},{-60,80},{60.5,80},{60.5,1}},
                   color={0,0,127}));
-  connect(incAng.y, pVSystemSingleDiode.incAngle) annotation (Line(points={{26.5,
-          -29},{52,-29},{52,22.5},{87.3333,22.5}},      color={0,0,127}));
-  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{61,-50},
-          {72,-50},{72,-4},{96,-4},{96,22.5},{92,22.5}}, color={0,0,127}));
-  connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{-49.4,
-          -52},{-42,-52},{-42,-6},{-44,-6},{-44,22.5},{68.6667,22.5}},
+  connect(incAng.y, pVSystemSingleDiode.incAngle) annotation (Line(points={{38.8,
+          -10},{52,-10},{52,32},{88,32},{88,16},{60.5,16}},
+                                                        color={0,0,127}));
+  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{41,-50},
+          {60,-50},{60,-34},{96,-34},{96,19},{60.5,19}}, color={0,0,127}));
+  connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{-41.2,
+          -50},{0,-50},{0,20},{40,20},{40,34},{68,34},{68,10},{60.5,10}},
         color={0,0,127}));
   connect(MeaDatWinAngSpe.y[2], pVSystemSingleDiode.vWinSpe) annotation (Line(
-        points={{-76.9,11},{-56,11},{-56,36},{64,36},{64,22.5}}, color={0,0,127}));
+        points={{-79,10},{-56,10},{-56,40},{60.5,40},{60.5,13}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),

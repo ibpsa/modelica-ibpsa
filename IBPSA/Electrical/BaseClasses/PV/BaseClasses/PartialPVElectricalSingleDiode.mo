@@ -14,14 +14,8 @@ protected
   final parameter Modelica.Units.SI.Efficiency eta_0=data.eta_0
     "Efficiency under standard conditions";
 
-  final parameter Integer n_ser=data.n_ser
-    "Number of cells connected in series on the PV panel";
-
   final parameter Modelica.Units.SI.Area A_pan=data.A_pan
     "Area of one Panel, must not be confused with area of the whole module";
-
-  final parameter Modelica.Units.SI.Area A_mod=data.A_mod
-    "Area of one module (housing)";
 
   final parameter Modelica.Units.SI.Voltage V_oc0=data.V_oc0
     "Open circuit voltage under standard conditions";
@@ -55,19 +49,6 @@ protected
 
   final parameter Modelica.Units.SI.Temperature TCel0 = 25.0 + 273.15
     "Thermodynamic cell temperature under standard conditions";
-public
-  Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
-    "Ratio of absorbed radiation under operating conditions to standard conditions"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput radTil(final unit="W/m2")
-    "Total solar irradiance on the tilted surface"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput P(final unit="W")
-    "DC power output"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
-  Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
-    "Efficiency of the PV module under operating conditions"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
      Rectangle(
       lineColor={0,0,0},

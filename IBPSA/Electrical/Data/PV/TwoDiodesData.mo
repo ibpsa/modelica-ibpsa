@@ -12,12 +12,10 @@ record TwoDiodesData
     "1st coefficient ISat1";
   parameter Real cs2(unit = "A/(K5)")
     "2nd coefficient ISat2";
-  parameter Modelica.Units.SI.Resistance RSer
+  parameter Modelica.Units.SI.Resistance R_s
     "Serial resistance";
-  parameter Modelica.Units.SI.Resistance RPar
+  parameter Modelica.Units.SI.Resistance R_sh
     "Parallel resistance";
-  parameter Real Eg(unit = "eV")
-    "Band gap";
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
             preserveAspectRatio=false)));
 end TwoDiodesData;

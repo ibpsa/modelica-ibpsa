@@ -1,11 +1,16 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVOptical
 
+
+ parameter BaseClasses.PVOptical.PVType PVTechType=
+  IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+    "Type of PV technology";
+
  parameter Boolean use_Til_in = false
   "If true then tilt via real interface else parameter"
   annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
 
- parameter Modelica.Units.SI.Angle til if not use_Til_in
+ parameter Modelica.Units.SI.Angle til
   "Prescribed tilt angle (used if til=Parameter)" annotation(Dialog(enable=not use_Til_in, tab="Module mounting and specifications"));
 
 
@@ -14,8 +19,8 @@ partial model PartialPVOptical
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad", final
       displayUnit="deg")                                                                 "Zenith angle for object"
-    annotation (Placement(transformation(extent={{-140,52},{-100,92}}),
-        iconTransformation(extent={{-140,52},{-100,92}})));
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput HGloHor(final unit="W/m2") "Global horizontal irradiation"
     annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
         iconTransformation(extent={{-140,-30},{-100,10}})));
@@ -37,8 +42,10 @@ protected
   "Needed to connect to conditional tilt connector";
 
 equation
+  connect(tilSet, Til_in_internal);
+
   if not use_Til_in then
-  Til_in_internal = til;
+    Til_in_internal = til;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

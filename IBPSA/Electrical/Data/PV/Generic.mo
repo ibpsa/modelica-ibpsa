@@ -2,10 +2,6 @@ within IBPSA.Electrical.Data.PV;
 record Generic "Basic record of a PV cell"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.Units.SI.Efficiency eta_0
-    "Efficiency under standard conditions.
-    If not found in data sheet, use eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))"
-    annotation (Dialog(group="General"));
   parameter Integer n_ser
     "Number of cells connected in series on the PV panel"
     annotation(Dialog(group="General"));
@@ -24,6 +20,8 @@ record Generic "Basic record of a PV cell"
   parameter Modelica.Units.SI.Temperature T_NOCT
     "Cell temperature under NOCT conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
+  parameter Real Eg0(unit = "eV")
+    "Band gap energy under standard conditions. For Si: 1.79604e-19 J or 1.121 eV";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
