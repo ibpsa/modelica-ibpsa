@@ -28,7 +28,7 @@ model CoolingOffice
     m_flow_nominal=mWat,
     dp_nominal_aquifer(displayUnit="Pa") = 10,
     dp_nominal_well(displayUnit="Pa") = 10,
-    dp_nominal_hex(displayUnit="Pa") = 0)
+    dp_nominal_hex(displayUnit="Pa") = 100)
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
   Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=
         1) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));

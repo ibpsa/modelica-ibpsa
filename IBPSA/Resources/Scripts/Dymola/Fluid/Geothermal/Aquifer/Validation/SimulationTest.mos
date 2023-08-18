@@ -2,7 +2,7 @@ simulateModel("IBPSA.Fluid.Geothermal.Aquifer.Validation.SimulationTest", tolera
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
- y = {"aquWel.heaCap[150].T"},
+ y = {"aquWel.heaCapCoo[150].T"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
