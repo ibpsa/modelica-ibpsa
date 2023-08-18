@@ -3,21 +3,21 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component" annotation (choices(
         choice(redeclare package Medium = IBPSA.Media.Water "Water")));
   parameter Integer nVol(min=1)=10 "Number of volumes" annotation (
-      Dialog(group="Domain discretization"));
+      Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
   parameter Real phi=0.2 "Reservoir porosity";
   parameter Real nCoo=1 "Number of cold wells";
   parameter Real nHot=1 "Number of warm wells";
   parameter Modelica.Units.SI.Radius r_wb=0.1 "Wellbore radius" annotation (
-      Dialog(group="Domain discretization"));
+      Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Radius r_max=2400 "Domain radius" annotation (
-      Dialog(group="Domain discretization"));
+      Dialog(group="Subsurface"));
   parameter Real griFac(min=1) = 1.15 "Grid factor for spacing" annotation (
-      Dialog(group="Domain discretization"));
+      Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Temperature T_ini_coo=273.15+10 "Initial temperature of cold well" annotation (
-      Dialog(group="Domain discretization"));
+      Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Temperature T_ini_hot=273.15+10 "Initial temperature of warm well" annotation (
-      Dialog(group="Domain discretization"));
+      Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Temperature TGroCoo=273.15+12 "Undisturbed ground temperature (cold well)" annotation (
       Dialog(group="Properties of ground"));
   parameter Modelica.Units.SI.Temperature TGroHot=273.15+12 "Undisturbed ground temperature (warm well)" annotation (
