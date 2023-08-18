@@ -31,7 +31,7 @@ model NumberWells
     dp_nominal_hex=0) "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant mWat(k=1)
-    "Constat value of water mass flow rate"
+    "Constant value of pump control signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=2) "Sink"
            annotation (Placement(transformation(extent={{60,-10},{40,10}})));
@@ -42,6 +42,7 @@ model NumberWells
     "Temperature output from aquifer model with two pairs of wells"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Utilities.Diagnostics.CheckEquality  cheEqu
+    "Assertion that checks for equality of results"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(mWat.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,36},

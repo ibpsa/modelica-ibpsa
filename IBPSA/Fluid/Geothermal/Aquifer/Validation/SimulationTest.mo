@@ -15,20 +15,23 @@ model SimulationTest
     m_flow_nominal=1,
     dp_nominal_aquifer=10,
     dp_nominal_well=10,
-    dp_nominal_hex=0)
+    dp_nominal_hex=0) "Aquifer wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=
-        1) annotation (Placement(transformation(extent={{60,50},{40,70}})));
-  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=[0.0,-1; 86400*120,
-        -1; 86400*120,0; 86400*180,0; 86400*180,1; 86400*300,1; 86400*300,0])
+  Sources.Boundary_pT bou(
+    redeclare package Medium = IBPSA.Media.Water,
+    nPorts=1) "Boundary condition for pressure"
+           annotation (Placement(transformation(extent={{60,50},{40,70}})));
+  Modelica.Blocks.Sources.CombiTimeTable uPum(table=[0.0,-1; 86400*120,-1; 86400
+        *120,0; 86400*180,0; 86400*180,1; 86400*300,1; 86400*300,0])
+    "Pump control signal"
     annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
 equation
   connect(aquWel.port_Col, aquWel.port_Hot) annotation (Line(points={{-16,40},{
           -16,60},{-4,60},{-4,40}}, color={0,127,255}));
   connect(bou.ports[1], aquWel.port_Hot)
     annotation (Line(points={{40,60},{-4,60},{-4,40}}, color={0,127,255}));
-  connect(combiTimeTable.y[1], aquWel.u) annotation (Line(points={{-59,36},{-22,
-          36}},                   color={0,0,127}));
+  connect(uPum.y[1], aquWel.u)
+    annotation (Line(points={{-59,36},{-22,36}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=31536000, Tolerance=1e-6),
