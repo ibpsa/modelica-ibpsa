@@ -14,10 +14,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
       Dialog(group="Subsurface"));
   parameter Real griFac(min=1) = 1.15 "Grid factor for spacing" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Temperature T_ini_coo=283.15
+  parameter Modelica.Units.SI.Temperature TCoo_start=283.15
      "Initial temperature of cold well" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Temperature T_ini_hot=T_ini_coo
+  parameter Modelica.Units.SI.Temperature THot_start=TCoo_start
      "Initial temperature of warm well" annotation (
       Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Temperature TGroCoo=285.15
@@ -50,7 +50,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
 
   IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
     redeclare final package Medium = Medium,
-    each final T_start=T_ini_coo,
+    each final T_start=TCoo_start,
     each final m_flow_nominal=m_flow_nominal,
     final V=VWat*nCoo,
     each nPorts=2)
@@ -61,7 +61,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
             {-70,90},{-50,110}}), iconTransformation(extent={{-70,90},{-50,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](
       C=C*nCoo,
-      each T(start=T_ini_coo, fixed=true))
+      each T(start=TCoo_start, fixed=true))
     "Array of thermal capacitor in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-22,-60},{-2,-40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResCoo[nVol](
@@ -88,7 +88,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
             {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
   MixingVolumes.MixingVolume volHot[nVol](
     redeclare final package Medium = Medium,
-    each T_start=T_ini_hot,
+    each T_start=THot_start,
     each m_flow_nominal=m_flow_nominal,
     V=VWat*nHot,
     each nPorts=2)
@@ -96,7 +96,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapHot[nVol](
     C=C*nHot,
-    each T(start=T_ini_hot, fixed=true))
+    each T(start=THot_start, fixed=true))
     "Array of thermal capacitor in the warm side of the aquifer"
     annotation (Placement(transformation(extent={{22,-60},{2,-40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResHot[nVol](
