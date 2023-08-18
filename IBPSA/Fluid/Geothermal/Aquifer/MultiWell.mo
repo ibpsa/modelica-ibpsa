@@ -45,7 +45,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
       final max=1,
       final unit="1")
       "Pump control input (-1: extract from hot well, +1: extract from cold well, 0: off)"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
     redeclare final package Medium = Medium,
@@ -55,9 +56,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     each nPorts=2)
     "Array of fluid volumes representing the fluid flow in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare final package Medium=Medium)
-    "Fluid connector"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_Col(redeclare final package Medium
+      = Medium) "Fluid connector" annotation (Placement(transformation(extent={
+            {-70,90},{-50,110}}), iconTransformation(extent={{-70,90},{-50,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](
       C=C*nCoo,
       each T(start=T_ini_coo, fixed=true))
@@ -82,10 +83,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-10})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
-      redeclare final package Medium = Medium)
-    "Fluid connector"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_Hot(redeclare final package Medium
+      = Medium) "Fluid connector" annotation (Placement(transformation(extent={
+            {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
   MixingVolumes.MixingVolume volHot[nVol](
     redeclare final package Medium = Medium,
     each T_start=T_ini_hot,
@@ -135,23 +135,21 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={80,50})));
-  Movers.Preconfigured.SpeedControlled_y mov(
+  Movers.Preconfigured.SpeedControlled_y movCol(
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal_aquifer*2 + dp_nominal_well*2 + dp_nominal_hex)
-    "Pump to extract from cold well"
-    annotation (Placement(transformation(
+    "Pump to extract from cold well" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,20})));
-  Movers.Preconfigured.SpeedControlled_y mov1(
-      redeclare final package Medium = Medium,
-      addPowerToMedium=false,
+  Movers.Preconfigured.SpeedControlled_y movHot(
+    redeclare final package Medium = Medium,
+    addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal_aquifer*2 + dp_nominal_well*2 + dp_nominal_hex)
-    "Pump to extract from hot well"
-    annotation (Placement(transformation(
+    "Pump to extract from hot well" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,20})));
@@ -267,12 +265,10 @@ equation
           {30,-60},{12,-60}},     color={191,0,0}));
   connect(theResHot.port_a, volHot.heatPort) annotation (Line(points={{40,-60},{
           30,-60},{30,0},{40,0}},   color={191,0,0}));
-  connect(resCoo.port_b, port_a)
-    annotation (Line(points={{-80,60},{-80,86},{-50,86},{-50,100}},
-                                                  color={0,127,255}));
-  connect(resHot.port_b, port_a1)
-    annotation (Line(points={{80,60},{80,86},{50,86},{50,100}},
-                                                color={0,127,255}));
+  connect(resCoo.port_b, port_Col) annotation (Line(points={{-80,60},{-80,86},{
+          -60,86},{-60,100}}, color={0,127,255}));
+  connect(resHot.port_b, port_Hot) annotation (Line(points={{80,60},{80,86},{60,
+          86},{60,100}}, color={0,127,255}));
   connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},
           {-80,-34},{-49,-34},{-49,-10}},
                                   color={0,127,255}));
@@ -282,24 +278,26 @@ equation
   connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-10},
           {-48,-10},{-48,-22},{51,-22},{51,-10}},
                                          color={0,127,255}));
-  connect(powCoo.port_b, mov.port_a)
-    annotation (Line(points={{-80,0},{-80,10}},  color={0,127,255}));
-  connect(mov.port_b, resCoo.port_a)
+  connect(powCoo.port_b, movCol.port_a)
+    annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
+  connect(movCol.port_b, resCoo.port_a)
     annotation (Line(points={{-80,30},{-80,40}}, color={0,127,255}));
-  connect(resHot.port_a, mov1.port_b)
+  connect(resHot.port_a, movHot.port_b)
     annotation (Line(points={{80,40},{80,30}}, color={0,127,255}));
-  connect(powHot.port_b, mov1.port_a)
-    annotation (Line(points={{80,0},{80,10}},  color={0,127,255}));
-  connect(limiter.y, mov.y) annotation (Line(points={{-39,50},{-30,50},{-30,20},
-          {-68,20}}, color={0,0,127}));
+  connect(powHot.port_b, movHot.port_a)
+    annotation (Line(points={{80,0},{80,10}}, color={0,127,255}));
+  connect(limiter.y, movCol.y) annotation (Line(points={{-39,50},{-30,50},{-30,
+          20},{-68,20}}, color={0,0,127}));
   connect(gain.y, limiter1.u)
     annotation (Line(points={{13,50},{28,50}}, color={0,0,127}));
-  connect(limiter1.y, mov1.y) annotation (Line(points={{51,50},{60,50},{60,20},{
-          68,20}}, color={0,0,127}));
-  connect(gain.u, u) annotation (Line(points={{-10,50},{-20,50},{-20,70},{-120,70}},
+  connect(limiter1.y, movHot.y) annotation (Line(points={{51,50},{60,50},{60,20},
+          {68,20}}, color={0,0,127}));
+  connect(gain.u, u) annotation (Line(points={{-10,50},{-20,50},{-20,60},{-120,
+          60}},
         color={0,0,127}));
-  connect(limiter.u, u) annotation (Line(points={{-62,50},{-68,50},{-68,70},{-120,
-          70}}, color={0,0,127}));
+  connect(limiter.u, u) annotation (Line(points={{-62,50},{-68,50},{-68,60},{
+          -120,60}},
+                color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-20,100},{20,-2}},
@@ -327,12 +325,12 @@ equation
           fillColor={0,140,72},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-72,100},{-24,-14}},
+          extent={{-84,100},{-36,-14}},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Ellipse(
-          extent={{-24,-6},{-72,-22}},
+          extent={{-36,-6},{-84,-22}},
           lineColor={0,0,0},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
@@ -341,15 +339,19 @@ equation
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
-          extent={{26,100},{74,-14}},
+          extent={{36,100},{84,-14}},
           fillColor={238,22,26},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Ellipse(
-          extent={{74,-6},{26,-22}},
+          extent={{84,-6},{36,-22}},
           lineColor={0,0,0},
           fillColor={182,12,18},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-140,104},{-110,80}},
+          textColor={0,0,127},
+          textString="uPum")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="aquWel",
         Documentation(info="<html>

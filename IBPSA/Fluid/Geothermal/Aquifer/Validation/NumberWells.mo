@@ -44,18 +44,18 @@ model NumberWells
   Utilities.Diagnostics.CheckEquality  cheEqu
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
-  connect(mWat.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,37},
-          {-22,37}}, color={0,0,127}));
-  connect(aquWel2.u, mWat.y) annotation (Line(points={{-22,-43},{-40,-43},{-40,
+  connect(mWat.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,36},
+          {-22,36}}, color={0,0,127}));
+  connect(aquWel2.u, mWat.y) annotation (Line(points={{-22,-44},{-40,-44},{-40,
           0},{-59,0}}, color={0,0,127}));
-  connect(aquWel2.port_a,aquWel2. port_a1) annotation (Line(points={{-15,-40},{
-          -14,-40},{-14,-20},{-5,-20},{-5,-40}}, color={0,127,255}));
-  connect(aquWel1.port_a, aquWel1.port_a1) annotation (Line(points={{-15,40},{-14,
-          40},{-14,60},{-5,60},{-5,40}}, color={0,127,255}));
-  connect(bou.ports[1], aquWel1.port_a1) annotation (Line(points={{40,-1},{6,-1},
-          {6,60},{-5,60},{-5,40}}, color={0,127,255}));
-  connect(bou.ports[2], aquWel2.port_a1) annotation (Line(points={{40,1},{26,1},
-          {26,0},{6,0},{6,-20},{-5,-20},{-5,-40}}, color={0,127,255}));
+  connect(aquWel2.port_Col, aquWel2.port_Hot) annotation (Line(points={{-16,-40},
+          {-16,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
+  connect(aquWel1.port_Col, aquWel1.port_Hot) annotation (Line(points={{-16,40},
+          {-16,60},{-4,60},{-4,40}}, color={0,127,255}));
+  connect(bou.ports[1], aquWel1.port_Hot) annotation (Line(points={{40,-1},{6,
+          -1},{6,60},{-4,60},{-4,40}}, color={0,127,255}));
+  connect(bou.ports[2], aquWel2.port_Hot) annotation (Line(points={{40,1},{26,1},
+          {26,0},{6,0},{6,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
   connect(cheEqu.u1, temWel1.y) annotation (Line(points={{58,76},{46,76},{46,82},
           {41,82}}, color={0,0,127}));
   connect(cheEqu.u2, temWel2.y) annotation (Line(points={{58,64},{46,64},{46,50},

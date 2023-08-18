@@ -12,9 +12,9 @@ model CoolingOffice
     dp_nominal=100,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Qcoo) "Heat exchanger"
-    annotation (Placement(transformation(extent={{-12,32},{8,52}})));
+    annotation (Placement(transformation(extent={{-10,54},{10,74}})));
   Modelica.Blocks.Sources.Constant watMas(k=1)    "Water mass flow rate"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
   Modelica.Blocks.Sources.Constant heaFlo(k=1) "Cooling load"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   MultiWell aquWel(
@@ -29,22 +29,20 @@ model CoolingOffice
     dp_nominal_aquifer(displayUnit="Pa") = 10,
     dp_nominal_well(displayUnit="Pa") = 10,
     dp_nominal_hex(displayUnit="Pa") = 100)
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=
         1) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(heaFlo.y, hea.u) annotation (Line(points={{-39,70},{-22,70},{-22,48},
-          {-14,48}},
+  connect(heaFlo.y, hea.u) annotation (Line(points={{-39,70},{-12,70}},
         color={0,0,127}));
-  connect(aquWel.port_a1, hea.port_b) annotation (Line(points={{3,10},{3,28},{
-          12,28},{12,42},{8,42}},             color={0,127,255}));
-  connect(aquWel.port_a, hea.port_a) annotation (Line(points={{-7,10},{-8,10},{
-          -8,28},{-16,28},{-16,42},{-12,42}},
-                                            color={0,127,255}));
-  connect(bou.ports[1], hea.port_a) annotation (Line(points={{-60,30},{-16,30},
-          {-16,42},{-12,42}},                  color={0,127,255}));
-  connect(watMas.y, aquWel.u) annotation (Line(points={{-39,-10},{-22,-10},{-22,
-          7},{-14,7}},                        color={0,0,127}));
+  connect(aquWel.port_Hot, hea.port_b) annotation (Line(points={{5,0},{5,30},{
+          20,30},{20,64},{10,64}}, color={0,127,255}));
+  connect(aquWel.port_Col, hea.port_a) annotation (Line(points={{-5,0},{-6,0},{
+          -6,30},{-20,30},{-20,64},{-10,64}}, color={0,127,255}));
+  connect(bou.ports[1], hea.port_a) annotation (Line(points={{-60,30},{-20,30},
+          {-20,64},{-10,64}},                  color={0,127,255}));
+  connect(watMas.y, aquWel.u) annotation (Line(points={{-39,-4},{-12,-4}},
+                                              color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=7776000,Tolerance=1e-6),
