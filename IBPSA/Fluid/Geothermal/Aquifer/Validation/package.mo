@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Geothermal.Aquifer;
-package Validation
+package Validation "Validation models for aquifer thermal energy storage"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

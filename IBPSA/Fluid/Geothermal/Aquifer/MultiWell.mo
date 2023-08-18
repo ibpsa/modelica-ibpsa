@@ -1,13 +1,7 @@
 within IBPSA.Fluid.Geothermal.Aquifer;
 model MultiWell "Model of a single well for aquifer thermal energy storage"
  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component" annotation (choices(
-        choice(redeclare package Medium = IBPSA.Media.Air "Moist air"),
-        choice(redeclare package Medium = IBPSA.Media.Water "Water"),
-        choice(redeclare package Medium =
-            IBPSA.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+        choice(redeclare package Medium = IBPSA.Media.Water "Water")));
   parameter Integer nVol(min=1)=10 "Number of volumes" annotation (
       Dialog(group="Domain discretization"));
   parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
