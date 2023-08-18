@@ -1,31 +1,34 @@
 within IBPSA.Fluid.Geothermal.Aquifer.Validation;
 model SimulationTest
+  "Test model for aquifer thermal energy storage in comparison with other geothermal simulators"
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.CombiTimeTable
-                                   combiTimeTable(table=[0.0,1; 86400*120,1; 86400
-        *120,0; 86400*180,0.0; 86400*180,-1; 86400*300,-1])
-    "Stages of operation"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Sources.MassFlowSource_T boundary(
-    redeclare package Medium = IBPSA.Media.Water,
-    use_m_flow_in=true,
-    T=393.15,
-    nPorts=1) "Water mass flow rate"
-              annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  SingleWell aquWel(
+  MultiWell aquWel(
     redeclare package Medium = IBPSA.Media.Water,
     nVol=232,
+    h=200,
     griFac=1.1,
-    T_ini=307.15,
-    TGro=307.15,
-    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock())
-    "Single well for aquifer thermal energy storage"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    T_ini_coo=307.15,
+    T_ini_hot=393.15,
+    TGroCoo=307.15,
+    TGroHot=393.15,
+    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
+    m_flow_nominal=1,
+    dp_nominal_aquifer=10,
+    dp_nominal_well=10,
+    dp_nominal_hex=0)
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=
+        1) annotation (Placement(transformation(extent={{60,40},{40,60}})));
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(table=[0.0,-1; 86400*120,
+        -1; 86400*120,0; 86400*180,0; 86400*180,1; 86400*300,1; 86400*300,0])
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
-  connect(combiTimeTable.y[1], boundary.m_flow_in) annotation (Line(points={{-59,
-          50},{-40,50},{-40,18},{-22,18}}, color={0,0,127}));
-  connect(boundary.ports[1], aquWel.port_a)
-    annotation (Line(points={{0,10},{50,10},{50,0}}, color={0,127,255}));
+  connect(aquWel.port_a, aquWel.port_a1) annotation (Line(points={{-15,40},{-14,
+          40},{-14,60},{-5,60},{-5,40}}, color={0,127,255}));
+  connect(bou.ports[1], aquWel.port_a1) annotation (Line(points={{40,50},{20,50},
+          {20,60},{-5,60},{-5,40}}, color={0,127,255}));
+  connect(combiTimeTable.y[1], aquWel.u) annotation (Line(points={{-59,70},{-44,
+          70},{-44,37},{-22,37}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=31536000, Tolerance=1e-6),

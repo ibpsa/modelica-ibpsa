@@ -6,58 +6,45 @@ model CoolingOffice
   parameter Modelica.Units.SI.SpecificHeatCapacity cpWat=4186 "Heat capacity of water";
   parameter Modelica.Units.SI.MassFlowRate mWat=Qcoo/(deltaT*cpWat) "Nominal water mass flow rate";
 
-  SingleWell cooWel(
-    redeclare package Medium = IBPSA.Media.Water,
-    nVol=80,
-    h=20,
-    r_max=500,
-    T_ini=285.15,
-    TGro=283.15,
-    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
-    m_flow_nominal=mWat,
-    dp_nominal(displayUnit="Pa") = 10) "Cold well"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  SingleWell heaWel(
-    redeclare package Medium = IBPSA.Media.Water,
-    nVol=80,
-    h=20,
-    r_max=500,
-    T_ini=285.15,
-    TGro=283.15,
-    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
-    m_flow_nominal=mWat,
-    dp_nominal(displayUnit="Pa") = 10) "Warm well"
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Movers.FlowControlled_m_flow mov(
-    redeclare package Medium = IBPSA.Media.Water,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true,
-    m_flow_nominal=mWat,
-    dp_nominal=10) "Circulation pump"
-    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium = IBPSA.Media.Water,
     m_flow_nominal=mWat,
-    dp_nominal=10,
+    dp_nominal=100,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Qcoo) "Heat exchanger"
-    annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Modelica.Blocks.Sources.Constant watMas(k=mWat) "Water mass flow rate"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-12,32},{8,52}})));
+  Modelica.Blocks.Sources.Constant watMas(k=1)    "Water mass flow rate"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant heaFlo(k=1) "Cooling load"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  MultiWell aquWel(
+    redeclare package Medium = IBPSA.Media.Water,
+    nVol=80,
+    h=20,
+    r_max=500,
+    T_ini_coo=285.15,
+    T_ini_hot=285.15,
+    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
+    m_flow_nominal=mWat,
+    dp_nominal_aquifer(displayUnit="Pa") = 10,
+    dp_nominal_well(displayUnit="Pa") = 10,
+    dp_nominal_hex(displayUnit="Pa") = 0)
+    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+  Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=
+        1) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(cooWel.port_a, mov.port_a)
-    annotation (Line(points={{-70,-20},{-70,20},{-50,20}}, color={0,127,255}));
-  connect(watMas.y, mov.m_flow_in)
-    annotation (Line(points={{-59,70},{-40,70},{-40,32}}, color={0,0,127}));
-  connect(heaFlo.y, hea.u) annotation (Line(points={{1,70},{20,70},{20,26},{28,26}},
+  connect(heaFlo.y, hea.u) annotation (Line(points={{-39,70},{-22,70},{-22,48},
+          {-14,48}},
         color={0,0,127}));
-  connect(mov.port_b, hea.port_a)
-    annotation (Line(points={{-30,20},{30,20}}, color={0,127,255}));
-  connect(hea.port_b, heaWel.port_a)
-    annotation (Line(points={{50,20},{70,20},{70,-20}}, color={0,127,255}));
+  connect(aquWel.port_a1, hea.port_b) annotation (Line(points={{3,10},{3,28},{
+          12,28},{12,42},{8,42}},             color={0,127,255}));
+  connect(aquWel.port_a, hea.port_a) annotation (Line(points={{-7,10},{-8,10},{
+          -8,28},{-16,28},{-16,42},{-12,42}},
+                                            color={0,127,255}));
+  connect(bou.ports[1], hea.port_a) annotation (Line(points={{-60,30},{-16,30},
+          {-16,42},{-12,42}},                  color={0,127,255}));
+  connect(watMas.y, aquWel.u) annotation (Line(points={{-39,-10},{-22,-10},{-22,
+          7},{-14,7}},                        color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=7776000,Tolerance=1e-6),
