@@ -37,7 +37,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     "Pressure drop at nominal mass flow rate in the well" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate in the heat exchanger" annotation (
+    "Pressure drop at nominal mass flow rate in the above-surface system (used to size the head of the well pump)" annotation (
       Dialog(group="Hydraulic circuit"));
 
   Modelica.Blocks.Interfaces.RealInput u(
@@ -135,7 +135,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={80,50})));
-  Movers.Preconfigured.SpeedControlled_y movCol(
+  Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
@@ -144,7 +144,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-80,20})));
-  Movers.Preconfigured.SpeedControlled_y movHot(
+  Movers.Preconfigured.SpeedControlled_y pumHot(
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
@@ -278,25 +278,25 @@ equation
   connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-10},
           {-48,-10},{-48,-22},{51,-22},{51,-10}},
                                          color={0,127,255}));
-  connect(powCoo.port_b, movCol.port_a)
+  connect(powCoo.port_b,pumCol. port_a)
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
-  connect(movCol.port_b, resCoo.port_a)
+  connect(pumCol.port_b, resCoo.port_a)
     annotation (Line(points={{-80,30},{-80,40}}, color={0,127,255}));
-  connect(resHot.port_a, movHot.port_b)
+  connect(resHot.port_a,pumHot. port_b)
     annotation (Line(points={{80,40},{80,30}}, color={0,127,255}));
-  connect(powHot.port_b, movHot.port_a)
+  connect(powHot.port_b,pumHot. port_a)
     annotation (Line(points={{80,0},{80,10}}, color={0,127,255}));
-  connect(limiter.y, movCol.y) annotation (Line(points={{-39,50},{-30,50},{-30,
+  connect(limiter.y,pumCol. y) annotation (Line(points={{-39,50},{-30,50},{-30,
           20},{-68,20}}, color={0,0,127}));
   connect(gain.y, limiter1.u)
     annotation (Line(points={{13,50},{28,50}}, color={0,0,127}));
-  connect(limiter1.y, movHot.y) annotation (Line(points={{51,50},{60,50},{60,20},
+  connect(limiter1.y,pumHot. y) annotation (Line(points={{51,50},{60,50},{60,20},
           {68,20}}, color={0,0,127}));
-  connect(gain.u, u) annotation (Line(points={{-10,50},{-20,50},{-20,60},{-120,
-          60}},
+  connect(gain.u, u) annotation (Line(points={{-10,50},{-20,50},{-20,70},{-92,
+          70},{-92,60},{-120,60}},
         color={0,0,127}));
-  connect(limiter.u, u) annotation (Line(points={{-62,50},{-68,50},{-68,60},{
-          -120,60}},
+  connect(limiter.u, u) annotation (Line(points={{-62,50},{-68,50},{-68,70},{
+          -92,70},{-92,60},{-120,60}},
                 color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

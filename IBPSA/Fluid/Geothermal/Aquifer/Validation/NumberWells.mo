@@ -30,8 +30,7 @@ model NumberWells
     dpWell_nominal=10,
     dpExt_nominal=0) "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Modelica.Blocks.Sources.Constant mWat(k=1)
-    "Constant value of pump control signal"
+  Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=2) "Sink"
            annotation (Placement(transformation(extent={{60,-10},{40,10}})));
@@ -45,9 +44,9 @@ model NumberWells
     "Assertion that checks for equality of results"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
-  connect(mWat.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,36},
+  connect(uPum.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,36},
           {-22,36}}, color={0,0,127}));
-  connect(aquWel2.u, mWat.y) annotation (Line(points={{-22,-44},{-40,-44},{-40,
+  connect(aquWel2.u,uPum. y) annotation (Line(points={{-22,-44},{-40,-44},{-40,
           0},{-59,0}}, color={0,0,127}));
   connect(aquWel2.port_Col, aquWel2.port_Hot) annotation (Line(points={{-16,-40},
           {-16,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
@@ -69,7 +68,9 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that verifies the scalability of <a href=\"modelica://IBPSA.Fluid.Geothermal.Aquifer.MultiWell\">IBPSA.Fluid.Geothermal.Aquifer.MultiWell</a> when multiple wells are used. T
+Example that verifies the scalability of
+<a href=\"modelica://IBPSA.Fluid.Geothermal.Aquifer.MultiWell\">IBPSA.Fluid.Geothermal.Aquifer.MultiWell</a>
+when multiple wells are used.
 </p>
 </html>", revisions="<html>
 <ul>
