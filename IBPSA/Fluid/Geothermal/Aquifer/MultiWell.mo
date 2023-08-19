@@ -30,8 +30,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
      "Aquifer thermal properties" annotation (choicesAllMatching=true);
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dpAcquifer_nominal(displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate in the aquifer" annotation (
+  parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit=
+        "Pa") "Pressure drop at nominal mass flow rate in the aquifer"
+                                                             annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the well" annotation (
@@ -75,9 +76,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powCoo(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dpAcquifer_nominal,
-    final mMea_flow_nominal=m_flow_nominal) "Pressure drop in the cold side of the aquifer"
-    annotation (Placement(
+    final dpMea_nominal=dpAquifer_nominal,
+    final mMea_flow_nominal=m_flow_nominal)
+    "Pressure drop in the cold side of the aquifer" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -119,10 +120,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powHot(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dpAcquifer_nominal,
+    final dpMea_nominal=dpAquifer_nominal,
     final mMea_flow_nominal=m_flow_nominal)
-                "Pressure drop in the warm side of the aquifer" annotation (
-      Placement(transformation(
+    "Pressure drop in the warm side of the aquifer" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={80,-10})));
@@ -139,7 +140,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAcquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
+    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
     "Pump to extract from cold well" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -148,7 +149,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAcquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
+    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
     "Pump to extract from hot well" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

@@ -13,7 +13,7 @@ model SimulationTest
     TGroHot=393.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=1,
-    dpAcquifer_nominal=10,
+    dpAquifer_nominal=10,
     dpWell_nominal=10,
     dpExt_nominal=0) "Aquifer wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
