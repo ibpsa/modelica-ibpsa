@@ -13,9 +13,9 @@ model SimulationTest
     TGroHot=393.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=1,
-    dp_nominal_aquifer=10,
-    dp_nominal_well=10,
-    dp_nominal_hex=0) "Aquifer wells"
+    dpAcquifer_nominal=10,
+    dpWell_nominal=10,
+    dpExt_nominal=0) "Aquifer wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Sources.Boundary_pT bou(
     redeclare package Medium = IBPSA.Media.Water,
@@ -41,15 +41,15 @@ equation
     Documentation(info="<html>
 <p>
 This validation case simulates an idealized operation of an aquifer thermal storage system. Results
-are compared with simulations from a test suite developed by Mindel et al. (2021). 
-This test suite comprises a set of cases to assess the thermo-hydraulic modelling capabilities of various geothermal simulators. 
+are compared with simulations from a test suite developed by Mindel et al. (2021).
+This test suite comprises a set of cases to assess the thermo-hydraulic modelling capabilities of various geothermal simulators.
 </p>
 <p>
-The comparison was carried out with respect to the test case called TC2 - well-test comparison. 
-The main goal of TC2 is to compare aquifer temperatures under a typical operation of an ATES system 
-consisting of injection, falloff, drawdown, and build-up. The injection phase represents the charging period, 
-while the drawdown phase represents the discharge period. 
-Intermediate phases of falloff and build-up represent periods of storage or inactivity. 
+The comparison was carried out with respect to the test case called TC2 - well-test comparison.
+The main goal of TC2 is to compare aquifer temperatures under a typical operation of an ATES system
+consisting of injection, falloff, drawdown, and build-up. The injection phase represents the charging period,
+while the drawdown phase represents the discharge period.
+Intermediate phases of falloff and build-up represent periods of storage or inactivity.
 The overall operational period is one year, and the sequence of the different phases is the following:
 </p>
 <ul>
@@ -58,14 +58,14 @@ The overall operational period is one year, and the sequence of the different ph
 <li>Drawdown: Water is pumped at Q = -0.001 m<sup>3</sup> s<sup>-1</sup> for 120 days.</li>
 <li>Build-up phase: Well is shut-in, at Q = 0 m<sup>3</sup> s<sup>-1</sup> for 65.25.</li>
 </ul>
-The figure below shows the temperature vs. time comparison for a virtual sensor located at r = 1 m and r= 10 m from the well. 
+The figure below shows the temperature vs. time comparison for a virtual sensor located at r = 1 m and r= 10 m from the well.
 <p align=\"center\">
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/results.png\" width=\"600\">
 </p>
 <h4>References</h4>
 <p>
-Julian E. Mindel, Peter Alt-Epping, Antoine Armandine Les Landes, Stijn Beernink, Daniel T. Birdsell, 
-Martin Bloemendal, Virginie Hamm, Simon Lopez, Charles Maragna, Carsten M. Nielsen, Sebastia Olivella, 
+Julian E. Mindel, Peter Alt-Epping, Antoine Armandine Les Landes, Stijn Beernink, Daniel T. Birdsell,
+Martin Bloemendal, Virginie Hamm, Simon Lopez, Charles Maragna, Carsten M. Nielsen, Sebastia Olivella,
 Marc Perreaux, Maarten W. Saaltink, Martin O. Saar, Daniela Van den Heuvel, Ruben Vidal, Thomas Driesner,
 <i>Benchmark study of simulators for thermo-hydraulic modelling of low enthalpy geothermal processes</i>,
 Geothermics,

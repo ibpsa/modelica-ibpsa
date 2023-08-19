@@ -26,9 +26,9 @@ model CoolingOffice
     THot_start=285.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=mWat,
-    dp_nominal_aquifer(displayUnit="Pa") = 10,
-    dp_nominal_well(displayUnit="Pa") = 10,
-    dp_nominal_hex(displayUnit="Pa") = 100)
+    dpAcquifer_nominal(displayUnit="Pa") = 10,
+    dpWell_nominal(displayUnit="Pa") = 10,
+    dpExt_nominal(displayUnit="Pa") = 100)
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=
         1) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -55,7 +55,7 @@ This example shows the application of the model
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Aquifer.SingleWell\">IBPSA.Fluid.Geothermal.Aquifer.SingleWell</a>.
 </p>
 <p>
-The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12C and 
+The system consists of two wells, a warm well and a cold well. Water is extracted from the cold well at 12C and
 after passing through a heat exchanger it is injected in the warm well at 16C. This may represent the operation of an
 aquifer thermal energy storage system that cools an office building with a constant load of 30 kW.
 </p>

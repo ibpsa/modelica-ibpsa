@@ -30,13 +30,13 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
      "Aquifer thermal properties" annotation (choicesAllMatching=true);
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal_aquifer(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpAcquifer_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the aquifer" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal_well(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the well" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal_hex(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the heat exchanger" annotation (
       Dialog(group="Hydraulic circuit"));
 
@@ -75,7 +75,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powCoo(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dp_nominal_aquifer,
+    final dpMea_nominal=dpAcquifer_nominal,
     final mMea_flow_nominal=m_flow_nominal) "Pressure drop in the cold side of the aquifer"
     annotation (Placement(
         transformation(
@@ -110,7 +110,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.PressureDrop resCoo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal_well)
+    final dp_nominal=dpWell_nominal)
     "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -119,7 +119,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powHot(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dp_nominal_aquifer,
+    final dpMea_nominal=dpAcquifer_nominal,
     final mMea_flow_nominal=m_flow_nominal)
                 "Pressure drop in the warm side of the aquifer" annotation (
       Placement(transformation(
@@ -129,7 +129,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.PressureDrop resHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal_well)
+    final dp_nominal=dpWell_nominal)
     "Pressure drop in the warm well" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -139,7 +139,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal_aquifer*2 + dp_nominal_well*2 + dp_nominal_hex)
+    final dp_nominal=dpAcquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
     "Pump to extract from cold well" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -148,7 +148,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     redeclare final package Medium = Medium,
     addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal_aquifer*2 + dp_nominal_well*2 + dp_nominal_hex)
+    final dp_nominal=dpAcquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
     "Pump to extract from hot well" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -359,9 +359,9 @@ equation
 This model simulates aquifer thermal energy storage, using one or multiple instances of cold and hot wells.
 </p>
 <p>
-To calculate aquifer temperature at different locations over time, the model applies 
-theoretical principles of water flow and heat transfer phenomena. The model is based on 
-the partial differential equation (PDE) for 1D conductive-convective transient 
+To calculate aquifer temperature at different locations over time, the model applies
+theoretical principles of water flow and heat transfer phenomena. The model is based on
+the partial differential equation (PDE) for 1D conductive-convective transient
 radial heat transport in porous media
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -383,30 +383,30 @@ the second term describes the fluid flow.
 </p>
 <h4>Spatial discretization</h4>
 <p>
-To discretize the conductive-convective equation, the domain is divided into a series 
-of thermal capacitances and thermal resistances along the radial direction. The 
-implementation uses an array of 
+To discretize the conductive-convective equation, the domain is divided into a series
+of thermal capacitances and thermal resistances along the radial direction. The
+implementation uses an array of
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
 and <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
-Fluid flow was modelled by adding a series of fluid volumes, which are connected 
-to the thermal capacitances via heat ports. The fluid stream was developed using 
+Fluid flow was modelled by adding a series of fluid volumes, which are connected
+to the thermal capacitances via heat ports. The fluid stream was developed using
 the model <a href=\"modelica://IBPSA.Fluid.MixingVolumes.MixingVolume\">IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
-The geometric representation of the model is illustrated in the figure below. 
+The geometric representation of the model is illustrated in the figure below.
 </p>
 <p align=\"center\">
 <img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png\" width=\"800\">
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-By default, the component consists of a cold well and a warm well. The number of wells can be increased by modifing the parameters <code>nCoo</code> and <code>nHot</code>. 
-The effect is a proportional increase of thermal capacity. 
+By default, the component consists of a cold well and a warm well. The number of wells can be increased by modifing the parameters <code>nCoo</code> and <code>nHot</code>.
+The effect is a proportional increase of thermal capacity.
 </p>
 <p>
-To ensure conservation of energy, the two wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>r_max</code> is large enough for your specific use case. 
+To ensure conservation of energy, the two wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>r_max</code> is large enough for your specific use case.
 </p>
 <p>
 Circulation pumps are included in the model and they can be controlled by acting on the input connector. The input must vary between [1,-1]. A positive value will circulate water
-clockwise (extraction from the cold well and injection into the warm well). A negative value will circulate water anticlockwise (extraction from the warm well and injection into the cold well). 
+clockwise (extraction from the cold well and injection into the warm well). A negative value will circulate water anticlockwise (extraction from the warm well and injection into the cold well).
 </p>
 </html>", revisions="<html>
 <ul>

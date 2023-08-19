@@ -11,9 +11,9 @@ model NumberWells
     TGroHot=303.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=0.1,
-    dp_nominal_aquifer=10,
-    dp_nominal_well=10,
-    dp_nominal_hex=0) "ATES with one pair of wells"
+    dpAcquifer_nominal=10,
+    dpWell_nominal=10,
+    dpExt_nominal=0) "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   MultiWell aquWel2(
     redeclare package Medium = IBPSA.Media.Water,
@@ -26,9 +26,9 @@ model NumberWells
     TGroHot=303.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=0.2,
-    dp_nominal_aquifer=10,
-    dp_nominal_well=10,
-    dp_nominal_hex=0) "ATES with two pairs of wells"
+    dpAcquifer_nominal=10,
+    dpWell_nominal=10,
+    dpExt_nominal=0) "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant mWat(k=1)
     "Constant value of pump control signal"
