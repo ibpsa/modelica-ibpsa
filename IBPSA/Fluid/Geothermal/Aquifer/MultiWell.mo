@@ -49,6 +49,33 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
 
+  Modelica.Fluid.Interfaces.FluidPort_a port_Col(
+    redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
+            {-70,90},{-50,110}}), iconTransformation(extent={{-70,90},{-50,110}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_Hot(
+    redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
+            {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
+
+  Movers.Preconfigured.SpeedControlled_y pumCol(
+    redeclare final package Medium = Medium,
+    addPowerToMedium=false,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
+    "Pump to extract from cold well" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={-80,20})));
+  Movers.Preconfigured.SpeedControlled_y pumHot(
+    redeclare final package Medium = Medium,
+    addPowerToMedium=false,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
+    "Pump to extract from hot well" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,20})));
+
   IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
     redeclare final package Medium = Medium,
     each final T_start=TCoo_start,
@@ -57,9 +84,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     each nPorts=2)
     "Array of fluid volumes representing the fluid flow in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_Col(
-    redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
-            {-70,90},{-50,110}}), iconTransformation(extent={{-70,90},{-50,110}})));
+
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](
       C=C*nCoo,
       each T(start=TCoo_start, fixed=true))
@@ -69,10 +94,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     R=R/nCoo)
     "Array of thermal resistances in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemCoo(
-    final T=TGroCoo)
-    "Boundary condition ground temperature in the cold side of the aquifer"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+
   Airflow.Multizone.Point_m_flow powCoo(
     redeclare final package Medium = Medium,
     m=1,
@@ -84,9 +106,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-10})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_Hot(redeclare final package Medium =
-        Medium) "Fluid connector" annotation (Placement(transformation(extent={
-            {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
   MixingVolumes.MixingVolume volHot[nVol](
     redeclare final package Medium = Medium,
     each T_start=THot_start,
@@ -104,10 +123,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     R=R/nHot)
     "Array of thermal resistances in the warm side of the aquifer"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemHot(
-    final T=TGroHot)
-    "Boundary condition ground temperature in the warm side of the aquifer"
-    annotation (Placement(transformation(extent={{90,-70},{70,-50}})));
   FixedResistances.PressureDrop resCoo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -136,38 +151,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={80,50})));
-  Movers.Preconfigured.SpeedControlled_y pumCol(
-    redeclare final package Medium = Medium,
-    addPowerToMedium=false,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
-    "Pump to extract from cold well" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-80,20})));
-  Movers.Preconfigured.SpeedControlled_y pumHot(
-    redeclare final package Medium = Medium,
-    addPowerToMedium=false,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
-    "Pump to extract from hot well" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,20})));
+
 protected
-  Modelica.Blocks.Nonlinear.Limiter limiter(
-    final uMax=1,
-    final uMin=0)
-    "Limiter for pump signal"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Blocks.Math.Gain gain(
-    final k=-1) "Inversion of control signal"
-    annotation (Placement(transformation(extent={{-8,40},{12,60}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter1(
-    final uMax=1,
-    final uMin=0)
-    "Limiter for pump signal"
-    annotation (Placement(transformation(extent={{30,40},{50,60}})));
   parameter Modelica.Units.SI.Radius r[nVol + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
   parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
@@ -188,6 +173,29 @@ protected
     "Heat capacity normalized with volume for aquifer";
   parameter Real kVol(each fixed=false)
     "Heat conductivity normalized with volume";
+
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemCoo(
+    final T=TGroCoo)
+    "Boundary condition ground temperature in the cold side of the aquifer"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemHot(
+    final T=TGroHot)
+    "Boundary condition ground temperature in the warm side of the aquifer"
+    annotation (Placement(transformation(extent={{90,-70},{70,-50}})));
+
+  Modelica.Blocks.Nonlinear.Limiter limiter(
+    final uMax=1,
+    final uMin=0)
+    "Limiter for pump signal"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Modelica.Blocks.Math.Gain gain(
+    final k=-1) "Inversion of control signal"
+    annotation (Placement(transformation(extent={{-8,40},{12,60}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter1(
+    final uMax=1,
+    final uMin=0)
+    "Limiter for pump signal"
+    annotation (Placement(transformation(extent={{30,40},{50,60}})));
 
 initial equation
   assert(r_wb < r_max, "Error: Model requires r_wb < r_max");
