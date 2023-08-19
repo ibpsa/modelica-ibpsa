@@ -5,7 +5,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Integer nVol(min=1)=10 "Number of control volumes used in discretization" annotation (
       Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
-  parameter Real phi=0.2 "Reservoir porosity";
+  parameter Real phi(final unit="1")=0.2 "Reservoir porosity";
   parameter Real nCoo=1 "Number of cold wells";
   parameter Real nHot=1 "Number of warm wells";
   parameter Modelica.Units.SI.Radius r_wb=0.1 "Wellbore radius" annotation (
@@ -56,8 +56,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     each nPorts=2)
     "Array of fluid volumes representing the fluid flow in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_Col(redeclare final package Medium
-      = Medium) "Fluid connector" annotation (Placement(transformation(extent={
+  Modelica.Fluid.Interfaces.FluidPort_a port_Col(
+    redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
             {-70,90},{-50,110}}), iconTransformation(extent={{-70,90},{-50,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](
       C=C*nCoo,
@@ -83,8 +83,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-10})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_Hot(redeclare final package Medium
-      = Medium) "Fluid connector" annotation (Placement(transformation(extent={
+  Modelica.Fluid.Interfaces.FluidPort_a port_Hot(redeclare final package Medium =
+        Medium) "Fluid connector" annotation (Placement(transformation(extent={
             {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
   MixingVolumes.MixingVolume volHot[nVol](
     redeclare final package Medium = Medium,
