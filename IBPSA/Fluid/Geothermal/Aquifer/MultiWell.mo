@@ -167,7 +167,7 @@ protected
     "Heat capacity of segment";
   parameter Modelica.Units.SI.Volume VWat[nVol](each fixed=false)
     "Volumes of water";
-  parameter Modelica.Units.SI.ThermalResistance R[nVol+1](each fixed=false)
+  parameter Modelica.Units.SI.ThermalResistance R[nVol](each fixed=false)
     "Thermal resistances between nodes";
   parameter Real cAqu(each fixed=false)
     "Heat capacity normalized with volume for aquifer";
@@ -230,10 +230,10 @@ initial equation
   for i in 1:nVol loop
     VWat[i] = phi*h*3.14*(r[i+1]^2-r[i]^2);
   end for;
-  R[1]=Modelica.Math.log(rC[1]/r_wb)/(2*Modelica.Constants.pi*kVol*h);
-  R[nVol+1]=Modelica.Math.log(r_max/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
-  for i in 2:nVol loop
-  R[i] = Modelica.Math.log(rC[i]/rC[i-1])/(2*Modelica.Constants.pi*kVol*h);
+
+  R[nVol]=Modelica.Math.log(r_max/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
+  for i in 1:nVol-1 loop
+  R[i] = Modelica.Math.log(rC[i+1]/rC[i])/(2*Modelica.Constants.pi*kVol*h);
   end for;
 
 equation
