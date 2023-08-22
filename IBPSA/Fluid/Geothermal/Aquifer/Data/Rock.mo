@@ -3,7 +3,8 @@ record Rock "Soil data record of rock heat transfer properties"
   extends IBPSA.Fluid.Geothermal.Aquifer.Data.Template(
     kSoi=2.8,
     dSoi=2680,
-    cSoi=833);
+    cSoi=833,
+    phi=0.2);
   annotation (
   defaultComponentPrefixes="parameter",
   defaultComponentName="aquDat",

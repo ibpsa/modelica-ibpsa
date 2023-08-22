@@ -5,7 +5,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Integer nVol(min=1)=10 "Number of control volumes used in discretization" annotation (
       Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
-  parameter Real phi(final unit="1")=0.2 "Reservoir porosity";
   parameter Real nCoo=1 "Number of cold wells";
   parameter Real nHot=1 "Number of warm wells";
   parameter Modelica.Units.SI.Radius r_wb=0.1 "Wellbore radius" annotation (
@@ -201,8 +200,8 @@ initial equation
   assert(r_wb < r_max, "Error: Model requires r_wb < r_max");
   assert(0 < r_wb,   "Error: Model requires 0 < r_wb");
 
-  cAqu=aquDat.dSoi*aquDat.cSoi*(1-phi);
-  kVol=kWat*phi+aquDat.kSoi*(1-phi);
+  cAqu=aquDat.dSoi*aquDat.cSoi*(1-aquDat.phi);
+  kVol=kWat*aquDat.phi+aquDat.kSoi*(1-aquDat.phi);
 
   cpWat=Medium.specificHeatCapacityCp(Medium.setState_pTX(
     Medium.p_default,
@@ -228,7 +227,7 @@ initial equation
     C[i] = cAqu*h*3.14*(r[i+1]^2-r[i]^2);
   end for;
   for i in 1:nVol loop
-    VWat[i] = phi*h*3.14*(r[i+1]^2-r[i]^2);
+    VWat[i] = aquDat.phi*h*3.14*(r[i+1]^2-r[i]^2);
   end for;
 
   R[nVol]=Modelica.Math.log(r_max/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
