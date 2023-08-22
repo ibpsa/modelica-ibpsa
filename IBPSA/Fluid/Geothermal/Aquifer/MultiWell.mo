@@ -59,7 +59,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
+    final dp_nominal=dpAquifer_nominal + dpWell_nominal + dpExt_nominal)
     "Pump to extract from cold well" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -67,7 +67,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Movers.Preconfigured.SpeedControlled_y pumHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
+    final dp_nominal=dpAquifer_nominal + dpWell_nominal + dpExt_nominal)
     "Pump to extract from hot well" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -95,7 +95,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powCoo(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dpAquifer_nominal,
+    final dpMea_nominal=dpAquifer_nominal/2,
     final mMea_flow_nominal=m_flow_nominal)
     "Pressure drop in the cold side of the aquifer" annotation (Placement(
         transformation(
@@ -123,7 +123,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.PressureDrop resCoo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpWell_nominal)
+    final dp_nominal=dpWell_nominal/2)
     "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -132,7 +132,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powHot(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dpAquifer_nominal,
+    final dpMea_nominal=dpAquifer_nominal/2,
     final mMea_flow_nominal=m_flow_nominal)
     "Pressure drop in the warm side of the aquifer" annotation (Placement(
         transformation(
@@ -142,7 +142,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.PressureDrop resHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpWell_nominal)
+    final dp_nominal=dpWell_nominal/2)
     "Pressure drop in the warm well" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
