@@ -58,7 +58,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
 
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
-    addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
     "Pump to extract from cold well" annotation (Placement(transformation(
@@ -67,7 +66,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         origin={-80,20})));
   Movers.Preconfigured.SpeedControlled_y pumHot(
     redeclare final package Medium = Medium,
-    addPowerToMedium=false,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dpAquifer_nominal*2 + dpWell_nominal*2 + dpExt_nominal)
     "Pump to extract from hot well" annotation (Placement(transformation(
