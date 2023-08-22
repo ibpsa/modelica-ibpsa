@@ -414,6 +414,12 @@ To ensure conservation of energy, the two wells are connected via fluid ports. T
 Circulation pumps are included in the model and they can be controlled by acting on the input connector. The input must vary between [1,-1]. A positive value will circulate water
 clockwise (extraction from the cold well and injection into the warm well). A negative value will circulate water anticlockwise (extraction from the warm well and injection into the cold well).
 </p>
+<p>
+The nominal pressure drops in the circuit must be selected according to the figure below.
+</p>
+<p align=\"center\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.png\" width=\"800\">
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
