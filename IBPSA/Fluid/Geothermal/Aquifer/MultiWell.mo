@@ -275,15 +275,12 @@ equation
           -60,86},{-60,100}}, color={0,127,255}));
   connect(resHot.port_b, port_Hot) annotation (Line(points={{80,60},{80,86},{60,
           86},{60,100}}, color={0,127,255}));
-  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},
-          {-80,-34},{-49,-34},{-49,-10}},
+  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},{-80,-34},{-48,-34},{-48,-10}},
                                   color={0,127,255}));
-  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{
-          80,-34},{49,-34},{49,-10}},
+  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{80,-34},{48,-34},{48,-10}},
                             color={0,127,255}));
-  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-10},
-          {-48,-10},{-48,-22},{51,-22},{51,-10}},
-                                         color={0,127,255}));
+  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-52,-10},{-48,-10},{-48,-22},{52,-22},
+          {52,-10}},                     color={0,127,255}));
   connect(powCoo.port_b,pumCol. port_a)
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
   connect(pumCol.port_b, resCoo.port_a)
@@ -400,7 +397,7 @@ the model <a href=\"modelica://IBPSA.Fluid.MixingVolumes.MixingVolume\">IBPSA.Fl
 The geometric representation of the model is illustrated in the figure below.
 </p>
 <p align=\"center\">
-<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png\" width=\"800\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/Geometry.png\">
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -418,7 +415,7 @@ clockwise (extraction from the cold well and injection into the warm well). A ne
 The nominal pressure drops in the circuit must be selected according to the figure below.
 </p>
 <p align=\"center\">
-<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.png\" width=\"800\">
+<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.png\">
 </p>
 </html>", revisions="<html>
 <ul>
