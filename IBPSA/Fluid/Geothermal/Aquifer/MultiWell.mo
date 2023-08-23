@@ -420,7 +420,7 @@ clockwise (extraction from the cold well and injection into the warm well). A ne
 </p>
 <p>
 The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and <code>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
-in the discretized domain. The location of the thermal capacitance is expressed by <code>rC<code>.
+in the discretized domain. The location of the thermal capacitance is expressed by <code>rC</code>.
 </p>
 <p>
 The nominal pressure drops in the circuit must be selected according to the figure below.
