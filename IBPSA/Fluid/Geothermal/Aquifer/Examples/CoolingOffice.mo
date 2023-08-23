@@ -23,7 +23,6 @@ model CoolingOffice
     redeclare package Medium = IBPSA.Media.Water,
     nVol=80,
     h=20,
-    r_max=500,
     TCoo_start=285.15,
     THot_start=285.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),

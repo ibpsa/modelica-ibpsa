@@ -7,9 +7,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
   parameter Real nCoo=1 "Number of cold wells";
   parameter Real nHot=1 "Number of warm wells";
-  parameter Modelica.Units.SI.Radius r_wb=0.1 "Wellbore radius" annotation (
+  parameter Modelica.Units.SI.Radius rWB=0.1 "Wellbore radius" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Radius r_max=2400 "Domain radius" annotation (
+  parameter Modelica.Units.SI.Radius rMax=2400 "Domain radius" annotation (
       Dialog(group="Subsurface"));
   parameter Real griFac(min=1) = 1.15 "Grid factor for spacing" annotation (
       Dialog(group="Subsurface"));
@@ -195,8 +195,8 @@ protected
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
 
 initial equation
-  assert(r_wb < r_max, "Error: Model requires r_wb < r_max");
-  assert(0 < r_wb,   "Error: Model requires 0 < r_wb");
+  assert(rWB < rMax, "Error: Model requires rWB < rMax");
+  assert(0 < rWB,   "Error: Model requires 0 < rWB");
 
   cAqu=aquDat.dSoi*aquDat.cSoi*(1-aquDat.phi);
   kVol=kWat*aquDat.phi+aquDat.kSoi*(1-aquDat.phi);
@@ -214,9 +214,9 @@ initial equation
     Medium.T_default,
     Medium.X_default));
 
-  r[1] = r_wb;
+  r[1] = rWB;
   for i in 2:nVol+1 loop
-    r[i]= r[i-1] + (r_max - r_wb)  * (1-griFac)/(1-griFac^(nVol)) * griFac^(i-2);
+    r[i]= r[i-1] + (rMax - rWB)  * (1-griFac)/(1-griFac^(nVol)) * griFac^(i-2);
   end for;
   for i in 1:nVol loop
     rC[i] = (r[i]+r[i+1])/2;
@@ -228,7 +228,7 @@ initial equation
     VWat[i] = aquDat.phi*h*3.14*(r[i+1]^2-r[i]^2);
   end for;
 
-  R[nVol]=Modelica.Math.log(r_max/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
+  R[nVol]=Modelica.Math.log(rMax/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
   for i in 1:nVol-1 loop
   R[i] = Modelica.Math.log(rC[i+1]/rC[i])/(2*Modelica.Constants.pi*kVol*h);
   end for;
@@ -275,12 +275,15 @@ equation
           -60,86},{-60,100}}, color={0,127,255}));
   connect(resHot.port_b, port_Hot) annotation (Line(points={{80,60},{80,86},{60,
           86},{60,100}}, color={0,127,255}));
-  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},{-80,-34},{-48,-34},{-48,-10}},
+  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},
+          {-80,-34},{-49,-34},{-49,-10}},
                                   color={0,127,255}));
-  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{80,-34},{48,-34},{48,-10}},
+  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{
+          80,-34},{49,-34},{49,-10}},
                             color={0,127,255}));
-  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-52,-10},{-48,-10},{-48,-22},{52,-22},
-          {52,-10}},                     color={0,127,255}));
+  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-10},
+          {-48,-10},{-48,-22},{51,-22},{51,-10}},
+                                         color={0,127,255}));
   connect(powCoo.port_b,pumCol. port_a)
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
   connect(pumCol.port_b, resCoo.port_a)
@@ -405,7 +408,7 @@ By default, the component consists of a cold well and a warm well. The number of
 The effect is a proportional increase of thermal capacity.
 </p>
 <p>
-To ensure conservation of energy, the two wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>r_max</code> is large enough for your specific use case.
+To ensure conservation of energy, the two wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>rMax</code> is large enough for your specific use case.
 </p>
 <p>
 Circulation pumps are included in the model and they can be controlled by acting on the input connector. The input must vary between [1,-1]. A positive value will circulate water
