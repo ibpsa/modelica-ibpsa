@@ -419,7 +419,7 @@ Circulation pumps are included in the model and they can be controlled by acting
 clockwise (extraction from the cold well and injection into the warm well). A negative value will circulate water anticlockwise (extraction from the warm well and injection into the cold well).
 </p>
 <p>
-The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and c<ode>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
+The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and <code>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
 in the discretized domain. The location of the thermal capacitance is expressed by <code>rC<code>.
 </p>
 <p>
