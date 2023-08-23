@@ -34,10 +34,10 @@ model NumberWells
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=2) "Sink"
            annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Modelica.Blocks.Sources.RealExpression temWel1(y=aquWel1.heaCapHot[10].T)
+  Modelica.Blocks.Sources.RealExpression temWel1(y=aquWel1.TAquHot[10])
     "Temperature output from aquifer model with one pair of wells"
     annotation (Placement(transformation(extent={{20,72},{40,92}})));
-  Modelica.Blocks.Sources.RealExpression temWel2(y=aquWel2.heaCapHot[10].T)
+  Modelica.Blocks.Sources.RealExpression temWel2(y=aquWel2.TAquHot[10])
     "Temperature output from aquifer model with two pairs of wells"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Utilities.Diagnostics.CheckEquality  cheEqu

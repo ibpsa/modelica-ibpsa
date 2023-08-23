@@ -30,8 +30,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit=
-        "Pa") "Pressure drop at nominal mass flow rate in the aquifer"
-                                                             annotation (
+        "Pa") "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the well" annotation (
@@ -39,6 +38,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the above-surface system (used to size the head of the well pump)" annotation (
       Dialog(group="Hydraulic circuit"));
+  parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
+    "Radius to the center of the i-th domain";
+  Modelica.Units.SI.Temperature TAquHot[nVol];
+  Modelica.Units.SI.Temperature TAquCol[nVol];
 
   Modelica.Blocks.Interfaces.RealInput u(
       final min=-1,
@@ -73,25 +76,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=90,
         origin={80,20})));
 
-  IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
-    redeclare final package Medium = Medium,
-    each final T_start=TCoo_start,
-    each final m_flow_nominal=m_flow_nominal,
-    final V=VWat*nCoo,
-    each nPorts=2)
-    "Array of fluid volumes representing the fluid flow in the cold side of the aquifer"
-    annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
-
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](
-      C=C*nCoo,
-      each T(start=TCoo_start, fixed=true))
-    "Array of thermal capacitor in the cold side of the aquifer"
-    annotation (Placement(transformation(extent={{-22,-60},{-2,-40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResCoo[nVol](
-    R=R/nCoo)
-    "Array of thermal resistances in the cold side of the aquifer"
-    annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
-
   Airflow.Multizone.Point_m_flow powCoo(
     redeclare final package Medium = Medium,
     m=1,
@@ -103,23 +87,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-10})));
 
-  MixingVolumes.MixingVolume volHot[nVol](
-    redeclare final package Medium = Medium,
-    each T_start=THot_start,
-    each m_flow_nominal=m_flow_nominal,
-    V=VWat*nHot,
-    each nPorts=2)
-    "Array of fluid volumes representing the fluid flow in the warm side of the aquifer"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapHot[nVol](
-    C=C*nHot,
-    each T(start=THot_start, fixed=true))
-    "Array of thermal capacitor in the warm side of the aquifer"
-    annotation (Placement(transformation(extent={{22,-60},{2,-40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResHot[nVol](
-    R=R/nHot)
-    "Array of thermal resistances in the warm side of the aquifer"
-    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   FixedResistances.PressureDrop resCoo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -152,8 +119,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
 protected
   parameter Modelica.Units.SI.Radius r[nVol + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
-  parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
-    "Radius to the center of the i-th domain";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpWat(fixed=false)
     "Water specific heat capacity";
   parameter Modelica.Units.SI.Density rhoWat(fixed=false)
@@ -170,6 +135,43 @@ protected
     "Heat capacity normalized with volume for aquifer";
   parameter Real kVol(each fixed=false)
     "Heat conductivity normalized with volume";
+
+  IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
+    redeclare final package Medium = Medium,
+    each final T_start=TCoo_start,
+    each final m_flow_nominal=m_flow_nominal,
+    final V=VWat*nCoo,
+    each nPorts=2)
+    "Array of fluid volumes representing the fluid flow in the cold side of the aquifer"
+    annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
+
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](
+      C=C*nCoo,
+      each T(start=TCoo_start, fixed=true))
+    "Array of thermal capacitor in the cold side of the aquifer"
+    annotation (Placement(transformation(extent={{-22,-60},{-2,-40}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResCoo[nVol](
+    R=R/nCoo)
+    "Array of thermal resistances in the cold side of the aquifer"
+    annotation (Placement(transformation(extent={{-40,-70},{-60,-50}})));
+
+  MixingVolumes.MixingVolume volHot[nVol](
+    redeclare final package Medium = Medium,
+    each T_start=THot_start,
+    each m_flow_nominal=m_flow_nominal,
+    V=VWat*nHot,
+    each nPorts=2)
+    "Array of fluid volumes representing the fluid flow in the warm side of the aquifer"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapHot[nVol](
+    C=C*nHot,
+    each T(start=THot_start, fixed=true))
+    "Array of thermal capacitor in the warm side of the aquifer"
+    annotation (Placement(transformation(extent={{22,-60},{2,-40}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResHot[nVol](
+    R=R/nHot)
+    "Array of thermal resistances in the warm side of the aquifer"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemCoo(
     final T=TGroCoo)
@@ -234,6 +236,8 @@ initial equation
   end for;
 
 equation
+  TAquHot=heaCapHot.T;
+  TAquCol=heaCapCoo.T;
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
       connect(volCoo[i].ports[2], volCoo[i + 1].ports[1]);
@@ -413,6 +417,10 @@ To ensure conservation of energy, the two wells are connected via fluid ports. T
 <p>
 Circulation pumps are included in the model and they can be controlled by acting on the input connector. The input must vary between [1,-1]. A positive value will circulate water
 clockwise (extraction from the cold well and injection into the warm well). A negative value will circulate water anticlockwise (extraction from the warm well and injection into the cold well).
+</p>
+<p>
+The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and c<ode>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
+in the discretized domain. The location of the thermal capacitance is expressed by <code>rC<code>.
 </p>
 <p>
 The nominal pressure drops in the circuit must be selected according to the figure below.
