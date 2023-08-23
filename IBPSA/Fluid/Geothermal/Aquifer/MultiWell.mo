@@ -38,10 +38,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the above-surface system (used to size the head of the well pump)" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
-    "Radius to the center of the i-th domain";
   Modelica.Units.SI.Temperature TAquHot[nVol];
   Modelica.Units.SI.Temperature TAquCol[nVol];
+  Modelica.Units.SI.Radius rVol[nVol];
 
   Modelica.Blocks.Interfaces.RealInput u(
       final min=-1,
@@ -119,6 +118,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
 protected
   parameter Modelica.Units.SI.Radius r[nVol + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
+  parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
+    "Radius to the center of the i-th domain";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpWat(fixed=false)
     "Water specific heat capacity";
   parameter Modelica.Units.SI.Density rhoWat(fixed=false)
@@ -238,6 +239,7 @@ initial equation
 equation
   TAquHot=heaCapHot.T;
   TAquCol=heaCapCoo.T;
+  rVol=rC;
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
       connect(volCoo[i].ports[2], volCoo[i + 1].ports[1]);
@@ -420,7 +422,7 @@ clockwise (extraction from the cold well and injection into the warm well). A ne
 </p>
 <p>
 The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and <code>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
-in the discretized domain. The location of the thermal capacitance is expressed by <code>rC</code>.
+in the discretized domain. The location of the thermal capacitance is expressed by <code>rVol</code>.
 </p>
 <p>
 The nominal pressure drops in the circuit must be selected according to the figure below.
