@@ -10,6 +10,8 @@ record Template
     "Density of the soil material";
   parameter Real phi(final unit="1")
     "Reservoir porosity";
+  parameter Real pm(final unit="m2")
+    "Aquifer permeability";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   defaultComponentPrefixes="parameter",

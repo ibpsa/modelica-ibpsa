@@ -29,10 +29,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
      "Aquifer thermal properties" annotation (choicesAllMatching=true);
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit=
-        "Pa") "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
+  parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit= "Pa")
+     "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")=mu
     "Pressure drop at nominal mass flow rate in the well" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
@@ -120,12 +120,6 @@ protected
     "Radius to the boundary of the i-th domain";
   parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
     "Radius to the center of the i-th domain";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpWat(fixed=false)
-    "Water specific heat capacity";
-  parameter Modelica.Units.SI.Density rhoWat(fixed=false)
-    "Water density";
-  parameter Modelica.Units.SI.ThermalConductivity kWat(fixed=false)
-    "Water thermal conductivity";
   parameter Modelica.Units.SI.HeatCapacity C[nVol](each fixed=false)
     "Heat capacity of segment";
   parameter Modelica.Units.SI.Volume VWat[nVol](each fixed=false)
@@ -136,6 +130,22 @@ protected
     "Heat capacity normalized with volume for aquifer";
   parameter Real kVol(each fixed=false)
     "Heat conductivity normalized with volume";
+  parameter Modelica.Units.SI.DynamicViscosity mu=Medium.dynamicViscosity(Medium.setState_pTX(
+    Medium.p_default,
+    Medium.T_default,
+    Medium.X_default)) "Water dynamic viscosity";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWat=Medium.specificHeatCapacityCp(Medium.setState_pTX(
+    Medium.p_default,
+    Medium.T_default,
+    Medium.X_default)) "Water specific heat capacity";
+  parameter Modelica.Units.SI.Density rhoWat=Medium.density(Medium.setState_pTX(
+    Medium.p_default,
+    Medium.T_default,
+    Medium.X_default)) "Water density";
+  parameter Modelica.Units.SI.ThermalConductivity kWat=Medium.thermalConductivity(Medium.setState_pTX(
+    Medium.p_default,
+    Medium.T_default,
+    Medium.X_default)) "Water thermal conductivity";
 
   IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
     redeclare final package Medium = Medium,
@@ -203,19 +213,6 @@ initial equation
 
   cAqu=aquDat.dSoi*aquDat.cSoi*(1-aquDat.phi);
   kVol=kWat*aquDat.phi+aquDat.kSoi*(1-aquDat.phi);
-
-  cpWat=Medium.specificHeatCapacityCp(Medium.setState_pTX(
-    Medium.p_default,
-    Medium.T_default,
-    Medium.X_default));
-  rhoWat=Medium.density(Medium.setState_pTX(
-    Medium.p_default,
-    Medium.T_default,
-    Medium.X_default));
-  kWat=Medium.thermalConductivity(Medium.setState_pTX(
-    Medium.p_default,
-    Medium.T_default,
-    Medium.X_default));
 
   r[1] = rWB;
   for i in 2:nVol+1 loop

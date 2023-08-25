@@ -4,7 +4,8 @@ record Rock "Soil data record of rock heat transfer properties"
     kSoi=2.8,
     dSoi=2680,
     cSoi=833,
-    phi=0.2);
+    phi=0.2,
+    pm=10E-15);
   annotation (
   defaultComponentPrefixes="parameter",
   defaultComponentName="aquDat",
