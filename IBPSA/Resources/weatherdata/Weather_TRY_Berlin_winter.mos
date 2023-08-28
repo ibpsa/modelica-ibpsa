@@ -1,6 +1,6 @@
 #1
 double tab1(8760,30)
-#LOCATION,Berlin,State,Country,TMY3,Something,52.508996,13.328265,1.0,<Height of site>
+#LOCATION,Berlin,State,Country,TMY3,Something,52.3,13.2,1.0,<Height of site>
 #DESIGN CONDITIONS,
 #TYPICAL/EXTREME PERIODS,
 #GROUND TEMPERATURES,

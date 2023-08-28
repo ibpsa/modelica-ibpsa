@@ -5,9 +5,9 @@ partial model partialPVRooftopBuildingValidation
   extends Modelica.Icons.Example;
     parameter Modelica.Units.SI.Time timZon=+7200
     "Time zone";
-  parameter Modelica.Units.SI.Angle lon=0.20934
+  parameter Modelica.Units.SI.Angle lon=0.2303835
     "Longitude";
-  parameter Modelica.Units.SI.Angle lat=0.82481257
+  parameter Modelica.Units.SI.Angle lat=0.9128072
     "Latitude";
   parameter Modelica.Units.SI.Time nDay=(31+28+31+30+31+30+28)*24*3600 "Day at which simulation starts";
   parameter Modelica.Units.SI.Angle azi=27.5*Modelica.Constants.pi/180
@@ -32,9 +32,10 @@ partial model partialPVRooftopBuildingValidation
 
   Modelica.Blocks.Interfaces.RealOutput PDCSim(final unit="W")
     "Simulated DC output power"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
-  Modelica.Blocks.Interfaces.RealOutput PDCMea(final unit="W") "Measured DC power"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput PDCMea(final unit="W")
+    "Measured DC power"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(til=til,
       azi=azi,
     rho=rho)
@@ -43,10 +44,11 @@ partial model partialPVRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable MeaDatHGloHor(
     tableOnFile=true,
     tableName="MeaDatHGloHor",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Solar_irradiation_PV.txt"),
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Solar_irradiation_corrected.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=nDay - 900)
+    shiftTime=nDay - 450)
     "This file contains the global horizontal irradiation. The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de."
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -75,7 +77,8 @@ partial model partialPVRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable MeaDatPVPDC(
     tableOnFile=true,
     tableName="MeaDatPVPDC",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/DC_Power_PV.txt"),
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/DC_Power_PV_1_1_2.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay)
@@ -114,18 +117,22 @@ partial model partialPVRooftopBuildingValidation
     annotation (Placement(transformation(extent={{62,-60},{78,-44}})));
 
   Modelica.Blocks.Interfaces.RealOutput TModMea(final unit="degC") "Measure module temperature"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput SolHouAng(final unit="rad") "Solar hour angle"
-    annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
+    annotation (Placement(transformation(extent={{100,-72},{120,-52}})));
   Modelica.Blocks.Interfaces.RealOutput SolDec(final unit="rad")
     "Solar decimal angle"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Interfaces.RealOutput CloTim(final unit="s") "Clock time"
-    annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
+    annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput PDCMeacorrected(final unit="W")
+    "Measured DC power"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Modelica.Blocks.Math.Gain gain(k=1.1/1.2)
+    annotation (Placement(transformation(extent={{80,-34},{90,-24}})));
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
   //the validation data does not contain this information so far
-
 
   HGloHor=MeaDatHGloHor.y[1];
   solDec=SolDec;
@@ -133,7 +140,8 @@ equation
   cloTim=CloTim;
 
   k_t = if HGloHor <= 0.01 then 0 else min(1, max(0, (HGloHor/(G_sc*
-  (1+0.033*cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*(cos(lat)*cos(SolDec)*cos(SolHouAng)+sin(lat)*sin(SolDec)))))));
+        (1+0.033*cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
+        (cos(lat)*cos(SolDec)*cos(SolHouAng)+sin(lat)*sin(SolDec)))))));
 
   // Erb´s diffuse fraction relation
   HGloHorDif = if HGloHor <=0.01 then
@@ -146,7 +154,7 @@ equation
                  (HGloHor)*(0.9511-0.1604*k_t+4.388*k_t^2-16.638*k_t^3+12.336*k_t^4);
 
   connect(MeaDatPVPDC.y[1], PDCMea)
-    annotation (Line(points={{78.8,-12},{96,-12},{96,-10},{110,-10}},
+    annotation (Line(points={{78.8,-12},{96,-12},{96,0},{110,0}},
                                                     color={0,0,127}));
   connect(weaDat.weaBus, HGloTil.weaBus) annotation (Line(
       points={{-20,10},{-6,10},{-6,50},{20,50}},
@@ -172,24 +180,28 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(MeaDatTMod.y[1], TModMea)
-    annotation (Line(points={{78.8,-52},{96,-52},{96,-50},{110,-50}},
+    annotation (Line(points={{78.8,-52},{96,-52},{96,-40},{110,-40}},
                                                     color={0,0,127}));
   connect(MeaDatWinAngSpe.y[2], weaDat.winSpe_in) annotation (Line(points={{-79,10},
           {-46,10},{-46,6.1},{-41,6.1}},                color={0,0,127}));
   connect(souGloHorDif.y, weaDat.HDifHor_in) annotation (Line(points={{-79,-24},
           {-60,-24},{-60,0.5},{-41,0.5}}, color={0,0,127}));
   connect(weaBus.solHouAng, SolHouAng) annotation (Line(
-      points={{-6,-10},{-6,-70},{110,-70}},
+      points={{-6,-10},{-6,-62},{110,-62}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.solDec, SolDec) annotation (Line(
-      points={{-6,-10},{-6,-90},{110,-90}},
+      points={{-6,-10},{-6,-80},{110,-80}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.cloTim, CloTim) annotation (Line(
-      points={{-6,-10},{-6,-110},{110,-110}},
+      points={{-6,-10},{-6,-100},{110,-100}},
       color={255,204,51},
       thickness=0.5));
+  connect(PDCMea, gain.u) annotation (Line(points={{110,0},{96,0},{96,-38},{72,
+          -38},{72,-29},{79,-29}}, color={0,0,127}));
+  connect(gain.y, PDCMeacorrected) annotation (Line(points={{90.5,-29},{94,-29},
+          {94,-20},{110,-20}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
@@ -209,6 +221,8 @@ equation
 <p>The dates 28.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model. </p>
 <p>The validation model proves that single diode PV models tend to overestimate the power output.</p>
 <p>This is due to the neglection of staining, shading, other loss effects.</p>
+<p>The irradiation measurements need to be shifted 150 s backwards since the sensor integrates the solar power over a time interval.</p>
+<p>This results in a lag between measured power and measured solar irradiation.</p>
 </html>",revisions="<html>
 <ul>
 <li>
