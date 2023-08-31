@@ -45,10 +45,10 @@ partial model partialPVRooftopBuildingValidation
     tableOnFile=true,
     tableName="MeaDatHGloHor",
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Solar_irradiation_PV.txt"),
+        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Solar_irradiation_300.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    shiftTime=nDay - 450)
+    shiftTime=nDay - 150)
     "This file contains the global horizontal irradiation. The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de."
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

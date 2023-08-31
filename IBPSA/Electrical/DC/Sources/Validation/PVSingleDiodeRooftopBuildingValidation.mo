@@ -1,11 +1,9 @@
 within IBPSA.Electrical.DC.Sources.Validation;
 model PVSingleDiodeRooftopBuildingValidation
-  "Validation with empirical data from a rooftop PV system with CIGS modules at UdK, Berlin"
+  "Validation of the single-diode model with empirical data from a rooftop PV system with CIGS modules at UdK, Berlin"
   extends
     IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation(
-    HGloTil(H(start=100)),
-    MeaDatWinAngSpe(fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Wind_angle_speed_PV.txt"),
-        extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints));
+    HGloTil(H(start=100)));
   extends Modelica.Icons.Example;
 
   IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystemSingleDiode(
@@ -13,7 +11,7 @@ model PVSingleDiodeRooftopBuildingValidation
     use_Til_in=false,
     til(displayUnit="rad") = til,
     n_mod=3,
-    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS120 data,
+    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS110 data,
     groRef=rho,
     alt=0.08,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
@@ -25,7 +23,7 @@ model PVSingleDiodeRooftopBuildingValidation
     use_Til_in=false,
     til(displayUnit="rad") = til,
     n_mod=3,
-    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS115 data,
+    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS110 data,
     groRef=rho,
     alt=0.08,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
