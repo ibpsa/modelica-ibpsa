@@ -8,10 +8,10 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}}),
         iconTransformation(extent={{-36,-10},{-16,10}})));
 equation
-  connect(port_a, vol[1].ports[1]) annotation (Line(points={{-100,0},{-88,0},{
-          -88,-20},{16,-20},{16,-16}}, color={0,127,255}));
+  connect(port_a, vol[1].ports[1]) annotation (Line(points={{0,0},{-88,0},{-88,
+          -20},{16,-20},{16,-16}},     color={0,127,255}));
   connect(vol[nSeg].ports[2], port_b) annotation (Line(points={{16,-16},{20,-16},
-          {20,-20},{90,-20},{90,0},{100,0}}, color={0,127,255}));
+          {20,-20},{90,-20},{90,0},{0,0}},   color={0,127,255}));
   for i in 1:(nSeg-1) loop
     connect(vol[i].ports[2], vol[i + 1].ports[1]) annotation (Line(points={{16,-16},
             {16,-32},{14,-32},{14,-16},{16,-16}}, color={0,127,255}));
@@ -153,54 +153,6 @@ Icon(graphics={
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-40,-20},{40,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-76,2},{-90,-2}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,84},{-80,80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-76,84},{-80,-2}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{82,0},{78,-86}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,84},{-4,60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{82,-84},{2,-88}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{6,-60},{2,-84}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{92,2},{78,-2}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
