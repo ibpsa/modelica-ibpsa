@@ -22,7 +22,10 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -220},{200,200}})),
+    experiment(StopTime=1e+06),
+    Documentation(revisions="<html>
 <ul>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>

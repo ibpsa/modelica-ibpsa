@@ -33,4 +33,15 @@ equation
           110,160},{110,140}},       color={191,0,0}));
   connect(not1.y, booleanToReal.u)
     annotation (Line(points={{-19,-100},{-2,-100}}, color={255,0,255}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -220},{200,200}})),
+    experiment(StopTime=1e+06),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 4, 2023, by Jelger Jansen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SimpleHouse5;

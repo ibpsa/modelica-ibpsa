@@ -58,7 +58,10 @@ equation
   end if;
   connect(bouWat.ports[1], pump.port_b)
     annotation (Line(points={{20,-170},{90,-170}}, color={0,127,255}));
-  annotation (Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -220},{200,200}})),
+    experiment(StopTime=1e+06),
+    Documentation(revisions="<html>
 <ul>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>

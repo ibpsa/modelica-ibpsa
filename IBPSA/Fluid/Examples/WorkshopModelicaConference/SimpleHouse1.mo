@@ -11,7 +11,10 @@ model SimpleHouse1 "Building wall model"
 equation
   connect(wallRes.port_b, walCap.port) annotation (Line(points={{100,0},{130,0},
           {130,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
-  annotation (Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -220},{200,200}})),
+    experiment(StopTime=1e+06),
+    Documentation(revisions="<html>
 <ul>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>

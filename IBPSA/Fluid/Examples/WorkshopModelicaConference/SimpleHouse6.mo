@@ -75,7 +75,10 @@ equation
           {-119,129},{-119,129.6},{-110,129.6}}, color={0,127,255}));
   connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-120,131},
           {-120,110.4},{-110,110.4}}, color={0,127,255}));
-  annotation (Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -220},{200,200}})),
+    experiment(StopTime=1e+06),
+    Documentation(revisions="<html>
 <ul>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>

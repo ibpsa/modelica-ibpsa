@@ -27,7 +27,10 @@ equation
                                                             color={191,0,0}));
   connect(zone.heatPort, convRes.port_a)
     annotation (Line(points={{110,140},{130,140},{130,30}}, color={191,0,0}));
-  annotation (Documentation(revisions="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -220},{200,200}})),
+    experiment(StopTime=1e+06),
+    Documentation(revisions="<html>
 <ul>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>
