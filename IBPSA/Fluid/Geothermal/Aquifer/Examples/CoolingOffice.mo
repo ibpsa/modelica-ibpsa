@@ -29,7 +29,6 @@ model CoolingOffice
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=mWat_flow_nominal,
     dpAquifer_nominal=10,
-    dpWell_nominal=10,
     dpExt_nominal=100) "Acquifer well"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Sources.Boundary_pT bou(
