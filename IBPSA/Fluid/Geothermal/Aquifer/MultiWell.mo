@@ -91,7 +91,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.HydraulicDiameter resCoo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
+    dh=2*rWB,
     final length=length,
+    v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
     fac = 1,
     roughness = 5.0E-6)
     "Pressure drop in the cold well" annotation (
@@ -112,7 +114,9 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.HydraulicDiameter resHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
+    dh=2*rWB,
     final length=length,
+    v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
     fac = 1,
     roughness = 5.0E-6)
     "Pressure drop in the warm well" annotation (
