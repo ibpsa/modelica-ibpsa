@@ -55,8 +55,8 @@ model SimpleHouse6 "Free cooling model"
 equation
   connect(const_dp.y,fan. dp_in) annotation (Line(points={{-69,80},{-50,80},{
           -50,98}},                                  color={0,0,127}));
-  connect(hexRec.port_a1, zone.ports[1]) annotation (Line(points={{-80,129.6},{59,
-          129.6},{59,130},{100,130}},     color={0,127,255}));
+  connect(hexRec.port_a1, zone.ports[1]) annotation (Line(points={{-80,129.6},{97,
+          129.6},{97,130},{100,130}},     color={0,127,255}));
   connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-142,134},{
           -150,134},{-150,-10}},color={0,0,127}));
   connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-80,110.4},{-69,
