@@ -95,7 +95,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     final length=length,
     v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
     fac = 1,
-    roughness = 5.0E-6)
+    roughness = 5.0E-6,
+    dp(nominal=1E3))
     "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -118,7 +119,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     final length=length,
     v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
     fac = 1,
-    roughness = 5.0E-6)
+    roughness = 5.0E-6,
+    dp(nominal=1E3))
     "Pressure drop in the warm well" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
