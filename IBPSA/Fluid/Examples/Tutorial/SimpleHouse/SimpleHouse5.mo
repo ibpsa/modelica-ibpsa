@@ -48,5 +48,8 @@ First implementation.
 This part of the model adds a hysteresis controller for the heating circuit
 that uses the room temperature as an input.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouse5.mos"
+        "Simulate and plot"));
 end SimpleHouse5;

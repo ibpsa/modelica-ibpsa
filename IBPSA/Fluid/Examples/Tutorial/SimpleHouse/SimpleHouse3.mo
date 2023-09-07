@@ -3,7 +3,7 @@ model SimpleHouse3 "Air model"
   extends SimpleHouse2;
 
   parameter Modelica.Units.SI.Volume V_zone=8*8*3 "Zone volume";
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=0.1
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=1
     "Nominal mass flow rate for air loop";
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer h_wall=2
     "Convective heat transfer coefficient at the wall";
@@ -17,8 +17,7 @@ model SimpleHouse3 "Air model"
     redeclare package Medium = MediumAir,
     V=V_zone,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=mAir_flow_nominal,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    m_flow_nominal=mAir_flow_nominal)
     "Very simple zone air model"
     annotation (Placement(transformation(extent={{110,130},{90,150}})));
 equation
@@ -41,5 +40,8 @@ First implementation.
 <p>
 This part of the model adds an air model which represents the room in the building.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouse3.mos"
+        "Simulate and plot"));
 end SimpleHouse3;

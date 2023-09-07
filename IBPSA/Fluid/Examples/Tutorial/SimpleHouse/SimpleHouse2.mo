@@ -38,5 +38,8 @@ This part of the system model adds a window to the building wall.
 It is assumed that the total injected heat through the window equals
 the window surface area multiplied by the direct horizontal solar irradiance.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouse2.mos"
+        "Simulate and plot"));
 end SimpleHouse2;

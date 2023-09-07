@@ -74,5 +74,8 @@ This part of the model adds heating circuit consisting of a boiler, a radiator,
 and an on/off circulation pump with a constant mass flow rate.
 No controller is implemented yet, i.e. the pump and heater are always on.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouse4.mos"
+        "Simulate and plot"));
 end SimpleHouse4;

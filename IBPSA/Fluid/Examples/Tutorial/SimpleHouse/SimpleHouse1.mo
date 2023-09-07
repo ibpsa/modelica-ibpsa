@@ -3,7 +3,7 @@ model SimpleHouse1 "Building wall model"
   extends SimpleHouseTemplate;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
-    C=A_wall*d_wall*cp_wall*rho_wall)
+    C=A_wall*d_wall*cp_wall*rho_wall, T(fixed=true))
     "Thermal mass of walls"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -28,5 +28,8 @@ thermal capacity to the thermal resistance that was already modeled in
 <a href=\"modelica://IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">
 IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate</a>.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouse1.mos"
+        "Simulate and plot"));
 end SimpleHouse1;

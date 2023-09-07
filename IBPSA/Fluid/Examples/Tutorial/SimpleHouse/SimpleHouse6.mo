@@ -18,12 +18,13 @@ model SimpleHouse6 "Free cooling model"
   IBPSA.Fluid.Movers.FlowControlled_dp
                            fan(
     redeclare package Medium = MediumAir,
+    show_T=true,
     dp_nominal=dpAir_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true,
-    m_flow_nominal=mAir_flow_nominal,
-    show_T=true) "Constant head fan" annotation (Placement(transformation(
+    m_flow_nominal=mAir_flow_nominal)
+                 "Constant head fan" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={-50,110})));
   Modelica.Blocks.Sources.Constant const_dp(k=dpAir_nominal) "Pressure head"
@@ -91,5 +92,8 @@ This part of the model adds a ventilation system consisting of a fan, a damper,
 a heat recovery unit, and a hysteresis controller,
 that allows to perform free cooling using outside air.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouse6.mos"
+        "Simulate and plot"));
 end SimpleHouse6;
