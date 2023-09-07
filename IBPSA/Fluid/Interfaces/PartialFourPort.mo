@@ -22,23 +22,6 @@ partial model PartialFourPort "Partial model with four ports"
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  constant Integer port_a1_x = -100
-    "x-coordinate of port_a1 center";
-  constant Integer port_a1_y = 60
-    "y-coordinate of port_a1 center";
-  constant Integer port_b1_x = 100
-    "x-coordinate of port_b1 center";
-  constant Integer port_b1_y = 60
-    "y-coordinate of port_b1 center";
-  constant Integer port_a2_x = 100
-    "x-coordinate of port_a2 center";
-  constant Integer port_a2_y = -60
-    "y-coordinate of port_a2 center";
-  constant Integer port_b2_x = -100
-    "x-coordinate of port_b2 center";
-  constant Integer port_b2_y = -60
-    "y-coordinate of port_b2 center";
-
   parameter Boolean allowFlowReversal1 = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -71,6 +54,24 @@ partial model PartialFourPort "Partial model with four ports"
                      h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{port_b2_x-10,port_b2_y-10},{port_b2_x+10,port_b2_y+10}})));
+
+protected
+  constant Integer port_a1_x = -100
+    "x-coordinate of port_a1 center";
+  constant Integer port_a1_y = 60
+    "y-coordinate of port_a1 center";
+  constant Integer port_b1_x = 100
+    "x-coordinate of port_b1 center";
+  constant Integer port_b1_y = 60
+    "y-coordinate of port_b1 center";
+  constant Integer port_a2_x = 100
+    "x-coordinate of port_a2 center";
+  constant Integer port_a2_y = -60
+    "y-coordinate of port_a2 center";
+  constant Integer port_b2_x = -100
+    "x-coordinate of port_b2 center";
+  constant Integer port_b2_y = -60
+    "y-coordinate of port_b2 center";
 
   annotation (
     preferredView="info",

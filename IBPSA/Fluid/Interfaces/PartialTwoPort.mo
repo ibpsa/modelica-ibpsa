@@ -11,15 +11,6 @@ partial model PartialTwoPort "Partial component with two ports"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
-  constant Integer port_a_x = -100
-    "x-coordinate of port_a center";
-  constant Integer port_a_y = 0
-    "y-coordinate of port_a center";
-  constant Integer port_b_x = 100
-    "x-coordinate of port_b center";
-  constant Integer port_b_y = 0
-    "y-coordinate of port_b center";
-
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -36,6 +27,16 @@ partial model PartialTwoPort "Partial component with two ports"
      h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{port_b_x-10,port_b_y-10},{port_b_x+10,port_b_y+10}})));
+
+protected
+  constant Integer port_a_x = -100
+    "x-coordinate of port_a center";
+  constant Integer port_a_y = 0
+    "y-coordinate of port_a center";
+  constant Integer port_b_x = 100
+    "x-coordinate of port_b center";
+  constant Integer port_b_y = 0
+    "y-coordinate of port_b center";
 
   annotation (
     Documentation(info="<html>

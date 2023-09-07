@@ -12,15 +12,6 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  constant Integer port_a_x = -100
-    "x-coordinate of port_a center";
-  constant Integer port_a_y = 0
-    "y-coordinate of port_a center";
-  constant Integer port_b_x = 100
-    "x-coordinate of port_b center";
-  constant Integer port_b_y = 0
-    "y-coordinate of port_b center";
-
   parameter Integer nPorts "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean allowFlowReversal=true
@@ -59,6 +50,17 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
                           noEvent(actualStream(ports_b.h_outflow)),
                           noEvent(actualStream(ports_b.Xi_outflow)))
       if show_T "Medium properties in ports_b";
+
+protected
+  constant Integer port_a_x = -100
+    "x-coordinate of port_a center";
+  constant Integer port_a_y = 0
+    "y-coordinate of port_a center";
+  constant Integer port_b_x = 100
+    "x-coordinate of port_b center";
+  constant Integer port_b_y = 0
+    "y-coordinate of port_b center";
+
   annotation (
     Documentation(info="<html>
 <p>
