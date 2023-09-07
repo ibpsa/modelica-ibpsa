@@ -5,6 +5,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Integer nVol(min=1)=10 "Number of control volumes used in discretization" annotation (
       Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
+  parameter Modelica.Units.SI.Height length=100+h/2
+    "Length of one well, used to compute pressure drop";
   parameter Real nCoo=1 "Number of cold wells";
   parameter Real nHot=1 "Number of warm wells";
   parameter Modelica.Units.SI.Radius rWB=0.1 "Wellbore radius" annotation (
@@ -32,7 +34,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit= "Pa")
      "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")=mu
+  final parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")=resHot.dp_nominal+resCoo.dp_nominal
     "Pressure drop at nominal mass flow rate in the well" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
@@ -86,10 +88,14 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-10})));
 
-  FixedResistances.PressureDrop resCoo(
+  FixedResistances.HydraulicDiameter resCoo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpWell_nominal/2)
+    dh=2*rWB,
+    final length=length,
+    v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
+    fac = 1,
+    roughness = 5.0E-6)
     "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -105,10 +111,14 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={80,-10})));
-  FixedResistances.PressureDrop resHot(
+  FixedResistances.HydraulicDiameter resHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpWell_nominal/2)
+    dh=2*rWB,
+    final length=length,
+    v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
+    fac = 1,
+    roughness = 5.0E-6)
     "Pressure drop in the warm well" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
