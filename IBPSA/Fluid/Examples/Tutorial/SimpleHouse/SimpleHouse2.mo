@@ -24,7 +24,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
-    experiment(StopTime=1e+06),
+    experiment(Tolerance=1e-4, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -60,7 +60,7 @@ equation
     annotation (Line(points={{20,-170},{90,-170}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
-    experiment(StopTime=1e+06),
+    experiment(Tolerance=1e-4, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
 <li>
