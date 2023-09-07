@@ -21,5 +21,12 @@ September 4, 2023, by Jelger Jansen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This part of the system model implements the building wall by adding a 
+thermal capacity to the thermal resistance that was already modeled in
+<a href=\"modelica://IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">
+IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate</a>.
+</p>
 </html>"));
 end SimpleHouse1;

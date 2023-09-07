@@ -95,6 +95,10 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>This model is used as the starting point of an exercise for the IBPSA Modelica Working Group workshop for the Modelica Conference and was copied from the Modelica crash course organised by KU Leuven (<a href=\"https://github.com/open-ideas/__CrashCourse__\">https://github.com/open-ideas/__CrashCourse__</a>). </p>
+<p>
+This model is used as the starting point for the <code>SimpleHouse</code> tutorial.
+It was copied from the Modelica crash course organised by KU Leuven
+(<a href=\"https://github.com/open-ideas/__CrashCourse__\">https://github.com/open-ideas/__CrashCourse__</a>).
+</p>
 </html>"));
 end SimpleHouseTemplate;

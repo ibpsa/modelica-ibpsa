@@ -37,5 +37,9 @@ September 4, 2023, by Jelger Jansen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This part of the model adds an air model which represents the room in the building.
+</p>
 </html>"));
 end SimpleHouse3;

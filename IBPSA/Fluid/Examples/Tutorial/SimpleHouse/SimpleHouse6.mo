@@ -85,5 +85,11 @@ September 4, 2023, by Jelger Jansen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This part of the model adds a ventilation system consisting of a fan, a damper,
+a heat recovery unit, and a hysteresis controller,
+that allows to perform free cooling using outside air.
+</p>
 </html>"));
 end SimpleHouse6;

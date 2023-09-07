@@ -43,5 +43,10 @@ September 4, 2023, by Jelger Jansen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This part of the model adds a hysteresis controller for the heating circuit
+that uses the room temperature as an input.
+</p>
 </html>"));
 end SimpleHouse5;

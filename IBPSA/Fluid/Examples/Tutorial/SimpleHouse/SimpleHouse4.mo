@@ -68,5 +68,11 @@ September 4, 2023, by Jelger Jansen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This part of the model adds heating circuit consisting of a boiler, a radiator,
+and an on/off circulation pump with a constant mass flow rate.
+No controller is implemented yet, i.e. the pump and heater are always on.
+</p>
 </html>"));
 end SimpleHouse4;

@@ -32,5 +32,11 @@ September 4, 2023, by Jelger Jansen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This part of the system model adds a window to the building wall.
+It is assumed that the total injected heat through the window equals
+the window surface area multiplied by the direct horizontal solar irradiance.
+</p>
 </html>"));
 end SimpleHouse2;
