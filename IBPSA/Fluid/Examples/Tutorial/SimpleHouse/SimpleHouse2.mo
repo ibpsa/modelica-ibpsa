@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.WorkshopModelicaConference;
+within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse2 "Building window model"
   extends SimpleHouse1;
 

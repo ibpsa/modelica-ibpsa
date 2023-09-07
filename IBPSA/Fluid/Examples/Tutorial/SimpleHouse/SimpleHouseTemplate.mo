@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.WorkshopModelicaConference;
+within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouseTemplate
   "Template file for simple house example"
   extends Modelica.Icons.Example;

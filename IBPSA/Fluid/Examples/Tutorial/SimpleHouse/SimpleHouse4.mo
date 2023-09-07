@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.WorkshopModelicaConference;
+within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.WorkshopModelicaConference;
+within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse6 "Free cooling model"
   extends SimpleHouse5(zone(nPorts=2),
     mAir_flow_nominal=0.1,

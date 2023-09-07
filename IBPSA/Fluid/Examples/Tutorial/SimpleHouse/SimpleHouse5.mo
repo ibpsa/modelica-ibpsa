@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.WorkshopModelicaConference;
+within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse5 "Heating controller model"
   extends SimpleHouse4(pump(inputType=IBPSA.Fluid.Types.InputType.Stages,
         massFlowRates=mWat_flow_nominal*{1}),
