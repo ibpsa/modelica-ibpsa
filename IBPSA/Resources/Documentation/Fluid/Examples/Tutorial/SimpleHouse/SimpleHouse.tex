@@ -43,7 +43,7 @@ The goal of this exercise is to become familiar with Modelica and the IBPSA libr
 
 For this exercise you will create a model of a simple house, consisting of a heating system, one building zone, and a ventilation model. The exercise starts from a template file that should not produce any errors. This file will be extended in several steps, adding complexity. In between each step the user should be able to simulate the model, i.e. no errors should be produced and simulation results may be compared.\\
 
-Prerequisites are that you should have the latest version of OpenModelica installed, which can be downloaded from \href{https://openmodelica.org/}{this link}. The latest version from the \href{https://github.com/ibpsa/modelica-ibpsa}{IBPSA library} should be downloaded and opened in Dymola. To verify your installation, try to simulate \path{IBPSA.Fluid.Actuators.Dampers.Examples.Damper} by clicking \textit{Simulate} (\includegraphics[scale=0.35]{simulate.png}) in the bar at the top. Finally, create your own package (in which you can save your own models) and create a duplicate of \path{IBPSA.Fluid.Examples.WorkshopModelicaConference.SimpleHouseTemplate.mo} in your own package.\\
+Prerequisites are that you should have the latest version of OpenModelica installed, which can be downloaded from \href{https://openmodelica.org/}{this link}. The latest version from the \href{https://github.com/ibpsa/modelica-ibpsa}{IBPSA library} should be downloaded and opened in Dymola. To verify your installation, try to simulate \path{IBPSA.Fluid.Actuators.Dampers.Examples.Damper} by clicking \textit{Simulate} (\includegraphics[scale=0.35]{img/simulate.png}) in the bar at the top. Finally, create your own package (in which you can save your own models) and create a duplicate of \path{IBPSA.Fluid.Examples.WorkshopModelicaConference.SimpleHouseTemplate.mo} in your own package.\\
 
 In the following sections the simple house model is discussed in several steps. The graphical representation of the final model is given in Figure~\ref{fig:simpleHouse}. Each step first qualitatively explains the model part. Secondly, the names of the required Modelica models (from the Modelica Standard Library and/or IBPSA library) are listed. Thirdly, we provide high-level instructions of how to set up the model. If these instructions are not clear immediately, have a look at the model documentation and at the type of connectors the model has, try out some things, make an educated guess, etc. Finally, we provide reference results that allow you to check if your implementation is correct. Depending on the parameter values that you choose, results may differ.\\
 
@@ -51,7 +51,7 @@ Save your models regularly such that you don't lose all your progress if OpenMod
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\columnwidth]{simpleHouse.png}
+\includegraphics[width=0.8\columnwidth]{img/simpleHouse.png}
 \caption{Graphical representation of the final simple house model.}
 \label{fig:simpleHouse}
 \end{figure}
@@ -74,7 +74,7 @@ If you correctly added the model of the heat capacitor, connected it to the resi
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\columnwidth]{result1.png}
+\includegraphics[width=0.6\columnwidth]{img/result1.png}
 \caption{Wall temperature as function of time.}
 \label{fig:res1}
 \end{figure}
@@ -99,7 +99,7 @@ To be able to use the value of the outdoor solar irradiance you will need to acc
 The result with and without the window model is plotted in Figure~\ref{fig:res2}.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\columnwidth]{result2.png}
+\includegraphics[width=0.6\columnwidth]{img/result2.png}
 \caption{Wall temperature as function of time, with (blue) and without (red) window.}
 \label{fig:res2}
 \end{figure}
@@ -121,7 +121,7 @@ To increase the model detail we now add an air model assuming the zone is 8~$m$ 
 The \path{MixingVolume} \textit{Medium} parameter contains information about the type of fluid and its properties that should be modelled by the \path{MixingVolume}. Set its value to \textit{MediumAir}, which is declared in the template, by typing \textit{redeclare package Medium = MediumAir}. For the nominal mass flow rate you may assume a value of 1~$kg/m^3$ for now. You will have to change this value once you add a ventilation system to the model (part \ref{sec:ventilation}). Finally, set the \textit{energyDynamics} of the \path{MixingVolume}, which can be found in the \textit{Dynamics} tab of the model parameter window, to \textit{FixedInitial}. Your model should now look like Figure~\ref{fig:airModel}.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.45\columnwidth]{airModel.png}
+\includegraphics[width=0.45\columnwidth]{img/airModel.png}
 \caption{Simple house model with a wall, a window, and an air model.}
 \label{fig:airModel}
 \end{figure} 
@@ -130,7 +130,7 @@ The \path{MixingVolume} \textit{Medium} parameter contains information about the
 The result with and without the air model is plotted in Figure~\ref{fig:res3}.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\columnwidth]{result3.png}
+\includegraphics[width=0.6\columnwidth]{img/result3.png}
 \caption{Wall temperature as function of time, with (green) and without (blue) air model.}
 \label{fig:res3}
 \end{figure}
@@ -158,7 +158,7 @@ The radiator contains one port for convective heat transfer and one for radiativ
 The result of the air temperature is plotted in Figure~\ref{fig:res4}. The temperature rises very steeply since the wall is relatively well insulated ($k$ = 0.04~$W/(m\cdot K)$) and the heater is not disabled when it becomes too warm.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\columnwidth]{result4.png}
+\includegraphics[width=0.6\columnwidth]{img/result4.png}
 \caption{Air temperature as function of time.}
 \label{fig:res4}
 \end{figure}
@@ -181,7 +181,7 @@ Since the zone becomes too warm, a controller is required that disables the heat
 The heater modulation level should be set to one when the heater is on and to zero otherwise. Your model should now look like Figure~\ref{fig:heatingControllerModel}.
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.4]{heatingControllerModel.png}
+\includegraphics[scale=0.4]{img/heatingControllerModel.png}
 \caption{Simple house model with heating controller model.}
 \label{fig:heatingControllerModel}
 \end{figure} 
@@ -190,7 +190,7 @@ The heater modulation level should be set to one when the heater is on and to ze
 Figure~\ref{fig:res5} shows the air temperature when the controller is added.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\columnwidth]{result5.png}
+\includegraphics[width=0.6\columnwidth]{img/result5.png}
 \caption{Air temperature as function of time with hysteresis controller.}
 \label{fig:res5}
 \end{figure}
@@ -216,13 +216,13 @@ Connect the components such that they exchange mass (and therefore also energy) 
 Figure~\ref{fig:res6} shows the result.
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\columnwidth]{result6.png}
+\includegraphics[width=0.6\columnwidth]{img/result6.png}
 \caption{Air temperature as function of time.}
 \label{fig:res6}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\columnwidth]{result7.png}
+	\includegraphics[width=0.6\columnwidth]{img/result7.png}
 	\caption{Ventilation control signal as function of time.}
 	\label{fig:res7}
 \end{figure}
