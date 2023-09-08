@@ -41,13 +41,13 @@
 \section*{Introduction}
 The goal of this exercise is to become familiar with Modelica and the IBPSA library. Since the IBPSA library components are typically used by combining several components graphically, the use of equations falls outside of the scope of this exercise.\\
 
-For this exercise you will create a model of a simple house, consisting of a heating system, one building zone, and a ventilation model. The exercise starts from a template file that should not produce any errors. This file will be extended in several steps, adding complexity. In between each step the user should be able to simulate the model, i.e. no errors should be produced and simulation results may be compared.\\
+For this exercise you will create a model of a simple house, consisting of a heating system, one building zone, and a ventilation model. The exercise starts from a template file that should not produce any errors. This file will be extended in several steps, adding complexity. In between each step the user should be able to simulate the model, i.e., no errors should be produced and simulation results may be compared.\\
 
-Prerequisites are that you should have the latest version of OpenModelica installed, which can be downloaded from \href{https://openmodelica.org/}{this link}. The latest version from the \href{https://github.com/ibpsa/modelica-ibpsa}{IBPSA library} should be downloaded and opened in Dymola. To verify your installation, try to simulate \path{IBPSA.Fluid.Actuators.Dampers.Examples.Damper} by clicking \textit{Simulate} (\includegraphics[scale=0.35]{img/simulate.png}) in the bar at the top. Finally, create your own package (in which you can save your own models) and create a duplicate of \path{IBPSA.Fluid.Examples.WorkshopModelicaConference.SimpleHouseTemplate.mo} in your own package.\\
+Prerequisites are that you should have the latest version of OpenModelica installed, which can be downloaded from \href{https://openmodelica.org/}{this link}. The latest version from the \href{https://github.com/ibpsa/modelica-ibpsa}{IBPSA library} should be downloaded and opened in OMEdit. To verify your installation, try to simulate \path{IBPSA.Fluid.Actuators.Dampers.Examples.Damper} by clicking \textit{Simulate} (\includegraphics[scale=0.35]{img/simulate.png}) in the bar at the top. Finally, create your own package (in which you can save your own models) and create a duplicate of \path{IBPSA.Fluid.Examples.WorkshopModelicaConference.SimpleHouseTemplate} in your own package.\\
 
-In the following sections the simple house model is discussed in several steps. The graphical representation of the final model is given in Figure~\ref{fig:simpleHouse}. Each step first qualitatively explains the model part. Secondly, the names of the required Modelica models (from the Modelica Standard Library and/or IBPSA library) are listed. Thirdly, we provide high-level instructions of how to set up the model. If these instructions are not clear immediately, have a look at the model documentation and at the type of connectors the model has, try out some things, make an educated guess, etc. Finally, we provide reference results that allow you to check if your implementation is correct. Depending on the parameter values that you choose, results may differ.\\
+In the following sections, the simple house model is discussed in several steps. The graphical representation of the final model is given in Figure~\ref{fig:simpleHouse}. First, each step qualitatively explains the model part. Next, the names of the required Modelica models (from the Modelica Standard Library and/or IBPSA library) are listed. Finally, we provide high-level instructions of how to set up the model. If these instructions are not clear immediately, have a look at the model documentation and at the type of connectors the model has, try out some things, make an educated guess, etc. Finally, we provide reference results that allow you to check if your implementation is correct. Depending on the parameter values that you choose, results may differ.\\
 
-Save your models regularly such that you don't lose all your progress if OpenModelica would crash.
+Save your models regularly to avoid losing your progress if the program were to crash.
 
 \begin{figure}
 \centering
@@ -64,18 +64,18 @@ A very simple building envelope model will be constructed manually using thermal
 The heat capacity value of a wall may be computed as $C=A\cdot d \cdot c_p \cdot \rho$.
 
 \paragraph{Required models}
-In this first step only the Modelica Standard Library (MSL) model \path{Modelica.Thermal.HeatTransfer.Components.HeatCapacitor} is required.
+In this first step, only the Modelica Standard Library (MSL) model \path{Modelica.Thermal.HeatTransfer.Components.HeatCapacitor} is required.
 
 \paragraph{Connection instructions}
 Connect the heat capacitor to the thermal resistor.
 
 \paragraph{Reference result}
-If you correctly added the model of the heat capacitor, connected it to the resistor and added the parameter values for $C$\footnote{Double-click on a component to see a list of its parameters. Gray values indicated default values.}, then you should be able to simulate the model. To do this, press the \textit{Simulation Setup} and set the model \textit{Stop time} to 1e6 seconds. You can now simulate the model by pressing the \textit{Simulate} button. You can plot individual variables values by clicking on their name in the variable browser on the left. Now plot the wall capacitor temperature value $T$. It should look like Figure~\ref{fig:res1}.
+If you correctly added the model of the heat capacitor, connected it to the resistor and added the parameter values for $C$\footnote{Double-click on a component to see a list of its parameters. Gray values indicate default values.}, then you should be able to simulate the model. To do this, press the \textit{Simulation Setup} and set the model \textit{Stop time} to 1e6 seconds. You can now simulate the model by pressing the \textit{Simulate} button. You can plot individual variables values by clicking on their name in the variable browser on the left. Now plot the wall capacitor temperature value $T$. It should look like Figure~\ref{fig:res1}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.6\columnwidth]{img/result1.png}
-\caption{Wall temperature as function of time.}
+\caption{Wall temperature as function of time. (1 Ms is around 12 days.}
 \label{fig:res1}
 \end{figure}
 
@@ -109,7 +109,7 @@ The result with and without the window model is plotted in Figure~\ref{fig:res2}
 \newpage
 \section{Air model}
 \paragraph{Qualitative discussion}
-To increase the model detail we now add an air model assuming the zone is 8~$m$ x 8~$m$ x 3~$m$ in size. The air will exchange heat with the wall. This may be modelled using a thermal resistance representing the convective heat resistance which is equal to $R_{conv}=\frac{1}{hA}$. $A$ represents the heat exchange surface area and $h$ represents the convective heat transfer coefficient and is equal to $h$ = 2~${W/(m^2\cdot K)}$.
+To increase the model detail we now add an air model assuming the zone is 8~$m$ x 8~$m$ x 3~$m$ in size. The air will exchange heat with the wall. This may be modelled using a thermal resistance representing the convective heat resistance which is equal to $R_{conv}={1}/{(hA)}$, where $A$ is the heat exchange surface area and $h = 2~W/(m^2\cdot K)$ is the convective heat transfer coefficient.
 
 \paragraph{Required models}
 \begin{itemize}
@@ -140,7 +140,7 @@ The result with and without the air model is plotted in Figure~\ref{fig:res3}.
 \newpage
 \section{Heating model}
 \paragraph{Qualitative discussion}
-The wall temperature (and therefore the room temperature) is quite low. In this step a heating system is added to resolve this. It consists of a radiator, a pump and a heater. The radiator has a nominal power of 3~$kW$ for an inlet and outlet temperature of the radiator of 60$^{\circ}C$ and 40$^{\circ}C$, respectively. The pump has a (nominal) mass flow rate of 0.1~$kg/s$. Since the heating system uses water as a heat carrier fluid, the media for the models in the heating circuit should be set to \textit{MediumWater}.
+The wall temperature (and therefore the room temperature) is quite low. In this step a heating system is added to resolve this. It consists of a radiator, a pump and a heater. The radiator has a nominal power of 3~$kW$ for an inlet and outlet temperature of the radiator of 60$^{\circ}C$ and 40$^{\circ}C$, and a room air and radiative temperature of 20$^{\circ}C$. The pump has a (nominal) mass flow rate of 0.1~$kg/s$. Since the heating system uses water as a heat carrier fluid, the media for the models in the heating circuit should be set to \textit{MediumWater}.
 
 \paragraph{Required models}
 \begin{itemize}
@@ -152,7 +152,7 @@ The wall temperature (and therefore the room temperature) is quite low. In this 
 \end{itemize}
 
 \paragraph{Connection instructions}
-The radiator contains one port for convective heat transfer and one for radiative heat transfer. Connect both in a reasonable way. Since the heating system uses water as a heat carrier fluid, the media for the models should be set to \textit{MediumWater}. The \path{Boundary_pT} model needs to be used to set an absolute pressure somewhere in the system. Otherwise the absolute pressure in the system is undefined. Pressure difference modelling may be disregarded in the heating circuit since the chosen pump sets a fixed mass flow rate regardless of the pressure drop. Set the heater input to 1, meaning that it will produce 1 time its nominal power.
+The radiator contains one port for convective heat transfer and one for radiative heat transfer. Connect both in a reasonable way. Since the heating system uses water as a heat carrier fluid, the media for the models should be set to \textit{MediumWater}. The \path{Boundary_pT} model needs to be used to set an absolute pressure somewhere in the system. Otherwise the absolute pressure in the system is undefined. Pressure difference modelling may be disregarded in the heating circuit since the chosen pump sets a fixed mass flow rate regardless of the pressure drop. Set the heater input to 1, meaning that it will produce 1 times its nominal power.
 
 \paragraph{Reference result}
 The result of the air temperature is plotted in Figure~\ref{fig:res4}. The temperature rises very steeply since the wall is relatively well insulated ($k$ = 0.04~$W/(m\cdot K)$) and the heater is not disabled when it becomes too warm.
@@ -198,7 +198,7 @@ Figure~\ref{fig:res5} shows the air temperature when the controller is added.
 
 \section{Ventilation model} \label{sec:ventilation}
 \paragraph{Qualitative discussion}
-For this last exercise, we first increase the \textbf{window size} from 2~$m^2$ to \textbf{6~$m^2$}. We will add a ventilation model that allows to perform free cooling using outside air when solar irradiation heats up the room too much. The system consists of a fan, a damper, a controller with an air temperature set-point between 23$^{\circ}C$ and 25$^{\circ}C$, and a heat recovery unit with a constant effectivity of 85\%. The damper and fan have a nominal pressure drop/raise of 200~$Pa$. The heat recovery unit has a nominal pressure drop of 10~$Pa$ at both sides. The nominal mass flow rate of the ventilation system is 0.1~$kg/s$.
+For this last exercise, we first increase the \textbf{window size} from 2~$m^2$ to \textbf{6~$m^2$}. We will add a ventilation model that allows to perform free cooling using outside air when solar irradiation heats up the room too much. The system consists of a fan, a damper, a controller with an air temperature set-point between 23$^{\circ}C$ and 25$^{\circ}C$, and a heat recovery unit with a constant effectiveness of 85\%. The damper and fan have a nominal pressure drop/raise of 200~$Pa$. The heat recovery unit has a nominal pressure drop of 10~$Pa$ at both sides. The nominal mass flow rate of the ventilation system is 0.1~$kg/s$.
 
 
 \paragraph{Required models}
@@ -206,7 +206,7 @@ Use some of the previously used models and in addition to this:
 \begin{itemize}
 \item \path{IBPSA.Fluid.HeatExchangers.ConstantEffectiveness}
 \item \path{IBPSA.Fluid.Movers.FlowControlled_dp}
-\item \path{IBPSA.Fluid.Actuators.Dampers.VAV}
+\item \path{IBPSA.Fluid.Actuators.Dampers.Exponential}
 \end{itemize}
 
 \paragraph{Connection instructions}
