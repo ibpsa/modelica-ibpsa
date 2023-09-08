@@ -28,8 +28,8 @@ model CoolingOffice
     THot_start=285.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=mWat_flow_nominal,
-    dpAquifer_nominal=10,
-    dpExt_nominal=100) "Acquifer well"
+    dpExt_nominal=5000)
+                       "Acquifer well"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Sources.Boundary_pT bou(
     redeclare package Medium = IBPSA.Media.Water,
