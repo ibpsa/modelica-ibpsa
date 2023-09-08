@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
+﻿within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse5 "Heating controller model"
   extends SimpleHouse4(pump(inputType=IBPSA.Fluid.Types.InputType.Stages,
         massFlowRates=mWat_flow_nominal*{1}),
@@ -45,8 +45,40 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This part of the model adds a hysteresis controller for the heating circuit
-that uses the room temperature as an input.
+Since the zone becomes too warm, a controller is required that disables the heater when a setpoint is reached.
+We will implement a hysteresis controller with a setpoint of <i>295.15 +/- 1K</i> (<i>21-23°C</i>).
+A temperature sensor will measure the zone air temperature.
+</p>
+<h4>Required models</h4>
+<ul>
+<li>
+<a href=\"modelica://Modelica.Blocks.Logical.Hysteresis\">
+Modelica.Blocks.Logical.Hysteresis</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Logical.Not\">
+Modelica.Blocks.Logical.Not</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
+Modelica.Blocks.Math.BooleanToReal</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor\">
+Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a>
+</li>
+</ul>
+<h4>Connection instructions</h4>
+<p>
+The heater modulation level should be set to one when the heater is on and to zero otherwise.
+</p>
+<h4>Reference result</h4>
+<p>
+The figure below shows the air temperature when the controller is added.
+</p>
+<p align=\"center\">
+<img alt=\"Air temperature as function of time.\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Examples/Tutorial/SimpleHouse/result5.png\" width=\"1000\"/>
 </p>
 </html>"),
     __Dymola_Commands(file=

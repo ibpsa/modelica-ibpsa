@@ -23,10 +23,51 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This part of the system model implements the building wall by adding a 
-thermal capacity to the thermal resistance that was already modeled in
-<a href=\"modelica://IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">
-IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate</a>.
+A very simple building envelope model will be constructed manually using thermal resistors and heat capacitors.
+The house consists of a wall represented by a single heat capacitor and a thermal resistor.
+The thermal resistor and boundary temperature are already included in the template.
+The wall has a surface area of <i>A<sub>wall</sub>=100 m<sup>2</i></sup>,
+a thickness of <i>d<sub>wall</sub>=25 cm</i>,
+a thermal conductivity of <i>k<sub>wall</sub>=0.04 W/(m K)</i>,
+a density of <i>&rho;<sub>wall</sub>=2000 kg/m<sup>3</i></sup>,
+and a specific heat capacity of <i>c<sub>p,wall</sub>= 1000 J/(kg K)</i>
+</p>
+<p>
+These parameters are already declared in the equation section of
+<a href=\"modelica://IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">SimpleHouseTemplate</a>.
+You can use this way of declaring parameters in the remainder of this exercise, but this is not required.
+</p>
+<p>
+The conductive thermal resistance value of a wall may be computed as <i>R=d/(A*k)</i>.
+The heat capacity value of a wall may be computed as <i>C=A*d*c_p*&rho;
+</p>
+<h4>Required models</h4>
+<ul>
+<li>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
+Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
+</li>
+</ul>
+<h4>Connection instructions</h4>
+<p>
+Connect the heat capacitor to the thermal resistor.
+</p>
+<h4>Reference result</h4>
+<p>
+If you correctly added the model of the heat capacitor,
+connected it to the resistor and added the parameter values for <i>C</i>,
+then you should be able to simulate the model.
+To do this, press the <i>Simulation Setup</i> and set the model <i>Stop time</i> to 1e6 seconds.
+You can now simulate the model by pressing the <i>Simulate</i> button.
+</p>
+<p>
+You can plot individual variables values by clicking on their name in the variable browser on the left.
+Now plot the wall capacitor temperature value <i>T</i>.
+It should look like the figure below (1 Ms is around 12 days).
+</p>
+<p align=\"center\">
+<img alt=\"Wall temperature as function of time.\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Examples/Tutorial/SimpleHouse/result1.png\" width=\"1000\"/>
 </p>
 </html>"),
     __Dymola_Commands(file=

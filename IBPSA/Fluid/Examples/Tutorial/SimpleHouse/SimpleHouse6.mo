@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
+﻿within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse6 "Free cooling model"
   extends SimpleHouse5(zone(nPorts=2),
     mAir_flow_nominal=0.1,
@@ -88,9 +88,53 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This part of the model adds a ventilation system consisting of a fan, a damper,
-a heat recovery unit, and a hysteresis controller,
-that allows to perform free cooling using outside air.
+For this last exercise, we first increase the <b>window size</b>
+from <i>2 m<sup>2</sup> <b>to <i>6 m<sup>2</sup></i></b>.
+</p>
+We will add a ventilation model that allows to perform free cooling
+using outside air when solar irradiation heats up the room too much.
+The system consists of a fan, a damper, a controller with an air temperature setpoint
+between <i>23°C</i> and <i>25°C</i>,
+and a heat recovery unit with a constant effectiveness of <i>85%</i>.
+The damper and fan have a nominal pressure drop/raise of <i>200 Pa</i>.
+The heat recovery unit has a nominal pressure drop of <i>10 Pa</i> at both sides.
+The nominal mass flow rate of the ventilation system is <i>0.1 kg/s</i>.
+</p>
+<h4>Required models</h4>
+<ul>
+<li>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.ConstantEffectiveness\">
+IBPSA.Fluid.HeatExchangers.ConstantEffectiveness</a>
+</li>
+<li>
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
+IBPSA.Fluid.Movers.FlowControlled_dp</a>
+</li>
+<li>
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
+IBPSA.Fluid.Actuators.Dampers.Exponential</a>
+</li>
+</ul>
+<h4>Connection instructions</h4>
+<p>
+Connect the components such that they exchange mass (and therefore also energy)
+with the <code>MixingVolume</code> representing the zone air.
+Add a <code>boundary_pT</code> to draw air from the environment.
+Enable its temperature input and connect it to the <i>TDryBul</i> variable in the weather data reader.
+Also reconsider the nominal mass flow rate parameter value in the <code>MixingVolume</code>
+given the flow rate information of the ventilation system.
+</p>
+<h4>Reference result</h4>
+<p>
+The figures below show the results.
+</p>
+<p align=\"center\">
+<img alt=\"Air temperature as function of time.\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Examples/Tutorial/SimpleHouse/result6.png\" width=\"1000\"/>
+</p>
+<p align=\"center\">
+<img alt=\"Ventilation control signal as function of time.\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Examples/Tutorial/SimpleHouse/result7.png\" width=\"1000\"/>
 </p>
 </html>"),
     __Dymola_Commands(file=

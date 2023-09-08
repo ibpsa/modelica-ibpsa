@@ -9,10 +9,18 @@ for a simple house with a heating system, ventilation, and weather boundary cond
 It serves as a demonstration case of how the <code>IBPSA</code> library can be used.
 </p>
 <p>
-A detailed description of how the system model can be built up can be found in
-<a href=\"modelica://IBPSA.Resources.Documentation.Fluid.Examples.Tutorial.SimpleHouse\">
-IBPSA.Resources.Documentation.Fluid.Examples.Tutorial.SimpleHouse</a>.
+The goal of this exercise is to become familiar with Modelica and the IBPSA library.
+Since the IBPSA library components are typically used by combining several components graphically,
+the use of equations falls outside of the scope of this exercise.
 </p>
+<p>
+For this exercise you will create a model of a simple house,
+consisting of a heating system, one building zone, and a ventilation model.
+The exercise starts from a template file that should not produce any errors.
+This file will be extended in several steps, adding complexity.
+In between each step the user should be able to simulate the model,
+i.e., no errors should be produced and simulation results may be compared.
+<\\p>
 <p>
 The model has been created in the following stages:
 </p>
@@ -59,5 +67,21 @@ adds a ventilation system consisting of a fan, a damper, a heat recovery unit,
 and a hysteresis controller, that allows to perform free cooling using outside air.
 </li>
 </ol>
+<p>
+For each stage, firstly the model part is qualitatively explained.
+Next, the names of the required Modelica models (from the Modelica Standard Library and/or IBPSA library) are listed.
+Finally, we provide high-level instructions of how to set up the model.
+If these instructions are not clear immediately, have a look at the model documentation and at the type of connectors the model has,
+try out some things, make an educated guess, etc.
+Finally, we provide reference results that allow you to check if your implementation is correct.
+Depending on the parameter values that you choose, results may differ.
+<\\p>
+<p>
+The graphical representation of the final model is given below.
+<\\p>
+<p align=\"center\">
+<img alt=\"Graphical representation of the final simple house model.\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Examples/Tutorial/SimpleHouse/simpleHouse.png\"/>
+</p>
 </html>"));
 end SimpleHouse;

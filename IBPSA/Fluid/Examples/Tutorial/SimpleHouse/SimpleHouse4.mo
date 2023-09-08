@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
+﻿within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 
@@ -70,9 +70,61 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This part of the model adds heating circuit consisting of a boiler, a radiator,
-and an on/off circulation pump with a constant mass flow rate.
-No controller is implemented yet, i.e. the pump and heater are always on.
+The wall temperature (and therefore the room temperature) is quite low. 
+In this step a heating system is added to resolve this. It consists of a radiator, a pump and a heater. 
+The radiator has a nominal power of 3~$kW$ for an inlet and outlet temperature of the radiator of <i>60°C<\\i>
+and <i>40°C<\\i>, and a room air and radiative temperature of <i>20°C<\\i>. 
+The pump has a (nominal) mass flow rate of <i>0.1 kg/s</i>.
+Since the heating system uses water as a heat carrier fluid,
+the media for the models in the heating circuit should be set to <i>MediumWater<\\i>.
+</p>
+<h4>Required models</h4>
+<ul>
+<li>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
+IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
+</li>
+<li>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.HeaterCooler_u\">
+IBPSA.Fluid.HeatExchangers.HeaterCooler_u</a>
+</li>
+<li>
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
+IBPSA.Fluid.Movers.FlowControlled_m_flow</a>
+</li>
+<li>
+<a href=\"modelica://IBPSA.Fluid.Sources.Boundary_pT\">
+IBPSA.Fluid.Sources.Boundary_pT</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a>
+</li>
+</ul>
+<h4>Connection instructions</h4>
+<p>
+The radiator contains one port for convective heat transfer and one for radiative heat transfer.
+Connect both in a reasonable way. Since the heating system uses water as a heat carrier fluid,
+the media for the models should be set to <i>MediumWater</i>.
+</p>
+<p>
+The <code>Boundary_pT</code> model needs to be used to set an absolute pressure somewhere in the system.
+Otherwise the absolute pressure in the system is undefined.
+Pressure difference modelling may be disregarded in the heating circuit
+since the chosen pump sets a fixed mass flow rate regardless of the pressure drop.
+</p>
+<p>
+Set the heater input to 1, meaning that it will produce 1 times its nominal power.
+</p>
+<h4>Reference result</h4>
+<p>
+The result of the air temperature is plotted in the figure below.
+The temperature rises very steeply since the wall is relatively well insulated (<i>k=0.04 W/(m*K)</i>)
+and the heater is not disabled when it becomes too warm.
+</p>
+<p align=\"center\">
+<img alt=\"Air temperature as function of time.\"
+src=\"modelica://IBPSA/Resources/Images/Fluid/Examples/Tutorial/SimpleHouse/result4.png\" width=\"1000\"/>
 </p>
 </html>"),
     __Dymola_Commands(file=
