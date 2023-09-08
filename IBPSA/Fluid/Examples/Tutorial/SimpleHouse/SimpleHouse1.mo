@@ -13,7 +13,7 @@ equation
           {130,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
-    experiment(Tolerance=1e-4, StopTime=1e+06),
+    experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -35,7 +35,7 @@ equation
     annotation (Line(points={{-19,-100},{-2,-100}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
-    experiment(Tolerance=1e-4, StopTime=1e+06),
+    experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
 <li>

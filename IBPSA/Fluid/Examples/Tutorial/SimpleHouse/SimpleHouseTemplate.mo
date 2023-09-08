@@ -2,16 +2,13 @@ within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
 model SimpleHouseTemplate
   "Template file for simple house example"
   extends Modelica.Icons.Example;
-
   package MediumAir = IBPSA.Media.Air "Medium model for air";
   package MediumWater = IBPSA.Media.Water "Medium model for water";
-
   parameter Modelica.Units.SI.Area A_wall = 100 "Wall area";
   parameter Modelica.Units.SI.Length d_wall = 0.25 "Wall thickness";
   parameter Modelica.Units.SI.ThermalConductivity k_wall = 0.04 "Wall thermal conductivity";
   parameter Modelica.Units.SI.Density rho_wall = 2000 "Wall density";
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_wall = 1000 "Wall specific heat capacity";
-
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
         "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -22,7 +19,6 @@ model SimpleHouseTemplate
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature Tout
     "Exterior temperature boundary condition"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor wallRes(
     R=d_wall/A_wall/k_wall)
     "Thermal resistor for wall: 25 cm of rockwool"
@@ -82,7 +78,10 @@ equation
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Cooling and ventilation")}),
-    experiment(StopTime=1e+06),
+    experiment(Tolerance=1E-6, StopTime=1e+06),
+    __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouseTemplate.mos"
+        "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>

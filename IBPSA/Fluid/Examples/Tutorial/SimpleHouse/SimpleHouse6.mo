@@ -78,7 +78,7 @@ equation
           {-120,110.4},{-110,110.4}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
-    experiment(Tolerance=1e-4, StopTime=1e+06),
+    experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
 <li>

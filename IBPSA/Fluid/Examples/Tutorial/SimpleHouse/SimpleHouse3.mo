@@ -28,7 +28,7 @@ equation
     annotation (Line(points={{110,140},{130,140},{130,30}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
-    experiment(Tolerance=1e-4, StopTime=1e+06),
+    experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -71,7 +71,7 @@ which can be found in the <i>Dynamics</i> tab of the model parameter window, to 
 <p>
 Make a connection with the <code>PrescribedHeatFlow</code> as well.
 This block makes the connection between the heat flow from the gain, represented as a real value,
-and a heat port that is compatible with the connectors of the thermal capacitance and resistance. 
+and a heat port that is compatible with the connectors of the thermal capacitance and resistance.
 </p>
 <h4>Reference result</h4>
 <p>
