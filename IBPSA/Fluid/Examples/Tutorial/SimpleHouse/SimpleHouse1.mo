@@ -34,7 +34,8 @@ and a specific heat capacity of <i>c<sub>p,wall</sub>= 1000 J/(kg K)</i>
 </p>
 <p>
 These parameters are already declared in the equation section of
-<a href=\"modelica://IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">SimpleHouseTemplate</a>.
+<a href=\"modelica://IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate\">
+IBPSA.Fluid.Examples.Tutorial.SimpleHouse.SimpleHouseTemplate.SimpleHouseTemplate</a>.
 You can use this way of declaring parameters in the remainder of this exercise, but this is not required.
 </p>
 <p>
