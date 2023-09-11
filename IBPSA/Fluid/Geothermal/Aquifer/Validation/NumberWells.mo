@@ -48,10 +48,10 @@ equation
           {-16,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
   connect(aquWel1.port_Col, aquWel1.port_Hot) annotation (Line(points={{-16,40},
           {-16,60},{-4,60},{-4,40}}, color={0,127,255}));
-  connect(bou.ports[1], aquWel1.port_Hot) annotation (Line(points={{40,-1},{6,
-          -1},{6,60},{-4,60},{-4,40}}, color={0,127,255}));
-  connect(bou.ports[2], aquWel2.port_Hot) annotation (Line(points={{40,1},{26,1},
-          {26,0},{6,0},{6,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
+  connect(bou.ports[1], aquWel1.port_Hot) annotation (Line(points={{40,2},{6,2},{6,60},{-4,60},{-4,40}},
+                                       color={0,127,255}));
+  connect(bou.ports[2], aquWel2.port_Hot) annotation (Line(points={{40,-2},{26,-2},{26,0},{6,0},{6,-20},{-4,-20},{-4,
+          -40}},                                   color={0,127,255}));
   connect(cheEqu.u1, temWel1.y) annotation (Line(points={{58,76},{46,76},{46,82},
           {41,82}}, color={0,0,127}));
   connect(cheEqu.u2, temWel2.y) annotation (Line(points={{58,64},{46,64},{46,50},

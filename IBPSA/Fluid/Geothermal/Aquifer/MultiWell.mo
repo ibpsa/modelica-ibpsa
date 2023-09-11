@@ -63,7 +63,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAquifer_nominal + dpWell_nominal + dpExt_nominal)
+    final dp_nominal=powCoo.dpMea_nominal + dpWell_nominal + dpExt_nominal)
     "Pump to extract from cold well" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -71,7 +71,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Movers.Preconfigured.SpeedControlled_y pumHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dpAquifer_nominal + dpWell_nominal + dpExt_nominal)
+    final dp_nominal=powHot.dpMea_nominal + dpWell_nominal + dpExt_nominal)
     "Pump to extract from hot well" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -80,7 +80,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powCoo(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dpAquifer_nominal/2,
+    final dpMea_nominal=2*dpAquifer_nominal/(nCoo + nHot),
     final mMea_flow_nominal=m_flow_nominal)
     "Pressure drop in the cold side of the aquifer" annotation (Placement(
         transformation(
@@ -88,15 +88,19 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-10})));
 
-  FixedResistances.HydraulicDiameter resCoo(
+  FixedResistances.PressureDrop resCoo(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    dh=2*rWB,
-    final length=length,
-    v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
-    fac = 1,
-    roughness = 5.0E-6,
-    dp(nominal=1E3))
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+    m_flow=m_flow_nominal/nCoo,
+    rho_a=rhoWat,
+    rho_b=rhoWat,
+    mu_a=mu,
+    mu_b=mu,
+    length=length,
+    diameter=rWB,
+    roughness=2.5e-5,
+    m_flow_small=1E-4*abs(m_flow_nominal)))
     "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -105,22 +109,26 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Airflow.Multizone.Point_m_flow powHot(
     redeclare final package Medium = Medium,
     m=1,
-    final dpMea_nominal=dpAquifer_nominal/2,
+    final dpMea_nominal=2*dpAquifer_nominal/(nCoo + nHot),
     final mMea_flow_nominal=m_flow_nominal)
     "Pressure drop in the warm side of the aquifer" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={80,-10})));
-  FixedResistances.HydraulicDiameter resHot(
+  FixedResistances.PressureDrop resHot(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    dh=2*rWB,
-    final length=length,
-    v_nominal=m_flow_nominal/rhoWat/rWB^2/Modelica.Constants.pi,
-    fac = 1,
-    roughness = 5.0E-6,
-    dp(nominal=1E3))
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+    m_flow=m_flow_nominal/nHot,
+    rho_a=rhoWat,
+    rho_b=rhoWat,
+    mu_a=mu,
+    mu_b=mu,
+    length=length,
+    diameter=rWB,
+    roughness=2.5e-5,
+    m_flow_small=1E-4*abs(m_flow_nominal)))
     "Pressure drop in the warm well" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -290,15 +298,12 @@ equation
           -60,86},{-60,100}}, color={0,127,255}));
   connect(resHot.port_b, port_Hot) annotation (Line(points={{80,60},{80,86},{60,
           86},{60,100}}, color={0,127,255}));
-  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},
-          {-80,-34},{-49,-34},{-49,-10}},
+  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},{-80,-34},{-48,-34},{-48,-10}},
                                   color={0,127,255}));
-  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{
-          80,-34},{49,-34},{49,-10}},
+  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{80,-34},{48,-34},{48,-10}},
                             color={0,127,255}));
-  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-10},
-          {-48,-10},{-48,-22},{51,-22},{51,-10}},
-                                         color={0,127,255}));
+  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-52,-10},{-48,-10},{-48,-22},{52,-22},
+          {52,-10}},                     color={0,127,255}));
   connect(powCoo.port_b,pumCol. port_a)
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
   connect(pumCol.port_b, resCoo.port_a)
