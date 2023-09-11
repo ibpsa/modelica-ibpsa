@@ -11,7 +11,6 @@ model NumberWells
     TGroHot=303.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=0.1,
-    dpAquifer_nominal=10,
     dpExt_nominal=0) "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   MultiWell aquWel2(
@@ -25,7 +24,6 @@ model NumberWells
     TGroHot=303.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=0.2,
-    dpAquifer_nominal=10,
     dpExt_nominal=0) "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
