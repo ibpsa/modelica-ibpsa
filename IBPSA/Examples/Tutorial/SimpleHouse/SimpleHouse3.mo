@@ -63,8 +63,8 @@ Set its value to <i>MediumAir</i>, which is declared in the template,
 by typing <i>redeclare package Medium = MediumAir</i>.
 For the nominal mass flow rate you may assume a value of <i>1 kg/m<sup>3</sup></i> for now.
 You will have to change this value once you add a ventilation system to the model (see
-<a href=\"modelica://IBPSA.Examples.Tutorial.SimpleHouse6\">
-IBPSA.Examples.Tutorial.SimpleHouse6</a>).
+<a href=\"modelica://IBPSA.Examples.Tutorial.SimpleHouse.SimpleHouse6\">
+IBPSA.Examples.Tutorial.SimpleHouse.SimpleHouse6</a>).
 Finally, set the <i>energyDynamics</i> of the <code>MixingVolume</code>,
 which can be found in the <i>Dynamics</i> tab of the model parameter window, to <i>FixedInitial</i>.
 </p>

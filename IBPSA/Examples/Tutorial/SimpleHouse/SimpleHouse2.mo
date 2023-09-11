@@ -45,7 +45,7 @@ two times the outdoor solar irradiance is injected as heat onto the inside of th
 Modelica.Blocks.Math.Gain</a>
 </li>
 <li>
-<a href=\"modelica://{Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
 </li>
 </ul>
