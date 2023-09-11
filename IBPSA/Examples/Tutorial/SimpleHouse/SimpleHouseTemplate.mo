@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Examples.Tutorial.SimpleHouse;
+within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouseTemplate
   "Template file for simple house example"
   extends Modelica.Icons.Example;
@@ -80,7 +80,7 @@ equation
           textString="Cooling and ventilation")}),
     experiment(Tolerance=1E-6, StopTime=1e+06),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/Tutorial/SimpleHouse/SimpleHouseTemplate.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Examples/Tutorial/SimpleHouse/SimpleHouseTemplate.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
