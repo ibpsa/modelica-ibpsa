@@ -31,10 +31,12 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
      "Aquifer thermal properties" annotation (choicesAllMatching=true);
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
-  parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit= "Pa")=m_flow_nominal*Modelica.Constants.g_n/2/Modelica.Constants.pi/h/aquDat.K*log(rMax/rWB)
+  parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit= "Pa") =
+    m_flow_nominal*Modelica.Constants.g_n/2/Modelica.Constants.pi/h/aquDat.K*log(rMax/rWB)
      "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
-  final parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")=resHot.dp_nominal+resCoo.dp_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa") =
+    resHot.dp_nominal+resCoo.dp_nominal
     "Pressure drop at nominal mass flow rate in the well" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
@@ -59,7 +61,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
 
   Modelica.Units.SI.Temperature TAquHot[nVol] "Temperatures of the hot aquifer";
   Modelica.Units.SI.Temperature TAquCol[nVol] "Temperatures of the cold aquifer";
-  Modelica.Units.SI.Radius rVol[nVol] "Radius at which the thermal capacitances are placed";
+  final parameter Modelica.Units.SI.Radius rVol[nVol](each final fixed=false)
+    "Radius to the center of the i-th domain";
 
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
@@ -139,8 +142,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
 protected
   parameter Modelica.Units.SI.Radius r[nVol + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
-  parameter Modelica.Units.SI.Radius rC[nVol](each fixed=false)
-    "Radius to the center of the i-th domain";
   parameter Modelica.Units.SI.HeatCapacity C[nVol](each fixed=false)
     "Heat capacity of segment";
   parameter Modelica.Units.SI.Volume VWat[nVol](each fixed=false)
@@ -240,7 +241,7 @@ initial equation
     r[i]= r[i-1] + (rMax - rWB)  * (1-griFac)/(1-griFac^(nVol)) * griFac^(i-2);
   end for;
   for i in 1:nVol loop
-    rC[i] = (r[i]+r[i+1])/2;
+    rVol[i] = (r[i]+r[i+1])/2;
   end for;
   for i in 1:nVol loop
     C[i] = cAqu*h*3.14*(r[i+1]^2-r[i]^2);
@@ -249,15 +250,14 @@ initial equation
     VWat[i] = aquDat.phi*h*3.14*(r[i+1]^2-r[i]^2);
   end for;
 
-  R[nVol]=Modelica.Math.log(rMax/rC[nVol])/(2*Modelica.Constants.pi*kVol*h);
+  R[nVol]=Modelica.Math.log(rMax/rVol[nVol])/(2*Modelica.Constants.pi*kVol*h);
   for i in 1:nVol-1 loop
-  R[i] = Modelica.Math.log(rC[i+1]/rC[i])/(2*Modelica.Constants.pi*kVol*h);
+  R[i] = Modelica.Math.log(rVol[i+1]/rVol[i])/(2*Modelica.Constants.pi*kVol*h);
   end for;
 
 equation
   TAquHot=heaCapHot.T;
   TAquCol=heaCapCoo.T;
-  rVol=rC;
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
       connect(volCoo[i].ports[2], volCoo[i + 1].ports[1]);
