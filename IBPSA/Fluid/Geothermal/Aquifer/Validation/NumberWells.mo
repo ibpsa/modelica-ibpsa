@@ -2,7 +2,8 @@ within IBPSA.Fluid.Geothermal.Aquifer.Validation;
 model NumberWells
   "Test model for aquifer thermal energy storage with multiple wells"
   extends Modelica.Icons.Example;
-  MultiWell aquWel1(
+
+  model MyWell = MultiWell (
     redeclare package Medium = IBPSA.Media.Water,
     nVol=50,
     h=10,
@@ -11,20 +12,14 @@ model NumberWells
     TGroHot=303.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=0.1,
-    dpExt_nominal=0) "ATES with one pair of wells"
+    dpExt_nominal=0) "Well model";
+
+  MyWell aquWel1
+  "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  MultiWell aquWel2(
-    redeclare package Medium = IBPSA.Media.Water,
-    nVol=50,
-    h=10,
+  MyWell aquWel2(
     nCoo=2,
-    nHot=2,
-    THot_start=303.15,
-    TGroCoo=273.15,
-    TGroHot=303.15,
-    aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
-    m_flow_nominal=0.2,
-    dpExt_nominal=0) "ATES with two pairs of wells"
+    nHot=2) "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
