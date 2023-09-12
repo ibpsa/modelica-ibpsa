@@ -103,8 +103,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     mu_b=mu,
     length=length,
     diameter=rWB,
-    roughness=2.5e-5,
-    m_flow_small=1E-4*abs(m_flow_nominal)))
+    roughness=2.5e-5))
     "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -131,8 +130,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     mu_b=mu,
     length=length,
     diameter=rWB,
-    roughness=2.5e-5,
-    m_flow_small=1E-4*abs(m_flow_nominal)))
+    roughness=2.5e-5))
     "Pressure drop in the warm well" annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
