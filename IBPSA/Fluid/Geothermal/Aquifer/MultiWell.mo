@@ -40,9 +40,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate in the above-surface system (used to size the head of the well pump)" annotation (
       Dialog(group="Hydraulic circuit"));
-  Modelica.Units.SI.Temperature TAquHot[nVol];
-  Modelica.Units.SI.Temperature TAquCol[nVol];
-  Modelica.Units.SI.Radius rVol[nVol];
 
   Modelica.Blocks.Interfaces.RealInput u(
       final min=-1,
@@ -59,6 +56,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Modelica.Fluid.Interfaces.FluidPort_a port_Hot(
     redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
             {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
+
+  Modelica.Units.SI.Temperature TAquHot[nVol] "Temperatures of the hot aquifer";
+  Modelica.Units.SI.Temperature TAquCol[nVol] "Temperatures of the cold aquifer";
+  Modelica.Units.SI.Radius rVol[nVol] "Radius at which the thermal capacitances are placed";
 
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
@@ -298,12 +299,15 @@ equation
           -60,86},{-60,100}}, color={0,127,255}));
   connect(resHot.port_b, port_Hot) annotation (Line(points={{80,60},{80,86},{60,
           86},{60,100}}, color={0,127,255}));
-  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},{-80,-34},{-48,-34},{-48,-10}},
+  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-20},
+          {-80,-34},{-49,-34},{-49,-10}},
                                   color={0,127,255}));
-  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{80,-34},{48,-34},{48,-10}},
+  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-20},{
+          80,-34},{49,-34},{49,-10}},
                             color={0,127,255}));
-  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-52,-10},{-48,-10},{-48,-22},{52,-22},
-          {52,-10}},                     color={0,127,255}));
+  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-10},
+          {-48,-10},{-48,-22},{51,-22},{51,-10}},
+                                         color={0,127,255}));
   connect(powCoo.port_b,pumCol. port_a)
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
   connect(pumCol.port_b, resCoo.port_a)
