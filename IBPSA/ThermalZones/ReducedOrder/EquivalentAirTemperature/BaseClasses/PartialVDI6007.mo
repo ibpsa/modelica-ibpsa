@@ -78,11 +78,7 @@ partial model PartialVDI6007
 
 protected
   SourceSelector TGroSouSel(final useInput=TGroundFromInput, p=TGro)
-    "Input selector for ground temperature" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={8,-40})));
+    "Input selector for ground temperature";
 
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGro) > 0.1),
@@ -102,8 +98,7 @@ equation
     TEqWall=TDryBul.+delTEqSW;
   end if;
 
-  connect(TGro_in, TGroSouSel.uCon)
-    annotation (Line(points={{0,-120},{0,-51}}, color={0,0,127}));
+  connect(TGro_in, TGroSouSel.uCon);
   annotation (  Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}),
   graphics={
