@@ -27,13 +27,13 @@ equation
   annotation ( Documentation(info="<html>
 <p>
 This example shows the application of
-<a href=\"IBPSA.ThermalZones.ReducedOrder.RC.TwoElements\">
+<a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.RC.TwoElements\">
 IBPSA.ThermalZones.ReducedOrder.RC.TwoElements</a>
 in connection with equivalent air temperature calculation in
-<a href=\"IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+<a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
 IBPSA.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>,
 where the ground temperature is not a constant, but has a trapezoid source.
-Apart from that, it is identical to <a href=\"IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements\">
+Apart from that, it is identical to <a href=\"modelica://IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements\">
 IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements</a>.
 <h4>References</h4>
 <p>VDI. German Association of Engineers Guideline VDI 6007-1
