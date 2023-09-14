@@ -52,8 +52,7 @@ This is for
   experiment(
       StopTime=31536000,
       Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElementsNonConstantTGround.mos"
         "Simulate and plot"),
