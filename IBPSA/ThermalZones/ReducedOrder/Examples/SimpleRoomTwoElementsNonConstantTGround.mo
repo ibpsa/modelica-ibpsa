@@ -2,26 +2,28 @@ within IBPSA.ThermalZones.ReducedOrder.Examples;
 model SimpleRoomTwoElementsNonConstantTGround
   "Illustrates the use of non-constant ground temperature for equivalent air temperature calculation"
   extends Modelica.Icons.Example;
-  extends IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements(eqAirTemp(
+  extends IBPSA.ThermalZones.ReducedOrder.Examples.SimpleRoomTwoElements(
+    eqAirTemp(
       wfWall={0.15,0.35},
       wfGro=0.5,
-        TGroundFromInput=true));
+      TGroundFromInput=true));
 
-
-
-  Modelica.Blocks.Sources.Trapezoid TGroTrapezoidSource(
-    amplitude=10,
-    rising=7884000,
-    width=7884000,
-    falling=7884000,
-    period=31536000,
-    offset=280.15,
-    startTime=5184000) "Trapezoid-shaped source for ground temperature"
-    annotation (Placement(transformation(extent={{-42,-52},{-22,-32}})));
+  Modelica.Blocks.Sources.Trapezoid TGro(
+    amplitude(unit="K") = 10,
+    rising(displayUnit="d") = 7884000,
+    width(displayUnit="d") = 7884000,
+    falling(displayUnit="d") = 7884000,
+    period(displayUnit="d") = 31536000,
+    offset(
+      unit="K",
+      displayUnit="degC") = 280.15,
+    startTime(displayUnit="d") = 5184000)
+    "Trapezoid-shaped source for ground temperature"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
 
-  connect(TGroTrapezoidSource.y, eqAirTemp.TGro_in)
-    annotation (Line(points={{-21,-42},{-14,-42},{-14,-16}}, color={0,0,127}));
+  connect(TGro.y, eqAirTemp.TGro_in)
+    annotation (Line(points={{-39,-50},{-14,-50},{-14,-16}}, color={0,0,127}));
   annotation ( Documentation(info="<html>
 <p>
 This example shows the application of
