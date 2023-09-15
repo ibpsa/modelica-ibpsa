@@ -1,6 +1,6 @@
 within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse0
-  "Template file for simple house example"
+  "Start file for simple house example"
   extends Modelica.Icons.Example;
   package MediumAir = IBPSA.Media.Air "Medium model for air";
   package MediumWater = IBPSA.Media.Water "Medium model for water";
@@ -19,10 +19,6 @@ model SimpleHouse0
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature Tout
     "Exterior temperature boundary condition"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor wallRes(
-    R=d_wall/A_wall/k_wall)
-    "Thermal resistor for wall: 25 cm of rockwool"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-180,-10},{-150,-10}},
@@ -30,8 +26,6 @@ equation
       thickness=0.5));
   connect(Tout.T, weaBus.TDryBul)
     annotation (Line(points={{-22,0},{-150,0},{-150,-10}},color={0,0,127}));
-  connect(Tout.port,wallRes. port_a)
-    annotation (Line(points={{0,0},{80,0}},          color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}}), graphics={
         Rectangle(
