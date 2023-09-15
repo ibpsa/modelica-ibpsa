@@ -1,4 +1,4 @@
-within IBPSA.Examples;
+﻿within IBPSA.Examples;
 model SimpleHouse
   "Illustrative example of a simple heating, ventilation and room model"
   extends Modelica.Icons.Example;
@@ -9,12 +9,12 @@ model SimpleHouse
   parameter Modelica.Units.SI.Area AWall=100 "Wall area";
   parameter Modelica.Units.SI.Area AWin=5 "Window area";
   parameter Real gWin(min=0, max=1, unit="1") = 0.3 "Solar heat gain coefficient of window";
-  parameter Modelica.Units.SI.Volume V_zone=AWall*3 "Wall area";
+  parameter Modelica.Units.SI.Volume VZone=AWall*3 "Wall area";
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=700
     "Nominal capacity of heating system";
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=QHea_flow_nominal/
       10/4200 "Nominal mass flow rate for water loop";
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=V_zone*2*1.2/3600
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=VZone*2*1.2/3600
     "Nominal mass flow rate for air loop";
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=200
@@ -347,6 +347,29 @@ This model contains a simple model of a house
 with a heating system, ventilation, and weather boundary conditions.
 It serves as a demonstration case of how the <code>IBPSA</code> library can be used.
 </p>
+<p>
+A step-by-step tutorial on how to build up this model can be found in
+<a href=\\\"modelica://IBPSA.Examples.Tutorial.SimpleHouse\\\">
+IBPSA.Examples.Tutorial.SimpleHouse</a>.
+There are however some minor differences between this model and the models in the tutorial:
+</p>
+<ul>
+<li>
+Different numerical values are used for almost all model parameters.
+</li>
+<li>
+The solar irradiation (in <i>W/m<sup>2</sup></i>) is calculated as
+the global horizontal irradiation multiplied with a solar heat gain coefficient
+instead of the (full) direct normal irradiation.
+</li>
+<li>
+The ventilation system is equiped with a cooler that sets the temperature
+of the air flow entering the zone equal to a constant value (of <i>20°C</i>).
+</li>
+<li>
+The damper in the ventilation system is operated by
+a proportional-controller instead of a hysteresis controller.
+</ul>
 </html>"),
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/SimpleHouse.mos"
