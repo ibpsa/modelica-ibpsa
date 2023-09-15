@@ -20,7 +20,7 @@ The exercise starts from a template file that should not produce any errors.
 This file will be extended in several steps, adding complexity.
 In between each step the user should be able to simulate the model,
 i.e., no errors should be produced and simulation results may be compared.
-<\\p>
+</p>
 <p>
 The model has been created in the following stages:
 </p>
