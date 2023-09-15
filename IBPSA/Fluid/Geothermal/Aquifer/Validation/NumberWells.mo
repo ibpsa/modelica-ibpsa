@@ -17,9 +17,8 @@ model NumberWells
   MyWell aquWel1
   "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  MyWell aquWel2(
-    nCoo=2,
-    nHot=2) "ATES with two pairs of wells"
+  MyWell aquWel2(nPai=2, m_flow_nominal=0.2)
+            "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -35,18 +34,18 @@ model NumberWells
     "Assertion that checks for equality of results"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
-  connect(uPum.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,36},
-          {-22,36}}, color={0,0,127}));
-  connect(aquWel2.u,uPum. y) annotation (Line(points={{-22,-44},{-40,-44},{-40,
-          0},{-59,0}}, color={0,0,127}));
+  connect(uPum.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,35},{-22,35}},
+                     color={0,0,127}));
+  connect(aquWel2.u,uPum. y) annotation (Line(points={{-22,-45},{-40,-45},{-40,0},{-59,0}},
+                       color={0,0,127}));
   connect(aquWel2.port_Col, aquWel2.port_Hot) annotation (Line(points={{-16,-40},
           {-16,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
   connect(aquWel1.port_Col, aquWel1.port_Hot) annotation (Line(points={{-16,40},
           {-16,60},{-4,60},{-4,40}}, color={0,127,255}));
-  connect(bou.ports[1], aquWel1.port_Hot) annotation (Line(points={{40,-1},{6,-1},
-          {6,60},{-4,60},{-4,40}},     color={0,127,255}));
-  connect(bou.ports[2], aquWel2.port_Hot) annotation (Line(points={{40,1},{26,1},
-          {26,0},{6,0},{6,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
+  connect(bou.ports[1], aquWel1.port_Hot) annotation (Line(points={{40,2},{6,2},{6,60},{-4,60},{-4,40}},
+                                       color={0,127,255}));
+  connect(bou.ports[2], aquWel2.port_Hot) annotation (Line(points={{40,-2},{26,-2},{26,0},{6,0},{6,-20},{-4,-20},{-4,-40}},
+                                                   color={0,127,255}));
   connect(cheEqu.u1, temWel1.y) annotation (Line(points={{58,76},{46,76},{46,82},
           {41,82}}, color={0,0,127}));
   connect(cheEqu.u2, temWel2.y) annotation (Line(points={{58,64},{46,64},{46,50},
