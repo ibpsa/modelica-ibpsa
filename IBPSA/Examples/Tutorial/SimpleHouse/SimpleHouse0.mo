@@ -90,6 +90,8 @@ First implementation.
 </html>", info="<html>
 <p>
 This model is used as the starting point for the <code>SimpleHouse</code> tutorial.
+It contains a weather data reader and a <code>PrescribedTemperature</code> component
+that allows the user to connect thermal components to the dry bulb temperature.
 It was based on from the Modelica crash course organised by KU Leuven
 (<a href=\"https://github.com/open-ideas/__CrashCourse__\">https://github.com/open-ideas/__CrashCourse__</a>).
 </p>
