@@ -1,7 +1,7 @@
 ﻿within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse5 "Heating controller model"
   extends SimpleHouse4(pum(inputType=IBPSA.Fluid.Types.InputType.Stages,
-        massFlowRates=mWat_flow_nominal*{1}), final useConstantHeater=false);
+        massFlowRates=mWat_flow_nominal*{1}), final use_constantHeater=false);
 
   Modelica.Blocks.Math.BooleanToInteger booInt "Boolean to integer"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
