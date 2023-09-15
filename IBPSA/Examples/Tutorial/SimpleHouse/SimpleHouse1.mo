@@ -3,19 +3,18 @@ model SimpleHouse1 "Building wall model"
   extends SimpleHouse0;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
-    C=A_wall*d_wall*cp_wall*rho_wall, T(fixed=true))
-    "Thermal mass of walls"
+    C=AWall*dWall*cpWall*rhoWall, T(fixed=true))
+    "Thermal mass of wall"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={150,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor wallRes(R=d_wall/
-        A_wall/k_wall)
-    "Thermal resistor for wall: 25 cm of rockwool"
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(R=dWall/AWall
+        /kWall) "Thermal resistor for wall: 25 cm of rockwool"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
-  connect(wallRes.port_b, walCap.port) annotation (Line(points={{100,0},{112,0},
+  connect(walRes.port_b, walCap.port) annotation (Line(points={{100,0},{112,0},
           {112,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
-  connect(Tout.port, wallRes.port_a)
+  connect(TOut.port, walRes.port_a)
     annotation (Line(points={{0,0},{80,0}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
@@ -63,8 +62,8 @@ Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
 </ul>
 <h4>Connection instructions</h4>
 <p>
-Connect one side of the thermal resistor to the output of <code>Tout</code> and
-the other side of the thermal resistor to the heat capacitor.
+Connect one side of the thermal resistor to the output of <code>PrescribedTemperature</code>
+and the other side of the thermal resistor to the heat capacitor.
 </p>
 <h4>Reference result</h4>
 <p>

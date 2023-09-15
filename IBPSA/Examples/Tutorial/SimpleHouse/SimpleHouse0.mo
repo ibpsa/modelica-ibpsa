@@ -4,11 +4,11 @@ model SimpleHouse0
   extends Modelica.Icons.Example;
   package MediumAir = IBPSA.Media.Air "Medium model for air";
   package MediumWater = IBPSA.Media.Water "Medium model for water";
-  parameter Modelica.Units.SI.Area A_wall = 100 "Wall area";
-  parameter Modelica.Units.SI.Length d_wall = 0.25 "Wall thickness";
-  parameter Modelica.Units.SI.ThermalConductivity k_wall = 0.04 "Wall thermal conductivity";
-  parameter Modelica.Units.SI.Density rho_wall = 2000 "Wall density";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_wall = 1000 "Wall specific heat capacity";
+  parameter Modelica.Units.SI.Area AWall = 100 "Wall area";
+  parameter Modelica.Units.SI.Length dWall = 0.25 "Wall thickness";
+  parameter Modelica.Units.SI.ThermalConductivity kWall = 0.04 "Wall thermal conductivity";
+  parameter Modelica.Units.SI.Density rhoWall = 2000 "Wall density";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWall = 1000 "Wall specific heat capacity";
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         ModelicaServices.ExternalReferences.loadResource(
         "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -16,7 +16,7 @@ model SimpleHouse0
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature Tout
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Exterior temperature boundary condition"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
@@ -24,7 +24,7 @@ equation
       points={{-180,-10},{-150,-10}},
       color={255,204,51},
       thickness=0.5));
-  connect(Tout.T, weaBus.TDryBul)
+  connect(TOut.T, weaBus.TDryBul)
     annotation (Line(points={{-22,0},{-150,0},{-150,-10}},color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}}), graphics={
