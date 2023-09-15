@@ -18,18 +18,18 @@ model SimpleHouse0
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Exterior temperature boundary condition"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-180,-10},{-150,-10}},
       color={255,204,51},
       thickness=0.5));
   connect(TOut.T, weaBus.TDryBul)
-    annotation (Line(points={{-22,0},{-150,0},{-150,-10}},color={0,0,127}));
+    annotation (Line(points={{-82,0},{-150,0},{-150,-10}},color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}}), graphics={
         Rectangle(
-          extent={{-220,40},{20,-40}},
+          extent={{-220,40},{-38,-40}},
           fillColor={238,238,238},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -44,18 +44,18 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{40,40},{180,-40}},
+          extent={{-20,40},{180,-40}},
           fillColor={238,238,238},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{98,20},{32,38}},
+          extent={{22,22},{-23,39}},
           textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Wall"),
         Text(
-          extent={{-148,-86},{-214,-68}},
+          extent={{-157,-79},{-223,-61}},
           textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,

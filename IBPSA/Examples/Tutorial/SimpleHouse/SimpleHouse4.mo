@@ -49,8 +49,9 @@ equation
           -100},{49.75,-170},{90,-170}}, color={0,127,255}));
   connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{118,-92.8},{
           118,140},{110,140}}, color={191,0,0}));
-  connect(rad.heatPortRad, walCap.port) annotation (Line(points={{122,-92.8},{122,
-          -30},{132,-30},{132,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(rad.heatPortRad, walCap.port) annotation (Line(points={{122,-92.8},{
+          122,-20},{130,-20},{130,1.77636e-15},{140,1.77636e-15}},
+                                                               color={191,0,0}));
   if useConstantHeater then
     connect(conHea.y, heaWat.u) annotation (Line(points={{59,-70},{50,-70},{50,
             -94},{58,-94}}, color={0,0,127}));
