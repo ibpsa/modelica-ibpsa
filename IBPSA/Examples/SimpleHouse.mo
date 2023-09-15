@@ -286,6 +286,13 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+September 15, 2023, by Jelger Jansen:<br/>
+Move the example model to <a href=\"modelica://IBPSA.Examples\"> IBPSA.Examples</a>
+and update the information section.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1791\">IBPSA, #1791</a>.
+</li>
+<li>
 June 15, 2022, by Hongxiang Fu:<br/>
 Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>
 This is for
@@ -337,8 +344,8 @@ First implementation.
 </html>", info="<html>
 <p>
 This model contains a simple model of a house
-with a heating system, ventilation and weather boundary conditions.
-It servers as a demonstration case of how the <code>IBPSA</code> library can be used.
+with a heating system, ventilation, and weather boundary conditions.
+It serves as a demonstration case of how the <code>IBPSA</code> library can be used.
 </p>
 </html>"),
     __Dymola_Commands(file=
