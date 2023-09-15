@@ -90,7 +90,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model is used as the starting point for the <code>SimpleHouse</code> tutorial.
-It was copied from the Modelica crash course organised by KU Leuven
+It was based on from the Modelica crash course organised by KU Leuven
 (<a href=\"https://github.com/open-ideas/__CrashCourse__\">https://github.com/open-ideas/__CrashCourse__</a>).
 </p>
 </html>"));
