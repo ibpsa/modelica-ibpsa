@@ -1,6 +1,6 @@
 within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse1 "Building wall model"
-  extends SimpleHouseTemplate;
+  extends SimpleHouse0;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
     C=A_wall*d_wall*cp_wall*rho_wall, T(fixed=true))
