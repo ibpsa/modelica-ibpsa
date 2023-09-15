@@ -349,7 +349,7 @@ It serves as a demonstration case of how the <code>IBPSA</code> library can be u
 </p>
 <p>
 A step-by-step tutorial on how to build up this model can be found in
-<a href=\\\"modelica://IBPSA.Examples.Tutorial.SimpleHouse\\\">
+<a href=\"modelica://IBPSA.Examples.Tutorial.SimpleHouse\">
 IBPSA.Examples.Tutorial.SimpleHouse</a>.
 There are however some minor differences between this model and the models in the tutorial:
 </p>
