@@ -414,6 +414,15 @@ is the temperature at location <i>r</i> and time <i>t</i>,
 The first term on the right hand side of the equation describes the effect of conduction, while
 the second term describes the fluid flow.
 </p>
+<p>
+The pressure losses in the aquifer are calculated using the Darcy's law
+<p align=\"center\" style=\"font-style:italic;\">
+&#916;p = &#7745; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB))
+</p>
+where <i>&#7745;</i> is the water mass flow rate, <i>g</i> is the gravitational acceleration, <i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer, 
+<i>rMax</i> is the domain radius and <i>rWB</i> is the well radius. The pressure losses in the wells are calculated using
+<a href=\"modelica://Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow\">Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</a>.
+</p>
 <h4>Spatial discretization</h4>
 <p>
 To discretize the conductive-convective equation, the domain is divided into a series
@@ -431,11 +440,11 @@ The geometric representation of the model is illustrated in the figure below.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-By default, the component consists of a cold well and a warm well. The number of wells can be increased by modifing the parameters <code>nCoo</code> and <code>nHot</code>.
+By default, the component consists of a single pair of wells: one cold well and one warm well. The number of paired wells can be increased by modifing the parameters <code>nPai</code>.
 The effect is a proportional increase of thermal capacity.
 </p>
 <p>
-To ensure conservation of energy, the two wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>rMax</code> is large enough for your specific use case.
+To ensure conservation of energy, the wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>rMax</code> is large enough for your specific use case.
 </p>
 <p>
 Circulation pumps are included in the model and they can be controlled by acting on the input connector. The input must vary between [1,-1]. A positive value will circulate water
@@ -444,12 +453,6 @@ clockwise (extraction from the cold well and injection into the warm well). A ne
 <p>
 The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and <code>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
 in the discretized domain. The location of the thermal capacitance is expressed by <code>rVol</code>.
-</p>
-<p>
-The nominal pressure drops in the circuit must be selected according to the figure below.
-</p>
-<p align=\"center\">
-<img  alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Geothermal/Aquifer/PressureCircuit.png\">
 </p>
 </html>", revisions="<html>
 <ul>
