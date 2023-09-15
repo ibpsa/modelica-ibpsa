@@ -31,7 +31,7 @@ model SimpleHouse
         origin={142,-8})));
   Fluid.MixingVolumes.MixingVolume zon(
     redeclare package Medium = MediumAir,
-    V=V_zone,
+    V=VZone,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mAir_flow_nominal,
