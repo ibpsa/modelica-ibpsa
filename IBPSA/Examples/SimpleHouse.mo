@@ -1,4 +1,4 @@
-﻿within IBPSA.Examples;
+within IBPSA.Examples;
 model SimpleHouse
   "Illustrative example of a simple heating, ventilation and room model"
   extends Modelica.Icons.Example;
@@ -372,6 +372,6 @@ a proportional-controller instead of a hysteresis controller.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Examples/SimpleHouse.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Examples/SimpleHouse.mos"
         "Simulate and plot"));
 end SimpleHouse;
