@@ -1,4 +1,4 @@
-﻿within IBPSA.Examples.Tutorial.SimpleHouse;
+within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse6 "Free cooling model"
   extends SimpleHouse5(
     zon(nPorts=2),

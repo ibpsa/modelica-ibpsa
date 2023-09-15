@@ -1,4 +1,4 @@
-﻿within IBPSA.Examples.Tutorial.SimpleHouse;
+within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 
