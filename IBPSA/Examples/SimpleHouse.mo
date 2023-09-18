@@ -1,4 +1,4 @@
-within IBPSA.Examples;
+﻿within IBPSA.Examples;
 model SimpleHouse
   "Illustrative example of a simple heating, ventilation and room model"
   extends Modelica.Icons.Example;
@@ -28,7 +28,7 @@ model SimpleHouse
     "Thermal mass of walls"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={142,-8})));
+        origin={170,0})));
   Fluid.MixingVolumes.MixingVolume zon(
     redeclare package Medium = MediumAir,
     V=VZone,
@@ -37,13 +37,13 @@ model SimpleHouse
     m_flow_nominal=mAir_flow_nominal,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Very based zone air model"
-    annotation (Placement(transformation(extent={{102,140},{82,160}})));
+    annotation (Placement(transformation(extent={{160,50},{180,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor conRes(R=1/2/AWall)
     "Thermal resistance for convective heat transfer with h=2" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={132,22})));
+        origin={110,20})));
   Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumWater,
     T_a_nominal=273.15 + 50,
@@ -52,28 +52,29 @@ model SimpleHouse
     allowFlowReversal=allowFlowReversal,
     Q_flow_nominal=QHea_flow_nominal)
                                  "Radiator"
-    annotation (Placement(transformation(extent={{104,-116},{124,-96}})));
+    annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
 
   Fluid.Sources.Boundary_pT bouAir(
     redeclare package Medium = MediumAir,
     nPorts=2,
     use_T_in=true) "Air boundary with constant temperature" annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}}, origin={-112,140})));
+      Placement(transformation(extent={{-10,-10},{10,10}}, origin={-110,140})));
   Fluid.Sources.Boundary_pT bouWat(redeclare package Medium = MediumWater,
       nPorts=1) "Pressure bound for water circuit" annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, origin={-8,-170})));
+        transformation(extent={{-10,-10},{10,10}}, origin={20,-180})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
-    annotation (Placement(transformation(extent={{-200,-18},{-180,2}})));
+    annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-162,-18},{-142,2}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}}),
+        iconTransformation(extent={{-160,-10},{-140,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(R=0.25/AWall/
         0.04) "Thermal resistor for wall: 25 cm of rockwool"
-    annotation (Placement(transformation(extent={{66,-10},{86,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Exterior temperature boundary condition"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Fluid.HeatExchangers.HeaterCooler_u heaWat(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -82,7 +83,7 @@ model SimpleHouse
     dp_nominal=5000,
     Q_flow_nominal=QHea_flow_nominal)
                                  "Heater for water circuit"
-    annotation (Placement(transformation(extent={{44,-116},{64,-96}})));
+    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
 
   Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWater,
@@ -93,17 +94,17 @@ model SimpleHouse
     nominalValuesDefineDefaultPressureCurve=true,
     inputType=IBPSA.Fluid.Types.InputType.Stages,
     massFlowRates=mWat_flow_nominal*{1}) "Pump"
-    annotation (Placement(transformation(extent={{80,-180},{60,-160}})));
+    annotation (Placement(transformation(extent={{140,-190},{120,-170}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemZonAir
     "Zone air temperature sensor"
-    annotation (Placement(transformation(extent={{80,170},{60,190}})));
+    annotation (Placement(transformation(extent={{120,170},{100,190}})));
   Fluid.Actuators.Dampers.Exponential vavDam(
     redeclare package Medium = MediumAir,
     from_dp=true,
     m_flow_nominal=mAir_flow_nominal,
     dpDamper_nominal=10,
     dpFixed_nominal=dpAir_nominal - 10) "Damper" annotation (Placement(
-        transformation(extent={{-10,10},{10,-10}}, origin={72,120})));
+        transformation(extent={{-10,10},{10,-10}}, origin={110,130})));
 
   Fluid.Movers.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,
@@ -113,10 +114,10 @@ model SimpleHouse
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mAir_flow_nominal,
     show_T=true) "Constant head fan" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-22,120})));
+          extent={{-10,10},{10,-10}}, origin={-10,130})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow win
     "Very simple window model"
-    annotation (Placement(transformation(extent={{-20,-36},{0,-16}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Fluid.HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -125,159 +126,159 @@ model SimpleHouse
     m1_flow_nominal=mAir_flow_nominal,
     m2_flow_nominal=mAir_flow_nominal,
     eps=0.85) "Heat exchanger for heat recuperation"
-    annotation (Placement(transformation(extent={{-54,114},{-84,146}})));
+    annotation (Placement(transformation(extent={{-45,124},{-75,156}})));
   Modelica.Blocks.Logical.Hysteresis hysRad(uLow=273.15 + 20, uHigh=273.15 + 22)
     "Hysteresis controller for radiator"
-    annotation (Placement(transformation(extent={{-74,-110},{-54,-90}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea "Boolean to real"
-    annotation (Placement(transformation(extent={{-16,-110},{4,-90}})));
+    annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Modelica.Blocks.Logical.Not not1
     "negation for enabling heating when temperatur is low"
-    annotation (Placement(transformation(extent={{-46,-110},{-26,-90}})));
+    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+  Modelica.Blocks.Math.BooleanToReal booToRea "Boolean to real"
+    annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Modelica.Blocks.Sources.Constant con_dp(k=dpAir_nominal) "Pressure head"
-    annotation (Placement(transformation(extent={{-52,150},{-32,170}})));
+    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
   Modelica.Blocks.Math.Gain gaiWin(k=AWin*gWin)
     "Gain for window solar transmittance and area as HGloHor is in W/m2"
-    annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Modelica.Blocks.Math.BooleanToInteger booToInt "Boolean to integer"
-    annotation (Placement(transformation(extent={{-16,-144},{4,-124}})));
+    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Controls.Continuous.LimPID conDam(
       controllerType=Modelica.Blocks.Types.SimpleController.P,
       yMin=0.25) "Controller for damper"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Modelica.Blocks.Sources.Constant TSetRoo(k=273.15 + 24)
     "Room temperature set point for air system"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Fluid.HeatExchangers.SensibleCooler_T cooAir(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mAir_flow_nominal,
     dp_nominal=0,
     redeclare package Medium = MediumAir) "Cooling for supply air"
-    annotation (Placement(transformation(extent={{30,110},{50,130}})));
+    annotation (Placement(transformation(extent={{30,140},{50,120}})));
   Modelica.Blocks.Sources.Constant TSupAirCoo(k=273.15 + 20)
     "Cooling setpoint for supply air"
-    annotation (Placement(transformation(extent={{-12,150},{8,170}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
 equation
-  connect(conRes.port_b, walCap.port)
-    annotation (Line(points={{132,12},{132,12},{132,-8}}, color={191,0,0}));
   connect(conRes.port_a, zon.heatPort)
-    annotation (Line(points={{132,32},{132,150},{102,150}}, color={191,0,0}));
+    annotation (Line(points={{110,30},{110,40},{160,40}},   color={191,0,0}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-180,-8},{-180,-8},{-152,-8}},
+      points={{-160,0},{-130,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(walRes.port_b, walCap.port) annotation (Line(points={{86,0},{132,0},{132,
-          -6},{132,-8}}, color={191,0,0}));
+  connect(walRes.port_b, walCap.port) annotation (Line(points={{80,0},{122,0},{122,
+          1.77636e-15},{160,1.77636e-15}},
+                         color={191,0,0}));
   connect(TOut.T, weaBus.TDryBul)
-    annotation (Line(points={{-22,0},{-152,0},{-152,-8}}, color={0,0,127}));
+    annotation (Line(points={{-82,0},{-130,0}},           color={0,0,127}));
   connect(TOut.port, walRes.port_a)
-    annotation (Line(points={{0,0},{0,0},{66,0}}, color={191,0,0}));
-  connect(heaWat.port_b, rad.port_a) annotation (Line(points={{64,-106},{84,-106},
-          {104,-106}}, color={0,127,255}));
-  connect(bouWat.ports[1], heaWat.port_a) annotation (Line(points={{2,-170},{40,
-          -170},{40,-106},{44,-106}}, color={0,127,255}));
-  connect(rad.port_b, pum.port_a) annotation (Line(points={{124,-106},{130,-106},
-          {130,-170},{80,-170}}, color={0,127,255}));
-  connect(senTemZonAir.port, zon.heatPort) annotation (Line(points={{80,180},{80,
-          180},{112,180},{112,150},{102,150}}, color={191,0,0}));
-  connect(win.port, walCap.port) annotation (Line(points={{0,-26},{132,-26},{132,
-          -12},{132,-8}}, color={191,0,0}));
-  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-102,139},{
-          -102,139.6},{-84,139.6}},
+    annotation (Line(points={{-60,0},{60,0}},     color={191,0,0}));
+  connect(heaWat.port_b, rad.port_a) annotation (Line(points={{80,-130},{120,-130}},
+                       color={0,127,255}));
+  connect(bouWat.ports[1], heaWat.port_a) annotation (Line(points={{30,-180},{42,
+          -180},{42,-130},{60,-130}}, color={0,127,255}));
+  connect(rad.port_b, pum.port_a) annotation (Line(points={{140,-130},{150,-130},
+          {150,-180},{140,-180}},color={0,127,255}));
+  connect(senTemZonAir.port, zon.heatPort) annotation (Line(points={{120,180},{160,
+          180},{160,40}},                      color={191,0,0}));
+  connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-100,139},{
+          -100,149.6},{-75,149.6}},
                               color={0,127,255}));
-  connect(hexRec.port_a1, zon.ports[1]) annotation (Line(points={{-54,139.6},{85,
-          139.6},{85,140},{93,140}}, color={0,127,255}));
-  connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{112,-98.8},{112,
-          -98.8},{112,48},{112,150},{102,150}}, color={191,0,0}));
-  connect(rad.heatPortRad, walCap.port) annotation (Line(points={{116,-98.8},{116,
-          -98.8},{116,-70},{116,-26},{132,-26},{132,-8}},
-                                                   color={191,0,0}));
-  connect(not1.y, booToRea.u) annotation (Line(points={{-25,-100},{-22,-100},{-18,
-          -100}}, color={255,0,255}));
-  connect(not1.u, hysRad.y) annotation (Line(points={{-48,-100},{-52,-100},{-53,
-          -100}}, color={255,0,255}));
-  connect(booToRea.y, heaWat.u) annotation (Line(points={{5,-100},{16,-100},{26,
-          -100},{42,-100}}, color={0,0,127}));
-  connect(heaWat.port_a, pum.port_b) annotation (Line(points={{44,-106},{40,-106},
-          {40,-112},{40,-170},{60,-170}}, color={0,127,255}));
-  connect(con_dp.y, fan.dp_in) annotation (Line(points={{-31,160},{-22,160},{-22,
-          132},{-22,132}}, color={0,0,127}));
-  connect(gaiWin.y, win.Q_flow) annotation (Line(points={{-39,-26},{-34,-26},{-30,
-          -26},{-20,-26}}, color={0,0,127}));
-  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{-62,-26},{-90,-26},
-          {-152,-26},{-152,-8}}, color={0,0,127}));
-  connect(booToInt.u, not1.y) annotation (Line(points={{-18,-134},{-22,-134},{-22,
-          -100},{-25,-100}}, color={255,0,255}));
-  connect(booToInt.y, pum.stage) annotation (Line(points={{5,-134},{32,-134},{70,
-          -134},{70,-158}}, color={255,127,0}));
-  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-102,141},{
-          -102,142},{-90,142},{-90,120.4},{-84,120.4}}, color={0,127,255}));
-  connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-54,120.4},{-44,
-          120.4},{-44,120},{-32,120}}, color={0,127,255}));
-  connect(vavDam.port_b, zon.ports[2])
-    annotation (Line(points={{82,120},{91,120},{91,140}}, color={0,127,255}));
-  connect(senTemZonAir.T, hysRad.u) annotation (Line(points={{59,180},{59,180},{
-          -132,180},{-132,-100},{-76,-100}},  color={0,0,127}));
-  connect(senTemZonAir.T,conDam. u_s) annotation (Line(points={{59,180},{59,180},
-          {-132,180},{-132,90},{-62,90},{-22,90}},
-                                          color={0,0,127}));
-  connect(conDam.y, vavDam.y) annotation (Line(points={{1,90},{26,90},{72,90},{72,
-          108}},color={0,0,127}));
-  connect(TSetRoo.y,conDam. u_m) annotation (Line(points={{-39,70},{-40,70},{-36,
-          70},{-40,70},{-10,70},{-10,78}},
+  connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{128,-122.8},{
+          128,40},{160,40}},                    color={191,0,0}));
+  connect(not1.y, booToRea.u) annotation (Line(points={{-19,-110},{-2,-110}},
+                  color={255,0,255}));
+  connect(not1.u, hysRad.y) annotation (Line(points={{-42,-110},{-59,-110}},
+                  color={255,0,255}));
+  connect(booToRea.y, heaWat.u) annotation (Line(points={{21,-110},{40,-110},{40,
+          -124},{58,-124}}, color={0,0,127}));
+  connect(heaWat.port_a, pum.port_b) annotation (Line(points={{60,-130},{42,-130},
+          {42,-180},{120,-180}},          color={0,127,255}));
+  connect(con_dp.y, fan.dp_in) annotation (Line(points={{-29,100},{-10,100},{-10,
+          118}},           color={0,0,127}));
+  connect(gaiWin.y, win.Q_flow) annotation (Line(points={{41,-40},{60,-40}},
+                           color={0,0,127}));
+  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-130,-40},
+          {-130,0}},             color={0,0,127}));
+  connect(booToInt.u, not1.y) annotation (Line(points={{-2,-150},{-11,-150},{-11,
+          -110},{-19,-110}}, color={255,0,255}));
+  connect(booToInt.y, pum.stage) annotation (Line(points={{21,-150},{130,-150},{
+          130,-168}},       color={255,127,0}));
+  connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-45,130.4},{-30,
+          130.4},{-30,130},{-20,130}}, color={0,127,255}));
+  connect(vavDam.port_b, zon.ports[1])
+    annotation (Line(points={{120,130},{140,130},{140,50},{169,50}},
+                                                          color={0,127,255}));
+  connect(senTemZonAir.T, hysRad.u) annotation (Line(points={{99,180},{-209.25,180},
+          {-209.25,-110},{-82,-110}},         color={0,0,127}));
+  connect(senTemZonAir.T,conDam. u_s) annotation (Line(points={{99,180},{74,180},
+          {74,100},{78,100}},             color={0,0,127}));
+  connect(conDam.y, vavDam.y) annotation (Line(points={{101,100},{110,100},{110,
+          118}},color={0,0,127}));
+  connect(TSetRoo.y,conDam. u_m) annotation (Line(points={{61,100},{70,100},{70,
+          82},{90,82},{90,88}},
                          color={0,0,127}));
   connect(fan.port_b, cooAir.port_a)
-    annotation (Line(points={{-12,120},{30,120}}, color={0,127,255}));
+    annotation (Line(points={{0,130},{30,130}},   color={0,127,255}));
   connect(cooAir.port_b, vavDam.port_a)
-    annotation (Line(points={{50,120},{50,120},{62,120}}, color={0,127,255}));
-  connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{9,160},{20,160},{
-          20,128},{28,128}}, color={0,0,127}));
-  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-124,144},{
-          -152,144},{-152,-8}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,220}}), graphics={
+    annotation (Line(points={{50,130},{100,130}},         color={0,127,255}));
+  connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{21,100},{24,100},
+          {24,122},{28,122}},color={0,0,127}));
+  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{
+          -130,144},{-130,0}},  color={0,0,127}));
+  connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-100,141},{
+          -100,130.4},{-75,130.4}}, color={0,127,255}));
+  connect(hexRec.port_a1, zon.ports[2]) annotation (Line(points={{-45,149.6},{171,
+          149.6},{171,50}}, color={0,127,255}));
+  connect(conRes.port_b, walCap.port) annotation (Line(points={{110,10},{110,0},
+          {122,0},{122,1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
+  connect(win.port, walCap.port) annotation (Line(points={{80,-40},{110,-40},{110,
+          0},{132,0},{132,1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
+  connect(rad.heatPortRad, walCap.port) annotation (Line(points={{132,-122.8},{132,
+          1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}}), graphics={
         Rectangle(
-          extent={{-222,200},{180,50}},
+          extent={{-200,200},{200,80}},
           fillColor={238,238,238},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-220,-60},{180,-200}},
+          extent={{-200,-80.25},{200,-199.75}},
           fillColor={238,238,238},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-220,40},{20,-48}},
+          extent={{-199.75,60},{-20.25,-60}},
           fillColor={238,238,238},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-78,182},{-212,198}},
+          extent={{-63,182},{-197,198}},
           textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Cooling and ventilation"),
         Rectangle(
-          extent={{40,40},{180,-46}},
+          extent={{0,60},{200,-60}},
           fillColor={238,238,238},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{98,20},{32,38}},
+          extent={{64.5,40.5},{-4.5,59.5}},
           textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
-          textString="Wall"),
+          textString="Building"),
         Text(
-          extent={{-148,-86},{-214,-68}},
+          extent={{-137,-99},{-203,-81}},
           textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="Heating"),
         Text(
-          extent={{-154,20},{-212,38}},
+          extent={{-141,41},{-199,59}},
           textColor={0,0,127},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
@@ -287,8 +288,8 @@ equation
 <ul>
 <li>
 September 15, 2023, by Jelger Jansen:<br/>
-Move the example model to <a href=\"modelica://IBPSA.Examples\"> IBPSA.Examples</a>
-and update the information section.<br/>
+Move the example model to <a href=\"modelica://IBPSA.Examples\"> IBPSA.Examples</a>, 
+update the information section, and revise lay-out.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1791\">IBPSA, #1791</a>.
 </li>
