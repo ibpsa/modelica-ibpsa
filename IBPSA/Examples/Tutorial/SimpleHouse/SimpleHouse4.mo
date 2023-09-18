@@ -52,11 +52,11 @@ equation
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{152,-122.8},{152,
           1.77636e-15},{160,1.77636e-15}},                     color={191,0,0}));
   if use_constantHeater then
+      connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
+          {58,-124}}, color={0,0,127}));
   end if;
   connect(bouWat.ports[1], pum.port_b)
     annotation (Line(points={{30,-180},{140,-180}},color={0,127,255}));
-  connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
-          {58,-124}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
