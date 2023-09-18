@@ -14,8 +14,8 @@ model SimpleHouse1 "Building wall model"
 equation
   connect(walRes.port_b, walCap.port) annotation (Line(points={{100,0},{112,0},
           {112,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
-  connect(TOut.port, walRes.port_a)
-    annotation (Line(points={{0,0},{80,0}}, color={191,0,0}));
+  connect(TOut.port, walRes.port_a) annotation(
+    Line(points = {{-60, 0}, {80, 0}}, color = {191, 0, 0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -220},{200,200}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
