@@ -1,8 +1,7 @@
 within IBPSA.Fluid.Storage.BaseClasses;
 model PartialStratified
   "Partial model of a stratified tank for thermal energy storage"
-  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface(
-    port_a_x=0, port_a_y=100, port_b_x=0, port_b_y=-100);
+  extends IBPSA.Fluid.Interfaces.PartialTwoPortInterface;
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
@@ -332,13 +331,49 @@ Icon(graphics={
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{2,100},{-2,60}},
+          extent={{-76,2},{-90,-2}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{2,-60},{-2,-100}},
+          extent={{0,84},{-80,80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-76,84},{-80,-2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{82,0},{78,-86}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,84},{-4,60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{82,-84},{2,-88}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{6,-60},{2,-84}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{92,2},{78,-2}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},

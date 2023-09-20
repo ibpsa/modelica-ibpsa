@@ -20,7 +20,7 @@ model StratifiedUnloadAtMinimumTemperature
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nSeg=nSeg,
     T_start=353.15) "Hot water storage tank"
-    annotation (Placement(transformation(extent={{-120,-128},{-100,-108}})));
+    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   IBPSA.Fluid.Sources.Boundary_pT loa(redeclare package Medium = Medium,
       nPorts=1)
     "Load (imposed by a constant pressure boundary condition and the flow of masSou)"
@@ -103,14 +103,13 @@ model StratifiedUnloadAtMinimumTemperature
     "Boolean to real conversion for valve at bottom"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 equation
-  connect(masSou.ports[1], tan.port_b) annotation (Line(points={{222,-120},{56,
-          -120},{56,-128},{-110,-128}},
-                              color={0,127,255}));
+  connect(masSou.ports[1], tan.port_b) annotation (Line(points={{222,-120},{
+          -100,-120}},        color={0,127,255}));
   connect(TMid.port, tan.heaPorVol[3])
-    annotation (Line(points={{-100,80},{-100,-118},{-110,-118}},
+    annotation (Line(points={{-100,80},{-100,-12},{-110,-12},{-110,-120}},
                                                              color={191,0,0}));
   connect(TBot.port, tan.heaPorVol[5])
-    annotation (Line(points={{-100,40},{-100,-117.76},{-110,-117.76}},
+    annotation (Line(points={{-100,40},{-110,40},{-110,-119.76}},
                                                            color={191,0,0}));
   connect(valTop.port_b, senTem.port_a) annotation (Line(points={{132,-20},{182,
           -20},{182,-60},{190,-60}},
@@ -125,13 +124,13 @@ equation
     annotation (Line(points={{210,-60},{222,-60}},
                                                  color={0,127,255}));
   connect(valTop.port_a, tan.fluPorVol[1]) annotation (Line(points={{112,-20},{
-          -116,-20},{-116,-118},{-112.6,-118},{-112.6,-118.4}},
+          -116,-20},{-116,-118},{-115,-118},{-115,-121.6}},
                                color={0,127,255}));
   connect(valMid.port_a, tan.fluPorVol[3]) annotation (Line(points={{132,-60},{
-          -116,-60},{-116,-118},{-112.6,-118}},
+          -116,-60},{-116,-120},{-115,-120}},
                               color={0,127,255}));
   connect(valBot.port_a, tan.fluPorVol[5]) annotation (Line(points={{150,-100},
-          {-116,-100},{-116,-118},{-112.6,-118},{-112.6,-117.6}},
+          {-116,-100},{-116,-118},{-115,-118},{-115,-118.4}},
                               color={0,127,255}));
   connect(onOffMid.y, and2.u1)
     annotation (Line(points={{-29,80},{8,80}},     color={255,0,255}));
@@ -154,10 +153,10 @@ equation
   connect(not1.y, and2.u2) annotation (Line(points={{1,60},{4,60},{4,72},{8,72}},
         color={255,0,255}));
   connect(hea.port, tan.heaPorVol[5]) annotation (Line(points={{-130,-124},{
-          -110,-124},{-110,-117.76}},
+          -110,-124},{-110,-119.76}},
                               color={191,0,0}));
   connect(TTop.port, tan.heaPorVol[1]) annotation (Line(points={{-160,-90},{
-          -120,-90},{-120,-120},{-110,-120},{-110,-118.24}},
+          -110,-90},{-110,-120.24}},
                              color={191,0,0}));
   connect(onOffHea.u, TTop.T) annotation (Line(points={{-212,-124},{-230,-124},
           {-230,-90},{-181,-90}},color={0,0,127}));
