@@ -1,6 +1,6 @@
-within IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511;
+within IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511;
 record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R cooling mode"
-  extends IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.Generic(
+  extends IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic(
     tabPEle=[
       0,20,25,30,32,35,40;
       20,340,370,400,410,430,470;

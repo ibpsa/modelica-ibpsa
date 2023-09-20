@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
-model EuropeanNorm2D "Data from European Norm in two dimensions"
+model TableData2D "Data from European Norm in two dimensions"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final datSou=datTab.devIde,
@@ -102,13 +102,14 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses the 2-dimensional table data given in the
-  DIN EN 14511 (formerly EN255) to calculate
+  This model uses two-dimensional table data typically given 
+  by manufacturers as required by e.g. European Norm 14511 
+  or ASHRAE XY to calculate
   <code>QCon_flow</code> and <code>PEle</code>.
 </p>
 <p>
-  Under different condenser outlet and evaporator inlet temperatures,
-  the standard provides two of the three following values:
+  For different condenser outlet and evaporator inlet temperatures,
+  the tables must provide two of the three following values:
   electrical power consumption, evaporator heat flow rate, and COP.
 </p>
 <p>
@@ -127,25 +128,25 @@ This implies a constant COP over different design sizes:
 <h4>Known Limitations </h4>
 <ul>
 <li>
-  The standard does not require to provide the compressor speed at wich
-  the data holds. Thus, nominal values may be obtained at different
+  Manufacturers are not required to provide the compressor speed at wich
+  the data are measured. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
-  Depending on your simulation aim, please check that you use the
-  maximal possible heating output information, which is often provided in
-  the data sheets from the manufacturers. This limitation only
-  holds for inverter driven heat pumps.
+  To accurately model the available thermal output, 
+  please check that you use tables of the maximal thermal output, 
+  which is often provided in the data sheets from the manufacturers. 
+  This limitation only holds for inverter driven heat pumps.
 </li>
 <li>
-  As the standard does not require the compressor speed,
-  we assume that the efficiency is contant over the whole
-  compressor speed range. Typically, efficiencies will drop at minimal
+  We assume that the efficiency is contant over the whole
+  compressor speed range. Typically, effciencies will drop at minimal
   and maximal compressor speeds.
   To model an inverter controlled heat pump, the relative
   compressor speed <code>ySet</code> is used to scale
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
-  dependent refrigerant cycle models in the AixLib.
+  dependent refrigerant cycle models in the
+  <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a>.
 </li>
 </ul>
 </html>"));
-end EuropeanNorm2D;
+end TableData2D;

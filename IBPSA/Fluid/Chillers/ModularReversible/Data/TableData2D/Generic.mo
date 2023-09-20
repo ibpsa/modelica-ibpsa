@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D;
+within IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D;
 record Generic "Basic chiller data"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
 
@@ -18,7 +18,7 @@ record Generic "Basic chiller data"
 </p>
 <p>
   It extends <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.RefrigerantCycle2DBaseDataDefinition</a>
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DData.RefrigerantCycle2DBaseDataDefinition</a>
   to restrict to intended selections.</p>
 <p>
   It adds the table data for lower temperature limits

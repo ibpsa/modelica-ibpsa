@@ -12,7 +12,7 @@ model EuropeanNormData
           nthOrd=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D
           (                                                                        datTab=
               IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
               tabQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],

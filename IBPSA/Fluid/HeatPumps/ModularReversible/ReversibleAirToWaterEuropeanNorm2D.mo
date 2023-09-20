@@ -16,11 +16,11 @@ model ReversibleAirToWaterEuropeanNorm2D
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D (redeclare
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, final datTab=datTabCoo),
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D (redeclare
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, final datTab=datTabHea),
     final use_rev=true,
@@ -31,8 +31,8 @@ model ReversibleAirToWaterEuropeanNorm2D
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater datTabHea
     constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater
     "Data Table of HP" annotation (choicesAllMatching=true);
-  replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.Generic
-    datTabCoo constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.Generic
+  replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
+    datTabCoo constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     "Data Table of Chiller" annotation (choicesAllMatching=true);
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
@@ -65,14 +65,14 @@ model ReversibleAirToWaterEuropeanNorm2D
 </p>
 <p>
   Please read the documentation of the model for heating here:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>.
 </p>
 <p>
   For cooling, the assumptions are similar.
   Check this documentation:
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D</a>
 </p>
 </html>"));
 end ReversibleAirToWaterEuropeanNorm2D;

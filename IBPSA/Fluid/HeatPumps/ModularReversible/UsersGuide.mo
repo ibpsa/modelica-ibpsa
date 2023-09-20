@@ -236,8 +236,8 @@ to the section <b>Refrigerant cycle models</b>.
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a> model 
   uses the same equations as the Carnot models, i.e.  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
   IBPSA.Fluid.HeatPumps.Carnot_y</a>.
-  Second, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a> provides performance data
+  Second, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a> provides performance data
   based on the European Norm 14511 using 2D-tables.
 </p>
 <p>
@@ -246,8 +246,8 @@ to the section <b>Refrigerant cycle models</b>.
   the compressor speed influences the model output as a third
   dimension. Currently, tables with more than two dimensions are not supported in
   the Modelica Standard Library.
-  The first approach is similar to <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>
+  The first approach is similar to <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>
   approach buts adds the 3rd dimension of compressor speed.
   The second approach is based on white-box stationary python models
   for closed-loop refrigerant cycles. The model has been empirically

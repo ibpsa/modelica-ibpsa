@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D;
+within IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D;
 package EN14511
 
 annotation (preferredView="info",

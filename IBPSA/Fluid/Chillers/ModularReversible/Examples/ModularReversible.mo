@@ -46,7 +46,7 @@ model ModularReversible
         useAirForEva=modRevChi.cpEva < 1500,
         quaGra=0.35),
     redeclare model RefrigerantCycleChillerHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D (redeclare
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
             IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350BWH110(

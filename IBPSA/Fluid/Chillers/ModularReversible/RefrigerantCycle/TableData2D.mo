@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle;
-model EuropeanNorm2D
+model TableData2D
   "Two-Dimensional performance data"
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
@@ -24,8 +24,8 @@ model EuropeanNorm2D
     final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,
     final perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100,
     constScaFac(final k=scaFac));
-  parameter IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.Generic datTab=
-      IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201()
+  parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTab=
+      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201()
     "Data Table of Chiller" annotation (choicesAllMatching=true);
 
 equation
@@ -98,13 +98,14 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses the 2-dimensional table data given in the
-  DIN EN 14511 (formerly EN255) to calculate
+  This model uses two-dimensional table data typically given 
+  by manufacturers as required by e.g. European Norm 14511 
+  or ASHRAE XY to calculate
   <code>QEva_flow</code> and <code>PEle</code>.
 </p>
 <p>
-  Under different condenser outlet and evaporator inlet temperatures,
-  the standard provides two of the three following values:
+  For different condenser outlet and evaporator inlet temperatures,
+  the tables must provide two of the three following values:
   electrical power consumption, evaporator heat flow rate, and COP.
 </p>
 <p>
@@ -123,7 +124,7 @@ This implies a constant COP over different design sizes:
 <h4>Known Limitations </h4>
 <ul>
 <li>
-  The standard does not require providing the compressor speed at which
+  Manufacturers are not required to provide the compressor speed at wich
   the data are measured. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
   To accurately model the available thermal output, 
@@ -139,8 +140,9 @@ This implies a constant COP over different design sizes:
   compressor speed <code>ySet</code> is used to scale
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
-  dependent refrigerant cycle models in the AixLib.
+  dependent refrigerant cycle models in the 
+  <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a>.
 </li>
 </ul>
 </html>"));
-end EuropeanNorm2D;
+end TableData2D;

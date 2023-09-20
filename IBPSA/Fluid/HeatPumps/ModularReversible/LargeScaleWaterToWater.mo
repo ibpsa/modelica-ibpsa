@@ -19,7 +19,7 @@ model LargeScaleWaterToWater
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D (redeclare
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
     final use_rev=false,
@@ -71,13 +71,13 @@ model LargeScaleWaterToWater
 </p>
 <p>
   Please read the documentation of the model for heating here:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>.
 </p>
 <p>
   Currently the only data sheets for heat pumps that large is the record
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.EN14511.WAMAK_WaterToWater_150kW</a>,
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DData.EN14511.WAMAK_WaterToWater_150kW</a>,
   hence, the default value.
 </p>
 <p>

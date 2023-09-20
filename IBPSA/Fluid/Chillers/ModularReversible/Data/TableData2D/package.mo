@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Data;
-package EuropeanNorm2D "Package with data according to EN 14511"
+package TableData2D "Package with data according to EN 14511"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (preferredView="info",
@@ -9,4 +9,4 @@ package EuropeanNorm2D "Package with data according to EN 14511"
   data according to European Norm 14511.
 </p>
 </html>"));
-end EuropeanNorm2D;
+end TableData2D;

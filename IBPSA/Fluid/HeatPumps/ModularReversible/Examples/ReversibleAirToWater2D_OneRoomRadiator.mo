@@ -30,7 +30,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201
       datTabHea,
     redeclare
-      IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Vitocal200AWO201
+      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201
       datTabCoo,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021

@@ -21,7 +21,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating,
     redeclare model RefrigerantCycleChillerCooling =
-        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D (
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=datTab),
@@ -40,8 +40,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin));
   replaceable parameter
-    IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Carrier30XWP1012_1MW
-    datTab constrainedby Data.EuropeanNorm2D.Generic "Data Table of Chiller"
+    IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
+    datTab constrainedby Data.TableData2D.Generic "Data Table of Chiller"
     annotation (choicesAllMatching=true);
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
@@ -71,13 +71,13 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </p>
 <p>
   Please read the documentation of the model for heating here:
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D</a>.
 </p>
 <p>
   Currently the only data sheets for chillers that large is the record
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.EuropeanNorm2D.EN14511.Carrier30XWP1012_1MW\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.EuropeanNorm2DData.EN14511.Carrier30XWP1012_1MW</a>,
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW\">
+  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DData.EN14511.Carrier30XWP1012_1MW</a>,
   hence, the default value.
 </p>
 <p>
