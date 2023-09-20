@@ -28,8 +28,8 @@ env:
     # Test matrix for regression tests.
     # The documentation is tested using github actions.
     - TEST_ARG="make test-bestest"
-    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Experimental\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Experimental\""
+    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.{Examples,Experimental}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.{Examples,Experimental}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
