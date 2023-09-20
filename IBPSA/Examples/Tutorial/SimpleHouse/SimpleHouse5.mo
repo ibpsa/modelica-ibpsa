@@ -1,4 +1,4 @@
-﻿within IBPSA.Examples.Tutorial.SimpleHouse;
+within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse5 "Heating controller model"
   extends SimpleHouse4(pum(inputType=IBPSA.Fluid.Types.InputType.Stages,
         massFlowRates=mWat_flow_nominal*{1}), final use_constantHeater=false);
