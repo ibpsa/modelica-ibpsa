@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
-model EuropeanNormData
+model TableData2D
   extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(      heaPum(
@@ -32,7 +32,7 @@ model EuropeanNormData
     "Cut off frequency for inertia of refrigerant cycle";
 
   annotation (experiment(Tolerance=1e-6, StopTime=14365),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/EuropeanNormData.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/TableData2D.mos"
             "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -52,4 +52,4 @@ model EuropeanNormData
   </li>
 </ul>
 </html>"));
-end EuropeanNormData;
+end TableData2D;

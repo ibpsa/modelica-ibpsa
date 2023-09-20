@@ -120,8 +120,8 @@ to the section <b>Refrigerant cycle models</b>.
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
 </li>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>
 </li>
 <li>
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
@@ -238,7 +238,7 @@ to the section <b>Refrigerant cycle models</b>.
   IBPSA.Fluid.HeatPumps.Carnot_y</a>.
   Second, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a> provides performance data
-  based on the European Norm 14511 using 2D-tables.
+  based on different condenser outlet and evaporator inlet temperatures using 2D-tables.
 </p>
 <p>
   Two additional modules exist in the AixLib library.
@@ -326,7 +326,7 @@ for heating and cooling.
   named <code>QUseNoSca_flow_nominal</code>. This value is probably
   different to <code>QUse_flow_nominal</code> which is for sizing.
   For instance, say you need a 7.6 kW heat pump,
-  but the EN 14511 datasheets may only provide 5 kW and 10 kW options.
+  but the datasheets may only provide 5 kW and 10 kW options.
   In such cases, the performance data and relevant parameters
   are scaled using a scaling factor <code>scaFac</code>.
   Resulting, the refrigerant machine can supply more or less heat with

@@ -1,7 +1,7 @@
 UsersGuide
 LargeScaleWaterToWater
 ModularReversible
-ReversibleAirToWaterEuropeanNorm2D
+ReversibleAirToWaterTableData2D
 ReversibleCarnotWithLosses
 Controls
 RefrigerantCycle

@@ -14,8 +14,8 @@ record GenericAirToWater
 <p>
   This record allows specific selection using
   <code>choicesAllMatching</code> in models like
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterEuropeanNorm2D</a>.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>.
 </p>
 </html>"));
 end GenericAirToWater;

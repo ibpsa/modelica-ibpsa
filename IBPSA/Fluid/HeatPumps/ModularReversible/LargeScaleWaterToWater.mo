@@ -88,7 +88,7 @@ model LargeScaleWaterToWater
 <ul>
 <li>
   As heat losses are implicitly included in the table
-  data according to EN 14511, heat losses are disabled.
+  data given by manufacturers, heat losses are disabled.
 </li>
 </ul>
 </html>", revisions="<html><ul>

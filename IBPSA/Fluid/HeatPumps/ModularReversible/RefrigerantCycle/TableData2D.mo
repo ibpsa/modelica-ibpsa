@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
-model TableData2D "Data from European Norm in two dimensions"
+model TableData2D "Performance data based on condenser outlet and evaporator inlet temperature"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final datSou=datTab.devIde,
@@ -15,7 +15,7 @@ model TableData2D "Data from European Norm in two dimensions"
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
   extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialEuropeanNorm2D(
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
     final use_conOut=datTab.use_conOut,
     final use_evaOut=datTab.use_evaOut,
     perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100,

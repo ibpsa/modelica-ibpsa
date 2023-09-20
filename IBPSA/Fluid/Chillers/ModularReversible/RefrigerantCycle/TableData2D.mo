@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle;
 model TableData2D
-  "Two-Dimensional performance data"
+  "Performance data based on condenser outlet and evaporator inlet temperature"
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
     final datSou=datTab.devIde,
@@ -16,7 +16,7 @@ model TableData2D
         TCon_nominal - 273.15,
         TEva_nominal - 273.15));
   extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialEuropeanNorm2D(
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
     final use_conOut=datTab.use_conOut,
     final use_evaOut=datTab.use_evaOut,
     tabQUse_flow(final table=datTab.tabQEva_flow),

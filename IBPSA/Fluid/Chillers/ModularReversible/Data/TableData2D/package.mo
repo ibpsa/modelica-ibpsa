@@ -1,12 +1,12 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Data;
-package TableData2D "Package with data according to EN 14511"
+package TableData2D "Package with two-dimensional data"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
   This package contains data records for chiller
-  data according to European Norm 14511.
+  data with two-dimensional tables.
 </p>
 </html>"));
 end TableData2D;

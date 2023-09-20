@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
-partial model PartialEuropeanNorm2D
-  "Partial model with components for EuropeanNorm2D approach for heat pumps and chillers"
+partial model PartialTableData2D
+  "Partial model with components for TableData2D approach for heat pumps and chillers"
   parameter Modelica.Blocks.Types.Smoothness smoothness=
     Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
@@ -162,7 +162,7 @@ equation
     Documentation(info="<html>
 <p>
   Partial model for equations and componenents used in both heat pump
-  and chiller models using european norm data in two dimensions.
+  and chiller models using two-dimensional data.
 </p>
 </html>", revisions="<html>
 <ul><li>
@@ -171,4 +171,4 @@ equation
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li></ul>
 </html>"));
-end PartialEuropeanNorm2D;
+end PartialTableData2D;

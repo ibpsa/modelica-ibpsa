@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
-model ReversibleAirToWaterEuropeanNorm2D
+model ReversibleAirToWaterTableData2D
   "Reversible air to water heat pump based on 2D manufacturer data in Europe"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
     final safCtrPar=safCtrParEurNor,
@@ -48,7 +48,7 @@ model ReversibleAirToWaterEuropeanNorm2D
   annotation (Documentation(info="<html>
 <p>
   Reversible air-to-water heat pump based on
-  European Norm 2D data from the standard EN 14511,
+  two-dimensional data from manufacturer data, (e.g. based on EN 14511),
   using the ModularReversible model approach.
 </p>
 <p>
@@ -75,4 +75,4 @@ model ReversibleAirToWaterEuropeanNorm2D
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D</a>
 </p>
 </html>"));
-end ReversibleAirToWaterEuropeanNorm2D;
+end ReversibleAirToWaterTableData2D;
