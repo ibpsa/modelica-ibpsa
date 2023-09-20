@@ -142,12 +142,13 @@ equation
           41.3333},{-6,41.3333},{-6,-66.08},{6,-66.08}},               color={0,
           127,255}));
   connect(bouWat.ports[1], tanSte.port_b) annotation (Line(points={{62,-79.3333},
-          {52,-79.3333},{52,72},{40,72}}, color={0,127,255}));
+          {52,-79.3333},{52,40},{22,40},{22,56},{23,56}},
+                                          color={0,127,255}));
   connect(bouWat.ports[2], tanDyn.port_b)
-    annotation (Line(points={{62,-78},{52,-78},{52,-12},{38,-12}},
+    annotation (Line(points={{62,-78},{52,-78},{52,-36},{21,-36},{21,-28}},
                                                           color={0,127,255}));
   connect(bouWat.ports[3], tanDynSol.port_b) annotation (Line(points={{62,
-          -76.6667},{58,-76.6667},{58,-76},{52,-76},{52,-60},{40,-60}},
+          -76.6667},{24,-76.6667},{24,-76},{23,-76}},
                                             color={0,127,255}));
   connect(step.y, solColSup.p_in)
     annotation (Line(points={{-59,48},{-52,48},{-42,48}}, color={0,0,127}));
