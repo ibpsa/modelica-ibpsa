@@ -1,4 +1,4 @@
-﻿within IBPSA.Examples;
+within IBPSA.Examples;
 model SimpleHouse
   "Illustrative example of a simple heating, ventilation and room model"
   extends Modelica.Icons.Example;
@@ -288,7 +288,7 @@ equation
 <ul>
 <li>
 September 15, 2023, by Jelger Jansen:<br/>
-Move the example model to <a href=\"modelica://IBPSA.Examples\"> IBPSA.Examples</a>, 
+Move the example model to <a href=\"modelica://IBPSA.Examples\">IBPSA.Examples</a>, 
 update the information section, and revise lay-out.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1791\">IBPSA, #1791</a>.
@@ -312,7 +312,7 @@ added cooling to supply air,
 changed capacity of heating system, switched heating pump off when heater is off,
 and added proportional controller for the air damper.<br/>
 This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/584\">#584</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/584\">IBPSA, #584</a>.
 </li>
 <li>
 September 9, 2016, by Michael Wetter:<br/>
@@ -329,13 +329,13 @@ March 11, 2016, by Michael Wetter:<br/>
 Corrected wrong limits for <code>hysAir</code> so that
 <code>uLow &lt; uHigh</code>.
 This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/429\">#429</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/429\">IBPSA, #429</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">IBPSA, #404</a>.
 </li>
 <li>
 September 19, 2015, by Filip Jorissen:<br/>
@@ -361,15 +361,16 @@ Different numerical values are used for almost all model parameters.
 <li>
 The solar irradiation (in <i>W/m<sup>2</sup></i>) is calculated as
 the global horizontal irradiation multiplied with a solar heat gain coefficient
-instead of the (full) direct normal irradiation.
+instead of the direct normal irradiation.
 </li>
 <li>
 The ventilation system is equiped with a cooler that sets the temperature
-of the air flow entering the zone equal to a constant value (of <i>20°C</i>).
+of the air flow entering the zone equal to a constant value of <i>20°C</i>.
 </li>
 <li>
 The damper in the ventilation system is operated by
 a proportional-controller instead of a hysteresis controller.
+</li>
 </ul>
 </html>"),
     __Dymola_Commands(file=
