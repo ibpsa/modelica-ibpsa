@@ -69,6 +69,7 @@ Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a>
 <h4>Connection instructions</h4>
 <p>
 The heater modulation level should be set to one when the heater is on and to zero otherwise.
+Furthermore, the pump should only circulate water when the heater is on.
 </p>
 <h4>Reference result</h4>
 <p>

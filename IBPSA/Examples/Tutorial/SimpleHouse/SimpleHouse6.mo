@@ -109,16 +109,28 @@ The nominal mass flow rate of the ventilation system is <i>0.1 kg/s</i>.
 <h4>Required models</h4>
 <ul>
 <li>
+<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
+IBPSA.Fluid.Actuators.Dampers.Exponential</a>
+</li>
+<li>
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.ConstantEffectiveness\">
 IBPSA.Fluid.HeatExchangers.ConstantEffectiveness</a>
 </li>
 <li>
-<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
-IBPSA.Fluid.Movers.FlowControlled_dp</a>
+<a href=\"modelica://IBPSA.Fluid.Movers.Preconfigured.FlowControlled_dp\">
+IBPSA.Fluid.Movers.Preconfigured.FlowControlled_dp</a>
 </li>
 <li>
-<a href=\"modelica://IBPSA.Fluid.Actuators.Dampers.Exponential\">
-IBPSA.Fluid.Actuators.Dampers.Exponential</a>
+<a href=\"modelica://IBPSA.Fluid.Sources.Boundary_pT\">
+IBPSA.Fluid.Sources.Boundary_pT</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Logical.Hysteresis\">
+Modelica.Blocks.Logical.Hysteresis</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
+Modelica.Blocks.Math.BooleanToReal</a>
 </li>
 </ul>
 <h4>Connection instructions</h4>
@@ -129,6 +141,7 @@ Add a <code>boundary_pT</code> to draw air from the environment.
 Enable its temperature input and connect it to the <i>TDryBul</i> variable in the weather data reader.
 Also reconsider the nominal mass flow rate parameter value in the <code>MixingVolume</code>
 given the flow rate information of the ventilation system.
+Finally, make sure that the fan is only active when the damper is open.
 </p>
 <h4>Reference result</h4>
 <p>

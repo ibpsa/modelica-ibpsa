@@ -52,12 +52,12 @@ The heat capacity value of a wall may be computed as <i>C=A*d*c<sub>p</sub>*&rho
 <h4>Required models</h4>
 <ul>
 <li>
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
-Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
-</li>
-<li>
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
 Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
+Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
 </li>
 </ul>
 <h4>Connection instructions</h4>

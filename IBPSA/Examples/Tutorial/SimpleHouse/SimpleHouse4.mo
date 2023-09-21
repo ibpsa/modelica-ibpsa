@@ -83,12 +83,12 @@ the media for the models in the heating circuit should be set to <i>MediumWater<
 <h4>Required models</h4>
 <ul>
 <li>
-<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
-IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
-</li>
-<li>
 <a href=\"modelica://IBPSA.Fluid.HeatExchangers.HeaterCooler_u\">
 IBPSA.Fluid.HeatExchangers.HeaterCooler_u</a>
+</li>
+<li>
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
+IBPSA.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>
 </li>
 <li>
 <a href=\"modelica://IBPSA.Fluid.Movers.Preconfigured.FlowControlled_m_flow\">
