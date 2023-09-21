@@ -2,8 +2,8 @@ within IBPSA.Fluid.Chillers.ModularReversible;
 model LargeScaleWaterToWater "Large scale water to water chiller"
   extends ModularReversible(
     final safCtrPar=safCtrParEurNor,
-    dpEva_nominal=0,
-    dpCon_nominal=0,
+    dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
+    dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
     final dTEva_nominal=QUse_flow_nominal/cpEva/mEva_flow_nominal,
     final dTCon_nominal=(QUse_flow_nominal - PEle_nominal)/cpCon/mCon_flow_nominal,
     redeclare package MediumCon = IBPSA.Media.Water,
@@ -60,14 +60,15 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   using the ModularReversible model approach.
 </p>
 <p>
+  Contrary to the standard sizing approach for ModularReversible models,
+  the parameters are based on an automatic estimation, see:
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
+</p>
+<p>
   For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
-</p>
-<p>
-  Parameters are based on an automatic estimation, see:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
 </p>
 <p>
   Please read the documentation of the model for heating here:
@@ -87,8 +88,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 <h4>Assumptions</h4>
 <ul>
 <li>
-  As heat losses are implicitly included in the table
-  data according to EN 14511, heat losses are disabled.
+  As heat losses are implicitly included in measured
+  data in manufacturer dataseheets, heat losses are disabled.
 </li>
 <li>
   Pressure losses are not provided in datasheets. As typical

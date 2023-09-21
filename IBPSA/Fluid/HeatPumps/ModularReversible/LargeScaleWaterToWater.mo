@@ -2,6 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+    dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
+    dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
     final safCtrPar=safCtrParEurNor,
     final dTEva_nominal=(QUse_flow_nominal - PEle_nominal)/cpEva/
         mEva_flow_nominal,
@@ -60,14 +62,15 @@ model LargeScaleWaterToWater
   using the ModularReversible model approach.
 </p>
 <p>
+  Contrary to the standard sizing approach for ModularReversible models,
+  the parameters are based on an automatic estimation, see:
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
+</p>  
+<p>
   For more information on the approach, please read the
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
   UsersGuide</a>.
-</p>
-<p>
-  Parameters are based on an automatic estimation, see:
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
 </p>
 <p>
   Please read the documentation of the model for heating here:

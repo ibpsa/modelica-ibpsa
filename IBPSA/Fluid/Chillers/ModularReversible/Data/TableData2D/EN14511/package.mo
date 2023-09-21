@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D;
-package EN14511
+package EN14511 "Package for EN15411 data records"
 
 annotation (preferredView="info",
 Documentation(revisions="<html><ul>

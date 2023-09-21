@@ -332,6 +332,13 @@ for heating and cooling.
   Resulting, the refrigerant machine can supply more or less heat with
   the COP staying constant. However, one has to make sure
   that the movers in use also scale with this factor.
+  Note that most parameters are scaled linearly. Only the 
+  pressure differences are scaled quadratically due to 
+  the linear scaling of the mass flow rates and the 
+  basic assumption:
+  <p align=\"center\" style=\"font-style:italic;\">
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  </p>
 </p>
 <p>
   Both <code>QUseNoSca_flow_nominal</code> and <code>scaFac</code>

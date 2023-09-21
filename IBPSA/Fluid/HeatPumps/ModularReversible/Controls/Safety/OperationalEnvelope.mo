@@ -175,7 +175,7 @@ equation
 
 <h4>Existing envelopes</h4>
 
-  Technical datasheets according to EN 14511 often contain
+  Technical datasheets often contain
   information about the operational envelope.
   The device records for heat pumps
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D\">

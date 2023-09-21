@@ -2,6 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ReversibleAirToWaterTableData2D
   "Reversible air to water heat pump based on 2D manufacturer data in Europe"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+    dpEva_nominal=datTabHea.dpEva_nominal*scaFac^2,
+    dpCon_nominal=datTabHea.dpCon_nominal*scaFac^2,
     final safCtrPar=safCtrParEurNor,
     dTEva_nominal=0,
     mEva_flow_nominal=datTabHea.mEva_flow_nominal*scaFac,
@@ -58,8 +60,8 @@ model ReversibleAirToWaterTableData2D
 </p>
 <p>
   Internal inertias and heat losses are neglected,
-  as these are implicitly obtained in the measured
-  data from EN 14511.
+  as these are implicitly obtained in measured
+  data from manufacturers.
   Also, icing is disabled as the performance degradation
   is already contained in the data.
 </p>

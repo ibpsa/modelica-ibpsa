@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
-record Generic "Basic data for refrigerant machine according to EN 14511"
+record Generic "Basic two-dimensional data of refrigerant machines"
     extends Modelica.Icons.Record;
   parameter Real tabPEle[:,:]
     "Electrical power consumption table, T in degC, Q_flow in W";
@@ -7,6 +7,10 @@ record Generic "Basic data for refrigerant machine according to EN 14511"
     "Nominal mass flow rate in condenser";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in evaporator";
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal
+    "Nominal pressure drop in condenser";
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal
+    "Nominal pressure drop in evaporator";
   parameter String devIde "Name of the device";
   parameter Boolean use_evaOut
     "=true to use evaporator outlet temperature, false for inlet";

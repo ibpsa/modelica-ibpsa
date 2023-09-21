@@ -3,6 +3,9 @@ package EN14511 "Package for EN15411 data records"
 
 annotation (preferredVies="info",
 Documentation(info="<html>
-<p>Records according to EN 14511.</p>
+<p>
+  This package contains data records for heat pump
+  data according to European Norm 14511.
+</p>
 </html>"));
 end EN14511;
