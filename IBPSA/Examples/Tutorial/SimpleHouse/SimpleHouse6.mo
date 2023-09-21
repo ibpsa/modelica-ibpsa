@@ -1,4 +1,4 @@
-within IBPSA.Examples.Tutorial.SimpleHouse;
+﻿within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse6 "Free cooling model"
   extends SimpleHouse5(
     zon(nPorts=2),
@@ -15,19 +15,17 @@ model SimpleHouse6 "Free cooling model"
     dpDamper_nominal=dpAir_nominal)
     "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
             -10}}, origin={110,130})));
-  IBPSA.Fluid.Movers.FlowControlled_dp fan(
+  Fluid.Movers.Preconfigured.FlowControlled_dp
+                                       fan(
     redeclare package Medium = MediumAir,
     show_T=true,
     dp_nominal=dpAir_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mAir_flow_nominal)
                  "Constant head fan" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={0,130})));
-  Modelica.Blocks.Sources.Constant con_dp(k=dpAir_nominal) "Pressure head"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   IBPSA.Fluid.HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -47,12 +45,15 @@ model SimpleHouse6 "Free cooling model"
         origin={-110,140})));
   Modelica.Blocks.Logical.Hysteresis hysAir(uLow=273.15 + 23, uHigh=273.15 + 25)
     "Hysteresis controller for damper"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Math.BooleanToReal booToRea1 "Boolean to real"
-    annotation (Placement(transformation(extent={{80,90},{100,110}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,110})));
+  Modelica.Blocks.Math.BooleanToReal booRea2 "Boolean to real"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  Modelica.Blocks.Math.BooleanToReal booRea3(realTrue=dpAir_nominal)
+    "Boolean to real"
+    annotation (Placement(transformation(extent={{30,80},{10,100}})));
 equation
-  connect(con_dp.y, fan.dp_in)
-    annotation (Line(points={{-39,100},{0,100},{0,118}},  color={0,0,127}));
   connect(hexRec.port_a1, zon.ports[1]) annotation (Line(points={{-55,149.6},{169,
           149.6},{169,50},{170,50}},     color={0,127,255}));
   connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-130,
@@ -60,22 +61,26 @@ equation
   connect(vavDam.port_b, zon.ports[2]) annotation (Line(points={{120,130},{142,130},
           {142,50},{170,50}},
                            color={0,127,255}));
-  connect(booToRea1.y, vavDam.y)
-    annotation (Line(points={{101,100},{110,100},{110,118}},
-                                                       color={0,0,127}));
-  connect(hysAir.y, booToRea1.u)
-    annotation (Line(points={{61,100},{78,100}},
-                                              color={255,0,255}));
+  connect(booRea2.y, vavDam.y)
+    annotation (Line(points={{101,90},{110,90},{110,118}}, color={0,0,127}));
+  connect(hysAir.y, booRea2.u)
+    annotation (Line(points={{50,99},{50,90},{78,90}}, color={255,0,255}));
   connect(vavDam.port_a, fan.port_b)
     annotation (Line(points={{100,130},{10,130}}, color={0,127,255}));
-  connect(hysAir.u, hysRad.u) annotation (Line(points={{38,100},{30,100},{30,170},
-          {-210,170},{-210,-110},{-82,-110}},      color={0,0,127}));
   connect(bouAir.ports[1], hexRec.port_a2) annotation (Line(points={{-100,139},{
           -100,130.4},{-85,130.4}},   color={0,127,255}));
   connect(fan.port_a, hexRec.port_b2) annotation (Line(points={{-10,130},{-32,130},
           {-32,130.4},{-55,130.4}}, color={0,127,255}));
   connect(hexRec.port_b1, bouAir.ports[2]) annotation (Line(points={{-85,149.6},
           {-100,149.6},{-100,141}}, color={0,127,255}));
+  connect(booRea1.y, pum.m_flow_in) annotation (Line(points={{21,-150},{100,
+          -150},{100,-168}}, color={0,0,127}));
+  connect(hysAir.u, hysRad.u) annotation (Line(points={{50,122},{50,170},{-210,
+          170},{-210,-110},{-82,-110}}, color={0,0,127}));
+  connect(booRea3.y, fan.dp_in)
+    annotation (Line(points={{9,90},{0,90},{0,118}}, color={0,0,127}));
+  connect(booRea3.u, hysAir.y)
+    annotation (Line(points={{32,90},{50,90},{50,99}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
