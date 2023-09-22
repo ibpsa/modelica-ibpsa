@@ -62,8 +62,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
             {50,90},{70,110}}), iconTransformation(extent={{50,90},{70,110}})));
 
-  Modelica.Units.SI.Temperature TAquHot[nVol] "Temperatures of the hot aquifer";
-  Modelica.Units.SI.Temperature TAquCol[nVol] "Temperatures of the cold aquifer";
+  Modelica.Units.SI.Temperature TAquHot[nVol] = heaCapHot.T
+    "Temperatures of the hot aquifer";
+  Modelica.Units.SI.Temperature TAquCol[nVol] = heaCapCol.T
+    "Temperatures of the cold aquifer";
   final parameter Modelica.Units.SI.Radius rVol[nVol](each final fixed=false)
     "Radius to the center of the i-th domain";
 
@@ -267,8 +269,6 @@ initial equation
   end for;
 
 equation
-  TAquHot=heaCapHot.T;
-  TAquCol=heaCapCol.T;
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
       connect(volCol[i].ports[2], volCol[i + 1].ports[1]);
