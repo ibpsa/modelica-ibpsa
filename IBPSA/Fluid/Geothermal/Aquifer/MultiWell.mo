@@ -100,6 +100,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.PressureDrop resCol(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nPai,
+    final from_dp=false,
     dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
         m_flow=m_flow_nominal/nPai,
         rho_a=rhoWat,
@@ -127,6 +128,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   FixedResistances.PressureDrop resHot(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nPai,
+    final from_dp=false,
     dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
         m_flow=m_flow_nominal/nPai,
         rho_a=rhoWat,
@@ -311,7 +313,7 @@ equation
           80,-54},{49,-54},{49,-30}},
                             color={0,127,255}));
   connect(volCol[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-30},
-          {-48,-30},{-48,-42},{51,-42},{51,-30}},
+          {-48,-30},{-48,-40},{51,-40},{51,-30}},
                                          color={0,127,255}));
   connect(powCol.port_b,pumCol. port_a)
     annotation (Line(points={{-80,-20},{-80,-10}},
