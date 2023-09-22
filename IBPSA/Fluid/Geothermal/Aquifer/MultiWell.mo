@@ -172,13 +172,13 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     "Pressure drop of cold aquifer" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-102,-40})));
+        origin={-100,-40})));
   Sensors.RelativePressure dpWelCol(
     redeclare package Medium = Medium)
     "Pressure drop of cold well" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-60,70})));
+        origin={-100,70})));
 protected
   parameter Modelica.Units.SI.Radius r[nVol + 1](each fixed=false)
     "Radius to the boundary of the i-th domain";
@@ -371,22 +371,22 @@ equation
   connect(pumHot.P, addPum.u2) annotation (Line(points={{111,11},{111,20},{20,20},
           {20,34},{38,34}},                                                                          color={0,0,127}));
   connect(gaiPum.y, PTot) annotation (Line(points={{101,40},{190,40}},                color={0,0,127}));
-  connect(dpAquCol.p_rel, resAquHot.dp_in) annotation (Line(points={{-93,-40},{100,
-          -40},{100,-34},{112,-34}},                  color={0,0,127}));
-  connect(dpAquCol.port_b, resAquCol.port_a) annotation (Line(points={{-102,-50},
-          {-102,-56},{-120,-56},{-120,-48}},
+  connect(dpAquCol.p_rel, resAquHot.dp_in) annotation (Line(points={{-91,-40},{
+          100,-40},{100,-34},{112,-34}},              color={0,0,127}));
+  connect(dpAquCol.port_b, resAquCol.port_a) annotation (Line(points={{-100,-50},
+          {-100,-60},{-120,-60},{-120,-48}},
                                           color={0,127,255}));
-  connect(dpAquCol.port_a, resAquCol.port_b) annotation (Line(points={{-102,-30},
-          {-102,-24},{-120,-24},{-120,-28}},
+  connect(dpAquCol.port_a, resAquCol.port_b) annotation (Line(points={{-100,-30},
+          {-100,-20},{-120,-20},{-120,-28}},
                                           color={0,127,255}));
-  connect(dpWelCol.port_a, resWelCol.port_b) annotation (Line(points={{-60,80},{
-          -60,86},{-120,86},{-120,80}},
+  connect(dpWelCol.port_a, resWelCol.port_b) annotation (Line(points={{-100,80},
+          {-100,90},{-120,90},{-120,80}},
                                       color={0,127,255}));
-  connect(dpWelCol.port_b, resWelCol.port_a) annotation (Line(points={{-60,60},{
-          -60,56},{-120,56},{-120,60}},
+  connect(dpWelCol.port_b, resWelCol.port_a) annotation (Line(points={{-100,60},
+          {-100,52},{-120,52},{-120,60}},
                                       color={0,127,255}));
-  connect(dpWelCol.p_rel, resWelHot.dp_in) annotation (Line(points={{-51,70},{100,
-          70},{100,76},{112,76}},
+  connect(dpWelCol.p_rel, resWelHot.dp_in) annotation (Line(points={{-91,70},{
+          100,70},{100,76},{112,76}},
                                 color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},
@@ -545,6 +545,14 @@ The temperature values in the warm and cold aquifers can be accessed using
 <code>TAquHot</code> and <code>TAquCol</code>.
 These temperatures correspond to the temperatures of each thermal capacitance
 in the discretized domain. The location of the thermal capacitance is expressed by <code>rVol</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+The model computes the flow resistance of the cold well and the cold acquifer.
+Because of symmetry, the warm side has the same flow resistances.
+To reduce the number of equations in the model, the flow resistance of the warm
+side is set to the same flow resistance as on the cold side, but with the
+sign reversed.
 </p>
 </html>", revisions="<html>
 <ul>
