@@ -10,7 +10,7 @@ model NumberWells
     length=200,
     rMax=2400,
     THot_start=303.15,
-    TGroCoo=273.15,
+    TGroCol=273.15,
     TGroHot=303.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=0.1,

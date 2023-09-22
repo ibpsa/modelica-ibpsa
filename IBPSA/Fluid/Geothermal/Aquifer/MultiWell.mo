@@ -14,16 +14,16 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
       Dialog(group="Subsurface"));
   parameter Real griFac(min=1) = 1.15 "Grid factor for spacing" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Temperature TCoo_start=283.15
+  parameter Modelica.Units.SI.Temperature TCol_start=283.15
      "Initial temperature of cold well" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Temperature THot_start=TCoo_start
+  parameter Modelica.Units.SI.Temperature THot_start=TCol_start
      "Initial temperature of warm well" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Temperature TGroCoo=285.15
+  parameter Modelica.Units.SI.Temperature TGroCol=285.15
      "Undisturbed ground temperature (cold well)" annotation (
       Dialog(group="Properties of ground"));
-  parameter Modelica.Units.SI.Temperature TGroHot=TGroCoo
+  parameter Modelica.Units.SI.Temperature TGroHot=TGroCol
      "Undisturbed ground temperature (warm well)" annotation (
       Dialog(group="Properties of ground"));
   parameter IBPSA.Fluid.Geothermal.Aquifer.Data.Template aquDat
@@ -35,7 +35,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
      "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
   final parameter Modelica.Units.SI.PressureDifference dpWell_nominal(displayUnit="Pa")=
-    resHot.dp_nominal+resCoo.dp_nominal
+    resHot.dp_nominal+resCol.dp_nominal
     "Pressure drop at nominal mass flow rate in the well" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpExt_nominal(displayUnit="Pa")
@@ -66,7 +66,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal/nPai,
-    final dp_nominal=powCoo.dpMea_nominal + powHot.dpMea_nominal + resCoo.dp_nominal + resHot.dp_nominal +
+    final dp_nominal=powCol.dpMea_nominal + powHot.dpMea_nominal + resCol.dp_nominal + resHot.dp_nominal +
         dpExt_nominal)
     "Pump to extract from cold well" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -75,14 +75,14 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   Movers.Preconfigured.SpeedControlled_y pumHot(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal/nPai,
-    final dp_nominal=powCoo.dpMea_nominal + powHot.dpMea_nominal + resCoo.dp_nominal + resHot.dp_nominal +
+    final dp_nominal=powCol.dpMea_nominal + powHot.dpMea_nominal + resCol.dp_nominal + resHot.dp_nominal +
         dpExt_nominal)
     "Pump to extract from hot well" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,0})));
 
-  Airflow.Multizone.Point_m_flow powCoo(
+  Airflow.Multizone.Point_m_flow powCol(
     redeclare final package Medium = Medium,
     m=1,
     final dpMea_nominal=dpAquifer_nominal/2/nPai,
@@ -93,7 +93,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={-80,-30})));
 
-  FixedResistances.PressureDrop resCoo(
+  FixedResistances.PressureDrop resCol(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nPai,
     dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
@@ -138,7 +138,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         rotation=-90,
         origin={80,30})));
 
-  BaseClasses.MassFlowRateMultiplier mulCoo(redeclare final package Medium = Medium, k=nPai)
+  BaseClasses.MassFlowRateMultiplier mulCol(redeclare final package Medium = Medium, k=nPai)
     "Mass flow multiplier for the cold well"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -184,20 +184,20 @@ protected
     Medium.T_default,
     Medium.X_default)) "Water thermal conductivity";
 
-  IBPSA.Fluid.MixingVolumes.MixingVolume volCoo[nVol](
+  IBPSA.Fluid.MixingVolumes.MixingVolume volCol[nVol](
     redeclare final package Medium = Medium,
-    each final T_start=TCoo_start,
+    each final T_start=TCol_start,
     each final m_flow_nominal=m_flow_nominal,
     final V=VWat,
     each nPorts=2)
     "Array of fluid volumes representing the fluid flow in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCoo[nVol](C=C,
-      each T(start=TCoo_start, fixed=true))
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapCol[nVol](C=C,
+      each T(start=TCol_start, fixed=true))
     "Array of thermal capacitor in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-22,-80},{-2,-60}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResCoo[nVol](R=R)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theResCol[nVol](R=R)
     "Array of thermal resistances in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-40,-90},{-60,-70}})));
 
@@ -217,8 +217,8 @@ protected
     "Array of thermal resistances in the warm side of the aquifer"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemCoo(
-    final T=TGroCoo)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemCol(
+    final T=TGroCol)
     "Boundary condition ground temperature in the cold side of the aquifer"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature groTemHot(
@@ -226,7 +226,7 @@ protected
     "Boundary condition ground temperature in the warm side of the aquifer"
     annotation (Placement(transformation(extent={{90,-90},{70,-70}})));
 
-  Modelica.Blocks.Nonlinear.Limiter limCoo(final uMax=1, final uMin=0) "Limiter for pump signal"
+  Modelica.Blocks.Nonlinear.Limiter limCol(final uMax=1, final uMin=0) "Limiter for pump signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Math.Gain gaiCon(final k=-1) "Inversion of control signal"
     annotation (Placement(transformation(extent={{-8,20},{12,40}})));
@@ -263,10 +263,10 @@ initial equation
 
 equation
   TAquHot=heaCapHot.T;
-  TAquCol=heaCapCoo.T;
+  TAquCol=heaCapCol.T;
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
-      connect(volCoo[i].ports[2], volCoo[i + 1].ports[1]);
+      connect(volCol[i].ports[2], volCol[i + 1].ports[1]);
     end for;
   end if;
 
@@ -278,7 +278,7 @@ equation
 
   if nVol > 1 then
     for i in 1:(nVol - 1) loop
-      connect(heaCapCoo[i + 1].port, theResCoo[i].port_b);
+      connect(heaCapCol[i + 1].port, theResCol[i].port_b);
     end for;
   end if;
 
@@ -288,12 +288,12 @@ equation
     end for;
   end if;
 
-  connect(groTemCoo.port, theResCoo[nVol].port_b)
+  connect(groTemCol.port, theResCol[nVol].port_b)
     annotation (Line(points={{-70,-80},{-60,-80}}, color={191,0,0}));
 
-  connect(volCoo.heatPort, heaCapCoo.port) annotation (Line(points={{-40,-20},{-28,-20},{-28,-80},{-12,-80}},
+  connect(volCol.heatPort, heaCapCol.port) annotation (Line(points={{-40,-20},{-28,-20},{-28,-80},{-12,-80}},
                                     color={191,0,0}));
-  connect(theResCoo.port_a, volCoo.heatPort) annotation (Line(points={{-40,-80},{-28,-80},{-28,-20},{-40,-20}},
+  connect(theResCol.port_a, volCol.heatPort) annotation (Line(points={{-40,-80},{-28,-80},{-28,-20},{-40,-20}},
                                         color={191,0,0}));
   connect(groTemHot.port, theResHot[nVol].port_b)
     annotation (Line(points={{70,-80},{60,-80}}, color={191,0,0}));
@@ -301,34 +301,34 @@ equation
                                   color={191,0,0}));
   connect(theResHot.port_a, volHot.heatPort) annotation (Line(points={{40,-80},{30,-80},{30,-20},{40,-20}},
                                     color={191,0,0}));
-  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-40},
+  connect(powCol.port_a, volCol[1].ports[1]) annotation (Line(points={{-80,-40},
           {-80,-54},{-49,-54},{-49,-30}},
                                   color={0,127,255}));
   connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-40},{
           80,-54},{49,-54},{49,-30}},
                             color={0,127,255}));
-  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-30},
+  connect(volCol[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-30},
           {-48,-30},{-48,-42},{51,-42},{51,-30}},
                                          color={0,127,255}));
-  connect(powCoo.port_b,pumCol. port_a)
+  connect(powCol.port_b,pumCol. port_a)
     annotation (Line(points={{-80,-20},{-80,-10}},
                                                 color={0,127,255}));
-  connect(pumCol.port_b, resCoo.port_a)
+  connect(pumCol.port_b, resCol.port_a)
     annotation (Line(points={{-80,10},{-80,20}}, color={0,127,255}));
   connect(resHot.port_a,pumHot. port_b)
     annotation (Line(points={{80,20},{80,10}}, color={0,127,255}));
   connect(powHot.port_b,pumHot. port_a)
     annotation (Line(points={{80,-20},{80,-10}},
                                               color={0,127,255}));
-  connect(limCoo.y, pumCol.y) annotation (Line(points={{-39,30},{-30,30},{-30,0},{-68,0}}, color={0,0,127}));
+  connect(limCol.y, pumCol.y) annotation (Line(points={{-39,30},{-30,30},{-30,0},{-68,0}}, color={0,0,127}));
   connect(gaiCon.y, limHot.u) annotation (Line(points={{13,30},{28,30}}, color={0,0,127}));
   connect(limHot.y, pumHot.y) annotation (Line(points={{51,30},{60,30},{60,0},{68,0}}, color={0,0,127}));
   connect(gaiCon.u, u) annotation (Line(points={{-10,30},{-20,30},{-20,50},{-98,
           50},{-98,0},{-120,0}},                                                       color={0,0,127}));
-  connect(limCoo.u, u) annotation (Line(points={{-62,30},{-68,30},{-68,50},{-98,
+  connect(limCol.u, u) annotation (Line(points={{-62,30},{-68,30},{-68,50},{-98,
           50},{-98,0},{-120,0}},                                                       color={0,0,127}));
-  connect(resCoo.port_b, mulCoo.port_a) annotation (Line(points={{-80,40},{-80,60}}, color={0,127,255}));
-  connect(mulCoo.port_b, port_Col) annotation (Line(points={{-80,80},{-80,90},{-60,90},{-60,100}}, color={0,127,255}));
+  connect(resCol.port_b, mulCol.port_a) annotation (Line(points={{-80,40},{-80,60}}, color={0,127,255}));
+  connect(mulCol.port_b, port_Col) annotation (Line(points={{-80,80},{-80,90},{-60,90},{-60,100}}, color={0,127,255}));
   connect(mulHot.port_b, port_Hot) annotation (Line(points={{80,80},{80,88},{60,88},{60,100}}, color={0,127,255}));
   connect(resHot.port_b, mulHot.port_a) annotation (Line(points={{80,40},{80,60}}, color={0,127,255}));
   connect(pumCol.P, addPum.u1)

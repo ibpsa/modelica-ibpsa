@@ -25,7 +25,7 @@ model CoolingOffice
     h=20,
     length=40,
     rMax=500,
-    TCoo_start=285.15,
+    TCol_start=285.15,
     THot_start=285.15,
     aquDat=IBPSA.Fluid.Geothermal.Aquifer.Data.Rock(),
     m_flow_nominal=mWat_flow_nominal,
