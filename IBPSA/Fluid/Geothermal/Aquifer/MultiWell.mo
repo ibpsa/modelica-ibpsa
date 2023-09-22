@@ -265,7 +265,7 @@ initial equation
 
   R[nVol]=Modelica.Math.log(rMax/rVol[nVol])/(2*Modelica.Constants.pi*kVol*h);
   for i in 1:nVol-1 loop
-  R[i] = Modelica.Math.log(rVol[i+1]/rVol[i])/(2*Modelica.Constants.pi*kVol*h);
+    R[i] = Modelica.Math.log(rVol[i+1]/rVol[i])/(2*Modelica.Constants.pi*kVol*h);
   end for;
 
 equation
@@ -442,6 +442,7 @@ The pressure losses in the aquifer are calculated using the Darcy's law
 <p align=\"center\" style=\"font-style:italic;\">
 &#916;p = &#7745; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB)),
 </p>
+<p>
 where <i>&#7745;</i> is the water mass flow rate, <i>g</i> is the gravitational acceleration,
 <i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer, 
 <i>rMax</i> is the domain radius and <i>rWB</i> is the well radius.
