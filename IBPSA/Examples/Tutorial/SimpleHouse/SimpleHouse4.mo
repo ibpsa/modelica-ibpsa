@@ -1,4 +1,4 @@
-within IBPSA.Examples.Tutorial.SimpleHouse;
+﻿within IBPSA.Examples.Tutorial.SimpleHouse;
 model SimpleHouse4 "Heating model"
   extends SimpleHouse3;
 
@@ -36,13 +36,17 @@ model SimpleHouse4 "Heating model"
     annotation (Placement(transformation(extent={{110,-190},{90,-170}})));
 
   IBPSA.Fluid.Sources.Boundary_pT bouWat(
-    redeclare package Medium = MediumWater, nPorts=1)
-    "Pressure bound for water circuit" annotation (Placement(transformation(
+    redeclare package Medium = MediumWater,
+    nPorts=1)
+    "Pressure bound for water circuit"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={20,-180})));
-  Modelica.Blocks.Sources.Constant conHea(k=1) "Gain for heater"
+  Modelica.Blocks.Sources.Constant conHea(k=1)
+    if use_constantHeater "Gain for heater"
     annotation (Placement(transformation(extent={{80,-110},{60,-90}})));
-  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal) "Gain for pump"
+  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal)
+    if use_constantHeater "Gain for pump"
     annotation (Placement(transformation(extent={{130,-160},{110,-140}})));
 equation
   connect(heaWat.port_b,rad. port_a) annotation (Line(points={{80,-130},{140,-130}},
@@ -55,12 +59,10 @@ equation
           148,40},{160,40}},   color={191,0,0}));
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{152,-122.8},{152,
           1.77636e-15},{160,1.77636e-15}},                     color={191,0,0}));
-  if use_constantHeater then
-      connect(conPum.y, pum.m_flow_in) annotation (Line(points={{109,-150},{100,-150},
+  connect(conPum.y, pum.m_flow_in) annotation (Line(points={{109,-150},{100,-150},
           {100,-168}}, color={0,0,127}));
-      connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
+  connect(conHea.y, heaWat.u) annotation (Line(points={{59,-100},{40,-100},{40,-124},
           {58,-124}}, color={0,0,127}));
-  end if;
   connect(bouWat.ports[1], pum.port_b)
     annotation (Line(points={{30,-180},{90,-180}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
