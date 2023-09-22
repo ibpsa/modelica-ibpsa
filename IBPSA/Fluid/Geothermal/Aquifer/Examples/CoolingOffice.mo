@@ -16,13 +16,14 @@ model CoolingOffice
     Q_flow_nominal=QCoo_flow_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,54},{10,74}})));
   Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
-    annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant uHea(k=1) "Heat load control signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   MultiWell aquWel(
     redeclare package Medium = IBPSA.Media.Water,
     nVol=80,
     h=20,
+    length=40,
     rMax=500,
     TCoo_start=285.15,
     THot_start=285.15,
@@ -44,7 +45,8 @@ equation
   connect(bou.ports[1], hea.port_a) annotation (Line(points={{-60,30},{-20,30},
           {-20,64},{-10,64}},                  color={0,127,255}));
   connect(uPum.y, aquWel.u)
-    annotation (Line(points={{-39,-4},{-12,-4}}, color={0,0,127}));
+    annotation (Line(points={{-39,-10},{-26,-10},{-26,-10},{-12,-10}},
+                                                 color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=7776000,Tolerance=1e-6),

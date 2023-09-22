@@ -6,6 +6,8 @@ model SimulationTest
     redeclare package Medium = IBPSA.Media.Water,
     nVol=232,
     h=200,
+    length=40,
+    rMax=2400,
     griFac=1.1,
     TCoo_start=307.15,
     THot_start=393.15,
@@ -22,14 +24,14 @@ model SimulationTest
   Modelica.Blocks.Sources.CombiTimeTable uPum(table=[0.0,-1; 86400*120,-1; 86400
         *120,0; 86400*180,0; 86400*180,1; 86400*300,1; 86400*300,0])
     "Pump control signal"
-    annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(aquWel.port_Col, aquWel.port_Hot) annotation (Line(points={{-16,40},{
           -16,60},{-4,60},{-4,40}}, color={0,127,255}));
   connect(bou.ports[1], aquWel.port_Hot)
     annotation (Line(points={{40,60},{-4,60},{-4,40}}, color={0,127,255}));
   connect(uPum.y[1], aquWel.u)
-    annotation (Line(points={{-59,36},{-22,36}}, color={0,0,127}));
+    annotation (Line(points={{-59,30},{-22,30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=31536000, Tolerance=1e-6),

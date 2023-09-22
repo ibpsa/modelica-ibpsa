@@ -4,13 +4,13 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         choice(redeclare package Medium = IBPSA.Media.Water "Water")));
   parameter Integer nVol(min=1)=10 "Number of control volumes used in discretization" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Height h=200 "Aquifer thickness";
-  parameter Modelica.Units.SI.Height length=40
+  parameter Modelica.Units.SI.Height h "Aquifer thickness";
+  parameter Modelica.Units.SI.Height length
     "Length of one well, used to compute pressure drop";
   parameter Real nPai=1 "Number of paired wells";
   parameter Modelica.Units.SI.Radius rWB=0.1 "Wellbore radius" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Radius rMax=2400 "Domain radius" annotation (
+  parameter Modelica.Units.SI.Radius rMax "Domain radius" annotation (
       Dialog(group="Subsurface"));
   parameter Real griFac(min=1) = 1.15 "Grid factor for spacing" annotation (
       Dialog(group="Subsurface"));
@@ -47,8 +47,8 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
       final max=1,
       final unit="1")
       "Pump control input (-1: extract from hot well, +1: extract from cold well, 0: off)"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-        iconTransformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Col(
     redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
@@ -301,12 +301,15 @@ equation
                                   color={191,0,0}));
   connect(theResHot.port_a, volHot.heatPort) annotation (Line(points={{40,-80},{30,-80},{30,-20},{40,-20}},
                                     color={191,0,0}));
-  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-40},{-80,-54},{-48,-54},{-48,-30}},
+  connect(powCoo.port_a, volCoo[1].ports[1]) annotation (Line(points={{-80,-40},
+          {-80,-54},{-49,-54},{-49,-30}},
                                   color={0,127,255}));
-  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-40},{80,-54},{48,-54},{48,-30}},
+  connect(powHot.port_a, volHot[1].ports[1]) annotation (Line(points={{80,-40},{
+          80,-54},{49,-54},{49,-30}},
                             color={0,127,255}));
-  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-52,-30},{-48,-30},{-48,-42},{52,-42},
-          {52,-30}},                     color={0,127,255}));
+  connect(volCoo[nVol].ports[2], volHot[nVol].ports[2]) annotation (Line(points={{-51,-30},
+          {-48,-30},{-48,-42},{51,-42},{51,-30}},
+                                         color={0,127,255}));
   connect(powCoo.port_b,pumCol. port_a)
     annotation (Line(points={{-80,-20},{-80,-10}},
                                                 color={0,127,255}));
@@ -320,8 +323,10 @@ equation
   connect(limCoo.y, pumCol.y) annotation (Line(points={{-39,30},{-30,30},{-30,0},{-68,0}}, color={0,0,127}));
   connect(gaiCon.y, limHot.u) annotation (Line(points={{13,30},{28,30}}, color={0,0,127}));
   connect(limHot.y, pumHot.y) annotation (Line(points={{51,30},{60,30},{60,0},{68,0}}, color={0,0,127}));
-  connect(gaiCon.u, u) annotation (Line(points={{-10,30},{-20,30},{-20,50},{-120,50}}, color={0,0,127}));
-  connect(limCoo.u, u) annotation (Line(points={{-62,30},{-68,30},{-68,50},{-120,50}}, color={0,0,127}));
+  connect(gaiCon.u, u) annotation (Line(points={{-10,30},{-20,30},{-20,50},{-98,
+          50},{-98,0},{-120,0}},                                                       color={0,0,127}));
+  connect(limCoo.u, u) annotation (Line(points={{-62,30},{-68,30},{-68,50},{-98,
+          50},{-98,0},{-120,0}},                                                       color={0,0,127}));
   connect(resCoo.port_b, mulCoo.port_a) annotation (Line(points={{-80,40},{-80,60}}, color={0,127,255}));
   connect(mulCoo.port_b, port_Col) annotation (Line(points={{-80,80},{-80,90},{-60,90},{-60,100}}, color={0,127,255}));
   connect(mulHot.port_b, port_Hot) annotation (Line(points={{80,80},{80,88},{60,88},{60,100}}, color={0,127,255}));
@@ -382,18 +387,18 @@ equation
           fillColor={182,12,18},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-140,104},{-110,80}},
+          extent={{-140,46},{-110,22}},
           textColor={0,0,127},
           textString="uPum")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="aquWel",
         Documentation(info="<html>
 <p>
-This model simulates aquifer thermal energy storage, using one or multiple instances of cold and hot wells.
+This model simulates aquifer thermal energy storage, using one or multiple pairs of cold and hot wells.
 </p>
 <p>
 To calculate aquifer temperature at different locations over time, the model applies
-theoretical principles of water flow and heat transfer phenomena. The model is based on
+physical principles of water flow and heat transfer phenomena. The model is based on
 the partial differential equation (PDE) for 1D conductive-convective transient
 radial heat transport in porous media
 </p>
@@ -417,19 +422,24 @@ the second term describes the fluid flow.
 <p>
 The pressure losses in the aquifer are calculated using the Darcy's law
 <p align=\"center\" style=\"font-style:italic;\">
-&#916;p = &#7745; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB))
+&#916;p = &#7745; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB)),
 </p>
-where <i>&#7745;</i> is the water mass flow rate, <i>g</i> is the gravitational acceleration, <i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer, 
-<i>rMax</i> is the domain radius and <i>rWB</i> is the well radius. The pressure losses in the wells are calculated using
-<a href=\"modelica://Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow\">Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</a>.
+where <i>&#7745;</i> is the water mass flow rate, <i>g</i> is the gravitational acceleration,
+<i>K</i> is the hydraulic conductivity, <i>h</i> is the thickness of the aquifer, 
+<i>rMax</i> is the domain radius and <i>rWB</i> is the well radius.
+The pressure losses in the wells are calculated using
+<a href=\"modelica://Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow\">
+Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</a>.
 </p>
 <h4>Spatial discretization</h4>
 <p>
 To discretize the conductive-convective equation, the domain is divided into a series
 of thermal capacitances and thermal resistances along the radial direction. The
 implementation uses an array of
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
-and <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
+Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
+and <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
+Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>.
 Fluid flow was modelled by adding a series of fluid volumes, which are connected
 to the thermal capacitances via heat ports. The fluid stream was developed using
 the model <a href=\"modelica://IBPSA.Fluid.MixingVolumes.MixingVolume\">IBPSA.Fluid.MixingVolumes.MixingVolume</a>.
@@ -440,18 +450,31 @@ The geometric representation of the model is illustrated in the figure below.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-By default, the component consists of a single pair of wells: one cold well and one warm well. The number of paired wells can be increased by modifing the parameters <code>nPai</code>.
-The effect is a proportional increase of thermal capacity.
+By default, the component consists of a single pair of wells: one cold well and one warm well.
+The number of paired wells can be increased by modifing the parameters <code>nPai</code>.
+The effect is a proportional increase of thermal capacity, and the mass flow rate at <code>port_a</code>
+and <code>port_b</code> is equally distributed to the pairs of well, thus
+all pairs have the same mass flow rates and temperatures, and the quantities
+at the fluid ports is for all well combined, as is the electricity consumption <code>PTot</code>
+for the well pumps.
 </p>
 <p>
-To ensure conservation of energy, the wells are connected via fluid ports. To avoid thermal interferences, make sure that the aquifer domain radius <code>rMax</code> is large enough for your specific use case.
+To ensure conservation of energy, the wells are connected via fluid ports.
+To avoid thermal interferences, make sure that the aquifer domain radius
+<code>rMax</code> is large enough for your specific use case.
 </p>
 <p>
-Circulation pumps are included in the model and they can be controlled by acting on the input connector. The input must vary between [1,-1]. A positive value will circulate water
-clockwise (extraction from the cold well and injection into the warm well). A negative value will circulate water anticlockwise (extraction from the warm well and injection into the cold well).
+Circulation pumps are included in the model and they can be controlled by acting on the input connector.
+The input must vary between <i>[1, -1]</i>.
+A positive value will circulate water
+clockwise (from <code>port_Hot</code> to <code>port_Col</code>, thus 
+extraction from the cold well and injection into the warm well).
+A negative value will circulate water anticlockwise.
 </p>
 <p>
-The temperature values in the warm and cold aquifers can be accessed using <code>TAquHot</code> and <code>TAquCol</code>. These temperatures correspond to the temperatures of each thermal capacitance
+The temperature values in the warm and cold aquifers can be accessed using
+<code>TAquHot</code> and <code>TAquCol</code>.
+These temperatures correspond to the temperatures of each thermal capacitance
 in the discretized domain. The location of the thermal capacitance is expressed by <code>rVol</code>.
 </p>
 </html>", revisions="<html>
