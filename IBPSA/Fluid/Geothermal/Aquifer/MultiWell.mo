@@ -49,6 +49,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
       "Pump control input (-1: extract from hot well, +1: extract from cold well, 0: off)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealOutput PTot(
+    final unit="W")
+  "Total power consumed by all circulation pumps in the wells"
+    annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Col(
     redeclare final package Medium = Medium) "Fluid connector" annotation (Placement(transformation(extent={
@@ -150,8 +154,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={80,70})));
-  Modelica.Blocks.Interfaces.RealOutput PTot "Total power consumed by circulation pumps in the wells"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+
   Modelica.Blocks.Math.Add addPum "Sum of pump electrical power"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 protected
@@ -389,7 +392,20 @@ equation
         Text(
           extent={{-140,46},{-110,22}},
           textColor={0,0,127},
-          textString="uPum")}),                                  Diagram(
+          textString="uPum"),
+        Text(
+          extent={{106,84},{136,60}},
+          textColor={0,0,127},
+          textString="PTot"),
+        Text(
+         extent={{-52,144},{-172,94}},
+          textColor={0,0,100},
+          textString=DynamicSelect("", String(pumCol.heatPort.T-273.15, format=".1f"))),
+        Text(
+         extent={{170,144},{50,94}},
+          textColor={0,0,100},
+          textString=DynamicSelect("", String(pumHot.heatPort.T-273.15, format=".1f")))}),
+        Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName="aquWel",
         Documentation(info="<html>
