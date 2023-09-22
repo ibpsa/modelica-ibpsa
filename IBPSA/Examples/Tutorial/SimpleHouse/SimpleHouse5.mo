@@ -3,7 +3,7 @@ model SimpleHouse5 "Heating controller model"
   extends SimpleHouse4(final use_constantHeater=false);
 
   Modelica.Blocks.Math.BooleanToReal booRea1(realTrue=mWat_flow_nominal)
-                                             "Boolean to integer"
+    "Boolean to integer"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Modelica.Blocks.Math.BooleanToReal booRea "Boolean to real"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
@@ -68,12 +68,12 @@ Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</a>
 </ul>
 <h4>Connection instructions</h4>
 <p>
-The heater modulation level should be set to one when the heater is on and to zero otherwise.
+The heater modulation level should be set to <i>1</i> when the heater is on and to <i>0</i> otherwise.
 Furthermore, the pump should only circulate water when the heater is on.
 </p>
 <h4>Reference result</h4>
 <p>
-The figure below shows the air temperature when the controller is added.
+The figure below shows the air temperature after the controller is added.
 </p>
 <p align=\"center\">
 <img alt=\"Air temperature as function of time.\"

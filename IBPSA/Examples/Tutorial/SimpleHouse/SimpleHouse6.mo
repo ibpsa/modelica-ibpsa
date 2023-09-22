@@ -15,17 +15,17 @@ model SimpleHouse6 "Free cooling model"
     dpDamper_nominal=dpAir_nominal)
     "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
             -10}}, origin={110,130})));
-  Fluid.Movers.Preconfigured.FlowControlled_dp
-                                       fan(
+  Fluid.Movers.Preconfigured.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,
     show_T=true,
     dp_nominal=dpAir_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=mAir_flow_nominal)
-                 "Constant head fan" annotation (Placement(transformation(
+    "Constant head fan" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         origin={0,130})));
+
   IBPSA.Fluid.HeatExchangers.ConstantEffectiveness hexRec(
     redeclare package Medium1 = MediumAir,
     redeclare package Medium2 = MediumAir,
@@ -33,13 +33,12 @@ model SimpleHouse6 "Free cooling model"
     dp2_nominal=10,
     m1_flow_nominal=mAir_flow_nominal,
     m2_flow_nominal=mAir_flow_nominal,
-    eps=0.85)      "Heat exchanger for heat recuperation"
+    eps=0.85) "Heat exchanger for heat recuperation"
     annotation (Placement(transformation(extent={{-55,124},{-85,156}})));
-  IBPSA.Fluid.Sources.Boundary_pT
-                      bouAir(
+  IBPSA.Fluid.Sources.Boundary_pT bouAir(
     redeclare package Medium = MediumAir,
     use_T_in=true,
-    nPorts=2)      "Air boundary with constant temperature"
+    nPorts=2) "Air boundary with constant temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-110,140})));
@@ -138,7 +137,7 @@ Modelica.Blocks.Math.BooleanToReal</a>
 Connect the components such that they exchange mass (and therefore also energy)
 with the <code>MixingVolume</code> representing the zone air.
 Add a <code>boundary_pT</code> to draw air from the environment.
-Enable its temperature input and connect it to the <i>TDryBul</i> variable in the weather data reader.
+Enable its temperature input and connect it to the <code>TDryBul</code> variable in the weather data reader.
 Also reconsider the nominal mass flow rate parameter value in the <code>MixingVolume</code>
 given the flow rate information of the ventilation system.
 Finally, make sure that the fan is only active when the damper is open.

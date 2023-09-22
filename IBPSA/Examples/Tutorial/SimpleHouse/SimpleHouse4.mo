@@ -15,8 +15,9 @@ model SimpleHouse4 "Heating model"
     T_b_nominal=313.15,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
-    Q_flow_nominal=QHea_flow_nominal)                          "Radiator"
+    Q_flow_nominal=QHea_flow_nominal) "Radiator"
     annotation (Placement(transformation(extent={{140,-140},{160,-120}})));
+
   IBPSA.Fluid.HeatExchangers.HeaterCooler_u heaWat(
     redeclare package Medium = MediumWater,
     m_flow_nominal=mWat_flow_nominal,
@@ -25,21 +26,23 @@ model SimpleHouse4 "Heating model"
     dp_nominal=5000,
     Q_flow_nominal=QHea_flow_nominal) "Heater for water circuit"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Fluid.Movers.Preconfigured.FlowControlled_m_flow
-                                           pum(
+
+  Fluid.Movers.Preconfigured.FlowControlled_m_flow pum(
     redeclare package Medium = MediumWater,
     use_inputFilter=false,
     m_flow_nominal=mWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=false)                        "Pump"
+    allowFlowReversal=false) "Pump"
     annotation (Placement(transformation(extent={{110,-190},{90,-170}})));
-  IBPSA.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium = MediumWater, nPorts=1)
+
+  IBPSA.Fluid.Sources.Boundary_pT bouWat(
+    redeclare package Medium = MediumWater, nPorts=1)
     "Pressure bound for water circuit" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={20,-180})));
-  Modelica.Blocks.Sources.Constant conHea(k=1)
+  Modelica.Blocks.Sources.Constant conHea(k=1) "Gain for heater"
     annotation (Placement(transformation(extent={{80,-110},{60,-90}})));
-  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal)
+  Modelica.Blocks.Sources.Constant conPum(k=mWat_flow_nominal) "Gain for pump"
     annotation (Placement(transformation(extent={{130,-160},{110,-140}})));
 equation
   connect(heaWat.port_b,rad. port_a) annotation (Line(points={{80,-130},{140,-130}},
@@ -107,7 +110,7 @@ Modelica.Blocks.Sources.Constant</a>
 <p>
 The radiator contains one port for convective heat transfer and one for radiative heat transfer.
 Connect both in a reasonable way. Since the heating system uses water as a heat carrier fluid,
-the media for the models should be set to <i>MediumWater</i>.
+the media for the models should be set to <code>MediumWater</code>.
 </p>
 <p>
 The <code>Boundary_pT</code> model needs to be used to set an absolute pressure somewhere in the system.
