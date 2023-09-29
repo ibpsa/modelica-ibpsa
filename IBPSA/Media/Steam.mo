@@ -942,13 +942,13 @@ March 10, 2023, by Saranya Anbarasu:<br/>
 Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
 from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
 <code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
-assertion erros during initilization.
+assertion errors during initilization.
 </li>
 <li>
 May 9, 2022, by David Blum:<br/>
 In function <code>rho_pT</code>, created and used new function extending
 <code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
-annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
+annotation <code>smoothOrder=2</code>.  This is to specifically pass on the 
 <code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
 the <code>g2</code> function.
 </li>
