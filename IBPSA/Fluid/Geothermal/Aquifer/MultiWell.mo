@@ -5,12 +5,13 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Integer nVol(min=1)=10 "Number of control volumes used in discretization" annotation (
       Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Height h "Aquifer thickness";
+  parameter Modelica.Units.SI.Height d "Distance between wells";
   parameter Modelica.Units.SI.Height length
     "Length of one well, used to compute pressure drop";
   parameter Real nPai=1 "Number of paired wells";
   parameter Modelica.Units.SI.Radius rWB=0.1 "Wellbore radius" annotation (
       Dialog(group="Subsurface"));
-  parameter Modelica.Units.SI.Radius rMax "Domain radius" annotation (
+  parameter Modelica.Units.SI.Radius rMax=d/2 "Domain radius" annotation (
       Dialog(group="Subsurface"));
   parameter Real griFac(min=1) = 1.15 "Grid factor for spacing" annotation (
       Dialog(group="Subsurface"));
@@ -31,7 +32,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit= "Pa")=
-    m_flow_nominal/nPai*Modelica.Constants.g_n/2/Modelica.Constants.pi/h/aquDat.K*log(rMax/rWB)
+    m_flow_nominal/nPai*Modelica.Constants.g_n/2/Modelica.Constants.pi/h/aquDat.K*log(d/rWB)
      "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
   final parameter Modelica.Units.SI.PressureDifference dpWell_nominal(

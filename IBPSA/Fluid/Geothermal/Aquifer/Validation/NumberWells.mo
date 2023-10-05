@@ -16,10 +16,11 @@ model NumberWells
     m_flow_nominal=0.1,
     dpExt_nominal=0) "Well model";
 
-  MyWell aquWel1
+  MyWell aquWel1(d=4800)
   "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  MyWell aquWel2(nPai=2, m_flow_nominal=0.2)
+  MyWell aquWel2(
+    d=4800,      nPai=2, m_flow_nominal=0.2)
             "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
@@ -36,10 +37,10 @@ model NumberWells
     "Assertion that checks for equality of results"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
-  connect(uPum.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,35},{-22,35}},
-                     color={0,0,127}));
-  connect(aquWel2.u,uPum. y) annotation (Line(points={{-22,-45},{-40,-45},{-40,0},{-59,0}},
-                       color={0,0,127}));
+  connect(uPum.y, aquWel1.u) annotation (Line(points={{-59,0},{-40,0},{-40,30},
+          {-22,30}}, color={0,0,127}));
+  connect(aquWel2.u,uPum. y) annotation (Line(points={{-22,-50},{-40,-50},{-40,
+          0},{-59,0}}, color={0,0,127}));
   connect(aquWel2.port_Col, aquWel2.port_Hot) annotation (Line(points={{-16,-40},
           {-16,-20},{-4,-20},{-4,-40}}, color={0,127,255}));
   connect(aquWel1.port_Col, aquWel1.port_Hot) annotation (Line(points={{-16,40},

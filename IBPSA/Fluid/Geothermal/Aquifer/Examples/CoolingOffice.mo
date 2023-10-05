@@ -23,6 +23,7 @@ model CoolingOffice
     redeclare package Medium = IBPSA.Media.Water,
     nVol=80,
     h=20,
+    d=200,
     length=40,
     rMax=500,
     TCol_start=285.15,
