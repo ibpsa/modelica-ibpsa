@@ -193,6 +193,7 @@ equation
     experiment(
       StopTime=86400,
       Interval=300,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
       __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
