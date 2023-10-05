@@ -5,7 +5,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Integer nVol(min=1)=10 "Number of control volumes used in discretization" annotation (
       Dialog(group="Subsurface"));
   parameter Modelica.Units.SI.Height h "Aquifer thickness";
-  parameter Modelica.Units.SI.Height d "Distance between wells";
+  parameter Modelica.Units.SI.Length d "Distance between wells";
   parameter Modelica.Units.SI.Height length
     "Length of one well, used to compute pressure drop";
   parameter Real nPai=1 "Number of paired wells";
