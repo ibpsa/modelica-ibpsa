@@ -54,28 +54,28 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Global irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,-60}),
+        origin={-120,-60}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,-60})));
+        origin={-120,-60})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(final unit="K") "Ambient dry bulb temperature"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,0}),
+        origin={-120,0}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,0})));
+        origin={-120,0})));
   Modelica.Blocks.Interfaces.RealInput vWinSpe(final unit="m/s") "Wind speed" annotation (
       Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,30}),                                   iconTransformation(
+        origin={-120,30}),                                   iconTransformation(
           extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,30})));
+        origin={-120,30})));
 
   Modelica.Blocks.Interfaces.RealOutput PDC(final unit="W") "DC Power output"
-  annotation (Placement(transformation(extent={{80,-10},{100,10}}),
-  iconTransformation(extent={{80,-10},{100,10}})));
+  annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+  iconTransformation(extent={{100,-10},{120,10}})));
   replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical PVOptical(
   final use_Til_in = use_Til_in,
   final PVTechType=PVTechType)
@@ -96,44 +96,44 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   //Conditional connectors
   Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
     "Conditional input for tilt angle control" annotation (Placement(
-        transformation(extent={{-20,-20},{20,20}},
+        transformation(extent={{20,20},{-20,-20}},
         rotation=-90,
-        origin={0,120}),                               iconTransformation(
-          extent={{-20,-20},{20,20}},
+        origin={0,-120}),                              iconTransformation(
+          extent={{20,20},{-20,-20}},
         rotation=-90,
-        origin={0,120})));
+        origin={0,-120})));
 
   Modelica.Blocks.Interfaces.RealInput HGloHor(final unit="W/m2")
     "Global irradiation on horizontal surface" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,-30}),                           iconTransformation(extent={{-20,-20},
+        origin={-120,-30}),                           iconTransformation(extent={{-20,-20},
             {20,20}},
         rotation=0,
-        origin={-100,-30})));
+        origin={-120,-30})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(final unit="W/m2") if use_HDifHor
     "Diffuse irradiation on horizontal surface" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,-90}),                             iconTransformation(
+        origin={-120,-90}),                             iconTransformation(
           extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,-90})));
+        origin={-120,-90})));
   Modelica.Blocks.Interfaces.RealInput incAngle(final unit="rad") if use_incAng
     "Incidence angle of irradiation"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,60}),
+        origin={-120,60}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,60})));
+        origin={-120,60})));
   Modelica.Blocks.Interfaces.RealInput zenAngle(final unit="rad") if use_zenAng "Zenith angle of irradiation"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,90}),
+        origin={-120,90}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-100,90})));
+        origin={-120,90})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput Til_in_internal
@@ -163,6 +163,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-80,-100},{80,100}})),
-    Icon(coordinateSystem(extent={{-80,-100},{80,100}})));
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end PartialPVSystem;

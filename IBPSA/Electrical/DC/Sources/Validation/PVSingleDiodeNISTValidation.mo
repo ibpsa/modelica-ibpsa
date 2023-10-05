@@ -52,7 +52,7 @@ model PVSingleDiodeNISTValidation
     til=til,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
       PVThermal)
-               annotation (Placement(transformation(extent={{64,0},{80,20}})));
+               annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput PDCSim "Simulated DC output power"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -122,8 +122,9 @@ equation
   connect(pVSingleDiode.PDC, PDCSim)
     annotation (Line(points={{81,10},{96,10},{96,0},{110,0}},
                                               color={0,0,127}));
-  connect(zen.y, pVSingleDiode.zenAngle) annotation (Line(points={{21,-70},{54,-70},
-          {54,19},{62,19}}, color={0,0,127}));
+  connect(zen.y, pVSingleDiode.zenAngle) annotation (Line(points={{21,-70},{54,
+          -70},{54,19},{58,19}},
+                            color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-20,0},{-6,0}},
       color={255,204,51},
@@ -135,20 +136,21 @@ equation
   connect(NISTdata.y[2], weaDat.winSpe_in) annotation (Line(points={{-75,0},{-68,
           0},{-68,-8},{-46,-8},{-46,-3.9},{-41,-3.9}}, color={0,0,127}));
   connect(souGloHorDif.y, pVSingleDiode.HDifHor)
-    annotation (Line(points={{-57,-30},{62,-30},{62,1}}, color={0,0,127}));
+    annotation (Line(points={{-57,-30},{58,-30},{58,1}}, color={0,0,127}));
   connect(NISTdata.y[3], pVSingleDiode.HGloHor) annotation (Line(points={{-75,0},
-          {-68,0},{-68,-16},{32,-16},{32,7},{62,7}}, color={0,0,127}));
+          {-68,0},{-68,-16},{32,-16},{32,7},{58,7}}, color={0,0,127}));
   connect(HGloTil.H, pVSingleDiode.HGloTil)
-    annotation (Line(points={{43,40},{56,40},{56,4},{62,4}}, color={0,0,127}));
+    annotation (Line(points={{43,40},{56,40},{56,4},{58,4}}, color={0,0,127}));
   connect(weaBus, HGloTil.weaBus) annotation (Line(
       points={{-6,0},{-8,0},{-8,40},{22,40}},
       color={255,204,51},
       thickness=0.5));
   connect(incAng.y, pVSingleDiode.incAngle) annotation (Line(points={{-19.2,-50},
-          {-12,-50},{-12,-14},{30,-14},{30,16},{62,16}}, color={0,0,127}));
+          {-12,-50},{-12,-14},{30,-14},{30,16},{58,16}}, color={0,0,127}));
   connect(NISTdata.y[2], pVSingleDiode.vWinSpe) annotation (Line(points={{-75,0},
-          {-68,0},{-68,-8},{-44,-8},{-44,-16},{32,-16},{32,6},{52,6},{52,13},{62,
-          13}}, color={0,0,127}));
+          {-68,0},{-68,-8},{-44,-8},{-44,-16},{32,-16},{32,6},{52,6},{52,13},{
+          58,13}},
+                color={0,0,127}));
   connect(weaBus, incAng.weaBus) annotation (Line(
       points={{-6,0},{-6,-24},{-46,-24},{-46,-50},{-36,-50}},
       color={255,204,51},
@@ -170,7 +172,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(from_degC.y, pVSingleDiode.TDryBul)
-    annotation (Line(points={{-53.6,0},{62,0},{62,10}}, color={0,0,127}));
+    annotation (Line(points={{-53.6,0},{58,0},{58,10}}, color={0,0,127}));
   connect(souGloHorDif.y, weaDat.HDifHor_in) annotation (Line(points={{-57,-30},
           {-48,-30},{-48,-18},{-41,-18},{-41,-9.5}}, color={0,0,127}));
   connect(NISTdata.y[3], weaDat.HGloHor_in) annotation (Line(points={{-75,0},{-68,
@@ -192,5 +194,32 @@ equation
       StopTime=86400,
       Interval=300,
       __Dymola_Algorithm="Dassl"),
+      __Dymola_Commands(file=
+          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
+        "Simulate and plot"),
+        Documentation(info="<html>
+        <p>The PVSystem single-diode model is validaded with measurement data from the NIST <a href=\"https://pvdata.nist.gov/\">https://pvdata.nist.gov/</a> </p>
+        <p>June 14th was chosen as an exemplary day for the PVSystem model. </p>
+        <p>The system consists of 312 mono-Si modules which are mounted on a rooftop.</p>
+<p>The validation model proves that single-diode PV models tend to overestimate the power output.</p>
+<p>This is due to the neglection of staining, shading, other loss effects.</p>
+<p>More information can be found in the study of Maier et al. [1].</p>
+<h4>References</h4>
+<p>[1] Maier, Laura, Michael Kratz, Christian Vering, Philipp Mehrfeld, and Dirk Mueller.</p>
+<p>&quot;Open-source photovoltaic model for early building planning processes: Modeling, application and validation&quot;.</p>
+In Building Simulation 2021, vol. 17, pp. 2315-2316. IBPSA, 2021.
+Available
+<a href=\"http://publications.rwth-aachen.de/record/829358/files/829358.pdf\">
+online</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+Oct 5, 2023, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
     __Dymola_experimentSetupOutput(events=false));
 end PVSingleDiodeNISTValidation;

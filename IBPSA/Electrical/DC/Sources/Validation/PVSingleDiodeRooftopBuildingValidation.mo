@@ -6,76 +6,75 @@ model PVSingleDiodeRooftopBuildingValidation
     HGloTil(H(start=100)));
   extends Modelica.Icons.Example;
 
-  IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystemSingleDiode(
+  IBPSA.Electrical.DC.Sources.PVSingleDiode pVSystem1Diode115Wp(
     PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
     use_Til_in=false,
     til(displayUnit="rad") = til,
-    n_mod=3,
-    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS110 data,
+    n_mod=2,
+    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS115 data,
     groRef=rho,
     alt=0.08,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
-      PVThermal)
-    annotation (Placement(transformation(extent={{64,0},{92,20}})));
+      PVThermal) "PV modules with a peak power of 115 Wp"
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  PVSingleDiode                             pVSystemSingleDiode1(
+  PVSingleDiode pVSystem1Diode120Wp(
     PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
     use_Til_in=false,
     til(displayUnit="rad") = til,
-    n_mod=3,
-    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS110 data,
+    n_mod=4,
+    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSolibroSL2CIGS120 data,
     groRef=rho,
     alt=0.08,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
-      PVThermal)
-    annotation (Placement(transformation(extent={{52,56},{86,84}})));
+      PVThermal) "PV modules with a peak power of 120 Wp"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{80,32},{90,42}})));
+    annotation (Placement(transformation(extent={{86,24},{96,34}})));
 equation
-  connect(HGloTil.H, pVSystemSingleDiode.HGloTil) annotation (Line(points={{41,50},
-          {60.5,50},{60.5,4}},                color={0,0,127}));
-  connect(MeaDatHGloHor.y[1], pVSystemSingleDiode.HGloHor) annotation (Line(
-        points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,48},{60.5,48},{60.5,7}},
-                  color={0,0,127}));
-  connect(souGloHorDif.y, pVSystemSingleDiode.HDifHor) annotation (Line(points={{-79,-24},
-          {-60,-24},{-60,80},{60.5,80},{60.5,1}},
-                  color={0,0,127}));
-  connect(incAng.y, pVSystemSingleDiode.incAngle) annotation (Line(points={{38.8,
-          -10},{52,-10},{52,32},{88,32},{88,16},{60.5,16}},
-                                                        color={0,0,127}));
-  connect(zen.y, pVSystemSingleDiode.zenAngle) annotation (Line(points={{41,-50},
-          {60,-50},{60,-34},{96,-34},{96,19},{60.5,19}}, color={0,0,127}));
-  connect(from_degC.y, pVSystemSingleDiode.TDryBul) annotation (Line(points={{-41.2,
-          -50},{0,-50},{0,20},{40,20},{40,34},{68,34},{68,10},{60.5,10}},
-        color={0,0,127}));
-  connect(MeaDatWinAngSpe.y[2], pVSystemSingleDiode.vWinSpe) annotation (Line(
-        points={{-79,10},{-56,10},{-56,40},{60.5,40},{60.5,13}}, color={0,0,127}));
-  connect(add.y, PDCSim) annotation (Line(points={{90.5,37},{90.5,36},{96,36},{
-          96,40},{110,40}}, color={0,0,127}));
-  connect(pVSystemSingleDiode1.PDC, add.u1) annotation (Line(points={{88.125,70},
-          {86,70},{86,46},{74,46},{74,40},{79,40}}, color={0,0,127}));
-  connect(pVSystemSingleDiode.PDC, add.u2) annotation (Line(points={{93.75,10},
-          {92,10},{92,24},{79,24},{79,34}}, color={0,0,127}));
-  connect(zen.y, pVSystemSingleDiode1.zenAngle) annotation (Line(points={{41,
-          -50},{40,-50},{40,-36},{48,-36},{48,52},{42,52},{42,64},{40,64},{40,
-          82},{47.75,82},{47.75,82.6}}, color={0,0,127}));
-  connect(incAng.y, pVSystemSingleDiode1.incAngle) annotation (Line(points={{
-          38.8,-10},{46,-10},{46,52},{42,52},{42,78.4},{47.75,78.4}}, color={0,
+  connect(HGloTil.H, pVSystem1Diode115Wp.HGloTil) annotation (Line(points={{21,50},
+          {50,50},{50,24},{58,24}}, color={0,0,127}));
+  connect(MeaDatHGloHor.y[1], pVSystem1Diode115Wp.HGloHor) annotation (Line(
+        points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,27},{58,27}}, color={
+          0,0,127}));
+  connect(from_degC.y, pVSystem1Diode115Wp.TDryBul) annotation (Line(points={{-39,
+          -50},{-34,-50},{-34,26},{46,26},{46,30},{58,30}}, color={0,0,127}));
+  connect(MeaDatWinAngSpe.y[2], pVSystem1Diode115Wp.vWinSpe) annotation (Line(
+        points={{-79,10},{-68,10},{-68,84},{46,84},{46,33},{58,33}}, color={0,0,
+          127}));
+  connect(add.y, PDCSim) annotation (Line(points={{96.5,29},{96.5,30},{110,30}},
+                            color={0,0,127}));
+  connect(pVSystem1Diode120Wp.PDC, add.u1)
+    annotation (Line(points={{81,70},{85,70},{85,32}}, color={0,0,127}));
+  connect(pVSystem1Diode115Wp.PDC, add.u2)
+    annotation (Line(points={{81,30},{81,26},{85,26}}, color={0,0,127}));
+  connect(zen.y, pVSystem1Diode120Wp.zenAngle) annotation (Line(points={{1,-50},
+          {14,-50},{14,-22},{34,-22},{34,38},{52,38},{52,79},{58,79}}, color={0,
           0,127}));
-  connect(MeaDatWinAngSpe.y[2], pVSystemSingleDiode1.vWinSpe) annotation (Line(
-        points={{-79,10},{-58,10},{-58,74.2},{47.75,74.2}}, color={0,0,127}));
-  connect(from_degC.y, pVSystemSingleDiode1.TDryBul) annotation (Line(points={{
-          -41.2,-50},{-41.2,-6},{-44,-6},{-44,18},{-46,18},{-46,70},{47.75,70}},
+  connect(incAng.y, pVSystem1Diode120Wp.incAngle) annotation (Line(points={{21,-10},
+          {52,-10},{52,76},{58,76}}, color={0,0,127}));
+  connect(MeaDatWinAngSpe.y[2], pVSystem1Diode120Wp.vWinSpe) annotation (Line(
+        points={{-79,10},{-68,10},{-68,84},{46,84},{46,73},{58,73}}, color={0,0,
+          127}));
+  connect(from_degC.y, pVSystem1Diode120Wp.TDryBul) annotation (Line(points={{-39,
+          -50},{-34,-50},{-34,26},{46,26},{46,30},{52,30},{52,70},{58,70}},
         color={0,0,127}));
-  connect(MeaDatHGloHor.y[1], pVSystemSingleDiode1.HGloHor) annotation (Line(
-        points={{-79,-90},{-60,-90},{-60,-80},{-16,-80},{-16,-84},{44,-84},{44,
-          36},{18,36},{18,42},{14,42},{14,65.8},{47.75,65.8}}, color={0,0,127}));
-  connect(HGloTil.H, pVSystemSingleDiode1.HGloTil) annotation (Line(points={{41,
-          50},{41,54},{47.75,54},{47.75,61.6}}, color={0,0,127}));
-  connect(souGloHorDif.y, pVSystemSingleDiode1.HDifHor) annotation (Line(points=
-         {{-79,-24},{-60,-24},{-60,0},{-50,0},{-50,42},{16,42},{16,57.4},{47.75,
-          57.4}}, color={0,0,127}));
+  connect(MeaDatHGloHor.y[1], pVSystem1Diode120Wp.HGloHor) annotation (Line(
+        points={{-79,-90},{-16,-90},{-16,-84},{44,-84},{44,26},{52,26},{52,67},{
+          58,67}}, color={0,0,127}));
+  connect(HGloTil.H, pVSystem1Diode120Wp.HGloTil) annotation (Line(points={{21,50},
+          {50,50},{50,64},{58,64}}, color={0,0,127}));
+  connect(souGloHorDif.y, pVSystem1Diode120Wp.HDifHor) annotation (Line(points={
+          {-79,-24},{-74,-24},{-74,88},{-66,88},{-66,76},{54,76},{54,61},{58,61}},
+        color={0,0,127}));
+  connect(incAng.y, pVSystem1Diode115Wp.incAngle) annotation (Line(points={{21,-10},
+          {52,-10},{52,36},{58,36}}, color={0,0,127}));
+  connect(zen.y, pVSystem1Diode115Wp.zenAngle) annotation (Line(points={{1,-50},
+          {14,-50},{14,-22},{34,-22},{34,39},{58,39}}, color={0,0,127}));
+  connect(souGloHorDif.y, pVSystem1Diode115Wp.HDifHor) annotation (Line(points={
+          {-79,-24},{-74,-24},{-74,88},{-66,88},{-66,76},{54,76},{54,21},{58,21}},
+        color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
@@ -92,7 +91,8 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>The PVSystem single-diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a> </p>
-<p>The dates 28.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model. </p>
+<p>The dates 29.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model. </p>
+<p>The system consists of four modules with 120 Wp and two modules with 115 Wp. </p>
 <p>The validation model proves that single-diode PV models tend to overestimate the power output.</p>
 <p>This is due to the neglection of staining, shading, other loss effects.</p>
 </html>",revisions="<html>

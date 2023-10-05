@@ -1,6 +1,5 @@
 PartialPVSystem
 PVElectricalSingleDiodeMPP
-PVElectricalTwoDiodesMPP
 PVOpticalAbsRat
 PVThermalEmpMountCloseToGround
 PVThermalEmpMountContactToGround
