@@ -45,7 +45,7 @@ partial model partialPVRooftopBuildingValidation
     tableOnFile=true,
     tableName="MeaDatHGloHor",
     fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Solar_irradiation_300.txt"),
+        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Solar_irradiation.txt"),
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay - 150)

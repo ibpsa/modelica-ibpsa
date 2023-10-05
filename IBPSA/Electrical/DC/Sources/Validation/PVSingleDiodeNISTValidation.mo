@@ -65,7 +65,7 @@ model PVSingleDiodeNISTValidation
     til=til,
     azi=azi,
     rho=rho)
-    annotation (Placement(transformation(extent={{22,30},{42,50}})));
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=ModelicaServices.ExternalReferences.loadResource(
         "modelica://IBPSA/Resources/weatherdata/USA_MD_Baltimore-Washington.Intl.AP.724060_TMY3.mos"),
@@ -140,9 +140,9 @@ equation
   connect(NISTdata.y[3], pVSingleDiode.HGloHor) annotation (Line(points={{-75,0},
           {-68,0},{-68,-16},{32,-16},{32,7},{58,7}}, color={0,0,127}));
   connect(HGloTil.H, pVSingleDiode.HGloTil)
-    annotation (Line(points={{43,40},{56,40},{56,4},{58,4}}, color={0,0,127}));
+    annotation (Line(points={{21,50},{32,50},{32,4},{58,4}}, color={0,0,127}));
   connect(weaBus, HGloTil.weaBus) annotation (Line(
-      points={{-6,0},{-8,0},{-8,40},{22,40}},
+      points={{-6,0},{-6,50},{0,50}},
       color={255,204,51},
       thickness=0.5));
   connect(incAng.y, pVSingleDiode.incAngle) annotation (Line(points={{-19.2,-50},
@@ -207,7 +207,7 @@ equation
 <h4>References</h4>
 <p>[1] Maier, Laura, Michael Kratz, Christian Vering, Philipp Mehrfeld, and Dirk Mueller.</p>
 <p>&quot;Open-source photovoltaic model for early building planning processes: Modeling, application and validation&quot;.</p>
-In Building Simulation 2021, vol. 17, pp. 2315-2316. IBPSA, 2021.
+<p>In Building Simulation 2021, vol. 17, pp. 2315-2316. IBPSA, 2021.
 Available
 <a href=\"http://publications.rwth-aachen.de/record/829358/files/829358.pdf\">
 online</a>.
