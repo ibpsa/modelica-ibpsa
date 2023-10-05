@@ -1,8 +1,8 @@
-Icons
-lambertWSimple
 PartialPVElectrical
 PartialPVElectricalSingleDiode
+PartialPVOptical
 PartialPVThermal
 PartialPVThermalEmp
-PartialPVOptical
+lambertWSimple
+Icons
 PVOptical
