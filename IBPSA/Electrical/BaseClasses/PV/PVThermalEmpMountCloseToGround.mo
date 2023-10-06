@@ -1,6 +1,6 @@
-﻿within IBPSA.Electrical.BaseClasses.PV;
+within IBPSA.Electrical.BaseClasses.PV;
 model PVThermalEmpMountCloseToGround
-  "Empirical thermal model for PV cell with back close to ground ~(0 ° < til < 10 °)"
+  "Empirical thermal model for PV cell with back close to ground ~(0 deg < til < 10 deg)"
 extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermalEmp;
 
 equation

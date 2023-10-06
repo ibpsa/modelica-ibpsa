@@ -1,6 +1,6 @@
-﻿within IBPSA.Electrical.BaseClasses.PV;
+within IBPSA.Electrical.BaseClasses.PV;
 model PVThermalEmpMountOpenRack
-  "Empirical thermal model for PV cell with open rack mounting (tilt >= 10 °)"
+  "Empirical thermal model for PV cell with open rack mounting (tilt >= 10 deg)"
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermalEmp;
 
  final parameter Modelica.Units.SI.Temperature TDryBul0=293.15

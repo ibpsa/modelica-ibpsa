@@ -1,7 +1,6 @@
-﻿within IBPSA.Electrical.DC.Sources.Validation.BaseClasses;
+within IBPSA.Electrical.DC.Sources.Validation.BaseClasses;
 partial model partialPVRooftopBuildingValidation
-  "Partial model for validation with empirical data from a rooftop PV system in
-  at UdK, Berlin, from July 27th to Aug 9th"
+  "Partial model for validation with empirical data from a rooftop PV system in at UdK, Berlin, from July 27th to Aug 9th"
   extends Modelica.Icons.Example;
     parameter Modelica.Units.SI.Time timZon=+7200
     "Time zone";
@@ -138,7 +137,7 @@ equation
         (1+0.033*cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
         (cos(lat)*cos(SolDec)*cos(SolHouAng)+sin(lat)*sin(SolDec)))))));
 
-  // Erb´s diffuse fraction relation
+  // Erbs diffuse fraction relation
   HGloHorDif = if HGloHor <=0.01 then
                  0
                elseif k_t <= 0.22 then

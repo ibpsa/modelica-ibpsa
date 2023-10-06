@@ -110,7 +110,7 @@ equation
         (1+0.033*cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
         (cos(lat)*cos(SolDec)*cos(SolHouAng)+sin(lat)*sin(SolDec)))))));
 
-  // Erb´s diffuse fraction relation
+  // Erbs diffuse fraction relation
   HGloHorDif = if HGloHor <=0.01 then
                  0
                elseif k_t <= 0.22 then
