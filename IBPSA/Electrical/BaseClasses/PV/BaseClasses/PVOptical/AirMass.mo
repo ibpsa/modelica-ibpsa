@@ -10,12 +10,11 @@ block AirMass
 protected
   Modelica.Units.SI.Angle zen "Zenith angle internal use";
 equation
-
+// Restriction for zenith angle
  zen = if zenAng <= Modelica.Constants.pi/2 then
  zenAng
  else
- Modelica.Constants.pi/2
- "Restriction for zenith angle";
+ Modelica.Constants.pi/2;
 
   airMas =
   exp(-0.0001184*alt)/(cos(zen) + 0.5057*(96.080 -
