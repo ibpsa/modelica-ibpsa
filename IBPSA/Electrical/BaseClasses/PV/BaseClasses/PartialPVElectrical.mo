@@ -68,14 +68,12 @@ protected
           thickness=0.5),
         Text(
           extent={{-72,80},{-102,68}},
-          lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="I"),
         Text(
           extent={{80,-80},{50,-92}},
-          lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

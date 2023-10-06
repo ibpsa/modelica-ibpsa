@@ -86,7 +86,6 @@ partial model PartialPVThermal
           thickness=0.5),
         Text(
           extent={{92,4},{-28,-26}},
-          lineColor={0,0,0},
           textString="T")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
