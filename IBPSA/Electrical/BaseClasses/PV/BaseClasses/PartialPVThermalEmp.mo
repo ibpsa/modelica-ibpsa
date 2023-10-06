@@ -12,7 +12,7 @@ partial model PartialPVThermalEmp
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {120,100}}),                                        graphics={
                              Text(extent={{-40,-68},{44,-102}},
-                                                              lineColor={0,0,255},textString= "%name"),
+                                                              textString= "%name"),
     Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern =                                                                              FillPattern.Solid),
     Rectangle(extent={{-90,24},{-62,-4}},

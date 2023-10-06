@@ -200,6 +200,5 @@ First implementation.
     experiment(
       StartTime=28684800,
       StopTime=28771200,
-      Interval=360,
-      __Dymola_Algorithm="Dassl"));
+      Interval=360));
 end PVOpticalAbsRat;
