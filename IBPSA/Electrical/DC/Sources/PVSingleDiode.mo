@@ -28,8 +28,7 @@ equation
                         color={0,0,127}));
   connect(PVElectrical.P, PDC) annotation (Line(points={{-3.4,-46.25},{20,-46.25},
           {20,-40},{60,-40},{60,0},{110,0}}, color={0,0,127}));
-  connect(PVOptical.absRadRat, PVElectrical.absRadRat)
-    annotation (Line(points={{-4.54545,30},{20,30},{20,-34},{-64,-34},{-64,-52.25},
+  connect(PVOptical.absRadRat, PVElectrical.absRadRat) annotation (Line(points={{-4.54545,30},{20,30},{20,-34},{-64,-34},{-64,-52.25},
           {-17.2,-52.25}},color={0,0,127}));
   connect(HGloTil, PVElectrical.HGloTil) annotation (Line(points={{-120,-60},{-100,
           -60},{-100,-54},{-68,-54},{-68,-55.25},{-17.2,-55.25}},      color={0,
@@ -46,7 +45,6 @@ equation
           {-22,64},{-22,31.8},{-17.0909,31.8}},                   color={0,0,127}));
   connect(HDifHor, PVOptical.HDifHor) annotation (Line(points={{-120,-90},{-120,
           70},{-72,70},{-72,27},{-17.0909,27}},                     color={0,0,127}));
-
   connect(HGloHor, PVOptical.HGloHor) annotation (Line(points={{-120,-30},{-20,-30},
           {-20,29.4},{-17.0909,29.4}},          color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

@@ -1,7 +1,6 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 function lambertWSimple
-  "Simple approximation for Lambert W function for x >= 2, should only
-be used for large input values as error decreases for increasing input values"
+  "Simple approximation for Lambert W function for x >= 2, should only be used for large input values as error decreases for increasing input values"
 
    input Real x(min=2);
    output Real W;

@@ -1,7 +1,6 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVThermal
- "Partial model for computing the cell temperature of a PV moduleConnector
-  for PV record data"
+ "Partial model for computing the cell temperature of a PV moduleConnector for PV record data"
   replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
     IBPSA.Electrical.Data.PV.Generic
     "PV Panel data definition"
