@@ -11,9 +11,9 @@ model PVSingleDiodeNISTValidation
   parameter Modelica.Units.SI.Angle lat=39.1354*Modelica.Constants.pi/180
     "Latitude";
   parameter Modelica.Units.SI.Angle azi=0
-    "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
+    "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east, azi=0 if it points toward south";
   parameter Modelica.Units.SI.Angle til=10*Modelica.Constants.pi/180
-    "Surface tilt. til=90 degree for walls; til=0 for ceilings; til=180 for roof";
+    "Surface tilt. til=90 degree for walls, til=0 for ceilings, til=180 for roof";
 
   parameter Modelica.Units.SI.Time nDay=(31+28+31+30+31+14)*24*3600 "Day at which simulation starts";
 
