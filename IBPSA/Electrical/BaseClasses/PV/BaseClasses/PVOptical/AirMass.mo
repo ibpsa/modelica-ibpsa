@@ -3,6 +3,7 @@ block AirMass
   "Air mass calculation depening on zenith angle and height of object"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Height alt "Height of object";
+
   Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad", final displayUnit="deg") "Zenith angle for object"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput airMas(final unit="1")
