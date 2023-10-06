@@ -21,7 +21,7 @@ model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V characteristic
 // Additional parameters and constants
 
   constant Real euler=Modelica.Math.exp(1.0)
-   "Eulers constant";
+   "Euler's constant";
   constant Real q(unit = "A.s")= 1.602176620924561e-19
    "Electron charge";
 
@@ -78,7 +78,7 @@ equation
 
   R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat else 0;
 
-  //Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
+  // Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
 
   I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
          else I_ph*(1-1/w)-a*(w-1)/R_sh;

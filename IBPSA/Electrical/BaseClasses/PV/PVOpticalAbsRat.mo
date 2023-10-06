@@ -35,8 +35,7 @@ model PVOpticalAbsRat
 
   Real incAngMod(final unit="1", min=0) "Incidence angle modifier";
 
-  Real incAngModGro(final unit="1", min=0) "Incidence angle modifier for 
-  ground refelction";
+  Real incAngModGro(final unit="1", min=0) "Incidence angle modifier for ground refelction";
 
   Real incAngModDif(final unit="1", min=0)
   "Incidence angle modifier for diffuse radiation";
@@ -84,8 +83,7 @@ equation
 zen = if zenAng <= Modelica.Constants.pi/2 then
 zenAng
  else
-Modelica.Constants.pi/2
-"Restriction for zenith angle";
+   Modelica.Constants.pi/2 "Restriction for zenith angle";
 
 //Refraction angle that the incoming irradiation is refracted by due to the glazing
 refAng = if noEvent(incAng >= Modelica.Constants.eps and incAng <=

@@ -6,8 +6,7 @@ model PVThermalEmpMountOpenRack
  final parameter Modelica.Units.SI.Temperature TDryBul0=293.15
     "Reference ambient temperature";
  final parameter Real coeff_trans_abs = 0.9
- "Module specific coefficient as a product of transmission and absorption.
- It is usually unknown and set to 0.9 in literature";
+ "Module specific coefficient as a product of transmission and absorption. It is usually unknown and set to 0.9 in literature";
 
 equation
 
