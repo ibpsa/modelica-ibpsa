@@ -44,7 +44,7 @@ public
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
 protected
-  final constant Real e(unit = "A.s") = Modelica.Constants.F/Modelica.Constants.N_A
+  final constant Real e(unit = "C") = Modelica.Constants.F/Modelica.Constants.N_A
     "Elementary charge";
   final constant Real k(unit = "J/K") = Modelica.Constants.R/Modelica.Constants.N_A
     "Boltzmann constant";

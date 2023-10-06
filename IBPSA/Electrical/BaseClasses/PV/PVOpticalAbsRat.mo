@@ -79,11 +79,11 @@ parameter Real tau_0(final unit="1")=exp(-(glaExtCoe*glaThi))*(1 - ((refInd - 1)
 
 
 equation
-
+// Restriction for zenith angle
 zen = if zenAng <= Modelica.Constants.pi/2 then
 zenAng
  else
-   Modelica.Constants.pi/2 "Restriction for zenith angle";
+   Modelica.Constants.pi/2;
 
 //Refraction angle that the incoming irradiation is refracted by due to the glazing
 refAng = if noEvent(incAng >= Modelica.Constants.eps and incAng <=

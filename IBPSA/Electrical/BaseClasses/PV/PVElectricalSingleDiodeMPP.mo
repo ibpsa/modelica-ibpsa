@@ -78,7 +78,7 @@ equation
 
   R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat else 0;
 
-  // Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
+  // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
   I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
          else I_ph*(1-1/w)-a*(w-1)/R_sh;
