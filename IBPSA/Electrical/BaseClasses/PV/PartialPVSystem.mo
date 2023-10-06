@@ -3,15 +3,13 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
 
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.Icons.partialPVIcon;
 
-  replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
+  replaceable parameter Data.PV.Generic dat constrainedby
     IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
     annotation (choicesAllMatching=true);
-  parameter BaseClasses.PVOptical.PVType PVTechType=
-  IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+  parameter BaseClasses.PVOptical.PVType PVTecTyp=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
     "Type of PV technology";
 
-  parameter Integer n_mod(min=1)
-    "Amount of modules per system";
+  parameter Integer nMod(min=1) "Amount of modules per system";
 
   parameter Real groRef(unit="1")=0.2
     "Ground reflectance"
@@ -76,22 +74,19 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   Modelica.Blocks.Interfaces.RealOutput PDC(final unit="W") "DC Power output"
   annotation (Placement(transformation(extent={{100,-10},{120,10}}),
   iconTransformation(extent={{100,-10},{120,10}})));
-  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical PVOptical(
-  final use_Til_in = use_Til_in,
-  final PVTechType=PVTechType)
-  "Model with optical characteristics"
-  annotation (Placement(transformation(extent={{-16,24},{-4,36}})));
-  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermal PVThermal
-  "Model with thermal characteristics"
+  replaceable BaseClasses.PartialPVOptical PVOpt(final use_Til_in=use_Til_in,
+      final PVTecTyp=PVTecTyp) "Model with optical characteristics"
+    annotation (Placement(transformation(extent={{-16,24},{-4,36}})));
+  replaceable BaseClasses.PartialPVThermal PVThe
+    "Model with thermal characteristics"
   annotation (
   choicesAllMatching=true,
   Dialog(tab="Module mounting and specifications"),
-  Placement(transformation(extent={{-16,-16},{-4,-4}})));
+    Placement(transformation(extent={{-16,-16},{-4,-4}})));
 
-  replaceable IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectrical PVElectrical(
-  final n_mod=n_mod)
-  "Model with electrical characteristics"
-  annotation (Placement(transformation(extent={{-16,-56},{-4,-44}})));
+  replaceable BaseClasses.PartialPVElectrical PVEle(final nMod=nMod)
+    "Model with electrical characteristics"
+    annotation (Placement(transformation(extent={{-16,-56},{-4,-44}})));
 
   //Conditional connectors
   Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
@@ -119,32 +114,23 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
           extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-90})));
-  Modelica.Blocks.Interfaces.RealInput incAngle(final unit="rad") if use_incAng
+  Modelica.Blocks.Interfaces.RealInput incAng(final unit="rad") if use_incAng
     "Incidence angle of irradiation"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,60}),
-        iconTransformation(extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,60})));
-  Modelica.Blocks.Interfaces.RealInput zenAngle(final unit="rad") if use_zenAng "Zenith angle of irradiation"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,90}),
-        iconTransformation(extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,90})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad") if use_zenAng
+    "Zenith angle of irradiation"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=0)));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput Til_in_internal
-  "Needed to connect to conditional tilt connector";
+  Modelica.Blocks.Interfaces.RealInput Til_in_int
+    "Needed to connect to conditional tilt connector";
 
 equation
-  connect(tilSet, Til_in_internal);
-  connect(PVOptical.tilSet, Til_in_internal);
+  connect(tilSet, Til_in_int);
+  connect(PVOpt.tilSet, Til_in_int);
 
   if not use_Til_in then
-    Til_in_internal = til;
+    Til_in_int = til;
   end if;
 annotation(Documentation(info="<html>
 <p>

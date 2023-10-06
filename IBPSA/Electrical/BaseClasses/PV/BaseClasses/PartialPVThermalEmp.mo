@@ -3,7 +3,7 @@ partial model PartialPVThermalEmp
   "Empirical thermal models for PV cells to calculate cell temperature"
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermal;
 
-  final parameter Modelica.Units.SI.Temperature T_NOCT=data.T_NOCT
+  final parameter Modelica.Units.SI.Temperature TNOCT=dat.TNOCT
     "Cell temperature under NOCT conditions";
 
   final parameter Modelica.Units.SI.Irradiance HNOCT= 800

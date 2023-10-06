@@ -2,29 +2,27 @@ within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVElectrical
   "Partial electrical model for PV module model"
 
-  replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
+  replaceable parameter Data.PV.Generic dat                   constrainedby
     IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
     annotation (choicesAllMatching);
 
     // Adjustable parameters
 
-  parameter Integer n_mod "Number of connected PV modules";
+  parameter Integer nMod "Number of connected PV modules";
 
-  final parameter Modelica.Units.SI.Area A_mod=data.A_mod
+  final parameter Modelica.Units.SI.Area AMod=dat.AMod
     "Area of one module (housing)";
 
-  final parameter Integer n_ser=data.n_ser
+  final parameter Integer nSer=dat.nSer
     "Number of cells connected in series on the PV panel";
 
-  final parameter Integer n_par = data.n_par
+  final parameter Integer nPar=dat.nPar
     "Number of parallel connected cells within the PV module";
 
-  final parameter Real Eg0(
-    unit = "eV") = data.Eg0
+  final parameter Real Eg0(unit="eV") = dat.Eg0
     "Band gap energy under standard conditions";
 
-  Modelica.Units.SI.ElectricCurrent I_ph
-    "Photo current";
+  Modelica.Units.SI.ElectricCurrent IPh "Photo current";
   Modelica.Blocks.Interfaces.RealInput TCel(final unit="K",final displayUnit="degC")
     "Cell temperature"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));

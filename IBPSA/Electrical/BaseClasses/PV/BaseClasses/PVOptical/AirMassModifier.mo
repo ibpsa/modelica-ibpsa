@@ -3,8 +3,8 @@ block AirMassModifier
   "This block computes the air mass modifier based on selected PV technology"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.
-       MonoSI "Type of PV technology";
+  parameter PVType PVTecTyp=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+    "Type of PV technology";
 
   Modelica.Blocks.Interfaces.RealInput airMas(final unit="1") "Air mass of atmosphere"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -14,43 +14,37 @@ block AirMassModifier
 
 // Air mass parameters based on PV technology. Mono-Si technology as default value
 protected
-parameter Real b_0=
-  if PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI  then 0.935823
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI  then 0.918093
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI  then 0.938110
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous  then 1.10044085
-  else 0.935823;
-parameter Real b_1=
-  if PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI  then 0.054289
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI  then 0.086257
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI  then 0.062191
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous  then -0.06142323
-  else 0.054289;
-parameter Real b_2=
-  if PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI  then -0.008677
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI  then -0.024459
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI  then -0.015021
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous  then -0.00442732
-  else -0.008677;
-parameter Real b_3=
-  if PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI  then 0.000527
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI  then 0.002816
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI  then 0.001217
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous  then 0.000631504
-  else 0.000527;
-parameter Real b_4=
-  if PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI  then -0.000011
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI  then -0.000126
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI  then -0.000034
-  elseif PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous  then -0.000019184
-  else -0.000011;
+  parameter Real b0=if PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+       then 0.935823 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI
+       then 0.918093 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI
+       then 0.938110 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous
+       then 1.10044085 else 0.935823 "Regression parameter 0 to calculate air mass modifier";
+  parameter Real b1=if PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+       then 0.054289 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI
+       then 0.086257 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI
+       then 0.062191 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous
+       then -0.06142323 else 0.054289 "Regression parameter 1 to calculate air mass modifier";
+  parameter Real b2=if PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+       then -0.008677 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI
+       then -0.024459 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI
+       then -0.015021 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous
+       then -0.00442732 else -0.008677 "Regression parameter 2 to calculate air mass modifier";
+  parameter Real b3=if PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+       then 0.000527 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI
+       then 0.002816 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI
+       then 0.001217 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous
+       then 0.000631504 else 0.000527 "Regression parameter 3 to calculate air mass modifier";
+  parameter Real b4=if PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+       then -0.000011 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.PolySI
+       then -0.000126 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI
+       then -0.000034 elseif PVTecTyp == IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThreeJuncAmorphous
+       then -0.000019184 else -0.000011 "Regression parameter 4 to calculate air mass modifier";
 
 equation
 
-airMasMod = if (b_0 + b_1*(airMas^1) + b_2*(airMas^2) + b_3*(
-airMas^3) + b_4*(airMas^4)) <= 0 then
-0 else
-b_0 + b_1*(airMas^1) + b_2*(airMas^2) + b_3*(airMas^3) + b_4*(airMas^4);
+airMasMod =if (b0 + b1*(airMas^1) + b2*(airMas^2) + b3*(airMas^3) + b4*(airMas^4)) <=
+    0 then 0 else b0 + b1*(airMas^1) + b2*(airMas^2) + b3*(airMas^3) + b4*(
+    airMas^4);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

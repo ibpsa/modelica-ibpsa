@@ -1,22 +1,22 @@
 within IBPSA.Electrical.Data.PV;
 record SingleDiodeSolibroSL2CIGS120
   "Single-diode record for Solibro SL2 CIGS 120 Wp"
-   extends IBPSA.Electrical.Data.PV.SingleDiodeData(
-    n_ser=150,
-    n_par=1,
-    A_cel=((V_mp0*I_mp0)/(1000*eta_0))/n_ser,
-    A_mod=0.7895*1.190,
-    eta_0=0.128,
-    V_oc0=102.3,
-    I_sc0=1.71,
-    V_mp0=82.2,
-    I_mp0=1.46,
-    P_mp0=120,
-    TCoeff_Isc=0.000171,
-    TCoeff_Voc=-0.27621,
-    gamma_Pmp=-0.0032,
-    T_NOCT=42 + 273.15,
-    Eg0 = 1.107,
+  extends IBPSA.Electrical.Data.PV.SingleDiodeData(
+    nSer=150,
+    nPar=1,
+    ACel=((VMP0*IMP0)/(1000*eta0))/nSer,
+    AMod=0.7895*1.190,
+    eta0=0.128,
+    VOC0=102.3,
+    ISC0=1.71,
+    VMP0=82.2,
+    IMP0=1.46,
+    PMP0=120,
+    TCoeISC=0.000171,
+    TCoeVOC=-0.27621,
+    gammaPMP=-0.0032,
+    TNOCT=42 + 273.15,
+    Eg0=1.107,
     C=0.0002677);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),Documentation(info="<html>

@@ -2,8 +2,7 @@ within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVOptical
 
 
- parameter BaseClasses.PVOptical.PVType PVTechType=
-  IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
+  parameter PVOptical.PVType PVTecTyp=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
     "Type of PV technology";
 
  parameter Boolean use_Til_in = false
@@ -38,14 +37,14 @@ Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
         extent={{-140,-80},{-100,-40}})));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput Til_in_internal
-  "Needed to connect to conditional tilt connector";
+  Modelica.Blocks.Interfaces.RealInput Til_in_int
+    "Needed to connect to conditional tilt connector";
 
 equation
-  connect(tilSet, Til_in_internal);
+  connect(tilSet, Til_in_int);
 
   if not use_Til_in then
-    Til_in_internal = til;
+    Til_in_int = til;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

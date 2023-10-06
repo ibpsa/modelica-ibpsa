@@ -1,9 +1,8 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVThermal
  "Partial model for computing the cell temperature of a PV moduleConnector for PV record data"
-  replaceable parameter IBPSA.Electrical.Data.PV.Generic data constrainedby
-    IBPSA.Electrical.Data.PV.Generic
-    "PV Panel data definition"
+  replaceable parameter Data.PV.Generic dat constrainedby
+    IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
     annotation (choicesAllMatching);
   Modelica.Blocks.Interfaces.RealOutput TCel(final unit="K", final displayUnit="degC")
     "Cell temperature"

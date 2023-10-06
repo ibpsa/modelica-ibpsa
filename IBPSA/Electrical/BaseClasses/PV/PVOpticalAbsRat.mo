@@ -53,18 +53,18 @@ model PVOpticalAbsRat
   Real tau_gro(final unit="1", min=0)
   "Transmittance of the cover system for ground reflection";
 
-  Real tau_diff(final unit="1", min=0)
-  "Transmittance of the cover system for diffuse radiation";
+  Real tau_dif(final unit="1", min=0)
+    "Transmittance of the cover system for diffuse radiation";
 
   Real R_b(final unit="1", min=0)
    "Ratio of irradiance on tilted surface to horizontal surface";
 
   Modelica.Units.SI.Angle zen "Zenith angle";
 
-  BaseClasses.PVOptical.AirMass airMass(final alt=alt) "Air mass computation"
+  BaseClasses.PVOptical.AirMass airMas(final alt=alt) "Air mass computation"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  BaseClasses.PVOptical.AirMassModifier airMassModifier(final PVTechType=
-        PVTechType) "Air mass modifier computation depending on PV type"
+  BaseClasses.PVOptical.AirMassModifier airMasMod(final PVTecTyp=PVTecTyp)
+    "Air mass modifier computation depending on PV type"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Interfaces.RealOutput absRadRat(final unit="1")
     "Ratio of absorbed radiation under operating conditions to standard conditions"
@@ -96,9 +96,9 @@ refAngGro = if noEvent(incAngGro >= Modelica.Constants.eps and incAngGro <= Mode
 0;
 
 //Refraction angle that the diffuse irradiation is refracted by due to the glazing
-refAngDif = if noEvent(airMassModifier.airMasMod >= Modelica.Constants.eps and incAngDif <= Modelica.Constants.pi/2*
-0.999) then asin(sin(incAngDif)/refInd) else
-0;
+refAngDif =if noEvent(airMasMod.airMasMod >= Modelica.Constants.eps and
+    incAngDif <= Modelica.Constants.pi/2*0.999) then asin(sin(incAngDif)/refInd)
+     else 0;
 
 //Transmission coefficient calculated based on the incidence angle
 tau = if noEvent(incAng >= Modelica.Constants.eps and incAng <= Modelica.Constants.pi/
@@ -117,11 +117,10 @@ refAngGro + incAngGro)^2))) else
 
 //Transmission coefficient for the diffuse irradiation calculated based on the incidence angle
 //of the diffuse irradiation
-tau_diff = if noEvent(incAngDif >= Modelica.Constants.eps and refAngDif >= Modelica.Constants.eps) then exp(-(
-glaExtCoe*glaThi/cos(refAngDif)))*(1 - 0.5*((sin(refAngDif - incAngDif)^2)/
-(sin(refAngDif + incAngDif)^2) + (tan(refAngDif - incAngDif)^2)/(tan(
-refAngDif + incAngDif)^2))) else
-0;
+  tau_dif = if noEvent(incAngDif >= Modelica.Constants.eps and refAngDif >=
+    Modelica.Constants.eps) then exp(-(glaExtCoe*glaThi/cos(refAngDif)))*(1 -
+    0.5*((sin(refAngDif - incAngDif)^2)/(sin(refAngDif + incAngDif)^2) + (tan(
+    refAngDif - incAngDif)^2)/(tan(refAngDif + incAngDif)^2))) else 0;
 
 //Incidence angle modifier to account for relation of transmitted irradiation
 //at operating conditions compared to standard conditions
@@ -131,15 +130,15 @@ incAngMod = tau/tau_0;
 incAngModGro = tau_gro/tau_0;
 
 //For the diffuse irradiation
-incAngModDif = tau_diff/tau_0;
+incAngModDif =tau_dif/tau_0;
 
 //Incidence angle of the ground-reflected irradiation
-incAngGro = (90 - 0.5788*Til_in_internal*180/Modelica.Constants.pi + 0.002693*(Til_in_internal*180/
-Modelica.Constants.pi)^2)*Modelica.Constants.pi/180;
+incAngGro =(90 - 0.5788*Til_in_int*180/Modelica.Constants.pi + 0.002693*(
+    Til_in_int*180/Modelica.Constants.pi)^2)*Modelica.Constants.pi/180;
 
 //Incidence angle of the diffuse irradiation
-incAngDif = (59.7 - 0.1388*Til_in_internal*180/Modelica.Constants.pi + 0.001497*(Til_in_internal*180/
-Modelica.Constants.pi)^2)*Modelica.Constants.pi/180;
+incAngDif =(59.7 - 0.1388*Til_in_int*180/Modelica.Constants.pi + 0.001497*(
+    Til_in_int*180/Modelica.Constants.pi)^2)*Modelica.Constants.pi/180;
 
 //Geometrical relation of normal to horizontal irradiation
 R_b = if noEvent((zen >= Modelica.Constants.pi/2*0.999) or (cos(incAng)
@@ -149,17 +148,15 @@ HGloHor = HDirHor + HDifHor;
 
 
 //Computes the absorption irradiation ratio for operating conditions following De Soto et al.
-absRadRat = if noEvent(HGloHor <=0.1) then 0
-  else
-  airMassModifier.airMasMod*(HDirHor/HGloHor0*R_b*incAngMod
-  +HDifHor/HGloHor0*incAngModDif*(0.5*(1+cos(Til_in_internal)))
-  +HGloHor/HGloHor0*groRef*incAngModGro*(1-cos(Til_in_internal))/2);
+absRadRat =if noEvent(HGloHor <= 0.1) then 0 else airMasMod.airMasMod*(HDirHor/
+    HGloHor0*R_b*incAngMod + HDifHor/HGloHor0*incAngModDif*(0.5*(1 + cos(
+    Til_in_int))) + HGloHor/HGloHor0*groRef*incAngModGro*(1 - cos(Til_in_int))/
+    2);
 
-  connect(airMass.airMas, airMassModifier.airMas) annotation (Line(points={{-39,70},
-          {18,70}},                        color={0,0,127}));
-  connect(zenAng, airMass.zenAng)
-    annotation (Line(points={{-120,70},{-92,70},{-92,70},{-62,70}},
-                                                  color={0,0,127}));
+  connect(airMas.airMas, airMasMod.airMas)
+    annotation (Line(points={{-39,70},{18,70}}, color={0,0,127}));
+  connect(zenAng, airMas.zenAng) annotation (Line(points={{-120,70},{-92,70},{-92,
+          70},{-62,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html>

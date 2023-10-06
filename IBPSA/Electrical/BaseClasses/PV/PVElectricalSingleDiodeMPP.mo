@@ -25,7 +25,8 @@ model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V characteristic
   constant Real q(unit = "C")= 1.602176620924561e-19
    "Elementary charge";
 
-  Modelica.Units.SI.ElectricCurrent I_mp(start=0.5*I_mp0) "MPP current at operating conditions";
+  Modelica.Units.SI.ElectricCurrent I_mp(start=0.5*IMP0)
+    "MPP current at operating conditions";
 
   Modelica.Units.SI.Voltage V_mp "MPP voltage at operating conditions";
 
@@ -52,17 +53,18 @@ equation
 
   // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
 
-  a_0 = V_oc0*(1-TCel0*beta_Voc)/(50.1-TCel0*alpha_Isc);
+  a_0 =VOC0*(1 - TCel0*betaVOC)/(50.1 - TCel0*alphaISC);
 
-  w_0 = IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a_0/V_oc0) + 1));
+  w_0 =IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a_0/
+    VOC0) + 1));
 
-  R_s0 = (a_0*(w_0-1)-V_mp0)/I_mp0;
+  R_s0 =(a_0*(w_0 - 1) - VMP0)/IMP0;
 
-  R_sh0 = a_0*(w_0-1)/(I_sc0*(1-1/w_0)-I_mp0);
+  R_sh0 =a_0*(w_0 - 1)/(ISC0*(1 - 1/w_0) - IMP0);
 
-  I_ph0 = (1+R_s0/R_sh0)*I_sc0;
+  I_ph0 =(1 + R_s0/R_sh0)*ISC0;
 
-  I_s0 = I_ph0*exp(-1/(a_0/V_oc0));
+  I_s0 =I_ph0*exp(-1/(a_0/VOC0));
 
   // Parameter extrapolation equations to operating conditions (DeSoto et al., 2006)
 
@@ -70,22 +72,23 @@ equation
 
   I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(Eg0*q/TCel0-Eg/TCel));
 
-  Eg/(Eg0*q) = 1-data.C*(TCel-TCel0);
+  Eg/(Eg0*q) =1 - dat.C*(TCel - TCel0);
 
   R_s = R_s0;
 
-  I_ph = if absRadRat > 0 then absRadRat*(I_ph0+TCoeff_Isc*(TCel-TCel0)) else 0;
+  IPh = if absRadRat > 0 then absRadRat*(I_ph0 + TCoeISC*(TCel - TCel0)) else 0;
 
   R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat else 0;
 
   // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
-  I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
-         else I_ph*(1-1/w)-a*(w-1)/R_sh;
+  I_mp =if noEvent(absRadRat <= Modelica.Constants.eps or w <= Modelica.Constants.eps)
+     then 0 else IPh*(1 - 1/w) - a*(w - 1)/R_sh;
 
   V_mp = if absRadRat <= 0 then 0 else a*(w-1)-R_s*I_mp;
 
-  V_oc = if I_ph >= Modelica.Constants.eps*10 then a*log(abs((I_ph/I_s+1))) else 0;
+  V_oc =if IPh >= Modelica.Constants.eps*10 then a*log(abs((IPh/I_s + 1)))
+     else 0;
 
   w = if noEvent(V_oc >= Modelica.Constants.eps) then
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/V_oc)
@@ -95,11 +98,11 @@ equation
 // Efficiency and Performance
 
   eta=if noEvent(HGloTil <= Modelica.Constants.eps*10) then 0 else P_mod/(
-    HGloTil*A_pan);
+    HGloTil*APan);
 
   P_mod = V_mp*I_mp;
 
-  P=max(0, min(P_Max*n_mod, P_mod*n_mod));
+  P=max(0, min(PMax*nMod, P_mod*nMod));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
             {100,80}})),                                         Diagram(

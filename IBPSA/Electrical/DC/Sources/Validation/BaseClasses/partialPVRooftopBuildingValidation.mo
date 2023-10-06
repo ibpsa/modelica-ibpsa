@@ -17,17 +17,16 @@ partial model partialPVRooftopBuildingValidation
 
   parameter Real rho=0.2 "Ground reflectance";
 
-  constant Real G_sc(
+  constant Real GSC(
     final quantity="Irradiance",
-    final unit = "W/m2") = 1376
-    "Solar constant";
+    final unit="W/m2") = 1376 "Solar constant";
 
-  Modelica.Units.SI.Irradiance HGloHor;
-  Modelica.Units.SI.Irradiance HGloHorDif;
+  Modelica.Units.SI.Irradiance HGloHor "Global horizontal irradiation";
+  Modelica.Units.SI.Irradiance HDifHor "Diffuse horizontal irradiation";
   Real k_t(final unit="1", start=0.5) "Clearness index";
-  Modelica.Units.SI.Angle solDec;
-  Modelica.Units.SI.Angle solHouAng;
-  Modelica.Units.SI.Time cloTim;
+  Modelica.Units.SI.Angle solDec "Solar decimal angle";
+  Modelica.Units.SI.Angle solHouAng "Solar hour angle";
+  Modelica.Units.SI.Time cloTim "Clock time";
 
   Modelica.Blocks.Interfaces.RealOutput PDCSim(final unit="W")
     "Simulated DC output power"
@@ -84,7 +83,8 @@ partial model partialPVRooftopBuildingValidation
     "This file contains the DC power output of two selected modules. The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de."
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
-  Modelica.Blocks.Sources.RealExpression souGloHorDif(y=HGloHorDif)
+  Modelica.Blocks.Sources.RealExpression souDifHor(y=HDifHor)
+    "Source for diffuse horizontal irradiation"
     annotation (Placement(transformation(extent={{-100,-34},{-80,-14}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=ModelicaServices.ExternalReferences.loadResource(
@@ -94,7 +94,7 @@ partial model partialPVRooftopBuildingValidation
     HSou=IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degC "From degC to K"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Sources.Constant sounDay(k=nDay)
     "Number of validation day (July 28th 2023) in seconds"
@@ -103,7 +103,7 @@ partial model partialPVRooftopBuildingValidation
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Modelica.Blocks.Routing.RealPassThrough zen
+  Modelica.Blocks.Routing.RealPassThrough zen "Zenith angle"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.CombiTimeTable MeaDatTMod(
     tableOnFile=true,
@@ -133,19 +133,14 @@ equation
   solHouAng=SolHouAng;
   cloTim=CloTim;
 
-  k_t = if HGloHor <= 0.01 then 0 else min(1, max(0, (HGloHor/(G_sc*
-        (1+0.033*cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
-        (cos(lat)*cos(SolDec)*cos(SolHouAng)+sin(lat)*sin(SolDec)))))));
+  k_t =if HGloHor <= 0.01 then 0 else min(1, max(0, (HGloHor/(GSC*(1 + 0.033*
+    cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*(cos(lat)*cos(
+    SolDec)*cos(SolHouAng) + sin(lat)*sin(SolDec))))))) "Factor needed for Erbs diffuse fraction relation";
 
   // Erbs diffuse fraction relation
-  HGloHorDif = if HGloHor <=0.01 then
-                 0
-               elseif k_t <= 0.22 then
-                 (HGloHor)*(1.0-0.09*k_t)
-               elseif k_t > 0.8 then
-                 (HGloHor)*0.165
-               else
-                 (HGloHor)*(0.9511-0.1604*k_t+4.388*k_t^2-16.638*k_t^3+12.336*k_t^4);
+  HDifHor = if HGloHor <= 0.01 then 0 elseif k_t <= 0.22 then (HGloHor)*(1.0 - 0.09
+    *k_t) elseif k_t > 0.8 then (HGloHor)*0.165 else (HGloHor)*(0.9511 - 0.1604*
+    k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
 
   connect(MeaDatPVPDC.y[1], PDCMea)
     annotation (Line(points={{81,-10},{96,-10},{96,0},{110,0}},
@@ -178,8 +173,8 @@ equation
                                                     color={0,0,127}));
   connect(MeaDatWinAngSpe.y[2], weaDat.winSpe_in) annotation (Line(points={{-79,10},
           {-68,10},{-68,6.1},{-61,6.1}},                color={0,0,127}));
-  connect(souGloHorDif.y, weaDat.HDifHor_in) annotation (Line(points={{-79,-24},
-          {-74,-24},{-74,0.5},{-61,0.5}}, color={0,0,127}));
+  connect(souDifHor.y, weaDat.HDifHor_in) annotation (Line(points={{-79,-24},{-74,
+          -24},{-74,0.5},{-61,0.5}}, color={0,0,127}));
   connect(weaBus.solHouAng, SolHouAng) annotation (Line(
       points={{-40,40},{-40,-66},{94,-66},{94,-62},{110,-62}},
       color={255,204,51},
