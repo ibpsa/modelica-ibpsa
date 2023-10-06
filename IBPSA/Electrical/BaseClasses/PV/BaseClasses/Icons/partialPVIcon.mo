@@ -66,5 +66,18 @@ partial model partialPVIcon "Partial model for basic PV model icon"
         textString="%name",
         textColor={0,0,255})}),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+            100,100}})),
+            Documentation(info="<html>
+<p>
+This is a partial model containing the base icon of the PV-related models.
+</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+Oct 6, 2023, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end partialPVIcon;

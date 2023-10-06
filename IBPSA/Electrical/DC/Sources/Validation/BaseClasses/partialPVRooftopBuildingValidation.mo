@@ -202,8 +202,7 @@ equation
       StartTime=18057600,
       StopTime=19008000,
       Interval=300,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
    __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeRooftopBuildingValidation.mos"
         "Simulate and plot"),

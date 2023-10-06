@@ -45,5 +45,17 @@ record SingleDiodeData
     "Band gap temperature coefficient; for Silicon: 0.0002677";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+          preserveAspectRatio=false)),Documentation(info="<html>
+<p>
+This is the base data model for the data models for the single-diode PV model.
+</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+Oct 6, 2023, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SingleDiodeData;

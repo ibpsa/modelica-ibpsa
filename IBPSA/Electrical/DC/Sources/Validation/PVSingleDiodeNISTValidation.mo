@@ -44,7 +44,7 @@ model PVSingleDiodeNISTValidation
     annotation (Placement(transformation(extent={{-96,-10},{-76,10}})));
 
   PVSingleDiode pVSingleDiode(
-    redeclare IBPSA.Electrical.Data.PV.SingleDiodeShardNUU235F2 data,
+    redeclare IBPSA.Electrical.Data.PV.SingleDiodeSharpNUU235F2 data,
     PVTechType=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI,
     n_mod=312,
     groRef=rho,
@@ -184,7 +184,6 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-94,46},{-36,12}},
-          lineColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="1 - Air temperature in °C
 2 - Wind speed in m/s
@@ -193,8 +192,7 @@ equation
     experiment(
       StopTime=86400,
       Interval=300,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
       __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
         "Simulate and plot"),
@@ -221,6 +219,5 @@ Oct 5, 2023, by Laura Maier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_experimentSetupOutput(events=false));
+</html>"));
 end PVSingleDiodeNISTValidation;

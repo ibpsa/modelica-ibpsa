@@ -19,5 +19,19 @@ record SingleDiodeSolibroSL2CIGS115
     Eg0 = 1.107,
     C=0.0002677);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),Documentation(info="<html>
+<p>
+This is an exemplary data model of the thin-film module Solibro SL2 CIGS 115 Wp used for the single-diode PV model.
+This data is used for validation in
+<a href=\"modelica://IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation\">IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation</a>.
+</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+Oct 6, 2023, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SingleDiodeSolibroSL2CIGS115;

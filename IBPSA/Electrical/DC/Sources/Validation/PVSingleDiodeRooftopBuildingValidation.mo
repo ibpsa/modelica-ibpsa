@@ -84,8 +84,7 @@ equation
       StartTime=18057600,
       StopTime=19094400,
       Interval=300,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
    __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeRooftopBuildingValidation.mos"
         "Simulate and plot"),
@@ -102,6 +101,5 @@ Nov 17, 2022, by Laura Maier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_experimentSetupOutput(events=false));
+</html>"));
 end PVSingleDiodeRooftopBuildingValidation;

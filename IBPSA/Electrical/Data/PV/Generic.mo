@@ -24,5 +24,17 @@ record Generic "Basic record of a PV cell"
     "Band gap energy under standard conditions. For Si: 1.79604e-19 J or 1.121 eV";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+          preserveAspectRatio=false)),Documentation(info="<html>
+<p>
+This is a base record containing the base information for PV models.
+</p>
+</html>",
+        revisions="<html>
+<ul>
+<li>
+Oct 6, 2023, by Laura Maier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Generic;
