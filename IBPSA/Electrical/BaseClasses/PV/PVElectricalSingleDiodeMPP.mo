@@ -1,6 +1,5 @@
 within IBPSA.Electrical.BaseClasses.PV;
-model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V
-  characteristics with temperature dependency based on 5 parameters with automatic MPP control"
+model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V characteristics with temperature dependency based on 5 parameters with automatic MPP control"
   extends
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
 
