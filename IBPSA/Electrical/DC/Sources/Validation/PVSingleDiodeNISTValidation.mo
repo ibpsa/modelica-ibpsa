@@ -5,15 +5,14 @@ model PVSingleDiodeNISTValidation
 
   parameter Modelica.Units.SI.Time timZon=-5*3600
     "Time zone";
-
   parameter Modelica.Units.SI.Angle lon=-77.2156*Modelica.Constants.pi/180
     "Longitude";
   parameter Modelica.Units.SI.Angle lat=39.1354*Modelica.Constants.pi/180
     "Latitude";
   parameter Modelica.Units.SI.Angle azi=0
-    "Surface azimuth: azi=min 90 degree if surface outward unit normal points toward east, azi=0 if it points toward south";
+    "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
   parameter Modelica.Units.SI.Angle til=10*Modelica.Constants.pi/180
-    "Surface tilt: til=90 degree for walls, til=0 for ceilings, til=180 for roof";
+    "Surface tilt. til=90 degree for walls; til=0 for ceilings; til=180 for roof";
 
   parameter Modelica.Units.SI.Time nDay=(31+28+31+30+31+14)*24*3600 "Day at which simulation starts";
 
@@ -185,10 +184,11 @@ equation
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-94,46},{-36,12}},
           horizontalAlignment=TextAlignment.Left,
-          textString="1 - Air temperature in °C
+          textString="1 - Air temperature in degC
 2 - Wind speed in m/s
 3 - Global horizontal irradiance in W/m2
-4 - Ouput power in kW")}),
+4 - Ouput power in kW",
+          textColor={0,0,0})}),
     experiment(
       StopTime=86400,
       Interval=300,
@@ -197,7 +197,7 @@ equation
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeNISTValidation.mos"
         "Simulate and plot"),
         Documentation(info="<html>
-        <p>The PVSystem single-diode model is validaded with measurement data from the NIST <a href=\"https://pvdata.nist.gov/\">https://pvdata.nist.gov/</a> </p>
+        <p>The PVSystem single-diode model is validaded with measurement data from the NIST <a href=\"https://pvdata.nist.gov/\">https://pvdata.nist.gov/</a></p>
         <p>June 14th was chosen as an exemplary day for the PVSystem model. </p>
         <p>The system consists of 312 mono-Si modules which are mounted on a rooftop.</p>
 <p>The validation model proves that single-diode PV models tend to overestimate the power output.</p>
