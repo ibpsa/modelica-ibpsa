@@ -5,8 +5,7 @@ record SingleDiodeData
   extends IBPSA.Electrical.Data.PV.Generic;
 
   parameter Modelica.Units.SI.Efficiency eta_0
-    "Efficiency under standard conditions.
-    If not found in data sheet, use eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))"
+    "Efficiency under standard conditions. If not found in data sheet, use eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))"
     annotation (Dialog(group="General"));
 
   parameter Modelica.Units.SI.ElectricCurrent I_mp0

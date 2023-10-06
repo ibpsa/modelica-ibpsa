@@ -12,7 +12,7 @@ block AirMassModifier
     "Air mass modifier depending on PV technology"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-// Air mass parameters based on PV technology. Mono-SI technology as default value
+// Air mass parameters based on PV technology. Mono-Si technology as default value
 protected
 parameter Real b_0=
   if PVTechType ==IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI  then 0.935823
