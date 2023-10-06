@@ -21,9 +21,9 @@ model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V characteristic
 // Additional parameters and constants
 
   constant Real euler=Modelica.Math.exp(1.0)
-   "Euler's constant";
-  constant Real q(unit = "A.s")= 1.602176620924561e-19
-   "Electron charge";
+   "Euler constant";
+  constant Real q(unit = "C")= 1.602176620924561e-19
+   "Elementary charge";
 
   Modelica.Units.SI.ElectricCurrent I_mp(start=0.5*I_mp0) "MPP current at operating conditions";
 
