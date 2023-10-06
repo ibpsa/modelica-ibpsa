@@ -150,7 +150,7 @@ R_b = if noEvent((zen >= Modelica.Constants.pi/2*0.999) or (cos(incAng)
 HGloHor = HDirHor + HDifHor;
 
 
-//Computes the absorption irradiation ratio for operating conditions following De Soto et al.
+//Computes the absorption irradiation ratio for operating conditions following De Soto et al
 absRadRat = if noEvent(HGloHor <=0.1) then 0
   else
   airMassModifier.airMasMod*(HDirHor/HGloHor0*R_b*incAngMod

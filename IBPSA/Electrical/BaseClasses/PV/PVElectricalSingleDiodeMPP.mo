@@ -1,6 +1,6 @@
 within IBPSA.Electrical.BaseClasses.PV;
 model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V
-  characteristics with temp. dependency based on 5 parameters with automatic MPP control"
+  characteristics with temperature dependency based on 5 parameters with automatic MPP control"
   extends
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
 
@@ -22,7 +22,7 @@ model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V
 // Additional parameters and constants
 
   constant Real euler=Modelica.Math.exp(1.0)
-   "Euler's constant";
+   "Eulers constant";
   constant Real q(unit = "A.s")= 1.602176620924561e-19
    "Electron charge";
 
@@ -51,7 +51,7 @@ model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V
 
 equation
 
-  // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
+  // Analytical parameter extraction equations under standard conditions (Batzelis et al, 2016)
 
   a_0 = V_oc0*(1-TCel0*beta_Voc)/(50.1-TCel0*alpha_Isc);
 
@@ -65,7 +65,7 @@ equation
 
   I_s0 = I_ph0*exp(-1/(a_0/V_oc0));
 
-  // Parameter extrapolation equations to operating conditions (DeSoto et al.,2006)
+  // Parameter extrapolation equations to operating conditions (DeSoto et al, 2006)
 
   a/a_0 = TCel/TCel0;
 
@@ -79,7 +79,7 @@ equation
 
   R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat else 0;
 
-  //Simplified Power correlations at MPP using lambert W function (Batzelis et al., 2016)
+  //Simplified Power correlations at MPP using lambert W function (Batzelis et al, 2016)
 
   I_mp = if noEvent(absRadRat <= Modelica.Constants.eps or w<=Modelica.Constants.eps) then 0
          else I_ph*(1-1/w)-a*(w-1)/R_sh;
