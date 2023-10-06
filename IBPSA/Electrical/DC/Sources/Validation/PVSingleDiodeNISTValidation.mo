@@ -1,4 +1,4 @@
-﻿within IBPSA.Electrical.DC.Sources.Validation;
+within IBPSA.Electrical.DC.Sources.Validation;
 model PVSingleDiodeNISTValidation
   "Model validation based on NIST measurement data"
   extends Modelica.Icons.Example;
@@ -184,10 +184,7 @@ equation
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-94,46},{-36,12}},
           horizontalAlignment=TextAlignment.Left,
-          textString="1 - Air temperature in degC
-2 - Wind speed in m/s
-3 - Global horizontal irradiance in W/m2
-4 - Ouput power in kW",
+          textString="1 - Air temperature in degC, 2 - Wind speed in m/s, 3 - Global horizontal irradiance in W/m2, 4 - Ouput power in kW",
           textColor={0,0,0})}),
     experiment(
       StopTime=86400,
