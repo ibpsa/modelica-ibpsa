@@ -325,6 +325,9 @@ Carles Ribas Tugores, UdK Berlin, Germany
 Bram van der Heijde, KU Leuven, Belgium
 </li>
 <li>
+Kathryn Hinkelman, University of Colorado Boulder, USA
+</li>
+<li>
 Michael Wetter, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 </li>
 </ul>
