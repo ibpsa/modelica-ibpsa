@@ -30,7 +30,7 @@ protected
     "MPP current under standard conditions";
 
   final parameter Modelica.Units.SI.Power P_Max=data.P_mp0*1.05
-    "Maximal power of one PV module under standard conditions. P_MPP with 5 % tolerance. This is used to limit DCOutputPower.";
+    "Maximal power of one PV module under standard conditions. P_MPP with 5 perc tolerance. This is used to limit DCOutputPower.";
 
   final parameter Real TCoeff_Isc(unit = "A/K")=data.TCoeff_Isc
       "Temperature coefficient for short circuit current, >0";
