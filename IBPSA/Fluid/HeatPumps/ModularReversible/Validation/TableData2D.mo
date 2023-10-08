@@ -2,7 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Validation;
 model TableData2D
   extends Modelica.Icons.Example;
   extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(      heaPum(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(
+      heaPum(
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,
       redeclare model RefrigerantCycleInertia =
@@ -12,17 +13,19 @@ model TableData2D
           nthOrd=2,
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
-          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D
-          (                                                                        datTab=
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
+            datTab=
               IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
-              tabQCon_flow=[0,0,10; 35,6100,8400; 55,5700,7600],
-              tabPEle=[0,0,10; 35,1300,1500; 55,1900,2300],
+              tabPEle=[0,273.15,283.15; 308.15,1300,1500; 328.15,1900,2300],
               mCon_flow_nominal=6100/5/4184,
               mEva_flow_nominal=4800/5/4184,
-              tabUppBou=[-40,70; 40,70],
-              use_evaOut=false,
-              use_conOut=true,
-              devIde="Vaillaint_VWL101"))));
+              dpCon_nominal=0,
+              dpEva_nominal=0,
+              devIde="Vaillaint_VWL101",
+              use_TEvaOutForTab=false,
+              use_TConOutForTab=true,
+              tabQCon_flow=[0,273.15,283.15; 308.15,6100,8400; 328.15,5700,7600],
+              tabUppBou=[-40,70; 40,70]))));
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=0.404317
     "Condenser nominal mass flow rate";

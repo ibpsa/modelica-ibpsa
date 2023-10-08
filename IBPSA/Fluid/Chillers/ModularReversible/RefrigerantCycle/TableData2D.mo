@@ -17,8 +17,8 @@ model TableData2D
         TEva_nominal - 273.15));
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
-    final use_conOut=datTab.use_conOut,
-    final use_evaOut=datTab.use_evaOut,
+    final use_TConOutForTab=datTab.use_TConOutForTab,
+    final use_TEvaOutForTab=datTab.use_TEvaOutForTab,
     tabQUse_flow(final table=datTab.tabQEva_flow),
     tabPEle(final table=datTab.tabPEle),
     final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,

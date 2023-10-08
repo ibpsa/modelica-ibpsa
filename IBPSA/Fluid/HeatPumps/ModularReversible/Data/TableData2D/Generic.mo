@@ -12,10 +12,10 @@ record Generic "Basic two-dimensional data of refrigerant machines"
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal
     "Nominal pressure drop in evaporator";
   parameter String devIde "Name of the device";
-  parameter Boolean use_evaOut
-    "=true to use evaporator outlet temperature, false for inlet";
-  parameter Boolean use_conOut
-    "=true to use condenser outlet temperature, false for inlet";
+  parameter Boolean use_TEvaOutForTab
+    "=true to use evaporator outlet temperature for table data, false for inlet";
+  parameter Boolean use_TConOutForTab
+    "=true to use condenser outlet temperature for table data, false for inlet";
 
   annotation (Documentation(info="<html>
 <h4>Overview</h4>
