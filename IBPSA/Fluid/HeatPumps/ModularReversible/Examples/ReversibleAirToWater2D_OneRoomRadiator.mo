@@ -1,19 +1,18 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ReversibleAirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
-  extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
-    mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
-    mCon_flow_nominal=revCarWitLosHeaPum.mCon_flow_nominal,
+    mEva_flow_nominal=heaPum.mEva_flow_nominal,
+    mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
-    booToReaPumEva(realTrue=revCarWitLosHeaPum.mEva_flow_nominal),
+    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     pumHeaPumSou(
       redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D
-    revCarWitLosHeaPum(
+    heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     QUse_flow_nominal=Q_flow_nominal,
@@ -41,19 +40,21 @@ model ReversibleAirToWater2D_OneRoomRadiator
       use_antFre=true,
       TAntFre=275.15)) "Reversible heat pump with losses and carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
+  extends Modelica.Icons.Example;
+
 equation
-  connect(revCarWitLosHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,
           -154},{38,-154},{38,-200},{60,-200}}, color={0,127,255}));
-  connect(revCarWitLosHeaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
+  connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
         points={{0,-154},{-30,-154},{-30,-170}}, color={0,127,255}));
-  connect(revCarWitLosHeaPum.port_b1, pumHeaPum.port_a) annotation (Line(points=
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points=
          {{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(revCarWitLosHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,
           -142},{60,-142},{60,-30}}, color={0,127,255}));
-  connect(oneRooRadHeaPumCtr.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
         points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}}, color=
          {0,0,127}));
-  connect(revCarWitLosHeaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
+  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
         points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-80},{-14,-80},{-14,
           -86},{-134,-86},{-134,-76},{-139,-76}}, color={255,0,255}));
   annotation (

@@ -1,15 +1,16 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ReversibleCarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with carnot approach connected to a simple room model with radiator"
-  extends Modelica.Icons.Example;
   extends Examples.BaseClasses.PartialOneRoomRadiator(
-    mEva_flow_nominal=revCarWitLosHeaPum.mEva_flow_nominal,
-    mCon_flow_nominal=revCarWitLosHeaPum.mCon_flow_nominal,
+    mEva_flow_nominal=heaPum.mEva_flow_nominal,
+    mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
-    booToReaPumEva(realTrue=revCarWitLosHeaPum.mEva_flow_nominal));
+    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal));
+  extends Modelica.Icons.Example;
+
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating output";
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses revCarWitLosHeaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
@@ -43,23 +44,23 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
         rotation=90,
         origin={10,-190})));
 equation
-  connect(revCarWitLosHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},
           {38,-156},{38,-200},{60,-200}},       color={0,127,255}));
-  connect(revCarWitLosHeaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
+  connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
         points={{0,-156},{-30,-156},{-30,-170}}, color={0,127,255}));
-  connect(revCarWitLosHeaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-144},
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-144},
           {-70,-144},{-70,-120}},          color={0,127,255}));
-  connect(revCarWitLosHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},
           {60,-144},{60,-30}},       color={0,127,255}));
-  connect(temAmbBas.y, revCarWitLosHeaPum.TEvaAmb) annotation (Line(points={{10,-179},
+  connect(temAmbBas.y, heaPum.TEvaAmb) annotation (Line(points={{10,-179},
           {10,-166},{-6,-166},{-6,-160},{-1,-160}},       color={0,0,127}));
-  connect(temAmbBas.y, revCarWitLosHeaPum.TConAmb) annotation (Line(points={{10,-179},
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},
           {10,-166},{-6,-166},{-6,-140},{-1,-140}},       color={0,0,127}));
 
-  connect(oneRooRadHeaPumCtr.hea, revCarWitLosHeaPum.hea) annotation (Line(
+  connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(
         points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-159},{21.6,-159}},
         color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.ySet, revCarWitLosHeaPum.ySet) annotation (Line(
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
         points={{-139,-66},{28,-66},{28,-148},{21.6,-148}}, color={0,0,127}));
   annotation (
    __Dymola_Commands(file=

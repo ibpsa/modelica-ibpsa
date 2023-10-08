@@ -1,14 +1,15 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ModularReversible_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
-  extends Modelica.Icons.Example;
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
-    mEva_flow_nominal=modRevHeaPum.mEva_flow_nominal,
-    mCon_flow_nominal=modRevHeaPum.mCon_flow_nominal,
+    mEva_flow_nominal=heaPum.mEva_flow_nominal,
+    mCon_flow_nominal=heaPum.mCon_flow_nominal,
                                              sin(nPorts=1), booToReaPumEva(
-        realTrue=modRevHeaPum.mEva_flow_nominal));
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible modRevHeaPum(
+        realTrue=heaPum.mEva_flow_nominal));
+  extends Modelica.Icons.Example;
+
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
@@ -63,20 +64,20 @@ model ModularReversible_OneRoomRadiator
         rotation=90,
         origin={10,-190})));
 equation
-  connect(modRevHeaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-154},
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-154},
           {38,-154},{38,-200},{60,-200}}, color={0,127,255}));
-  connect(modRevHeaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(points={{0,
+  connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(points={{0,
           -154},{-30,-154},{-30,-170}}, color={0,127,255}));
-  connect(modRevHeaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-142},
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-142},
           {-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(modRevHeaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-142},
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-142},
           {60,-142},{60,-30}}, color={0,127,255}));
-  connect(temAmbBas.y, modRevHeaPum.TConAmb) annotation (Line(points={{10,-179},
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},
           {10,-162},{-1,-162},{-1,-138}}, color={0,0,127}));
-  connect(modRevHeaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.6,
+  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.6,
           -157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},{-139,
           -76}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.ySet, modRevHeaPum.ySet) annotation (Line(points={
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={
           {-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

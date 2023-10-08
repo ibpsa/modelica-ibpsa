@@ -5,7 +5,7 @@ model LargeScaleWaterToWater
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
-  IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater larScaWatToWatChi(
+  IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater chi(
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
     redeclare package MediumCon = MediumCon,
@@ -23,14 +23,14 @@ model LargeScaleWaterToWater
     nPorts=1,
     redeclare package Medium = MediumCon,
     use_T_in=true,
-    m_flow=larScaWatToWatChi.mCon_flow_nominal,
+    m_flow=chi.mCon_flow_nominal,
     T=298.15) "Condenser source"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souEva(
     nPorts=1,
     redeclare package Medium = MediumEva,
     use_T_in=true,
-    m_flow=larScaWatToWatChi.mEva_flow_nominal,
+    m_flow=chi.mEva_flow_nominal,
     T=291.15) "Evaporator source"
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   IBPSA.Fluid.Sources.Boundary_pT sinCon(nPorts=1, redeclare package Medium =
@@ -58,19 +58,19 @@ model LargeScaleWaterToWater
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{52,-40},{72,-20}})));
 equation
-  connect(souCon.ports[1], larScaWatToWatChi.port_a1) annotation (Line(
+  connect(souCon.ports[1], chi.port_a1) annotation (Line(
       points={{-40,16},{-20,16},{-20,15},{-5.55112e-16,15}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(souEva.ports[1], larScaWatToWatChi.port_a2) annotation (Line(
+  connect(souEva.ports[1], chi.port_a2) annotation (Line(
       points={{40,4},{30,4},{30,5},{20,5}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(larScaWatToWatChi.port_b1, sinCon.ports[1]) annotation (Line(
+  connect(chi.port_b1, sinCon.ports[1]) annotation (Line(
       points={{20,15},{30,15},{30,40},{60,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sinEva.ports[1], larScaWatToWatChi.port_b2) annotation (Line(
+  connect(sinEva.ports[1], chi.port_b2) annotation (Line(
       points={{-40,-20},{-10,-20},{-10,5},{-5.55112e-16,5}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -82,7 +82,7 @@ equation
       points={{73,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, larScaWatToWatChi.ySet) annotation (Line(points={{-39,60},{
+  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{
           -16,60},{-16,11.6667},{-1.6,11.6667}},
                                              color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),

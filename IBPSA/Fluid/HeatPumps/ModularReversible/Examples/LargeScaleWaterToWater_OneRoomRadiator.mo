@@ -1,18 +1,19 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model LargeScaleWaterToWater_OneRoomRadiator
   "Large scale water to water heat pump connected to a simple room model with radiator"
-  extends Modelica.Icons.Example;
   extends BaseClasses.PartialOneRoomRadiator(
-    mEva_flow_nominal=larScaWatToWatHeaPum.mEva_flow_nominal,
-    mCon_flow_nominal=larScaWatToWatHeaPum.mCon_flow_nominal,
+    mEva_flow_nominal=heaPum.mEva_flow_nominal,
+    mCon_flow_nominal=heaPum.mCon_flow_nominal,
     V=6*100*3,
     witCoo=false,
     mAirRoo_flow_nominal=V*1.2*6/3600*10,
     Q_flow_nominal=200000,
     sin(nPorts=1),
-    booToReaPumEva(realTrue=larScaWatToWatHeaPum.mEva_flow_nominal),
+    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     oneRooRadHeaPumCtr(PIDHea(Ti=10)));
-  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater larScaWatToWatHeaPum(
+  extends Modelica.Icons.Example;
+
+  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     QUse_flow_nominal=Q_flow_nominal,
     y_nominal=1,
     use_intSafCtr=true,
@@ -28,15 +29,15 @@ model LargeScaleWaterToWater_OneRoomRadiator
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 equation
-  connect(larScaWatToWatHeaPum.port_b2, sin.ports[1]) annotation (Line(points={
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={
           {20,-154},{38,-154},{38,-200},{60,-200}}, color={0,127,255}));
-  connect(larScaWatToWatHeaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
+  connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
         points={{0,-154},{-30,-154},{-30,-170}}, color={0,127,255}));
-  connect(larScaWatToWatHeaPum.port_b1, pumHeaPum.port_a) annotation (Line(
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(
         points={{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(larScaWatToWatHeaPum.port_a1, temRet.port_b) annotation (Line(points=
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points=
           {{20,-142},{60,-142},{60,-30}}, color={0,127,255}));
-  connect(oneRooRadHeaPumCtr.ySet, larScaWatToWatHeaPum.ySet) annotation (Line(
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
         points={{-139,-66},{-62,-66},{-62,-76},{21.6,-76},{21.6,-146}}, color={
           0,0,127}));
   annotation (
