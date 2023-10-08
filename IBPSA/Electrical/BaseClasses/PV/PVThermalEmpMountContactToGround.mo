@@ -5,7 +5,7 @@ extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermalEmp;
 
 equation
 
- TCel = if HGloTil >= 0.01 then HGloTil*(exp(-2.81-0.0455*winVel))+TDryBul else TDryBul;
+ TCel = HGloTil*(exp(-2.81-0.0455*winVel))+TDryBul;
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

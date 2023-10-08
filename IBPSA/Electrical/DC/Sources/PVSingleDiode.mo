@@ -10,36 +10,37 @@ model PVSingleDiode
       final glaThi=glaThi,
       final refInd=refInd),
     redeclare IBPSA.Electrical.BaseClasses.PV.PVElectricalSingleDiodeMPP PVEle(
-        redeclare IBPSA.Electrical.Data.PV.SingleDiodeData data=dat),
-    PVThe(redeclare IBPSA.Electrical.Data.PV.SingleDiodeData data=dat),
+        redeclare IBPSA.Electrical.Data.PV.SingleDiodeData dat=dat),
+    PVThe(redeclare IBPSA.Electrical.Data.PV.SingleDiodeData dat=dat),
     replaceable IBPSA.Electrical.Data.PV.SingleDiodeData dat);
 
 equation
   connect(PVEle.eta, PVThe.eta) annotation (Line(points={{-3.4,-53.75},{40,-53.75},
-          {40,-20},{-72,-20},{-72,-11.8},{-17.0909,-11.8}}, color={0,0,127}));
+          {40,-20},{-72,-20},{-72,-12.4},{-17.0909,-12.4}}, color={0,0,127}));
   connect(PVThe.TCel, PVEle.TCel) annotation (Line(points={{-4.54545,-10},{0,-10},
-          {0,-14},{-58,-14},{-58,-46.25},{-17.2,-46.25}}, color={0,0,127}));
-  connect(PVEle.P, PDC) annotation (Line(points={{-3.4,-46.25},{20,-46.25},{20,
-          -40},{60,-40},{60,0},{110,0}}, color={0,0,127}));
-  connect(PVOpt.absRadRat, PVEle.absRadRat) annotation (Line(points={{-4.54545,
-          30},{20,30},{20,-34},{-64,-34},{-64,-52.25},{-17.2,-52.25}}, color={0,
+          {0,-14},{-58,-14},{-58,-47},{-17.2,-47}},       color={0,0,127}));
+  connect(PVOpt.absRadRat, PVEle.absRadRat) annotation (Line(points={{-4.54545,30},
+          {20,30},{20,-34},{-64,-34},{-64,-50},{-17.2,-50}},           color={0,
           0,127}));
-  connect(HGloTil, PVEle.HGloTil) annotation (Line(points={{-120,-60},{-100,-60},
-          {-100,-54},{-68,-54},{-68,-55.25},{-17.2,-55.25}}, color={0,0,127}));
-  connect(TDryBul, PVThe.TDryBul) annotation (Line(points={{-120,0},{-60,0},{-60,
-          -4.6},{-17.0909,-4.6}}, color={0,0,127}));
-  connect(HGloTil, PVThe.HGloTil) annotation (Line(points={{-120,-60},{-80,-60},
-          {-80,6},{-40,6},{-40,-15.4},{-17.0909,-15.4}}, color={0,0,127}));
-  connect(vWinSpe, PVThe.winVel) annotation (Line(points={{-120,30},{-40,30},{-40,
-          28},{-52,28},{-52,-8.2},{-17.0909,-8.2}}, color={0,0,127}));
-  connect(zenAng, PVOpt.zenAng) annotation (Line(points={{-120,90},{-44,90},{-44,
-          34.2},{-17.0909,34.2}}, color={0,0,127}));
-  connect(incAng, PVOpt.incAng) annotation (Line(points={{-120,60},{-120,64},{-22,
-          64},{-22,31.8},{-17.0909,31.8}}, color={0,0,127}));
-  connect(HDifHor, PVOpt.HDifHor) annotation (Line(points={{-120,-90},{-120,70},
-          {-72,70},{-72,27},{-17.0909,27}}, color={0,0,127}));
-  connect(HGloHor, PVOpt.HGloHor) annotation (Line(points={{-120,-30},{-20,-30},
-          {-20,29.4},{-17.0909,29.4}}, color={0,0,127}));
+  connect(TDryBul, PVThe.TDryBul) annotation (Line(points={{-120,-10},{-60,-10},
+          {-60,-5.2},{-17.0909,-5.2}},
+                                  color={0,0,127}));
+  connect(zenAng, PVOpt.zenAng) annotation (Line(points={{-120,80},{-40,80},{-40,
+          34.8},{-17.0909,34.8}}, color={0,0,127}));
+  connect(HGloHor, PVOpt.HGloHor) annotation (Line(points={{-120,-40},{-20,-40},
+          {-20,30},{-17.0909,30}},     color={0,0,127}));
+  connect(incAng, PVOpt.incAng) annotation (Line(points={{-120,50},{-60,50},{-60,
+          32.4},{-17.0909,32.4}}, color={0,0,127}));
+  connect(vWinSpe, PVThe.winVel) annotation (Line(points={{-120,20},{-80,20},{-80,
+          -8},{-18,-8},{-18,-7.6},{-17.0909,-7.6}}, color={0,0,127}));
+  connect(HGloTil, PVEle.HGloTil) annotation (Line(points={{-120,-70},{-80,-70},
+          {-80,-72},{-40,-72},{-40,-53},{-17.2,-53}}, color={0,0,127}));
+  connect(HGloTil, PVThe.HGloTil) annotation (Line(points={{-120,-70},{-80,-70},
+          {-80,-18},{-17.0909,-18},{-17.0909,-14.8}}, color={0,0,127}));
+  connect(HDifHor, PVOpt.HDifHor) annotation (Line(points={{-120,-100},{-60,-100},
+          {-60,27.6},{-17.0909,27.6}}, color={0,0,127}));
+  connect(PVEle.P, PDC) annotation (Line(points={{-3.4,-46.25},{96,-46.25},{96,0},
+          {110,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>

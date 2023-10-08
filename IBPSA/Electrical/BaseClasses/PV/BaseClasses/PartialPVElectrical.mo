@@ -25,15 +25,15 @@ partial model PartialPVElectrical
   Modelica.Units.SI.ElectricCurrent IPh "Photo current";
   Modelica.Blocks.Interfaces.RealInput TCel(final unit="K",final displayUnit="degC")
     "Cell temperature"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
 public
   Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
     "Ratio of absorbed radiation under operating conditions to standard conditions"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
     "Total solar irradiance on the tilted surface"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
     "Efficiency of the PV module under operating conditions"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));

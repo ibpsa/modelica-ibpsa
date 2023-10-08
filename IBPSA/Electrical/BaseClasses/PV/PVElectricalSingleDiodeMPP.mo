@@ -1,5 +1,6 @@
 within IBPSA.Electrical.BaseClasses.PV;
-model PVElectricalSingleDiodeMPP "Analytical 5-p model for PV I-V characteristics with temperature dependency based on 5 parameters with automatic MPP control"
+model PVElectricalSingleDiodeMPP
+  "Analytical 5-p model for PV I-V characteristics with temperature dependency based on 5 parameters with automatic MPP control"
   extends
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
 
@@ -55,8 +56,8 @@ equation
 
   a_0 =VOC0*(1 - TCel0*betaVOC)/(50.1 - TCel0*alphaISC);
 
-  w_0 =IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a_0/
-    VOC0) + 1));
+  w_0 =IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(
+  exp(1/(a_0/VOC0) + 1));
 
   R_s0 =(a_0*(w_0 - 1) - VMP0)/IMP0;
 
@@ -76,14 +77,19 @@ equation
 
   R_s = R_s0;
 
-  IPh = if absRadRat > 0 then absRadRat*(I_ph0 + TCoeISC*(TCel - TCel0)) else 0;
+  IPh = if absRadRat > 0
+        then absRadRat*(I_ph0 + TCoeISC*(TCel - TCel0))
+        else 0;
 
-  R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat else 0;
+  R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps)
+                then 1/absRadRat
+                else 0;
 
   // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
-  I_mp =if noEvent(absRadRat <= Modelica.Constants.eps or w <= Modelica.Constants.eps)
-     then 0 else IPh*(1 - 1/w) - a*(w - 1)/R_sh;
+  I_mp =if noEvent(absRadRat <= Modelica.Constants.eps
+        or w <= Modelica.Constants.eps)
+         then 0 else IPh*(1 - 1/w) - a*(w - 1)/R_sh;
 
   V_mp = if absRadRat <= 0 then 0 else a*(w-1)-R_s*I_mp;
 

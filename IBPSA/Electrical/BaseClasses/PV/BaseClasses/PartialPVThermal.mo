@@ -9,20 +9,20 @@ partial model PartialPVThermal
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(final unit="K", final displayUnit="degC")
     "Ambient temperature (dry bulb)"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
-        iconTransformation(extent={{-140,70},{-100,110}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput winVel(final unit="m/s")
     "Wind velocity"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
-        iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
     "Total solar irradiance on the tilted surface"
-    annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-        iconTransformation(extent={{-140,-110},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput eta(final unit="1")
     "Efficiency of the PV module under operating conditions"
-    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{120,100}}),                                  graphics={
                              Text(extent={{-84,-68},{0,-102}},textString= "%name"),

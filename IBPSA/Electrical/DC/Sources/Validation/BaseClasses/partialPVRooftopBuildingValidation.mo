@@ -8,7 +8,8 @@ partial model partialPVRooftopBuildingValidation
     "Longitude";
   parameter Modelica.Units.SI.Angle lat=0.9128072
     "Latitude";
-  parameter Modelica.Units.SI.Time nDay=(31+28+31+30+31+30+28)*24*3600 "Day at which simulation starts";
+  parameter Modelica.Units.SI.Time nDay=(31+28+31+30+31+30+28)*24*3600
+    "Day at which simulation starts";
   parameter Modelica.Units.SI.Angle azi=27.5*Modelica.Constants.pi/180
     "Surface azimuth. azi=-90 degree if surface outward unit normal points toward east; azi=0 if it points toward south";
   parameter Modelica.Units.SI.Angle til=2*Modelica.Constants.pi/180
@@ -37,7 +38,7 @@ partial model partialPVRooftopBuildingValidation
   BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(til=til,
       azi=azi,
     rho=rho)
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
   Modelica.Blocks.Sources.CombiTimeTable MeaDatHGloHor(
     tableOnFile=true,
@@ -117,36 +118,47 @@ partial model partialPVRooftopBuildingValidation
 
   Modelica.Blocks.Interfaces.RealOutput TModMea(final unit="degC") "Measure module temperature"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput SolHouAng(final unit="rad") "Solar hour angle"
-    annotation (Placement(transformation(extent={{100,-72},{120,-52}})));
-  Modelica.Blocks.Interfaces.RealOutput SolDec(final unit="rad")
-    "Solar decimal angle"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput CloTim(final unit="s") "Clock time"
-    annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
+  Modelica.Blocks.Routing.RealPassThrough realPassThroughSolHouAng
+    "Pass through for solar hour angle"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  Modelica.Blocks.Routing.RealPassThrough realPassThroughCloTim
+    "Pass through for clock time"
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
+  Modelica.Blocks.Routing.RealPassThrough realPassThroughSolDec
+    "Pass through for solar decimal angle"
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
   //the validation data does not contain this information so far
 
   HGloHor=MeaDatHGloHor.y[1];
-  solDec=SolDec;
-  solHouAng=SolHouAng;
-  cloTim=CloTim;
 
-  k_t =if HGloHor <= 0.01 then 0 else min(1, max(0, (HGloHor/(GSC*(1 + 0.033*
-    cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*(cos(lat)*cos(
-    SolDec)*cos(SolHouAng) + sin(lat)*sin(SolDec))))))) "Factor needed for Erbs diffuse fraction relation";
+  solHouAng = realPassThroughSolHouAng.y;
+  solDec=realPassThroughSolDec.y;
+  cloTim=realPassThroughCloTim.y;
+
+  k_t =if HGloHor <= 0.01
+            then 0
+            else min(1, max(0, (HGloHor/(GSC*(1 + 0.033*
+            cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
+            (cos(lat)*cos(solDec)*cos(solHouAng) + sin(lat)*sin(solDec)))))))
+            "Factor needed for Erbs diffuse fraction relation";
 
   // Erbs diffuse fraction relation
-  HDifHor = if HGloHor <= 0.01 then 0 elseif k_t <= 0.22 then (HGloHor)*(1.0 - 0.09
-    *k_t) elseif k_t > 0.8 then (HGloHor)*0.165 else (HGloHor)*(0.9511 - 0.1604*
-    k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
+  HDifHor = if HGloHor <= 0.01
+            then 0
+            elseif k_t <= 0.22
+            then (HGloHor)*(1.0 - 0.09*k_t)
+            elseif k_t > 0.8
+            then (HGloHor)*0.165
+            else (HGloHor)*
+              (0.9511 - 0.1604*k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
 
   connect(MeaDatPVPDC.y[1], PDCMea)
     annotation (Line(points={{81,-10},{96,-10},{96,0},{110,0}},
                                                     color={0,0,127}));
   connect(weaDat.weaBus, HGloTil.weaBus) annotation (Line(
-      points={{-40,10},{-6,10},{-6,50},{0,50}},
+      points={{-40,10},{-6,10},{-6,30},{0,30}},
       color={255,204,51},
       thickness=0.5));
   connect(MeaDatTDryBul.y[1], from_degC.u) annotation (Line(points={{-79,-50},{
@@ -165,7 +177,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.solZen, zen.u) annotation (Line(
-      points={{-40,40},{-40,-64},{-30,-64},{-30,-50},{-22,-50}},
+      points={{-39.95,40.05},{-39.95,-50},{-22,-50}},
       color={255,204,51},
       thickness=0.5));
   connect(MeaDatTMod.y[1], TModMea)
@@ -175,16 +187,18 @@ equation
           {-68,10},{-68,6.1},{-61,6.1}},                color={0,0,127}));
   connect(souDifHor.y, weaDat.HDifHor_in) annotation (Line(points={{-79,-24},{-74,
           -24},{-74,0.5},{-61,0.5}}, color={0,0,127}));
-  connect(weaBus.solHouAng, SolHouAng) annotation (Line(
-      points={{-40,40},{-40,-66},{94,-66},{94,-62},{110,-62}},
+  connect(weaBus.solHouAng, realPassThroughSolHouAng.u) annotation (Line(
+      points={{-39.95,40.05},{-39.95,-38},{-36,-38},{-36,-78},{-46,-78},{-46,-90},
+          {-42,-90}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.solDec, SolDec) annotation (Line(
-      points={{-40,40},{-40,-80},{110,-80}},
+  connect(weaBus.cloTim, realPassThroughCloTim.u) annotation (Line(
+      points={{-39.95,40.05},{-39.95,-76},{-12,-76},{-12,-74},{-8,-74},{-8,-90},
+          {-2,-90}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.cloTim, CloTim) annotation (Line(
-      points={{-40,40},{-40,-100},{110,-100}},
+  connect(weaBus.solDec, realPassThroughSolDec.u) annotation (Line(
+      points={{-39.95,40.05},{-4,40.05},{-4,44},{32,44},{32,-90},{38,-90}},
       color={255,204,51},
       thickness=0.5));
   annotation (

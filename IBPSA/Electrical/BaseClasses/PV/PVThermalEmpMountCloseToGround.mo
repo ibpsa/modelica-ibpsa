@@ -5,10 +5,7 @@ extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVThermalEmp;
 
 equation
 
- TCel = if noEvent(HGloTil >= Modelica.Constants.eps) then
- HGloTil*(exp(-2.98-0.0471*winVel))+(TDryBul)+HGloTil/1000*1
- else
- (TDryBul);
+ TCel = HGloTil*(exp(-2.98-0.0471*winVel))+(TDryBul)+HGloTil/1000;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

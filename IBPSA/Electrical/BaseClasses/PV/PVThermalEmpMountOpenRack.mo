@@ -10,9 +10,8 @@ model PVThermalEmpMountOpenRack
 
 equation
 
- TCel =if noEvent(HGloTil >= Modelica.Constants.eps) then (TDryBul) + (TNOCT -
-    TDryBul0)*HGloTil/HNOCT*9.5/(5.7 + 3.8*winVel)*(1 - eta/coeTranAbs) else (
-    TDryBul);
+ TCel = TDryBul + (TNOCT - TDryBul0)*HGloTil/HNOCT*9.5/(5.7 + 3.8*winVel)*
+ (1 - eta/coeTranAbs);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

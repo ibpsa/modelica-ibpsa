@@ -35,7 +35,8 @@ model PVOpticalAbsRat
 
   Real incAngMod(final unit="1", min=0) "Incidence angle modifier";
 
-  Real incAngModGro(final unit="1", min=0) "Incidence angle modifier for ground refelction";
+  Real incAngModGro(final unit="1", min=0)
+  "Incidence angle modifier for ground refelction";
 
   Real incAngModDif(final unit="1", min=0)
   "Incidence angle modifier for diffuse radiation";
@@ -73,8 +74,8 @@ model PVOpticalAbsRat
   //Conditional connectors
 
 protected
-parameter Real tau_0(final unit="1")=exp(-(glaExtCoe*glaThi))*(1 - ((refInd - 1)/(
-    refInd + 1))^2)
+  parameter Real tau_0(final unit="1")=exp(-(glaExtCoe*glaThi))*
+          (1 - ((refInd - 1)/(refInd + 1))^2)
       "Transmittance at standard conditions (incAng=refAng=0)";
 
 
@@ -91,36 +92,45 @@ Modelica.Constants.pi/2*0.999) then asin(sin(incAng)/refInd) else
 0;
 
 //Refraction angle that the ground-reflected irradiation is refracted by due to the glazing
-refAngGro = if noEvent(incAngGro >= Modelica.Constants.eps and incAngGro <= Modelica.Constants.pi/2*
-0.999) then asin(sin(incAngGro)/refInd) else
-0;
+refAngGro = if noEvent(incAngGro >= Modelica.Constants.eps and
+            incAngGro <= Modelica.Constants.pi/2*0.999) then
+            asin(sin(incAngGro)/refInd)
+            else
+            0;
 
 //Refraction angle that the diffuse irradiation is refracted by due to the glazing
 refAngDif =if noEvent(airMasMod.airMasMod >= Modelica.Constants.eps and
-    incAngDif <= Modelica.Constants.pi/2*0.999) then asin(sin(incAngDif)/refInd)
-     else 0;
+            incAngDif <= Modelica.Constants.pi/2*0.999)
+            then asin(sin(incAngDif)/refInd)
+            else 0;
 
 //Transmission coefficient calculated based on the incidence angle
-tau = if noEvent(incAng >= Modelica.Constants.eps and incAng <= Modelica.Constants.pi/
-2*0.999 and refAng >= Modelica.Constants.eps) then exp(-(glaExtCoe*glaThi/cos(refAng)))*(1
-- 0.5*((sin(refAng - incAng)^2)/(sin(refAng + incAng)^2) + (
-tan(refAng - incAng)^2)/(tan(refAng + incAng)^2))) else
-0;
+tau = if noEvent(incAng >= Modelica.Constants.eps and
+            incAng <= Modelica.Constants.pi/2*0.999 and
+            refAng >= Modelica.Constants.eps) then
+            exp(-(glaExtCoe*glaThi/cos(refAng)))*
+            (1- 0.5*((sin(refAng - incAng)^2)/(sin(refAng + incAng)^2) +
+            (tan(refAng - incAng)^2)/(tan(refAng + incAng)^2))) else
+            0;
 
 //Transmission coefficient for the ground-reflected irradiation calculated based on the incidence angle
 //of the ground-reflected irradiation
-tau_gro = if noEvent(incAngGro >= Modelica.Constants.eps and refAngGro >= Modelica.Constants.eps) then exp(-(
-glaExtCoe*glaThi/cos(refAngGro)))*(1 - 0.5*((sin(refAngGro - incAngGro)^2)/
-(sin(refAngGro + incAngGro)^2) + (tan(refAngGro - incAngGro)^2)/(tan(
-refAngGro + incAngGro)^2))) else
-0;
+tau_gro = if noEvent(incAngGro >= Modelica.Constants.eps and
+          refAngGro >= Modelica.Constants.eps) then
+          exp(-(glaExtCoe*glaThi/cos(refAngGro)))*
+          (1 - 0.5*((sin(refAngGro - incAngGro)^2)/(sin(refAngGro + incAngGro)^2)
+          + (tan(refAngGro - incAngGro)^2)/(tan(refAngGro + incAngGro)^2)))
+          else 0;
 
-//Transmission coefficient for the diffuse irradiation calculated based on the incidence angle
-//of the diffuse irradiation
-  tau_dif = if noEvent(incAngDif >= Modelica.Constants.eps and refAngDif >=
-    Modelica.Constants.eps) then exp(-(glaExtCoe*glaThi/cos(refAngDif)))*(1 -
-    0.5*((sin(refAngDif - incAngDif)^2)/(sin(refAngDif + incAngDif)^2) + (tan(
-    refAngDif - incAngDif)^2)/(tan(refAngDif + incAngDif)^2))) else 0;
+//Transmission coefficient for the diffuse irradiation calculated based
+//on the incidence angle of the diffuse irradiation
+  tau_dif = if noEvent(incAngDif >= Modelica.Constants.eps and
+          refAngDif >= Modelica.Constants.eps) then
+          exp(-(glaExtCoe*glaThi/cos(refAngDif)))*
+          (1 - 0.5*((sin(refAngDif - incAngDif)^2)/
+          (sin(refAngDif + incAngDif)^2) +
+          (tan(refAngDif - incAngDif)^2)/(tan(refAngDif + incAngDif)^2)))
+          else 0;
 
 //Incidence angle modifier to account for relation of transmitted irradiation
 //at operating conditions compared to standard conditions
@@ -133,29 +143,34 @@ incAngModGro = tau_gro/tau_0;
 incAngModDif =tau_dif/tau_0;
 
 //Incidence angle of the ground-reflected irradiation
-incAngGro =(90 - 0.5788*Til_in_int*180/Modelica.Constants.pi + 0.002693*(
-    Til_in_int*180/Modelica.Constants.pi)^2)*Modelica.Constants.pi/180;
+incAngGro =(90 - 0.5788*Til_in_int*180/Modelica.Constants.pi +
+          0.002693*(Til_in_int*180/Modelica.Constants.pi)^2)*
+          Modelica.Constants.pi/180;
 
 //Incidence angle of the diffuse irradiation
-incAngDif =(59.7 - 0.1388*Til_in_int*180/Modelica.Constants.pi + 0.001497*(
-    Til_in_int*180/Modelica.Constants.pi)^2)*Modelica.Constants.pi/180;
+incAngDif =(59.7 - 0.1388*Til_in_int*180/Modelica.Constants.pi +
+          0.001497*(Til_in_int*180/Modelica.Constants.pi)^2)*
+          Modelica.Constants.pi/180;
 
 //Geometrical relation of normal to horizontal irradiation
-R_b = if noEvent((zen >= Modelica.Constants.pi/2*0.999) or (cos(incAng)
-> cos(zen)*4)) then 4 else (cos(incAng)/cos(zen));
+R_b = if noEvent((zen >= Modelica.Constants.pi/2*0.999) or
+          (cos(incAng)> cos(zen)*4))
+          then 4
+          else (cos(incAng)/cos(zen));
 
 HGloHor = HDirHor + HDifHor;
 
 
 //Computes the absorption irradiation ratio for operating conditions following De Soto et al.
-absRadRat =if noEvent(HGloHor <= 0.1) then 0 else airMasMod.airMasMod*(HDirHor/
-    HGloHor0*R_b*incAngMod + HDifHor/HGloHor0*incAngModDif*(0.5*(1 + cos(
-    Til_in_int))) + HGloHor/HGloHor0*groRef*incAngModGro*(1 - cos(Til_in_int))/
-    2);
+absRadRat =if noEvent(HGloHor <= 0.1) then 0
+          else airMasMod.airMasMod*(HDirHor/HGloHor0*R_b*incAngMod
+          + HDifHor/HGloHor0*incAngModDif*(0.5*(1 + cos(
+          Til_in_int))) + HGloHor/HGloHor0*groRef*incAngModGro*
+          (1 - cos(Til_in_int))/2);
 
   connect(airMas.airMas, airMasMod.airMas)
     annotation (Line(points={{-39,70},{18,70}}, color={0,0,127}));
-  connect(zenAng, airMas.zenAng) annotation (Line(points={{-120,70},{-92,70},{-92,
+  connect(zenAng, airMas.zenAng) annotation (Line(points={{-120,80},{-92,80},{-92,
           70},{-62,70}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
