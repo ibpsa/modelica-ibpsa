@@ -54,6 +54,16 @@ record Generic "Basic two-dimensional data of refrigerant machines"
   matching records will be used. This parameter is mainly to avoid manual input
   errors.
 </p>
+<h4>Where to get the data?</h4> 
+<p>
+  Manufacturers often provide table data for heating / cooling capacity and 
+  electrical power consumption, e.g. based on EN 14511.
+  While the usual datasheets only contain some nominal points, 
+  the documents for installers and planners are often more specific.
+  Keywords for a search should be <i>technical guide</i>, <i>planning handbook</i>, 
+  or similar, together with the manufacturer and possibly the device id.
+</p>
+
 </html>",
         revisions="<html><ul>
   <li>
