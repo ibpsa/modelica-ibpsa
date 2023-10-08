@@ -26,9 +26,7 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
     tabQUse_flow(final table=datTab.tabQCon_flow),
     tabPEle(final table=datTab.tabPEle));
 
-
-  parameter IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab=
-      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350AWI114()
+  parameter IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data Table of HP" annotation (choicesAllMatching=true);
 
 equation
@@ -71,6 +69,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(scaFacTimPel.y, calCOP.PEle) annotation (Line(points={{-40,-11},{-40,
+          -24},{0,-24},{0,-86},{-70,-86},{-70,-66},{-78,-66}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={
           {-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},

@@ -5,6 +5,9 @@ partial model PartialHeatPumpCycle
   Modelica.Blocks.Math.Feedback feeHeaFloEva
     "Calculates evaporator heat flow with total energy balance" annotation (
       Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
+  CalculateCoefficientOfPerformance calCOP(PEleMin=PEle_nominal*0.01)
+    "Calculate the COP"
+    annotation (Placement(transformation(extent={{-80,-60},{-100,-80}})));
 equation
   connect(iceFacCal.iceFac, sigBus.icefacHPMea) annotation (Line(points={{-79,-42},
           {-72,-42},{-72,-28},{-102,-28},{-102,104},{1,104}}, color={0,0,127}),
@@ -15,6 +18,14 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(feeHeaFloEva.y, proRedQEva.u2)
     annotation (Line(points={{-61,-10},{-44,-10},{-44,-58}}, color={0,0,127}));
+  connect(calCOP.QUse_flow, redQCon.y) annotation (Line(points={{-78,-74},{-72,
+          -74},{-72,-90},{70,-90},{70,-81}}, color={0,0,127}));
+  connect(calCOP.COP, sigBus.COP) annotation (Line(points={{-101,-70},{-102,-70},
+          {-102,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Documentation(info="<html>
 <p>
   Partial refrigerant cycle model for heat pumps.

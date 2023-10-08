@@ -24,8 +24,7 @@ model TableData2D
     final perDevMasFloEva=(mEva_flow_nominal - datTab.mEva_flow_nominal*scaFac)/mEva_flow_nominal*100,
     final perDevMasFloCon=(mCon_flow_nominal - datTab.mCon_flow_nominal*scaFac)/mCon_flow_nominal*100,
     constScaFac(final k=scaFac));
-  parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTab=
-      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201()
+  parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTab
     "Data Table of Chiller" annotation (choicesAllMatching=true);
 
 equation
@@ -66,6 +65,8 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
+  connect(scaFacTimPel.y, calEER.PEle) annotation (Line(points={{-40,-11},{-40,-26},
+          {-30,-26},{-30,-86},{-68,-86},{-68,-66},{-78,-66}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},
       {30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},

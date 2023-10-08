@@ -4,6 +4,9 @@ partial model PartialChillerCycle
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle;
 
+  HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCoefficientOfPerformance
+    calEER(PEleMin=PEle_nominal*0.01) "Calculate the EER"
+    annotation (Placement(transformation(extent={{-80,-60},{-100,-80}})));
 equation
   connect(iceFacCal.iceFac, sigBus.iceFacChiMea) annotation (Line(points={{-79,
           -42},{-72,-42},{-72,-26},{-102,-26},{-102,104},{1,104}}, color={0,0,
@@ -12,6 +15,14 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(calEER.COP, sigBus.EER) annotation (Line(points={{-101,-70},{-102,-70},
+          {-102,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(calEER.QUse_flow, proRedQEva.y) annotation (Line(points={{-78,-74},{-70,
+          -74},{-70,-88},{-50,-88},{-50,-81}}, color={0,0,127}));
   annotation (Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,255},
