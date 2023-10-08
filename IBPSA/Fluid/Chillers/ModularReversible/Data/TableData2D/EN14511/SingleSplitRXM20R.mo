@@ -11,7 +11,7 @@ record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R cooling mode"
         2190,2140,2050; 305.15,2510,2420,2320,2290,2230,2140],
     mCon_flow_nominal=36*1.2/60,
     mEva_flow_nominal=(9.642*1.2)/60,
-    tabLowBou=[-10,18; 50,18],
+    tabLowBou=[263.15,291.15; 323.15,291.15],
     devIde="DaikinRXM20R",
     use_TConOutForOpeEnv=false,
     use_TEvaOutForOpeEnv=false,

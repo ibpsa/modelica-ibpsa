@@ -3,7 +3,7 @@ model BoundaryMap
   "Block that checks if the inputs are within the characteristic map"
   parameter Real tab[:,2]
     "Table for boundary with second column as useful temperature side";
-  parameter Real dT
+  parameter Modelica.Units.SI.TemperatureDifference dT
     "Delta value used to avoid state events when used as a safety control"
   annotation (Dialog(tab="Safety Control", group="Operational Envelope"));
   parameter Boolean isUppBou "=true if it is an upper boundary, false for lower";
@@ -45,12 +45,6 @@ model BoundaryMap
   Modelica.Blocks.Math.Add sub(final k1=-1, final k2=+1)
     "TNotUseMin minus TNotUse"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Math.UnitConversions.To_degC toDegCelTNotUse
-    "Boundary map takes degC as input" annotation (extent=[-88,38; -76,50],
-      Placement(transformation(extent={{-90,0},{-70,20}})));
-    Modelica.Blocks.Math.UnitConversions.To_degC toDegCelTUse
-    "Boundary map takes degC as input" annotation (extent=[-88,38; -76,50],
-      Placement(transformation(extent={{-60,80},{-40,100}})));
   Modelica.Blocks.Interfaces.RealInput TUse(unit="K", displayUnit="degC")
     "Useful temperature side "
     annotation (Placement(transformation(extent={{-128,26},{-100,54}})));
@@ -67,19 +61,19 @@ protected
   parameter Real icoMin=-70
     "Used to set the frame where the icon should appear";
   parameter Real icoMax=70 "Used to set the frame where the icon should appear";
-  final parameter Real TNotUseMax(unit="degC") = tab[end, 1]
+  final parameter Modelica.Units.SI.Temperature TNotUseMax = tab[end, 1]
     "Maximal value of evaporator side";
-  final parameter Real TNotUseMin(unit="degC") = tab[1, 1]
+  final parameter Modelica.Units.SI.Temperature TNotUseMin = tab[1, 1]
     "Minimal temperature at evaporator side";
-  final parameter Real TUseMax(unit="degC") = max(tab[:, 2])
+  final parameter Modelica.Units.SI.Temperature TUseMax = max(tab[:, 2])
     "Maximal temperature of condenser side";
-  final parameter Real TUseMin(unit="degC") = 0 "Minimal value of condenser side";
+  final parameter Modelica.Units.SI.Temperature TUseMin = 0 "Minimal value of condenser side";
   final parameter Real poi[size(scaTNotUse, 1),2]=transpose({scaTEvaToPoi,
       scaTUseToPoi}) "Points for dynamic annotation"
     annotation (Hide=false, HideResult=false);
-  final parameter Real scaTNotUse[:](each unit="degC") = tab[:, 1]
+  final parameter Modelica.Units.SI.Temperature scaTNotUse[:] = tab[:, 1]
     "Helper array with only not useful temperature side values";
-  final parameter Real scaTUse[:](each unit="degC") = tab[:, 2]
+  final parameter Modelica.Units.SI.Temperature scaTUse[:] = tab[:, 2]
     "Helper array with only useful temperature side values";
   final parameter Real scaTEvaToPoi[size(scaTNotUse, 1)](
     each min=-100,
@@ -107,24 +101,20 @@ equation
     annotation (Line(points={{1,-70},{18,-70}}, color={0,0,127}));
   connect(sub.y, hysLef.u)
     annotation (Line(points={{1,-30},{18,-30}}, color={0,0,127}));
-  connect(toDegCelTUse.u,TUse)  annotation (Line(points={{-62,90},{-96,90},{-96,
-          40},{-114,40}}, color={0,0,127}));
-  connect(tabBou.u, toDegCelTNotUse.y) annotation (Line(points={{-62,50},{-66,
-          50},{-66,10},{-69,10}}, color={0,0,127}));
-  connect(TNotUse, toDegCelTNotUse.u) annotation (Line(points={{-116,-40},{-98,
-          -40},{-98,10},{-92,10}}, color={0,0,127}));
-  connect(toDegCelTNotUse.y, sub.u1) annotation (Line(points={{-69,10},{-66,10},
-          {-66,-24},{-22,-24}}, color={0,0,127}));
-  connect(toDegCelTNotUse.y, subMax.u1) annotation (Line(points={{-69,10},{-66,
-          10},{-66,-64},{-22,-64}}, color={0,0,127}));
   connect(hysBou.u, subBou.y)
     annotation (Line(points={{18,10},{6,10},{6,70},{1,70}}, color={0,0,127}));
   connect(hysBou.y, nor.u[3]) annotation (Line(points={{41,10},{50,10},{50,2.33333},
           {60,2.33333}}, color={255,0,255}));
-  connect(subBou.u1, toDegCelTUse.y) annotation (Line(points={{-22,76},{-32,76},
-          {-32,90},{-39,90}}, color={0,0,127}));
   connect(tabBou.y[1], subBou.u2) annotation (Line(points={{-39,50},{-30,50},{-30,
           64},{-22,64}}, color={0,0,127}));
+  connect(subBou.u1, TUse) annotation (Line(points={{-22,76},{-96,76},{-96,40},{-114,
+          40}}, color={0,0,127}));
+  connect(TNotUse, tabBou.u) annotation (Line(points={{-116,-40},{-80,-40},{-80,50},
+          {-62,50}}, color={0,0,127}));
+  connect(TNotUse, sub.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-24},
+          {-22,-24}}, color={0,0,127}));
+  connect(TNotUse, subMax.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-70},
+          {-32,-70},{-32,-64},{-22,-64}}, color={0,0,127}));
   annotation (Icon(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}), graphics={

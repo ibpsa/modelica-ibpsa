@@ -12,7 +12,7 @@ record Carrier30XWP1012_1MW
         291.15,161024,183752,210396,240550,274249],
     mCon_flow_nominal=49.85,
     mEva_flow_nominal=49.85,
-    tabLowBou=[20,3; 50,3],
+    tabLowBou=[293.15,276.15; 323.15,276.15],
     devIde="Carrier30XWP1012",
     use_TConOutForOpeEnv=true,
     use_TEvaOutForOpeEnv=true,

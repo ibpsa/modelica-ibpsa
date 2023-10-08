@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record WAMAK_WaterToWater_150kW "150 kW water to water with R134a"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
-    tabUppBou=[-5,82; 45,82],
+    tabUppBou=[268.15,355.15; 318.15,355.15],
     mEva_flow_nominal=24.17/3600*997,
     mCon_flow_nominal=13.60/3600*997,
     tabPEle=[0,278.15, 279.15, 280.15, 281.15, 282.15, 283.15, 284.15, 285.15,

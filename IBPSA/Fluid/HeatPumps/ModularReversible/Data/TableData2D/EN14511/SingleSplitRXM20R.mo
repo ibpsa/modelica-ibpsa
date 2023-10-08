@@ -18,7 +18,7 @@ record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R heating mode"
    300.15,350,370,380,490,520,540],
     mCon_flow_nominal=(9.33*1.2)/60,
     mEva_flow_nominal=(28.3*1.2)/60,
-    tabUppBou=[-20,30; 18,30],
+    tabUppBou=[253.15,303.15; 291.15,303.15],
     devIde="DaikinRXM20R",
     use_TConOutForTab=false,
     use_TEvaOutForTab=false);
