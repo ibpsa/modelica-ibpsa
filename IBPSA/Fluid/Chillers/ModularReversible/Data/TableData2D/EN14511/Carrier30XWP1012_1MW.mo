@@ -29,6 +29,12 @@ record Carrier30XWP1012_1MW
 <p>
   Boundaries are for dry-bulb temperature.
 </p>
+<h4>References</h4>
+<p>
+Carrier, Water-Cooled Liquid Chillers Pro-Dialog plus, 30XW- 30XWHDaikin
+<a href=\"http://www.carrier.com.kw/pdf/pdf/Chilled%20Water%20Products/30XW.pdf\">
+http://www.carrier.com.kw/pdf/pdf/Chilled%20Water%20Products/30XW.pdf</a>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
