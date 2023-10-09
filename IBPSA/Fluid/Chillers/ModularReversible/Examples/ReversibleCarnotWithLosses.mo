@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Examples;
 model ReversibleCarnotWithLosses
-  "Test model for chiller based on ReversibleCarnotWithLosses model"
+  "Example for reversible carnot chiller model"
   extends Modelica.Icons.Example;
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
