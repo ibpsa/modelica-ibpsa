@@ -461,7 +461,7 @@ for heating and cooling.
 <ul>
 <li>F. Wuellhorst et al., A Modular Model of Reversible Heat
 Pumps and Chillers for System Applications,
-https://doi.org/10.3384/ecp21181561
+<a href=\"https://doi.org/10.3384/ecp21181561\">https://doi.org/10.3384/ecp21181561</a>
 </li>
 </ul>
 

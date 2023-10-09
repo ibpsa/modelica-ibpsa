@@ -63,7 +63,13 @@ record Generic "Basic two-dimensional data of refrigerant machines"
   Keywords for a search should be <i>technical guide</i>, <i>planning handbook</i>, 
   or similar, together with the manufacturer and possibly the device id.
 </p>
-
+<h4>References</h4>
+<p>
+EN 14511-2018: Air conditioners, liquid chilling packages and heat pumps for space 
+heating and cooling and process chillers, with electrically driven compressors
+<a href=\"https://www.beuth.de/de/norm/din-en-14511-1/298537524\">
+https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
+</p>
 </html>",
         revisions="<html><ul>
   <li>

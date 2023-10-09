@@ -106,7 +106,7 @@ equation
 <p>
   This model uses two-dimensional table data typically given 
   by manufacturers as required by e.g. European Norm 14511 
-  or ASHRAE XY to calculate
+  or ASHRAE 205 to calculate
   <code>QCon_flow</code> and <code>PEle</code>.
 </p>
 <p>
@@ -150,5 +150,13 @@ This implies a constant COP over different design sizes:
   <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a>.
 </li>
 </ul>
+<h4>References</h4>
+<p>
+EN 14511-2018: Air conditioners, liquid chilling packages and heat pumps for space 
+heating and cooling and process chillers, with electrically driven compressors
+<a href=\"https://www.beuth.de/de/norm/din-en-14511-1/298537524\">
+https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
+</p>
+
 </html>"));
 end TableData2D;
