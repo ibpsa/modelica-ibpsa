@@ -2,6 +2,10 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511;
 record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R heating mode"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump(
+    use_TConOutForOpeEnv=true,
+    use_TEvaOutForOpeEnv=false,
+    dpEva_nominal=0,
+    dpCon_nominal=0,
     tabPEle=[0,258.15, 263.15, 268.15, 273.15, 280.15, 283.15;
     288.15,1190,1430,1670,1940,2590,2810;
     293.15,1120,1360,1600, 1860,2500,2730;
@@ -27,7 +31,20 @@ record SingleSplitRXM20R "Daikin_FTXM20R_RXM20R heating mode"
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Performance data&nbsp;for&nbsp;Daikin FTXM20R_RXM20R for the heating mode.</p>
+<p>
+  Performance data for Daikin FTXM20R_RXM20R for the heating mode.
+</p>
+<p>
+  Boundaries are for dry-bulb temperature. Pressure drops are not provided
+  in the datasheet.
+</p>
+<h4>References</h4>
+<p>
+Daikin, Technical data book RXM-R
+<a href=\"https://www.heizman24.de/media/pdf/fa/50/2c/Daikin-RXM-R-Produktdatenbuch.pdf\">
+https://www.heizman24.de/media/pdf/fa/50/2c/Daikin-RXM-R-Produktdatenbuch.pdf</a>
+</p>
+    
 </html>", revisions="<html>
 <ul>
   <li>
