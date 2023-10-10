@@ -46,11 +46,12 @@ model ModularReversible
         useAirForEva=chi.cpEva < 1500,
         quaGra=0.35),
     redeclare model RefrigerantCycleChillerHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (redeclare
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
+          redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350BWH110(
-             devIde="Override to avoid warnings during simulation for CI")))
+            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350BWH110
+            (devIde="Override to avoid warnings during simulation for CI")))
                  "Modular reversible chiller instance"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souCon(
