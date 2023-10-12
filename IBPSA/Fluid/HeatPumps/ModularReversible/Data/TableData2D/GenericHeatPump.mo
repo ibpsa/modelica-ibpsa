@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
-record GenericHeatPump "Basic heat pump data"
+record GenericHeatPump "Partial heat pump data"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
   parameter Real tabQCon_flow[:,:]
     "Heating output table, T in degC, Q_flow in W";

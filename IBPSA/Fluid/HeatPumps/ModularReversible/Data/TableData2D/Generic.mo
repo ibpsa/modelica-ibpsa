@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
-record Generic "Basic two-dimensional data of refrigerant machines"
+record Generic "Partial two-dimensional data of refrigerant machines"
     extends Modelica.Icons.Record;
   parameter Real tabPEle[:,:]
     "Electrical power consumption table, T in degC, Q_flow in W";

@@ -1,19 +1,19 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511;
 record Vitocal251A08 "A2W Vitocal 251 by Viessmann"
-  extends HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater(
+  extends IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic(
+    tabLowBou=[283.15,280.15; 318.15,280.15],
     dpEva_nominal=0,
     dpCon_nominal=0,
-    tabUppBou=[280.15,318.15; 298.15,318.15],
     use_TConOutForOpeEnv=false,
     use_TEvaOutForOpeEnv=true,
-    tabQCon_flow=[
+    tabQEva_flow=[
       0, 293.15, 298.15, 300.15, 303.15, 308.15, 313.15, 318.15;
-      291.15, 10300, 9900, 9700, 9300, 6900, 3400, 2800;
-      280.15, 8500, 7800, 7000, 6000, 4500, 3100, 1900],
+      280.15, 8500, 7800, 7000, 6000, 4500, 3100, 1900;
+      291.15, 10300, 9900, 9700, 9300, 6900, 3400, 2800],
     tabPEle=[
       0, 293.15, 298.15, 300.15, 303.15, 308.15, 313.15, 318.15;
-      291.15, 1493, 1707, 1764, 1860, 1725, 1259, 1037;
-      280.15, 1735, 1902, 1842, 1765, 1607, 1348, 1056],
+      280.15, 1735, 1902, 1842, 1765, 1607, 1348, 1056;
+      291.15, 1493, 1707, 1764, 1860, 1725, 1259, 1037],
     mEva_flow_nominal=5600/5/4184,
     mCon_flow_nominal=2125/3600/1.204,
     use_TConOutForTab=false,

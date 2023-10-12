@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D;
 record GenericAirToWater
-  "Partial record to allow automatic selection of air-to-water heat pump devices"
+  "Partial record for air-to-water heat pump devices"
   extends GenericHeatPump;
   annotation (Documentation(revisions="<html>
 <ul>

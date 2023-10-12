@@ -18,13 +18,15 @@ model CalculateCoefficientOfPerformance
   Modelica.Blocks.Logical.Hysteresis hys(uLow=PEleMin, uHigh=PEleMin*1.1)
     "Hysteresis to switch between calculation and no calculation"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+initial equation
+  assert(PEleMin > 0, "PEleMin must be greater than zero", AssertionLevel.error);
+
 equation
   if hys.y then
     COP = QUse_flow/PEle;
   else
     COP = 0;
   end if;
-
 
   connect(hys.u, PEle)
     annotation (Line(points={{-62,-40},{-120,-40}}, color={0,0,127}));

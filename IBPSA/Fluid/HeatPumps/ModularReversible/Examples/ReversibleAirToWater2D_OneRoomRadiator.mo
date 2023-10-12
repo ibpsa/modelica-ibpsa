@@ -26,10 +26,10 @@ model ReversibleAirToWater2D_OneRoomRadiator
     dpEva_nominal(displayUnit="Pa") = 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
-      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201
+      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
       datTabHea,
     redeclare
-      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal200AWO201
+      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
       datTabCoo,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021

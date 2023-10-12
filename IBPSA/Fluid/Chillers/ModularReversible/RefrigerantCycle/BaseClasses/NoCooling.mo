@@ -16,7 +16,8 @@ model NoCooling
     dTCon_nominal=0,
     TEva_nominal=273.15,
     TCon_nominal=273.15,
-    QUse_flow_nominal=0);
+    QUse_flow_nominal=0,
+    calEER(PEleMin=1));
 
   Modelica.Blocks.Sources.Constant const(final k=0) "Zero energy flows"
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
@@ -27,6 +28,8 @@ equation
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   connect(const.y, proRedQEva.u2)
     annotation (Line(points={{-67,26},{-44,26},{-44,-58}}, color={0,0,127}));
+  connect(calEER.PEle, const.y) annotation (Line(points={{-78,-66},{-62,-66},{-62,
+          26},{-67,26}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Using this model, the chiller will always be off.

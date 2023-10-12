@@ -24,8 +24,9 @@ model LargeScaleWaterToWater_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
-    datTab=
-        IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW())
+    redeclare
+      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW
+      datTab)
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
 equation
