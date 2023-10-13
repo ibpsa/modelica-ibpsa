@@ -83,8 +83,7 @@ equation
       StartTime=3600,
       StopTime=86400,
       Interval=300,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
       Documentation(info="<html>
       <p>
       This model illustrates the use of the single-diode PV model.
