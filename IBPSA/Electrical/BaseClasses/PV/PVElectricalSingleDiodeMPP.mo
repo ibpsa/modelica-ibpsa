@@ -6,109 +6,104 @@ model PVElectricalSingleDiodeMPP
 
   // Main parameters under standard conditions
 
-  Modelica.Units.SI.ElectricCurrent I_ph0
+  Modelica.Units.SI.ElectricCurrent IPh0
     "Photo current under standard conditions";
-  Modelica.Units.SI.ElectricCurrent I_s0
+  Modelica.Units.SI.ElectricCurrent IS0
     "Saturation current under standard conditions";
-  Modelica.Units.SI.Resistance R_s0
+  Modelica.Units.SI.Resistance RS0
     "Series resistance under standard conditions";
-  Modelica.Units.SI.Resistance R_sh0
+  Modelica.Units.SI.Resistance RSh0
     "Shunt resistance under standard conditions";
-  Real a_0(unit = "V")
-    "Modified diode ideality factor under standard conditions";
-  Real w_0(final unit = "1")
+  Real a0(unit="V") "Modified diode ideality factor under standard conditions";
+  Real w0(final unit="1")
     "MPP auxiliary correlation coefficient under standard conditions";
 
 // Additional parameters and constants
 
   constant Real euler=Modelica.Math.exp(1.0)
    "Euler constant";
-  constant Real q(unit = "C")= 1.602176620924561e-19
+  constant Real q(unit = "A.s")= 1.602176620924561e-19
    "Elementary charge";
 
-  Modelica.Units.SI.ElectricCurrent I_mp(start=0.5*IMP0)
+  Modelica.Units.SI.ElectricCurrent IMP(start=0.5*IMP0)
     "MPP current at operating conditions";
 
-  Modelica.Units.SI.Voltage V_mp "MPP voltage at operating conditions";
+  Modelica.Units.SI.Voltage VMP "MPP voltage at operating conditions";
 
   Modelica.Units.SI.Energy Eg "Band gap energy at operating conditions";
 
-  Modelica.Units.SI.ElectricCurrent I_s "Saturation current at operating conditions";
+  Modelica.Units.SI.ElectricCurrent IS
+    "Saturation current at operating conditions";
 
-  Modelica.Units.SI.Resistance R_s "Series resistance at operating conditions";
+  Modelica.Units.SI.Resistance RS "Series resistance at operating conditions";
 
-  Modelica.Units.SI.Resistance R_sh "Shunt resistance at operating conditions";
+  Modelica.Units.SI.Resistance RSh "Shunt resistance at operating conditions";
 
   Real a(final unit = "V", start = 1.3)
     "Modified diode ideality factor";
 
-  Modelica.Units.SI.Power P_mod "Output power of one PV module";
+  Modelica.Units.SI.Power PMod "Output power of one PV module";
 
   Real w(final unit = "1", start = 0)
    "MPP auxiliary correlation coefficient";
 
-  Modelica.Units.SI.Voltage V_oc
+  Modelica.Units.SI.Voltage VOC
     "Open circuit voltage under operating conditions";
 
 equation
 
   // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
 
-  a_0 =VOC0*(1 - TCel0*betaVOC)/(50.1 - TCel0*alphaISC);
+  a0 = VOC0*(1 - TCel0*betaVOC)/(50.1 - TCel0*alphaISC);
 
-  w_0 =IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(
-  exp(1/(a_0/VOC0) + 1));
+  w0 = IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a0/
+    VOC0) + 1));
 
-  R_s0 =(a_0*(w_0 - 1) - VMP0)/IMP0;
+  RS0 = (a0*(w0 - 1) - VMP0)/IMP0;
 
-  R_sh0 =a_0*(w_0 - 1)/(ISC0*(1 - 1/w_0) - IMP0);
+  RSh0 = a0*(w0 - 1)/(ISC0*(1 - 1/w0) - IMP0);
 
-  I_ph0 =(1 + R_s0/R_sh0)*ISC0;
+  IPh0 = (1 + RS0/RSh0)*ISC0;
 
-  I_s0 =I_ph0*exp(-1/(a_0/VOC0));
+  IS0 = IPh0*exp(-1/(a0/VOC0));
 
   // Parameter extrapolation equations to operating conditions (DeSoto et al., 2006)
 
-  a/a_0 = TCel/TCel0;
+  a/a0 = TCel/TCel0;
 
-  I_s/I_s0 = (TCel/TCel0)^3*exp(1/k*(Eg0*q/TCel0-Eg/TCel));
+  IS/IS0 = (TCel/TCel0)^3*exp(1/k*(Eg0/TCel0 - Eg/TCel));
 
-  Eg/(Eg0*q) =1 - dat.C*(TCel - TCel0);
+  Eg/(Eg0) =1 - dat.C*(TCel - TCel0);
 
-  R_s = R_s0;
+  RS = RS0;
 
-  IPh = if absRadRat > 0
-        then absRadRat*(I_ph0 + TCoeISC*(TCel - TCel0))
-        else 0;
+  IPh =if absRadRat > 0 then absRadRat*(IPh0 + TCoeISC*(TCel - TCel0)) else 0;
 
-  R_sh/R_sh0 = if noEvent(absRadRat > Modelica.Constants.eps)
-                then 1/absRadRat
-                else 0;
+  RSh/RSh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat
+     else 0;
 
   // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
-  I_mp =if noEvent(absRadRat <= Modelica.Constants.eps
-        or w <= Modelica.Constants.eps)
-         then 0 else IPh*(1 - 1/w) - a*(w - 1)/R_sh;
+  IMP = if noEvent(absRadRat <= Modelica.Constants.eps or w <= Modelica.Constants.eps)
+     then 0 else IPh*(1 - 1/w) - a*(w - 1)/RSh;
 
-  V_mp = if absRadRat <= 0 then 0 else a*(w-1)-R_s*I_mp;
+  VMP = if absRadRat <= 0 then 0 else a*(w - 1) - RS*IMP;
 
-  V_oc =if IPh >= Modelica.Constants.eps*10 then a*log(abs((IPh/I_s + 1)))
+  VOC = if IPh >= Modelica.Constants.eps*10 then a*log(abs((IPh/IS + 1))) else 0;
+
+  w =if noEvent(VOC >= Modelica.Constants.eps) then
+    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/VOC) + 1))
      else 0;
-
-  w = if noEvent(V_oc >= Modelica.Constants.eps) then
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/V_oc)
-     + 1)) else 0;
 
 
 // Efficiency and Performance
 
-  eta=if noEvent(HGloTil <= Modelica.Constants.eps*10) then 0 else P_mod/(
+  eta=if noEvent(HGloTil <= Modelica.Constants.eps*10) then 0 else PMod/(
     HGloTil*APan);
 
-  P_mod = V_mp*I_mp;
+  PMod = VMP*IMP;
 
-  P=max(0, min(PMax*nMod, P_mod*nMod));
+  P=max(0, min(PMax*nMod, PMod*nMod));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
             {100,80}})),                                         Diagram(

@@ -32,13 +32,10 @@ partial model partialPVValidation
   Modelica.Blocks.Interfaces.RealOutput PDCSim(final unit="W")
     "Simulated DC output power"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
-  Modelica.Blocks.Interfaces.RealOutput PDCMea(final unit="W")
-    "Measured DC power"
-    annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(til=til,
       azi=azi,
     rho=rho)
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="",
@@ -51,7 +48,7 @@ partial model partialPVValidation
     "Number of validation day (July 28th 2023) in seconds"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   BoundaryConditions.SolarGeometry.IncidenceAngle incAng(azi=azi, til=til)
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   Modelica.Blocks.Routing.RealPassThrough zen "Zenith angle"
@@ -97,11 +94,11 @@ equation
               (0.9511 - 0.1604*k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
 
   connect(weaDat.weaBus, HGloTil.weaBus) annotation (Line(
-      points={{-80,-10},{-74,-10},{-74,50},{0,50}},
+      points={{-80,-10},{-74,-10},{-74,70},{-40,70}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(
-      points={{-80,-10},{-74,-10},{-74,10},{0,10}},
+      points={{-80,-10},{-74,-10},{-74,30},{-40,30}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, weaBus) annotation (Line(

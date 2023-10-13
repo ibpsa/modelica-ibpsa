@@ -1,7 +1,10 @@
-﻿within IBPSA.Electrical.DC.Sources;
+within IBPSA.Electrical.DC.Sources;
 model PVSingleDiode
   "Photovoltaic module model based on single diode approach"
+
   extends IBPSA.Electrical.BaseClasses.PV.PartialPVSystem(
+    redeclare package PhaseSystem = IBPSA.Electrical.PhaseSystems.TwoConductor,
+    redeclare IBPSA.Electrical.DC.Interfaces.Terminal_p terminal,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVOpticalAbsRat PVOpt(
       final alt=alt,
       final til=til,
@@ -14,6 +17,13 @@ model PVSingleDiode
     PVThe(redeclare IBPSA.Electrical.Data.PV.SingleDiodeData dat=dat),
     replaceable IBPSA.Electrical.Data.PV.SingleDiodeData dat);
 
+protected
+   IBPSA.Electrical.DC.Loads.Conductor
+                   con(mode=Types.Load.VariableZ_P_input,
+                       V_nominal=dat.VOC0) if use_ter
+    "Conductor, used to interface power with electrical circuit"
+    annotation (Placement(transformation(extent={{38,-10},{58,10}})));
+
 equation
   connect(PVEle.eta, PVThe.eta) annotation (Line(points={{-3.4,-53.75},{40,-53.75},
           {40,-20},{-72,-20},{-72,-12.4},{-17.0909,-12.4}}, color={0,0,127}));
@@ -22,25 +32,29 @@ equation
   connect(PVOpt.absRadRat, PVEle.absRadRat) annotation (Line(points={{-4.54545,30},
           {20,30},{20,-34},{-64,-34},{-64,-50},{-17.2,-50}},           color={0,
           0,127}));
-  connect(TDryBul, PVThe.TDryBul) annotation (Line(points={{-120,-10},{-60,-10},
+  connect(TDryBul, PVThe.TDryBul) annotation (Line(points={{-120,-30},{-60,-30},
           {-60,-5.2},{-17.0909,-5.2}},
                                   color={0,0,127}));
   connect(zenAng, PVOpt.zenAng) annotation (Line(points={{-120,80},{-40,80},{-40,
           34.8},{-17.0909,34.8}}, color={0,0,127}));
-  connect(HGloHor, PVOpt.HGloHor) annotation (Line(points={{-120,-40},{-20,-40},
+  connect(HGloHor, PVOpt.HGloHor) annotation (Line(points={{-120,-60},{-20,-60},
           {-20,30},{-17.0909,30}},     color={0,0,127}));
   connect(incAng, PVOpt.incAng) annotation (Line(points={{-120,50},{-60,50},{-60,
           32.4},{-17.0909,32.4}}, color={0,0,127}));
   connect(vWinSpe, PVThe.winVel) annotation (Line(points={{-120,20},{-80,20},{-80,
           -8},{-18,-8},{-18,-7.6},{-17.0909,-7.6}}, color={0,0,127}));
-  connect(HGloTil, PVEle.HGloTil) annotation (Line(points={{-120,-70},{-80,-70},
+  connect(HGloTil, PVEle.HGloTil) annotation (Line(points={{-120,-90},{-80,-90},
           {-80,-72},{-40,-72},{-40,-53},{-17.2,-53}}, color={0,0,127}));
-  connect(HGloTil, PVThe.HGloTil) annotation (Line(points={{-120,-70},{-80,-70},
+  connect(HGloTil, PVThe.HGloTil) annotation (Line(points={{-120,-90},{-80,-90},
           {-80,-18},{-17.0909,-18},{-17.0909,-14.8}}, color={0,0,127}));
-  connect(HDifHor, PVOpt.HDifHor) annotation (Line(points={{-120,-100},{-60,-100},
+  connect(HDifHor, PVOpt.HDifHor) annotation (Line(points={{-120,-120},{-60,-120},
           {-60,27.6},{-17.0909,27.6}}, color={0,0,127}));
   connect(PVEle.P, PDC) annotation (Line(points={{-3.4,-46.25},{96,-46.25},{96,0},
           {110,0}}, color={0,0,127}));
+  connect(con.terminal, terminal)
+    annotation (Line(points={{38,0},{-100,0}}, color={0,0,255}));
+  connect(PVEle.P, con.Pow) annotation (Line(points={{-3.4,-46.25},{70,-46.25},{
+          70,0},{58,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>

@@ -1,7 +1,11 @@
 within IBPSA.Electrical.BaseClasses.PV;
 partial model PartialPVSystem "Base PV model with internal or external MPP tracking"
-
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.Icons.partialPVIcon;
+
+  replaceable package PhaseSystem =
+      IBPSA.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
+    IBPSA.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
+    annotation (choicesAllMatching=true);
 
   replaceable parameter Data.PV.Generic dat constrainedby
     IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
@@ -34,6 +38,9 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
   "If true then the zenith angle is needed as input for absorption ratio calculations"
   annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
 
+  parameter Boolean use_ter = true
+  "If true then the electrical terminal connector is used";
+
   parameter Boolean use_incAng = true
   "If true then the incidence angle is needed as input for absorption ratio calculations"
   annotation(Dialog(tab="Advanced"), Evaluate=true, HideResult=true);
@@ -53,17 +60,17 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Global irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-70}),
+        origin={-120,-90}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-70})));
+        origin={-120,-90})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(final unit="K") "Ambient dry bulb temperature"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-10}),
+        origin={-120,-30}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-10})));
+        origin={-120,-30})));
   Modelica.Blocks.Interfaces.RealInput vWinSpe(final unit="m/s") "Wind speed" annotation (
       Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
@@ -103,18 +110,18 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Global irradiation on horizontal surface" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-40}),                           iconTransformation(extent={{-20,-20},
+        origin={-120,-60}),                           iconTransformation(extent={{-20,-20},
             {20,20}},
         rotation=0,
-        origin={-120,-40})));
+        origin={-120,-60})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(final unit="W/m2") if use_HDifHor
     "Diffuse irradiation on horizontal surface" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-100}),                            iconTransformation(
+        origin={-120,-120}),                            iconTransformation(
           extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-100})));
+        origin={-120,-120})));
   Modelica.Blocks.Interfaces.RealInput incAng(final unit="rad") if use_incAng
     "Incidence angle of irradiation"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}},
@@ -123,6 +130,9 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Zenith angle of irradiation"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
                                                                      rotation=0)));
+  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+    redeclare final package PhaseSystem = PhaseSystem) if use_ter "Generalized terminal"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput Til_in_int

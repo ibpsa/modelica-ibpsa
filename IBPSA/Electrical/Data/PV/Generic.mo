@@ -17,7 +17,7 @@ record Generic "Basic record of a PV cell"
   parameter Modelica.Units.SI.Temperature TNOCT
     "Cell temperature under NOCT conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
-  parameter Real Eg0(unit = "eV")
+  parameter Modelica.Units.SI.Energy Eg0
     "Band gap energy under standard conditions. For Si: 1.79604e-19 J or 1.121 eV";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(

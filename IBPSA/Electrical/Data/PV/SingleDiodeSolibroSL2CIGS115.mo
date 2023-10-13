@@ -16,7 +16,7 @@ record SingleDiodeSolibroSL2CIGS115
     TCoeVOC=-0.27324,
     gammaPMP=-0.0032,
     TNOCT=42 + 273.15,
-    Eg0=1.107,
+    Eg0=1.773609e-19,
     C=0.0002677);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),Documentation(info="<html>
@@ -25,6 +25,7 @@ This is an exemplary data model of the thin-film module Solibro SL2 CIGS 115 Wp 
 This data is used for validation in
 <a href=\"modelica://IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation\">IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation</a>.
 </p>
+<p> The data record can be found here: <a href=\"https://reenergyhub.com/files/hersteller/Solibro/pdf/Solibro_SL2_CIGS_THIN-FILM_Module_G1.5-100-120_en.pdf\">https://reenergyhub.com/files/hersteller/Solibro/pdf/Solibro_SL2_CIGS_THIN-FILM_Module_G1.5-100-120_en.pdf</a></p>
 </html>",
         revisions="<html>
 <ul>

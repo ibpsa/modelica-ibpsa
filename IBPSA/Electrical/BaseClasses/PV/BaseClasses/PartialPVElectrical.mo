@@ -19,7 +19,7 @@ partial model PartialPVElectrical
   final parameter Integer nPar=dat.nPar
     "Number of parallel connected cells within the PV module";
 
-  final parameter Real Eg0(unit="eV") = dat.Eg0
+  final parameter Modelica.Units.SI.Energy Eg0 = dat.Eg0
     "Band gap energy under standard conditions";
 
   Modelica.Units.SI.ElectricCurrent IPh "Photo current";
