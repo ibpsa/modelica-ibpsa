@@ -2,8 +2,10 @@ within IBPSA.Electrical.DC.Sources.Validation;
 model PVSingleDiodeRooftopBuildingValidation
   "Validation of the single-diode model with empirical data from a rooftop PV system with CIGS modules at UdK, Berlin"
   extends
-    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVRooftopBuildingValidation(
-    HGloTil(H(start=100)));
+    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVValidation(
+    HGloTil(H(start=100)), weaDat(filNam=
+          ModelicaServices.ExternalReferences.loadResource(
+          "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Weather_Berlin_rooftop.mos")));
   extends Modelica.Icons.Example;
 
   PVSingleDiode pVSys1Dio115Wp(
@@ -16,7 +18,7 @@ model PVSingleDiodeRooftopBuildingValidation
     alt=0.08,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
       PVThe) "PV modules with a peak power of 115 Wp"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,18},{80,42}})));
 
   PVSingleDiode pVSys1Dio120Wp(
     PVTecTyp=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
@@ -28,59 +30,97 @@ model PVSingleDiodeRooftopBuildingValidation
     alt=0.08,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
       PVThe) "PV modules with a peak power of 120 Wp"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{60,58},{80,82}})));
 
   Modelica.Blocks.Math.Add add "Adds both module DC power outputs"
-    annotation (Placement(transformation(extent={{86,24},{96,34}})));
+    annotation (Placement(transformation(extent={{86,44},{96,54}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TModMea(final unit="degC") "Measure module temperature"
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
+  Modelica.Blocks.Sources.CombiTimeTable MeaDatPVPDC(
+    tableOnFile=true,
+    tableName="meaPV",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Measurement_data_rooftop_PV_validation.txt"),
+
+    columns={2,3},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    shiftTime=nDay - 1800)
+    "This file contains the DC power output of two selected modules. The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de."
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 equation
-  connect(HGloTil.H, pVSys1Dio115Wp.HGloTil) annotation (Line(points={{21,50},{50,
-          50},{50,24},{58,24}}, color={0,0,127}));
-  connect(MeaDatHGloHor.y[1], pVSys1Dio115Wp.HGloHor) annotation (Line(points={{
-          -79,-90},{-16,-90},{-16,-84},{44,-84},{44,27},{58,27}}, color={0,0,127}));
-  connect(from_degC.y, pVSys1Dio115Wp.TDryBul) annotation (Line(points={{-39,-50},
-          {-34,-50},{-34,26},{46,26},{46,30},{58,30}}, color={0,0,127}));
-  connect(MeaDatWinAngSpe.y[2], pVSys1Dio115Wp.vWinSpe) annotation (Line(points=
-         {{-79,10},{-68,10},{-68,84},{46,84},{46,33},{58,33}}, color={0,0,127}));
-  connect(add.y, PDCSim) annotation (Line(points={{96.5,29},{96.5,30},{110,30}},
-                            color={0,0,127}));
+  connect(HGloTil.H, pVSys1Dio115Wp.HGloTil) annotation (Line(points={{21,50},{
+          50,50},{50,23},{58,23}},
+                                color={0,0,127}));
+  connect(zen.y, pVSys1Dio120Wp.zenAng) annotation (Line(points={{1,-50},{34,
+          -50},{34,38},{52,38},{52,78},{58,78}},              color={0,0,127}));
+  connect(incAng.y, pVSys1Dio120Wp.incAng) annotation (Line(points={{21,10},{52,
+          10},{52,75},{58,75}},  color={0,0,127}));
+  connect(HGloTil.H, pVSys1Dio120Wp.HGloTil) annotation (Line(points={{21,50},{
+          50,50},{50,63},{58,63}},
+                                color={0,0,127}));
+  connect(incAng.y, pVSys1Dio115Wp.incAng) annotation (Line(points={{21,10},{52,
+          10},{52,35},{58,35}},  color={0,0,127}));
+  connect(zen.y, pVSys1Dio115Wp.zenAng) annotation (Line(points={{1,-50},{34,
+          -50},{34,38},{58,38}},              color={0,0,127}));
+  connect(weaBus.HDifHor, pVSys1Dio115Wp.HDifHor) annotation (Line(
+      points={{-59.95,-9.95},{30,-9.95},{30,20},{58,20}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.HDifHor, pVSys1Dio120Wp.HDifHor) annotation (Line(
+      points={{-59.95,-9.95},{-18,-9.95},{-18,-10},{26,-10},{26,62},{58,62},{58,
+          60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.TDryBul, pVSys1Dio120Wp.TDryBul) annotation (Line(
+      points={{-59.95,-9.95},{-59.95,30},{-60,30},{-60,80},{0,80},{0,69},{58,69}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.TDryBul, pVSys1Dio115Wp.TDryBul) annotation (Line(
+      points={{-59.95,-9.95},{-60,-9.95},{-60,30},{58,30},{58,29}},
+      color={255,204,51},
+      thickness=0.5));
+
+  connect(weaBus.HGloHor, pVSys1Dio120Wp.HGloHor) annotation (Line(
+      points={{-59.95,-9.95},{-59.95,66},{58,66}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.HGloHor, pVSys1Dio115Wp.HGloHor) annotation (Line(
+      points={{-59.95,-9.95},{-60,-9.95},{-60,64},{52,64},{52,26},{58,26}},
+      color={255,204,51},
+      thickness=0.5));
+
+  connect(weaBus.winSpe, pVSys1Dio115Wp.vWinSpe) annotation (Line(
+      points={{-59.95,-9.95},{-44,-9.95},{-44,-10},{-40,-10},{-40,36},{58,36},{
+          58,32}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(weaBus.winSpe, pVSys1Dio120Wp.vWinSpe) annotation (Line(
+      points={{-59.95,-9.95},{-59.95,36},{-60,36},{-60,100},{40,100},{40,72},{
+          58,72}},
+      color={255,204,51},
+      thickness=0.5));
   connect(pVSys1Dio120Wp.PDC, add.u1)
-    annotation (Line(points={{81,70},{85,70},{85,32}}, color={0,0,127}));
+    annotation (Line(points={{81,70},{85,70},{85,52}}, color={0,0,127}));
+  connect(add.y, PDCSim) annotation (Line(points={{96.5,49},{103.25,49},{103.25,
+          50},{110,50}}, color={0,0,127}));
   connect(pVSys1Dio115Wp.PDC, add.u2)
-    annotation (Line(points={{81,30},{81,26},{85,26}}, color={0,0,127}));
-  connect(zen.y, pVSys1Dio120Wp.zenAng) annotation (Line(points={{1,-50},{14,-50},
-          {14,-22},{34,-22},{34,38},{52,38},{52,70},{70,70}}, color={0,0,127}));
-  connect(incAng.y, pVSys1Dio120Wp.incAng) annotation (Line(points={{21,-10},{52,
-          -10},{52,70},{70,70}}, color={0,0,127}));
-  connect(MeaDatWinAngSpe.y[2], pVSys1Dio120Wp.vWinSpe) annotation (Line(points=
-         {{-79,10},{-68,10},{-68,84},{46,84},{46,73},{58,73}}, color={0,0,127}));
-  connect(from_degC.y, pVSys1Dio120Wp.TDryBul) annotation (Line(points={{-39,-50},
-          {-34,-50},{-34,26},{46,26},{46,30},{52,30},{52,70},{58,70}}, color={0,
-          0,127}));
-  connect(MeaDatHGloHor.y[1], pVSys1Dio120Wp.HGloHor) annotation (Line(points={{
-          -79,-90},{-16,-90},{-16,-84},{44,-84},{44,26},{52,26},{52,67},{58,67}},
-        color={0,0,127}));
-  connect(HGloTil.H, pVSys1Dio120Wp.HGloTil) annotation (Line(points={{21,50},{50,
-          50},{50,64},{58,64}}, color={0,0,127}));
-  connect(souDifHor.y, pVSys1Dio120Wp.HDifHor) annotation (Line(points={{-79,-24},
-          {-74,-24},{-74,88},{-66,88},{-66,76},{54,76},{54,61},{58,61}}, color=
-          {0,0,127}));
-  connect(incAng.y, pVSys1Dio115Wp.incAng) annotation (Line(points={{21,-10},{52,
-          -10},{52,30},{70,30}}, color={0,0,127}));
-  connect(zen.y, pVSys1Dio115Wp.zenAng) annotation (Line(points={{1,-50},{14,-50},
-          {14,-22},{34,-22},{34,30},{70,30}}, color={0,0,127}));
-  connect(souDifHor.y, pVSys1Dio115Wp.HDifHor) annotation (Line(points={{-79,-24},
-          {-74,-24},{-74,88},{-66,88},{-66,76},{54,76},{54,21},{58,21}}, color=
-          {0,0,127}));
+    annotation (Line(points={{81,30},{85,30},{85,46}}, color={0,0,127}));
+  connect(MeaDatPVPDC.y[1], PDCMea)
+    annotation (Line(points={{81,-10},{110,-10}}, color={0,0,127}));
+  connect(MeaDatPVPDC.y[2], TModMea) annotation (Line(points={{81,-10},{88,-10},
+          {88,-50},{110,-50}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     experiment(
       StartTime=18057600,
       StopTime=19094400,
       Interval=300,
-      Tolerance=1e-06),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
    __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeRooftopBuildingValidation.mos"
         "Simulate and plot"),

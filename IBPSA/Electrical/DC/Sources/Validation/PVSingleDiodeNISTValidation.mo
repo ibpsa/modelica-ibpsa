@@ -2,6 +2,8 @@ within IBPSA.Electrical.DC.Sources.Validation;
 model PVSingleDiodeNISTValidation
   "Model validation based on NIST measurement data"
   extends Modelica.Icons.Example;
+  extends
+    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVValidation;
 
   parameter Modelica.Units.SI.Time timZon=-5*3600
     "Time zone";
@@ -40,7 +42,7 @@ model PVSingleDiodeNISTValidation
     columns={3,5,2,4},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "The PVSystem model is validaded with measurement data from: https://pvdata.nist.gov/. 1 - Air temperature in degC, 2 - Wind speed in m/s, 3 - Global horizontal irradiance in W/m2, 4 - Ouput power in kW"
-    annotation (Placement(transformation(extent={{-96,-10},{-76,10}})));
+    annotation (Placement(transformation(extent={{-98,-60},{-78,-40}})));
 
   PVSingleDiode pVSinDio(
     redeclare IBPSA.Electrical.Data.PV.SingleDiodeSharpNUU235F2 dat,
@@ -50,54 +52,21 @@ model PVSingleDiodeNISTValidation
     alt=alt,
     til=til,
     redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
-      PVThe) "Single-diode PV model" annotation (Placement(transformation(extent={{60,-2},
-            {80,22}})));
+      PVThe) "Single-diode PV model" annotation (Placement(transformation(extent={{60,38},
+            {80,62}})));
 
-  Modelica.Blocks.Interfaces.RealOutput PDCSim "Simulated DC output power"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  BoundaryConditions.SolarGeometry.IncidenceAngle incAng(azi=azi, til=til) "Incidence angle"
-    annotation (Placement(transformation(extent={{-36,-58},{-20,-42}})));
-  Modelica.Blocks.Routing.RealPassThrough zen "Zenith angle"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  BoundaryConditions.SolarIrradiation.GlobalPerezTiltedSurface HGloTil(
-    H(start=100),
-    til=til,
-    azi=azi,
-    rho=rho) "Global irradiation on tilted surface"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/USA_MD_Baltimore-Washington.Intl.AP.724060_TMY3.mos"),
-    computeWetBulbTemperature=false,
-    TDryBulSou=IBPSA.BoundaryConditions.Types.DataSource.Input,
-    winSpeSou=IBPSA.BoundaryConditions.Types.DataSource.Input,
-    HSou=IBPSA.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor) "Weather data reader"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-
-  Modelica.Blocks.Sources.Constant sounDay(k=nDay)
-    "Number of validation day (July 28th 2023) in seconds"
-    annotation (Placement(transformation(extent={{-96,54},{-80,70}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degC "From deg C to K"
-    annotation (Placement(transformation(extent={{-62,-4},{-54,4}})));
-  Modelica.Blocks.Sources.RealExpression souDifHor(y=HDifHor)
-    "Source for diffuse horizontal irradiation"
-    annotation (Placement(transformation(extent={{-78,-40},{-58,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput PDCMea "Measured DC output power"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
   Modelica.Blocks.Math.Gain frokWToW(k=1000)
     "From Kilowatt to Watt transformation"
-    annotation (Placement(transformation(extent={{72,-26},{84,-14}})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughSolHouAng
-    "Pass through for solar hour angle"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughCloTim
-    "Pass through for clock time"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Modelica.Blocks.Routing.RealPassThrough realPassThroughSolDec
-    "Pass through for solar decimal angle"
-    annotation (Placement(transformation(extent={{80,40},{100,60}})));
+    annotation (Placement(transformation(extent={{86,-16},{98,-4}})));
+  Modelica.Blocks.Sources.CombiTimeTable MeaDatPVPDC(
+    tableOnFile=true,
+    tableName="MeaDatPVPDC",
+    fileName="NoName",
+    columns={2},
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    shiftTime=nDay - 1800)
+    "The PVSystem model is validaded with measurement data from: https://pvdata.nist.gov/. 1 - Air temperature in degC, 2 - Wind speed in m/s, 3 - Global horizontal irradiance in W/m2, 4 - Ouput power in kW"
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 equation
 
   //Approximation of diffuse horizontal irradiation still necessary because
@@ -123,63 +92,28 @@ equation
             then (HGloHor)*0.165
             else (HGloHor)*
                   (0.9511 - 0.1604*k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
-  connect(pVSinDio.PDC, PDCSim) annotation (Line(points={{81,10},{96,10},{96,0},
-          {110,0}}, color={0,0,127}));
-  connect(zen.y, pVSinDio.zenAng) annotation (Line(points={{21,-70},{54,-70},{54,
-          18},{58,18}}, color={0,0,127}));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-20,0},{-8,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(NISTdat.y[1], from_degC.u)
-    annotation (Line(points={{-75,0},{-62.8,0}}, color={0,0,127}));
-  connect(from_degC.y, weaDat.TDryBul_in) annotation (Line(points={{-53.6,0},{-46,
-          0},{-46,9},{-41,9}}, color={0,0,127}));
-  connect(NISTdat.y[2], weaDat.winSpe_in) annotation (Line(points={{-75,0},{-68,
-          0},{-68,-8},{-46,-8},{-46,-3.9},{-41,-3.9}}, color={0,0,127}));
-  connect(souDifHor.y, pVSinDio.HDifHor)
-    annotation (Line(points={{-57,-30},{58,-30},{58,0}}, color={0,0,127}));
-  connect(NISTdat.y[3], pVSinDio.HGloHor) annotation (Line(points={{-75,0},{-68,
-          0},{-68,-16},{32,-16},{32,6},{58,6}}, color={0,0,127}));
-  connect(HGloTil.H, pVSinDio.HGloTil)
-    annotation (Line(points={{41,30},{46,30},{46,3},{58,3}}, color={0,0,127}));
-  connect(weaBus, HGloTil.weaBus) annotation (Line(
-      points={{-8,0},{-8,30},{20,30}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(incAng.y, pVSinDio.incAng) annotation (Line(points={{-19.2,-50},{-12,-50},
-          {-12,-14},{30,-14},{30,15},{58,15}}, color={0,0,127}));
-  connect(NISTdat.y[2], pVSinDio.vWinSpe) annotation (Line(points={{-75,0},{-68,
-          0},{-68,-8},{-44,-8},{-44,-16},{32,-16},{32,6},{52,6},{52,12},{58,12}},
-        color={0,0,127}));
-  connect(weaBus, incAng.weaBus) annotation (Line(
-      points={{-8,0},{-8,-24},{-46,-24},{-46,-50},{-36,-50}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaBus.solZen, zen.u) annotation (Line(
-      points={{-7.95,0.05},{-7.95,-54},{-12,-54},{-12,-70},{-2,-70}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(from_degC.y, pVSinDio.TDryBul)
-    annotation (Line(points={{-53.6,0},{58,0},{58,9}},  color={0,0,127}));
-  connect(souDifHor.y, weaDat.HDifHor_in) annotation (Line(points={{-57,-30},{-48,
-          -30},{-48,-18},{-41,-18},{-41,-9.5}}, color={0,0,127}));
-  connect(NISTdat.y[3], weaDat.HGloHor_in) annotation (Line(points={{-75,0},{-68,
-          0},{-68,-13},{-41,-13}}, color={0,0,127}));
+  connect(pVSinDio.PDC, PDCSim)
+    annotation (Line(points={{81,50},{110,50}}, color={0,0,127}));
+  connect(MeaDatPVPDC.y[1], frokWToW.u)
+    annotation (Line(points={{81,-10},{84.8,-10}}, color={0,0,127}));
   connect(frokWToW.y, PDCMea)
-    annotation (Line(points={{84.6,-20},{110,-20}}, color={0,0,127}));
-  connect(NISTdat.y[4], frokWToW.u) annotation (Line(points={{-75,0},{-68,0},{-68,
-          -16},{64,-16},{64,-20},{70.8,-20}}, color={0,0,127}));
-  connect(weaBus.solHouAng, realPassThroughSolHouAng.u) annotation (Line(
-      points={{-7.95,0.05},{-7.95,84},{-8,84},{-8,90},{-2,90}},
+    annotation (Line(points={{98.6,-10},{110,-10}}, color={0,0,127}));
+  connect(zen.y, pVSinDio.zenAng) annotation (Line(points={{1,-50},{52,-50},{52,
+          58},{58,58}}, color={0,0,127}));
+  connect(incAng.y, pVSinDio.incAng) annotation (Line(points={{21,10},{50,10},{
+          50,55},{58,55}}, color={0,0,127}));
+  connect(weaBus.winSpe, pVSinDio.vWinSpe) annotation (Line(
+      points={{-59.95,-9.95},{-59.95,36},{40,36},{40,52},{58,52}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.cloTim, realPassThroughCloTim.u) annotation (Line(
-      points={{-7.95,0.05},{8,0.05},{8,70},{38,70}},
+  connect(weaBus.HGloHor, pVSinDio.HGloHor) annotation (Line(
+      points={{-59.95,-9.95},{-10,-9.95},{-10,-10},{40,-10},{40,46},{58,46}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.solDec, realPassThroughSolDec.u) annotation (Line(
-      points={{-7.95,0.05},{48,0.05},{48,50},{78,50}},
+  connect(HGloTil.H, pVSinDio.HGloTil) annotation (Line(points={{21,50},{52,50},
+          {52,43},{58,43}}, color={0,0,127}));
+  connect(weaBus.HDifHor, pVSinDio.HDifHor) annotation (Line(
+      points={{-60,-10},{-28,-10},{-28,30},{40,30},{40,40},{58,40}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
