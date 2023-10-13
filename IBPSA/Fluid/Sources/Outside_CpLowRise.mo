@@ -121,7 +121,7 @@ where
 </p>
 
 <p>
-This model differs from <a href=\"IBPSA.Fluid.Sources.Outside_CpData\">
+This model differs from <a href=\"modelica://IBPSA.Fluid.Sources.Outside_CpData\">
 IBPSA.Fluid.Sources.Outside_CpData</a> by the calculation of the wind pressure coefficient C<sub>p,act</sub>.
 The wind pressure coefficient is defined by an equation in stead of a user-defined table.
 This model is only suited for low-rise rectangular buildings.
