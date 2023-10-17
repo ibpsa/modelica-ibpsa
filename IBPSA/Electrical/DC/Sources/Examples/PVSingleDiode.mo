@@ -7,16 +7,16 @@ model PVSingleDiode "Example for the single-diode PV model"
       "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-56,-20},{-36,0}})));
-  Buildings.Electrical.DC.Loads.Resistor    res(R=0.5, V_nominal=12)
+  Loads.Resistor                            res(R=0.5, V_nominal=12)
     "Resistance"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=pVSys1Dio120Wp.dat.VOC0)
+  ConstantVoltage                                    sou(V=pVSys1Dio120Wp.dat.VOC0)
                                                                "Voltage source"
     annotation (Placement(transformation(extent={{-32,-10},{-12,10}})));
-  Buildings.Electrical.DC.Lines.TwoPortResistance lin(R=0.05)
+  Lines.TwoPortResistance                         lin(R=0.05)
     "Transmission line"
     annotation (Placement(transformation(extent={{6,40},{26,60}})));
-  Buildings.Electrical.DC.Sensors.GeneralizedSensor sen "Sensor"
+  Sensors.GeneralizedSensor                         sen "Sensor"
     annotation (Placement(transformation(extent={{34,40},{54,60}})));
   IBPSA.Electrical.DC.Sources.PVSingleDiode
                 pVSys1Dio120Wp(

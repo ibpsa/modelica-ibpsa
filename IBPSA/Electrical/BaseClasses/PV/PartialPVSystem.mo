@@ -130,7 +130,7 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Zenith angle of irradiation"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
                                                                      rotation=0)));
-  replaceable Buildings.Electrical.Interfaces.Terminal terminal(
+  replaceable IBPSA.Electrical.Interfaces.Terminal terminal(
     redeclare final package PhaseSystem = PhaseSystem) if use_ter "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
