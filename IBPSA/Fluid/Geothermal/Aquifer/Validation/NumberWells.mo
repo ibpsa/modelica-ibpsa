@@ -3,6 +3,8 @@ model NumberWells
   "Test model for aquifer thermal energy storage with multiple wells"
   extends Modelica.Icons.Example;
 
+  package Medium = IBPSA.Media.Water "Medium model";
+
   model MyWell = MultiWell (
     redeclare package Medium = IBPSA.Media.Water,
     nVol=50,
@@ -20,20 +22,26 @@ model NumberWells
   "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   MyWell aquWel2(
-    d=4800,      nPai=2, m_flow_nominal=0.2)
-            "ATES with two pairs of wells"
+    d=4800,
+     nPai=2,
+     m_flow_nominal=0.2)
+    "ATES with two pairs of wells"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant uPum(k=1) "Pump control signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Sources.Boundary_pT bou(redeclare package Medium = IBPSA.Media.Water, nPorts=2) "Sink"
+  Sources.Boundary_pT bou(
+    redeclare package Medium = Medium,
+    nPorts=2) "Sink"
            annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Modelica.Blocks.Sources.RealExpression temWel1(y=aquWel1.TAquHot[10])
+  Modelica.Blocks.Sources.RealExpression temWel1(
+    y=aquWel1.TAquHot[10])
     "Temperature output from aquifer model with one pair of wells"
     annotation (Placement(transformation(extent={{20,72},{40,92}})));
-  Modelica.Blocks.Sources.RealExpression temWel2(y=aquWel2.TAquHot[10])
+  Modelica.Blocks.Sources.RealExpression temWel2(
+    y=aquWel2.TAquHot[10])
     "Temperature output from aquifer model with two pairs of wells"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Utilities.Diagnostics.CheckEquality  cheEqu
+  Utilities.Diagnostics.CheckEquality cheEqu
     "Assertion that checks for equality of results"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation

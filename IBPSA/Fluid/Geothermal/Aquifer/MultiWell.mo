@@ -244,9 +244,9 @@ protected
   Modelica.Blocks.Math.Gain gaiPum(final k=nPai) "Gain used to scale the pump electrical power"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 initial equation
-  assert(rWB < rMax, "Error: Model requires rWB < rMax");
-  assert(0 < rWB,   "Error: Model requires 0 < rWB");
-  assert(rMax <= d/2,   "Error: Model requires rMax <= d/2");
+  assert(rWB < rMax, "In " + getInstanceName() + ": Require rWB < rMax");
+  assert(0 < rWB, "In " + getInstanceName() + ": Require 0 < rWB");
+  assert(rMax <= d/2, "In " + getInstanceName() + ": Require rMax <= d/2");
 
   cAqu=aquDat.dSoi*aquDat.cSoi*(1-aquDat.phi);
   kVol=kWat*aquDat.phi+aquDat.kSoi*(1-aquDat.phi);

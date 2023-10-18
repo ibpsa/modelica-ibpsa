@@ -2,8 +2,11 @@ within IBPSA.Fluid.Geothermal.Aquifer.Validation;
 model SimulationTest
   "Test model for aquifer thermal energy storage in comparison with other geothermal simulators"
   extends Modelica.Icons.Example;
+
+  package Medium = IBPSA.Media.Water "Medium model";
+
   MultiWell aquWel(
-    redeclare package Medium = IBPSA.Media.Water,
+    redeclare package Medium = Medium,
     nVol=232,
     h=200,
     d=4800,
@@ -18,7 +21,7 @@ model SimulationTest
     dpExt_nominal=0) "Aquifer wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Sources.Boundary_pT bou(
-    redeclare package Medium = IBPSA.Media.Water,
+    redeclare package Medium = Medium,
     nPorts=1) "Boundary condition for pressure"
            annotation (Placement(transformation(extent={{60,50},{40,70}})));
   Modelica.Blocks.Sources.CombiTimeTable uPum(table=[0.0,-1; 86400*120,-1; 86400

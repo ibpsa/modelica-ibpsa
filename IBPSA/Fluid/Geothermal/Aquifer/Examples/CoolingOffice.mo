@@ -1,6 +1,8 @@
 within IBPSA.Fluid.Geothermal.Aquifer.Examples;
 model CoolingOffice
   extends Modelica.Icons.Example;
+  package Medium = IBPSA.Media.Water "Medium model";
+
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=30000
     "Cooling power";
   parameter Modelica.Units.SI.TemperatureDifference deltaT=4 "Temperature difference at heat exchanger";
@@ -9,7 +11,7 @@ model CoolingOffice
     QCoo_flow_nominal/(deltaT*cpWat) "Nominal water mass flow rate";
 
   HeatExchangers.HeaterCooler_u hea(
-    redeclare package Medium = IBPSA.Media.Water,
+    redeclare package Medium = Medium,
     m_flow_nominal=mWat_flow_nominal,
     dp_nominal=100,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -20,7 +22,7 @@ model CoolingOffice
   Modelica.Blocks.Sources.Constant uHea(k=1) "Heat load control signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   MultiWell aquWel(
-    redeclare package Medium = IBPSA.Media.Water,
+    redeclare package Medium = Medium,
     nVol=80,
     h=20,
     d=1000,
@@ -33,7 +35,7 @@ model CoolingOffice
                        "Acquifer well"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
   Sources.Boundary_pT bou(
-    redeclare package Medium = IBPSA.Media.Water,
+    redeclare package Medium = Medium,
     nPorts=1) "Pressure boundary condition" annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(uHea.y, hea.u)
