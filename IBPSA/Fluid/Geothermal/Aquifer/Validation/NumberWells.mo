@@ -21,6 +21,7 @@ model NumberWells
   MyWell aquWel1(d=4800)
   "ATES with one pair of wells"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+
   MyWell aquWel2(
     d=4800,
      nPai=2,

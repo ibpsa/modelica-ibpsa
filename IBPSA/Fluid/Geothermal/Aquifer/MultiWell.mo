@@ -43,6 +43,10 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     "Pressure drop at nominal mass flow rate in the above-surface system (used to size the head of the well pump)" annotation (
       Dialog(group="Hydraulic circuit"));
 
+  final parameter Modelica.Units.SI.Radius rVol[nVol](
+    each final fixed=false)
+    "Radius to the center of the i-th domain";
+
   Modelica.Blocks.Interfaces.RealInput u(
       final min=-1,
       final max=1,
@@ -68,8 +72,6 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     "Temperatures of the hot aquifer";
   Modelica.Units.SI.Temperature TAquCol[nVol] = heaCapCol.T
     "Temperatures of the cold aquifer";
-  final parameter Modelica.Units.SI.Radius rVol[nVol](each final fixed=false)
-    "Radius to the center of the i-th domain";
 
   Movers.Preconfigured.SpeedControlled_y pumCol(
     redeclare final package Medium = Medium,
@@ -146,12 +148,14 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
     final k2=1)
     "Sum of pump electrical power"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
+
   Sensors.RelativePressure dpWelCol(
     redeclare package Medium = Medium)
     "Pressure drop of cold well" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-100,70})));
+
   Airflow.Multizone.Point_m_flow resAqu(
     redeclare final package Medium = Medium,
     m=1,
@@ -171,9 +175,9 @@ protected
     "Volumes of water";
   parameter Modelica.Units.SI.ThermalResistance R[nVol](each fixed=false)
     "Thermal resistances between nodes";
-  parameter Real cAqu(each fixed=false)
+  parameter Real cAqu(fixed=false)
     "Heat capacity normalized with volume for aquifer";
-  parameter Real kVol(each fixed=false)
+  parameter Real kVol(fixed=false)
     "Heat conductivity normalized with volume";
   parameter Modelica.Units.SI.DynamicViscosity mu=Medium.dynamicViscosity(Medium.setState_pTX(
     Medium.p_default,
