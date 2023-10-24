@@ -32,7 +32,7 @@ equation
   It adds the specification for frosting calculation
   and restricts to the intended choices under
   <code>choicesAllMatching</code>.
-<\p>
+</p>
 </html>",
 revisions="<html>
 <ul>

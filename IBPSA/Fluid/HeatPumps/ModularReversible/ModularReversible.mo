@@ -133,7 +133,9 @@ equation
           origin={0,-74},
           rotation=180)}),                Diagram(coordinateSystem(extent={{-100,
             -120},{100,120}})),
-    Documentation(revisions="<html><ul>
+    Documentation(revisions="
+<html>
+<ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=
