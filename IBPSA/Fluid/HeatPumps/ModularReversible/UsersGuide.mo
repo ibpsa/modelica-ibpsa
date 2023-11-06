@@ -96,7 +96,7 @@ between the operation modes of the heat pump:
 <li><code>hea = true</code>: Main operation mode (heating) </li>
 <li><code>hea = false</code>: Reversed operation mode (cooling) </li>
 </ul>
-
+<p>
 Furthermore, the refrigerant cycle is redeclared to use the one for
 the heat pump
 <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle\">
@@ -108,7 +108,7 @@ Available modules can be found in the package:
 IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle</a>
 For more information on the refrigerant cycle models, refer
 to the section <b>Refrigerant cycle models</b>.
-
+</p>
 <p>
   There are a number of preconfigured models provided in the package.
   Please check out the documentation of each approach
@@ -233,7 +233,7 @@ to the section <b>Refrigerant cycle models</b>.
 <p>
   Currently, two modules for refrigerant cycle are implemented.
   First, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a> model 
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a> model
   uses the same equations as the Carnot models, i.e.  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
   IBPSA.Fluid.HeatPumps.Carnot_y</a>.
   Second, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
@@ -280,6 +280,7 @@ to the section <b>Refrigerant cycle models</b>.
   evaporator heat flow rate <code>QEva_flow_nominal</code>.
   This nominal heat flow rate is only valid at the
   nominal conditions of the
+</p>
 <ul>
 <li>
   condenser temperature <code>TCon_nominal</code>,
@@ -332,13 +333,12 @@ for heating and cooling.
   Resulting, the refrigerant machine can supply more or less heat with
   the COP staying constant. However, one has to make sure
   that the movers in use also scale with this factor.
-  Note that most parameters are scaled linearly. Only the 
-  pressure differences are scaled quadratically due to 
-  the linear scaling of the mass flow rates and the 
+  Note that most parameters are scaled linearly. Only the
+  pressure differences are scaled quadratically due to
+  the linear scaling of the mass flow rates and the
   basic assumption:
   <p align=\"center\" style=\"font-style:italic;\">
   k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
-  </p>
 </p>
 <p>
   Both <code>QUseNoSca_flow_nominal</code> and <code>scaFac</code>

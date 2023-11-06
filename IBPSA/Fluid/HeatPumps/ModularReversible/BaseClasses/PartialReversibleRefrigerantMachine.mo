@@ -347,8 +347,10 @@ partial model PartialReversibleRefrigerantMachine
         rotation=180,
         origin={90,-40})));
 
-// Line to delete if you don't want to use the bus externally
+// To avoid using the bus, set the section below to protected
+// <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
 protected
+// -->
   RefrigerantMachineControlBus sigBus
     "Bus with signal for device control" annotation (Placement(transformation(
           extent={{-120,-60},{-90,-26}}), iconTransformation(extent={{-108,-52},
@@ -360,8 +362,9 @@ protected
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
           use_intSafCtr));
 
-// Line to add if you want to use the bus
-//protected
+// <!-- @include_AixLib
+protected
+// -->
   parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
@@ -633,7 +636,7 @@ equation
 </ul>
 <p>
   The model <code>refCyc</code> is replaced in the ModularReversible
-  model for heat pumps and chillers, e.g. by 
+  model for heat pumps and chillers, e.g. by
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle</a>
   in <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
