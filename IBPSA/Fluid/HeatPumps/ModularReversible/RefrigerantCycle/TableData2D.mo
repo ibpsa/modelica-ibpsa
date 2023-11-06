@@ -26,7 +26,7 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
     tabQUse_flow(final table=datTab.tabQCon_flow),
     tabPEle(final table=datTab.tabPEle));
 
-  parameter IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
+  replaceable parameter IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data Table of HP" annotation (choicesAllMatching=true);
 
 equation

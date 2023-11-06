@@ -16,7 +16,8 @@ model NoHeating
       dTCon_nominal=0,
     TEva_nominal=273.15,
     TCon_nominal=273.15,
-      QUse_flow_nominal=0);
+      QUse_flow_nominal=0,
+    calCOP(PEleMin=1));
   Modelica.Blocks.Sources.Constant constZer(final k=0)
     "No heating, hence, zero"
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
@@ -30,6 +31,8 @@ equation
           4},{64,4},{64,-58}}, color={0,0,127}));
   connect(constZer.y, PEle)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
+  connect(calCOP.PEle, constZer.y) annotation (Line(points={{-78,-66},{-62,-66},{
+          -62,26},{-67,26}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Using this model, the heat pump will always be off.

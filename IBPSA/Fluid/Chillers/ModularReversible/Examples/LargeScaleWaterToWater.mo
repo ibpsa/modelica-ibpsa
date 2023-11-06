@@ -6,6 +6,9 @@ model LargeScaleWaterToWater
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
   IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater chi(
+    redeclare
+      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
+      datTab,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
     redeclare package MediumCon = MediumCon,
@@ -82,9 +85,8 @@ equation
       points={{73,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{
-          -16,60},{-16,11.6667},{-1.6,11.6667}},
-                                             color={0,0,127}));
+  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,
+          11.6667},{-1.6,11.6667}},          color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/LargeScaleWaterToWater.mos"
         "Simulate and plot"),

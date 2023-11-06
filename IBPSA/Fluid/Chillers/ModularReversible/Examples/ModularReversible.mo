@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.ModularReversible.Examples;
 model ModularReversible
   "Example for modular reversible chiller"
   extends Modelica.Icons.Example;
-  package MediumCon = IBPSA.Media.Water "Medium model for condenser";
+  package MediumCon = IBPSA.Media.Air "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible chi(
@@ -26,7 +26,7 @@ model ModularReversible
     CCon=0,
     GConOut=0,
     GConIns=0,
-    cpCon=4184,
+    cpCon=1000,
     TEva_nominal=278.15,
     dTEva_nominal=5,
     dTCon_nominal=5,
@@ -50,8 +50,7 @@ model ModularReversible
           redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN255.Vitocal350BWH110
-            (devIde="Override to avoid warnings during simulation for CI")))
+            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()))
                  "Modular reversible chiller instance"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souCon(

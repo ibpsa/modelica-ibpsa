@@ -33,8 +33,8 @@ model ModularReversible
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final QUse_flow_nominal=refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal,
        final scaFac=scaFac,
-       final TCon_nominal=TCon_nominal,
-       final TEva_nominal=TEva_nominal,
+       final TCon_nominal=TEva_nominal,
+       final TEva_nominal=TCon_nominal,
        final dTCon_nominal=dTCon_nominal,
        final dTEva_nominal=dTEva_nominal,
        final mCon_flow_nominal=mCon_flow_nominal,
