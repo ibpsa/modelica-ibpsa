@@ -5,7 +5,7 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
     final datSou=datTab.devIde,
     mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
-    final PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+    PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
         TCon_nominal,
         TEva_nominal) * scaFac,

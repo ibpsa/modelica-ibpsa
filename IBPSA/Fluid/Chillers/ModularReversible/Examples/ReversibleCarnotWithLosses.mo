@@ -16,7 +16,8 @@ model ReversibleCarnotWithLosses
       safCtrPar(
       minOffTime=100,
       use_maxCycRat=false,
-      tabUppHea=[-10,40; 60,40],
+      tabUppHea=[263.15,313.15; 333.15,313.15],
+      tabLowCoo=[263.15,283.15; 333.15,283.15],
       use_TUseOut=true),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,

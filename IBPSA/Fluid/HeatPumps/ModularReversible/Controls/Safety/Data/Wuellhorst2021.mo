@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data;
 record Wuellhorst2021
   "Apply the default values according to the conference publication by Wuellhorst et al. (2021)"
   extends Generic(
-    tabLowCoo=[-10,10; 60,10],
+    tabLowCoo=[263.15,283.15; 333.15,283.15],
     dTHysAntFre=2,
     preYSet_start=false,
     ySetRed=0.3,
@@ -16,7 +16,7 @@ record Wuellhorst2021
     use_antFre=false,
     dTHysOpeEnv=5,
     use_opeEnv=true,
-    tabUppHea=[-40,70; 40,70],
+    tabUppHea=[233.15,343.15; 313.15,343.15],
     maxCycRat=3,
     minOffTime=1200,
     minOnTime=600);

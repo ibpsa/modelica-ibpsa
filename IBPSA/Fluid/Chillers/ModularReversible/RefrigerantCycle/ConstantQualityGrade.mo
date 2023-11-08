@@ -2,7 +2,7 @@ within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle;
 model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
-      final PEle_nominal=QUse_flow_nominal/(quaGra*(TEva_nominal - TAppEva_nominal)
+      PEle_nominal=QUse_flow_nominal/(quaGra*(TEva_nominal - TAppEva_nominal)
           *y_nominal)*(TCon_nominal + TAppCon_nominal - TEva_nominal -
           TAppEva_nominal),
       QUseNoSca_flow_nominal=QUse_flow_nominal,
