@@ -7,13 +7,13 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     final PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
-        TCon_nominal - 273.15,
-        TEva_nominal - 273.15) * scaFac,
+        TCon_nominal,
+        TEva_nominal) * scaFac,
     QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdeQUse_flow,
-        TCon_nominal - 273.15,
-        TEva_nominal - 273.15));
+        TCon_nominal,
+        TEva_nominal));
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
     final use_TConOutForTab=datTab.use_TConOutForTab,

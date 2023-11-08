@@ -35,7 +35,9 @@ partial model PartialRefrigerantCycle
     annotation (Dialog(group="Nominal Design"));
   parameter String datSou=""
     "Indicate where the data is coming from";
-
+  parameter Boolean calEff=true
+    "=false to disable efficiency calculation, may speed up the simulation"
+    annotation(Dialog(tab="Advanced"));
   replaceable IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
   constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor
