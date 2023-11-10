@@ -3,9 +3,8 @@ model OperationalEnvelope "Example for usage of operational envelope model"
   extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope opeEnv(
-    tabUppHea=[-40,60; 40,60],
-    tabLowCoo=[-40,15; 40,15],
-    forHeaPum=true) "Safety control for operational envelope"
+    tabUppHea=[233.15,333.15; 313.15,333.15],
+    tabLowCoo=[233.15,288.15; 313.15,288.15]) "Safety control for operational envelope"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Constant
                                 ySetPul(k=1) "Always on"

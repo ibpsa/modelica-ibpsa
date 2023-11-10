@@ -5,6 +5,7 @@ model RefrigerantCycle
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
+      (useInHeaPum=true)
      constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a heat pump in main operation mode"
@@ -12,6 +13,7 @@ model RefrigerantCycle
 
   replaceable model RefrigerantCycleHeatPumpCooling =
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
+      (useInChi=true)
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a heat pump in reversed operation mode"

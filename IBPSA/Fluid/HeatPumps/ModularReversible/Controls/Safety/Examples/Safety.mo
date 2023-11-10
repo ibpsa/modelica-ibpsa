@@ -6,7 +6,6 @@ model Safety "Example for usage of all safety controls"
     mEva_flow_nominal=0.01,
     mCon_flow_nominal=0.01,
     ySet_small=0.01,
-    forHeaPum=true,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       minOnTime=5,
