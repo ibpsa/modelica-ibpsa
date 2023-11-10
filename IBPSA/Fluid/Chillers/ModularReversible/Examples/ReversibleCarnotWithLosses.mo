@@ -5,8 +5,7 @@ model ReversibleCarnotWithLosses
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
-  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses
-    chi(
+  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses chi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QUse_flow_nominal=30000,
@@ -18,7 +17,7 @@ model ReversibleCarnotWithLosses
       use_maxCycRat=false,
       tabUppHea=[263.15,313.15; 333.15,313.15],
       tabLowCoo=[263.15,283.15; 333.15,283.15],
-      use_TUseOut=true),
+      use_TUseSidOut=true),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,

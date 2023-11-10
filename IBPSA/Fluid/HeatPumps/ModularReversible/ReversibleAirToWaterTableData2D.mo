@@ -37,15 +37,15 @@ model ReversibleAirToWaterTableData2D
     datTabCoo constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     "Data Table of Chiller" annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
-    constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+      safCtrParEurNor constrainedby
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
       final tabUppHea=datTabHea.tabUppBou,
       final tabLowCoo=datTabCoo.tabLowBou,
-      final use_TUseOut=datTabHea.use_TConOutForOpeEnv,
-      final use_TNotUseOut=datTabCoo.use_TEvaOutForOpeEnv)
+      final use_TUseSidOut=datTabHea.use_TConOutForOpeEnv,
+      final use_TAmbSidOut=datTabCoo.use_TEvaOutForOpeEnv)
     "Safety control parameters" annotation (Dialog(enable=
-          use_internalSafetyControl, group="Safety Control"),
-      choicesAllMatching=true);
+          use_internalSafetyControl, group="Safety Control"), choicesAllMatching=true);
 
   annotation (Documentation(info="<html>
 <p>

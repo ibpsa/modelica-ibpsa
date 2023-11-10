@@ -3,3 +3,4 @@ CycleRateBoundary
 OnPastThreshold
 PartialSafety
 PartialSafetyWithCounter
+PartialOperationalEnvelope

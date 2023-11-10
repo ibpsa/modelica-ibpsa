@@ -16,6 +16,7 @@ model ModularReversible_OneRoomRadiator
     y_nominal=1,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
+
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dTCon_nominal=TRadSup_nominal - TRadRet_nominal,
@@ -51,10 +52,11 @@ model ModularReversible_OneRoomRadiator
           iceFacCal, datTab=
             IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
             ()),
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+    redeclare
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-      use_TUseOut=true,
-      use_TNotUseOut=false,
+      use_TUseSidOut=true,
+      use_TAmbSidOut=false,
       use_antFre=true,
       TAntFre=275.15)) "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));

@@ -2,7 +2,9 @@ within IBPSA.Fluid.Chillers.ModularReversible;
 model ModularReversible
   "Grey-box model for reversible chillers"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
-    safCtr(final forHeaPum=false),
+    safCtr(redeclare
+        IBPSA.Fluid.Chillers.ModularReversible.Controls.Safety.OperationalEnvelope
+        opeEnv),
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
     mCon_flow_nominal=(QUse_flow_nominal - PEle_nominal)/(dTCon_nominal*cpCon),

@@ -48,11 +48,11 @@ record Generic "Generic record definition for safety control blocks"
     "Hysteresis for operational envelopes of both upper and lower boundaries"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
 
-  parameter Boolean use_TUseOut=false
+  parameter Boolean use_TUseSidOut=false
     "=true to use useful side outlet temperature for envelope, false for inlet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
-  parameter Boolean use_TNotUseOut=true
-    "=true to use not useful sides outlet temperature for envelope, false for inlet"
+  parameter Boolean use_TAmbSidOut=true
+    "=true to use ambient side outlet temperature for envelope, false for inlet"
     annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
   parameter Boolean use_antFre
     "=true to enable antifreeze control"

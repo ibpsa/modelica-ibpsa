@@ -9,23 +9,23 @@ model Safety "Model including all safety levels"
     annotation (Dialog(group="Mass flow rates"));
   parameter Real ySet_small
     "Threshold for relative speed for the device to be considered on";
-  parameter Boolean forHeaPum
-    "=true if model is for heat pump, false for chillers";
 
   replaceable parameter IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
     safCtrPar constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-118,102},{-104,118}})));
-  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope opeEnv(
+  replaceable
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope
+    opeEnv if safCtrPar.use_opeEnv constrainedby
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope(
     final tabUppHea=safCtrPar.tabUppHea,
     final tabLowCoo=safCtrPar.tabLowCoo,
-    final forHeaPum=forHeaPum,
-    final use_TUseOut=safCtrPar.use_TUseOut,
-    final use_TNotUseOut=safCtrPar.use_TNotUseOut,
-    final dTHys=safCtrPar.dTHysOpeEnv) if safCtrPar.use_opeEnv
-    "Block for operational envelope"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    final use_TUseSidOut=safCtrPar.use_TUseSidOut,
+    final use_TAmbSidOut=safCtrPar.use_TAmbSidOut,
+    final dTHys=safCtrPar.dTHysOpeEnv) "Block for operational envelope"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})),
+      choicesAllMatching=true);
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff onOffCtr(
     final minOnTime=safCtrPar.minOnTime,
     final minOffTime=safCtrPar.minOffTime,
@@ -172,7 +172,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(opeEnv.yOut, reaPasThrAntFre.u) annotation (Line(
-      points={{0.833333,31.6667},{0.833333,31.6667},{12,31.6667},{12,70},{18,70}},
+      points={{0.833333,31.6667},{12,31.6667},{12,70},{18,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrOpeEnv.y, antFre.ySet) annotation (Line(

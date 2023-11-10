@@ -46,14 +46,14 @@ model LargeScaleWaterToWater
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW()
     "Data Table of HP" annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
-    constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
-      final tabUppHea=datTab.tabUppBou,
-      final tabLowCoo=datTab.tabUppBou,
-      final use_TUseOut=datTab.use_TConOutForOpeEnv,
-      final use_TNotUseOut=datTab.use_TEvaOutForOpeEnv)
-    "Safety control parameters" annotation (Dialog(enable=
-          use_internalSafetyControl, group="Safety Control"),
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+    safCtrParEurNor constrainedby
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+    final tabUppHea=datTab.tabUppBou,
+    final tabLowCoo=datTab.tabUppBou,
+    final use_TUseSidOut=datTab.use_TConOutForOpeEnv,
+    final use_TAmbSidOut=datTab.use_TEvaOutForOpeEnv) "Safety control parameters"
+    annotation (Dialog(enable=use_internalSafetyControl, group="Safety Control"),
       choicesAllMatching=true);
     // Lower boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>

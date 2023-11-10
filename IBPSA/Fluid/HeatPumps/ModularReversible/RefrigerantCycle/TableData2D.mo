@@ -71,7 +71,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(scaFacTimPel.y, calCOP.PEle) annotation (Line(points={{-40,-11},{-40,
           -24},{0,-24},{0,-86},{-70,-86},{-70,-66},{-78,-66}}, color={0,0,127}));
-  if useInHeaPump then
+  if useInHeaPum then
     connect(reaPasThrTConOut.y, tabPEle.u1)
       annotation (Line(points={{70,79},{70,48},{86,48},{86,42}}, color={0,0,127}));
     connect(reaPasThrTConIn.y, tabPEle.u1)

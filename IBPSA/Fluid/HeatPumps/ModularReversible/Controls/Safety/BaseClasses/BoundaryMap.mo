@@ -10,8 +10,8 @@ model BoundaryMap
   Modelica.Blocks.Interfaces.BooleanOutput noErr
     "=false when an error occurs"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput TNotUse(unit="K", displayUnit="degC")
-    "Not useful temperature side"
+  Modelica.Blocks.Interfaces.RealInput TAmbSid(unit="K", displayUnit="degC")
+    "Temperature at ambient side"
     annotation (Placement(transformation(extent={{-130,-54},{-102,-26}})));
 
   Modelica.Blocks.Tables.CombiTable1Ds tabBou(
@@ -45,7 +45,7 @@ model BoundaryMap
   Modelica.Blocks.Math.Add sub(final k1=-1, final k2=+1)
     "TNotUseMin minus TNotUse"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Interfaces.RealInput TUse(unit="K", displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TUseSid(unit="K", displayUnit="degC")
     "Useful temperature side "
     annotation (Placement(transformation(extent={{-128,26},{-100,54}})));
   Modelica.Blocks.Math.Add subBou(final k1=if isUppBou then 1 else -1, final k2=
@@ -107,13 +107,13 @@ equation
           {60,2.33333}}, color={255,0,255}));
   connect(tabBou.y[1], subBou.u2) annotation (Line(points={{-39,50},{-30,50},{-30,
           64},{-22,64}}, color={0,0,127}));
-  connect(subBou.u1, TUse) annotation (Line(points={{-22,76},{-96,76},{-96,40},{-114,
-          40}}, color={0,0,127}));
-  connect(TNotUse, tabBou.u) annotation (Line(points={{-116,-40},{-80,-40},{-80,50},
+  connect(subBou.u1, TUseSid) annotation (Line(points={{-22,76},{-96,76},{-96,40},
+          {-114,40}}, color={0,0,127}));
+  connect(TAmbSid, tabBou.u) annotation (Line(points={{-116,-40},{-80,-40},{-80,50},
           {-62,50}}, color={0,0,127}));
-  connect(TNotUse, sub.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-24},
+  connect(TAmbSid, sub.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-24},
           {-22,-24}}, color={0,0,127}));
-  connect(TNotUse, subMax.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-70},
+  connect(TAmbSid, subMax.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-70},
           {-32,-70},{-32,-64},{-22,-64}}, color={0,0,127}));
   annotation (Icon(
     coordinateSystem(preserveAspectRatio=false,
@@ -137,7 +137,13 @@ equation
   Line(points={{icoMin-15,icoMax},
               {icoMin-15,icoMin-15}}, color={95,95,95}),
   Line(points={{icoMin-20,icoMin-10},
-              {icoMax+10,icoMin-10}}, color={95,95,95})}),
+              {icoMax+10,icoMin-10}}, color={95,95,95}),
+        Text(
+          extent={{-149,135},{151,95}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),
       coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
   Documentation(info="<html>
 <p>

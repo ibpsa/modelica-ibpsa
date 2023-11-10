@@ -8,8 +8,8 @@ model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
       datSou="ConstantQualityGradeCarnot");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
-    dTAppUseSid(k=if useInHeaPump then TAppCon_nominal else TAppEva_nominal),
-    dTAppAmbSid(k=if useInHeaPump then -TAppEva_nominal else -TAppCon_nominal),
+    dTAppUseSid(k=if useInHeaPum then TAppCon_nominal else TAppEva_nominal),
+    dTAppAmbSid(k=if useInHeaPum then -TAppEva_nominal else -TAppCon_nominal),
     constPEle(final k=PEle_nominal));
 
 equation
@@ -20,7 +20,7 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  if useInHeaPump then
+  if useInHeaPum then
     connect(addTVapCycUseSid.u1, sigBus.TConOutMea) annotation (Line(points={{-64,82},
           {-64,104},{1,104}}, color={0,0,127}), Text(
       string="%second",

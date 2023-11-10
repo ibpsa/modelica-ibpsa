@@ -44,14 +44,14 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     datTab constrainedby Data.TableData2D.Generic "Data Table of Chiller"
     annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
-    constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+    safCtrParEurNor constrainedby
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
     final tabUppHea=datTab.tabLowBou,
     final tabLowCoo=datTab.tabLowBou,
-    final use_TUseOut=datTab.use_TEvaOutForOpeEnv,
-    final use_TNotUseOut=datTab.use_TConOutForOpeEnv)
-    "Safety control parameters" annotation (Dialog(enable=
-          use_internalSafetyControl, group="Safety Control"),
+    final use_TUseSidOut=datTab.use_TEvaOutForOpeEnv,
+    final use_TAmbSidOut=datTab.use_TConOutForOpeEnv) "Safety control parameters"
+    annotation (Dialog(enable=use_internalSafetyControl, group="Safety Control"),
       choicesAllMatching=true);
     // Upper boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>

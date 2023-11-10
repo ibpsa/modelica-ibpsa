@@ -2,7 +2,6 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ModularReversible
   "Grey-box model for reversible heat pumps"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
-    safCtr(final forHeaPum=true),
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
     mEva_flow_nominal=(QUse_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
