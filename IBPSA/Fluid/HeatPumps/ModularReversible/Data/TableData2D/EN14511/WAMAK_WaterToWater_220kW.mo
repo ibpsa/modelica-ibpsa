@@ -78,7 +78,7 @@ record WAMAK_WaterToWater_220kW "220 kW water to water with R513A"
 <p>
 WAMAK, Produktblatt ver. 2023/24.
 <a href=\"https://products.wamak.eu/combine.php?&coverpg&descriptmrktadv&lang=de-DE&code_id=WAHDR2XE\">
-https://products.wamak.eu/combine.php?&coverpg&descriptmrktadv&lang=de-DE&code_id=WAHDR2XE</a>.
+https://products.wamak.eu</a>.
 </p>
 </html>", revisions="<html>
 <ul><li>
