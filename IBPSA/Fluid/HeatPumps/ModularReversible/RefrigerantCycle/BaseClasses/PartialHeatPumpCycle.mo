@@ -2,6 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialHeatPumpCycle
   "Partial model to allow selection of only heat pump options"
   extends PartialRefrigerantCycle;
+  parameter Boolean useInHeaPum
+    "=false to indicate that this model is used in a chiller";
   Modelica.Blocks.Math.Feedback feeHeaFloEva
     "Calculates evaporator heat flow with total energy balance" annotation (
       Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));

@@ -170,6 +170,90 @@ to the section <b>Refrigerant cycle models</b>.
 </li>
 </ul>
 
+
+<h4>Reversible operation</h4>
+
+<p>
+Simulation reversible heat pumps and chillers can get confusing, as the same heat 
+exchanger model has to be used for both condensation and evaporation. 
+</p>
+
+<p>
+In most cases, heat pumps and chillers extract / exhaust heat from / to
+an ambient source (air, soil, ground-water, o.s), 
+and, adding electrical energy, provide heating or cooling on the <i>useful side</i>.
+For building applications, this <i>useful side</i> is inside the building. 
+The ambient heat is outside of the building, on the <i>ambient side</i>.
+</p>
+<p>
+However, vapor compression machines can also be used to heat and cool simultaniously.
+In this case, both sides provide a use to the energy system. Hence, both sides 
+are <i>useful sides</i>.
+</p>
+<p>
+Because of this, we went for a naming scheme which is based on the main operation
+of the heat pump or chiller. The main operation of a heat pump is heating, for
+a chiller it is cooling. When reversed, the condenser becomes the evaporator and
+vice versa. As renaming instances after translation is not possible, you always
+have to think about the names <code>con</code> and <code>eva</code> in terms of
+the main operation of the device. 
+This applies to the instances <code>con</code> and <code>eva</code> as well as
+all sensor values, like <code>TConOutMea</code> or <code>TEvaInMea</code>.
+As the temperatures are used model performance using table data
+and the operational envelope, you also have to think about the <i>useful</i>
+and <i>ambient side</i> in the datasheets and how they translate to 
+heat pumps and chillers in both main and reversed operation.
+The following tables summarizes the possible options.
+</p>
+
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+    <tr>
+        <th></th>
+        <th>Heat pump main</th>
+        <th>Heat pump reversed</th>
+        <th>Chiller main</th>
+        <th>Chiller reversed </th>
+    </tr>
+    <tr>
+        <td>Heating / cooling?</td>
+        <td>heating</td>
+        <td>cooling</td>
+        <td>cooling</td>
+        <td>heating  </td>
+    </tr>
+    <tr>
+        <td>Table-data: column 1: useful side</td>
+        <td><code>con</code></td>
+        <td><code>con</code> <sup>1</sup></td>
+        <td><code>eva</code></td>
+        <td><code>eva</code> <sup>2</sup>  </td>
+    </tr>
+    <tr>
+        <td>Table-data - row 1: ambient side</td>
+        <td><code>eva</code></td>
+        <td><code>eva</code> <sup>2</sup></td>
+        <td><code>con</code></td>
+        <td><code>con</code> <sup>1</sup>  </td>
+    </tr>
+    <tr>
+        <td>Operational envelope - column 1: ambient side</td>
+        <td><code>eva</code></td>
+        <td><code>eva</code> <sup>2</sup></td>
+        <td><code>con</code></td>
+        <td><code>con</code> <sup>1</sup>  </td>
+    </tr>
+    <tr>
+        <td>Operational envelope - column 2: useful side</td>
+        <td><code>con</code></td>
+        <td><code>con</code> <sup>1</sup></td>
+        <td><code>eva</code></td>
+        <td><code>eva</code> <sup>2</sup>  </td>
+    </tr>
+</table>
+<b>Footnotes:</b>
+<sup>1</sup> In reality, the condenser of the main operation is used for evaporation.
+<sup>2</sup> In reality, the evaporator of the main operation is used for condensation.
+
 <h4>Connectors</h4>
 
 <p>

@@ -22,6 +22,7 @@ model ModularReversible
       (QUseNoSca_flow_nominal=0)
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
+       final useInChi=true,
        final QUse_flow_nominal=QUse_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -36,6 +37,7 @@ model ModularReversible
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
        constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
+       final useInHeaPum=false,
        final QUse_flow_nominal=QHea_flow_nominal,
        final scaFac=scaFac,
        final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,

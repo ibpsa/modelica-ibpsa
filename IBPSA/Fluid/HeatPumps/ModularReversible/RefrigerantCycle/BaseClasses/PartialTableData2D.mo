@@ -132,22 +132,6 @@ equation
           {34,18},{-70,18},{-70,25}}, color={0,0,127}));
   connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{80,19},{80,18},{
           -34,18},{-34,12}}, color={0,0,127}));
-  connect(reaPasThrTEvaOut.y, tabQUse_flow.u2) annotation (Line(points={{-20,79},
-          {-20,48},{34,48},{34,42}}, color={0,0,127}));
-  connect(tabPEle.u2, reaPasThrTEvaOut.y) annotation (Line(points={{74,42},{74,48},
-          {-20,48},{-20,79}}, color={0,0,127}));
-  connect(reaPasThrTEvaIn.y, tabQUse_flow.u2) annotation (Line(points={{-50,79},{
-          -50,48},{34,48},{34,42}}, color={0,0,127}));
-  connect(reaPasThrTEvaIn.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,
-          48},{74,48},{74,42}}, color={0,0,127}));
-  connect(reaPasThrTConOut.y, tabPEle.u1)
-    annotation (Line(points={{70,79},{70,60},{86,60},{86,42}}, color={0,0,127}));
-  connect(reaPasThrTConIn.y, tabPEle.u1)
-    annotation (Line(points={{40,79},{40,60},{86,60},{86,42}}, color={0,0,127}));
-  connect(reaPasThrTConOut.y, tabQUse_flow.u1)
-    annotation (Line(points={{70,79},{70,60},{46,60},{46,42}}, color={0,0,127}));
-  connect(reaPasThrTConIn.y, tabQUse_flow.u1)
-    annotation (Line(points={{40,79},{40,60},{46,60},{46,42}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

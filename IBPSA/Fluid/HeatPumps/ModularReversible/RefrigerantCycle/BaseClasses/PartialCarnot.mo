@@ -21,9 +21,9 @@ partial model PartialCarnot
      annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Sources.RealExpression reaEtaCarEff(final y=quaGra*
-        addTVapCycUse.y/IBPSA.Utilities.Math.Functions.smoothMax(
+        addTVapCycUseSid.y/IBPSA.Utilities.Math.Functions.smoothMax(
         x1=dTCarMin,
-        x2=(addTVapCycUse.y - addTVapCycNotUse.y),
+        x2=(addTVapCycUseSid.y - addTVapCycAmbSid.y),
         deltaX=0.25)) "Internal calculation of carnot efficiency"
     annotation (Placement(transformation(extent={{-90,38},{-70,58}})));
   Modelica.Blocks.Math.Product proQUse_flow "Calculate QUse_flow" annotation (
@@ -44,22 +44,22 @@ partial model PartialCarnot
         origin={90,90})));
   Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from signal bus"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Blocks.Math.Add addTVapCycNotUse(k1=+1, k2=+1)
-    "Refrigerant cycle temperature of not useful side " annotation (
+  Modelica.Blocks.Math.Add addTVapCycAmbSid(k1=+1, k2=+1)
+    "Refrigerant cycle temperature of ambient side"     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,70})));
-  Modelica.Blocks.Math.Add addTVapCycUse(k1=+1, k2=+1)
+  Modelica.Blocks.Math.Add addTVapCycUseSid(k1=+1, k2=+1)
     "Refrigerant cycle temperature of useful side " annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-70,70})));
-  Modelica.Blocks.Sources.Constant dTAppNotUse
-    "Temperature difference at not useful side"
+  Modelica.Blocks.Sources.Constant dTAppAmbSid
+    "Temperature difference at ambient side"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Sources.Constant dTAppUse
+  Modelica.Blocks.Sources.Constant dTAppUseSid
     "Temperature difference at useful side"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant constZer(final k=0)
@@ -89,9 +89,9 @@ equation
           72},{90,79}}, color={0,0,127}));
   connect(pasThrYSet.y, proPEle.u2)
     annotation (Line(points={{41,70},{64,70},{64,62}}, color={0,0,127}));
-  connect(dTAppNotUse.y, addTVapCycNotUse.u2)
+  connect(dTAppAmbSid.y,addTVapCycAmbSid. u2)
     annotation (Line(points={{-39,90},{-36,90},{-36,82}}, color={0,0,127}));
-  connect(dTAppUse.y, addTVapCycUse.u2)
+  connect(dTAppUseSid.y, addTVapCycUseSid.u2)
     annotation (Line(points={{-79,90},{-76,90},{-76,82}}, color={0,0,127}));
   connect(constZer.y, swiPEle.u3) annotation (Line(points={{8.88178e-16,21},{
           8.88178e-16,28},{42,28},{42,22}}, color={0,0,127}));

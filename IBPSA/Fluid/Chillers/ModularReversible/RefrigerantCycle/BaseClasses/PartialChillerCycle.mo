@@ -3,7 +3,8 @@ partial model PartialChillerCycle
   "Partial model of refrigerant cycle used for chiller applications"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle;
-
+  parameter Boolean useInChi
+    "=false to indicate that this model is used in a heat pump";
   HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCoefficientOfPerformance
     calEER(PEleMin=PEle_nominal*0.01) if calEff
                                       "Calculate the EER"

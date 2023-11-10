@@ -67,6 +67,45 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(scaFacTimPel.y, calEER.PEle) annotation (Line(points={{-40,-11},{-40,-26},
           {-30,-26},{-30,-86},{-68,-86},{-68,-66},{-78,-66}}, color={0,0,127}));
+
+  if useInChi then
+    connect(reaPasThrTConOut.y, tabPEle.u1)
+      annotation (Line(points={{70,79},{70,48},{86,48},{86,42}}, color={0,0,127}));
+    connect(reaPasThrTConOut.y, tabQUse_flow.u1)
+      annotation (Line(points={{70,79},{70,48},{46,48},{46,42}}, color={0,0,127}));
+    connect(reaPasThrTConIn.y, tabQUse_flow.u1)
+      annotation (Line(points={{40,79},{40,48},{46,48},{46,42}}, color={0,0,127}));
+    connect(reaPasThrTConIn.y, tabPEle.u1)
+      annotation (Line(points={{40,79},{40,48},{86,48},{86,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaOut.y, tabPEle.u2) annotation (Line(points={{-20,79},{-20,72},
+            {40,72},{40,48},{74,48},{74,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaOut.y, tabQUse_flow.u2) annotation (Line(points={{-20,79},{
+            -20,72},{40,72},{40,48},{34,48},{34,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaIn.y, tabQUse_flow.u2) annotation (Line(points={{-50,79},{-50,
+            72},{40,72},{40,48},{34,48},{34,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaIn.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,72},
+            {40,72},{40,48},{74,48},{74,42}}, color={0,0,127}));
+  else
+    connect(reaPasThrTConOut.y, tabPEle.u2)
+      annotation (Line(points={{70,79},{70,48},{74,48},{74,42}}, color={0,0,127}));
+    connect(reaPasThrTConIn.y, tabPEle.u2)
+      annotation (Line(points={{40,79},{40,48},{74,48},{74,42}}, color={0,0,127}));
+    connect(reaPasThrTConIn.y, tabQUse_flow.u2)
+      annotation (Line(points={{40,79},{40,48},{34,48},{34,42}}, color={0,0,127}));
+    connect(reaPasThrTConOut.y, tabQUse_flow.u2)
+      annotation (Line(points={{70,79},{70,48},{34,48},{34,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaOut.y, tabQUse_flow.u1) annotation (Line(points={{-20,79},
+            {-20,72},{40,72},{40,48},{46,48},{46,42}},
+                                      color={0,0,127}));
+    connect(reaPasThrTEvaIn.y, tabQUse_flow.u1) annotation (Line(points={{-50,79},
+            {-50,72},{40,72},{40,48},{46,48},{46,42}},
+                                  color={0,0,127}));
+    connect(reaPasThrTEvaOut.y, tabPEle.u1) annotation (Line(points={{-20,79},{-20,72},
+            {86,72},{86,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaIn.y, tabPEle.u1) annotation (Line(points={{-50,79},{-50,
+            72},{86,72},{86,42}},
+                                color={0,0,127}));
+  end if;
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},
       {30.0,40.0},{30.0,-40.0},{-30.0,-40.0},{-30.0,40.0},{-60.0,40.0},

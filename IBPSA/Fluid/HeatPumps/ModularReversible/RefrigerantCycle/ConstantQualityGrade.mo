@@ -2,16 +2,15 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
 model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
-      PEle_nominal=QUse_flow_nominal/(quaGra*(TCon_nominal + TAppCon_nominal)
-          *y_nominal)*(TCon_nominal + TAppCon_nominal - TEva_nominal -
-          TAppEva_nominal),
+      PEle_nominal=QUse_flow_nominal / (quaGra*(TCon_nominal + TAppCon_nominal)*y_nominal)*
+        (TCon_nominal + TAppCon_nominal - TEva_nominal - TAppEva_nominal),
       QUseNoSca_flow_nominal=QUse_flow_nominal,
       datSou="ConstantQualityGradeCarnot");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
-    constPEle(final k=PEle_nominal),
-    dTAppUse(k=TAppCon_nominal),
-    dTAppNotUse(k=-TAppEva_nominal));
+    dTAppUseSid(k=if useInHeaPump then TAppCon_nominal else TAppEva_nominal),
+    dTAppAmbSid(k=if useInHeaPump then -TAppEva_nominal else -TAppCon_nominal),
+    constPEle(final k=PEle_nominal));
 
 equation
 
@@ -21,18 +20,33 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(addTVapCycUse.u1, sigBus.TConOutMea) annotation (Line(points={{-64,82},
+  if useInHeaPump then
+    connect(addTVapCycUseSid.u1, sigBus.TConOutMea) annotation (Line(points={{-64,82},
           {-64,104},{1,104}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(addTVapCycNotUse.u1, sigBus.TEvaInMea) annotation (Line(points={{-24,82},
+    connect(addTVapCycAmbSid.u1, sigBus.TEvaInMea) annotation (Line(points={{-24,82},
           {-24,104},{1,104}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  else
+    connect(addTVapCycUseSid.u1, sigBus.TEvaOutMea) annotation (Line(points={{-64,82},
+          {-64,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+    connect(addTVapCycAmbSid.u1, sigBus.TConInMea) annotation (Line(points={{-24,82},
+          {-24,104},{1,104}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  end if;
   connect(swiPEle.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-26},{62,
           -26},{62,-58},{64,-58}}, color={0,0,127}));
   connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-92},{0,-92},{0,
