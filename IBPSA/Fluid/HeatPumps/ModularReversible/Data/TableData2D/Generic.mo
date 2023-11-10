@@ -45,9 +45,11 @@ record Generic "Partial two-dimensional data of refrigerant machines"
 </p>
 <p>
   The nominal mass flow rates in the condenser and evaporator
-  are also defined as parameters. These will be used in the model to assert that
-  the mass flow rates in the simulation do not deviate to much from the ones
-  where the normative data is for.
+  are also defined as parameters. If nominal pressure curves are provided 
+  in the datasheets, be sure to match the two parameters. 
+  Aside from that, the nominal mass flow rates are compared to the values specified 
+  by the user. If the deviation is too great, a warning indicates a possible mismatch of
+  system mass flow rate and table data.
 </p>
 <p>
   The string <code>devIde</code> ensures that if data for heating and cooling are required,
