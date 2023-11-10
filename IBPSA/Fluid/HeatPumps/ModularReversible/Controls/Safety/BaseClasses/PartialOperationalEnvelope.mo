@@ -144,7 +144,7 @@ equation
 </ol>
 
 <p align=\"center\">
-<img  style=\"width: 500\", alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/ModularReversible/Controls/SafetyControls/OperationalEnvelope_1.png\" border=\"1\"/>
+<img  style=\"width: 500\" alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/ModularReversible/Controls/SafetyControls/OperationalEnvelope_1.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
   Figure 1: Possible upper and lower boundaries
@@ -152,7 +152,7 @@ equation
 </p>
 
 <p align=\"center\">
-<img  style=\"width: 500\", alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/ModularReversible/Controls/SafetyControls/OperationalEnvelope_2.png\" border=\"1\"/>
+<img  style=\"width: 500\" alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/ModularReversible/Controls/SafetyControls/OperationalEnvelope_2.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
   Figure 2: Example for an air-to-water heat pump or chiller.
@@ -162,7 +162,7 @@ equation
 </p>
 
 <p align=\"center\">
-<img  style=\"width: 500\", alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/ModularReversible/Controls/SafetyControls/OperationalEnvelope_3.png\" border=\"1\"/>
+<img  style=\"width: 500\" alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/HeatPumps/ModularReversible/Controls/SafetyControls/OperationalEnvelope_3.png\" border=\"1\"/>
 </p>
 <p align=\"center\">
   Figure 3: Example for an air-to-air heat pump or chiller.

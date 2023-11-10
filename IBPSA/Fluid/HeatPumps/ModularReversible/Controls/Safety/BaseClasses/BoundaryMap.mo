@@ -32,18 +32,18 @@ model BoundaryMap
     final uHigh=0,
     pre_y_start=false) "Hysteresis for right side of envelope"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Sources.Constant conTNotUseMin(k=TNotUseMin)
-    "Constant minimal temperature of not useful temperature side"
+  Modelica.Blocks.Sources.Constant conTAmbSidMin(k=TAmbSidMin)
+    "Constant minimal temperature of ambient temperature side"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Sources.Constant conTNotUseMax(k=TNotUseMax)
-    "Constant maximal temperature of not useful temperature side"
+  Modelica.Blocks.Sources.Constant conTAmbSidMax(k=TAmbSidMax)
+    "Constant maximal temperature of ambient temperature side"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 
   Modelica.Blocks.Math.Add subMax(final k1=+1, final k2=-1)
-    "TNotUse minus TNotUseMax"
+    "Actual minus maximal ambient side temperature"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Math.Add sub(final k1=-1, final k2=+1)
-    "TNotUseMin minus TNotUse"
+    "Minimal minus current ambient side temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Interfaces.RealInput TUseSid(unit="K", displayUnit="degC")
     "Useful temperature side "
@@ -61,29 +61,30 @@ protected
   parameter Real icoMin=-70
     "Used to set the frame where the icon should appear";
   parameter Real icoMax=70 "Used to set the frame where the icon should appear";
-  final parameter Modelica.Units.SI.Temperature TNotUseMax = tab[end, 1]
-    "Maximal value of evaporator side";
-  final parameter Modelica.Units.SI.Temperature TNotUseMin = tab[1, 1]
-    "Minimal temperature at evaporator side";
-  final parameter Modelica.Units.SI.Temperature TUseMax = max(tab[:, 2])
-    "Maximal temperature of condenser side";
-  final parameter Modelica.Units.SI.Temperature TUseMin = 0 "Minimal value of condenser side";
-  final parameter Real poi[size(scaTNotUse, 1),2]=transpose({scaTEvaToPoi,
-      scaTUseToPoi}) "Points for dynamic annotation"
+  final parameter Modelica.Units.SI.Temperature TAmbSidMax=tab[end, 1]
+    "Maximal value of ambient side";
+  final parameter Modelica.Units.SI.Temperature TAmbSidMin=tab[1, 1]
+    "Minimal temperature at ambient side";
+  final parameter Modelica.Units.SI.Temperature TUseSidMax=max(tab[:, 2])
+    "Maximal temperature of useful side";
+  final parameter Modelica.Units.SI.Temperature TUseSidMin=0
+    "Minimal value of useful side";
+  final parameter Real poi[size(scaTAmbSid, 1),2]=transpose({scaTAmbSidToPoi,
+      scaTUseSidToPoi}) "Points for dynamic annotation"
     annotation (Hide=false, HideResult=false);
-  final parameter Modelica.Units.SI.Temperature scaTNotUse[:] = tab[:, 1]
-    "Helper array with only not useful temperature side values";
-  final parameter Modelica.Units.SI.Temperature scaTUse[:] = tab[:, 2]
-    "Helper array with only useful temperature side values";
-  final parameter Real scaTEvaToPoi[size(scaTNotUse, 1)](
+  final parameter Modelica.Units.SI.Temperature scaTAmbSid[:]=tab[:, 1]
+    "Helper array with only not ambient side temperature values";
+  final parameter Modelica.Units.SI.Temperature scaTUseSid[:]=tab[:, 2]
+    "Helper array with only useful side temperature values";
+  final parameter Real scaTAmbSidToPoi[size(scaTAmbSid, 1)](
     each min=-100,
-    each max=100) = (scaTNotUse - fill(TNotUseMin, size(scaTNotUse, 1)))*(
-    icoMax - icoMin)/(TNotUseMax - TNotUseMin) + fill(icoMin, size(scaTNotUse, 1))
-    "Scale not useful side to icon size";
-  final parameter Real scaTUseToPoi[size(scaTNotUse, 1)](
+    each max=100) = (scaTAmbSid - fill(TAmbSidMin, size(scaTAmbSid, 1)))*(icoMax -
+    icoMin)/(TAmbSidMax - TAmbSidMin) + fill(icoMin, size(scaTAmbSid, 1))
+    "Scale ambient side to icon size";
+  final parameter Real scaTUseSidToPoi[size(scaTAmbSid, 1)](
     each min=-100,
-    each max=100) = (scaTUse - fill(TUseMin, size(scaTUse, 1)))*(icoMax -
-    icoMin)/(TUseMax - TUseMin) + fill(icoMin, size(scaTUse, 1))
+    each max=100) = (scaTUseSid - fill(TUseSidMin, size(scaTUseSid, 1)))*(icoMax -
+    icoMin)/(TUseSidMax - TUseSidMin) + fill(icoMin, size(scaTUseSid, 1))
     "Scale useful side to icon size";
 
 equation
@@ -93,9 +94,9 @@ equation
           {60,-2.33333}}, color={255,0,255}));
   connect(hysRig.y, nor.u[2]) annotation (Line(points={{41,-70},{50,-70},{50,-5.55112e-16},
           {60,-5.55112e-16}}, color={255,0,255}));
-  connect(subMax.u2, conTNotUseMax.y) annotation (Line(points={{-22,-76},{-32,-76},
+  connect(subMax.u2,conTAmbSidMax.y)  annotation (Line(points={{-22,-76},{-32,-76},
           {-32,-90},{-39,-90}}, color={0,0,127}));
-  connect(sub.u2, conTNotUseMin.y) annotation (Line(points={{-22,-36},{-32,-36},
+  connect(sub.u2,conTAmbSidMin.y)  annotation (Line(points={{-22,-36},{-32,-36},
           {-32,-50},{-39,-50}}, color={0,0,127}));
   connect(subMax.y, hysRig.u)
     annotation (Line(points={{1,-70},{18,-70}}, color={0,0,127}));
