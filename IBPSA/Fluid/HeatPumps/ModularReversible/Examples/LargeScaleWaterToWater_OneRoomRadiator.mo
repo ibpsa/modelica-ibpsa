@@ -10,7 +10,13 @@ model LargeScaleWaterToWater_OneRoomRadiator
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    oneRooRadHeaPumCtr(PIDHea(Ti=10)));
+    oneRooRadHeaPumCtr(PIDHea(Ti=10)),
+    pumHeaPum(redeclare
+        IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2
+        per),
+    pumHeaPumSou(redeclare
+        IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2
+        per));
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
@@ -18,14 +24,14 @@ model LargeScaleWaterToWater_OneRoomRadiator
     y_nominal=1,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
-    dpCon_nominal(displayUnit="Pa") = 2000,
+    dpCon_nominal(displayUnit="Pa"),
     TEva_nominal=sou.T,
-    dpEva_nominal(displayUnit="Pa") = 2000,
+    dpEva_nominal(displayUnit="Pa"),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrParEurNor,
     redeclare
-      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW
+      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
       datTab)
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-136}})));

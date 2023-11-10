@@ -42,8 +42,7 @@ model LargeScaleWaterToWater
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab=
-      IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW()
+    IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data Table of HP" annotation (choicesAllMatching=true);
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021

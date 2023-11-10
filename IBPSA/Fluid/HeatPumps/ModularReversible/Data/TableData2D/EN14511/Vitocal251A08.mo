@@ -37,6 +37,10 @@ record Vitocal251A08 "A2W Vitocal 251 by Viessmann"
   The pressure loss depends mostly on the hydraulic system
   according to the datasheet.
 </p>
+<p>
+  The nominal mass flow rate is calculated for the nominal point A7/W35,
+  with a temperature spread of 5 K.
+</p>
 <h4>References</h4>
 <p>
 Viessmann, Planungshandbuch.
