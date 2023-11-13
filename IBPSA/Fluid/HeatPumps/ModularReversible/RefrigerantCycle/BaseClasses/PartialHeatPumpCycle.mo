@@ -7,7 +7,7 @@ partial model PartialHeatPumpCycle
   Modelica.Blocks.Math.Feedback feeHeaFloEva
     "Calculates evaporator heat flow with total energy balance" annotation (
       Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
-  CalculateCoefficientOfPerformance calCOP(PEleMin=PEle_nominal*0.01) if calEff
+  CalculateCoefficientOfPerformance calCOP(PEleMin=PEle_nominal*0.1)  if calEff
     "Calculate the COP"
     annotation (Placement(transformation(extent={{-80,-60},{-100,-80}})));
 equation

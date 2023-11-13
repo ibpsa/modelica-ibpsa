@@ -6,7 +6,7 @@ partial model PartialChillerCycle
   parameter Boolean useInChi
     "=false to indicate that this model is used in a heat pump";
   HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCoefficientOfPerformance
-    calEER(PEleMin=PEle_nominal*0.01) if calEff
+    calEER(PEleMin=PEle_nominal*0.1)  if calEff
                                       "Calculate the EER"
     annotation (Placement(transformation(extent={{-80,-60},{-100,-80}})));
 equation
