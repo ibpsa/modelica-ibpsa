@@ -7,7 +7,7 @@ model ModularReversible
         opeEnv),
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
     mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
-    mCon_flow_nominal=(QUse_flow_nominal - PEle_nominal)/(dTCon_nominal*cpCon),
+    mCon_flow_nominal=(QUse_flow_nominal + PEle_nominal)/(dTCon_nominal*cpCon),
     final scaFac=refCyc.refCycChiCoo.scaFac,
     use_rev=true,
     redeclare IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
