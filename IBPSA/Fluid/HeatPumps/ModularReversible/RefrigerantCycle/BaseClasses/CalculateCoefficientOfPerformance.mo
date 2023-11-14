@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model CalculateCoefficientOfPerformance
   "Calculate the COP or EER of a device"
 
@@ -19,7 +19,10 @@ model CalculateCoefficientOfPerformance
     "Hysteresis to switch between calculation and no calculation"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 initial equation
-  assert(PEleMin > 0, "PEleMin must be greater than zero", AssertionLevel.error);
+  assert(PEleMin > 0,
+    "PEleMin must be greater than zero. Disable efficiency calculation using 
+    calEff=false to debug why PEle_nominal is lower than zero.",
+    AssertionLevel.error);
 
 equation
   if hys.y then

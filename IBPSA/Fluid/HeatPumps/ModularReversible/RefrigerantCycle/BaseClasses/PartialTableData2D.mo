@@ -17,8 +17,8 @@ partial model PartialTableData2D
     final fileName="NoName",
     final verboseRead=true,
     final smoothness=smoothness,
-    final u1(unit="degC"),
-    final u2(unit="degC"),
+    final u1(unit="K", displayUnit="degC"),
+    final u2(unit="K", displayUnit="degC"),
     final y(unit="W", displayUnit="kW"),
     final extrapolation=extrapolation) "Electrical power consumption table" annotation (
       Placement(transformation(
@@ -31,8 +31,8 @@ partial model PartialTableData2D
     final fileName="NoName",
     final verboseRead=true,
     final smoothness=smoothness,
-    final u1(unit="degC"),
-    final u2(unit="degC"),
+    final u1(unit="K", displayUnit="degC"),
+    final u2(unit="K", displayUnit="degC"),
     final y(unit="W", displayUnit="kW"),
     final extrapolation=extrapolation) "Table for useful heat flow rate"
                                        annotation (Placement(transformation(

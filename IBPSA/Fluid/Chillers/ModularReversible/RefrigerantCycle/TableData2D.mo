@@ -8,13 +8,13 @@ model TableData2D
     mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
-        TCon_nominal,
-        TEva_nominal) * scaFac,
+        TEva_nominal,
+        TCon_nominal) * scaFac,
     QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdeQUse_flow,
-        TCon_nominal,
-        TEva_nominal));
+        TEva_nominal,
+        TCon_nominal));
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
     final use_TConOutForTab=datTab.use_TConOutForTab,
@@ -69,23 +69,6 @@ equation
           {-30,-26},{-30,-86},{-68,-86},{-68,-66},{-78,-66}}, color={0,0,127}));
 
   if useInChi then
-    connect(reaPasThrTConOut.y, tabPEle.u1)
-      annotation (Line(points={{70,79},{70,48},{86,48},{86,42}}, color={0,0,127}));
-    connect(reaPasThrTConOut.y, tabQUse_flow.u1)
-      annotation (Line(points={{70,79},{70,48},{46,48},{46,42}}, color={0,0,127}));
-    connect(reaPasThrTConIn.y, tabQUse_flow.u1)
-      annotation (Line(points={{40,79},{40,48},{46,48},{46,42}}, color={0,0,127}));
-    connect(reaPasThrTConIn.y, tabPEle.u1)
-      annotation (Line(points={{40,79},{40,48},{86,48},{86,42}}, color={0,0,127}));
-    connect(reaPasThrTEvaOut.y, tabPEle.u2) annotation (Line(points={{-20,79},{-20,72},
-            {40,72},{40,48},{74,48},{74,42}}, color={0,0,127}));
-    connect(reaPasThrTEvaOut.y, tabQUse_flow.u2) annotation (Line(points={{-20,79},{
-            -20,72},{40,72},{40,48},{34,48},{34,42}}, color={0,0,127}));
-    connect(reaPasThrTEvaIn.y, tabQUse_flow.u2) annotation (Line(points={{-50,79},{-50,
-            72},{40,72},{40,48},{34,48},{34,42}}, color={0,0,127}));
-    connect(reaPasThrTEvaIn.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,72},
-            {40,72},{40,48},{74,48},{74,42}}, color={0,0,127}));
-  else
     connect(reaPasThrTConOut.y, tabPEle.u2)
       annotation (Line(points={{70,79},{70,48},{74,48},{74,42}}, color={0,0,127}));
     connect(reaPasThrTConIn.y, tabPEle.u2)
@@ -105,6 +88,23 @@ equation
     connect(reaPasThrTEvaIn.y, tabPEle.u1) annotation (Line(points={{-50,79},{-50,
             72},{86,72},{86,42}},
                                 color={0,0,127}));
+  else
+    connect(reaPasThrTConOut.y, tabPEle.u1)
+      annotation (Line(points={{70,79},{70,48},{86,48},{86,42}}, color={0,0,127}));
+    connect(reaPasThrTConOut.y, tabQUse_flow.u1)
+      annotation (Line(points={{70,79},{70,48},{46,48},{46,42}}, color={0,0,127}));
+    connect(reaPasThrTConIn.y, tabQUse_flow.u1)
+      annotation (Line(points={{40,79},{40,48},{46,48},{46,42}}, color={0,0,127}));
+    connect(reaPasThrTConIn.y, tabPEle.u1)
+      annotation (Line(points={{40,79},{40,48},{86,48},{86,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaOut.y, tabPEle.u2) annotation (Line(points={{-20,79},{-20,72},
+            {40,72},{40,48},{74,48},{74,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaOut.y, tabQUse_flow.u2) annotation (Line(points={{-20,79},{
+            -20,72},{40,72},{40,48},{34,48},{34,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaIn.y, tabQUse_flow.u2) annotation (Line(points={{-50,79},{-50,
+            72},{40,72},{40,48},{34,48},{34,42}}, color={0,0,127}));
+    connect(reaPasThrTEvaIn.y, tabPEle.u2) annotation (Line(points={{-50,79},{-50,72},
+            {40,72},{40,48},{74,48},{74,42}}, color={0,0,127}));
   end if;
   annotation (Icon(graphics={
     Line(points={{-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},

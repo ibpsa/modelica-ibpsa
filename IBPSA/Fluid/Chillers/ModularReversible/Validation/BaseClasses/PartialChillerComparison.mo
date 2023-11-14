@@ -21,7 +21,7 @@ model PartialChillerComparison
   parameter Modelica.Units.SI.Time tau1=60
     "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)";
   parameter Modelica.Units.SI.Temperature T1_start=303.15
-    "Initial or guess value of set point";
+    "Initial or guess value of set point" annotation(Evaluate=false);
   parameter Modelica.Units.SI.Time tau2=60
     "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)";
   parameter Modelica.Units.SI.Temperature T2_start=278.15
