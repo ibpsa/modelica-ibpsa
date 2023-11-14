@@ -1,9 +1,9 @@
-within IBPSA.Fluid.Chillers.ModularReversible.Validation;
+within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative;
 model ConstantQualityGrade
   "Validation case for modular carnot approach"
-  extends BaseClasses.PartialModularComparison(chi(redeclare model
-        RefrigerantCycleChillerCooling =
-          IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade
+  extends BaseClasses.PartialModularComparison(heaPum(redeclare model
+        RefrigerantCycleHeatPumpHeating =
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade
           (
           useAirForCon=false,
           useAirForEva=false,
@@ -11,7 +11,7 @@ model ConstantQualityGrade
   extends Modelica.Icons.Example;
 
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Validation/ConstantQualityGrade.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/Comparative/ConstantQualityGrade.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

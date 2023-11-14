@@ -1,6 +1,6 @@
-within IBPSA.Fluid.Chillers.ModularReversible.Validation.BaseClasses;
-partial model PartialChillerComparison
-  "Partial model to allow chiller model comparison"
+within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative.BaseClasses;
+partial model PartialComparison
+  "Partial model to allow heat pump model comparison"
   package Medium1 = IBPSA.Media.Water "Medium model";
   package Medium2 = IBPSA.Media.Water "Medium model";
 
@@ -101,11 +101,11 @@ First implementation.
 </html>", info="<html>
 <p>
 Partial model which is based on 
-<a href=\"modelica://IBPSA.Fluid.Chillers.Examples.Carnot_y\">
-IBPSA.Fluid.Chillers.Examples.Carnot_y</a>
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.Carnot_y\">
+IBPSA.Fluid.HeatPumps.Examples.Carnot_y</a>
 to validate the modular reversible models by means of
-comparison to the <a href=\"modelica://IBPSA.Fluid.Chillers.Carnot_y\">
-IBPSA.Fluid.Chillers.Carnot_y</a> model.
+comparison to the <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
+IBPSA.Fluid.HeatPumps.Carnot_y</a> model.
 </p>
 </html>"));
-end PartialChillerComparison;
+end PartialComparison;
