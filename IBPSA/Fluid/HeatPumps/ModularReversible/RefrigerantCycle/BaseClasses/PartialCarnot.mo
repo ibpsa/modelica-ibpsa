@@ -91,7 +91,7 @@ protected
     swiPEle.y + swiQUse.y else swiQUse.y
     "Condenser heat flow rate";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal = if useForChi then
-    swiQUse.y else swiPEle.y + swiQUse.y
+    swiQUse.y else swiQUse.y - swiPEle.y
      "Evaporator heat flow rate";
 
 equation

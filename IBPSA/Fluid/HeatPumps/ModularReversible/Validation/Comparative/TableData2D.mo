@@ -6,8 +6,8 @@ model TableData2D "Validation case for table data approach"
     heaPum(redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
             datTab(
-            tabPEle=[0,288.15,298.15; 293.15,14122.8,14122.8; 303.15,14122.8,
-                14122.8],
+            tabPEle=[0,288.15,298.15; 293.15,12375.1,12375.1; 303.15,12375.1,
+                12375.1],
             mCon_flow_nominal=m1_flow_nominal,
             mEva_flow_nominal=m2_flow_nominal,
             dpCon_nominal=0,
@@ -15,8 +15,8 @@ model TableData2D "Validation case for table data approach"
             devIde="CarnotTableData",
             use_TEvaOutForTab=false,
             use_TConOutForTab=false,
-            tabQCon_flow=[0,288.15,298.15; 293.15,49622.5,0; 303.15,44122.8,
-                50343.6],
+            tabQCon_flow=[0,288.15,298.15; 293.15,34084.9,0; 303.15,30000,34620],
+
             tabUppBou=[273.15,273.15; 273.15,273.15],
             use_TEvaOutForOpeEnv=false,
             use_TConOutForOpeEnv=false))));
