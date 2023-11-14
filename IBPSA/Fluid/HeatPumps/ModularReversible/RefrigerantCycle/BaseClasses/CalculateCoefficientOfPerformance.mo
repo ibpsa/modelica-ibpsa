@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
+within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model CalculateCoefficientOfPerformance
   "Calculate the COP or EER of a device"
 
