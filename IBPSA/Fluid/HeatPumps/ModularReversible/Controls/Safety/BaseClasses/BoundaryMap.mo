@@ -120,7 +120,7 @@ equation
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}), graphics={
                                     Line(points=DynamicSelect(
-      {{-66,-66},{-66,50},{-44,66}, {68,66},{68,-66},{-66,-66}},points),
+      {{-66,-66},{-66,50},{-44,66}, {68,66},{68,-66},{-66,-66}},poi),
       color={238,46,47},
       thickness=0.5),
   Polygon(

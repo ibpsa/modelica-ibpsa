@@ -48,8 +48,8 @@ partial model PartialReversibleRefrigerantMachine
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
     constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
-    "Safety control parameters" annotation (Dialog(enable=
-          use_internalSafetyControl, group="Safety Control"),
+    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
+    group="Safety Control"),
       choicesAllMatching=true);
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
@@ -349,8 +349,8 @@ partial model PartialReversibleRefrigerantMachine
 
 // To avoid using the bus, set the section below to protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
-protected
 // -->
+protected
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-120,-60},{-90,-26}}), iconTransformation(extent={{-108,-52},
@@ -363,8 +363,8 @@ protected
           use_intSafCtr));
 
 // <!-- @include_AixLib
-protected
 // -->
+protected
   parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)

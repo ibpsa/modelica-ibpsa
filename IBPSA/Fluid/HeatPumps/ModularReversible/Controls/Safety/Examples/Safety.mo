@@ -52,6 +52,11 @@ model Safety "Example for usage of all safety controls"
   Modelica.Blocks.Sources.Pulse mEvaEmu_flow(amplitude=1, period=100)
     "Emulator for evaporator mass flow rate"
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+  Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
+    "Constant heating mode" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,70})));
 equation
   connect(safCtr.sigBus, sigBus) annotation (Line(
       points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
@@ -105,6 +110,12 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{41,-90},
           {50,-90},{50,-64},{-50,-64},{-50,-52}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(conHea.y, sigBus.hea) annotation (Line(points={{-79,70},{-50,70},{-50,
+          -52}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

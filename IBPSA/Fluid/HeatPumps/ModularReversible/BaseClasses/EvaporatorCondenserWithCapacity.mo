@@ -158,14 +158,14 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=is_con),
+          visible=isCon),
         Rectangle(
           extent={{44,-4},{100,5}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
-          visible=is_con),
+          visible=isCon),
         Line(
           points={{0,-96},{0,-50},{0,-46}},
           color={0,0,0},
@@ -242,14 +242,14 @@ equation
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
-          visible=not is_con),
+          visible=not isCon),
         Rectangle(
           extent={{43,5},{106,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          visible=not is_con),
+          visible=not isCon),
         Text(
           extent={{-100,-100},{100,-60}},
           textColor={28,108,200},

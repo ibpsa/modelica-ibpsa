@@ -43,7 +43,7 @@ partial model PartialRefrigerantCycle
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor
     "Replaceable model to calculate the icing factor" annotation (
     choicesAllMatching=true,
-    Dialog(group="Frosting supression", enable=calc_iceFac),
+    Dialog(group="Frosting supression"),
     Placement(transformation(extent={{-100,-52},{-80,-32}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
