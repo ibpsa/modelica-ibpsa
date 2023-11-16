@@ -122,7 +122,7 @@ partial model PartialReversibleRefrigerantMachine
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Flow resistance",
-        tab="Evaporator"), Evaluate=true);
+        tab="Evaporator"));
   parameter Real deltaMEva=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));

@@ -5,8 +5,7 @@ model VariableOrder
 
   parameter Modelica.Units.SI.Frequency refIneFreConst
     "Cut off frequency for inertia of refrigerant cycle" annotation (
-      Dialog(group="Refrigerant inertia"),
-            Evaluate=true);
+      Dialog(group="Refrigerant inertia"));
   parameter Integer nthOrd=1 "Order of refrigerant cycle interia"
     annotation (Dialog(group="Refrigerant inertia"));
   parameter Real x_start[nthOrd]=zeros(nthOrd)
