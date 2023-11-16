@@ -51,7 +51,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final tabLowCoo=datTab.tabLowBou,
     final use_TUseSidOut=datTab.use_TEvaOutForOpeEnv,
     final use_TAmbSidOut=datTab.use_TConOutForOpeEnv) "Safety control parameters"
-    annotation (Dialog(enable=use_internalSafetyControl, group="Safety Control"),
+    annotation (Dialog(enable=use_intSafCtr, group="Safety Control"),
       choicesAllMatching=true);
     // Upper boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>

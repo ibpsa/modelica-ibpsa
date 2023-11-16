@@ -7,6 +7,8 @@ partial model PartialCarnot
   parameter Boolean useAirForEva
     "Helper parameter to decide on good pinch assumptions on evaporator side";
   parameter Real quaGra=0.3 "Constant quality grade";
+  parameter Boolean use_constAppTem=false
+    "=true to use nominal approach temperatures as a constant";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)=
     if useAirForCon then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
@@ -19,7 +21,6 @@ partial model PartialCarnot
   parameter Modelica.Units.SI.TemperatureDifference dTCarMin=5
     "Minimal temperature difference, used to avoid division errors"
      annotation(Dialog(tab="Advanced"));
-
   Modelica.Blocks.Sources.RealExpression reaEtaCarEff(final y=quaGra*TUseSidAct/
         IBPSA.Utilities.Math.Functions.smoothMax(
         x1=dTCarMin,
@@ -50,10 +51,12 @@ partial model PartialCarnot
     "Refrigerant condensation temperature";
   Modelica.Units.SI.Temperature TEvaAct = pasThrTEva.y - TAppEva
     "Refrigerant evaporation temperature";
-  Modelica.Units.SI.TemperatureDifference TAppCon = TAppCon_nominal*
-        QCon_flow_internal/QCon_flow_nominal "Condenser approach temperature";
-  Modelica.Units.SI.TemperatureDifference TAppEva = TAppEva_nominal*
-        QEva_flow_internal/QEva_flow_nominal "Evaporator approach temperature ";
+  Modelica.Units.SI.TemperatureDifference TAppCon = if use_constAppTem then TAppCon_nominal
+      else TAppCon_nominal * QCon_flow_internal/QCon_flow_nominal
+      "Condenser approach temperature";
+  Modelica.Units.SI.TemperatureDifference TAppEva = if use_constAppTem then TAppEva_nominal
+      else TAppEva_nominal * QEva_flow_internal/QEva_flow_nominal
+      "Evaporator approach temperature ";
   Modelica.Blocks.Sources.Constant constZer(final k=0)
     "Constant zero value if off" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

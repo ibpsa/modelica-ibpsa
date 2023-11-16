@@ -95,8 +95,8 @@ equation
 <p>
   <code>
     QCon_flow = PEle_nominal * quaGra * ySet *
-    (TCon_nominal + TAppCon_nominal) /
-    (TCon_nominal + TAppCon_nominal - TEva_nominal - TAppEva_nominal)
+    (TConOut + TAppCon) /
+    (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
 </p>
 <p>
@@ -108,8 +108,23 @@ equation
   This equations follows the Carnot approach of the IBPSA library:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
   IBPSA.Fluid.HeatPumps.Carnot_y</a>
-  Similar, the paramateres <code>TAppCon_nominal</code> and
-  <code>TAppEva_nominal</code> define pinch temperature differences.
+  Similar, the variables <code>TAppCon</code> and
+  <code>TAppEva</code> define the approach (pinch) temperature differences.
+</p>
+<p>
+  The approach temperatures 
+  are calculated using the following equation:
+</p>
+<p>
+  <code>
+  TApp = TApp_nominal * Q_flow / Q_flow_nominal
+  </code>
+</p>
+<p>
+  This introduces nonlinear equations to the model, which 
+  can lead to solver issues for reversible operation. 
+  You can use the nominal values as a constant by 
+  enabling <code>use_constAppTem</code>
 </p>
 </html>"), Icon(graphics={Text(
           extent={{-78,80},{74,-66}},

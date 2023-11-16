@@ -45,7 +45,7 @@ model ReversibleAirToWaterTableData2D
       final use_TUseSidOut=datTabHea.use_TConOutForOpeEnv,
       final use_TAmbSidOut=datTabCoo.use_TEvaOutForOpeEnv)
     "Safety control parameters" annotation (Dialog(enable=
-          use_internalSafetyControl, group="Safety Control"), choicesAllMatching=true);
+          use_intSafCtr, group="Safety Control"), choicesAllMatching=true);
 
   annotation (Documentation(info="<html>
 <p>

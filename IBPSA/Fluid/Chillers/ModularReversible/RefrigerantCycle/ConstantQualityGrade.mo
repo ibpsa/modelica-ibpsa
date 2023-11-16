@@ -93,8 +93,8 @@ equation
 <p>
   <code>
     QEva_flow = PEle_nominal * quaGra * ySet *
-    (TEva_nominal + TAppEva_nominal) /
-    (TCon_nominal + TAppCon_nominal - TEva_nominal - TAppEva_nominal)
+    (TEvaOut - TAppEva) /
+    (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
 </p>
 <p>
@@ -106,8 +106,23 @@ equation
   These equations follow the same methods used in
   <a href=\"modelica://IBPSA.Fluid.Chillers.Carnot_y\">
   IBPSA.Fluid.Chillers.Carnot_y</a>
-  Similarly, the parameters <code>TAppCon_nominal</code> and
-  <code>TAppEva_nominal</code> define pinch temperature differences.
+  Similarly, the variables <code>TAppCon</code> and
+  <code>TAppEva</code> define the approach (pinch) temperature differences.
+</p>
+<p>
+  The approach temperatures 
+  are calculated using the following equation:
+</p>
+<p>
+  <code>
+  TApp = TApp_nominal * Q_flow / Q_flow_nominal
+  </code>
+</p>
+<p>
+  This introduces nonlinear equations to the model, which 
+  can lead to solver issues for reversible operation. 
+  You can use the nominal values as a constant by 
+  enabling <code>use_constAppTem</code>
 </p>
 </html>"), Icon(graphics={Text(
           extent={{-78,68},{74,-78}},

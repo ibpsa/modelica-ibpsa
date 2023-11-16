@@ -10,9 +10,12 @@ model ReversibleCarnotWithLosses
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
+        quaGra=quaGra,
+        use_constAppTem=true,
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
-        quaGra=quaGra),
+        TAppCon_nominal=TAppCon_nominal,
+        TAppEva_nominal=TAppEva_nominal),
     redeclare model RefrigerantCycleChillerCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade
         (
@@ -22,6 +25,8 @@ model ReversibleCarnotWithLosses
               IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
+        TAppCon_nominal=TAppCon_nominal,
+        TAppEva_nominal=TAppEva_nominal,
         quaGra=quaGra),
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
@@ -31,6 +36,12 @@ model ReversibleCarnotWithLosses
         initType=Modelica.Blocks.Types.Init.InitialOutput));
 
   parameter Real quaGra=0.3 "Constant quality grade";
+  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=if
+      cpCon < 1500 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in condenser";
+  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=if
+      cpEva < 1500 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in evaporator";
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay";
   parameter Integer nthOrd=1 "Order of refrigerant cycle interia";
@@ -55,6 +66,8 @@ model ReversibleCarnotWithLosses
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible chiller.
+  For the heating operation, the nominal approach temperatures are used 
+  as a constant to avoid nonlinear solving issues.
 </p>
 <p>
   Furthermore, losses are enabled to model

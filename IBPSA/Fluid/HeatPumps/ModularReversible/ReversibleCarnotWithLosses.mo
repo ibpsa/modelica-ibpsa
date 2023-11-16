@@ -11,7 +11,10 @@ model ReversibleCarnotWithLosses
           iceFacCal,
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
-        quaGra=quaGra),
+        quaGra=quaGra,
+        use_constAppTem=true,
+        TAppCon_nominal=TAppCon_nominal,
+        TAppEva_nominal=TAppEva_nominal),
     redeclare model RefrigerantCycleHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade
         (
@@ -21,7 +24,9 @@ model ReversibleCarnotWithLosses
               IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
         useAirForCon=cpCon < 1500,
         useAirForEva=cpEva < 1500,
-        quaGra=quaGra),
+        quaGra=quaGra,
+        TAppCon_nominal=TAppCon_nominal,
+        TAppEva_nominal=TAppEva_nominal),
     final use_evaCap,
     final use_conCap,
     redeclare model RefrigerantCycleInertia =
@@ -32,9 +37,16 @@ model ReversibleCarnotWithLosses
         initType=Modelica.Blocks.Types.Init.InitialOutput));
 
   parameter Real quaGra=0.3 "Constant quality grade";
+  parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=if
+      cpCon < 1500 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in condenser";
+  parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=if
+      cpEva < 1500 then 5 else 2
+    "Temperature difference between refrigerant and working fluid outlet in evaporator";
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay";
   parameter Integer nthOrd=1 "Order of refrigerant cycle interia";
+
 
   annotation (Documentation(info="<html>
 <p>
@@ -46,6 +58,8 @@ model ReversibleCarnotWithLosses
   and chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible heat pump.
+  For the heating operation, the nominal approach temperatures are used 
+  as a constant to avoid nonlinear solving issues.
 </p>
 <p>
   Furthermore, losses are enabled to model
