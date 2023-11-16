@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Validation;
 model Carnot_y "Example using the Carnot_y model approach"
-  extends BaseClasses.PartialChillerComparison(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative.BaseClasses.PartialComparison(
     m1_flow_nominal=chi.m1_flow_nominal,
     m2_flow_nominal=chi.m2_flow_nominal,
     sin2(nPorts=1),

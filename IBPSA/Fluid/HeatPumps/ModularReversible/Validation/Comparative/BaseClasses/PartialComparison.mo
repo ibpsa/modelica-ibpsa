@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative.BaseClasses;
 partial model PartialComparison
-  "Partial model to allow heat pump model comparison"
+  "Partial model to allow heat pump and chiller model comparison"
   package Medium1 = IBPSA.Media.Water "Medium model";
   package Medium2 = IBPSA.Media.Water "Medium model";
 

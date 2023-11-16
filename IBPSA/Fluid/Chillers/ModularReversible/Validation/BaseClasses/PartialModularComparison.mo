@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Validation.BaseClasses;
 partial model PartialModularComparison
   "Partial model for comparison to Carnot_y"
-  extends BaseClasses.PartialChillerComparison(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative.BaseClasses.PartialComparison(
     m1_flow_nominal=chi.mCon_flow_nominal,
     m2_flow_nominal=chi.mEva_flow_nominal,
     sou1(nPorts=1),
