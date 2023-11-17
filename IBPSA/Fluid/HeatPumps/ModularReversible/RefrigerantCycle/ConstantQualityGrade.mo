@@ -123,7 +123,7 @@ equation
 <p>
   This introduces nonlinear equations to the model, which 
   can lead to solver issues for reversible operation. 
-  You can use the nominal values as a constant by 
+  You can fix the approach temperature at the nominal value by
   setting <code>use_constAppTem</code>
 </p>
 </html>"), Icon(graphics={Text(
