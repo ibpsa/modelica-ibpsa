@@ -20,7 +20,7 @@ model CalculateCOP
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 initial equation
   assert(PEleMin > 0,
-    "PEleMin must be greater than zero. Disable efficiency calculation using 
+    "PEleMin must be greater than zero. Disable efficiency calculation using
     calEff=false to debug why PEle_nominal is lower than zero.",
     AssertionLevel.error);
 

@@ -41,8 +41,8 @@ initial equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  This model provides declarations that auto-populate nominal mass flow rates 
-  and time constants (i.e. volumes) of the heat exchange based on 
+  This model provides declarations that auto-populate nominal mass flow rates
+  and time constants (i.e. volumes) of the heat exchange based on
   the nominal electric power consumption of the chiller or heat pump.
   It is based on more than 20 datasets of water-to-water heat pumps
   from multiple manufacturers ranging from about 25 kW

@@ -99,7 +99,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Partial model which is based on 
+Partial model which is based on
 <a href=\"modelica://IBPSA.Fluid.HeatPumps.Examples.Carnot_y\">
 IBPSA.Fluid.HeatPumps.Examples.Carnot_y</a>
 to validate the modular reversible models by means of

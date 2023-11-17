@@ -47,10 +47,10 @@ equation
   the given boundaries. If not, the heat pump or chiller will switch off.
 </p>
 <p>
-  Read the documentation of 
+  Read the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope</a>
-  for more information. 
+  for more information.
 </p>
 
 </html>"));

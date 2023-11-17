@@ -357,7 +357,7 @@ protected
             {-90,-26}})));
 
   parameter Boolean use_busConOnl=false
-    "=true to allow input to bus connector, 
+    "=true to allow input to bus connector,
     not applicable with internal safety control"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
           use_intSafCtr));

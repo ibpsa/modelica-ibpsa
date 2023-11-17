@@ -13,7 +13,7 @@ Suggested change
   Modelica.Blocks.Interfaces.SISO</a>
   and is made to constrain the replaceable inertia module
   within other inertia models.
-</p>    
+</p>
 </html>", revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

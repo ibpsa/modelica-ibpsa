@@ -27,13 +27,13 @@ record Vitocal251A08 "A2W Vitocal 251 by Viessmann"
     devIde="Vitocal251A08");
   annotation (Documentation(info="<html>
 <p>
-  Data from the planning book (Planungshandbuch) from Viessmann. 
+  Data from the planning book (Planungshandbuch) from Viessmann.
 </p>
 <p>
-  While the product exists in different sizes, 
+  While the product exists in different sizes,
   this record contains the data for the subtype 251-A08.
-  If you want to model the pressure losses of the device, 
-  check out the data sheet and the installed pumps. 
+  If you want to model the pressure losses of the device,
+  check out the data sheet and the installed pumps.
   The pressure loss depends mostly on the hydraulic system
   according to the datasheet.
 </p>
@@ -47,6 +47,6 @@ Viessmann, Planungshandbuch.
 <a href=\"https://www.haustechnik-handrich.de/media/pdf/54/c4/14/vie-pa-z022164.pdf\">
 https://www.haustechnik-handrich.de/media/pdf/54/c4/14/vie-pa-z022164.pdf</a>.
 </p>
- 
+
 </html>"));
 end Vitocal251A08;

@@ -202,8 +202,8 @@ equation
   to the partial refrigerant cylce.
 </p>
 <p>
-  Further, an asseration warning is raised if the model approaches or 
-  sources for performance data differ. This indicates that they are not 
+  Further, an asseration warning is raised if the model approaches or
+  sources for performance data differ. This indicates that they are not
   for the same device.
 </p>
 <p>

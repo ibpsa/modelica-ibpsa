@@ -112,7 +112,7 @@ equation
   <code>TAppEva</code> define the approach (pinch) temperature differences.
 </p>
 <p>
-  The approach temperatures 
+  The approach temperatures
   are calculated using the following equation:
 </p>
 <p>
@@ -121,8 +121,8 @@ equation
   </code>
 </p>
 <p>
-  This introduces nonlinear equations to the model, which 
-  can lead to solver issues for reversible operation. 
+  This introduces nonlinear equations to the model, which
+  can lead to solver issues for reversible operation.
   You can fix the approach temperature at the nominal value by
   setting <code>use_constAppTem</code>
 </p>

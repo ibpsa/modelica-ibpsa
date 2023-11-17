@@ -174,20 +174,20 @@ to the section <b>Refrigerant cycle models</b>.
 <h4>Reversible operation</h4>
 
 <p>
-Simulating reversible heat pumps and chillers can get confusing, as the same heat 
-exchanger model has to be used for both condensation and evaporation. 
+Simulating reversible heat pumps and chillers can get confusing, as the same heat
+exchanger model has to be used for both condensation and evaporation.
 </p>
 
 <p>
 In most cases, heat pumps and chillers extract/exhaust heat from/to
-an ambient source (air, soil, ground-water, etc.), 
+an ambient source (air, soil, ground-water, etc.),
 and, consuming electrical energy, provide heating or cooling on the <i>useful side</i>.
-For building applications, this <i>useful side</i> is inside the building. 
+For building applications, this <i>useful side</i> is inside the building.
 The ambient heat is outside of the building, on the <i>ambient side</i>.
 </p>
 <p>
 However, vapor compression machines can also be used to provide heating and cooling simultaniously.
-In this case, both sides provide utility to the energy system. Hence, both sides 
+In this case, both sides provide utility to the energy system. Hence, both sides
 are <i>useful sides</i>.
 </p>
 <p>
@@ -196,13 +196,13 @@ of the heat pump or chiller. The main operation of a heat pump is heating, for
 a chiller, cooling. When reversed, the condenser becomes the evaporator and
 vice versa. As renaming instances after translation is not possible, you always
 have to think about the names <code>con</code> and <code>eva</code> in terms of
-the main operation of the device. 
+the main operation of the device.
 This applies to the instances <code>con</code> and <code>eva</code> as well as
 all sensor values, like <code>TConOutMea</code> or <code>TEvaInMea</code>.
-As the temperature values are for table-based performance data 
-and the operational envelope model, 
+As the temperature values are for table-based performance data
+and the operational envelope model,
 you also have to think about the <i>useful</i>
-and <i>ambient side</i> in the datasheets and how they translate to 
+and <i>ambient side</i> in the datasheets and how they translate to
 heat pumps and chillers in both main and reversed operation.
 The following tables summarizes the possible options.
 </p>
@@ -446,15 +446,15 @@ for heating and cooling.
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety</a>
 </p>
-  
+
 <p>
-  Probably the most important safety control with regard to 
-  system interaction is the operation envelope. Read the documentation of 
+  Probably the most important safety control with regard to
+  system interaction is the operation envelope. Read the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope</a>
   for more information on this model and how it affects device operation.
-</p>  
-  
+</p>
+
 
 <h4>Refrigerant cycle inertia</h4>
 

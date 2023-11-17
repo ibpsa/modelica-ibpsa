@@ -69,9 +69,9 @@ record WAMAK_WaterToWater_220kW "220 kW water to water with R513A"
     use_TEvaOutForTab=false);
   annotation (Documentation(info="<html>
 <p>
-  Data for large scale (220 kW) water-to-water heat pump from WAMAK. 
+  Data for large scale (220 kW) water-to-water heat pump from WAMAK.
   Nominal pressure losses are the maximal values given in the datasheet,
-  same for the nominal mass flow rates. 
+  same for the nominal mass flow rates.
 </p>
 
 <h4>References</h4>

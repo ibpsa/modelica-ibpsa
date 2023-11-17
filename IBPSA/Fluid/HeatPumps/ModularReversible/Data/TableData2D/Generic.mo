@@ -45,9 +45,9 @@ record Generic "Partial two-dimensional data of refrigerant machines"
 </p>
 <p>
   The nominal mass flow rates in the condenser and evaporator
-  are also defined as parameters. If nominal pressure curves are provided 
-  in the datasheets, be sure to match the two parameters. 
-  Aside from that, the nominal mass flow rates are compared to the values specified 
+  are also defined as parameters. If nominal pressure curves are provided
+  in the datasheets, be sure to match the two parameters.
+  Aside from that, the nominal mass flow rates are compared to the values specified
   by the user. If the deviation is too great, a warning indicates a possible mismatch of
   system mass flow rate and table data.
 </p>
@@ -56,18 +56,18 @@ record Generic "Partial two-dimensional data of refrigerant machines"
   matching records will be used. This parameter is mainly to avoid manual input
   errors.
 </p>
-<h4>Where to get the data?</h4> 
+<h4>Where to get the data?</h4>
 <p>
-  Manufacturers often provide table data for heating / cooling capacity and 
+  Manufacturers often provide table data for heating / cooling capacity and
   electrical power consumption, e.g. based on EN 14511.
-  While the usual datasheets only contain some nominal points, 
+  While the usual datasheets only contain some nominal points,
   the documents for installers and planners are often more specific.
-  Keywords for a search should be <i>technical guide</i>, <i>planning handbook</i>, 
+  Keywords for a search should be <i>technical guide</i>, <i>planning handbook</i>,
   or similar, together with the manufacturer and possibly the device id.
 </p>
 <h4>References</h4>
 <p>
-EN 14511-2018: Air conditioners, liquid chilling packages and heat pumps for space 
+EN 14511-2018: Air conditioners, liquid chilling packages and heat pumps for space
 heating and cooling and process chillers, with electrically driven compressors
 <a href=\"https://www.beuth.de/de/norm/din-en-14511-1/298537524\">
 https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
