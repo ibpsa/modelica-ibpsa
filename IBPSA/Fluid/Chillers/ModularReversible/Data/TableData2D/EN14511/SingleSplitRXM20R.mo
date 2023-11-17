@@ -37,7 +37,7 @@ Daikin, Technical data book RXM-R
 <a href=\"https://www.heizman24.de/media/pdf/fa/50/2c/Daikin-RXM-R-Produktdatenbuch.pdf\">
 https://www.heizman24.de/media/pdf/fa/50/2c/Daikin-RXM-R-Produktdatenbuch.pdf</a>
 </p>
-    
+
 </html>", revisions="<html>
 <ul>
 <li>

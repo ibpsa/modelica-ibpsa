@@ -138,8 +138,8 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses two-dimensional table data typically given 
-  by manufacturers as required by e.g. European Norm 14511 
+  This model uses two-dimensional table data typically given
+  by manufacturers as required by e.g. European Norm 14511
   or ASHRAE 205 to calculate
   <code>QEva_flow</code> and <code>PEle</code>.
 </p>
@@ -167,9 +167,9 @@ This implies a constant COP over different design sizes:
   Manufacturers are not required to provide the compressor speed at which
   the data are measured. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
-  To accurately model the available thermal output, 
-  please check that you use tables of the maximal thermal output, 
-  which is often provided in the data sheets from the manufacturers. 
+  To accurately model the available thermal output,
+  please check that you use tables of the maximal thermal output,
+  which is often provided in the data sheets from the manufacturers.
   This limitation only holds for inverter driven chillers.
 </li>
 <li>
@@ -180,13 +180,13 @@ This implies a constant COP over different design sizes:
   compressor speed <code>ySet</code> is used to scale
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
-  dependent refrigerant cycle models in the 
+  dependent refrigerant cycle models in the
   <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a>.
 </li>
 </ul>
 <h4>References</h4>
 <p>
-EN 14511-2018: Air conditioners, liquid chilling packages and heat pumps for space 
+EN 14511-2018: Air conditioners, liquid chilling packages and heat pumps for space
 heating and cooling and process chillers, with electrically driven compressors
 <a href=\"https://www.beuth.de/de/norm/din-en-14511-1/298537524\">
 https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>

@@ -101,7 +101,7 @@ equation
   <code>
     PEle = PEle_nominal * ySet
   </code>
-</p>    
+</p>
 <p>
   These equations follow the same methods used in
   <a href=\"modelica://IBPSA.Fluid.Chillers.Carnot_y\">
@@ -110,7 +110,7 @@ equation
   <code>TAppEva</code> define the approach (pinch) temperature differences.
 </p>
 <p>
-  The approach temperatures 
+  The approach temperatures
   are calculated using the following equation:
 </p>
 <p>
@@ -119,9 +119,9 @@ equation
   </code>
 </p>
 <p>
-  This introduces nonlinear equations to the model, which 
-  can lead to solver issues for reversible operation. 
-  You can use the nominal values as a constant by 
+  This introduces nonlinear equations to the model, which
+  can lead to solver issues for reversible operation.
+  You can use the nominal values as a constant by
   enabling <code>use_constAppTem</code>
 </p>
 </html>"), Icon(graphics={Text(
