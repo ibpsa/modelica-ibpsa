@@ -59,7 +59,7 @@ model ReversibleCarnotWithLosses
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible heat pump.
   For the heating operation, the nominal approach temperatures are used 
-  as a constant to avoid nonlinear solving issues.
+  at nominal values to avoid nonlinear solving issues.
 </p>
 <p>
   Furthermore, losses are enabled to model
