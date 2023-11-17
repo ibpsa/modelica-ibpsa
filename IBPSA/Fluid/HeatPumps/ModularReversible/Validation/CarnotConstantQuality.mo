@@ -17,8 +17,10 @@ model CarnotConstantQuality
       redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade
           (
-          useAirForCon=false,
-          useAirForEva=false,
+          cpCon=heaPum.cpCon,
+          cpEva=heaPum.cpEva,
+          TAppCon_nominal=0,
+          TAppEva_nominal=0,
           quaGra=quaGra)));
   parameter Real quaGra=0.4318 "Calibrated constant quality grade";
 

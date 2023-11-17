@@ -5,8 +5,8 @@ model ConstantQualityGrade
         RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade
           (
-          useAirForCon=false,
-          useAirForEva=false,
+          cpCon=heaPum.cpCon,
+          cpEva=heaPum.cpEva,
           quaGra=etaCarnot_nominal)));
   extends Modelica.Icons.Example;
 

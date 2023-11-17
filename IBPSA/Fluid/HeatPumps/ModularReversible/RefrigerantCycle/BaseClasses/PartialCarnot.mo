@@ -2,20 +2,21 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialCarnot
   "Model with components for carnot efficiency calculation"
   parameter Boolean useForChi "=false to use in heat pump models";
-  parameter Boolean useAirForCon
-    "Helper parameter to decide on good pinch assumptions on condenser side";
-  parameter Boolean useAirForEva
-    "Helper parameter to decide on good pinch assumptions on evaporator side";
+
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon
+    "Condenser medium specific heat capacity, used for pinch assumption";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpEva
+    "Evaporator medium specific heat capacity, used for pinch assumption";
   parameter Real quaGra=0.3 "Constant quality grade";
   parameter Boolean use_constAppTem=false
     "=true to fix approach temperatures at nominal values. This can improve simulation speed";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)=
-    if useAirForCon then 5 else 2
+    if cpCon < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
 
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal(min=0)=
-      if useAirForEva then 5 else 2
+      if cpCon < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
     annotation (Dialog(group="Efficiency"));
   parameter Modelica.Units.SI.TemperatureDifference dTCarMin=5

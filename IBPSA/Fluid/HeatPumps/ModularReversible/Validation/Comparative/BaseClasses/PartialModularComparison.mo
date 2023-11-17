@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative.BaseClasses;
 partial model PartialModularComparison
-  "Partial model for comparison to Carnot_y"
+  "Partial model for comparison to the Carnot model"
   extends PartialComparison(
     m1_flow_nominal=heaPum.mCon_flow_nominal,
     m2_flow_nominal=heaPum.mEva_flow_nominal,
@@ -18,7 +18,6 @@ partial model PartialModularComparison
     final cpEva=4184,
     redeclare final model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
-
     final use_rev=false,
     final use_intSafCtr=false,
     final tauCon=tau1,

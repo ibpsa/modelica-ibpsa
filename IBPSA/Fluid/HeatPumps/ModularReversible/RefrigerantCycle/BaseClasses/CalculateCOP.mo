@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
-model CalculateCoefficientOfPerformance
+model CalculateCOP
   "Calculate the COP or EER of a device"
 
   parameter Modelica.Units.SI.Power PEleMin(min=Modelica.Constants.eps)
@@ -46,8 +46,7 @@ equation
 <p>
   This model is used to calculate the COP or the EER of a device. As
   the electrical power can get zero, a lower boundary is used to
-  avoid division by zero. If the threshold is surpassed by 10 percent,
-  the efficiency is calculated again.
+  avoid division by zero.
 </p>
 </html>"));
-end CalculateCoefficientOfPerformance;
+end CalculateCOP;

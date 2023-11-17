@@ -199,8 +199,9 @@ have to think about the names <code>con</code> and <code>eva</code> in terms of
 the main operation of the device. 
 This applies to the instances <code>con</code> and <code>eva</code> as well as
 all sensor values, like <code>TConOutMea</code> or <code>TEvaInMea</code>.
-As the temperatures are used model performance using table data
-and the operational envelope, you also have to think about the <i>useful</i>
+As the temperature values are for table based performance data 
+and the operational envelope model, 
+you also have to think about the <i>useful</i>
 and <i>ambient side</i> in the datasheets and how they translate to 
 heat pumps and chillers in both main and reversed operation.
 The following tables summarizes the possible options.
@@ -445,6 +446,15 @@ for heating and cooling.
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety</a>
 </p>
+  
+<p>
+  Probably the most important safety control with regard to 
+  system interaction is the operation envelope. Read the documentation of 
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope</a>
+  for more information on this model and how it affects device operation.
+</p>  
+  
 
 <h4>Refrigerant cycle inertia</h4>
 

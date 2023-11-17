@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative;
-model Carnot_y "Example using the Carnot_y model approach"
+model Carnot_y "Example using the Carnot model approach"
   extends BaseClasses.PartialComparison(
     m1_flow_nominal=heaPum.m1_flow_nominal,
     m2_flow_nominal=heaPum.m2_flow_nominal,

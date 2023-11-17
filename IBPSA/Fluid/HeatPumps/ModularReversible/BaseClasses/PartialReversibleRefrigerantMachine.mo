@@ -349,22 +349,23 @@ partial model PartialReversibleRefrigerantMachine
 
 // To avoid using the bus, set the section below to protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
-// -->
 protected
+// -->
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-120,-60},{-90,-26}}), iconTransformation(extent={{-108,-52},
             {-90,-26}})));
 
-  parameter Boolean use_busConOnl=false "=true to use bus connector for model inputs 
-    (ySet, hea or coo). =false to use the bus connector for outputs only.
-    Only possible if no internal safety control is used"
+  parameter Boolean use_busConOnl=false
+    "=true to allow input to bus connector, 
+    not applicable with internal safety control"
     annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
           use_intSafCtr));
 
 // <!-- @include_AixLib
-// -->
 protected
+// -->
+
   parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)

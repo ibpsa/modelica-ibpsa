@@ -41,24 +41,24 @@ partial model PartialComparison
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
     "Nominal mass flow rate at condenser water wide";
-  Sources.MassFlowSource_T             sou1(
+  IBPSA.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium1,
     use_T_in=true,
     m_flow=m1_flow_nominal,
-    T=298.15)
+    T=298.15) "Condenser mass flow source"
     annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
-  Sources.MassFlowSource_T             sou2(
+  IBPSA.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=m2_flow_nominal,
-    T=291.15)
+    T=291.15) "Evaporator mass flow source"
     annotation (Placement(transformation(extent={{60,-16},{40,4}})));
-  Sources.Boundary_pT             sin1(redeclare package Medium = Medium1)
+  IBPSA.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = Medium1)
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         origin={70,30})));
-  Sources.Boundary_pT             sin2(redeclare package Medium = Medium2)
+  IBPSA.Fluid.Sources.Boundary_pT sin2(redeclare package Medium = Medium2)
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -79,8 +79,7 @@ partial model PartialComparison
     height=10,
     duration=60,
     startTime=900,
-    offset=TEvaIn_nominal)
-                        "Evaporator inlet temperature"
+    offset=TEvaIn_nominal) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
 equation
   connect(TCon_in.y,sou1. T_in) annotation (Line(

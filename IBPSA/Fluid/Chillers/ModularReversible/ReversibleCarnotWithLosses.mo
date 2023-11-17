@@ -12,8 +12,8 @@ model ReversibleCarnotWithLosses
           iceFacCal,
         quaGra=quaGra,
         use_constAppTem=true,
-        useAirForCon=cpCon < 1500,
-        useAirForEva=cpEva < 1500,
+        cpCon=cpCon,
+        cpEva=cpEva,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal),
     redeclare model RefrigerantCycleChillerCooling =
@@ -23,8 +23,8 @@ model ReversibleCarnotWithLosses
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.FunctionalIcingFactor
           iceFacCal(redeclare function icingFactor =
               IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
-        useAirForCon=cpCon < 1500,
-        useAirForEva=cpEva < 1500,
+        cpCon=cpCon,
+        cpEva=cpEva,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal,
         quaGra=quaGra),

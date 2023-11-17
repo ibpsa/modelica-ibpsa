@@ -19,10 +19,10 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
   RefrigerantCycleChillerCooling refCycChiCoo
-    "Regrigerant cycle instance for cooling"
+    "Refrigerant cycle instance for cooling"
     annotation (Placement(transformation(extent={{21,40},{60,80}}, rotation=0)));
   RefrigerantCycleChillerHeating refCycChiHea
-    "Regrigerant cycle instance for heating"
+    "Refrigerant cycle instance for heating"
     annotation (Placement(transformation(extent={{-80,38},{-39,80}}, rotation=0)));
 
   Modelica.Blocks.Math.Gain gainEva(final k=-1)
