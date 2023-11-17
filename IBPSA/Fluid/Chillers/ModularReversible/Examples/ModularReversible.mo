@@ -42,8 +42,8 @@ model ModularReversible
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade
         (
         datSou="Override to avoid warnings during simulation for CI",
-        useAirForCon=chi.cpCon < 1500,
-        useAirForEva=chi.cpEva < 1500,
+        cpCon=chi.cpCon,
+        cpEva=chi.cpEva,
         quaGra=0.35),
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
