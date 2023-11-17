@@ -199,7 +199,7 @@ have to think about the names <code>con</code> and <code>eva</code> in terms of
 the main operation of the device. 
 This applies to the instances <code>con</code> and <code>eva</code> as well as
 all sensor values, like <code>TConOutMea</code> or <code>TEvaInMea</code>.
-As the temperature values are for table based performance data 
+As the temperature values are for table-based performance data 
 and the operational envelope model, 
 you also have to think about the <i>useful</i>
 and <i>ambient side</i> in the datasheets and how they translate to 
