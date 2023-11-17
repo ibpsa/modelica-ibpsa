@@ -124,7 +124,7 @@ equation
   This introduces nonlinear equations to the model, which 
   can lead to solver issues for reversible operation. 
   You can use the nominal values as a constant by 
-  enabling <code>use_constAppTem</code>
+  setting <code>use_constAppTem</code>
 </p>
 </html>"), Icon(graphics={Text(
           extent={{-78,80},{74,-66}},
