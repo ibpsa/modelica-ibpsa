@@ -5,8 +5,8 @@ model ConstantQualityGrade
         RefrigerantCycleChillerCooling =
           IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade
           (
-          useAirForCon=false,
-          useAirForEva=false,
+          cpCon=chi.cpCon,
+          cpEva=chi.cpEva,
           quaGra=etaCarnot_nominal)));
   extends Modelica.Icons.Example;
 
