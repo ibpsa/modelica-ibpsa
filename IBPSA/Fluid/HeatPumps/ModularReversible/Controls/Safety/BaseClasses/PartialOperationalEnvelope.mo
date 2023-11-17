@@ -65,10 +65,10 @@ equation
   Only three sides of the real envelope are implemented (Figures 2 and 3).
   The real operational envelope implies continuous operation.
   This means start-up from e.g. a cold heat pump supply temperature
-  is possible in reality. To avoid additional equations for startup and
+  is possible. To avoid additional equations for startup and
   continuous operation, we neither implement the
   lower boundary for heating nor the upper boundary for cooling devices.
-  This would lead to devices never being able to turn on.
+  This avoids the situation where the device can never be turned on.
 </li>
 <li>
   From all the influences on the real envelope, the compressor frequency
@@ -99,12 +99,12 @@ equation
   thoroughly if you need inlet or outlet conditions, and if
   you are modelling a heat pump or chiller.
   Figure 1 depicts possible upper and lower boundaries as well as
-  names for the x- and y-axis.
-  Depending on your setup, you even have to transpose existing boundaries.
+  what variables the boundaries are defined with.
+  Depending on your setup, you may have to transpose existing boundaries.
   For instance, when using an envelope designed for a
   heat pump in a chiller model, the useful side (column 2 of the data)
   is not the condenser but the evaporator. Thus, you have to
-  switch column 1 and 2.
+  switch columns 1 and 2.
   The following examples aim to explain how to obtain the envelopes:
 </p>
 <p>
@@ -119,7 +119,7 @@ equation
   The envelopes for air-to-water heat pumps
   often contain water supply temperature (<code>TConOutMea</code>)
   on the y-axis and ambient temperatures (<code>TEvaInMea</code>)
-  on the x axis. In these cases, <code>tabUppHea</code> is based
+  on the x-axis. In these cases, <code>tabUppHea</code> is based
   on the y-axis maximal values and <code>tabLowCoo</code>
   based on the y-axis minimal values.
   Figure 2 depicts this setup.
@@ -127,7 +127,7 @@ equation
 <li>
   The envelopes for air-to-air devices often
   contain ambient inlet (<code>TConInMea</code>) as y and
-  room (<code>TEvaInMea</code>) inlet temperatures as x variables.
+  room (<code>TEvaInMea</code>) inlet temperatures as x.
   In these cases, <code>tabUppHea</code> is based on the x-axis maximal
   values and tabLowCoo based on the x-axis minimal values.
   Figure 3 depicts this setup.

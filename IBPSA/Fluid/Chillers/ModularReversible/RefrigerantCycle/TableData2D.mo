@@ -164,7 +164,7 @@ This implies a constant COP over different design sizes:
 <h4>Known Limitations </h4>
 <ul>
 <li>
-  Manufacturers are not required to provide the compressor speed at wich
+  Manufacturers are not required to provide the compressor speed at which
   the data are measured. Thus, nominal values may be obtained at different
   compressor speeds and, thus, efficiencies.
   To accurately model the available thermal output, 

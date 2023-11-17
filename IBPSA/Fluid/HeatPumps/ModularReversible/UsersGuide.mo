@@ -174,26 +174,26 @@ to the section <b>Refrigerant cycle models</b>.
 <h4>Reversible operation</h4>
 
 <p>
-Simulation reversible heat pumps and chillers can get confusing, as the same heat 
+Simulating reversible heat pumps and chillers can get confusing, as the same heat 
 exchanger model has to be used for both condensation and evaporation. 
 </p>
 
 <p>
-In most cases, heat pumps and chillers extract / exhaust heat from / to
-an ambient source (air, soil, ground-water, o.s), 
-and, adding electrical energy, provide heating or cooling on the <i>useful side</i>.
+In most cases, heat pumps and chillers extract/exhaust heat from/to
+an ambient source (air, soil, ground-water, etc.), 
+and, consuming electrical energy, provide heating or cooling on the <i>useful side</i>.
 For building applications, this <i>useful side</i> is inside the building. 
 The ambient heat is outside of the building, on the <i>ambient side</i>.
 </p>
 <p>
-However, vapor compression machines can also be used to heat and cool simultaniously.
-In this case, both sides provide a use to the energy system. Hence, both sides 
+However, vapor compression machines can also be used to provide heating and cooling simultaniously.
+In this case, both sides provide utility to the energy system. Hence, both sides 
 are <i>useful sides</i>.
 </p>
 <p>
 Because of this, we went for a naming scheme which is based on the main operation
 of the heat pump or chiller. The main operation of a heat pump is heating, for
-a chiller it is cooling. When reversed, the condenser becomes the evaporator and
+a chiller, cooling. When reversed, the condenser becomes the evaporator and
 vice versa. As renaming instances after translation is not possible, you always
 have to think about the names <code>con</code> and <code>eva</code> in terms of
 the main operation of the device. 

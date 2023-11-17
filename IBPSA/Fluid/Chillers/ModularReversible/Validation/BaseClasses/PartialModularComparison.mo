@@ -64,7 +64,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Partial model to have consitent parameterization of the
+Partial model to have consistent parameterization of the
 modular reversible model approaches.
 </p>
 </html>"));

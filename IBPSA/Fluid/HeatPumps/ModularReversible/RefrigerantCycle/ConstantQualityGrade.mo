@@ -108,7 +108,7 @@ equation
   This equations follows the Carnot approach of the IBPSA library:
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
   IBPSA.Fluid.HeatPumps.Carnot_y</a>
-  Similar, the variables <code>TAppCon</code> and
+  Similarly, the variables <code>TAppCon</code> and
   <code>TAppEva</code> define the approach (pinch) temperature differences.
 </p>
 <p>
