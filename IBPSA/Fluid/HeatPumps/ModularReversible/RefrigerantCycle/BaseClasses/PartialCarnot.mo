@@ -8,7 +8,7 @@ partial model PartialCarnot
     "Helper parameter to decide on good pinch assumptions on evaporator side";
   parameter Real quaGra=0.3 "Constant quality grade";
   parameter Boolean use_constAppTem=false
-    "=true to use nominal approach temperatures as a constant";
+    "=true to fix approach temperatures at nominal values. This can improve simulation speed";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)=
     if useAirForCon then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
