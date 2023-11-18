@@ -2,6 +2,7 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
 model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
+      useInHeaPum=true,
       PEle_nominal=QUse_flow_nominal / COP_nominal,
       QUseNoSca_flow_nominal=QUse_flow_nominal,
       datSou="ConstantQualityGradeCarnot");

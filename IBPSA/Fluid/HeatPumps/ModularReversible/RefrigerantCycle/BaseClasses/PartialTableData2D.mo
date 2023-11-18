@@ -7,9 +7,9 @@ partial model PartialTableData2D
   parameter Modelica.Blocks.Types.Extrapolation extrapolation=
     Modelica.Blocks.Types.Extrapolation.LastTwoPoints
     "Extrapolation of data outside the definition range";
-  parameter Boolean use_TEvaOutForTab
+  parameter Boolean use_TEvaOutForTab=true
     "=true to use evaporator outlet temperature, false for inlet";
-  parameter Boolean use_TConOutForTab
+  parameter Boolean use_TConOutForTab=true
     "=true to use condenser outlet temperature, false for inlet";
   Modelica.Blocks.Tables.CombiTable2Ds tabPEle(
     final tableOnFile=false,

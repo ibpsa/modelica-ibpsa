@@ -2,19 +2,19 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety;
 model OnOff
   "Controlls if the Safety constraints for on-time, off-time, and cycle rate"
   extends BaseClasses.PartialSafety;
-  parameter Boolean use_minOnTime
+  parameter Boolean use_minOnTime=true
     "=false to ignore minimum on-time constraint"
     annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minOnTime(displayUnit="min")
     "Minimum on-time"
     annotation (Dialog(enable=use_minOnTime));
-  parameter Boolean use_minOffTime
+  parameter Boolean use_minOffTime=true
     "=false to ignore minimum off time constraint"
     annotation(choices(checkBox=true));
   parameter Modelica.Units.SI.Time minOffTime(displayUnit="min")
     "Minimum off time"
      annotation (Dialog(enable=use_minOffTime));
-  parameter Boolean use_maxCycRat
+  parameter Boolean use_maxCycRat=true
     "=false to ignore maximal cycle rate constraint"
     annotation(choices(checkBox=true));
   parameter Integer maxCycRat "Maximum cycle rate"
