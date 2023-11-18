@@ -197,8 +197,9 @@ a chiller, cooling. When reversed, the condenser becomes the evaporator and
 vice versa. As renaming instances after translation is not possible, you always
 have to think about the names <code>con</code> and <code>eva</code> in terms of
 the main operation of the device.
-This applies to the instances <code>con</code> and <code>eva</code> as well as
-all sensor values, like <code>TConOutMea</code> or <code>TEvaInMea</code>.
+This applies to the instance and variable names,
+such as of the heat exchangers <code>con</code> and <code>eva</code>,
+as well as of the sensors like <code>TConOutMea</code> and <code>TEvaInMea</code>.
 As the temperature values are for table-based performance data
 and the operational envelope model,
 you also have to think about the <i>useful</i>
