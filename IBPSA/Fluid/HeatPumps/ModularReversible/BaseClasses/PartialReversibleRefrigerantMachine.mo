@@ -50,7 +50,8 @@ partial model PartialReversibleRefrigerantMachine
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
     group="Safety control"),
-      choicesAllMatching=true);
+      choicesAllMatching=true,
+      Placement(transformation(extent={{50,-18},{70,2}})));
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
     "Condenser heat transfer time constant at nominal flow"

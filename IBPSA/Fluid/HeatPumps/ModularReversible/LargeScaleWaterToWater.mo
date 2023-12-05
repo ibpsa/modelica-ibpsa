@@ -43,7 +43,9 @@ model LargeScaleWaterToWater
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
-    "Data Table of HP" annotation (choicesAllMatching=true);
+    "Data Table of HP" annotation (choicesAllMatching=true,
+    Placement(transformation(extent={{50,50},{70,70}})));
+
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
     safCtrParEurNor constrainedby
@@ -53,7 +55,8 @@ model LargeScaleWaterToWater
     final use_TUseSidOut=datTab.use_TConOutForOpeEnv,
     final use_TAmbSidOut=datTab.use_TEvaOutForOpeEnv) "Safety control parameters"
     annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
-      choicesAllMatching=true);
+      choicesAllMatching=true,
+      Placement(transformation(extent={{50,18},{70,38}})));
     // Lower boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>
 <p>

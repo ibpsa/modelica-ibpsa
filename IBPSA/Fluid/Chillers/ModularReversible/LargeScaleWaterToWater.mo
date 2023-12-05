@@ -42,7 +42,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   replaceable parameter
     IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
     datTab constrainedby Data.TableData2D.Generic "Data Table of Chiller"
-    annotation (choicesAllMatching=true);
+    annotation (choicesAllMatching=true,
+    Placement(transformation(extent={{60,20},{80,40}})));
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
     safCtrParEurNor constrainedby
@@ -52,8 +53,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final use_TUseSidOut=datTab.use_TEvaOutForOpeEnv,
     final use_TAmbSidOut=datTab.use_TConOutForOpeEnv) "Safety control parameters"
     annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
-      choicesAllMatching=true);
+      choicesAllMatching=true,
+      Placement(transformation(extent={{60,-18},{80,2}})));
     // Upper boundary has no influence as use_rev=false
+
   annotation (Documentation(info="<html>
 <p>
   Model using parameters for a large scale water-to-water chiller,
