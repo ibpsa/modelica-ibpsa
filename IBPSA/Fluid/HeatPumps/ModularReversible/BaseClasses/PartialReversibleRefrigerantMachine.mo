@@ -24,13 +24,13 @@ partial model PartialReversibleRefrigerantMachine
           extent={{-18,-18},{18,18}}, rotation=90)));
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
     "Nominal heat flow rate at useful side of the device"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real y_nominal "Nominal relative compressor speed"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
     "Nominal electrical power consumption"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
 
   replaceable model RefrigerantCycleInertia =
      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia
@@ -56,15 +56,15 @@ partial model PartialReversibleRefrigerantMachine
     "Condenser heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Condenser", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
-    "Nominal flow temperature of condenser medium"
-    annotation (Dialog(group="Nominal Design", tab="Condenser"));
+    "Nominal temperature of condenser medium"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
     "Nominal temperature difference in condenser medium"
-    annotation (Dialog(group="Nominal Design", tab="Condenser"));
+    annotation (Dialog(group="Nominal condition", tab="Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser medium"
     annotation (Dialog(
-      group="Nominal Design",
+      group="Nominal condition",
       tab="Condenser"));
 
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
@@ -109,15 +109,15 @@ partial model PartialReversibleRefrigerantMachine
     "Evaporator heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Evaporator", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TEva_nominal
-    "Nominal flow temperature of evaporator medium"
-    annotation (Dialog(group="Nominal Design", tab="Evaporator"));
+    "Nominal temperature of evaporator medium"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
     "Nominal temperature difference in evaporator medium"
-    annotation (Dialog(group="Nominal Design", tab="Evaporator"));
+    annotation (Dialog(group="Nominal condition", tab="Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator medium"
     annotation (Dialog(
-      group="Nominal Design",
+      group="Nominal condition",
       tab="Evaporator"));
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")

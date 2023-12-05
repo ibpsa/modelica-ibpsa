@@ -17,7 +17,7 @@ model ModularReversible
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=
  refCyc.refCycChiHea.QUseNoSca_flow_nominal*scaFac
     "Nominal heat flow rate for heating"
-      annotation(Dialog(group="Nominal Design", enable=use_rev));
+      annotation(Dialog(group="Nominal condition", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle

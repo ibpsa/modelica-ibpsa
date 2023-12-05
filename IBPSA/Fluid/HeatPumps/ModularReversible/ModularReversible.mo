@@ -47,7 +47,7 @@ model ModularReversible
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
     refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal*scaFac
     "Nominal heat flow rate for cooling"
-      annotation(Dialog(group="Nominal Design", enable=use_rev));
+      annotation(Dialog(group="Nominal condition", enable=use_rev));
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
     if not use_busConOnl and not use_rev
     "Locks the device in heating mode if designated to be not reversible" annotation (

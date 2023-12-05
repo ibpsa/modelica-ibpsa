@@ -4,35 +4,35 @@ partial model PartialRefrigerantCycle
 
   parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
     "Nominal heat flow rate at useful heat exchanger side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power PEle_nominal
     "Nominal electrical power consumption"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
     "Nominal temperature at secondary condenser side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEva_nominal
     "Nominal temperature at secondary evaporator side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
     "Nominal temperature difference at secondary condenser side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
     "Nominal temperature difference at secondary evaporator side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate in secondary condenser side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in secondary evaporator side"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Real y_nominal "Nominal relative compressor speed"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Real scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal
-    "Scaling factor of heat pump" annotation (Dialog(group="Nominal Design"));
+    "Scaling factor of heat pump" annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QUseNoSca_flow_nominal
     "Nominal heat flow rate at useful heat exchanger unscaled"
-    annotation (Dialog(group="Nominal Design"));
+    annotation (Dialog(group="Nominal condition"));
   parameter String datSou=""
     "Indicate where the data is coming from";
   parameter Boolean calEff=true
