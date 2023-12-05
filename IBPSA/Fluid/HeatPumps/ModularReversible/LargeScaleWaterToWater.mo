@@ -52,7 +52,7 @@ model LargeScaleWaterToWater
     final tabLowCoo=datTab.tabUppBou,
     final use_TUseSidOut=datTab.use_TConOutForOpeEnv,
     final use_TAmbSidOut=datTab.use_TEvaOutForOpeEnv) "Safety control parameters"
-    annotation (Dialog(enable=use_intSafCtr, group="Safety Control"),
+    annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
       choicesAllMatching=true);
     // Lower boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>

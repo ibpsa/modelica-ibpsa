@@ -43,13 +43,13 @@ partial model PartialReversibleRefrigerantMachine
     annotation(choices(checkBox=true));
   parameter Boolean use_intSafCtr=true
     "=true to enable internal safety control"
-    annotation (Dialog(group="Safety Control"), choices(checkBox=true));
+    annotation (Dialog(group="Safety control"), choices(checkBox=true));
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
     constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
-    group="Safety Control"),
+    group="Safety control"),
       choicesAllMatching=true);
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
