@@ -1,6 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model LargeScaleWaterToWater_OneRoomRadiator
   "Large scale water to water heat pump connected to a simple room model with radiator"
+  extends Modelica.Icons.Example;
   extends BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
@@ -11,13 +12,10 @@ model LargeScaleWaterToWater_OneRoomRadiator
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     oneRooRadHeaPumCtr(PIDHea(Ti=10)),
-    pumHeaPum(redeclare
-        IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2
-        per),
-    pumHeaPumSou(redeclare
-        IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2
-        per));
-  extends Modelica.Icons.Example;
+    pumHeaPum(
+      redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per),
+    pumHeaPumSou(
+      redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     QUse_flow_nominal=Q_flow_nominal,
@@ -78,14 +76,16 @@ equation
 <p>
   To fix this issue, the user has to either
 </p>
-<p>
-  1. Check the assumption of using a different mass flow rate
-</p>
-<p>
-  2. Adjust the mass flow rates in the hydraulic system.
-  If the deviation is too big, the system would not
-  work in reality anyways.
-</p>
+<ol>
+<li>
+Check the assumption of using a different mass flow rate, or
+</li>
+<li>
+adjust the mass flow rates in the hydraulic system.
+If the deviation is too big, the system would also not
+work in reality.
+</li>
+</ol>
 <p>
   Please check the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
@@ -100,5 +100,7 @@ equation
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-240,-220},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end LargeScaleWaterToWater_OneRoomRadiator;

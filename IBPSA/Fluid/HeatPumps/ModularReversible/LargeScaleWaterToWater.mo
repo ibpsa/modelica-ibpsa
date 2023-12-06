@@ -2,14 +2,14 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+    redeclare package MediumCon = IBPSA.Media.Water,
+    redeclare package MediumEva = IBPSA.Media.Water,
     dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
     final safCtrPar=safCtrParEurNor,
     final dTEva_nominal=(QUse_flow_nominal - PEle_nominal)/cpEva/
         mEva_flow_nominal,
     final dTCon_nominal=QUse_flow_nominal/cpCon/mCon_flow_nominal,
-    redeclare package MediumCon = IBPSA.Media.Water,
-    redeclare package MediumEva = IBPSA.Media.Water,
     final GEvaIns=0,
     final GEvaOut=0,
     final CEva=0,
@@ -21,9 +21,9 @@ model LargeScaleWaterToWater
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (redeclare
-          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, datTab=datTab),
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
+        redeclare IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        final datTab=datTab),
     final use_rev=false,
     final QCoo_flow_nominal=0,
     redeclare model RefrigerantCycleInertia =
@@ -34,22 +34,19 @@ model LargeScaleWaterToWater
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations(
-    final autCalMasCon_flow=max(4E-5*QUse_flow_nominal - 0.6162,
-        autCalMMin_flow),
-    final autCalMasEva_flow=max(4E-5*QUse_flow_nominal - 0.3177,
-        autCalMMin_flow),
+    final autCalMasCon_flow=max(4E-5*QUse_flow_nominal - 0.6162, autCalMMin_flow),
+    final autCalMasEva_flow=max(4E-5*QUse_flow_nominal - 0.3177, autCalMMin_flow),
     final autCalVCon=max(1E-7*QUse_flow_nominal - 94E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
-    "Data Table of HP" annotation (choicesAllMatching=true,
+    "Data table of heat pump" annotation (choicesAllMatching=true,
     Placement(transformation(extent={{42,12},{58,28}})));
 
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-    safCtrParEurNor constrainedby
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
+      constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
     final tabUppHea=datTab.tabUppBou,
     final tabLowCoo=datTab.tabUppBou,
     final use_TUseSidOut=datTab.use_TConOutForOpeEnv,

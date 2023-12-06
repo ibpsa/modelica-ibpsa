@@ -25,15 +25,15 @@ initial equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
   assert(
     autCalMasEva_flow > autCalMMin_flow and autCalMasEva_flow < 90,
-    "Given nominal heat output (QUse_flow_nominal) for auto-calculation of
+    "In " + getInstanceName() + ": Given nominal heat output (QUse_flow_nominal) for auto-calculation of
     evaporator and condenser data is outside the range of data sheets
-    considered. Please control the auto-calculated mass flows!",
+    considered. Verify the auto-calculated mass flows.",
     level=AssertionLevel.warning);
   assert(
     autCalVEva > autCalVMin and autCalVEva < 0.43,
-  "Given nominal heat output (QUse_flow_nominal) for auto-calculation of evaporator
+  "In " + getInstanceName() + ": Given nominal heat output (QUse_flow_nominal) for auto-calculation of evaporator
   and condenser data is outside the range of data sheets considered.
-  Please control the auto-calculated volumes!",
+  Verify the auto-calculated volumes.",
     level=AssertionLevel.warning);
 
 
@@ -45,15 +45,16 @@ initial equation
   and time constants (i.e. volumes) of the heat exchange based on
   the nominal electric power consumption of the chiller or heat pump.
   It is based on more than 20 datasets of water-to-water heat pumps
-  from multiple manufacturers ranging from about 25 kW
-  to 1 MW in nominal electric power consumption. The linear regressions with coefficients
-  of determination above 91 % give a good approximation of these
+  from multiple manufacturers ranging from about <i>25</i> kW
+  to <i>1</i> MW in nominal electric power consumption. The linear regressions with coefficients
+  of determination above <i>91</i>% give a good approximation of these
   parameters. Nevertheless, estimates for machines outside
   the given range should be checked for plausibility during simulation.
 </p>
 <p>
-For more information, please refer to:
-IBPSA\\Resources\\Data\\Fluid\\HeatPumps\\BaseClasses\\LargeScaleWaterToWaterParameters.xlsx
+For more information, see
+<a href=\"modelica://IBPSA/Resources/Data/Fluid/HeatPumps/BaseClasses/LargeScaleWaterToWaterParameters.xlsx\">
+IBPSA/Resources/Data/Fluid/HeatPumps/BaseClasses/LargeScaleWaterToWaterParameters.xlsx</a>.
 </p>
 </html>", revisions="<html><ul>
   <li>
