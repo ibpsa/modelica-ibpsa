@@ -18,45 +18,46 @@ model ReversibleAirToWaterTableData2D
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (redeclare
-          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, final datTab=datTabCoo),
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
+        redeclare IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        final datTab=datTabCoo),
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (redeclare
-          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, final datTab=datTabHea),
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
+        redeclare IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        final datTab=datTabHea),
     final use_rev=true,
     redeclare model RefrigerantCycleInertia =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia);
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia);
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater datTabHea
     constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater
-    "Data Table of HP" annotation (choicesAllMatching=true);
-  replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
-    datTabCoo constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
-    "Data Table of Chiller" annotation (choicesAllMatching=true);
+    "Data table of heat pump" annotation (choicesAllMatching=true);
+  replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTabCoo
+    constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
+    "Data table of chiller" annotation (choicesAllMatching=true);
   replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrParEurNor constrainedby
-      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
+      constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
       final tabUppHea=datTabHea.tabUppBou,
       final tabLowCoo=datTabCoo.tabLowBou,
       final use_TUseSidOut=datTabHea.use_TConOutForOpeEnv,
       final use_TAmbSidOut=datTabCoo.use_TEvaOutForOpeEnv)
-    "Safety control parameters" annotation (Dialog(enable=
-          use_intSafCtr, group="Safety control"), choicesAllMatching=true);
+    "Safety control parameters"
+      annotation (Dialog(enable=use_intSafCtr, group="Safety control"), choicesAllMatching=true);
 
   annotation (Documentation(info="<html>
 <p>
   Reversible air-to-water heat pump based on
   two-dimensional data from manufacturer data, (e.g. based on EN 14511),
-  using the ModularReversible model approach.
+  using the
+  <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> approach.
 </p>
 <p>
-  For more information on the approach, please read the
+  For more information on the approach, see
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide\">
-  UsersGuide</a>.
+  IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide</a>.
 </p>
 <p>
   Internal inertias and heat losses are neglected,
@@ -66,13 +67,12 @@ model ReversibleAirToWaterTableData2D
   is already contained in the data.
 </p>
 <p>
-  Please read the documentation of the model for heating here:
+Please read the documentation of the model for heating at
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>.
 </p>
 <p>
-  For cooling, the assumptions are similar.
-  Check this documentation:
+For cooling, the assumptions are similar, and described at
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D</a>
 </p>

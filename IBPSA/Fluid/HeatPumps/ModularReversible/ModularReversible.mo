@@ -8,13 +8,15 @@ model ModularReversible
     final scaFac=refCyc.refCycHeaPumHea.scaFac,
     use_rev=true,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
-        redeclare model RefrigerantCycleHeatPumpHeating =
-          RefrigerantCycleHeatPumpHeating, redeclare model
-        RefrigerantCycleHeatPumpCooling = RefrigerantCycleHeatPumpCooling));
+      redeclare model RefrigerantCycleHeatPumpHeating =
+          RefrigerantCycleHeatPumpHeating,
+      redeclare model RefrigerantCycleHeatPumpCooling =
+          RefrigerantCycleHeatPumpCooling));
+
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
-      (QUseNoSca_flow_nominal=0)
-     constrainedby
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
+      (
+      QUseNoSca_flow_nominal=0) constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=true,
        final QUse_flow_nominal=QUse_flow_nominal,
@@ -27,6 +29,7 @@ model ModularReversible
        final y_nominal=y_nominal)
   "Refrigerant cycle module for the heating mode"
     annotation (choicesAllMatching=true);
+
   replaceable model RefrigerantCycleHeatPumpCooling =
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
       constrainedby
@@ -44,10 +47,12 @@ model ModularReversible
        final y_nominal=y_nominal)
   "Refrigerant cycle module for the cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
+
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
     refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal*scaFac
     "Nominal heat flow rate for cooling"
       annotation(Dialog(group="Nominal condition", enable=use_rev));
+
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
     if not use_busConOnl and not use_rev
     "Locks the device in heating mode if designated to be not reversible" annotation (
@@ -158,7 +163,7 @@ equation
 </html>", info="<html>
 <p>
   Model of a reversible, modular heat pump.
-  You can combine any of the available modules
+  This models allows combining any of the available modules
   for refrigerant heating or cooling cycles, inertias,
   heat losses, and safety controls.
   All features are optional.
@@ -171,9 +176,9 @@ equation
   the operation mode of the heat pump.
 </p>
 <p>
-  For more information on the approach, please read the
+  For more information on the approach, see
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide\">
-  UsersGuide</a>.
+  IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide</a>.
 </p>
 </html>"));
 end ModularReversible;
