@@ -61,8 +61,10 @@ model LargeScaleWaterToWater
   using the ModularReversible model approach.
 </p>
 <p>
-  Contrary to the standard sizing approach for ModularReversible models,
-  the parameters are based on an automatic estimation, see:
+  Contrary to the standard sizing approach for the
+  <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> models,
+  the parameters are based on an automatic estimation as described in
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
 </p>
