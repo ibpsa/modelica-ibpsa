@@ -472,8 +472,8 @@ for heating and cooling.
   The package
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias</a>
-  contains implemented inertia models. In the contribution, <!-- fixme: explain what the contribution is, is it a citable paper? -->
-  an empirical
+  contains implemented inertia models. In the 
+  <a href=\"https://doi.org/10.1016/j.enconman.2021.114888\">contribution</a>, an empirical
   validation showed that a third-order critical damping element
   fits the inertia most closely. At the same time, models in literature
   often use first-order delay blocks.

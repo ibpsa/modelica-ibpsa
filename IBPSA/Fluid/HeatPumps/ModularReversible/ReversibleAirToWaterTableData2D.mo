@@ -55,7 +55,7 @@ model ReversibleAirToWaterTableData2D
 </p>
 <p>
   For more information on the approach, please read the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversibleUsersGuide\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide\">
   UsersGuide</a>.
 </p>
 <p>
