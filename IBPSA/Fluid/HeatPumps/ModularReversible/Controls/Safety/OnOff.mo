@@ -79,11 +79,6 @@ model OnOff
   Modelica.Blocks.Logical.And andStaOff
     "=true if the device is off and wants to stay off"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Nonlinear.Limiter lim(uMax=1, uMin=ySetRed) "Keep device off"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,110})));
 
   BaseClasses.OnOffFuzzyLogic onOffFuzLog(ySetRed=ySetRed)
     "Fuzzy logic to device for output"
@@ -145,16 +140,15 @@ equation
           {-52,-50},{-79,-50}}, color={255,0,255}));
   connect(andStaOff.u2, notSetOn.y) annotation (Line(points={{-42,-38},{-70,-38},
           {-70,28},{-79,28}}, color={255,0,255}));
-  connect(lim.u, ySet) annotation (Line(points={{-102,110},{-114,110},{-114,20},
-          {-136,20}},     color={0,0,127}));
   connect(isAblToTurOff.u, runTimCtr.y) annotation (Line(points={{38,90},{28,90},
           {28,100},{21,100}}, color={255,0,255}));
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,
           70},{28,90},{38,90}}, color={255,0,255}));
   connect(onOffFuzLog.yOut, yOut)
     annotation (Line(points={{116,20},{130,20}}, color={0,0,127}));
-  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,20},{56,20},{56,36},
-          {-76,36},{-76,20},{-136,20}}, color={0,0,127}));
+  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,20},{56,20},{56,
+          36},{-58,36},{-58,6},{-114,6},{-114,20},{-136,20}},
+                                        color={0,0,127}));
   connect(onOffFuzLog.staOff, andStaOff.y) annotation (Line(points={{70.8,14},{36,
           14},{36,-30},{-19,-30}}, color={255,0,255}));
   connect(onOffFuzLog.staOn, andStaOn.y) annotation (Line(points={{70.8,32},{42,32},
