@@ -4,3 +4,4 @@ OnPastThreshold
 PartialOperationalEnvelope
 PartialSafety
 PartialSafetyWithCounter
+OnOffFuzzyLogic

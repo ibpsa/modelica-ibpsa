@@ -19,14 +19,14 @@ model OnOff
     annotation(choices(checkBox=true));
   parameter Integer maxCycRat "Maximum cycle rate"
     annotation (Dialog(enable=use_maxCycRat));
-  parameter Boolean preYSet_start=true
-    "Start value of pre(ySet) at initial time";
+  parameter Boolean onOffMea_start=true
+    "Start value for the on-off signal of the device, true for on";
   parameter Real ySet_small
     "Threshold for relative speed for the device to be considered on";
   parameter Real ySetRed=ySet_small
     "Reduced relative compressor speed to allow longer on-time";
   Modelica.Blocks.Logical.Hysteresis ySetOn(
-    final pre_y_start=preYSet_start,
+    final pre_y_start=onOffMea_start,
     final uHigh=ySet_small,
     final uLow=ySet_small/2) "=true if device is set on"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
@@ -34,17 +34,17 @@ model OnOff
     y(start=true, fixed=true))
     "=true if the device is allowed to turn off, else false"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=preYSet_start)
+  Modelica.Blocks.Logical.Pre preOnOff(final pre_u_start=onOffMea_start)
     "On off signal of previous time step"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.CycleRateBoundary
     cycRatBou(final maxCycRat=maxCycRat, final delTim=3600) if use_maxCycRat
     "Check cycle rate violations"
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.OnPastThreshold locTimCtr(
    final minOnTime=minOffTime) if use_minOffTime
     "Check if device should be locked"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.Blocks.Logical.Not notIsOn "=true if device is off"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.OnPastThreshold runTimCtr(
@@ -53,26 +53,24 @@ model OnOff
   Modelica.Blocks.Logical.And andIsAblToTurOn(
     y(start=true, fixed=true))
     "=false to lock the device off"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
   Modelica.Blocks.Sources.BooleanConstant booConstCycRat(final k=true)
     if not use_maxCycRat "Constant value for disabled option"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.BooleanConstant booConstLocTim(final k=true)
     if not use_minOffTime "Constant value for disabled option"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Sources.BooleanConstant booConstRunTim(final k=true)
     if not use_minOnTime "Constant value for disabled option"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Logical.Not notSetOn "Device is not set to turn on"
     annotation (Placement(transformation(extent={{-100,18},{-80,38}})));
-  Modelica.Blocks.Logical.And andTurOff(
-    y(start=not preYSet_start, fixed=true))
+  Modelica.Blocks.Logical.And andTurOff
     "Check if device is on and is set to be turned off"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Logical.And andTurOn(
-    y(start=preYSet_start, fixed=true))
-    "Check if device is Off and is set to be turned on"
+  Modelica.Blocks.Logical.And andTurOn
+    "Check if device is off and is set to be turned on"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
   Modelica.Blocks.Logical.And andStaOn
@@ -87,71 +85,29 @@ model OnOff
         rotation=0,
         origin={-90,110})));
 
-protected
-  Integer devRunMin(start=0, fixed=true)
-    "Indicates if device needs to run at minimal limit";
-  Integer devTurOff(start=0, fixed=true)
-    "Indicates if device needs to turn off";
-  Integer devNorOpe(start=1, fixed=true)
-    "Indicates if device is at normal operation";
+  BaseClasses.OnOffFuzzyLogic onOffFuzLog(ySetRed=ySetRed)
+    "Fuzzy logic to device for output"
+    annotation (Placement(transformation(extent={{74,0},{114,40}})));
 equation
-  yOut = ySet * devNorOpe + 0 * devTurOff +ySetRed  * devRunMin;
-  when edge(andTurOn.y) then
-    if andIsAblToTurOn.y then
-      devTurOff = 0;
-      devRunMin = 0;
-      devNorOpe = 1;
-   else
-      devTurOff = 1;
-      devRunMin = 0;
-      devNorOpe = 0;
-    end if;
-  elsewhen edge(andTurOff.y) then
-    if isAblToTurOff.y then
-      devTurOff = 0;
-      devRunMin = 0;
-      devNorOpe = 1;
-    else
-      devTurOff = 0;
-      devRunMin = 1;
-      devNorOpe = 0;
-    end if;
-  elsewhen andIsAblToTurOn.y and andTurOn.y then
-    devTurOff = 0;
-    devRunMin = 0;
-    devNorOpe = 1;
-  elsewhen isAblToTurOff.y and andTurOff.y then
-    devTurOff = 0;
-    devRunMin = 0;
-    devNorOpe = 1;
-  elsewhen andStaOff.y then
-    devTurOff = 0;
-    devRunMin = 0;
-    devNorOpe = 1;
-  elsewhen andStaOn.y then
-    devTurOff = 0;
-    devRunMin = 0;
-    devNorOpe = 1;
-  end when;
   connect(preOnOff.y, cycRatBou.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
-          -66},{-24,-66},{-24,-50},{18,-50}}, color={255,0,255}));
+          -50},{-2,-50}},                     color={255,0,255}));
   connect(preOnOff.y, notIsOn.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
           -66},{-108,-66},{-108,-50},{-102,-50}},     color={255,0,255}));
-  connect(notIsOn.y, locTimCtr.u) annotation (Line(points={{-79,-50},{-52,-50},{
-          -52,-10},{0,-10},{0,20},{18,20}},
+  connect(notIsOn.y, locTimCtr.u) annotation (Line(points={{-79,-50},{-52,-50},{-52,
+          -30},{-48,-30},{-48,-4},{-8,-4},{-8,20},{-2,20}},
                                 color={255,0,255}));
   connect(runTimCtr.u, preOnOff.y) annotation (Line(points={{-2,100},{-66,100},{
           -66,-90},{-79,-90}}, color={255,0,255}));
   connect(locTimCtr.y, andIsAblToTurOn.u1) annotation (Line(
-      points={{41,20},{52,20},{52,-60},{58,-60}},
+      points={{21,20},{26,20},{26,-10},{36,-10},{36,-60},{48,-60}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(cycRatBou.y, andIsAblToTurOn.u2) annotation (Line(
-      points={{41,-50},{50,-50},{50,-68},{58,-68}},
+      points={{21,-50},{30,-50},{30,-68},{48,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
   connect(booConstCycRat.y, andIsAblToTurOn.u2) annotation (Line(
-      points={{41,-90},{50,-90},{50,-68},{58,-68}},
+      points={{21,-90},{32,-90},{32,-68},{48,-68}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
@@ -167,7 +123,7 @@ equation
   connect(notIsOn.y, andTurOn.u1) annotation (Line(points={{-79,-50},{-52,-50},{
           -52,-90},{-42,-90}},                      color={255,0,255}));
   connect(booConstLocTim.y, andIsAblToTurOn.u1) annotation (Line(
-      points={{41,-10},{52,-10},{52,-60},{58,-60}},
+      points={{21,-10},{36,-10},{36,-60},{48,-60}},
       color={255,0,255},
       pattern=LinePattern.Dash));
 
@@ -195,6 +151,22 @@ equation
           {28,100},{21,100}}, color={255,0,255}));
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,
           70},{28,90},{38,90}}, color={255,0,255}));
+  connect(onOffFuzLog.yOut, yOut)
+    annotation (Line(points={{116,20},{130,20}}, color={0,0,127}));
+  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,20},{56,20},{56,36},
+          {-76,36},{-76,20},{-136,20}}, color={0,0,127}));
+  connect(onOffFuzLog.staOff, andStaOff.y) annotation (Line(points={{70.8,14},{36,
+          14},{36,-30},{-19,-30}}, color={255,0,255}));
+  connect(onOffFuzLog.staOn, andStaOn.y) annotation (Line(points={{70.8,32},{42,32},
+          {42,50},{-19,50}}, color={255,0,255}));
+  connect(onOffFuzLog.isAblToTurOff, isAblToTurOff.y) annotation (Line(points={{70.8,
+          38},{64,38},{64,90},{61,90}}, color={255,0,255}));
+  connect(andIsAblToTurOn.y, onOffFuzLog.isAblToTurOn) annotation (Line(points={{71,
+          -60},{80,-60},{80,-40},{54,-40},{54,2},{70.8,2}}, color={255,0,255}));
+  connect(onOffFuzLog.turOff, andTurOff.y) annotation (Line(points={{70.8,26},{32,
+          26},{32,40},{-12,40},{-12,10},{-19,10}}, color={255,0,255}));
+  connect(onOffFuzLog.turOn, andTurOn.y) annotation (Line(points={{70.8,8},{28,8},
+          {28,-70},{-12,-70},{-12,-90},{-19,-90}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
   Checks if the <code>ySet</code> value is legal by checking if
@@ -240,14 +212,5 @@ equation
   </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}}), graphics={
-          Rectangle(
-          extent={{120,60},{60,-10}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
-          extent={{60,60},{120,-6}},
-          textColor={0,0,127},
-          textString="See
-equations")}));
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
 end OnOff;

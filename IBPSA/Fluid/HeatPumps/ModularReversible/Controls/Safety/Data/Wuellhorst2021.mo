@@ -4,7 +4,7 @@ record Wuellhorst2021
   extends Generic(
     tabLowCoo=[263.15,283.15; 333.15,283.15],
     dTHysAntFre=2,
-    preYSet_start=false,
+    onOffMea_start=false,
     ySetRed=0.3,
     r_mConMinPer_flow=0.1,
     r_mEvaMinPer_flow=0.1,

@@ -33,7 +33,7 @@ model Safety "Model including all safety levels"
     final use_minOffTime=safCtrPar.use_minOffTime,
     final use_maxCycRat=safCtrPar.use_maxCycRat,
     final maxCycRat=safCtrPar.maxCycRat,
-    final preYSet_start=safCtrPar.preYSet_start,
+    final onOffMea_start=safCtrPar.onOffMea_start,
     final ySet_small=ySet_small,
     final ySetRed=safCtrPar.ySetRed) if safCtrPar.use_minOnTime or safCtrPar.use_minOffTime
      or safCtrPar.use_maxCycRat "On off control block"

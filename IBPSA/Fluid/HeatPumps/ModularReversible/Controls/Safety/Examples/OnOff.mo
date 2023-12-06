@@ -1,13 +1,13 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Examples;
 model OnOff "Example for on off controller"
-  extends BaseClasses.PartialSafety(       hys(pre_y_start=true));
+  extends BaseClasses.PartialSafety;
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff onOffCtr(
     maxCycRat=2,
     minOffTime(displayUnit="s") = 200,
     minOnTime(displayUnit="s") = 300,
-    preYSet_start=false,
+    onOffMea_start=false,
     use_minOffTime=true,
     use_minOnTime=true,
     use_maxCycRat=true,
@@ -25,7 +25,7 @@ equation
           11.6667},{42,-50},{22,-50}},
                               color={0,0,127}));
   connect(onOffCtr.sigBus, sigBus) annotation (Line(
-      points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
+      points={{0.0833333,3.91667},{-50,3.91667},{-50,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",

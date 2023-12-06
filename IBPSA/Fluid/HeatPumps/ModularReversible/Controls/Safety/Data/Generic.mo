@@ -26,7 +26,8 @@ record Generic "Generic record definition for safety control blocks"
         annotation (
           Dialog(group="On/Off Control",
           enable=use_minOnTime));
-  parameter Boolean preYSet_start "Start value of pre(n) at initial time"
+  parameter Boolean onOffMea_start=true
+    "Start value for the on-off signal of the device, true for on"
     annotation (
       Dialog(group="On/Off Control"),
       choices(checkBox=true));
