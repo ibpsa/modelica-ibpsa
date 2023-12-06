@@ -56,6 +56,9 @@ model ReversibleCarnotWithLosses
 </ul>
 </html>", info="<html>
 <p>
+  Model of a reversible chiller.
+</p>
+<p>
   This model extends
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and selects the
@@ -67,7 +70,7 @@ model ReversibleCarnotWithLosses
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>)
   to model a reversible chiller.
   For the heating operation, the nominal approach temperatures are used
-  as a constant to avoid nonlinear solving issues.
+  as a constant to avoid nonlinear system of equations.
 </p>
 <p>
   Furthermore, losses are enabled to model
@@ -79,9 +82,9 @@ model ReversibleCarnotWithLosses
 <li>Evaporator frosting assuming an air-sink chiller</li>
 </ul>
 <p>
-  For more information on the approach, please read the
+For more information, see
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide\">
-  UsersGuide</a>.
+  IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide</a>.
 </p>
 </html>"));
 end ReversibleCarnotWithLosses;

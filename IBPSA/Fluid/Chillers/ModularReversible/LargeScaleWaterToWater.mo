@@ -33,10 +33,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations(
-    final autCalMasCon_flow=max(5E-5*QUse_flow_nominal + 0.3161,
-        autCalMMin_flow),
-    final autCalMasEva_flow=max(5E-5*QUse_flow_nominal - 0.5662,
-        autCalMMin_flow),
+    final autCalMasCon_flow=max(5E-5*QUse_flow_nominal + 0.3161, autCalMMin_flow),
+    final autCalMasEva_flow=max(5E-5*QUse_flow_nominal - 0.5662, autCalMMin_flow),
     final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin));
   replaceable parameter
@@ -59,22 +57,25 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 
   annotation (Documentation(info="<html>
 <p>
-  Model using parameters for a large scale water-to-water chiller,
-  using the ModularReversible model approach.
+  Large scale water-to-water chiller,
+  using the
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> approach.
 </p>
 <p>
-  Contrary to the standard sizing approach for ModularReversible models,
-  the parameters are based on an automatic estimation, see:
+  Contrary to the standard sizing approach for the <a href=\"IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
+  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> models,
+  the parameters are based on an automatic estimation as described in
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
 </p>
 <p>
-  For more information on the approach, please read the
+  For more information on the approach, see
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide\">
   UsersGuide</a>.
 </p>
 <p>
-  Please read the documentation of the model for heating here:
+  The documentation of the model for heating is at
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D</a>.
 </p>
@@ -84,10 +85,6 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DData.EN14511.Carrier30XWP1012_1MW</a>,
   hence, the default value.
 </p>
-<p>
-  But you are free to insert custom data based on
-  the heat pump you want to analyze in your simulations.
-</p>
 <h4>Assumptions</h4>
 <ul>
 <li>
@@ -96,9 +93,9 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </li>
 <li>
   Pressure losses are not provided in datasheets. As typical
-  values are unknown, the pressure loss is set to 0 to enable
+  values are unknown, the pressure loss is set to <i>0</i> to enable
   easier usage. However, the parameter is not final and should be
-  replaced if mover electrical power consumption is of interest for your simulation aim.
+  replaced if pump electrical power consumption is of interest for your simulation aim.
 </li>
 </ul>
 </html>", revisions="<html><ul>
