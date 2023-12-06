@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -521,8 +521,7 @@ for heating and cooling.
   Note however, that this only simulates the efficiency reduction
   due to frost. If a user-provided frost module enables the simulation
   of a defrost cycle, the user needs to implement the corresponding external controls.
-  The <code>iceFac</code> approach was already used in a
-  <a href=\"https://doi.org/10.1016/j.enconman.2021.114888\">contribution</a>
+  The <code>iceFac</code> approach was already used by Vering et al., 2021,
   to account for reverse cycle defrost based on validated literature-data.
   However, as no empirical validation was performed, the model was not
   added to the IBPSA library.
