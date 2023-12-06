@@ -67,10 +67,10 @@ equation
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
   end if;
-  connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},
-          {-44,-30},{-44,-58}}, color={0,0,127}));
-  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-78,-66},{-70,-66},{
-          -70,-52},{0,-52},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
+  connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},{
+          -14,-30},{-14,-58}},  color={0,0,127}));
+  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-78,-66},{-50,-66},{
+          -50,-52},{0,-52},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

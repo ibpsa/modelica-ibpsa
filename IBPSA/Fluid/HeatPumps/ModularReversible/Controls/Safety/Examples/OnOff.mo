@@ -19,7 +19,7 @@ model OnOff "Example for on off controller"
     amplitude=0.5,
     f=1/180,
     offset=0.5) "Sine signal for ySet"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
 equation
   connect(onOffCtr.yOut, hys.u) annotation (Line(points={{20.8333,11.6667},{42,
           11.6667},{42,-50},{22,-50}},
@@ -32,11 +32,11 @@ equation
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySetSin.y, onOffCtr.ySet) annotation (Line(points={{-79,10},{-4,10},{-4,
+  connect(ySetSin.y, onOffCtr.ySet) annotation (Line(points={{-69,10},{-4,10},{-4,
           11.6667},{-1.33333,11.6667}},
                              color={0,0,127}));
-  connect(ySetSin.y, ySet) annotation (Line(points={{-79,10},{-56,10},{-56,40},
-          {110,40}}, color={0,0,127}));
+  connect(ySetSin.y, ySet) annotation (Line(points={{-69,10},{-56,10},{-56,40},{
+          110,40}},  color={0,0,127}));
   connect(onOffCtr.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{42,
           11.6667},{42,-40},{110,-40}},
                       color={0,0,127}));

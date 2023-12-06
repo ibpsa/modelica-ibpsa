@@ -15,68 +15,68 @@ model Safety "Example for usage of all safety controls"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
     "Pulse signal for ySet"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Modelica.Blocks.Sources.Pulse TConInEmu(
     amplitude=10,
     period=20,
     offset=303.15,
     y(unit="K", displayUnit="degC"))
                    "Emulator for condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Sources.Pulse TEvaOutEmu(
     amplitude=-10,
     period=15,
     offset=287.15,
     y(unit="K", displayUnit="degC"))
                    "Emulator for evaporator outlet temperature"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Modelica.Blocks.Sources.Pulse TConOutEmu(
     amplitude=40,
     period=20,
     offset=313.15,
     y(unit="K", displayUnit="degC"))
                    "Emulator for condenser outlet temperature"
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Modelica.Blocks.Sources.Pulse TEvaInEmu(
     amplitude=-10,
     period=15,
     offset=288.15,
     y(unit="K", displayUnit="degC"))
                    "Emulator for evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
   Modelica.Blocks.Sources.Pulse mConEmu_flow(
     amplitude=1,
     width=80,
     period=100) "Emulator for condenser mass flow rate"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{22,-90},{42,-70}})));
   Modelica.Blocks.Sources.Pulse mEvaEmu_flow(amplitude=1, period=100)
     "Emulator for evaporator mass flow rate"
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+    annotation (Placement(transformation(extent={{-18,-90},{2,-70}})));
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
     "Constant heating mode" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-90,70})));
+        origin={-80,80})));
 equation
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
+      points={{0.0833333,3.91667},{-50,3.91667},{-50,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySetPul.y, safCtr.ySet) annotation (Line(points={{-79,30},{-8,30},{-8,
+  connect(ySetPul.y, safCtr.ySet) annotation (Line(points={{-69,40},{-8,40},{-8,
           11.6667},{-1.33333,11.6667}},
                           color={0,0,127}));
-  connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-79,-50},{
-          -50,-50},{-50,-52}}, color={0,0,127}), Text(
+  connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-69,-40},{
+          -50,-40},{-50,-50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TConInEmu.y, sigBus.TConInMea) annotation (Line(points={{-79,-10},{
-          -50,-10},{-50,-52}}, color={0,0,127}), Text(
+  connect(TConInEmu.y, sigBus.TConInMea) annotation (Line(points={{-69,0},{-50,0},
+          {-50,-50}},          color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -87,35 +87,35 @@ equation
   connect(safCtr.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
           11.6667},{44,-40},{110,-40}},
                       color={0,0,127}));
-  connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{-8,30},{-8,40},{
-          110,40}}, color={0,0,127}));
-  connect(TConOutEmu.y, sigBus.TConOutMea) annotation (Line(points={{-79,-90},{
-          -70,-90},{-70,-50},{-60,-50},{-60,-52},{-50,-52}}, color={0,0,127}),
+  connect(ySetPul.y, ySet) annotation (Line(points={{-69,40},{110,40}},
+                    color={0,0,127}));
+  connect(TConOutEmu.y, sigBus.TConOutMea) annotation (Line(points={{-69,-80},{
+          -64,-80},{-64,-50},{-50,-50}},                     color={0,0,127}),
       Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TEvaInEmu.y, sigBus.TEvaInMea) annotation (Line(points={{-39,-90},{
-          -34,-90},{-34,-52},{-50,-52}}, color={0,0,127}), Text(
+  connect(TEvaInEmu.y, sigBus.TEvaInMea) annotation (Line(points={{-37,-80},{-34,
+          -80},{-34,-50},{-50,-50}},     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(mEvaEmu_flow.y, sigBus.mEvaMea_flow) annotation (Line(points={{1,-90},{
-          4,-90},{4,-64},{-50,-64},{-50,-52}}, color={0,0,127}), Text(
+  connect(mEvaEmu_flow.y, sigBus.mEvaMea_flow) annotation (Line(points={{3,-80},{
+          4,-80},{4,-64},{-50,-64},{-50,-50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{41,-90},
-          {50,-90},{50,-64},{-50,-64},{-50,-52}}, color={0,0,127}), Text(
+  connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{43,-80},
+          {50,-80},{50,-64},{-50,-64},{-50,-50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(conHea.y, sigBus.hea) annotation (Line(points={{-79,70},{-50,70},{-50,
-          -52}}, color={255,0,255}), Text(
+  connect(conHea.y, sigBus.hea) annotation (Line(points={{-69,80},{-50,80},{-50,
+          -50}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},

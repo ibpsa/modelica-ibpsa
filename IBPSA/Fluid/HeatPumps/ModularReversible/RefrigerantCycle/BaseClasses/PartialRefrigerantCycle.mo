@@ -44,7 +44,7 @@ partial model PartialRefrigerantCycle
     "Replaceable model to calculate the icing factor" annotation (
     choicesAllMatching=true,
     Dialog(group="Frosting supression"),
-    Placement(transformation(extent={{-100,-52},{-80,-32}})));
+    Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
         "kW") "Electrical Power consumed by the device" annotation (Placement(
@@ -80,7 +80,7 @@ partial model PartialRefrigerantCycle
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-50,-70})));
+        origin={-20,-70})));
 
   IBPSA.Utilities.IO.Strings.StringOutput datSouOut
   "String output of data source";
@@ -89,17 +89,17 @@ protected
     "Constant String with data source as output";
 equation
   connect(conStrSou.y, datSouOut);
-  connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-50,-81},{-50,-88},
-          {0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
+  connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-20,-81},{-20,-88},{
+          0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
                                color={0,0,127}));
-  connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-50,-81},{-50,-88},
+  connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-20,-81},{-20,-88},
           {0,-88},{0,-52},{76,-52},{76,-58}}, color={0,0,127}));
   connect(redQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{-80,
           -96},{-80,-110}}, color={0,0,127}));
   connect(iceFacCal.iceFac, proRedQEva.u1)
-    annotation (Line(points={{-79,-42},{-56,-42},{-56,-58}}, color={0,0,127}));
+    annotation (Line(points={{-69,-40},{-26,-40},{-26,-58}}, color={0,0,127}));
   connect(iceFacCal.sigBus, sigBus) annotation (Line(
-      points={{-100.1,-42},{-102,-42},{-102,104},{1,104}},
+      points={{-90.1,-40},{-102,-40},{-102,104},{1,104}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -34,10 +34,10 @@ model BoundaryMap
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Modelica.Blocks.Sources.Constant conTAmbSidMin(k=TAmbSidMin)
     "Constant minimal temperature of ambient temperature side"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Modelica.Blocks.Sources.Constant conTAmbSidMax(k=TAmbSidMax)
     "Constant maximal temperature of ambient temperature side"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
   Modelica.Blocks.Math.Add subMax(final k1=+1, final k2=-1)
     "Actual minus maximal ambient side temperature"
@@ -95,9 +95,9 @@ equation
   connect(hysRig.y, nor.u[2]) annotation (Line(points={{41,-70},{50,-70},{50,-5.55112e-16},
           {60,-5.55112e-16}}, color={255,0,255}));
   connect(subMax.u2,conTAmbSidMax.y)  annotation (Line(points={{-22,-76},{-32,-76},
-          {-32,-90},{-39,-90}}, color={0,0,127}));
-  connect(sub.u2,conTAmbSidMin.y)  annotation (Line(points={{-22,-36},{-32,-36},
-          {-32,-50},{-39,-50}}, color={0,0,127}));
+          {-32,-80},{-39,-80}}, color={0,0,127}));
+  connect(sub.u2,conTAmbSidMin.y)  annotation (Line(points={{-22,-36},{-32,-36},{
+          -32,-40},{-39,-40}},  color={0,0,127}));
   connect(subMax.y, hysRig.u)
     annotation (Line(points={{1,-70},{18,-70}}, color={0,0,127}));
   connect(sub.y, hysLef.u)
@@ -114,8 +114,8 @@ equation
           {-62,50}}, color={0,0,127}));
   connect(TAmbSid, sub.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-24},
           {-22,-24}}, color={0,0,127}));
-  connect(TAmbSid, subMax.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,-70},
-          {-32,-70},{-32,-64},{-22,-64}}, color={0,0,127}));
+  connect(TAmbSid, subMax.u1) annotation (Line(points={{-116,-40},{-80,-40},{-80,
+          -64},{-22,-64}},                color={0,0,127}));
   annotation (Icon(
     coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}), graphics={

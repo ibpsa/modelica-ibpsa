@@ -44,7 +44,7 @@ model LargeScaleWaterToWater
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data Table of HP" annotation (choicesAllMatching=true,
-    Placement(transformation(extent={{50,50},{70,70}})));
+    Placement(transformation(extent={{42,12},{58,28}})));
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
@@ -56,7 +56,7 @@ model LargeScaleWaterToWater
     final use_TAmbSidOut=datTab.use_TEvaOutForOpeEnv) "Safety control parameters"
     annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
       choicesAllMatching=true,
-      Placement(transformation(extent={{50,18},{70,38}})));
+      Placement(transformation(extent={{72,12},{88,28}})));
     // Lower boundary has no influence as use_rev=false
   annotation (Documentation(info="<html>
 <p>

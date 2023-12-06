@@ -43,7 +43,7 @@ partial model PartialCarnot
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={90,90})));
+        origin={80,80})));
   Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from signal bus"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Units.SI.Temperature TUseSidAct = if useForChi then TEvaAct else TConAct
@@ -104,8 +104,8 @@ equation
                                   color={0,0,127}));
   connect(proPEle.y, proQUse_flow.u1) annotation (Line(points={{70,39},{70,38},{
           -34,38},{-34,56},{-44,56},{-44,52}}, color={0,0,127}));
-  connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,72},{90,
-          72},{90,79}}, color={0,0,127}));
+  connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,66},{80,
+          66},{80,69}}, color={0,0,127}));
   connect(pasThrYSet.y, proPEle.u2)
     annotation (Line(points={{41,70},{64,70},{64,62}}, color={0,0,127}));
   connect(constZer.y, swiPEle.u3) annotation (Line(points={{8.88178e-16,21},{

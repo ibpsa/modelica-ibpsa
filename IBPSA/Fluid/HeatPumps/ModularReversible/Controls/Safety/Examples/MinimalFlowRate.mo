@@ -9,16 +9,16 @@ model MinimalFlowRate
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
     "Pulse signal for ySet"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Modelica.Blocks.Sources.Pulse mConEmu_flow(amplitude=1, period=20)
     "Emulator for condenser mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Modelica.Blocks.Sources.Pulse mEvaEmu_flow(amplitude=1, period=15)
     "Emulator for evaporator mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 equation
   connect(sigBus, minFloRatSaf.sigBus) annotation (Line(
-      points={{-50,-52},{-54,-52},{-54,4},{0.0833333,4},{0.0833333,3.91667}},
+      points={{-50,-50},{-54,-50},{-54,4},{0.0833333,4},{0.0833333,3.91667}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -28,17 +28,17 @@ equation
   connect(minFloRatSaf.yOut, hys.u) annotation (Line(points={{20.8333,11.6667},{
           46,11.6667},{46,-50},{22,-50}},
                           color={0,0,127}));
-  connect(ySetPul.y, minFloRatSaf.ySet) annotation (Line(points={{-79,30},{-50,30},
+  connect(ySetPul.y, minFloRatSaf.ySet) annotation (Line(points={{-69,30},{-50,30},
           {-50,11.6667},{-1.33333,11.6667}},
                                color={0,0,127}));
-  connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{-79,-10},
-          {-50,-10},{-50,-52}}, color={0,0,127}), Text(
+  connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{-69,-10},
+          {-50,-10},{-50,-50}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(mEvaEmu_flow.y, sigBus.mEvaMea_flow) annotation (Line(points={{-79,-50},
-          {-50,-50},{-50,-52}}, color={0,0,127}), Text(
+  connect(mEvaEmu_flow.y, sigBus.mEvaMea_flow) annotation (Line(points={{-69,-50},
+          {-50,-50}},           color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -46,7 +46,7 @@ equation
   connect(minFloRatSaf.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{46,
           11.6667},{46,-40},{110,-40}},
                            color={0,0,127}));
-  connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{26,30},{26,40},{110,
+  connect(ySetPul.y, ySet) annotation (Line(points={{-69,30},{26,30},{26,40},{110,
           40}}, color={0,0,127}));
   annotation (
       Documentation(info="<html>

@@ -50,12 +50,12 @@ partial model PartialTableData2D
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,0})));
+        origin={-40,2})));
   Modelica.Blocks.Math.Product scaFacTimQUse_flow "Scale useful heat flow rate"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,0})));
+        origin={40,2})));
   Modelica.Blocks.Sources.Constant constScaFac
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(
@@ -68,25 +68,25 @@ partial model PartialTableData2D
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-50,90})));
+        origin={-50,80})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if not use_TConOutForTab
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={40,90})));
+        origin={40,80})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if use_TEvaOutForTab
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-20,90})));
+        origin={-20,80})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if use_TConOutForTab
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={70,90})));
+        origin={70,80})));
 protected
   parameter Real perDevMasFloCon
     "Percent of deviation of nominal mass flow rate at condenser in percent";
@@ -124,14 +124,15 @@ initial algorithm
 equation
   connect(constScaFac.y, ySetTimScaFac.u2)
     annotation (Line(points={{-80,59},{-80,48},{-76,48}}, color={0,0,127}));
-  connect(scaFacTimPel.u2, ySetTimScaFac.y) annotation (Line(points={{-46,12},{-46,
-          18},{-70,18},{-70,25}}, color={0,0,127}));
+  connect(scaFacTimPel.u2, ySetTimScaFac.y) annotation (Line(points={{-46,14},{
+          -46,18},{-70,18},{-70,25}},
+                                  color={0,0,127}));
   connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{40,19},
-          {42,19},{42,12},{46,12}}, color={0,0,127}));
-  connect(scaFacTimQUse_flow.u2, ySetTimScaFac.y) annotation (Line(points={{34,12},
+          {42,19},{42,14},{46,14}}, color={0,0,127}));
+  connect(scaFacTimQUse_flow.u2, ySetTimScaFac.y) annotation (Line(points={{34,14},
           {34,18},{-70,18},{-70,25}}, color={0,0,127}));
   connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{80,19},{80,18},{
-          -34,18},{-34,12}}, color={0,0,127}));
+          -34,18},{-34,14}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

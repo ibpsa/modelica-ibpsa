@@ -54,17 +54,17 @@ model ModularReversible
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-90,-110})));
+        origin={-82,-100})));
   Modelica.Blocks.Interfaces.BooleanInput hea if not use_busConOnl and use_rev
     "=true for heating, =false for cooling"
     annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
 equation
   connect(conHea.y, sigBus.hea)
-    annotation (Line(points={{-79,-110},{-80,-110},{
-          -80,-43},{-105,-43}}, color={255,0,255}));
+    annotation (Line(points={{-71,-100},{-66,-100},{-66,-80},{-80,-80},{-80,-43},
+          {-105,-43}},          color={255,0,255}));
   connect(hea, sigBus.hea)
-    annotation (Line(points={{-116,-90},{-80,-90},{-80,-43},
-          {-105,-43}}, color={255,0,255}));
+    annotation (Line(points={{-116,-90},{-94,-90},{-94,-80},{-80,-80},{-80,-43},{
+          -105,-43}},  color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

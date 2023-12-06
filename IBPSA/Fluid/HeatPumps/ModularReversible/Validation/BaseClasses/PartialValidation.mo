@@ -93,7 +93,7 @@ partial model PartialValidation
     columns=2:10,
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "Table with measurement data"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput TConOutMea(unit="K", displayUnit="degC")
     "Measured condenser outlet"
@@ -136,21 +136,22 @@ equation
     annotation (Line(points={{-59,-30},{-42,-30},{-42,-44}}, color={0,0,127}));
   connect(sinSidMasFlowSou.m_flow_in, mCon_flow.y)
     annotation (Line(points={{38,42},{38,50},{21,50}}, color={0,0,127}));
-  connect(tabMea.y[5], mEva_flow.u) annotation (Line(points={{-79,90},{-74,90},
-          {-74,26},{-88,26},{-88,-30},{-82,-30}}, color={0,0,127}));
-  connect(tabMea.y[7], mCon_flow.u) annotation (Line(points={{-79,90},{-74,90},
-          {-74,50},{-2,50}}, color={0,0,127}));
-  connect(tabMea.y[6], heaPum.ySet) annotation (Line(points={{-79,90},{-74,90},{
-          -74,26},{6.83333,26},{6.83333,6.84}}, color={0,0,127}));
-  connect(tabMea.y[9], souSidMasFlowSou.T_in) annotation (Line(points={{-79,90},
-          {-74,90},{-74,26},{-88,26},{-88,-48},{-42,-48}}, color={0,0,127}));
-  connect(sinSidMasFlowSou.T_in, tabMea.y[1]) annotation (Line(points={{34,42},
-          {34,66},{-74,66},{-74,90},{-79,90}}, color={0,0,127}));
+  connect(tabMea.y[5], mEva_flow.u) annotation (Line(points={{-69,80},{-56,80},{
+          -56,26},{-88,26},{-88,-30},{-82,-30}},  color={0,0,127}));
+  connect(tabMea.y[7], mCon_flow.u) annotation (Line(points={{-69,80},{-56,80},{
+          -56,50},{-2,50}},  color={0,0,127}));
+  connect(tabMea.y[6], heaPum.ySet) annotation (Line(points={{-69,80},{-56,80},{
+          -56,26},{6.83333,26},{6.83333,6.84}}, color={0,0,127}));
+  connect(tabMea.y[9], souSidMasFlowSou.T_in) annotation (Line(points={{-69,80},{
+          -56,80},{-56,26},{-88,26},{-88,-48},{-42,-48}},  color={0,0,127}));
+  connect(sinSidMasFlowSou.T_in, tabMea.y[1]) annotation (Line(points={{34,42},{
+          34,66},{-56,66},{-56,80},{-69,80}},  color={0,0,127}));
   connect(tabMea.y[2], TConOutMea)
-    annotation (Line(points={{-79,90},{110,90}}, color={0,0,127}));
-  connect(tabMea.y[8], TEvaOutMea) annotation (Line(points={{-79,90},{92,90},{92,
+    annotation (Line(points={{-69,80},{22,80},{22,90},{110,90}},
+                                                 color={0,0,127}));
+  connect(tabMea.y[8], TEvaOutMea) annotation (Line(points={{-69,80},{92,80},{92,
           10},{110,10}}, color={0,0,127}));
-  connect(tabMea.y[3], PEleMea) annotation (Line(points={{-79,90},{92,90},{92,-68},
+  connect(tabMea.y[3], PEleMea) annotation (Line(points={{-69,80},{92,80},{92,-68},
           {110,-68}}, color={0,0,127}));
   connect(reaPEle.y, PEleSim) annotation (Line(points={{61,-90},{82,-90},{82,
           -92},{110,-92}}, color={0,0,127}));

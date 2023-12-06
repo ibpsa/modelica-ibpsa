@@ -3,7 +3,7 @@ partial model PartialSafety
 
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector for the heat pump"
-    annotation (Placement(transformation(extent={{-70,-72},{-30,-32}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-30,-30}})));
   Modelica.Blocks.Logical.Hysteresis hys(
     pre_y_start=false,
     uHigh=0.01,
@@ -19,8 +19,8 @@ partial model PartialSafety
     "Relative speed of compressor applied after safety control"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 equation
-  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-1,-50},{-26,-50},
-    {-26, -52},{-50,-52}}, color={255,0,255}), Text(
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-1,-50},{-50,-50}},
+                           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},

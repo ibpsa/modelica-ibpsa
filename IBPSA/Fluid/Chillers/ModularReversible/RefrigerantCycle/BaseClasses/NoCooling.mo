@@ -27,8 +27,8 @@ equation
   connect(const.y, PEle)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
   connect(const.y, proRedQEva.u2)
-    annotation (Line(points={{-67,26},{-44,26},{-44,-58}}, color={0,0,127}));
-  connect(calEER.PEle, const.y) annotation (Line(points={{-78,-66},{-62,-66},{-62,
+    annotation (Line(points={{-67,26},{-14,26},{-14,-58}}, color={0,0,127}));
+  connect(calEER.PEle, const.y) annotation (Line(points={{-58,-66},{-46,-66},{-46,
           26},{-67,26}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

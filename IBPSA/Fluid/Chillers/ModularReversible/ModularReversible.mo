@@ -62,14 +62,14 @@ model ModularReversible
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-90,-110})));
+        origin={-80,-100})));
 equation
   connect(conCoo.y, sigBus.coo)
-    annotation (Line(points={{-79,-110},{-80,-110},{-80,-43},{-105,-43}},
-                                color={255,0,255}));
+    annotation (Line(points={{-69,-100},{-60,-100},{-60,-80},{-80,-80},{-80,-43},
+          {-105,-43}},          color={255,0,255}));
   connect(coo, sigBus.coo)
-    annotation (Line(points={{-116,-90},{-80,-90},{-80,-43},{-105,-43}},
-                       color={255,0,255}));
+    annotation (Line(points={{-116,-90},{-98,-90},{-98,-80},{-80,-80},{-80,-43},{
+          -105,-43}},  color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
         Rectangle(
           extent={{-16,83},{16,-83}},

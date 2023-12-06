@@ -7,40 +7,40 @@ model AntiFreeze "Example for usage of antifreeze model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Pulse ySetPul(amplitude=1, period=50)
     "Pulse signal for ySet"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
   Modelica.Blocks.Sources.Pulse TConInEmu(
     amplitude=-10,
     period=20,
     offset=283.15,
     y(unit="K", displayUnit="K"))   "Emulator for condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Modelica.Blocks.Sources.Pulse TEvaOutEmu(
     amplitude=-10,
     period=15,
     offset=283.15,
     y(unit="K", displayUnit="K"))
                    "Emulator for evaporator outlet temperature"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 equation
   connect(antFre.sigBus, sigBus) annotation (Line(
-      points={{0.0833333,3.91667},{-50,3.91667},{-50,-52}},
+      points={{0.0833333,3.91667},{-50,3.91667},{-50,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySetPul.y, antFre.ySet) annotation (Line(points={{-79,30},{-8,30},{-8,
+  connect(ySetPul.y, antFre.ySet) annotation (Line(points={{-69,30},{-8,30},{-8,
           11.6667},{-1.33333,11.6667}},
                           color={0,0,127}));
-  connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-79,-50},{
-          -76,-50},{-76,-52},{-50,-52}}, color={0,0,127}), Text(
+  connect(TEvaOutEmu.y, sigBus.TEvaOutMea) annotation (Line(points={{-69,-50},{
+          -50,-50}},                     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TConInEmu.y, sigBus.TConInMea) annotation (Line(points={{-79,-10},{-50,-10},
-          {-50,-52}},          color={0,0,127}), Text(
+  connect(TConInEmu.y, sigBus.TConInMea) annotation (Line(points={{-69,-10},{-50,
+          -10},{-50,-50}},     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
@@ -51,8 +51,8 @@ equation
   connect(antFre.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{44,
           11.6667},{44,-40},{110,-40}},
                       color={0,0,127}));
-  connect(ySetPul.y, ySet) annotation (Line(points={{-79,30},{-8,30},{-8,40},{
-          110,40}}, color={0,0,127}));
+  connect(ySetPul.y, ySet) annotation (Line(points={{-69,30},{-8,30},{-8,40},{110,
+          40}},     color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   This example shows the usage of the model

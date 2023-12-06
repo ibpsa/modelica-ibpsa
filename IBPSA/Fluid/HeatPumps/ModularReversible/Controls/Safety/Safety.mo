@@ -14,7 +14,7 @@ model Safety "Model including all safety levels"
     safCtrPar constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
     "Safety control parameters" annotation (choicesAllMatching=true, Placement(
-        transformation(extent={{-118,102},{-104,118}})));
+        transformation(extent={{-106,92},{-92,108}})));
   replaceable
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope
     opeEnv if safCtrPar.use_opeEnv constrainedby

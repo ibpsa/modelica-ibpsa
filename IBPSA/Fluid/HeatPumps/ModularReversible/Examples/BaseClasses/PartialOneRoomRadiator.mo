@@ -147,7 +147,7 @@ partial model PartialOneRoomRadiator
         origin={-110,-180})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaCoo if witCoo
     "Prescribed heat flow to trigger cooling"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Sources.Pulse cooLoa(
     amplitude=Q_flow_nominal/2,
     width=10,
@@ -156,7 +156,7 @@ partial model PartialOneRoomRadiator
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,90})));
+        origin={-130,70})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.OneRoomRadiatorHeatPumpControl oneRooRadHeaPumCtr(
     final witCoo=witCoo)
     "Control block for single room heat pump control"
@@ -209,7 +209,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, TOut.T) annotation (Line(
-      points={{-150,50},{-22,50}},
+      points={{-149.95,50.05},{-86,50.05},{-86,50},{-22,50}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -234,9 +234,9 @@ equation
     annotation (Line(points={{-99,-180},{-42,-180}}, color={0,0,127}));
 
   connect(cooLoa.y, preHeaCoo.Q_flow)
-    annotation (Line(points={{-119,90},{-100,90}}, color={0,0,127}));
-  connect(preHeaCoo.port, heaCap.port) annotation (Line(points={{-80,90},{-60,90},
-          {-60,96},{50,96},{50,50},{70,50}}, color={191,0,0}));
+    annotation (Line(points={{-119,70},{-100,70}}, color={0,0,127}));
+  connect(preHeaCoo.port, heaCap.port) annotation (Line(points={{-80,70},{-60,70},
+          {-60,66},{50,66},{50,50},{70,50}}, color={191,0,0}));
   connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-143,-140},
           {-136,-140},{-136,-180},{-122,-180}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-143,-140},

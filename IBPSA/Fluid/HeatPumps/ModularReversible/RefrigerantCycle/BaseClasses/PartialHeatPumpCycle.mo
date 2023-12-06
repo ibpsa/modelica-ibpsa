@@ -10,21 +10,21 @@ partial model PartialHeatPumpCycle
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCOP calCOP(
     PEleMin=PEle_nominal*0.1)  if calEff
     "Calculate the COP"
-    annotation (Placement(transformation(extent={{-80,-60},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-80,-80}})));
 equation
-  connect(iceFacCal.iceFac, sigBus.icefacHPMea) annotation (Line(points={{-79,-42},
-          {-72,-42},{-72,-28},{-102,-28},{-102,104},{1,104}}, color={0,0,127}),
+  connect(iceFacCal.iceFac, sigBus.icefacHPMea) annotation (Line(points={{-69,-40},
+          {-56,-40},{-56,-26},{-102,-26},{-102,104},{1,104}}, color={0,0,127}),
       Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(feeHeaFloEva.y, proRedQEva.u2)
-    annotation (Line(points={{-61,-10},{-44,-10},{-44,-58}}, color={0,0,127}));
-  connect(calCOP.QUse_flow, redQCon.y) annotation (Line(points={{-78,-74},{-72,
-          -74},{-72,-90},{70,-90},{70,-81}}, color={0,0,127}));
-  connect(calCOP.COP, sigBus.COP) annotation (Line(points={{-101,-70},{-102,-70},
-          {-102,104},{1,104}}, color={0,0,127}), Text(
+    annotation (Line(points={{-61,-10},{-14,-10},{-14,-58}}, color={0,0,127}));
+  connect(calCOP.QUse_flow, redQCon.y) annotation (Line(points={{-58,-74},{-50,
+          -74},{-50,-96},{70,-96},{70,-81}}, color={0,0,127}));
+  connect(calCOP.COP, sigBus.COP) annotation (Line(points={{-81,-70},{-102,-70},{
+          -102,104},{1,104}},  color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},

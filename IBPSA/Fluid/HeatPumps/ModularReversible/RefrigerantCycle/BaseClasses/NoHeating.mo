@@ -31,8 +31,8 @@ equation
           4},{64,4},{64,-58}}, color={0,0,127}));
   connect(constZer.y, PEle)
     annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
-  connect(calCOP.PEle, constZer.y) annotation (Line(points={{-78,-66},{-62,-66},{
-          -62,26},{-67,26}}, color={0,0,127}));
+  connect(calCOP.PEle, constZer.y) annotation (Line(points={{-58,-66},{-50,-66},{
+          -50,26},{-67,26}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Using this model, the heat pump will always be off.

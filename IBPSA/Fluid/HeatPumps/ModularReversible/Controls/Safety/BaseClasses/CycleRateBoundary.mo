@@ -11,7 +11,7 @@ block CycleRateBoundary "Checks if the cycle rate is in boundary"
     annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
   Modelica.Blocks.Sources.IntegerConstant intConPluOne(final k=1)
     "Value for counting"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Modelica.Blocks.Math.IntegerToReal intToRea
     "Convert to real in order to compare and delay"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -22,8 +22,8 @@ block CycleRateBoundary "Checks if the cycle rate is in boundary"
     "Apply delay to enable starts per delay time"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 equation
-  connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-79,-20},{-74,-20},
-          {-74,0},{-64,0}}, color={255,127,0}));
+  connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-69,-20},{-66,-20},
+          {-66,0},{-64,0}}, color={255,127,0}));
   connect(intToRea.u, triAdd.y)
     annotation (Line(points={{-22,0},{-38,0}}, color={255,127,0}));
   connect(intToRea.y, sub.u1)

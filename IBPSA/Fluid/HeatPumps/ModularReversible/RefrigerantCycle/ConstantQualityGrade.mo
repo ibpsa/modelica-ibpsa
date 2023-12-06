@@ -55,8 +55,8 @@ equation
           -26},{62,-58},{64,-58}}, color={0,0,127}));
   connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-92},{0,-92},{0,
           -110}}, color={0,0,127}));
-  connect(swiPEle.y, feeHeaFloEva.u2) annotation (Line(points={{50,-1},{50,-26},{
-          -70,-26},{-70,-18}},  color={0,0,127}));
+  connect(swiPEle.y, feeHeaFloEva.u2) annotation (Line(points={{50,-1},{50,-24},{
+          -70,-24},{-70,-18}},  color={0,0,127}));
   connect(swiQUse.y, feeHeaFloEva.u1) annotation (Line(points={{-50,-1},{-88,-1},
           {-88,-10},{-78,-10}}, color={0,0,127}));
   connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,
@@ -71,8 +71,8 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(swiPEle.y, calCOP.PEle) annotation (Line(points={{50,-1},{50,-26},{-70,
-          -26},{-70,-66},{-78,-66}}, color={0,0,127}));
+  connect(swiPEle.y, calCOP.PEle) annotation (Line(points={{50,-1},{50,-24},{-44,
+          -24},{-44,-66},{-58,-66}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
