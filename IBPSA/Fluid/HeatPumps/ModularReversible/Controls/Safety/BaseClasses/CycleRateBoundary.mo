@@ -8,34 +8,38 @@ block CycleRateBoundary "Checks if the cycle rate is in boundary"
     "Checks if the count of total runs is lower than the maximal value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.MathInteger.TriggeredAdd triAdd "Count number of starts"
-    annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,-30}})));
   Modelica.Blocks.Sources.IntegerConstant intConPluOne(final k=1)
     "Value for counting"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Modelica.Blocks.Math.IntegerToReal intToRea
     "Convert to real in order to compare and delay"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Modelica.Blocks.Math.Add sub(k2=-1)
     "Difference of current and delayed starts"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Nonlinear.FixedDelay fixDel(final delayTime=delTim)
     "Apply delay to enable starts per delay time"
-    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 equation
-  connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-69,-20},{-66,-20},
-          {-66,0},{-64,0}}, color={255,127,0}));
+  connect(intConPluOne.y, triAdd.u) annotation (Line(points={{-69,-20},{-54,-20}},
+                            color={255,127,0}));
   connect(intToRea.u, triAdd.y)
-    annotation (Line(points={{-22,0},{-38,0}}, color={255,127,0}));
+    annotation (Line(points={{-22,-20},{-28,-20}},
+                                               color={255,127,0}));
   connect(intToRea.y, sub.u1)
-    annotation (Line(points={{1,0},{30,0},{30,6},{38,6}}, color={0,0,127}));
+    annotation (Line(points={{1,-20},{12,-20},{12,6},{38,6}},
+                                                          color={0,0,127}));
   connect(intToRea.y, fixDel.u)
-    annotation (Line(points={{1,0},{6,0},{6,-20},{8,-20}}, color={0,0,127}));
+    annotation (Line(points={{1,-20},{12,-20},{12,-40},{18,-40}},
+                                                           color={0,0,127}));
   connect(fixDel.y, sub.u2)
-    annotation (Line(points={{31,-20},{31,-6},{38,-6}}, color={0,0,127}));
+    annotation (Line(points={{41,-40},{50,-40},{50,-20},{28,-20},{28,-6},{38,-6}},
+                                                        color={0,0,127}));
   connect(runCouLesMax.y, y)
     annotation (Line(points={{91,0},{110,0}},           color={255,0,255}));
-  connect(u, triAdd.trigger) annotation (Line(points={{-120,0},{-80,0},{-80,20},
-          {-56,20},{-56,12}}, color={255,0,255}));
+  connect(u, triAdd.trigger) annotation (Line(points={{-120,0},{-46,0},{-46,-8}},
+                              color={255,0,255}));
   connect(sub.y, runCouLesMax.u) annotation (Line(points={{61,0},{68,0}},
                      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

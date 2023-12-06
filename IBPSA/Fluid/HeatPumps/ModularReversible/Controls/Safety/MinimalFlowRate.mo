@@ -30,22 +30,21 @@ equation
   connect(and1.y, booPasThr.u) annotation (Line(points={{1,0},{38,0}},
              color={255,0,255}));
   connect(hysEva.u, sigBus.mEvaMea_flow) annotation (Line(points={{-62,-20},{
-          -84,-20},{-84,-73},{-119,-73}},
+          -84,-20},{-84,-61},{-119,-61}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(hysCon.u, sigBus.mConMea_flow) annotation (Line(points={{-62,20},{-94,
-          20},{-94,-52},{-119,-52},{-119,-73}},
+          20},{-94,-52},{-119,-52},{-119,-61}},
                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySet, swiErr.u1) annotation (Line(points={{-136,20},{-106,20},{-106,
-          76},{72,76},{72,8},{78,8}},
-                                  color={0,0,127}));
+  connect(ySet, swiErr.u1) annotation (Line(points={{-136,0},{-100,0},{-100,40},
+          {68,40},{68,8},{78,8}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Safety control to prevent the device from turning on

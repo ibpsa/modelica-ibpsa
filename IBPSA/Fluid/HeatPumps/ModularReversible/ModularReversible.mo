@@ -1,7 +1,8 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ModularReversible
   "Grey-box model for reversible heat pumps"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
     mCon_flow_nominal=QUse_flow_nominal/(dTCon_nominal*cpCon),
     mEva_flow_nominal=(QUse_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
@@ -59,87 +60,20 @@ model ModularReversible
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-82,-100})));
+        origin={-110,-130})));
   Modelica.Blocks.Interfaces.BooleanInput hea if not use_busConOnl and use_rev
     "=true for heating, =false for cooling"
-    annotation (Placement(transformation(extent={{-132,-106},{-100,-74}})));
+    annotation (Placement(transformation(extent={{-172,-88},{-140,-56}}),
+        iconTransformation(extent={{-120,-28},{-102,-10}})));
 equation
   connect(conHea.y, sigBus.hea)
-    annotation (Line(points={{-71,-100},{-66,-100},{-66,-80},{-80,-80},{-80,-43},
-          {-105,-43}},          color={255,0,255}));
+    annotation (Line(points={{-99,-130},{-80,-130},{-80,-40},{-140,-40},{-140,
+          -41},{-141,-41}},     color={255,0,255}));
   connect(hea, sigBus.hea)
-    annotation (Line(points={{-116,-90},{-94,-90},{-94,-80},{-80,-80},{-80,-43},{
-          -105,-43}},  color={255,0,255}));
-  annotation (Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
-        Rectangle(
-          extent={{-16,83},{16,-83}},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0},
-          origin={1,-64},
-          rotation=90),
-        Rectangle(
-          extent={{-17,83},{17,-83}},
-          fillColor={255,0,128},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0},
-          origin={1,61},
-          rotation=90),
-        Line(
-          points={{-9,40},{9,40},{-5,-2},{9,-40},{-9,-40}},
-          color={0,0,0},
-          smooth=Smooth.None,
-          origin={-3,-60},
-          rotation=-90),
-        Line(
-          points={{9,40},{-9,40},{5,-2},{-9,-40},{9,-40}},
-          color={0,0,0},
-          smooth=Smooth.None,
-          origin={-5,56},
-          rotation=-90),
-        Rectangle(
-          extent={{-82,42},{84,-46}},
-          lineColor={238,46,47},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-88,60},{88,60}}, color={28,108,200}),
-        Line(points={{-88,-60},{88,-60}}, color={28,108,200}),
-    Line(
-    origin={-75.5,-80.333},
-    points={{43.5,8.3333},{37.5,0.3333},{25.5,-1.667},{33.5,-9.667},{17.5,-11.667},{27.5,-21.667},{13.5,-23.667},
-              {11.5,-31.667}},
-      smooth=Smooth.Bezier,
-      visible=use_evaCap),
-        Polygon(
-          points={{-70,-122},{-68,-108},{-58,-114},{-70,-122}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={0,0,0},
-          visible=use_evaCap),
-    Line( origin={40.5,93.667},
-          points={{39.5,6.333},{37.5,0.3333},{25.5,-1.667},{33.5,-9.667},{17.5,
-              -11.667},{27.5,-21.667},{13.5,-23.667},{11.5,-27.667}},
-          smooth=Smooth.Bezier,
-          visible=use_conCap),
-        Polygon(
-          points={{86,110},{84,96},{74,102},{86,110}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={0,0,0},
-          visible=use_conCap),
-        Line(
-          points={{-42,72},{34,72}},
-          color={0,0,0},
-          arrow={Arrow.None,Arrow.Filled},
-          thickness=0.5),
-        Line(
-          points={{-38,0},{38,0}},
-          color={0,0,0},
-          arrow={Arrow.None,Arrow.Filled},
-          thickness=0.5,
-          origin={0,-74},
-          rotation=180)}),                Diagram(coordinateSystem(extent={{-100,
-            -120},{100,120}})),
+    annotation (Line(points={{-156,-72},{-130,-72},{-130,-41},{-141,-41}},
+                       color={255,0,255}));
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="
 <html>
 <ul>

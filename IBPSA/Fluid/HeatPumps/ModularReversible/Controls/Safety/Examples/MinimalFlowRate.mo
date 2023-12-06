@@ -18,18 +18,18 @@ model MinimalFlowRate
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 equation
   connect(sigBus, minFloRatSaf.sigBus) annotation (Line(
-      points={{-50,-50},{-54,-50},{-54,4},{0.0833333,4},{0.0833333,3.91667}},
+      points={{-50,-50},{-46,-50},{-46,4},{0.0833333,4},{0.0833333,3.91667}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(minFloRatSaf.yOut, hys.u) annotation (Line(points={{20.8333,11.6667},{
-          46,11.6667},{46,-50},{22,-50}},
+  connect(minFloRatSaf.yOut, hys.u) annotation (Line(points={{20.8333,10},{46,
+          10},{46,-50},{22,-50}},
                           color={0,0,127}));
-  connect(ySetPul.y, minFloRatSaf.ySet) annotation (Line(points={{-69,30},{-50,30},
-          {-50,11.6667},{-1.33333,11.6667}},
+  connect(ySetPul.y, minFloRatSaf.ySet) annotation (Line(points={{-69,30},{-50,
+          30},{-50,10},{-1.33333,10}},
                                color={0,0,127}));
   connect(mConEmu_flow.y, sigBus.mConMea_flow) annotation (Line(points={{-69,-10},
           {-50,-10},{-50,-50}}, color={0,0,127}), Text(
@@ -43,8 +43,8 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(minFloRatSaf.yOut, yOut) annotation (Line(points={{20.8333,11.6667},{46,
-          11.6667},{46,-40},{110,-40}},
+  connect(minFloRatSaf.yOut, yOut) annotation (Line(points={{20.8333,10},{46,10},
+          {46,-40},{110,-40}},
                            color={0,0,127}));
   connect(ySetPul.y, ySet) annotation (Line(points={{-69,30},{26,30},{26,40},{110,
           40}}, color={0,0,127}));

@@ -7,7 +7,7 @@ package Controls "Package of control sequences"
     Documentation(
       info="<html>
 <p>
-This package contains control sequences.
+This package contains control logic for the heat pump internal controls.
 </p>
 </html>"));
 end Controls;

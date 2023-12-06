@@ -9,7 +9,7 @@ partial model PartialSafety
     uHigh=0.01,
     uLow=0.01/2) "Check if onOffMea in heat pump model would be true"
                  annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=180,
         origin={10,-50})));
   Modelica.Blocks.Interfaces.RealOutput ySet

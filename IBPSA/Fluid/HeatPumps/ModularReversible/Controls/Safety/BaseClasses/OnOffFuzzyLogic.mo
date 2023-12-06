@@ -87,6 +87,15 @@ at the minimal speed.
     \"https://github.com/RWTH-EBC/IBPSA/issues/1576\">IBPSA #1576</a>)
   </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                        Text(
+        extent={{-154,138},{146,98}},
+        textString="%name",
+        textColor={0,0,255})}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end OnOffFuzzyLogic;

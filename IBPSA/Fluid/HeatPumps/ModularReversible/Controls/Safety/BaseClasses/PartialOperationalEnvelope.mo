@@ -29,8 +29,9 @@ partial model PartialOperationalEnvelope
     "Switch between heating and cooling envelope"
     annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{66,20},{66,8},{
-          78,8}}, color={0,0,127}));
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,0},{-80,0},{-80,20},{
+          70,20},{70,8},{78,8}},
+                  color={0,0,127}));
   connect(swiHeaCoo.y, booPasThr.u)
     annotation (Line(points={{17,0},{38,0}}, color={255,0,255}));
   connect(bouMapCoo.noErr, swiHeaCoo.u3)

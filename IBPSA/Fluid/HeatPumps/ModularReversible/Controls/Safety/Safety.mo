@@ -91,8 +91,8 @@ model Safety "Model including all safety levels"
 equation
 
   connect(sigBus, onOffCtr.sigBus) annotation (Line(
-      points={{-119,-73},{-112,-73},{-112,-10},{-66,-10},{-66,23.9167},{-59.9167,
-          23.9167}},
+      points={{-119,-61},{-112,-61},{-112,-10},{-66,-10},{-66,23.9167},{
+          -59.9167,23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -101,8 +101,8 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus, opeEnv.sigBus) annotation (Line(
-      points={{-119,-73},{-112,-73},{-112,-10},{-28,-10},{-28,23.9167},{-19.9167,
-          23.9167}},
+      points={{-119,-61},{-112,-61},{-112,-10},{-28,-10},{-28,23.9167},{
+          -19.9167,23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -111,7 +111,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus, antFre.sigBus) annotation (Line(
-      points={{-119,-73},{-112,-73},{-112,-10},{14,-10},{14,23.9167},{20.0833,
+      points={{-119,-61},{-112,-61},{-112,-10},{14,-10},{14,23.9167},{20.0833,
           23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -121,17 +121,17 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(antFre.err, antFreErr) annotation (Line(points={{40.8333,21.6667},{
-          40.8333,-54},{30,-54},{30,-130}},
+          40.8333,22},{46,22},{46,-54},{30,-54},{30,-130}},
                                     color={255,127,0}));
   connect(opeEnv.err, opeEnvErr) annotation (Line(points={{0.833333,21.6667},{
-          0.833333,-54},{-10,-54},{-10,-130}},
+          0.833333,22},{6,22},{6,-54},{-10,-54},{-10,-130}},
                                       color={255,127,0}));
   connect(minVolFloRatSaf.yOut, yOut) annotation (Line(
-      points={{80.8333,31.6667},{88,31.6667},{88,20},{130,20}},
+      points={{80.8333,30},{92,30},{92,0},{130,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sigBus, minVolFloRatSaf.sigBus) annotation (Line(
-      points={{-119,-73},{-112,-73},{-112,-10},{56,-10},{56,23.9167},{60.0833,
+      points={{-119,-61},{-112,-61},{-112,-10},{56,-10},{56,23.9167},{60.0833,
           23.9167}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -141,7 +141,7 @@ equation
       horizontalAlignment=TextAlignment.Left));
 
   connect(minVolFloRatSaf.err, minFlowErr) annotation (Line(points={{80.8333,
-          21.6667},{80.8333,-54},{70,-54},{70,-130}},
+          21.6667},{80.8333,22},{84,22},{84,-54},{70,-54},{70,-130}},
                                              color={255,127,0}));
   connect(reaPasThrOnOff.y, reaPasThrOpeEnv.u)
     annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
@@ -150,51 +150,48 @@ equation
   connect(reaPasThrAntFre.y, reaPasThrMinVolRat.u)
     annotation (Line(points={{41,70},{58,70}}, color={0,0,127}));
   connect(reaPasThrMinVolRat.y, yOut) annotation (Line(
-      points={{81,70},{92,70},{92,20},{130,20}},
+      points={{81,70},{92,70},{92,0},{130,0}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(onOffCtr.yOut, opeEnv.ySet) annotation (Line(points={{-39.1667,31.6667},
-          {-36,31.6667},{-36,32},{-30,32},{-30,31.6667},{-21.3333,31.6667}},
-                                                  color={0,0,127}));
-  connect(opeEnv.yOut, antFre.ySet) annotation (Line(points={{0.833333,31.6667},{
-          4,31.6667},{4,32},{10,32},{10,31.6667},{18.6667,31.6667}},  color={0,0,
+  connect(onOffCtr.yOut, opeEnv.ySet) annotation (Line(points={{-39.1667,30},{
+          -21.3333,30}},                          color={0,0,127}));
+  connect(opeEnv.yOut, antFre.ySet) annotation (Line(points={{0.833333,30},{
+          18.6667,30}},                                               color={0,0,
           127}));
   connect(antFre.yOut, minVolFloRatSaf.ySet) annotation (Line(points={{40.8333,
-          31.6667},{44,31.6667},{44,32},{50,32},{50,31.6667},{58.6667,31.6667}},
-                                                                        color={0,
+          30},{58.6667,30}},                                            color={0,
           0,127}));
   connect(antFre.yOut, reaPasThrMinVolRat.u) annotation (Line(
-      points={{40.8333,31.6667},{40.8333,31.6667},{52,31.6667},{52,70},{58,70}},
+      points={{40.8333,30},{40.8333,30},{52,30},{52,70},{58,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrAntFre.y, minVolFloRatSaf.ySet) annotation (Line(
-      points={{41,70},{52,70},{52,31.6667},{58.6667,31.6667}},
+      points={{41,70},{52,70},{52,30},{58.6667,30}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(opeEnv.yOut, reaPasThrAntFre.u) annotation (Line(
-      points={{0.833333,31.6667},{12,31.6667},{12,70},{18,70}},
+      points={{0.833333,30},{12,30},{12,70},{18,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrOpeEnv.y, antFre.ySet) annotation (Line(
-      points={{1,70},{12,70},{12,31.6667},{18.6667,31.6667}},
+      points={{1,70},{12,70},{12,30},{18.6667,30}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(onOffCtr.yOut, reaPasThrOpeEnv.u) annotation (Line(
-      points={{-39.1667,31.6667},{-39.1667,31.6667},{-32,31.6667},{-32,70},{-22,
-          70}},
+      points={{-39.1667,30},{-39.1667,30},{-32,30},{-32,70},{-22,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(reaPasThrOnOff.y, opeEnv.ySet) annotation (Line(
-      points={{-39,70},{-32,70},{-32,32},{-26,32},{-26,31.6667},{-21.3333,31.6667}},
+      points={{-39,70},{-32,70},{-32,30},{-21.3333,30}},
       color={0,0,127},
       pattern=LinePattern.Dash));
 
   connect(ySet, onOffCtr.ySet) annotation (Line(
-      points={{-136,20},{-82,20},{-82,31.6667},{-61.3333,31.6667}},
+      points={{-136,0},{-80,0},{-80,30},{-61.3333,30}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(ySet, reaPasThrOnOff.u) annotation (Line(
-      points={{-136,20},{-82,20},{-82,70},{-62,70}},
+      points={{-136,0},{-80,0},{-80,70},{-62,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   annotation (Documentation(revisions="<html><ul>

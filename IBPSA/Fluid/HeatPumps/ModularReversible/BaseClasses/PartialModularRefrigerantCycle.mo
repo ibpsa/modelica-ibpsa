@@ -7,8 +7,8 @@ partial model PartialModularRefrigerantCycle
 
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Signal bus with data for refrigerant models" annotation (Placement(
-        transformation(extent={{-18,86},{18,118}}), iconTransformation(extent={{
-            -16,88},{18,118}})));
+        transformation(extent={{-18,84},{18,116}}), iconTransformation(extent={{-16,84},
+            {18,114}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final unit="W", final displayUnit="kW")
     "Heat flow rate from the refrigerant to the condenser medium"
@@ -66,7 +66,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
-          lineColor={238,46,47},
+          lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Ellipse(

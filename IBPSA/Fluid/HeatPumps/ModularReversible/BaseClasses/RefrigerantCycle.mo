@@ -1,8 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
-  extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleHeatPumpHeating =
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
       (useInHeaPum=true)
@@ -82,37 +81,32 @@ equation
   connect(refCycHeaPumHea.QEva_flow, gainEva.u) annotation (Line(points={{24,38},
           {24,8},{-22.4,8}},                color={0,0,127}));
   connect(sigBus,refCycHeaPumCoo.sigBus)  annotation (Line(
-      points={{0,102},{0,90},{-40,90},{-40,86},{-39.705,86},{-39.705,82.8}},
+      points={{0,100},{0,90},{-40,90},{-40,86},{-39.705,86},{-39.705,82.8}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus,refCycHeaPumHea.sigBus)  annotation (Line(
-      points={{0,102},{0,90},{39.8,90},{39.8,80.8}},
+      points={{0,100},{0,90},{39.8,90},{39.8,80.8}},
       color={255,204,51},
       thickness=0.5));
-  connect(swiQCon.u2, sigBus.hea) annotation (Line(points={{58,0},{0,0},{0,102}},
+  connect(swiQCon.u2, sigBus.hea) annotation (Line(points={{58,0},{0,0},{0,100}},
         color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(swiPEle.u2, sigBus.hea) annotation (Line(points={{2.22045e-15,-58},{2.22045e-15,
-          22},{0,22},{0,102}}, color={255,0,255}), Text(
+          22},{0,22},{0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(swiQEva.u2, sigBus.hea) annotation (Line(points={{-58,0},{0,0},{0,102},
-          {0,102}}, color={255,0,255}), Text(
+  connect(swiQEva.u2, sigBus.hea) annotation (Line(points={{-58,0},{0,0},{0,100},
+          {0,100}}, color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={238,46,47},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-24,88},{22,44}},
           lineColor={28,108,200},

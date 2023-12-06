@@ -82,7 +82,7 @@ model OnOff
 
   BaseClasses.OnOffFuzzyLogic onOffFuzLog(ySetRed=ySetRed)
     "Fuzzy logic to device for output"
-    annotation (Placement(transformation(extent={{74,0},{114,40}})));
+    annotation (Placement(transformation(extent={{74,-20},{114,20}})));
 equation
   connect(preOnOff.y, cycRatBou.u) annotation (Line(points={{-79,-90},{-66,-90},{-66,
           -50},{-2,-50}},                     color={255,0,255}));
@@ -123,14 +123,14 @@ equation
       pattern=LinePattern.Dash));
 
   connect(preOnOff.u, sigBus.onOffMea) annotation (Line(points={{-102,-90},{
-          -108,-90},{-108,-73},{-119,-73}},
+          -108,-90},{-108,-61},{-119,-61}},
                                        color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(ySetOn.u, ySet) annotation (Line(points={{-102,70},{-114,70},{-114,20},
-          {-136,20}}, color={0,0,127}));
+  connect(ySetOn.u, ySet) annotation (Line(points={{-102,70},{-114,70},{-114,0},
+          {-136,0}},  color={0,0,127}));
   connect(andStaOn.u1, ySetOn.y) annotation (Line(points={{-42,50},{-58,50},{-58,
           52},{-74,52},{-74,70},{-79,70}},
                          color={255,0,255}));
@@ -145,22 +145,26 @@ equation
   connect(booConstRunTim.y, isAblToTurOff.u) annotation (Line(points={{21,70},{28,
           70},{28,90},{38,90}}, color={255,0,255}));
   connect(onOffFuzLog.yOut, yOut)
-    annotation (Line(points={{116,20},{130,20}}, color={0,0,127}));
-  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,20},{56,20},{56,
-          36},{-58,36},{-58,6},{-114,6},{-114,20},{-136,20}},
+    annotation (Line(points={{116,0},{130,0}},   color={0,0,127}));
+  connect(onOffFuzLog.ySet, ySet) annotation (Line(points={{70.8,0},{56,0},{56,
+          36},{-58,36},{-58,6},{-114,6},{-114,0},{-136,0}},
                                         color={0,0,127}));
-  connect(onOffFuzLog.staOff, andStaOff.y) annotation (Line(points={{70.8,14},{36,
-          14},{36,-30},{-19,-30}}, color={255,0,255}));
-  connect(onOffFuzLog.staOn, andStaOn.y) annotation (Line(points={{70.8,32},{42,32},
-          {42,50},{-19,50}}, color={255,0,255}));
-  connect(onOffFuzLog.isAblToTurOff, isAblToTurOff.y) annotation (Line(points={{70.8,
-          38},{64,38},{64,90},{61,90}}, color={255,0,255}));
-  connect(andIsAblToTurOn.y, onOffFuzLog.isAblToTurOn) annotation (Line(points={{71,
-          -60},{80,-60},{80,-40},{54,-40},{54,2},{70.8,2}}, color={255,0,255}));
-  connect(onOffFuzLog.turOff, andTurOff.y) annotation (Line(points={{70.8,26},{32,
-          26},{32,40},{-12,40},{-12,10},{-19,10}}, color={255,0,255}));
-  connect(onOffFuzLog.turOn, andTurOn.y) annotation (Line(points={{70.8,8},{28,8},
-          {28,-70},{-12,-70},{-12,-90},{-19,-90}}, color={255,0,255}));
+  connect(onOffFuzLog.staOff, andStaOff.y) annotation (Line(points={{70.8,-6},{
+          36,-6},{36,-30},{-19,-30}},
+                                   color={255,0,255}));
+  connect(onOffFuzLog.staOn, andStaOn.y) annotation (Line(points={{70.8,12},{42,
+          12},{42,50},{-19,50}},
+                             color={255,0,255}));
+  connect(onOffFuzLog.isAblToTurOff, isAblToTurOff.y) annotation (Line(points={{70.8,18},
+          {64,18},{64,90},{61,90}},     color={255,0,255}));
+  connect(andIsAblToTurOn.y, onOffFuzLog.isAblToTurOn) annotation (Line(points={{71,-60},
+          {80,-60},{80,-40},{54,-40},{54,-18},{70.8,-18}},  color={255,0,255}));
+  connect(onOffFuzLog.turOff, andTurOff.y) annotation (Line(points={{70.8,6},{
+          32,6},{32,40},{-12,40},{-12,10},{-19,10}},
+                                                   color={255,0,255}));
+  connect(onOffFuzLog.turOn, andTurOn.y) annotation (Line(points={{70.8,-12},{
+          34,-12},{34,-70},{-6,-70},{-6,-90},{-19,-90}},
+                                                   color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
   Checks if the <code>ySet</code> value is legal by checking if

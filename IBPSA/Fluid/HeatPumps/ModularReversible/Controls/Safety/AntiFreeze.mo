@@ -10,20 +10,20 @@ model AntiFreeze "Model to prevent source from freezing"
     final uLow=TAntFre,
     final pre_y_start=true,
     final uHigh=TAntFre + dTHys) "Hysteresis to indicate if freezing occurs"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
   Modelica.Blocks.Math.Min min
     "Minimum of evaporator outlet and condenser inlet temperatures"
-   annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+   annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
 
 equation
-  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,20},{66,20},{66,8},{
-          78,8}}, color={0,0,127}));
+  connect(ySet,swiErr.u1)  annotation (Line(points={{-136,0},{-100,0},{-100,52},
+          {70,52},{70,8},{78,8}},
+                  color={0,0,127}));
   connect(min.y, hys.u)
-    annotation (Line(points={{-39,-10},{-28,-10},{-28,0},{-22,0}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-37,20},{-22,20}},   color={0,0,127}));
   connect(sigBus.TConInMea, min.u1) annotation (Line(
-      points={{-119,-73},{-119,-14},{-104,-14},{-104,-4},{-62,-4}},
+      points={{-119,-61},{-119,-60},{-92,-60},{-92,26},{-60,26}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -32,7 +32,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(sigBus.TEvaOutMea, min.u2) annotation (Line(
-      points={{-119,-73},{-119,-16},{-62,-16}},
+      points={{-119,-61},{-119,-60},{-92,-60},{-92,14},{-60,14}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -41,7 +41,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(hys.y, booPasThr.u) annotation (Line(
-      points={{1,0},{38,0}},
+      points={{1,20},{20,20},{20,0},{38,0}},
       color={255,0,255}));
   annotation (Documentation(revisions="<html><ul>
 <li>

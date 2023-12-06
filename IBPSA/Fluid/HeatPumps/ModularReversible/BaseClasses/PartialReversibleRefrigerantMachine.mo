@@ -237,7 +237,7 @@ partial model PartialReversibleRefrigerantMachine
     final m_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dpCon_nominal,
     final GInn=GConIns) "Heat exchanger model for the condenser"
-    annotation (Placement(transformation(extent={{-20,72},{20,112}})));
+    annotation (Placement(transformation(extent={{-20,80},{20,120}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
     final deltaM=deltaMEva,
@@ -258,28 +258,29 @@ partial model PartialReversibleRefrigerantMachine
     final TCap_start=TEvaCap_start,
     final GOut=GEvaOut,
     final GInn=GEvaIns) "Heat exchanger model for the evaporator"
-    annotation (Placement(transformation(extent={{20,-72},{-20,-112}})));
+    annotation (Placement(transformation(extent={{20,-80},{-20,-120}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutEva
     if use_evaCap "Forces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={70,-100})));
+        origin={70,-130})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutCon
     if use_conCap "Forces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={70,100})));
+        origin={70,130})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety safCtr(
     final mEva_flow_nominal=mEva_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     safCtrPar=safCtrPar,
     final ySet_small=ySet_small) if use_intSafCtr "Safety control models"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-112,-20},{-92,0}})));
   Modelica.Blocks.Interfaces.RealInput ySet if not use_busConOnl
     "Relative compressor speed between 0 and 1" annotation (Placement(
-        transformation(extent={{-132,4},{-100,36}})));
+        transformation(extent={{-172,4},{-140,36}}), iconTransformation(extent={{-122,10},
+            {-102,30}})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", final
       displayUnit="degC") if use_evaCap and not use_busConOnl
@@ -287,14 +288,18 @@ partial model PartialReversibleRefrigerantMachine
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={110,-100})));
+        origin={146,-130}), iconTransformation(extent={{10,-10},{-10,10}},
+          origin={110,-20})));
   Modelica.Blocks.Interfaces.RealInput TConAmb(final unit="K", final
       displayUnit="degC") if use_conCap and not use_busConOnl
     "Ambient temperature on the condenser side" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={110,100})));
+        origin={150,130}), iconTransformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={110,24})));
 
   IBPSA.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
@@ -305,7 +310,7 @@ partial model PartialReversibleRefrigerantMachine
   IBPSA.Fluid.Sensors.MassFlowRate mCon_flow(final allowFlowReversal=
         allowFlowReversalEva, redeclare final package Medium = MediumCon)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
-        origin={-50,92},
+        origin={-50,100},
         extent={{-10,10},{10,-10}},
         rotation=0)));
 
@@ -314,7 +319,7 @@ partial model PartialReversibleRefrigerantMachine
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
         transformation(extent={{10,-10},{-10,10}}, rotation=180,
-        origin={-50,-50})));
+        origin={-110,-90})));
 
   RefrigerantCycleInertia refCycIneCon "Inertia model for condenser side"
                          annotation(Placement(transformation(
@@ -336,7 +341,7 @@ partial model PartialReversibleRefrigerantMachine
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-80,100})));
+        origin={-98,32})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.InflowTemperatureSensor senTEvaIn(
     final y=MediumEva.temperature(MediumEva.setState_phX(
         port_a2.p,
@@ -345,8 +350,8 @@ partial model PartialReversibleRefrigerantMachine
     "Real expression for evaporator inlet temperature" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={80,-30})));
+        rotation=0,
+        origin={-98,12})));
 
 // To avoid using the bus, set the section below to protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
@@ -354,7 +359,7 @@ protected
 // -->
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
-          extent={{-120,-60},{-90,-26}}), iconTransformation(extent={{-108,-52},
+          extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
             {-90,-26}})));
 
   parameter Boolean use_busConOnl=false
@@ -380,37 +385,30 @@ equation
 
   // Non bus connections
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{-59.9167,-16.0833},{-59.9167,-16},{-76,-16},{-76,-43},{-105,-43}},
+      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,
+          -40},{-140,-41},{-141,-41}},
       color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-39.1667,-8.33333},
-          {-30,-8.33333},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
-                                                    color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(ySet, safCtr.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,
-          -8.33333},{-61.3333,-8.33333}},
+      thickness=0.5));
+  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-8.33333},
+          {-84,-8.33333},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},
+          {-141,-41}},                              color={0,0,127}));
+  connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+          -8.33333},{-113.333,-8.33333}},
                        color={0,0,127}));
   connect(TConAmb, varTOutCon.T) annotation (Line(
-      points={{110,100},{82,100}},
+      points={{150,130},{82,130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(varTOutCon.port, con.port_out) annotation (Line(
-      points={{60,100},{40,100},{40,114},{0,114},{0,112}},
+      points={{60,130},{0,130},{0,120}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(TEvaAmb, varTOutEva.T) annotation (Line(
-      points={{110,-100},{82,-100}},
+      points={{146,-130},{82,-130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(eva.port_out, varTOutEva.port) annotation (Line(
-      points={{0,-112},{0,-116},{54,-116},{54,-100},{60,-100}},
+      points={{0,-120},{0,-130},{60,-130}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60}},
@@ -418,46 +416,45 @@ equation
   connect(mEva_flow.port_a, port_a2)
     annotation (Line(points={{82,-60},{100,-60}}, color={0,127,255}));
   connect(port_a1,mCon_flow. port_a)
-    annotation (Line(points={{-100,60},{-68,60},{-68,92},{-60,92}},
+    annotation (Line(points={{-100,60},{-68,60},{-68,100},{-60,100}},
                                                   color={0,127,255}));
   connect(mEva_flow.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
-          {32,-92},{20,-92}}, color={0,127,255}));
-  connect(eva.port_b, port_b2) annotation (Line(points={{-20,-92},{-70,-92},{-70,
+          {32,-100},{20,-100}},
+                              color={0,127,255}));
+  connect(eva.port_b, port_b2) annotation (Line(points={{-20,-100},{-80,-100},{-80,
           -60},{-100,-60}}, color={0,127,255}));
   connect(refCyc.QEva_flow, refCycIneEva.u) annotation (Line(points={{-1.22125e-15,
           -19.8},{-1.22125e-15,-28.9},{2.22045e-15,-28.9},{2.22045e-15,-38}},
         color={0,0,127}));
-  connect(eva.Q_flow,refCycIneEva. y) annotation (Line(points={{2.22045e-16,-68},
-          {2.22045e-16,-65.9},{-1.9984e-15,-65.9},{-1.9984e-15,-61}}, color={0,0,
+  connect(eva.Q_flow,refCycIneEva. y) annotation (Line(points={{0,-76},{0,-65.9},
+          {-1.9984e-15,-65.9},{-1.9984e-15,-61}},                     color={0,0,
           127}));
-  connect(refCycIneCon.y, con.Q_flow) annotation (Line(points={{7.21645e-16,61},
-          {7.21645e-16,69.9},{-2.22045e-16,69.9},{-2.22045e-16,68}}, color={0,0,
+  connect(refCycIneCon.y, con.Q_flow) annotation (Line(points={{6.66134e-16,61},
+          {6.66134e-16,69.9},{0,69.9},{0,76}},                       color={0,0,
           127}));
-  connect(refCycIneCon.u, refCyc.QCon_flow) annotation (Line(points={{-6.66134e-16,
-          38},{-6.66134e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
+  connect(refCycIneCon.u, refCyc.QCon_flow) annotation (Line(points={{-8.88178e-16,
+          38},{-8.88178e-16,28.9},{1.22125e-15,28.9},{1.22125e-15,19.8}}, color=
          {0,0,127}));
   connect(mCon_flow.port_b, con.port_a)
-    annotation (Line(points={{-40,92},{-20,92}}, color={0,127,255}));
-  connect(con.port_b, port_b1) annotation (Line(points={{20,92},{44,92},{44,60},{
-          100,60}},  color={0,127,255}));
+    annotation (Line(points={{-40,100},{-20,100}},
+                                                 color={0,127,255}));
+  connect(con.port_b, port_b1) annotation (Line(points={{20,100},{100,100},{100,
+          60}},      color={0,127,255}));
   // External bus connections
   connect(mEva_flow.m_flow, sigBus.mEvaMea_flow) annotation (Line(points={{72,-49},
-          {72,-40},{26,-40},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,
-          -43}},                                                color={0,0,127}),
+          {72,-40},{20,-40},{20,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{
+          -141,-41}},                                           color={0,0,127}),
       Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(mCon_flow.m_flow, sigBus.mConMea_flow) annotation (Line(points={{-50,81},
-          {-50,32},{-76,32},{-76,-43},{-105,-43}},
-                                                 color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-3,-6},{-3,-6}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(mCon_flow.m_flow, sigBus.mConMea_flow) annotation (Line(points={{-50,89},
+          {-50,32},{-76,32},{-76,-40},{-134,-40},{-134,-42},{-138,-42},{-138,-41},
+          {-141,-41}},                           color={0,0,127}));
   connect(refCyc.sigBus, sigBus) annotation (Line(
-      points={{-18.54,0.18},{-30,0.18},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+      points={{-17.82,0.18},{-40,0.18},{-40,-40},{-138,-40},{-138,-42},{-140,-42},
+          {-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -465,77 +462,60 @@ equation
       extent={{6,3},{6,3}}));
 
   connect(refCyc.PEle, sigBus.PEleMea) annotation (Line(points={{19.89,0.09},{26,
-          0.09},{26,-30},{-30,-30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},
+          0.09},{26,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{-141,-41}},
         color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-39,-50},{-34,-50},{
-          -34,-36},{-74,-36},{-74,-43},{-105,-43}},
-                                           color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-99,-90},{-88,-90},{
+          -88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
+                                           color={255,0,255}));
   connect(varTOutCon.T, sigBus.TConAmbMea) annotation (Line(
-      points={{82,100},{88,100},{88,82},{38,82},{38,32},{-76,32},{-76,-43},{-105,
-          -43}},
+      points={{82,130},{120,130},{120,32},{-76,32},{-76,-40},{-138,-40},{-138,-42},
+          {-140,-42},{-140,-41},{-141,-41}},
       color={0,0,127},
-      pattern=LinePattern.Dash), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+      pattern=LinePattern.Dash));
   connect(varTOutEva.T, sigBus.TEvaAmbMea) annotation (Line(
-      points={{82,-100},{88,-100},{88,-116},{-76,-116},{-76,-43},{-105,-43}},
+      points={{82,-130},{88,-130},{88,-150},{-76,-150},{-76,-40},{-138,-40},{-138,
+          -41},{-141,-41}},
       color={0,0,127},
-      pattern=LinePattern.Dash), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(hys.u, sigBus.ySet) annotation (Line(points={{-62,-50},{-74,-50},{-74,
-          -43},{-105,-43}},
-                       color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,82},{38,82},{
-          38,32},{-76,32},{-76,-43},{-105,-43}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(senTConIn.y, sigBus.TConInMea) annotation (Line(points={{-69,100},{-64,
-          100},{-64,32},{-76,32},{-76,-43},{-105,-43}},color={0,0,127}), Text(
+      pattern=LinePattern.Dash));
+  connect(hys.u, sigBus.ySet) annotation (Line(points={{-122,-90},{-132,-90},{-132,
+          -40},{-136,-40},{-136,-41},{-141,-41}},
+                       color={0,0,127}));
+  connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,90},{38,90},{
+          38,32},{-76,32},{-76,-40},{-140,-40},{-140,-41},{-141,-41}},
+                                                 color={0,0,127}));
+  connect(senTConIn.y, sigBus.TConInMea) annotation (Line(points={{-87,32},{-76,
+          32},{-76,-40},{-140,-40},{-140,-41},{-141,-41}},
+                                                       color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(eva.T, sigBus.TEvaOutMea) annotation (Line(points={{-22.4,-82},{-76,-82},
-          {-76,-43},{-105,-43}}, color={0,0,127}), Text(
+  connect(eva.T, sigBus.TEvaOutMea) annotation (Line(points={{-22.4,-90},{-76,-90},
+          {-76,-40},{-142,-40},{-142,-41},{-141,-41}},
+                                 color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(senTEvaIn.y, sigBus.TEvaInMea) annotation (Line(points={{69,-30},{-30,
-          -30},{-30,-66},{-76,-66},{-76,-43},{-105,-43}},               color={0,
-          0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(senTEvaIn.y, sigBus.TEvaInMea) annotation (Line(points={{-87,12},{-76,
+          12},{-76,-40},{-148,-40},{-148,-41},{-141,-41}},              color={0,
+          0,127}));
   if not use_intSafCtr then
-    connect(ySet, sigBus.ySet) annotation (Line(points={{-116,20},{-80,20},{-80,-43},
-          {-105,-43}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
+    connect(ySet, sigBus.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+            -40},{-136,-40},{-136,-41},{-141,-41}},
+                       color={0,0,127}));
   end if;
 
-  annotation (Icon(graphics={
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+                   graphics={
+        Rectangle(
+          extent={{-102,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-16,83},{16,-83}},
           fillColor={170,213,255},
@@ -545,7 +525,7 @@ equation
           rotation=90),
         Rectangle(
           extent={{-17,83},{17,-83}},
-          fillColor={255,0,128},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0},
           origin={1,61},
@@ -564,9 +544,9 @@ equation
           rotation=-90),
         Rectangle(
           extent={{-82,42},{84,-46}},
-          lineColor={238,46,47},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
         Line(points={{-88,60},{88,60}}, color={28,108,200}),
         Line(points={{-88,-60},{88,-60}}, color={28,108,200}),
     Line(
@@ -603,8 +583,8 @@ equation
           arrow={Arrow.None,Arrow.Filled},
           thickness=0.5,
           origin={0,-74},
-          rotation=180)}),                Diagram(coordinateSystem(extent={{-100,
-            -120},{100,120}})),
+          rotation=180)}),
+       Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
