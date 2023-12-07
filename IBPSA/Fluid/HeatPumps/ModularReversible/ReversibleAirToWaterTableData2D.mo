@@ -51,7 +51,7 @@ model ReversibleAirToWaterTableData2D
   Reversible air-to-water heat pump based on
   two-dimensional data from manufacturer data, (e.g. based on EN 14511),
   using the
-  <a href=\"IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> approach.
 </p>
 <p>
