@@ -21,11 +21,11 @@ record Generic "Partial two-dimensional data of refrigerant machines"
 <h4>Overview</h4>
 <p>
   Base data definition used in the heat pump model.
-  It defines the table for <code>table_PEle</code> which gives the electric power
+  It defines the table for <code>tab_PEle</code> which gives the electric power
   consumption of the heat pump or chiller.
   Information on heat flow rates are in the corresponding records for
   heat pumps and chillers, as it is the condenser and evaporator heat flow rate,
-  respectivly.
+  respectively.
 </p>
 <p>
   Both tables define the power values depending on the evaporator temperature
@@ -35,8 +35,8 @@ record Generic "Partial two-dimensional data of refrigerant machines"
 <p>
   Depending on the type of the device, either inlet or outlet conditions are used.
   This feature could be required for air-air devices. Here, the room temperature
-  (inlet) and outdoor air temperature (inlet) are used. For air-water devices,
-  the supply temperature (outlet) and the outdoor air temperature (inlet) are
+  (inlet) and outdoor air temperature (inlet) are used. For air-to-water devices,
+  the outdoor air temperature (inlet) and the supply water temperature (outlet) are
   used instead.
   When adding new data, be sure to check if the datasheet uses inlet or outlet
   conditions. Also, be sure to check if the data is for wet- or dry-bulb
@@ -58,7 +58,7 @@ record Generic "Partial two-dimensional data of refrigerant machines"
 </p>
 <h4>Where to get the data?</h4>
 <p>
-  Manufacturers often provide table data for heating / cooling capacity and
+  Manufacturers often provide table data for heating or cooling capacity and
   electrical power consumption, e.g. based on EN 14511.
   While the usual datasheets only contain some nominal points,
   the documents for installers and planners are often more specific.
