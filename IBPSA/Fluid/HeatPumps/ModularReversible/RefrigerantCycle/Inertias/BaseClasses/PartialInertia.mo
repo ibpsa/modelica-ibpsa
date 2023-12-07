@@ -5,7 +5,6 @@ partial model PartialInertia "Partial inertia model"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-Suggested change
 <p>
   Partial model for inertia.
   This block is identical to
