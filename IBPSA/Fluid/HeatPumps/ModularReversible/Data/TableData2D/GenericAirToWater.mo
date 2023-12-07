@@ -13,7 +13,7 @@ record GenericAirToWater
 </html>", info="<html>
 <p>
   This record allows specific selection using
-  <code>choicesAllMatching</code> in models like
+  <code>choicesAllMatching</code> for air-to-water heat pumps only in models such as
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>.
 </p>
