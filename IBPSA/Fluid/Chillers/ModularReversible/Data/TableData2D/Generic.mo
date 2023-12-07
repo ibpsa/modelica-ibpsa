@@ -3,7 +3,7 @@ record Generic "Basic chiller data"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.Generic;
 
   parameter Real tabQEva_flow[:,:]
-    "Cooling power consumption table, T in degC, Q_flow in W";
+    "Cooling power consumption table, T in K, Q_flow in W";
   parameter Real tabLowBou[:,2]
     "Points to define lower boundary for source temperature";
   parameter Boolean use_TEvaOutForOpeEnv=false

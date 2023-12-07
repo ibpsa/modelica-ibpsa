@@ -38,7 +38,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
     final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin));
   replaceable parameter
-    IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
+    IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     datTab constrainedby Data.TableData2D.Generic "Data Table of Chiller"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{42,12},{58,28}})));
@@ -75,15 +75,9 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   UsersGuide</a>.
 </p>
 <p>
-  The documentation of the model for heating is at
+  The documentation of the model for cooling is at
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D</a>.
-</p>
-<p>
-  Currently the only data sheets for chillers that large is the record
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW\">
-  IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2DData.EN14511.Carrier30XWP1012_1MW</a>,
-  hence, the default value.
 </p>
 <h4>Assumptions</h4>
 <ul>

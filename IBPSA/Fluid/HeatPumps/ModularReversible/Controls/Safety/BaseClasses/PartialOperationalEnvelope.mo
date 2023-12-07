@@ -2,9 +2,9 @@
 partial model PartialOperationalEnvelope
   "Indicates if the device operation is within a defined envelope"
   extends BaseClasses.PartialSafetyWithCounter;
-  parameter Real tabUppHea[:,2]
+  parameter Modelica.Units.SI.Temperature tabUppHea[:,2]
     "Upper boundary for heating with second column as useful temperature side";
-  parameter Real tabLowCoo[:,2]
+  parameter Modelica.Units.SI.Temperature tabLowCoo[:,2]
     "Lower boundary for cooling with second column as useful temperature side";
   parameter Boolean use_TUseSidOut=false
     "=true to use useful side outlet temperature for envelope, false for inlet";

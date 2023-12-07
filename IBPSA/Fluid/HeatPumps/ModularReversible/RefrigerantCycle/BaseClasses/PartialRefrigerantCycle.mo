@@ -44,43 +44,43 @@ partial model PartialRefrigerantCycle
     "Replaceable model to calculate the icing factor" annotation (
     choicesAllMatching=true,
     Dialog(group="Frosting supression"),
-    Placement(transformation(extent={{-90,-50},{-70,-30}})));
+    Placement(transformation(extent={{-98,-58},{-82,-42}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
         "kW") "Electrical Power consumed by the device" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={0,-110})));
+        origin={0,-130})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W", final
       displayUnit="kW") "Heat flow rate through condenser" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-80,-110})));
+        origin={-80,-130})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantMachineControlBus sigBus
     "Bus-connector" annotation (Placement(transformation(
         extent={{-15,-14},{15,14}},
         rotation=0,
-        origin={1,104})));
+        origin={1,120})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W", final
       displayUnit="kW") "Heat flow rate through evaporator" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={80,-110})));
+        origin={80,-130})));
   Modelica.Blocks.Math.Add redQCon
     "Reduce heat flow to the condenser based on the reduction to the evaporator"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={70,-70})));
+        origin={70,-90})));
   Modelica.Blocks.Math.Product proRedQEva
     "Reduce heat flow to the evaporator based on the icing factor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-20,-70})));
+        origin={-30,-90})));
 
   IBPSA.Utilities.IO.Strings.StringOutput datSouOut
   "String output of data source";
@@ -89,29 +89,31 @@ protected
     "Constant String with data source as output";
 equation
   connect(conStrSou.y, datSouOut);
-  connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-20,-81},{-20,-88},{
-          0,-88},{0,-52},{88,-52},{88,-96},{80,-96},{80,-110}},
-                               color={0,0,127}));
-  connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-20,-81},{-20,-88},
-          {0,-88},{0,-52},{76,-52},{76,-58}}, color={0,0,127}));
-  connect(redQCon.y, QCon_flow) annotation (Line(points={{70,-81},{70,-96},{-80,
-          -96},{-80,-110}}, color={0,0,127}));
+  connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-30,-101},{-30,-108},
+          {80,-108},{80,-130}},color={0,0,127}));
+  connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-30,-101},{-30,-108},
+          {2,-108},{2,-72},{76,-72},{76,-78}},color={0,0,127}));
+  connect(redQCon.y, QCon_flow) annotation (Line(points={{70,-101},{70,-116},{-80,
+          -116},{-80,-130}},color={0,0,127}));
   connect(iceFacCal.iceFac, proRedQEva.u1)
-    annotation (Line(points={{-69,-40},{-26,-40},{-26,-58}}, color={0,0,127}));
+    annotation (Line(points={{-81.2,-50},{-36,-50},{-36,-78}},
+                                                             color={0,0,127}));
   connect(iceFacCal.sigBus, sigBus) annotation (Line(
-      points={{-90.1,-40},{-102,-40},{-102,104},{1,104}},
+      points={{-98.08,-50},{-110,-50},{-110,120},{1,120}},
       color={255,204,51},
       thickness=0.5));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (Icon(coordinateSystem(extent={{-120,-120},
+            {120,120}}),                                        graphics={
                                 Rectangle(
-        extent={{-100,-100},{100,100}},
+        extent={{-120,-120},{120,120}},
         lineColor={0,0,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),   Text(
           extent={{-57.5,-35},{57.5,35}},
           pattern=LinePattern.Dash,
-          textString="%name", origin={-1.5,113},
-          rotation=180)}),Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textString="%name", origin={2.5,153},
+          rotation=180)}),Diagram(coordinateSystem(extent={
+            {-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

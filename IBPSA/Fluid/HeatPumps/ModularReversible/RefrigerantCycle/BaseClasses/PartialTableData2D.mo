@@ -24,7 +24,7 @@ partial model PartialTableData2D
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={80,30})));
+        origin={90,50})));
   Modelica.Blocks.Tables.CombiTable2Ds tabQUse_flow(
     final tableOnFile=false,
     final tableName="NoName",
@@ -37,13 +37,13 @@ partial model PartialTableData2D
     final extrapolation=extrapolation) "Table for useful heat flow rate"
                                        annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
-        origin={40,30})));
+        origin={50,50})));
   Modelica.Blocks.Math.Product ySetTimScaFac
     "Create the product of the scaling factor and relative compressor speed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-70,36})));
+        origin={-60,50})));
 
 
   Modelica.Blocks.Math.Product scaFacTimPel "Scale electrical power consumption"
@@ -59,8 +59,8 @@ partial model PartialTableData2D
   Modelica.Blocks.Sources.Constant constScaFac
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, rotation=270,
-        origin={-80,70})));
+        transformation(extent={{-10,-10},{10,10}}, rotation=0,
+        origin={-90,70})));
 
 
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaIn if not use_TEvaOutForTab
@@ -68,25 +68,25 @@ partial model PartialTableData2D
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-50,80})));
+        origin={-50,90})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if not use_TConOutForTab
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={40,80})));
+        origin={50,90})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if use_TEvaOutForTab
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-20,80})));
+        origin={-10,90})));
   Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if use_TConOutForTab
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={70,80})));
+        origin={90,90})));
 protected
   parameter Real perDevMasFloCon
     "Percent of deviation of nominal mass flow rate at condenser in percent";
@@ -123,17 +123,18 @@ initial algorithm
 
 equation
   connect(constScaFac.y, ySetTimScaFac.u2)
-    annotation (Line(points={{-80,59},{-80,48},{-76,48}}, color={0,0,127}));
+    annotation (Line(points={{-79,70},{-66,70},{-66,62}}, color={0,0,127}));
   connect(scaFacTimPel.u2, ySetTimScaFac.y) annotation (Line(points={{-46,14},{
-          -46,18},{-70,18},{-70,25}},
+          -46,20},{-60,20},{-60,39}},
                                   color={0,0,127}));
-  connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{40,19},
-          {42,19},{42,14},{46,14}}, color={0,0,127}));
+  connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{50,39},
+          {50,32},{46,32},{46,14}}, color={0,0,127}));
   connect(scaFacTimQUse_flow.u2, ySetTimScaFac.y) annotation (Line(points={{34,14},
-          {34,18},{-70,18},{-70,25}}, color={0,0,127}));
-  connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{80,19},{80,18},{
-          -34,18},{-34,14}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
+          {34,20},{-60,20},{-60,39}}, color={0,0,127}));
+  connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{90,39},{90,26},{
+          -34,26},{-34,14}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+            -120},{120,120}})),
     Documentation(info="<html>
 <p>
   Partial model for equations and componenents used in both heat pump
@@ -145,5 +146,6 @@ equation
     First implementation (see issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li></ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
 end PartialTableData2D;

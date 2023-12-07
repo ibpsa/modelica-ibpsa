@@ -27,12 +27,12 @@ partial model PartialCarnot
         x1=dTCarMin,
         x2=(TConAct - TEvaAct),
         deltaX=0.25)) "Internal calculation of carnot efficiency"
-    annotation (Placement(transformation(extent={{-90,38},{-70,58}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Math.Product proQUse_flow "Calculate QUse_flow" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-50,40})));
+        origin={-50,50})));
   Modelica.Blocks.Math.Product proPEle "Calculate electrical power consumption" annotation (
      Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -43,7 +43,7 @@ partial model PartialCarnot
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={80,80})));
+        origin={88,90})));
   Modelica.Blocks.Routing.RealPassThrough pasThrYSet "ySet from signal bus"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Units.SI.Temperature TUseSidAct = if useForChi then TEvaAct else TConAct
@@ -80,12 +80,12 @@ partial model PartialCarnot
     "Evaporator outlet pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-70,78})));
+        origin={-70,90})));
   Modelica.Blocks.Routing.RealPassThrough pasThrTCon
     "Condenser outlet pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-30,78})));
+        origin={-30,90})));
 protected
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal
     "Nominal condenser heat flow rate";
@@ -99,24 +99,24 @@ protected
      "Evaporator heat flow rate";
 
 equation
-  connect(reaEtaCarEff.y, proQUse_flow.u2) annotation (Line(points={{-69,48},{-64,
-          48},{-64,56},{-56,56},{-56,52}},
-                                  color={0,0,127}));
-  connect(proPEle.y, proQUse_flow.u1) annotation (Line(points={{70,39},{70,38},{
-          -34,38},{-34,56},{-44,56},{-44,52}}, color={0,0,127}));
-  connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,66},{80,
-          66},{80,69}}, color={0,0,127}));
+  connect(reaEtaCarEff.y, proQUse_flow.u2) annotation (Line(points={{-79,70},{-56,
+          70},{-56,62}},          color={0,0,127}));
+  connect(proPEle.y, proQUse_flow.u1) annotation (Line(points={{70,39},{70,34},{
+          -20,34},{-20,70},{-44,70},{-44,62}}, color={0,0,127}));
+  connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,66},{88,
+          66},{88,79}}, color={0,0,127}));
   connect(pasThrYSet.y, proPEle.u2)
     annotation (Line(points={{41,70},{64,70},{64,62}}, color={0,0,127}));
   connect(constZer.y, swiPEle.u3) annotation (Line(points={{8.88178e-16,21},{
           8.88178e-16,28},{42,28},{42,22}}, color={0,0,127}));
   connect(proPEle.y, swiPEle.u1) annotation (Line(points={{70,39},{70,34},{58,
           34},{58,22}}, color={0,0,127}));
-  connect(proQUse_flow.y, swiQUse.u1) annotation (Line(points={{-50,29},{-50,28},
-          {-58,28},{-58,22}}, color={0,0,127}));
+  connect(proQUse_flow.y, swiQUse.u1) annotation (Line(points={{-50,39},{-50,36},
+          {-58,36},{-58,22}}, color={0,0,127}));
   connect(swiQUse.u3, constZer.y) annotation (Line(points={{-42,22},{-42,28},{
           8.88178e-16,28},{8.88178e-16,21}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false)),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+            -120},{120,120}})),
       Documentation(info="<html>
 <p>
   Partial model for equations and componenents used in both heat pump
@@ -128,5 +128,6 @@ equation
     First implementation (see issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
   </li></ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
 end PartialCarnot;

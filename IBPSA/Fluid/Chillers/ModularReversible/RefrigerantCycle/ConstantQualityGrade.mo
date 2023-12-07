@@ -18,59 +18,65 @@ model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
     "Nominal EER";
 
 equation
-  connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-26,
-          22},{-26,34},{1,34},{1,104}}, color={255,0,255}), Text(
+  connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,30},
+          {0,30},{0,120},{1,120}},      color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(swiPEle.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-36},{64,
-          -36},{64,-58}}, color={0,0,127}));
-  connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-8},{0,-8},{0,-110}},
+          -36},{64,-78}}, color={0,0,127}));
+  connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-8},{0,-8},{0,
+          -130}},
         color={0,0,127}));
-  connect(swiPEle.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,48},
-          {1,48},{1,104}}, color={255,0,255}), Text(
+  connect(swiPEle.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,30},{
+          0,30},{0,120},{1,120}},
+                           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{1,70},{1,
-          104}}, color={0,0,127}), Text(
+          120}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   if useInChi then
-    connect(pasThrTCon.u, sigBus.TConOutMea) annotation (Line(points={{-30,90},{-30,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTCon.u, sigBus.TConOutMea) annotation (Line(points={{-30,102},{
+            -30,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
-    connect(pasThrTEva.u, sigBus.TEvaOutMea) annotation (Line(points={{-70,90},{-70,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTEva.u, sigBus.TEvaOutMea) annotation (Line(points={{-70,102},{
+            -70,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
   else
-    connect(pasThrTCon.u, sigBus.TEvaOutMea) annotation (Line(points={{-30,90},{-30,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTCon.u, sigBus.TEvaOutMea) annotation (Line(points={{-30,102},{
+            -30,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
-    connect(pasThrTEva.u, sigBus.TConOutMea) annotation (Line(points={{-70,90},{-70,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTEva.u, sigBus.TConOutMea) annotation (Line(points={{-70,102},{
+            -70,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-3,6},{-3,6}},
         horizontalAlignment=TextAlignment.Right));
   end if;
   connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},{
-          -14,-30},{-14,-58}},  color={0,0,127}));
-  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-78,-66},{-50,-66},{
-          -50,-52},{0,-52},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
+          -24,-30},{-24,-78}},  color={0,0,127}));
+  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-78,-86},{-60,-86},{
+          -60,-60},{0,-60},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

@@ -21,7 +21,7 @@ record Generic "Generic record definition for safety control blocks"
   parameter Integer maxCycRat "Maximum cycle rate"
     annotation (Dialog(group="On/Off Control",
     enable=use_maxCycRat));
-  parameter Real ySetRed
+  parameter Real ySetRed(unit="1")
     "Reduced relative compressor speed to allow longer on-time"
         annotation (
           Dialog(group="On/Off Control",
@@ -37,11 +37,13 @@ record Generic "Generic record definition for safety control blocks"
     annotation (
       Dialog(group="Operational Envelope"),
       choices(checkBox=true));
-  parameter Real tabUppHea[:,2] "Upper envelope boundary for heating"
+  parameter Modelica.Units.SI.Temperature tabUppHea[:,2]
+    "Upper temperature boundary for heating with second column as useful temperature side"
     annotation (
       Dialog(group="Operational Envelope",
       enable=use_opeEnv));
-  parameter Real tabLowCoo[:,2] "Lower envelope boundary for cooling"
+  parameter Modelica.Units.SI.Temperature tabLowCoo[:,2]
+    "Lower temperature boundary for cooling with second column as useful temperature side"
     annotation (
       Dialog(group="Operational Envelope",
       enable=use_opeEnv));
@@ -61,7 +63,7 @@ record Generic "Generic record definition for safety control blocks"
   parameter Modelica.Units.SI.ThermodynamicTemperature TAntFre
     "Limit temperature for antifreeze control"
     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
-  parameter Real dTHysAntFre
+  parameter Modelica.Units.SI.TemperatureDifference dTHysAntFre
     "Hysteresis interval width for antifreeze control"
     annotation (Dialog(group="Anti Freeze Control", enable=use_antFre));
   parameter Boolean use_minFlowCtr

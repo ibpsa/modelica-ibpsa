@@ -18,61 +18,68 @@ model ConstantQualityGrade "Carnot COP with a constant qualtiy grade"
     "Nominal EER";
 equation
 
-  connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{1,70},{1,
-          104}}, color={0,0,127}), Text(
+  connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{0,70},{0,
+          118},{2,118},{2,120},{1,120}},
+                 color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   if useInHeaPum then
-    connect(pasThrTCon.u, sigBus.TConOutMea) annotation (Line(points={{-30,90},{-30,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTCon.u, sigBus.TConOutMea) annotation (Line(points={{-30,102},{
+            -30,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(pasThrTEva.u, sigBus.TEvaOutMea) annotation (Line(points={{-70,90},{-70,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTEva.u, sigBus.TEvaOutMea) annotation (Line(points={{-70,102},{
+            -70,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
   else
-    connect(pasThrTCon.u, sigBus.TEvaOutMea) annotation (Line(points={{-30,90},{-30,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTCon.u, sigBus.TEvaOutMea) annotation (Line(points={{-30,102},{
+            -30,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(pasThrTEva.u, sigBus.TConOutMea) annotation (Line(points={{-70,90},{-70,
-            104},{1,104}}, color={0,0,127}), Text(
+    connect(pasThrTEva.u, sigBus.TConOutMea) annotation (Line(points={{-70,102},{
+            -70,120},{1,120}},
+                           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
   end if;
   connect(swiPEle.y, redQCon.u2) annotation (Line(points={{50,-1},{50,-26},{62,
-          -26},{62,-58},{64,-58}}, color={0,0,127}));
+          -26},{62,-78},{64,-78}}, color={0,0,127}));
   connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-92},{0,-92},{0,
-          -110}}, color={0,0,127}));
+          -130}}, color={0,0,127}));
   connect(swiPEle.y, feeHeaFloEva.u2) annotation (Line(points={{50,-1},{50,-24},{
           -70,-24},{-70,-18}},  color={0,0,127}));
   connect(swiQUse.y, feeHeaFloEva.u1) annotation (Line(points={{-50,-1},{-88,-1},
           {-88,-10},{-78,-10}}, color={0,0,127}));
-  connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,
-          32},{1,32},{1,104}}, color={255,0,255}), Text(
+  connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,30},
+          {0,30},{0,122},{1,122},{1,120}},
+                               color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(swiPEle.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,56},
-          {1,56},{1,104}}, color={255,0,255}), Text(
+  connect(swiPEle.u2, sigBus.onOffMea) annotation (Line(points={{50,22},{50,46},{
+          0,46},{0,118},{2,118},{2,120},{1,120}},
+                           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(swiPEle.y, calCOP.PEle) annotation (Line(points={{50,-1},{50,-24},{-44,
-          -24},{-44,-66},{-58,-66}}, color={0,0,127}));
+          -24},{-44,-86},{-58,-86}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>

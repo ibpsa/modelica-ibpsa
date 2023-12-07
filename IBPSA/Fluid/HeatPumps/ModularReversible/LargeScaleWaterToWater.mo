@@ -78,16 +78,6 @@ model LargeScaleWaterToWater
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>.
 </p>
-<p>
-  Currently the only data sheets for heat pumps that large is the record
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_150kW\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DData.EN14511.WAMAK_WaterToWater_150kW</a>,
-  hence, the default value.
-</p>
-<p>
-  But you are free to insert custom data based on
-  the heat pump you want to analyze in your simulations.
-</p>
 <h4>Assumptions</h4>
 <ul>
 <li>
