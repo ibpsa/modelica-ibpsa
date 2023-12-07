@@ -8,7 +8,7 @@ partial model PartialHeatPumpCycle
     "Calculates evaporator heat flow with total energy balance" annotation (
       Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCOP calCOP(
-    PEleMin=PEle_nominal*0.1)  if calEff
+    PEleMin=PEle_nominal*0.1) if calEff
     "Calculate the COP"
     annotation (Placement(transformation(extent={{-60,-80},{-80,-100}})));
 equation

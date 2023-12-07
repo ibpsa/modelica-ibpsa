@@ -120,7 +120,6 @@ initial algorithm
       you are extrapolating the table data!",
     AssertionLevel.warning);
 
-
 equation
   connect(constScaFac.y, ySetTimScaFac.u2)
     annotation (Line(points={{-79,70},{-66,70},{-66,62}}, color={0,0,127}));

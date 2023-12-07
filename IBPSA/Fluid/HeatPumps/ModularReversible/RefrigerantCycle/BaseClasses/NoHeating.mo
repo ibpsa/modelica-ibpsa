@@ -24,8 +24,8 @@ model NoHeating
 equation
   connect(constZer.y, feeHeaFloEva.u1) annotation (Line(points={{-79,30},{-62,30},
           {-62,4},{-94,4},{-94,-10},{-78,-10}},     color={0,0,127}));
-  connect(constZer.y, feeHeaFloEva.u2) annotation (Line(points={{-79,30},{-62,30},
-          {-62,4},{-94,4},{-94,-10},{-84,-10},{-84,-24},{-70,-24},{-70,-18}},
+  connect(constZer.y, feeHeaFloEva.u2) annotation (Line(points={{-79,30},{-62,
+          30},{-62,4},{-94,4},{-94,-24},{-70,-24},{-70,-18}},
         color={0,0,127}));
   connect(constZer.y, redQCon.u2) annotation (Line(points={{-79,30},{-62,30},{-62,
           4},{64,4},{64,-78}}, color={0,0,127}));
