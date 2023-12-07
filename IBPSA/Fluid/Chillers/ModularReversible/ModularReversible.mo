@@ -78,7 +78,7 @@ equation
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>
-    <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
+    <i>May 22, 2019,</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=
     \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
   </li>

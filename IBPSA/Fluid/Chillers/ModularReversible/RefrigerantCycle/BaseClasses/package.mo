@@ -22,7 +22,7 @@ annotation (Icon(graphics={
   \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
 </li>
 <li>
-  <i>May 22, 2019&#160;</i> by Julian Matthes:<br/>
+  <i>May 22, 2019,</i> by Julian Matthes:<br/>
   First implementation (see issue <a href=
   \"https://github.com/RWTH-EBC/AixLib/issues/715\">AixLib #715</a>)
 </li>
