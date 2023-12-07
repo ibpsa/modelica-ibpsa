@@ -63,7 +63,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> approach.
 </p>
 <p>
-  Contrary to the standard sizing approach for the <a href=\"IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
+  Contrary to the standard sizing approach for the <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> models,
   the parameters are based on an automatic estimation as described in
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
