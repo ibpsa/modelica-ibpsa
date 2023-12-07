@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions;
 function wetterAfjei1997
-  "Correction of COP (Icing, Defrost) according to Wetter, Afjei 1997"
+  "Correction of COP for icing and defrost according to Wetter, Afjei and Glass"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.partialIcingFactor;
 protected
@@ -16,27 +16,36 @@ algorithm
   linTer :=offLin + sloLin*TEvaInMea;
   gauTer :=gauFac*Modelica.Math.exp(-(TEvaInMea - gauMea)*(TEvaInMea - gauMea)/
     gauSig);
-  if linTer > 0 then
-    fac := linTer + gauTer;
-  else
-    fac := gauTer;
-  end if;
+  fac := gauTer + IBPSA.Utilities.Math.Functions.smoothMax(
+    x1=1E-5,
+    x2= linTer,
+    deltaX=0.25E-5);
   iceFac:=1 - fac;
   annotation (Documentation(info="<html>
 <p>
   Correction of the coefficient of performance due to
-  icing/frosting according to Wetter and Afjei 1997
-  (Dual stage compressor heat pump including frost and cycle losses,
-  <a href=\"https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf\">
-  https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>)
+  icing/frosting according to Wetter, Afjei and Glass (1997).
 </p>
 <p>
   For more information on the <code>iceFac</code>, see the documentation of <a href=
   \"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle</a>
 </p>
+<h4>References</h4>
+<p>
+Thomas Afjei, Michael Wetter and Andrew Glass.<br/>
+TRNSYS type: Dual-stage compressor heat pump including frost and cycle losses. Model description and implementation in TRNSYS.</br>
+TRNSYS user meeting, November 1997, Stuttgart, Germany.<br/>
+<a href=\"https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf\">
+https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>
+</p>
 </html>",
   revisions="<html><ul>
+  <li>
+  December 7, 2023, by Michael Wetter:<br/>
+  Reformulated to make function once continuously differentiable, and to avoid
+  an event that is triggered based on <code>TEvaInMea</code>).
+  </li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
