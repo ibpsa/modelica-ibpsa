@@ -6,7 +6,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This block is used to ignore frosting effects by setting the icing factor
-to constant 1.
+to constant <i>1</i>.
 </p>
 </html>", revisions="<html>
 <ul><li>

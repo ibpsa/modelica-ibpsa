@@ -8,7 +8,7 @@ partial function partialIcingFactor
     "Evaporator return temperature";
   input Modelica.Units.SI.MassFlowRate mEva_flow
     "Mass flow rate at the evaporator";
-  output Real iceFac(min=0, max=1)
+  output Real iceFac(final unit="1", min=0, max=1)
     "Icing factor (0: no heat transfer; 1: no effect)";
 
   annotation (Documentation(revisions="<html><ul>
