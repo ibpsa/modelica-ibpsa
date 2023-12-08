@@ -35,7 +35,8 @@ protected
   Integer devNorOpe(start=1, fixed=true)
     "Indicates if device is at normal operation";
 equation
-  yOut = ySet * devNorOpe + 0 * devTurOff + ySetRed  * devRunMin;
+  // The part "+ 0 * devTurOff" is implicitly included
+  yOut = ySet * devNorOpe + ySetRed  * devRunMin;
   when edge(turOn) then
     if isAblToTurOn then
       devTurOff = 0;
