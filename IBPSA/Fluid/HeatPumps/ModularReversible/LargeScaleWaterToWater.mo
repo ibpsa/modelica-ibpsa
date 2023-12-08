@@ -43,7 +43,8 @@ model LargeScaleWaterToWater
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data table of heat pump" annotation (choicesAllMatching=true,
     Placement(transformation(extent={{42,12},{58,28}})));
-
+  // Lower boundary has no influence as use_rev=false.
+  // Thus, setting tabLowBou to tabUppHea
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
       constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
@@ -54,7 +55,7 @@ model LargeScaleWaterToWater
     annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
       choicesAllMatching=true,
       Placement(transformation(extent={{72,12},{88,28}})));
-    // Lower boundary has no influence as use_rev=false
+
   annotation (Documentation(info="<html>
 <p>
   Model using parameters for a large scale water-to-water heat pump,

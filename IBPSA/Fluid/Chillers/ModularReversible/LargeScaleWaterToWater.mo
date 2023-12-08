@@ -42,6 +42,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     datTab constrainedby Data.TableData2D.Generic "Data Table of Chiller"
     annotation (choicesAllMatching=true,
     Placement(transformation(extent={{42,12},{58,28}})));
+  // Upper boundary has no influence as use_rev=false.
+  // Thus, setting tabUppHea to tabLowBou
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
     safCtrParEurNor constrainedby
@@ -53,7 +55,6 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
       choicesAllMatching=true,
       Placement(transformation(extent={{72,12},{88,28}})));
-    // Upper boundary has no influence as use_rev=false
 
   annotation (Documentation(info="<html>
 <p>
