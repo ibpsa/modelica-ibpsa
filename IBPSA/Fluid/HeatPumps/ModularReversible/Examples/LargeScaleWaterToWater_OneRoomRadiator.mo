@@ -19,7 +19,6 @@ model LargeScaleWaterToWater_OneRoomRadiator
 
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     QUse_flow_nominal=Q_flow_nominal,
-    y_nominal=1,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     dpCon_nominal(displayUnit="Pa"),

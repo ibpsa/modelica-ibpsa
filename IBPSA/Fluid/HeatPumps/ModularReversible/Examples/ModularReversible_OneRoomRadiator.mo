@@ -13,7 +13,6 @@ model ModularReversible_OneRoomRadiator
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QUse_flow_nominal=Q_flow_nominal,
-    y_nominal=1,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     use_intSafCtr=true,

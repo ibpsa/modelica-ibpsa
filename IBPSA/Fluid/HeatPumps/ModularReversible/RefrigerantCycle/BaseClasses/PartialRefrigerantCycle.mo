@@ -26,7 +26,8 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in secondary evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real y_nominal "Nominal relative compressor speed"
+  parameter Real y_nominal(unit="1", min=0, max=1)=1
+    "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal condition"));
   parameter Real scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal
     "Scaling factor of heat pump" annotation (Dialog(group="Nominal condition"));
@@ -87,6 +88,12 @@ partial model PartialRefrigerantCycle
 protected
   IBPSA.Utilities.IO.Strings.Constant conStrSou(final k=datSou)
     "Constant String with data source as output";
+initial algorithm
+  assert(
+    y_nominal <= 1 and y_nominal > 0,
+    "Nominal relative compressor speed needs to be between 0 and 1, but is " +
+    String(y_nominal) + " in " + getInstanceName(),
+    AssertionLevel.error);
 equation
   connect(conStrSou.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-30,-101},{-30,-108},

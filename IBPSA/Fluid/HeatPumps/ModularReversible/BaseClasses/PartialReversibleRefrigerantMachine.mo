@@ -26,7 +26,8 @@ partial model PartialReversibleRefrigerantMachine
     "Nominal heat flow rate at useful side of the device"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Real y_nominal "Nominal relative compressor speed"
+  parameter Real y_nominal(unit="1", min=0, max=1)=1
+    "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
     "Nominal electrical power consumption"
@@ -355,8 +356,8 @@ partial model PartialReversibleRefrigerantMachine
 
 // To avoid using the bus, set the section below to protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
-protected
 // -->
+protected
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -369,9 +370,9 @@ protected
           use_intSafCtr));
 
 // <!-- @include_AixLib
-protected
 // -->
 
+protected
   parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
@@ -385,15 +386,15 @@ equation
 
   // Non bus connections
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,
-          -40},{-140,-41},{-141,-41}},
+      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,-40},
+          {-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-8.33333},
-          {-84,-8.33333},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},
-          {-141,-41}},                              color={0,0,127}));
+  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{-84,
+          -10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,-41}},
+                                                    color={0,0,127}));
   connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
-          -8.33333},{-113.333,-8.33333}},
+          -10},{-113.333,-10}},
                        color={0,0,127}));
   connect(TConAmb, varTOutCon.T) annotation (Line(
       points={{150,130},{82,130}},

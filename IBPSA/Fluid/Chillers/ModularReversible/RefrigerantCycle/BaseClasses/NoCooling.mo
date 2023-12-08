@@ -9,7 +9,6 @@ model NoCooling
     datSou="",
     QUseNoSca_flow_nominal=1,
     scaFac=0,
-    y_nominal=0,
     mEva_flow_nominal=1,
     mCon_flow_nominal=1,
     dTEva_nominal=0,
@@ -22,13 +21,13 @@ model NoCooling
   Modelica.Blocks.Sources.Constant const(final k=0) "Zero energy flows"
     annotation (Placement(transformation(extent={{-88,16},{-68,36}})));
 equation
-  connect(const.y, redQCon.u2) annotation (Line(points={{-67,26},{64,26},{64,
-          -58}},               color={0,0,127}));
+  connect(const.y, redQCon.u2) annotation (Line(points={{-67,26},{64,26},{64,-78}},
+                               color={0,0,127}));
   connect(const.y, PEle)
-    annotation (Line(points={{-67,26},{0,26},{0,-110}}, color={0,0,127}));
+    annotation (Line(points={{-67,26},{0,26},{0,-130}}, color={0,0,127}));
   connect(const.y, proRedQEva.u2)
-    annotation (Line(points={{-67,26},{-14,26},{-14,-58}}, color={0,0,127}));
-  connect(calEER.PEle, const.y) annotation (Line(points={{-58,-66},{-46,-66},{-46,
+    annotation (Line(points={{-67,26},{-24,26},{-24,-78}}, color={0,0,127}));
+  connect(calEER.PEle, const.y) annotation (Line(points={{-78,-86},{-46,-86},{-46,
           26},{-67,26}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

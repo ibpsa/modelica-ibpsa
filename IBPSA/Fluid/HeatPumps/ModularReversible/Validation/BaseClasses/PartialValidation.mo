@@ -31,7 +31,6 @@ partial model PartialValidation
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
     QUse_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QUseNoSca_flow_nominal,
-    y_nominal=1,
     final use_intSafCtr=false,
     TCon_nominal=303.15,
     dTCon_nominal=5,

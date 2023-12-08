@@ -2,7 +2,6 @@ within IBPSA.Fluid.Chillers.ModularReversible;
 model ReversibleCarnotWithLosses
   "Reversible chiller using carnot approach with losses (frost, heat, inertia)"
   extends IBPSA.Fluid.Chillers.ModularReversible.ModularReversible(
-    y_nominal=1,
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade
         (

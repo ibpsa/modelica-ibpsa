@@ -9,7 +9,6 @@ model NoHeating
       datSou="",
       QUseNoSca_flow_nominal=0,
       scaFac=0,
-      y_nominal=0,
       mEva_flow_nominal=0,
       mCon_flow_nominal=0,
       dTEva_nominal=0,

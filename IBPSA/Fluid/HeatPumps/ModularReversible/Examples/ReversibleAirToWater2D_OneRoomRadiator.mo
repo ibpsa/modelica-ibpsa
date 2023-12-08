@@ -16,7 +16,6 @@ model ReversibleAirToWater2D_OneRoomRadiator
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     QUse_flow_nominal=Q_flow_nominal,
-    y_nominal=1,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
     mCon_flow_nominal=0.717225,

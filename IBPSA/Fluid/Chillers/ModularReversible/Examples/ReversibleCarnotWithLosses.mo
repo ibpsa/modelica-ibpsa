@@ -9,7 +9,6 @@ model ReversibleCarnotWithLosses
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QUse_flow_nominal=30000,
-    y_nominal=1,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
