@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle;
-model ConstantQualityGrade "Carnot EER with a constant qualtiy grade"
+model ConstantQualityGrade "Carnot EER with a constant quality grade"
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
       useInChi=true,
