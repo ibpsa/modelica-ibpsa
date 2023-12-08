@@ -45,33 +45,17 @@ equation
   if useInChi then
     connect(pasThrTCon.u, sigBus.TConOutMea) annotation (Line(points={{-30,102},{
             -30,120},{1,120}},
-                           color={0,0,127}), Text(
-        string="%second",
-        index=1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
+                           color={0,0,127}));
     connect(pasThrTEva.u, sigBus.TEvaOutMea) annotation (Line(points={{-70,102},{
             -70,120},{1,120}},
-                           color={0,0,127}), Text(
-        string="%second",
-        index=1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
+                           color={0,0,127}));
   else
     connect(pasThrTCon.u, sigBus.TEvaOutMea) annotation (Line(points={{-30,102},{
             -30,120},{1,120}},
-                           color={0,0,127}), Text(
-        string="%second",
-        index=1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
+                           color={0,0,127}));
     connect(pasThrTEva.u, sigBus.TConOutMea) annotation (Line(points={{-70,102},{
             -70,120},{1,120}},
-                           color={0,0,127}), Text(
-        string="%second",
-        index=1,
-        extent={{-3,6},{-3,6}},
-        horizontalAlignment=TextAlignment.Right));
+                           color={0,0,127}));
   end if;
   connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},{
           -24,-30},{-24,-78}},  color={0,0,127}));
