@@ -355,9 +355,9 @@ partial model PartialReversibleRefrigerantMachine
         origin={-98,12})));
 
 // To avoid using the bus, set the section below to protected
+protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
 // -->
-protected
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -370,9 +370,9 @@ protected
           use_intSafCtr));
 
 // <!-- @include_AixLib
+protected
 // -->
 
-protected
   parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
@@ -461,7 +461,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-
   connect(refCyc.PEle, sigBus.PEleMea) annotation (Line(points={{19.89,0.09},{26,
           0.09},{26,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{-141,-41}},
         color={0,0,127}), Text(
@@ -471,13 +470,13 @@ equation
   connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-99,-90},{-88,-90},{
           -88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
                                            color={255,0,255}));
-  connect(varTOutCon.T, sigBus.TConAmbMea) annotation (Line(
-      points={{82,130},{120,130},{120,32},{-76,32},{-76,-40},{-138,-40},{-138,-42},
+  connect(TConAmb, sigBus.TConAmbMea) annotation (Line(
+      points={{150,130},{120,130},{120,32},{-76,32},{-76,-40},{-138,-40},{-138,-42},
           {-140,-42},{-140,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(varTOutEva.T, sigBus.TEvaAmbMea) annotation (Line(
-      points={{82,-130},{88,-130},{88,-150},{-76,-150},{-76,-40},{-138,-40},{-138,
+  connect(TEvaAmb, sigBus.TEvaAmbMea) annotation (Line(
+      points={{146,-130},{110,-130},{110,-150},{-76,-150},{-76,-40},{-138,-40},{-138,
           -41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));

@@ -71,8 +71,9 @@ equation
           {-140,-42},{-140,-41},{-141,-41}},
                                 color={255,0,255}));
   connect(coo, sigBus.coo)
-    annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},
-          {-141,-41}}, color={255,0,255}));
+    annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
+          -41},{-141,-41}},
+                       color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-88,60},{88,60}}, color={28,108,200})}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),

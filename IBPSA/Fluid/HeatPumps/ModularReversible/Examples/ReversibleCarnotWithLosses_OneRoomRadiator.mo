@@ -35,7 +35,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
       safCtrPar,
     quaGra=0.4)
               "Reversible heat pump with losses and carnot approach"
-    annotation (Placement(transformation(extent={{20,-162},{0,-138}})));
+    annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   Modelica.Blocks.Sources.Constant temAmbBas(final k=273.15 + 18)
     "Ambient temperature in basement of building" annotation (Placement(
         transformation(
@@ -43,24 +43,25 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
         rotation=90,
         origin={10,-190})));
 equation
-  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},
-          {38,-156},{38,-200},{60,-200}},       color={0,127,255}));
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
+          -156},{38,-200},{60,-200}},           color={0,127,255}));
   connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
         points={{0,-156},{-30,-156},{-30,-170}}, color={0,127,255}));
-  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-144},
-          {-70,-144},{-70,-120}},          color={0,127,255}));
-  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},
-          {60,-144},{60,-30}},       color={0,127,255}));
-  connect(temAmbBas.y, heaPum.TEvaAmb) annotation (Line(points={{10,-179},
-          {10,-166},{-6,-166},{-6,-160},{-1,-160}},       color={0,0,127}));
-  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},
-          {10,-166},{-6,-166},{-6,-140},{-1,-140}},       color={0,0,127}));
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-144},{
+          -70,-144},{-70,-120}},           color={0,127,255}));
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
+          -144},{60,-30}},           color={0,127,255}));
+  connect(temAmbBas.y, heaPum.TEvaAmb) annotation (Line(points={{10,-179},{10,
+          -166},{-6,-166},{-6,-152},{-1,-152}},           color={0,0,127}));
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},{10,
+          -166},{-6,-166},{-6,-147.6},{-1,-147.6}},       color={0,0,127}));
 
   connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(
-        points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-159},{21.6,-159}},
+        points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-151.9},{21.1,
+          -151.9}},
         color={255,0,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{28,-66},{28,-148},{21.6,-148}}, color={0,0,127}));
+        points={{-139,-66},{28,-66},{28,-148},{21.2,-148}}, color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ReversibleCarnotWithLosses_OneRoomRadiator.mos"

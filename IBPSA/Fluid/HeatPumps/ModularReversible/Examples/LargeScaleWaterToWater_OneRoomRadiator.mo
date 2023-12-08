@@ -31,18 +31,18 @@ model LargeScaleWaterToWater_OneRoomRadiator
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
       datTab)
     "Large scale water to water heat pump"
-    annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
+    annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 equation
-  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={
-          {20,-154},{38,-154},{38,-200},{60,-200}}, color={0,127,255}));
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
+          -156},{38,-200},{60,-200}},               color={0,127,255}));
   connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
-        points={{0,-154},{-30,-154},{-30,-170}}, color={0,127,255}));
+        points={{0,-156},{-30,-156},{-30,-170}}, color={0,127,255}));
   connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(
-        points={{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points=
-          {{20,-142},{60,-142},{60,-30}}, color={0,127,255}));
+        points={{0,-144},{-70,-144},{-70,-120}}, color={0,127,255}));
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
+          -144},{60,-30}},                color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{-62,-66},{-62,-76},{21.6,-76},{21.6,-146}}, color={
+        points={{-139,-66},{-62,-66},{-62,-76},{21.2,-76},{21.2,-148}}, color={
           0,0,127}));
   annotation (
      __Dymola_Commands(file=

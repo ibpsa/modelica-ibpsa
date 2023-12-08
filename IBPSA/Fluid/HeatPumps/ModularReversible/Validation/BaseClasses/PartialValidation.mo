@@ -54,9 +54,9 @@ partial model PartialValidation
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling)
     "Heat pump" annotation (Placement(transformation(
-        extent={{-24,-29},{24,29}},
+        extent={{-10.5,-10.5},{10.5,10.5}},
         rotation=270,
-        origin={2,-21})));
+        origin={10.5,-30.5})));
 
   IBPSA.Fluid.Sources.Boundary_pT sinSidFixBou(redeclare final package Medium =
         MediumSin, nPorts=1) "Fixed boundary at the outlet of the sink side"
@@ -123,14 +123,14 @@ partial model PartialValidation
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
 
-  connect(souSidMasFlowSou.ports[1], heaPum.port_a2) annotation (Line(points={{
-          -20,-52},{-18,-52},{-18,-45},{-12.5,-45}}, color={0,127,255}));
-  connect(heaPum.port_b2, souSidFixBou.ports[1]) annotation (Line(points={{-12.5,
-          3},{-16,3},{-16,11},{-20,11}}, color={0,127,255}));
-  connect(heaPum.port_b1, sinSidFixBou.ports[1]) annotation (Line(points={{16.5,
-          -45},{16.5,-50},{40,-50}}, color={0,127,255}));
-  connect(heaPum.port_a1, sinSidMasFlowSou.ports[1]) annotation (Line(points={{
-          16.5,3},{16.5,12},{30,12},{30,20}}, color={0,127,255}));
+  connect(souSidMasFlowSou.ports[1], heaPum.port_a2) annotation (Line(points={{-20,-52},
+          {4,-52},{4,-41},{4.2,-41}},                color={0,127,255}));
+  connect(heaPum.port_b2, souSidFixBou.ports[1]) annotation (Line(points={{4.2,-20},
+          {4,-20},{4,11},{-20,11}},      color={0,127,255}));
+  connect(heaPum.port_b1, sinSidFixBou.ports[1]) annotation (Line(points={{16.8,
+          -41},{16.8,-50},{40,-50}}, color={0,127,255}));
+  connect(heaPum.port_a1, sinSidMasFlowSou.ports[1]) annotation (Line(points={{16.8,
+          -20},{16.8,12},{30,12},{30,20}},    color={0,127,255}));
   connect(mEva_flow.y, souSidMasFlowSou.m_flow_in)
     annotation (Line(points={{-59,-30},{-42,-30},{-42,-44}}, color={0,0,127}));
   connect(sinSidMasFlowSou.m_flow_in, mCon_flow.y)
@@ -140,7 +140,7 @@ equation
   connect(tabMea.y[7], mCon_flow.u) annotation (Line(points={{-69,80},{-56,80},{
           -56,50},{-2,50}},  color={0,0,127}));
   connect(tabMea.y[6], heaPum.ySet) annotation (Line(points={{-69,80},{-56,80},{
-          -56,26},{6.83333,26},{6.83333,6.84}}, color={0,0,127}));
+          -56,26},{12.6,26},{12.6,-18.74}},     color={0,0,127}));
   connect(tabMea.y[9], souSidMasFlowSou.T_in) annotation (Line(points={{-69,80},{
           -56,80},{-56,26},{-88,26},{-88,-48},{-42,-48}},  color={0,0,127}));
   connect(sinSidMasFlowSou.T_in, tabMea.y[1]) annotation (Line(points={{34,42},{

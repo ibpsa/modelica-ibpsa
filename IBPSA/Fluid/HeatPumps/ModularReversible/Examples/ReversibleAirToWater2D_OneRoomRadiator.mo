@@ -38,24 +38,25 @@ model ReversibleAirToWater2D_OneRoomRadiator
       use_maxCycRat=true,
       use_antFre=true,
       TAntFre=275.15)) "Reversible heat pump with losses and carnot approach"
-    annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
+    annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   extends Modelica.Icons.Example;
 
 equation
-  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,
-          -154},{38,-154},{38,-200},{60,-200}}, color={0,127,255}));
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
+          -156},{38,-200},{60,-200}},           color={0,127,255}));
   connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(
-        points={{0,-154},{-30,-154},{-30,-170}}, color={0,127,255}));
-  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points=
-         {{0,-142},{-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,
-          -142},{60,-142},{60,-30}}, color={0,127,255}));
+        points={{0,-156},{-30,-156},{-30,-170}}, color={0,127,255}));
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-144},{
+          -70,-144},{-70,-120}},           color={0,127,255}));
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
+          -144},{60,-30}},           color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{-112,-66},{-112,-62},{21.6,-62},{21.6,-146}}, color=
+        points={{-139,-66},{-112,-66},{-112,-62},{21.2,-62},{21.2,-148}}, color=
          {0,0,127}));
   connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
-        points={{21.6,-157},{24,-157},{24,-152},{26,-152},{26,-80},{-14,-80},{-14,
-          -86},{-134,-86},{-134,-76},{-139,-76}}, color={255,0,255}));
+        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-80},{-14,-80},
+          {-14,-86},{-134,-86},{-134,-76},{-139,-76}},
+                                                  color={255,0,255}));
   annotation (
    __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ReversibleAirToWater2D_OneRoomRadiator.mos"

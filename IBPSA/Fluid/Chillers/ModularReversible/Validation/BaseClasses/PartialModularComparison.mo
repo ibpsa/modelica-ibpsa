@@ -40,19 +40,19 @@ partial model PartialModularComparison
     final TEva_start=T2_start,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Modular chiller model"
-    annotation (Placement(transformation(extent={{-10,-12},{10,12}})));
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 
 equation
   connect(chi.port_a1, sou1.ports[1])
-    annotation (Line(points={{-10,6},{-40,6}}, color={0,127,255}));
-  connect(chi.port_b2, sin2.ports[1]) annotation (Line(points={{-10,-6},{-32,-6},{
+    annotation (Line(points={{-8,6},{-40,6}},  color={0,127,255}));
+  connect(chi.port_b2, sin2.ports[1]) annotation (Line(points={{-8,-6},{-32,-6},{
           -32,-30},{-40,-30}}, color={0,127,255}));
   connect(chi.port_a2, sou2.ports[1])
-    annotation (Line(points={{10,-6},{40,-6}}, color={0,127,255}));
+    annotation (Line(points={{12,-6},{40,-6}}, color={0,127,255}));
   connect(chi.port_b1, sin1.ports[1])
-    annotation (Line(points={{10,6},{36,6},{36,30},{60,30}}, color={0,127,255}));
-  connect(chi.ySet, uCom.y) annotation (Line(points={{-11.6,2},{-11.6,8},{-32,8},{
-          -32,50},{-39,50}}, color={0,0,127}));
+    annotation (Line(points={{12,6},{36,6},{36,30},{60,30}}, color={0,127,255}));
+  connect(chi.ySet, uCom.y) annotation (Line(points={{-9.2,2},{-34,2},{-34,50},{
+          -39,50}},          color={0,0,127}));
 
   annotation (
     Documentation(revisions="<html>

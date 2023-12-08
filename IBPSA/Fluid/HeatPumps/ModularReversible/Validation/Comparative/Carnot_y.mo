@@ -26,19 +26,19 @@ model Carnot_y "Example using the Carnot model approach"
     show_T=true,
     T1_start=T1_start,
     T2_start=T2_start) "Heat pump model"
-    annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(points={{-40,-30},{-16,
-          -30},{-16,-6},{-12,-6}}, color={0,127,255}));
+          -30},{-16,-6},{-10,-6}}, color={0,127,255}));
   connect(heaPum.port_a2, sou2.ports[1])
-    annotation (Line(points={{8,-6},{40,-6}}, color={0,127,255}));
+    annotation (Line(points={{10,-6},{40,-6}},color={0,127,255}));
   connect(heaPum.port_b1, sin1.ports[1])
-    annotation (Line(points={{8,6},{36,6},{36,30},{60,30}}, color={0,127,255}));
+    annotation (Line(points={{10,6},{36,6},{36,30},{60,30}},color={0,127,255}));
   connect(heaPum.port_a1, sou1.ports[1])
-    annotation (Line(points={{-12,6},{-40,6}}, color={0,127,255}));
+    annotation (Line(points={{-10,6},{-40,6}}, color={0,127,255}));
   connect(heaPum.y, uCom.y)
-    annotation (Line(points={{-14,9},{-14,50},{-39,50}}, color={0,0,127}));
+    annotation (Line(points={{-12,9},{-12,50},{-39,50}}, color={0,0,127}));
 
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Validation/Comparative/Carnot_y.mos"

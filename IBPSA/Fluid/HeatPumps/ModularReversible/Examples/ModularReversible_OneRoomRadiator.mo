@@ -56,7 +56,7 @@ model ModularReversible_OneRoomRadiator
       use_TAmbSidOut=false,
       use_antFre=true,
       TAntFre=275.15)) "Modular reversible heat pump"
-    annotation (Placement(transformation(extent={{20,-160},{0,-136}})));
+    annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 
   Modelica.Blocks.Sources.Constant temAmbBas(final k=273.15 + 18)
     "Ambient temperature in basement of building" annotation (Placement(
@@ -65,21 +65,22 @@ model ModularReversible_OneRoomRadiator
         rotation=90,
         origin={10,-190})));
 equation
-  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-154},
-          {38,-154},{38,-200},{60,-200}}, color={0,127,255}));
-  connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(points={{0,
-          -154},{-30,-154},{-30,-170}}, color={0,127,255}));
-  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-142},
-          {-70,-142},{-70,-120}}, color={0,127,255}));
-  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-142},
-          {60,-142},{60,-30}}, color={0,127,255}));
-  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},
-          {10,-162},{-1,-162},{-1,-138}}, color={0,0,127}));
-  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.6,
-          -157},{24,-157},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},{-139,
-          -76}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={
-          {-139,-66},{30,-66},{30,-146},{21.6,-146}}, color={0,0,127}));
+  connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
+          -156},{38,-200},{60,-200}},     color={0,127,255}));
+  connect(heaPum.port_a2, pumHeaPumSou.port_b) annotation (Line(points={{0,-156},
+          {-30,-156},{-30,-170}},       color={0,127,255}));
+  connect(heaPum.port_b1, pumHeaPum.port_a) annotation (Line(points={{0,-144},{
+          -70,-144},{-70,-120}},  color={0,127,255}));
+  connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
+          -144},{60,-30}},     color={0,127,255}));
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},{10,
+          -162},{-1,-162},{-1,-147.6}},   color={0,0,127}));
+  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,
+          -151.9},{24,-151.9},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},
+          {-139,-76}},
+                 color={255,0,255}));
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={{-139,
+          -66},{30,-66},{30,-148},{21.2,-148}},       color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   This example demonstrates how to use the
