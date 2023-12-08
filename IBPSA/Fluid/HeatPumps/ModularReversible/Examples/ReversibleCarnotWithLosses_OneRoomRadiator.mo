@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model ReversibleCarnotWithLosses_OneRoomRadiator
-  "Reversible heat pump with carnot approach connected to a simple room model with radiator"
+  "Reversible heat pump with Carnot approach connected to a simple room model with radiator"
   extends Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
@@ -34,7 +34,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
     quaGra=0.4)
-              "Reversible heat pump with losses and carnot approach"
+              "Reversible heat pump with losses and Carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   Modelica.Blocks.Sources.Constant temAmbBas(final k=273.15 + 18)
     "Ambient temperature in basement of building" annotation (Placement(

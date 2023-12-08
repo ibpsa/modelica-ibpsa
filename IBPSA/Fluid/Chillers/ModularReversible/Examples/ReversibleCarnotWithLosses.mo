@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Examples;
 model ReversibleCarnotWithLosses
-  "Example for reversible carnot chiller model"
+  "Example for reversible Carnot chiller model"
   extends Modelica.Icons.Example;
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
@@ -34,7 +34,7 @@ model ReversibleCarnotWithLosses
     GEvaIns=0,
     cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    show_T=true) "Chiller instance with reversbile carnot approach"
+    show_T=true) "Chiller instance with reversbile Carnot approach"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souCon(
     nPorts=1,

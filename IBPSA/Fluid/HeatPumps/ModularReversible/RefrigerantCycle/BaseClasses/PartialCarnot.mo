@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialCarnot
-  "Model with components for carnot efficiency calculation"
+  "Model with components for Carnot efficiency calculation"
   parameter Boolean useForChi "=false to use in heat pump models";
 
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon
@@ -26,7 +26,7 @@ partial model PartialCarnot
         IBPSA.Utilities.Math.Functions.smoothMax(
         x1=dTCarMin,
         x2=(TConAct - TEvaAct),
-        deltaX=0.25)) "Internal calculation of carnot efficiency"
+        deltaX=0.25)) "Internal calculation of Carnot efficiency"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Math.Product proQUse_flow "Calculate QUse_flow" annotation (
       Placement(transformation(

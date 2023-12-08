@@ -37,7 +37,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       use_minOffTime=true,
       use_maxCycRat=true,
       use_antFre=true,
-      TAntFre=275.15)) "Reversible heat pump with losses and carnot approach"
+      TAntFre=275.15)) "Reversible heat pump with losses and Carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   extends Modelica.Icons.Example;
 

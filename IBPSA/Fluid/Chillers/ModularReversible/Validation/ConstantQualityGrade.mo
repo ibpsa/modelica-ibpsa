@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Validation;
 model ConstantQualityGrade
-  "Validation case for modular carnot approach"
+  "Validation case for modular Carnot approach"
   extends BaseClasses.PartialModularComparison(chi(redeclare model
         RefrigerantCycleChillerCooling =
           IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade

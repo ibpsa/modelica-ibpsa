@@ -5,7 +5,7 @@ package Validation "Package for model validation"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that validate the modular reversible chiller models
-using comparative validation against the carnot model:
+using comparative validation against the Carnot model:
 <a href=\"modelica://IBPSA.Fluid.Chillers.Examples.Carnot_y\">
 IBPSA.Fluid.Chillers.Examples.Carnot_y</a>
 </p>

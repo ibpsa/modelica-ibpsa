@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Validation.Comparative;
 model ConstantQualityGrade
-  "Validation case for modular carnot approach"
+  "Validation case for modular Carnot approach"
   extends BaseClasses.PartialModularComparison(heaPum(redeclare model
         RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade

@@ -89,7 +89,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses a constant quality grade approach and carnot equations
+  This model uses a constant quality grade approach and Carnot equations
   to compute the efficiency of the heat pump.
 </p>
 <p>
@@ -98,7 +98,7 @@ equation
   <code>PEle_nominal</code> stays constant over all boundary conditions
   and is used to calculate <code>PEle</code> by multiplying it with the
   relative compressor speed.
-  <code>QCon_flow</code> is computed using the carnot approach:
+  <code>QCon_flow</code> is computed using the Carnot approach:
 </p>
 <p>
   <code>
