@@ -28,9 +28,9 @@ record Generic "Partial two-dimensional data of refrigerant machines"
   respectively.
 </p>
 <p>
-  Both tables define the power values depending on the evaporator temperature
-  (defined in first row, in degC) and the condenser temperature
-  (defined in first column, in degC) in W.
+  Both tables define the power values depending on the ambient side temperature
+  (defined in first row, in K) and the useful side temperature
+  (defined in first column, in K) in W.
 </p>
 <p>
   Depending on the type of the device, either inlet or outlet conditions are used.
