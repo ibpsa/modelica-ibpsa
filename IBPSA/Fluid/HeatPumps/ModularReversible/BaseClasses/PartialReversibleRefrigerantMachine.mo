@@ -319,16 +319,16 @@ partial model PartialReversibleRefrigerantMachine
     final uLow=Modelica.Constants.eps,
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(extent={{10,-10},{-10,10}}, rotation=180,
+        transformation(extent={{10,10},{-10,-10}}, rotation=180,
         origin={-110,-90})));
 
   RefrigerantCycleInertia refCycIneCon "Inertia model for condenser side"
-                         annotation(Placement(transformation(
+      annotation(Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
   RefrigerantCycleInertia refCycIneEva "Inertia model for evaporator side"
-                         annotation (Placement(transformation(
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-50})));
@@ -386,13 +386,13 @@ equation
 
   // Non bus connections
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,-40},
-          {-140,-41},{-141,-41}},
+      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,
+          -40},{-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{-84,
-          -10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,-41}},
-                                                    color={0,0,127}));
+  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{
+          -84,-10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,
+          -41}},                                    color={0,0,127}));
   connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
           -10},{-113.333,-10}},
                        color={0,0,127}));
