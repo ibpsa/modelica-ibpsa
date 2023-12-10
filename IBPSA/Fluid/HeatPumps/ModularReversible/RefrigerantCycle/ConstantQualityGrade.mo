@@ -3,7 +3,7 @@ model ConstantQualityGrade "Carnot COP with a constant quality grade"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
       useInHeaPum=true,
-      PEle_nominal=QUse_flow_nominal / COP_nominal,
+      PEle_nominal=QUse_flow_nominal / COP_nominal / y_nominal,
       QUseNoSca_flow_nominal=QUse_flow_nominal,
       datSou="ConstantQualityGradeCarnot");
   extends
@@ -12,10 +12,10 @@ model ConstantQualityGrade "Carnot COP with a constant quality grade"
      final QEva_flow_nominal=QUse_flow_nominal-PEle_nominal,
      final QCon_flow_nominal=QUse_flow_nominal,
      constPEle(final k=PEle_nominal));
-  parameter Real COP_nominal = quaGra*y_nominal *
+  parameter Real COP_nominal = quaGra *
     (TCon_nominal + TAppCon_nominal) /
     (TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
-    "Nominal EER";
+    "Nominal coefficient of performance";
 equation
 
   connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{0,70},{0,

@@ -9,12 +9,12 @@ model TableData2D
     PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
         TEva_nominal,
-        TCon_nominal) * scaFac,
+        TCon_nominal) * scaFac * y_nominal,
     QUseNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdeQUse_flow,
         TEva_nominal,
-        TCon_nominal));
+        TCon_nominal) * y_nominal);
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
     final use_TConOutForTab=datTab.use_TConOutForTab,
