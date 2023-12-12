@@ -12,7 +12,9 @@ model ConstantQualityGrade "Carnot EER with a constant quality grade"
      final QEva_flow_nominal=QUse_flow_nominal,
      final QCon_flow_nominal=QUse_flow_nominal+PEle_nominal,
      constPEle(final k=PEle_nominal));
-  parameter Real EER_nominal = quaGra *
+  parameter Real EER_nominal(
+      min=0,
+      final unit="1") = quaGra *
     (TEva_nominal - TAppEva_nominal) /
     (TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
     "Nominal EER";
