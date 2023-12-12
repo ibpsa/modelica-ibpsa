@@ -1,6 +1,6 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 package PVOptical "Models for computing irradiance-related boundary conditions for PV systems"
-
+  extends Modelica.Icons.Package;
 
  annotation(Documentation(info="<html>
 <p>

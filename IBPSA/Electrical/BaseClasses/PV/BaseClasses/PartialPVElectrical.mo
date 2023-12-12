@@ -2,7 +2,7 @@ within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVElectrical
   "Partial electrical model for PV module model"
 
-  replaceable parameter Data.PV.Generic dat                   constrainedby
+  replaceable parameter Data.PV.Generic dat constrainedby
     IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
     annotation (choicesAllMatching);
 
@@ -84,7 +84,7 @@ protected
           smooth=Smooth.Bezier)}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-    <p>This is a partial model for the electrical surrogate models of a photovoltaic model.</p>
+    <p>This is a partial model for the electrical surrogate models of a photovoltaic module.</p>
 </html>", revisions="<html>
 <ul>
 <li>

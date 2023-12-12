@@ -23,9 +23,7 @@ equation
 <p>
   <br/>
 </p>
-<h4>
-  <span style=\"color: #008000\">References</span>
-</h4>
+<h4>References</h4>
 <p>
   <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
   Beckman, W. A.

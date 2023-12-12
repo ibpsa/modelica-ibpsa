@@ -12,18 +12,16 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-  Model for determining the cell temperature of a PV module mounted on
-  an open rack under operating conditions and under consideration of
-  the wind velocity.
+Model for determining the cell temperature of a PV module mounted on 
+an open rack under operating conditions and under consideration of
+the wind velocity.
 </p>
 <p>
-  <br/>
+<br/>
 </p>
-<h4>
-  <span style=\"color: #008000\">References</span>
-</h4>
+<h4>References</h4>
 <p>
-  <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
+<q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
   Beckman, W. A.
 </p>
 </html>", revisions="<html>

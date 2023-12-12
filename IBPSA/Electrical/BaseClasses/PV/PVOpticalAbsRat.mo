@@ -8,8 +8,7 @@ model PVOpticalAbsRat
    "Site altitude in Meters, default= 1"
    annotation(Dialog(group="Location"));
 
- parameter Real groRef(unit="1") "Ground reflectance"
-   annotation ();
+ parameter Real groRef(unit="1") "Ground reflectance";
 
   constant Modelica.Units.SI.Irradiance HGloHor0=1000
  "Total solar radiation on the horizontal surface under standard conditions"
@@ -184,9 +183,7 @@ For a definition of the parameters, see the
 <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">
 IBPSA.BoundaryConditions.UsersGuide</a>.
 </p>
-<h4>
-  <span style=\"color: #008000\">References</span>
-  </h4>
+<h4>References</h4>
 <p>
 De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation 
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.

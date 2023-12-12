@@ -15,15 +15,10 @@ equation
   an open rack under operating conditions and under consideration of
   the wind velocity.
 </p>
+<h4>References</h4>
 <p>
-  <br/>
-</p>
-<h4>
-  <span style=\"color: #008000\">References</span>
-</h4>
-<p>
-  <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
-  Beckman, W. A.
+<q>Solar engineering of thermal processes.</q> by Duffie, John A. ; 
+Beckman, W. A.
 </p>
 </html>", revisions="<html>
 <ul>

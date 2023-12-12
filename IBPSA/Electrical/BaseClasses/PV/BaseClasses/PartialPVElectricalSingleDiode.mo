@@ -38,14 +38,14 @@ protected
   final parameter Real TCoeVOC(unit="V/K") = dat.TCoeVOC
     "Temperature coefficient for open circuit voltage, <0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient alphaISC=
-  dat.alphaISC "Normalized temperature coefficient for short circuit current, >0";
+  final parameter Modelica.Units.SI.LinearTemperatureCoefficient alphaISC=dat.alphaISC
+    "Normalized temperature coefficient for short circuit current, >0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient betaVOC=
-  dat.betaVOC "Normalized temperature coefficient for open circuit voltage, <0";
+  final parameter Modelica.Units.SI.LinearTemperatureCoefficient betaVOC=dat.betaVOC
+    "Normalized temperature coefficient for open circuit voltage, <0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient gammaPMP=
-  dat.gammaPMP "Normalized temperature coefficient for power at MPP";
+  final parameter Modelica.Units.SI.LinearTemperatureCoefficient gammaPMP=dat.gammaPMP
+    "Normalized temperature coefficient for power at MPP";
 
   final parameter Modelica.Units.SI.Temperature TCel0 = 25.0 + 273.15
     "Thermodynamic cell temperature under standard conditions";

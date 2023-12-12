@@ -8,7 +8,7 @@ function lambertWSimple
 algorithm
   W:= log(x)*(1-log(log(x))/(log(x)+1));
   annotation (Documentation(info="<html>
-<p><span style=\"font-family: Roboto; color: #202124; background-color: #ffffff;\">The Lambert W function solves mathematical equations in which the unknown is both inside and outside of an exponential function or a logarithm.</span></p>
+<p>The Lambert W function solves mathematical equations in which the unknown is both inside and outside of an exponential function or a logarithm.</span></p>
 <p>This function is a simple approximation for Lambert W function following Baetzelis, 2016:</p>
 </html>", revisions="<html>
 <ul>

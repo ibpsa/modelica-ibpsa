@@ -12,16 +12,13 @@ protected
   Modelica.Units.SI.Angle zen "Zenith angle internal use";
 equation
 // Restriction for zenith angle
- zen = if zenAng <= Modelica.Constants.pi/2 then
- zenAng
- else
- Modelica.Constants.pi/2 "Zenith angle";
+ zen = if zenAng <= Modelica.Constants.pi/2 then zenAng
+ else Modelica.Constants.pi/2 "Zenith angle";
 
-  airMas =
-  exp(-0.0001184*alt)/(cos(zen) + 0.5057*(96.080 -
-                  zen*180/Modelica.Constants.pi)^(-1.634)) "Air mass";
+ airMas = exp(-0.0001184*alt)/(cos(zen) +
+   0.5057*(96.080 - zen*180/Modelica.Constants.pi)^(-1.634)) "Air mass";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+ annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(info="<html><p>The model computes the air mass, which is the number of particles in the atmosphere.</br>
         It bases on an exact empirical approach by Kasten et al. and bases on the zenith angle of the object as well as its height.</p>

@@ -1,5 +1,7 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 package Icons
+  extends Modelica.Icons.Package;
+
  annotation(Documentation(info="<html>
 <p>
 This package contains icons for the models in

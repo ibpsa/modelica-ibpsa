@@ -159,9 +159,7 @@ to the parameter values at standard conditions following (DeSoto et al.,2006).</
 <p>
   <br/>
 </p>
-<h4>
-  <span style=\"color: #008000\">References</span>
-</h4>
+<h4>References</h4>
 <p>
 Batzelis, E. I., &amp; Papathanassiou, S. A. (2015). A method for the analytical
 extraction of the single-diode PV model parameters. IEEE Transactions on
