@@ -84,7 +84,9 @@ protected
           smooth=Smooth.Bezier)}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-    <p>This is a partial model for the electrical surrogate models of a photovoltaic module.</p>
+    <p>
+    This is a partial model for the electrical surrogate models of a photovoltaic module.
+    </p>
 </html>", revisions="<html>
 <ul>
 <li>

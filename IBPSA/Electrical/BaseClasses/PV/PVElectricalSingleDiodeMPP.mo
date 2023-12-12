@@ -20,8 +20,6 @@ model PVElectricalSingleDiodeMPP
 
 // Additional parameters and constants
 
-  constant Real euler=Modelica.Math.exp(1.0)
-   "Euler constant";
   constant Real q(unit = "A.s")= 1.602176620924561e-19
    "Elementary charge";
 
