@@ -34,7 +34,7 @@ model ModularReversible_OneRoomRadiator
     cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting

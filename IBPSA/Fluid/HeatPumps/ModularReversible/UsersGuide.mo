@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
+within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -319,8 +319,8 @@ The following tables summarizes the possible options.
 </p>
 <p>
   Currently, two modules for refrigerant cycle are implemented.
-  First, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a> model
+  First, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a> model
   uses the same equations as the Carnot models, i.e.  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
   IBPSA.Fluid.HeatPumps.Carnot_y</a>.
   Second, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">

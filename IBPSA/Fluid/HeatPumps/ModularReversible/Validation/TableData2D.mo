@@ -42,8 +42,8 @@ model TableData2D
   This validation case uses table-based data for the heat pump.
 </p>
 <p>
-  The approach was calibrated as a comparison to constant quality grade
-  efficiency in the conference paper for the heat pump model:
+  The approach was calibrated as a comparison to constant Carnot effectiveness
+  approach in the conference paper for the heat pump model:
   <a href=\"https://doi.org/10.3384/ecp21181561\">
   https://doi.org/10.3384/ecp21181561</a>
 </p>

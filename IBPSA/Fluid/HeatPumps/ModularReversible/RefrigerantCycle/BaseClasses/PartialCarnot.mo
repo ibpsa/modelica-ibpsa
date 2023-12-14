@@ -7,7 +7,7 @@ partial model PartialCarnot
     "Condenser medium specific heat capacity, used for pinch assumption";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva
     "Evaporator medium specific heat capacity, used for pinch assumption";
-  parameter Real quaGra=0.3 "Constant quality grade";
+  parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness";
   parameter Boolean use_constAppTem=false
     "=true to fix approach temperatures at nominal values. This can improve simulation speed";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)=
@@ -22,13 +22,15 @@ partial model PartialCarnot
   parameter Modelica.Units.SI.TemperatureDifference dTCarMin=5
     "Minimal temperature difference, used to avoid division errors"
      annotation(Dialog(tab="Advanced"));
-  Modelica.Blocks.Sources.RealExpression reaEtaCarEff(final y=quaGra*TUseSidAct/
+  Modelica.Blocks.Sources.RealExpression reaCarnotCOP(final y=TUseSidAct/
         IBPSA.Utilities.Math.Functions.smoothMax(
         x1=dTCarMin,
         x2=(TConAct - TEvaAct),
-        deltaX=0.25)) "Internal calculation of Carnot efficiency"
+        deltaX=0.25)) "Internal calculation of Carnot COP"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Math.Product proQUse_flow "Calculate QUse_flow" annotation (
+  Modelica.Blocks.Math.MultiProduct
+                               proQUse_flow(nu=3)
+                                            "Calculate QUse_flow" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -86,6 +88,9 @@ partial model PartialCarnot
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-30,90})));
+  Modelica.Blocks.Sources.RealExpression reaCarnotEff(y=etaCarnot_nominal)
+    "Internal calculation of Carnot effectiveness"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 protected
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal
     "Nominal condenser heat flow rate";
@@ -99,10 +104,6 @@ protected
      "Evaporator heat flow rate";
 
 equation
-  connect(reaEtaCarEff.y, proQUse_flow.u2) annotation (Line(points={{-79,70},{-56,
-          70},{-56,62}},          color={0,0,127}));
-  connect(proPEle.y, proQUse_flow.u1) annotation (Line(points={{70,39},{70,34},{
-          -20,34},{-20,70},{-44,70},{-44,62}}, color={0,0,127}));
   connect(proPEle.u1, constPEle.y) annotation (Line(points={{76,62},{76,66},{88,
           66},{88,79}}, color={0,0,127}));
   connect(pasThrYSet.y, proPEle.u2)
@@ -111,10 +112,16 @@ equation
           8.88178e-16,28},{42,28},{42,22}}, color={0,0,127}));
   connect(proPEle.y, swiPEle.u1) annotation (Line(points={{70,39},{70,34},{58,
           34},{58,22}}, color={0,0,127}));
-  connect(proQUse_flow.y, swiQUse.u1) annotation (Line(points={{-50,39},{-50,36},
+  connect(proQUse_flow.y, swiQUse.u1) annotation (Line(points={{-50,38.3},{-50,36},
           {-58,36},{-58,22}}, color={0,0,127}));
   connect(swiQUse.u3, constZer.y) annotation (Line(points={{-42,22},{-42,28},{
           8.88178e-16,28},{8.88178e-16,21}}, color={0,0,127}));
+  connect(reaCarnotCOP.y, proQUse_flow.u[1]) annotation (Line(points={{-79,70},{
+          -52.3333,70},{-52.3333,60}}, color={0,0,127}));
+  connect(proPEle.y, proQUse_flow.u[2]) annotation (Line(points={{70,39},{70,34},
+          {-26,34},{-26,70},{-50,70},{-50,60}}, color={0,0,127}));
+  connect(reaCarnotEff.y, proQUse_flow.u[3]) annotation (Line(points={{-79,50},{
+          -68,50},{-68,70},{-47.6667,70},{-47.6667,60}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,120}})),
       Documentation(info="<html>

@@ -1,11 +1,11 @@
 within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle;
-model ConstantQualityGrade "Carnot EER with a constant quality grade"
+model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectiveness"
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
       useInChi=true,
       PEle_nominal=QUse_flow_nominal/EER_nominal/y_nominal,
       QUseNoSca_flow_nominal=QUse_flow_nominal,
-      datSou="ConstantQualityGradeCarnot");
+      datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
      final useForChi=true,
@@ -13,10 +13,9 @@ model ConstantQualityGrade "Carnot EER with a constant quality grade"
      final QCon_flow_nominal=QUse_flow_nominal+PEle_nominal,
      constPEle(final k=PEle_nominal));
   parameter Real EER_nominal(
-      min=0,
-      final unit="1") = quaGra *
-    (TEva_nominal - TAppEva_nominal) /
-    (TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
+    min=0,
+    final unit="1") = etaCarnot_nominal*(TEva_nominal - TAppEva_nominal)/(
+    TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
     "Nominal EER";
 
 equation
@@ -72,7 +71,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses a constant quality grade approach and Carnot equations
+  This model uses a constant Carnot effectiveness approach
   to compute the efficiency of the chiller.
 </p>
 <p>
@@ -85,7 +84,7 @@ equation
 </p>
 <p>
   <code>
-    QEva_flow = PEle_nominal * quaGra * ySet *
+    QEva_flow = PEle_nominal * etaCarnot_nominal * ySet *
     (TEvaOut - TAppEva) /
     (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
@@ -121,4 +120,4 @@ equation
           extent={{-78,68},{74,-78}},
           textColor={0,0,127},
           textString="Carnot")}));
-end ConstantQualityGrade;
+end ConstantCarnotEffectiveness;

@@ -15,10 +15,9 @@ model ModularReversible
         refIneFreConst=1/300,
         nthOrd=1,
         initType=Modelica.Blocks.Types.Init.InitialState),
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrPar(
-        minOffTime=100,
-        use_opeEnv=false),
+    redeclare
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+      safCtrPar(minOffTime=100, use_opeEnv=false),
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,
@@ -38,19 +37,19 @@ model ModularReversible
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
     redeclare model RefrigerantCycleChillerCooling =
-        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
         datSou="Override to avoid warnings during simulation for CI",
         cpCon=chi.cpCon,
         cpEva=chi.cpEva,
-        quaGra=0.35),
+        etaCarnot_nominal=0.35),
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
           redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal, datTab=
-            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()))
-                 "Modular reversible chiller instance"
+            IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
+            ())) "Modular reversible chiller instance"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souCon(
     nPorts=1,

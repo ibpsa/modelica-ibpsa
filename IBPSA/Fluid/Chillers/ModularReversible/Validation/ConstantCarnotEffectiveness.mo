@@ -1,17 +1,17 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Validation;
-model ConstantQualityGrade
+model ConstantCarnotEffectiveness
   "Validation case for modular Carnot approach"
   extends BaseClasses.PartialModularComparison(chi(redeclare model
         RefrigerantCycleChillerCooling =
-          IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade
+          IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
           (
           cpCon=chi.cpCon,
           cpEva=chi.cpEva,
-          quaGra=etaCarnot_nominal)));
+          etaCarnot_nominal=etaCarnot_nominal)));
   extends Modelica.Icons.Example;
 
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Validation/ConstantQualityGrade.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Validation/ConstantCarnotEffectiveness.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -22,8 +22,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Validation case for <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade\">
-IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantQualityGrade</a>.
+Validation case for <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
+IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a>.
 </p>
 </html>"));
-end ConstantQualityGrade;
+end ConstantCarnotEffectiveness;

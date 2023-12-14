@@ -1,11 +1,11 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle;
-model ConstantQualityGrade "Carnot COP with a constant quality grade"
+model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectiveness"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
       useInHeaPum=true,
       PEle_nominal=QUse_flow_nominal / COP_nominal / y_nominal,
       QUseNoSca_flow_nominal=QUse_flow_nominal,
-      datSou="ConstantQualityGradeCarnot");
+      datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
      final useForChi=false,
@@ -13,10 +13,9 @@ model ConstantQualityGrade "Carnot COP with a constant quality grade"
      final QCon_flow_nominal=QUse_flow_nominal,
      constPEle(final k=PEle_nominal));
   parameter Real COP_nominal(
-      min=0,
-      final unit="1") = quaGra *
-    (TCon_nominal + TAppCon_nominal) /
-    (TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
+    min=0,
+    final unit="1") = etaCarnot_nominal*(TCon_nominal + TAppCon_nominal)/(
+    TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
     "Nominal coefficient of performance";
 equation
 
@@ -91,7 +90,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>
-  This model uses a constant quality grade approach and Carnot equations
+  This model uses a constant Carnot effectiveness
   to compute the efficiency of the heat pump.
 </p>
 <p>
@@ -104,7 +103,7 @@ equation
 </p>
 <p>
   <code>
-    QCon_flow = PEle_nominal * quaGra * ySet *
+    QCon_flow = PEle_nominal * etaCarnot_nominal * ySet *
     (TConOut + TAppCon) /
     (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
@@ -140,4 +139,4 @@ equation
           extent={{-78,80},{74,-66}},
           textColor={0,0,127},
           textString="Carnot")}));
-end ConstantQualityGrade;
+end ConstantCarnotEffectiveness;
