@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -388,7 +388,7 @@ The following tables summarizes the possible options.
   evaporator mass flow rate <code>mCon_flow_nominal</code>, and
 </li>
 <li>
-  compressor speed <code>ySet_nominal</code>
+  compressor speed <code>y_nominal</code>
 </li>
 </ul>
 <p>
