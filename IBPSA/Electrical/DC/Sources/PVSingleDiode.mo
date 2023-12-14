@@ -1,4 +1,4 @@
-within IBPSA.Electrical.DC.Sources;
+﻿within IBPSA.Electrical.DC.Sources;
 model PVSingleDiode
   "Photovoltaic module model based on single diode approach"
 
@@ -59,26 +59,23 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>
 <p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings.<br/>
-The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:<br/></p>
+The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:</p>
 <p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" alt='Single Diode Scheme'> </p>
-<p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.<br/>
-<i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub><br/>
-<i>I</i><sub>d</sub> derives from the Shockley equation </p>
+<p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.</p>
+<p><i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub></p>
+<p><i>I</i><sub>d</sub> derives from the Shockley equation </p>
 <p align=\"center\" style=\"font-style:italic;\">
 <i>I</i><sub>d</sub> =
 I<sub>s</sub>(e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1)</p>
-<p> that bases on the saturation current <i>I</i><sub>s</sub>.<br/>
-The Shockley equation uses the modified ideality factor </p>
+<p>that bases on the saturation current <i>I</i><sub>s</sub>.</p>
+<p>The Shockley equation uses the modified ideality factor </p>
 <p align=\"center\" style=\"font-style:italic;\">a =(N<sub>s</sub> n<sub>I</sub> k T<sub>cell</sub> &frasl; q).</p>
-<p>The modified ideality factor <i>a</i> results from<br/>
-the number of serial cells <i>N</i><sub>s</sub>,<br/>
-the ideality factor <i>n</i><sub>I</sub>,<br/>
-the Boltzman constant k,<br/>
-the elementary charge q,
-<br/>and the cell temperature <i>T</i><sub>cell</sub>.
-<i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.<br/>
-The parallel resistance <i>R</i><sub>sh</sub> accounts for the leakage currents along the cell's side<br/>
-and <i>I</i><sub>sh</sub> is the resulting leakage current.<br/>
+<p>The modified ideality factor <i>a</i> results from the number of serial cells <i>N</i><sub>s</sub>,
+the ideality factor <i>n</i><sub>I</sub>, the Boltzman constant k,
+the elementary charge q,and the cell temperature <i>T</i><sub>cell</sub>.
+<i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.</p>
+<p>The parallel resistance <i>R</i><sub>sh</sub> accounts for the leakage currents along the cell's side
+and <i>I</i><sub>sh</sub> is the resulting leakage current.
 The result is the I-V-curve</p>
 <p align=\"center\" style=\"font-style:italic;\">
 <i>I</i> =

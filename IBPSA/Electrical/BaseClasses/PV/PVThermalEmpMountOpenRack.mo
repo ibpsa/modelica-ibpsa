@@ -20,9 +20,6 @@ equation
   an open rack under operating conditions and under consideration of
   the wind velocity.
 </p>
-<p>
-  <br/>
-</p>
 <h4>References</h4>
 <p>
   <q>Solar engineering of thermal processes.</q> by Duffie, John A. ;
