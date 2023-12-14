@@ -1,4 +1,4 @@
-﻿within IBPSA.Electrical.DC.Sources;
+within IBPSA.Electrical.DC.Sources;
 model PVSingleDiode
   "Photovoltaic module model based on single diode approach"
 
