@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
+within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model CalculateCOP
   "Calculate the COP or EER of a device"
   extends Modelica.Blocks.Icons.Block;
