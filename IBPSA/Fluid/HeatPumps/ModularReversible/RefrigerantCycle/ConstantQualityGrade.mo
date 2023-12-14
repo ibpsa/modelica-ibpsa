@@ -12,7 +12,9 @@ model ConstantQualityGrade "Carnot COP with a constant quality grade"
      final QEva_flow_nominal=QUse_flow_nominal-PEle_nominal,
      final QCon_flow_nominal=QUse_flow_nominal,
      constPEle(final k=PEle_nominal));
-  parameter Real COP_nominal = quaGra *
+  parameter Real COP_nominal(
+      min=0,
+      final unit="1") = quaGra *
     (TCon_nominal + TAppCon_nominal) /
     (TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
     "Nominal coefficient of performance";

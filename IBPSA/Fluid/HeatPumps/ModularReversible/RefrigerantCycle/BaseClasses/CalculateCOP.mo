@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model CalculateCOP
   "Calculate the COP or EER of a device"
   extends Modelica.Blocks.Icons.Block;
@@ -14,7 +14,8 @@ model CalculateCOP
     "Useful heat flow" annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,
             60}})));
-  Modelica.Blocks.Interfaces.RealOutput COP "Output for calculated COP value"
+  Modelica.Blocks.Interfaces.RealOutput COP(min=0, final unit="1")
+                                            "Output for calculated COP value"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Logical.Hysteresis hys(
     uLow=PEleMin,
