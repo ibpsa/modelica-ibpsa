@@ -169,7 +169,7 @@ partial model PartialReversibleRefrigerantMachine
 //Initialization
   parameter Modelica.Blocks.Types.Init initType=
     Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (InitialState and InitialOutput are identical)"
+    "Type of initialization for refrigerant cycle dynamics (InitialState and InitialOutput are identical)"
     annotation (Dialog(tab="Initialization", group="Parameters"));
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure pCon_start=
       MediumCon.p_default "Start value of pressure"
