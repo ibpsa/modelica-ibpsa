@@ -52,8 +52,8 @@ protected
 equation
   assert(
     use_rev or (use_rev == false and pasTrhModSet.y == true),
-    "Can't turn to reversible operation mode on
-    irreversible refrigerant machine",
+    "In " + getInstanceName() + ": Can't turn to reversible operation mode on
+    irreversible refrigerant machine.",
     level=AssertionLevel.error);
 
   connect(swiQEva.y, QEva_flow)

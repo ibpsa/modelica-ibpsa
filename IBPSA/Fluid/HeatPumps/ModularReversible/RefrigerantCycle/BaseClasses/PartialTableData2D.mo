@@ -110,14 +110,14 @@ protected
       false) "External table object for nominal electrical power consumption";
 initial algorithm
   assert(perDevMasFloCon < 10,
-      "The deviation of the given mCon_flow_nominal to the table data is " +
+    "In " + getInstanceName() + ": The deviation of the given mCon_flow_nominal to the table data is " +
       String(perDevMasFloCon) + " %. Carefully check results,
-      you are extrapolating the table data!",
+      you are extrapolating the table data.",
     AssertionLevel.warning);
   assert(perDevMasFloEva < 10,
-    "The deviation of the given mEva_flow_nominal to the table data is " +
+    "In " + getInstanceName() + ": The deviation of the given mEva_flow_nominal to the table data is " +
       String(perDevMasFloEva) + " %. Carefully check results,
-      you are extrapolating the table data!",
+      you are extrapolating the table data.",
     AssertionLevel.warning);
 
 equation

@@ -46,8 +46,8 @@ protected
 initial algorithm
   assert(
     strPasThr.y == refCycChiCoo.datSou,
-    "Data sources for reversible operation are not equal!
-    Only continue if this is intended",
+    "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
+    Only continue if this is intended.",
     AssertionLevel.warning);
 equation
   if use_rev then
