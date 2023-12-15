@@ -388,7 +388,7 @@ The following tables summarizes the possible options.
   evaporator mass flow rate <code>mCon_flow_nominal</code>, and
 </li>
 <li>
-  compressor speed <code>y_nominal</code>
+  compressor speed <code>y_nominal</code>.
 </li>
 </ul>
 <p>
@@ -472,7 +472,7 @@ for heating and cooling.
   The package
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias</a>
-  contains implemented inertia models. In the 
+  contains implemented inertia models. In the
   <a href=\"https://doi.org/10.1016/j.enconman.2021.114888\">contribution</a>, an empirical
   validation showed that a third-order critical damping element
   fits the inertia most closely. At the same time, models in literature
