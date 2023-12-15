@@ -34,11 +34,11 @@ model ReversibleAirToWaterTableData2D
     constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater
     "Data table of heat pump"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{42,12},{58,28}})));
+      Placement(transformation(extent={{82,-18},{98,-2}})));
   replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTabCoo
     constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     "Data table of chiller"    annotation (choicesAllMatching=true,
-    Placement(transformation(extent={{74,12},{90,28}})));
+    Placement(transformation(extent={{114,-18},{130,-2}})));
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
       constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
