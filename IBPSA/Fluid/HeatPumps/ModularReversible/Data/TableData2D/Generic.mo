@@ -7,9 +7,9 @@ record Generic "Partial two-dimensional data of refrigerant machines"
     "Nominal mass flow rate in condenser";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate in evaporator";
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Nominal pressure drop in condenser";
-  parameter Modelica.Units.SI.PressureDifference dpEva_nominal
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Nominal pressure drop in evaporator";
   parameter String devIde "Name of the device";
   parameter Boolean use_TEvaOutForTab
