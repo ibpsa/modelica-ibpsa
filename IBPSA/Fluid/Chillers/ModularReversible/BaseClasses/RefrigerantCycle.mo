@@ -3,16 +3,16 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
-      (useInChi=true)
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
+        useInChi=true)
     constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a chiller in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleChillerHeating =
-      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
-      (useInHeaPum=true)
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
+        useInHeaPum=true)
     constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a chiller in reversed operation mode"
@@ -42,9 +42,10 @@ protected
   IBPSA.Utilities.IO.Strings.Constant conStrSou(
     final k=refCycChiCoo.datSou)
    "Constant String data source";
+
 initial algorithm
   assert(
-    strPasThr.y ==refCycChiCoo.datSou,
+    strPasThr.y == refCycChiCoo.datSou,
     "Data sources for reversible operation are not equal!
     Only continue if this is intended",
     AssertionLevel.warning);
