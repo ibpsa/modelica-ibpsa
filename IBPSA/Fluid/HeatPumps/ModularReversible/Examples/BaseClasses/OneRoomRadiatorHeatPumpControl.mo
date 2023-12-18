@@ -1,6 +1,7 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
+  extends Modelica.Blocks.Icons.Block;
   parameter Boolean witCoo=true
     "=true to simulate cooling behaviour";
   parameter Modelica.Units.SI.Temperature TRooSetHea=293.15
@@ -122,14 +123,14 @@ equation
           {50,-70},{21,-70}},    color={0,0,127}));
   connect(constYSetZer.y, swiYSet.u3) annotation (Line(points={{21,-70},{50,-70},
           {50,32},{58,32}}, color={0,0,127}));
-  connect(hysCoo.u, TRooMea) annotation (Line(points={{-82,-10},{-92,-10},{-92,-2},
-          {-120,-2},{-120,0}}, color={0,0,127}));
-  connect(TRooMea, hysHea.u) annotation (Line(points={{-120,0},{-106,0},{-106,-2},
-          {-92,-2},{-92,0},{-88,0},{-88,20},{-82,20}}, color={0,0,127}));
+  connect(hysCoo.u, TRooMea) annotation (Line(points={{-82,-10},{-88,-10},{-88,0},
+          {-120,0}},           color={0,0,127}));
+  connect(TRooMea, hysHea.u) annotation (Line(points={{-120,0},{-88,0},{-88,20},
+          {-82,20}},                                   color={0,0,127}));
   connect(swiSecForCoo.y, ySet) annotation (Line(points={{93,10},{96,10},{96,40},
           {110,40}}, color={0,0,127}));
   connect(hysSecCoo.u, TRadSup)
-    annotation (Line(points={{-82,-60},{-102,-60},{-102,-70},{-120,-70}},
+    annotation (Line(points={{-82,-60},{-92,-60},{-92,-70},{-120,-70}},
                                                     color={0,0,127}));
   connect(swiYSet.y, swiSecForCoo.u1) annotation (Line(points={{81,40},{86,40},{
           86,26},{58,26},{58,18},{70,18}}, color={0,0,127}));
@@ -162,11 +163,7 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-151,22},{149,-18}},
-          textColor={0,0,255},
-          textString="%name")}),                                 Diagram(
+          fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
