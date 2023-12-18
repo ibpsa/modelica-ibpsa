@@ -5,8 +5,9 @@ model ModularReversible_OneRoomRadiator
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
-                                             sin(nPorts=1), booToReaPumEva(
-        realTrue=heaPum.mEva_flow_nominal));
+    sin(nPorts=1),
+    booToReaPumEva(
+      realTrue=heaPum.mEva_flow_nominal));
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
@@ -46,11 +47,9 @@ model ModularReversible_OneRoomRadiator
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
           redeclare
-          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, datTab=
-            IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
-    redeclare
-      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+          datTab=IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       use_TUseSidOut=true,
       use_TAmbSidOut=false,
@@ -58,7 +57,9 @@ model ModularReversible_OneRoomRadiator
       TAntFre=275.15)) "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 
-  Modelica.Blocks.Sources.Constant temAmbBas(final k=273.15 + 18)
+  Modelica.Blocks.Sources.Constant temAmbBas(final k(
+      final unit="K",
+      displayUnit="degC") = 291.15)
     "Ambient temperature in basement of building" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -73,8 +74,8 @@ equation
           -70,-144},{-70,-120}},  color={0,127,255}));
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},     color={0,127,255}));
-  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{-79,-148},{-1,
-          -148},{-1,-147.6}},             color={0,0,127}));
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{-79,-148},{-1,-148},
+          {-1,-147.6}},                   color={0,0,127}));
   connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,
           -151.9},{24,-151.9},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},
           {-139,-76}},
