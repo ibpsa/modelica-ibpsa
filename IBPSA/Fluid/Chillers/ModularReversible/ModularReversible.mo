@@ -21,8 +21,7 @@ model ModularReversible
 
   replaceable model RefrigerantCycleChillerCooling =
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
-      (QUseNoSca_flow_nominal=0)
-      constrainedby
+    constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=true,
        final QUse_flow_nominal=QUse_flow_nominal,
