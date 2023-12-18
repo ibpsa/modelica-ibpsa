@@ -7,8 +7,7 @@ model TableData2D "Validation case for table data approach"
         RefrigerantCycleChillerCooling =
           IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
             datTab(
-            tabPEle=[0,293.15,303.15; 288.15,14122.8,14122.8; 298.15,14122.8,
-                14122.8],
+              tabPEle=[0,293.15,303.15; 288.15,14122.8,14122.8; 298.15,14122.8,14122.8],
             mCon_flow_nominal=m1_flow_nominal,
             mEva_flow_nominal=m2_flow_nominal,
             dpCon_nominal=0,
