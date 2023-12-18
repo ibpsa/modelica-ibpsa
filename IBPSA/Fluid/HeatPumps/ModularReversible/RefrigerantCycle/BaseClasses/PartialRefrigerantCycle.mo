@@ -35,7 +35,7 @@ partial model PartialRefrigerantCycle
     "Nominal heat flow rate at useful heat exchanger unscaled"
     annotation (Dialog(group="Nominal condition"));
   parameter String datSou=""
-    "Indicates the data source, used to warn users 
+    "Indicates the data source, used to warn users
     about different data sources in reversible models";
   parameter Boolean calEff=true
     "=false to disable efficiency calculation, may speed up the simulation"
