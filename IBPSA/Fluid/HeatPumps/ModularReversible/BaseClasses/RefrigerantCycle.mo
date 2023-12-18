@@ -3,16 +3,16 @@ model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
-        useInHeaPum=true)
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
+      ( useInHeaPum=true)
      constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
-        useInChi=true)
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
+      ( useInChi=true)
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a heat pump in reversed operation mode"
@@ -46,7 +46,8 @@ initial algorithm
   assert(
     strPasThr.y == refCycHeaPumHea.datSou,
     "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
-    Only continue if this is intended.",
+    Heating data source is " + refCycHeaPumHea.datSou + ", cooling data source is "
+    + strPasThr.y + ". Only continue if this is intended.",
     AssertionLevel.warning);
 equation
  if use_rev then

@@ -47,7 +47,8 @@ initial algorithm
   assert(
     strPasThr.y == refCycChiCoo.datSou,
     "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
-    Only continue if this is intended.",
+    Cooling data source is " + refCycChiCoo.datSou + ", heating data source is "
+    + strPasThr.y + ". Only continue if this is intended.",
     AssertionLevel.warning);
 equation
   if use_rev then
