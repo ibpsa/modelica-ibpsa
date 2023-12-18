@@ -36,7 +36,8 @@ partial model PartialOneRoomRadiator
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(
+    C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.CombiTimeTable timTab(
@@ -70,12 +71,11 @@ partial model PartialOneRoomRadiator
 
 //----------------------------------------------------------------------------//
 
-  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
+  Movers.Preconfigured.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
     m_flow_nominal=mCon_flow_nominal,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for radiator side" annotation (Placement(transformation(
@@ -108,11 +108,10 @@ partial model PartialOneRoomRadiator
 
 //--------------------------------------------------------------------------------------//
 
-  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
+  Movers.Preconfigured.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumWat,
     m_flow_start=0.85,
     m_flow_nominal=mEva_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heat pump source side" annotation (Placement(transformation(
@@ -238,14 +237,14 @@ equation
   connect(preHeaCoo.port, heaCap.port) annotation (Line(points={{-80,70},{-60,70},
           {-60,66},{50,66},{50,50},{70,50}}, color={191,0,0}));
   connect(conPumAlwOn.y, booToReaPumEva.u) annotation (Line(points={{-143,-140},
-          {-136,-140},{-136,-180},{-122,-180}}, color={255,0,255}));
+          {-132,-140},{-132,-180},{-122,-180}}, color={255,0,255}));
   connect(conPumAlwOn.y, booToReaPumCon.u) annotation (Line(points={{-143,-140},
-          {-134,-140},{-134,-110},{-122,-110}}, color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.TRadSup, temSup.T) annotation (Line(points={{-162,
-          -77},{-178,-77},{-178,-76},{-198,-76},{-198,-20},{-81,-20}}, color={0,
+          {-132,-140},{-132,-110},{-122,-110}}, color={255,0,255}));
+  connect(oneRooRadHeaPumCtr.TRadSup, temSup.T) annotation (Line(points={{-162,-77},
+          {-188,-77},{-188,-20},{-81,-20}},                            color={0,
           0,127}));
-  connect(oneRooRadHeaPumCtr.TRooMea, temRoo.T) annotation (Line(points={{-162,
-          -70},{-184,-70},{-184,28},{-50,28},{-50,30},{-49,30}}, color={0,0,127}));
+  connect(oneRooRadHeaPumCtr.TRooMea, temRoo.T) annotation (Line(points={{-162,-70},
+          {-180,-70},{-180,30},{-49,30}},                        color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Motivated by the example

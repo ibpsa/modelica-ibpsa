@@ -398,20 +398,20 @@ The following tables summarizes the possible options.
   use the inlet, some the outlet to determine the outputs.
 </p>
 <p>
-  For inverter driven devices, the compressor speed influences the 
-  refrigerant mass flow rate and compressor efficiencies. 
-  The refrigerant mass flow rate influences the electrical power 
-  consumption and the heat flow rates, and, thus, 
-  <code>QUse_flow_nominal</code> linearly. 
-  Thus, setting <code>y_nominal</code> to, e.g. 0.5, doubles 
+  For inverter driven devices, the compressor speed influences the
+  refrigerant mass flow rate and compressor efficiencies.
+  The refrigerant mass flow rate influences the electrical power
+  consumption and the heat flow rates approximately
+  <code>QUse_flow_nominal</code> linearly.
+  Thus, setting <code>y_nominal</code> to, e.g. 0.5, doubles
   the nominal electrical power consumption to achieve the same
   <code>QUse_flow_nominal</code>.
   If the performance data is dependent on the compressor speed,
   <code>y_nominal</code> also influences the nominal efficiencies.
-  Setting <code>y_nominal</code> smaller than one (the default), 
-  can be necessary if the nominal values are not at the maximal 
-  heating or cooling capacities required during operation. 
-</p>  
+  Setting <code>y_nominal</code> smaller than one (the default),
+  can be necessary if the nominal values are not at the maximal
+  heating or cooling capacities required during operation.
+</p>
 <p>
 Other parameters, such as the nominal pressure drops or
 advanced model settings will not influence the refrigerant cycle
