@@ -4,7 +4,6 @@ model ModularReversible_OneRoomRadiator
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
-    mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
     booToReaPumEva(
       realTrue=heaPum.mEva_flow_nominal));
@@ -24,7 +23,6 @@ model ModularReversible_OneRoomRadiator
     CCon=3000,
     GConOut=100,
     GConIns=1000,
-    cpCon=4184,
     TEva_nominal=sou.T,
     dTEva_nominal=2,
     dpEva_nominal(displayUnit="Pa") = 2000,
@@ -32,7 +30,6 @@ model ModularReversible_OneRoomRadiator
     CEva=0,
     GEvaOut=0,
     GEvaIns=0,
-    cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model RefrigerantCycleHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness

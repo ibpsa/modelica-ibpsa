@@ -98,10 +98,10 @@ partial model PartialReversibleRefrigerantMachine
       tab="Condenser",
       enable=use_conCap));
 
-  parameter Modelica.Units.SI.Density rhoCon=MediumCon.density(staCon_nominal)
+  final parameter Modelica.Units.SI.Density rhoCon=MediumCon.density(staCon_nominal)
     "Condenser medium density"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
       MediumCon.specificHeatCapacityCp(staCon_nominal)
     "Condenser medium specific heat capacity"
     annotation (Dialog(tab="Condenser", group="Medium properties"));
@@ -150,10 +150,10 @@ partial model PartialReversibleRefrigerantMachine
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
-  parameter Modelica.Units.SI.Density rhoEva=MediumEva.density(staEva_nominal)
+  final parameter Modelica.Units.SI.Density rhoEva=MediumEva.density(staEva_nominal)
     "Evaporator medium density"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
       MediumEva.specificHeatCapacityCp(staEva_nominal)
     "Evaporator medium specific heat capacity"
     annotation (Dialog(tab="Evaporator", group="Medium properties"));
@@ -237,7 +237,8 @@ partial model PartialReversibleRefrigerantMachine
     final GOut=GConOut,
     final m_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dpCon_nominal,
-    final GInn=GConIns) "Heat exchanger model for the condenser"
+    final GInn=GConIns,
+    preDro(m_flow(nominal=abs(QUse_flow_nominal)/1000/10))) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,80},{20,120}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
@@ -258,7 +259,8 @@ partial model PartialReversibleRefrigerantMachine
     final dp_nominal=dpEva_nominal,
     final TCap_start=TEvaCap_start,
     final GOut=GEvaOut,
-    final GInn=GEvaIns) "Heat exchanger model for the evaporator"
+    final GInn=GEvaIns,
+    preDro(m_flow(nominal=abs(QUse_flow_nominal)/1000/10))) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{20,-80},{-20,-120}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutEva
     if use_evaCap "Forces heat losses according to ambient temperature"
