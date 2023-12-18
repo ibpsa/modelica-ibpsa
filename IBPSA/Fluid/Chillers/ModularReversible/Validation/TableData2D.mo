@@ -2,7 +2,8 @@ within IBPSA.Fluid.Chillers.ModularReversible.Validation;
 model TableData2D "Validation case for table data approach"
   extends BaseClasses.PartialModularComparison(
     TEva_nominal=TEvaIn_nominal,
-    TCon_nominal=TConIn_nominal,               chi(redeclare model
+    TCon_nominal=TConIn_nominal,
+    chi(redeclare model
         RefrigerantCycleChillerCooling =
           IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
             datTab(
@@ -16,7 +17,6 @@ model TableData2D "Validation case for table data approach"
             use_TEvaOutForTab=false,
             use_TConOutForTab=false,
             tabQEva_flow=[0,293.15,303.15; 288.15,35499.7,30000; 298.15,0,36220.8],
-
             tabLowBou=[273.15,273.15; 273.15,273.15],
             use_TEvaOutForOpeEnv=false,
             use_TConOutForOpeEnv=false))));
