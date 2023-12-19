@@ -7,8 +7,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPumSou(
-      redeclare package Medium = MediumAir),
+    pumHeaPumSou(redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D
@@ -22,7 +21,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     dpCon_nominal(displayUnit="Pa") = 2000,
     TEva_nominal=sou.T,
     mEva_flow_nominal=2.3116,
-    dpEva_nominal(displayUnit="Pa") = 2000,
+    dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
