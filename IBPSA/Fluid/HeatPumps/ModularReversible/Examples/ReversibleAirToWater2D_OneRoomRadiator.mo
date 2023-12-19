@@ -17,10 +17,8 @@ model ReversibleAirToWater2D_OneRoomRadiator
     QUse_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
-    mCon_flow_nominal=0.717225,
     dpCon_nominal(displayUnit="Pa") = 2000,
     TEva_nominal=sou.T,
-    mEva_flow_nominal=2.3116,
     dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
@@ -34,9 +32,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       safCtrParEurNor(
       use_minOnTime=false,
       use_minOffTime=true,
-      use_maxCycRat=true,
-      use_antFre=true,
-      TAntFre=275.15)) "Reversible heat pump with losses and Carnot approach"
+      use_maxCycRat=true)) "Reversible heat pump based on 2D table data"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   extends Modelica.Icons.Example;
 
