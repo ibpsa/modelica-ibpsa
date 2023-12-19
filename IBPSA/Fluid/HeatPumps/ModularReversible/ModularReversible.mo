@@ -26,6 +26,8 @@ model ModularReversible
        final dTEva_nominal=dTEva_nominal,
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
+       final cpCon=cpCon,
+       final cpEva=cpEva,
        final y_nominal=y_nominal)
   "Refrigerant cycle module for the heating mode"
     annotation (choicesAllMatching=true);
@@ -44,6 +46,8 @@ model ModularReversible
        final dTEva_nominal=dTEva_nominal,
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
+       final cpCon=cpCon,
+       final cpEva=cpEva,
        final y_nominal=y_nominal)
   "Refrigerant cycle module for the cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);

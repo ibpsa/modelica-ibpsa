@@ -36,10 +36,7 @@ model ModularReversible
     show_T=true,
     redeclare model RefrigerantCycleChillerCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-        (
-        cpCon=chi.cpCon,
-        cpEva=chi.cpEva,
-        etaCarnot_nominal=0.35),
+        (etaCarnot_nominal=0.35),
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
           redeclare
