@@ -37,8 +37,7 @@ model ModularReversible
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=false,
-       final QUse_flow_nominal=refCyc.refCycHeaPumCoo.QUseNoSca_flow_nominal,
-       final scaFac=scaFac,
+       final QUse_flow_nominal=QCoo_flow_nominal,
        final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,

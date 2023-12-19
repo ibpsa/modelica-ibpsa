@@ -50,7 +50,9 @@ model ModularReversible_OneRoomRadiator
       use_TUseSidOut=true,
       use_TAmbSidOut=false,
       use_antFre=true,
-      TAntFre=275.15)) "Modular reversible heat pump"
+      TAntFre=275.15),
+    QCoo_flow_nominal=Q_flow_nominal*0.5)
+                       "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 
   Modelica.Blocks.Sources.Constant temAmbBas(final k(
