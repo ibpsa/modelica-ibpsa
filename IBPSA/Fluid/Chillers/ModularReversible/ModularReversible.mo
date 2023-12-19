@@ -43,7 +43,6 @@ model ModularReversible
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=false,
        final QUse_flow_nominal=QHea_flow_nominal,
-       final scaFac=scaFac,
        final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
