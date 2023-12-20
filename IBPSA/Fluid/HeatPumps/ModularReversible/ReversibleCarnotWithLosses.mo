@@ -11,8 +11,6 @@ model ReversibleCarnotWithLosses
           iceFacCal,
         etaCarnot_nominal=etaCarnot_nominal,
         use_constAppTem=true,
-        cpCon=cpCon,
-        cpEva=cpEva,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal),
     redeclare model RefrigerantCycleHeatPumpHeating =
@@ -23,8 +21,6 @@ model ReversibleCarnotWithLosses
           iceFacCal(redeclare function icingFactor =
               IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
         etaCarnot_nominal=etaCarnot_nominal,
-        cpCon=cpCon,
-        cpEva=cpEva,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal),
     final use_evaCap,
@@ -39,13 +35,17 @@ model ReversibleCarnotWithLosses
   parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness";
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=
     if cpCon < 1500 then 5 else 2
-    "Temperature difference between refrigerant and working fluid outlet in condenser";
+    "Temperature difference between refrigerant and working fluid outlet in condenser"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=
     if cpEva < 1500 then 5 else 2
-    "Temperature difference between refrigerant and working fluid outlet in evaporator";
+    "Temperature difference between refrigerant and working fluid outlet in evaporator"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Time refIneTimCon = 300
-    "Refrigerant cycle inertia time constant for first order delay";
-  parameter Integer nthOrd(min=1)=1 "Order of refrigerant cycle interia";
+    "Refrigerant cycle inertia time constant for first order delay"
+    annotation(Dialog(group="Refrigerant cycle inertia"));
+  parameter Integer nthOrd(min=1)=1 "Order of refrigerant cycle interia"
+    annotation(Dialog(group="Refrigerant cycle inertia"));
 
   annotation (Documentation(info="<html>
 <p>

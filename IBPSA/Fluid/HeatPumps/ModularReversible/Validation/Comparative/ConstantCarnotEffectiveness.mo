@@ -4,10 +4,7 @@ model ConstantCarnotEffectiveness
   extends BaseClasses.PartialModularComparison(heaPum(redeclare model
         RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-          (
-          cpCon=heaPum.cpCon,
-          cpEva=heaPum.cpEva,
-          etaCarnot_nominal=etaCarnot_nominal)));
+          (etaCarnot_nominal=etaCarnot_nominal)));
   extends Modelica.Icons.Example;
 
   annotation (experiment(Tolerance=1e-6, StopTime=3600),

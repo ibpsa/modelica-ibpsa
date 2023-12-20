@@ -7,8 +7,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPumSou(
-      redeclare package Medium = MediumAir),
+    pumHeaPumSou(redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D
@@ -18,11 +17,9 @@ model ReversibleAirToWater2D_OneRoomRadiator
     QUse_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
-    mCon_flow_nominal=0.717225,
     dpCon_nominal(displayUnit="Pa") = 2000,
     TEva_nominal=sou.T,
-    mEva_flow_nominal=2.3116,
-    dpEva_nominal(displayUnit="Pa") = 2000,
+    dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
@@ -35,9 +32,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
       safCtrParEurNor(
       use_minOnTime=false,
       use_minOffTime=true,
-      use_maxCycRat=true,
-      use_antFre=true,
-      TAntFre=275.15)) "Reversible heat pump with losses and Carnot approach"
+      use_maxCycRat=true)) "Reversible heat pump based on 2D table data"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   extends Modelica.Icons.Example;
 
@@ -51,11 +46,10 @@ equation
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},           color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{-112,-66},{-112,-62},{21.2,-62},{21.2,-148}}, color=
+        points={{-139,-66},{21.2,-66},{21.2,-148}},                       color=
          {0,0,127}));
   connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
-        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-80},{-14,-80},
-          {-14,-86},{-134,-86},{-134,-76},{-139,-76}},
+        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-76},{-139,-76}},
                                                   color={255,0,255}));
   annotation (
    __Dymola_Commands(file=

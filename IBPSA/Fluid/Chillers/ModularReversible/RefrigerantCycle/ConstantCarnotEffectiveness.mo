@@ -8,6 +8,8 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
       datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
+     TAppCon_nominal=if cpCon < 1500 then 5 else 2,
+     TAppEva_nominal=if cpEva < 1500 then 5 else 2,
      final useForChi=true,
      final QEva_flow_nominal=QUse_flow_nominal,
      final QCon_flow_nominal=QUse_flow_nominal+PEle_nominal,

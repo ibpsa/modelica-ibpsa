@@ -14,8 +14,6 @@ partial model PartialModularComparison
     redeclare final package MediumEva = Medium2,
     QUse_flow_nominal=QUse_nominal,
     final y_nominal=1,
-    final cpCon=4184,
-    final cpEva=4184,
     redeclare final model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     final use_rev=false,

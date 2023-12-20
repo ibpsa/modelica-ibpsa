@@ -4,8 +4,7 @@ model BoundaryMap
   parameter Real tab[:,2]
     "Table for boundary with second column as useful temperature side";
   parameter Modelica.Units.SI.TemperatureDifference dT
-    "Delta value used to avoid state events when used as a safety control"
-  annotation (Dialog(tab="Safety control", group="Operational Envelope"));
+    "Delta value used to avoid state events when used as a safety control";
   parameter Boolean isUppBou "=true if it is an upper boundary, false for lower";
   Modelica.Blocks.Interfaces.BooleanOutput noErr
     "=false when an error occurs"

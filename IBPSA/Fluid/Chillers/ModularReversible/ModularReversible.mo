@@ -31,6 +31,8 @@ model ModularReversible
        final dTEva_nominal=dTEva_nominal,
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
+       final cpCon=cpCon,
+       final cpEva=cpEva,
        final y_nominal=y_nominal)
   "Refrigerant cycle module for the cooling mode"
     annotation (choicesAllMatching=true);
@@ -41,7 +43,6 @@ model ModularReversible
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=false,
        final QUse_flow_nominal=QHea_flow_nominal,
-       final scaFac=scaFac,
        final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
@@ -49,6 +50,8 @@ model ModularReversible
        final dTEva_nominal=dTEva_nominal,
        final mCon_flow_nominal=mCon_flow_nominal,
        final mEva_flow_nominal=mEva_flow_nominal,
+       final cpCon=cpCon,
+       final cpEva=cpEva,
        final y_nominal=y_nominal)
   "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);

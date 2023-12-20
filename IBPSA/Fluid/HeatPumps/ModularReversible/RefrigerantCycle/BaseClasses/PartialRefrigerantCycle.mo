@@ -47,7 +47,12 @@ partial model PartialRefrigerantCycle
     choicesAllMatching=true,
     Dialog(group="Frosting supression"),
     Placement(transformation(extent={{-98,-58},{-82,-42}})));
-
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon
+    "Evaporator medium specific heat capacity"
+    annotation (Dialog(tab="Advanced", group="Medium properties"));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpEva
+    "Evaporator medium specific heat capacity"
+    annotation (Dialog(tab="Advanced", group="Medium properties"));
   Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
         "kW") "Electrical Power consumed by the device" annotation (Placement(
         transformation(

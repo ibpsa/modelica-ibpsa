@@ -23,7 +23,6 @@ model ReversibleCarnotWithLosses
     CCon=0,
     GConOut=0,
     GConIns=0,
-    cpCon=4184,
     TEva_nominal=278.15,
     dTEva_nominal(displayUnit="K") = 10,
     dTCon_nominal(displayUnit="K") = 5,
@@ -32,7 +31,6 @@ model ReversibleCarnotWithLosses
     CEva=0,
     GEvaOut=0,
     GEvaIns=0,
-    cpEva=4184,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true) "Chiller instance with reversbile Carnot approach"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -79,19 +77,19 @@ model ReversibleCarnotWithLosses
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(souCon.ports[1], chi.port_a1) annotation (Line(
-      points={{-40,16},{-20,16},{-20,15},{-5.55112e-16,15}},
+      points={{-40,16},{-20,16},{-20,16},{-5.55112e-16,16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souEva.ports[1], chi.port_a2) annotation (Line(
-      points={{40,4},{30,4},{30,5},{20,5}},
+      points={{40,4},{30,4},{30,4},{20,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_b1, sinCon.ports[1]) annotation (Line(
-      points={{20,15},{30,15},{30,40},{60,40}},
+      points={{20,16},{30,16},{30,40},{60,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinEva.ports[1], chi.port_b2) annotation (Line(
-      points={{-40,-20},{-10,-20},{-10,5},{-5.55112e-16,5}},
+      points={{-40,-20},{-10,-20},{-10,4},{-5.55112e-16,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TConIn.y, souCon.T_in) annotation (Line(
@@ -102,10 +100,10 @@ equation
       points={{73,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,
-          11.6667},{-1.6,11.6667}},      color={0,0,127}));
-  connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},
-          {-22,2.5},{-1.6,2.5}}, color={255,0,255}));
+  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,12},
+          {-1.2,12}},                    color={0,0,127}));
+  connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},{-22,7.9},
+          {-1.1,7.9}},           color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/ReversibleCarnotWithLosses.mos"
         "Simulate and plot"),

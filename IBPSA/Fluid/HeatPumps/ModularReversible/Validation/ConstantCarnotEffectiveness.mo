@@ -16,12 +16,9 @@ model ConstantCarnotEffectiveness
           initType=Modelica.Blocks.Types.Init.InitialState),
       redeclare model RefrigerantCycleHeatPumpHeating =
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-          (
-          cpCon=heaPum.cpCon,
-          cpEva=heaPum.cpEva,
-          TAppCon_nominal=0,
-          TAppEva_nominal=0,
-          etaCarnot_nominal=etaCarnot_nominal)));
+          (TAppCon_nominal=0,
+           TAppEva_nominal=0,
+           etaCarnot_nominal=etaCarnot_nominal)));
 
   parameter Real etaCarnot_nominal=0.4318 "Calibrated constant Carnot effectiveness";
   parameter Modelica.Units.SI.Power PEle_nominal=1884.218212

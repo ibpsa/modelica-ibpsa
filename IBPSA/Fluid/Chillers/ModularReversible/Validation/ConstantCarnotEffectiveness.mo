@@ -4,10 +4,7 @@ model ConstantCarnotEffectiveness
   extends BaseClasses.PartialModularComparison(chi(redeclare model
         RefrigerantCycleChillerCooling =
           IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-          (
-          cpCon=chi.cpCon,
-          cpEva=chi.cpEva,
-          etaCarnot_nominal=etaCarnot_nominal)));
+          (etaCarnot_nominal=etaCarnot_nominal)));
   extends Modelica.Icons.Example;
 
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
