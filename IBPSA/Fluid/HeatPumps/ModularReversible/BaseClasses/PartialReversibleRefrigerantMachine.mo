@@ -14,10 +14,10 @@ partial model PartialReversibleRefrigerantMachine
   //General
   replaceable package MediumCon =
     Modelica.Media.Interfaces.PartialMedium "Medium on condenser side"
-    annotation (Dialog(tab = "Condenser"),choicesAllMatching=true);
+    annotation (choicesAllMatching=true);
   replaceable package MediumEva =
     Modelica.Media.Interfaces.PartialMedium "Medium on evaporator side"
-    annotation (Dialog(tab = "Evaporator"),choicesAllMatching=true);
+    annotation (choicesAllMatching=true);
   replaceable PartialModularRefrigerantCycle refCyc constrainedby
     PartialModularRefrigerantCycle(final use_rev=use_rev)
     "Model of the refrigerant cycle" annotation (Placement(transformation(
@@ -62,16 +62,14 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
     "Nominal temperature difference in condenser medium"
-    annotation (Dialog(group="Nominal condition", tab="Condenser"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser medium"
-    annotation (Dialog(
-      group="Nominal condition",
-      tab="Condenser"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Flow resistance", tab="Condenser"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Real deltaMCon=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Condenser", group="Flow resistance"));
@@ -79,19 +77,19 @@ partial model PartialReversibleRefrigerantMachine
     "=true if using capacitor model for condenser heat loss estimation"
     annotation (Dialog(group="Heat Losses", tab="Condenser"),
                                           choices(checkBox=true));
-  parameter Modelica.Units.SI.HeatCapacity CCon
+  parameter Modelica.Units.SI.HeatCapacity CCon=0
     "Heat capacity of the condenser"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
-  parameter Modelica.Units.SI.ThermalConductance GConOut
+  parameter Modelica.Units.SI.ThermalConductance GConOut=0
     "Outer thermal conductance for condenser heat loss calculations"
     annotation (Dialog(
       group="Heat Losses",
       tab="Condenser",
       enable=use_conCap));
-  parameter Modelica.Units.SI.ThermalConductance GConIns
+  parameter Modelica.Units.SI.ThermalConductance GConIns=0
     "Inner thermal conductance for condenser heat loss calculations"
     annotation (Dialog(
       group="Heat Losses",
@@ -99,12 +97,10 @@ partial model PartialReversibleRefrigerantMachine
       enable=use_conCap));
 
   final parameter Modelica.Units.SI.Density rhoCon=MediumCon.density(staCon_nominal)
-    "Condenser medium density"
-    annotation (Dialog(tab="Condenser", group="Medium properties"));
+    "Condenser medium density";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpCon=
       MediumCon.specificHeatCapacityCp(staCon_nominal)
-    "Condenser medium specific heat capacity"
-    annotation (Dialog(tab="Condenser", group="Medium properties"));
+    "Condenser medium specific heat capacity";
 
   //Evaporator
   parameter Modelica.Units.SI.Time tauEva=30
@@ -115,16 +111,14 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
     "Nominal temperature difference in evaporator medium"
-    annotation (Dialog(group="Nominal condition", tab="Evaporator"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator medium"
-    annotation (Dialog(
-      group="Nominal condition",
-      tab="Evaporator"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate" annotation (Dialog(group="Flow resistance",
-        tab="Evaporator"));
+    "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Real deltaMEva=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));
@@ -132,31 +126,29 @@ partial model PartialReversibleRefrigerantMachine
     "=true if using capacitor model for evaporator heat loss estimation"
     annotation (Dialog(group="Heat Losses", tab="Evaporator"),
                                           choices(checkBox=true));
-  parameter Modelica.Units.SI.HeatCapacity CEva
+  parameter Modelica.Units.SI.HeatCapacity CEva=0
     "Heat capacity of the evaporator"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
-  parameter Modelica.Units.SI.ThermalConductance GEvaOut
+  parameter Modelica.Units.SI.ThermalConductance GEvaOut=0
     "Outer thermal conductance for evaporator heat loss calculations"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
-  parameter Modelica.Units.SI.ThermalConductance GEvaIns
+  parameter Modelica.Units.SI.ThermalConductance GEvaIns=0
     "Inner thermal conductance for evaporator heat loss calculations"
     annotation ( Dialog(
       group="Heat Losses",
       tab="Evaporator",
       enable=use_evaCap));
   final parameter Modelica.Units.SI.Density rhoEva=MediumEva.density(staEva_nominal)
-    "Evaporator medium density"
-    annotation (Dialog(tab="Evaporator", group="Medium properties"));
+    "Evaporator medium density";
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
       MediumEva.specificHeatCapacityCp(staEva_nominal)
-    "Evaporator medium specific heat capacity"
-    annotation (Dialog(tab="Evaporator", group="Medium properties"));
+    "Evaporator medium specific heat capacity";
 
 //Assumptions
   parameter Boolean allowFlowReversalEva=true

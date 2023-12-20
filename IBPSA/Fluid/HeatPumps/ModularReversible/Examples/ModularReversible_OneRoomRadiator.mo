@@ -28,9 +28,6 @@ model ModularReversible_OneRoomRadiator
     dTEva_nominal=2,
     dpEva_nominal(displayUnit="Pa") = 200,
     use_evaCap=false,
-    CEva=0,
-    GEvaOut=0,
-    GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model RefrigerantCycleHeatPumpHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness

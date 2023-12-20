@@ -46,11 +46,10 @@ equation
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},           color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{-112,-66},{-112,-62},{21.2,-62},{21.2,-148}}, color=
+        points={{-139,-66},{21.2,-66},{21.2,-148}},                       color=
          {0,0,127}));
   connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
-        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-80},{-14,-80},
-          {-14,-86},{-134,-86},{-134,-76},{-139,-76}},
+        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-76},{-139,-76}},
                                                   color={255,0,255}));
   annotation (
    __Dymola_Commands(file=
