@@ -34,11 +34,11 @@ model ReversibleCarnotWithLosses
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=if
       cpCon < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition - Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=if
       cpEva < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition - Evaporator"));
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay"
     annotation(Dialog(group="Refrigerant cycle inertia"));
