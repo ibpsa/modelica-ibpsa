@@ -42,34 +42,24 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean use_rev=true
     "=true if the chiller or heat pump is reversible"
     annotation(choices(checkBox=true));
-  parameter Boolean use_intSafCtr=true
-    "=true to enable internal safety control"
-    annotation (Dialog(group="Safety control"), choices(checkBox=true));
-  replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
-    constrainedby
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
-    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
-    group="Safety control"),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{42,-18},{58,-2}})));
+
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
     "Condenser heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Condenser", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TCon_nominal
     "Nominal temperature of condenser medium"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
     "Nominal temperature difference in condenser medium"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Condenser"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser medium"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Condenser"));
 
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Condenser"));
   parameter Real deltaMCon=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Condenser", group="Flow resistance"));
@@ -108,17 +98,17 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Dialog(tab="Evaporator", group="Dynamics"));
   parameter Modelica.Units.SI.Temperature TEva_nominal
     "Nominal temperature of evaporator medium"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
     "Nominal temperature difference in evaporator medium"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Evaporator"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator medium"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Evaporator"));
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition - Evaporator"));
   parameter Real deltaMEva=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));
@@ -149,6 +139,20 @@ partial model PartialReversibleRefrigerantMachine
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
       MediumEva.specificHeatCapacityCp(staEva_nominal)
     "Evaporator medium specific heat capacity";
+
+  // Safety control
+  parameter Boolean use_intSafCtr=true
+    "=true to enable internal safety control"
+    annotation (Dialog(group="Safety control"), choices(checkBox=true));
+  replaceable parameter
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+    constrainedby
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
+    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
+    group="Safety control"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{42,-18},{58,-2}})));
+
 
 //Assumptions
   parameter Boolean allowFlowReversalEva=true
