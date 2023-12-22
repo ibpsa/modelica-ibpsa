@@ -20,22 +20,10 @@ model RefrigerantCycle
 
   RefrigerantCycleHeatPumpHeating refCycHeaPumHea
     "Refrigerant cycle instance for heating"
-  annotation (Placement(transformation(extent={{60,40},{20,80}}, rotation=0)));
+  annotation (Placement(transformation(extent={{20,40},{60,80}}, rotation=0)));
   RefrigerantCycleHeatPumpCooling refCycHeaPumCoo
     "Refrigerant cycle instance for cooling"
-  annotation (Placement(transformation(extent={{-19,40},{-60,80}}, rotation=0)));
-  Modelica.Blocks.Math.Gain gainEva(final k=-1)
-    "Negate QEva to match definition of heat flow direction" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-30,10})));
-  Modelica.Blocks.Math.Gain gainCon(final k=-1)
-    "Negate QCon to match definition of heat flow direction" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={30,-10})));
+  annotation (Placement(transformation(extent={{-60,40},{-19,80}}, rotation=0)));
 protected
   IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
@@ -56,40 +44,13 @@ equation
   connect(conStrSou.y, strPasThr.u);
  end if;
   connect(pasTrhModSet.u, sigBus.hea);
-  connect(refCycHeaPumHea.QCon_flow, swiQCon.u1)
-    annotation (Line(points={{53.3333,38.3333},{53.3333,8},{58,8}},
-                                                     color={0,0,127}));
-  connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38.3333},
-          {40,30},{86,30},{86,-52},{8,-52},{8,-58}},color={0,0,127}));
-  connect(refCycHeaPumCoo.PEle, swiPEle.u3) annotation (Line(
-      points={{-39.5,38.3333},{-40,38.3333},{-40,30},{-90,30},{-90,-50},{-8,-50},
-          {-8,-58}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
 
-  connect(refCycHeaPumCoo.QEva_flow, swiQEva.u3) annotation (Line(
-      points={{-53.1667,38.3333},{-52,38.3333},{-52,-8},{-58,-8}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(gainEva.y, swiQEva.u1)
-    annotation (Line(points={{-41,10},{-50,10},{-50,8},{-58,8}},
-                                                 color={0,0,127}));
-  connect(swiQCon.u3, gainCon.y) annotation (Line(
-      points={{58,-8},{50,-8},{50,-10},{41,-10}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(refCycHeaPumCoo.QCon_flow, gainCon.u) annotation (Line(
-      points={{-25.8333,38.3333},{-26,38.3333},{-26,30},{10,30},{10,-10},{18,-10}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(refCycHeaPumHea.QEva_flow, gainEva.u) annotation (Line(points={{26.6667,
-          38.3333},{26.6667,10},{-18,10}},  color={0,0,127}));
   connect(sigBus,refCycHeaPumCoo.sigBus)  annotation (Line(
-      points={{0,100},{0,90},{-40,90},{-40,86},{-39.6708,86},{-39.6708,80}},
+      points={{0,100},{0,90},{-40,90},{-40,86},{-39.3292,86},{-39.3292,80}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus,refCycHeaPumHea.sigBus)  annotation (Line(
-      points={{0,100},{0,90},{39.8333,90},{39.8333,80}},
+      points={{0,100},{0,90},{40.1667,90},{40.1667,80}},
       color={255,204,51},
       thickness=0.5));
   connect(swiQCon.u2, sigBus.hea) annotation (Line(points={{58,0},{0,0},{0,100}},
@@ -110,6 +71,18 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(refCycHeaPumHea.QCon_flow, swiQCon.u1) annotation (Line(points={{
+          26.6667,38.3333},{26.6667,8},{58,8}}, color={0,0,127}));
+  connect(refCycHeaPumHea.QEva_flow, swiQEva.u1) annotation (Line(points={{
+          53.3333,38.3333},{53.3333,28},{-12,28},{-12,8},{-58,8}}, color={0,0,127}));
+  connect(refCycHeaPumCoo.QEva_flow, swiQCon.u3) annotation (Line(points={{
+          -25.8333,38.3333},{-25.8333,-8},{58,-8}}, color={0,0,127}));
+  connect(refCycHeaPumCoo.QCon_flow, swiQEva.u3) annotation (Line(points={{
+          -53.1667,38.3333},{-53.1667,-8},{-58,-8}}, color={0,0,127}));
+  connect(refCycHeaPumCoo.PEle, swiPEle.u3) annotation (Line(points={{-39.5,
+          38.3333},{-39.5,-48},{-8,-48},{-8,-58}}, color={0,0,127}));
+  connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38.3333},
+          {40,-48},{8,-48},{8,-58}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-24,88},{22,44}},
