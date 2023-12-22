@@ -13,13 +13,20 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
      final useForChi=true,
      final QEva_flow_nominal=QUse_flow_nominal,
      final QCon_flow_nominal=QUse_flow_nominal+PEle_nominal,
-     constPEle(final k=PEle_nominal));
+     constPEle(final k=PEle_nominal),
+    proQUse_flow(nu=4));
   parameter Real EER_nominal(
     min=0,
     final unit="1") = etaCarnot_nominal*(TEva_nominal - TAppEva_nominal)/(
     TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
     "Nominal EER";
 
+  Modelica.Blocks.Sources.Constant constNegOne(final k=-1)
+    "Negative one to negative evaporator heat flow rate" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,30})));
 equation
   connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,30},
           {0,30},{0,120},{1,120}},      color={255,0,255}), Text(
@@ -64,6 +71,8 @@ equation
           -24,-30},{-24,-78}},  color={0,0,127}));
   connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-78,-86},{-60,-86},{
           -60,-60},{0,-60},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
+  connect(constNegOne.y, proQUse_flow.u[4]) annotation (Line(points={{-79,30},{
+          -68,30},{-68,70},{-50,70},{-50,60}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
