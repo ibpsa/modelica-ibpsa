@@ -8,16 +8,16 @@ model NoHeating
     redeclare final
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
       iceFacCal,
-      datSou="",
-      QUseNoSca_flow_nominal=0,
-      scaFac=0,
-      mEva_flow_nominal=0,
-      mCon_flow_nominal=0,
-      dTEva_nominal=0,
-      dTCon_nominal=0,
+    datSou="",
+    QHeaNoSca_flow_nominal=0,
+    scaFac=0,
+    mEva_flow_nominal=0,
+    mCon_flow_nominal=0,
+    dTEva_nominal=0,
+    dTCon_nominal=0,
     TEva_nominal=273.15,
     TCon_nominal=273.15,
-      QUse_flow_nominal=0,
+    QHea_flow_nominal=0,
     calCOP(PEleMin=1));
   Modelica.Blocks.Sources.Constant constZer(final k=0)
     "No heating, hence, zero"

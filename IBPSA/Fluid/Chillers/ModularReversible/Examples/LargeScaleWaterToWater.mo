@@ -13,7 +13,7 @@ model LargeScaleWaterToWater
       safCtrParEurNor,
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
-    QUse_flow_nominal=1000000,
+    QCoo_flow_nominal=-1000000,
     TCon_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     TEva_nominal=278.15,

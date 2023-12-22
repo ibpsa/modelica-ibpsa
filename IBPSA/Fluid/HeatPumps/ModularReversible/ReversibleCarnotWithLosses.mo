@@ -5,7 +5,6 @@ model ReversibleCarnotWithLosses
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
-        QUseNoSca_flow_nominal=QUse_flow_nominal,
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,

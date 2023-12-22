@@ -25,13 +25,13 @@ initial equation
   //Control and feedback for the auto-calculation of condenser and evaporator data
   assert(
     autCalMasEva_flow > autCalMMin_flow and autCalMasEva_flow < 90,
-    "In " + getInstanceName() + ": Given nominal heat output (QUse_flow_nominal) for auto-calculation of
+    "In " + getInstanceName() + ": Given nominal heat output for auto-calculation of
     evaporator and condenser data is outside the range of data sheets
     considered. Verify the auto-calculated mass flows.",
     level=AssertionLevel.warning);
   assert(
     autCalVEva > autCalVMin and autCalVEva < 0.43,
-  "In " + getInstanceName() + ": Given nominal heat output (QUse_flow_nominal) for auto-calculation of evaporator
+  "In " + getInstanceName() + ": Given nominal heat output for auto-calculation of evaporator
   and condenser data is outside the range of data sheets considered.
   Verify the auto-calculated volumes.",
     level=AssertionLevel.warning);

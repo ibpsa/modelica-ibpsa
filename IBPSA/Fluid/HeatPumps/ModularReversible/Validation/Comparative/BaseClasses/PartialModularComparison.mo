@@ -12,7 +12,7 @@ partial model PartialModularComparison
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
     redeclare final package MediumCon = Medium1,
     redeclare final package MediumEva = Medium2,
-    QUse_flow_nominal=QUse_nominal,
+    QHea_flow_nominal=QUse_flow_nominal,
     final y_nominal=1,
     redeclare final model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,

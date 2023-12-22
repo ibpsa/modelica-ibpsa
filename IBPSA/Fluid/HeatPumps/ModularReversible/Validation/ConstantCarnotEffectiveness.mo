@@ -4,7 +4,7 @@ model ConstantCarnotEffectiveness
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Validation.BaseClasses.PartialValidation(
      heaPum(
-      QUse_flow_nominal=etaCarnot_nominal*PEle_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
+      QHea_flow_nominal=etaCarnot_nominal*PEle_nominal*heaPum.TCon_nominal/(heaPum.TCon_nominal
            - heaPum.TEva_nominal),
       mCon_flow_nominal=mCon_flow_nominal,
       tauCon=VCon*heaPum.rhoCon/mCon_flow_nominal,

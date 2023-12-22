@@ -4,8 +4,8 @@ partial model PartialComparison
   package Medium1 = IBPSA.Media.Water "Medium model";
   package Medium2 = IBPSA.Media.Water "Medium model";
 
-  parameter Modelica.Units.SI.HeatFlowRate QUse_nominal = 30E3
-    "Nominal cooling capacity";
+  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal = 30E3
+    "Nominal capacity";
 
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=10
     "Temperature difference evaporator outlet-inlet";

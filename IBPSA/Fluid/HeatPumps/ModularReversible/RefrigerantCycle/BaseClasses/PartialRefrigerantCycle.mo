@@ -2,9 +2,6 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialRefrigerantCycle
   "Partial model of refrigerant cycle"
 
-  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
-    "Nominal heat flow rate at useful heat exchanger side"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power PEle_nominal
     "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal condition"));
@@ -29,11 +26,8 @@ partial model PartialRefrigerantCycle
   parameter Real y_nominal(unit="1", min=0, max=1)=1
     "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal
+  parameter Real scaFac
     "Scaling factor of heat pump" annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QUseNoSca_flow_nominal
-    "Nominal heat flow rate at useful heat exchanger unscaled"
-    annotation (Dialog(group="Nominal condition"));
   parameter String datSou=""
     "Indicates the data source, used to warn users
     about different data sources in reversible models";
@@ -174,6 +168,8 @@ equation
   To linearly scale the outputs of the model according to the specified
   <code>QUse_flow_nominal</code>, children of this partial model must
   specify <code>QUseNoSca_flow_nominal</code> based on the nominal parameters.
+  For heat pumps, <code>Use</code> is heating (<code>Hea</code>), for chillers
+  it is cooling (<code>Coo</code>).
   Then, the scaling factor is calculated following:
 </p>
 <p><code>scaFac=QUse_flow_nominal/QUseNoSca_flow_nominal</code></p>

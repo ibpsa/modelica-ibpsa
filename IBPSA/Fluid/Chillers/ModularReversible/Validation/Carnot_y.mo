@@ -16,7 +16,7 @@ model Carnot_y "Example using the Carnot model approach"
     TEva_nominal=TEva_nominal,
     tau1=tau1,
     tau2=tau2,
-    P_nominal=QUse_nominal/chi.COP_nominal,
+    P_nominal=QUse_flow_nominal/chi.COP_nominal,
     dTEva_nominal=-dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     use_eta_Carnot_nominal=false,

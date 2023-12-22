@@ -9,7 +9,7 @@ model NoCooling
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
       iceFacCal,
     datSou="",
-    QUseNoSca_flow_nominal=1,
+    QCooNoSca_flow_nominal=1,
     scaFac=0,
     mEva_flow_nominal=1,
     mCon_flow_nominal=1,
@@ -17,7 +17,7 @@ model NoCooling
     dTCon_nominal=0,
     TEva_nominal=273.15,
     TCon_nominal=273.15,
-    QUse_flow_nominal=0,
+    QCoo_flow_nominal=0,
     calEER(PEleMin=1));
 
   Modelica.Blocks.Sources.Constant const(final k=0) "Zero energy flows"

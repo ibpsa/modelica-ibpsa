@@ -30,7 +30,7 @@ partial model PartialValidation
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
-    QUse_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QUseNoSca_flow_nominal,
+    QHea_flow_nominal=heaPum.refCyc.refCycHeaPumHea.QHeaNoSca_flow_nominal,
     final use_intSafCtr=false,
     TCon_nominal=303.15,
     dTCon_nominal=5,

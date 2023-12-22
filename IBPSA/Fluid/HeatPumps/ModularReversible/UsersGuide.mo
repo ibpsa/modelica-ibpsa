@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -359,12 +359,12 @@ The following tables summarizes the possible options.
   <a href=\"modelica://IBPSA.Fluid.UsersGuide\">IBPSA.Fluid.UsersGuide</a>
 </p>
 <p>
-  The nominal heat flow rate of the device for its main
-  usage is called <code>QUse_flow_nominal</code>.
+  The nominal heat flow rate of the device is distinct for 
+  heat pumps and chillers.
   For heat pumps, it is the nominal
-  condenser heat flow rate <code>QCon_flow_nominal</code>.
+  condenser heat flow rate <code>QHea_flow_nominal</code>.
   For chillers, it is the nominal
-  evaporator heat flow rate <code>QEva_flow_nominal</code>.
+  evaporator heat flow rate <code>QCoo_flow_nominal</code> (negative).
   This nominal heat flow rate is only valid at the
   nominal conditions of the
 </p>
@@ -402,10 +402,10 @@ The following tables summarizes the possible options.
   refrigerant mass flow rate and compressor efficiencies.
   The refrigerant mass flow rate influences the electrical power
   consumption and the heat flow rates approximately
-  <code>QUse_flow_nominal</code> linearly.
+  <code>Q_flow_nominal</code> linearly.
   Thus, setting <code>y_nominal</code> to, e.g. 0.5, doubles
   the nominal electrical power consumption to achieve the same
-  <code>QUse_flow_nominal</code>.
+  <code>Q_flow_nominal</code>.
   If the performance data is dependent on the compressor speed,
   <code>y_nominal</code> also influences the nominal efficiencies.
   Setting <code>y_nominal</code> smaller than one (the default),
@@ -425,8 +425,10 @@ for heating and cooling.
 
 <p>
   At the nominal conditions, the refrigerant cycle model will
-  calculate the unscaled useful nominal heat flow rate, which is
-  named <code>QUseNoSca_flow_nominal</code>. This value is probably
+  calculate the unscaled nominal heat flow rate, which is
+  named <code>QHeaNoSca_flow_nominal</code> for heat pumps and 
+  <code>QCooNoSca_flow_nominal</code> for chillers.
+  This value is probably
   different from <code>QUse_flow_nominal</code> which is for sizing.
   For example, suppose you need a 7.6 kW heat pump,
   but the datasheets only provides 5 kW and 10 kW options.
@@ -443,7 +445,8 @@ for heating and cooling.
   k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
-  Both <code>QUseNoSca_flow_nominal</code> and <code>scaFac</code>
+  Both <code>QHeaNoSca_flow_nominal</code> or <code>QCooNoSca_flow_nominal</code> 
+  and <code>scaFac</code>
   are calculated in the refrigerant cycle models.
   The <code>scaFac</code> is propagated to the
   uppermost layer of the <code>ModularReversible</code> models.

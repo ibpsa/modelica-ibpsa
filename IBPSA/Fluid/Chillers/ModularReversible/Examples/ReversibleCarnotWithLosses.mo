@@ -8,7 +8,7 @@ model ReversibleCarnotWithLosses
   IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses chi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
-    QUse_flow_nominal=30000,
+    QCoo_flow_nominal=-30000,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
@@ -32,7 +32,9 @@ model ReversibleCarnotWithLosses
     GEvaOut=0,
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    show_T=true) "Chiller instance with reversbile Carnot approach"
+    show_T=true,
+    QHea_flow_nominal=40000)
+                 "Chiller instance with reversbile Carnot approach"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souCon(
     nPorts=1,

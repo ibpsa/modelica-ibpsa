@@ -3,16 +3,16 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
       useInChi=true,
-      PEle_nominal=QUse_flow_nominal/EER_nominal/y_nominal,
-      QUseNoSca_flow_nominal=QUse_flow_nominal,
+      PEle_nominal=-QCoo_flow_nominal/EER_nominal/y_nominal,
+      QCooNoSca_flow_nominal=QCoo_flow_nominal,
       datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
      TAppCon_nominal=if cpCon < 1500 then 5 else 2,
      TAppEva_nominal=if cpEva < 1500 then 5 else 2,
      final useForChi=true,
-     final QEva_flow_nominal=QUse_flow_nominal,
-     final QCon_flow_nominal=QUse_flow_nominal+PEle_nominal,
+     final QEva_flow_nominal=QCoo_flow_nominal,
+     final QCon_flow_nominal=PEle_nominal-QCoo_flow_nominal,
      constPEle(final k=PEle_nominal),
     proQUse_flow(nu=4));
   parameter Real EER_nominal(
@@ -87,7 +87,7 @@ equation
 </p>
 <p>
   <code>PEle_nominal</code> is computed from the provided
-  <code>QUse_flow_nominal</code> and other nominal conditions.
+  <code>QCoo_flow_nominal</code> and other nominal conditions.
   <code>PEle_nominal</code> stays constant over all boundary conditions
   and is used to calculate <code>PEle</code> by multiplying it with the
   relative compressor speed.

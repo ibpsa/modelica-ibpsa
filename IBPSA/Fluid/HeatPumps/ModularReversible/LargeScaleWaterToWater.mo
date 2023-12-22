@@ -7,9 +7,9 @@ model LargeScaleWaterToWater
     dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
     final safCtrPar=safCtrParEurNor,
-    final dTEva_nominal=(QUse_flow_nominal - PEle_nominal)/cpEva/
+    final dTEva_nominal=(QHea_flow_nominal - PEle_nominal)/cpEva/
         mEva_flow_nominal,
-    final dTCon_nominal=QUse_flow_nominal/cpCon/mCon_flow_nominal,
+    final dTCon_nominal=QHea_flow_nominal/cpCon/mCon_flow_nominal,
     final GEvaIns=0,
     final GEvaOut=0,
     final CEva=0,
@@ -34,10 +34,10 @@ model LargeScaleWaterToWater
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations(
-    final autCalMasCon_flow=max(4E-5*QUse_flow_nominal - 0.6162, autCalMMin_flow),
-    final autCalMasEva_flow=max(4E-5*QUse_flow_nominal - 0.3177, autCalMMin_flow),
-    final autCalVCon=max(1E-7*QUse_flow_nominal - 94E-4, autCalVMin),
-    final autCalVEva=max(1E-7*QUse_flow_nominal - 75E-4, autCalVMin));
+    final autCalMasCon_flow=max(4E-5*QHea_flow_nominal - 0.6162, autCalMMin_flow),
+    final autCalMasEva_flow=max(4E-5*QHea_flow_nominal - 0.3177, autCalMMin_flow),
+    final autCalVCon=max(1E-7*QHea_flow_nominal - 94E-4, autCalVMin),
+    final autCalVEva=max(1E-7*QHea_flow_nominal - 75E-4, autCalVMin));
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab

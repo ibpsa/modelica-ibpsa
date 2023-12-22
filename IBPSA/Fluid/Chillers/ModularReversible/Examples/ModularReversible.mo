@@ -8,7 +8,7 @@ model ModularReversible
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible chi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
-    QUse_flow_nominal=30000,
+    QCoo_flow_nominal=-30000,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
         (
@@ -34,6 +34,7 @@ model ModularReversible
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
+    QHea_flow_nominal=30000,
     redeclare model RefrigerantCycleChillerCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (etaCarnot_nominal=0.35),

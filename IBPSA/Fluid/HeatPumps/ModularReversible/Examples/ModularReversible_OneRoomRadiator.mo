@@ -13,7 +13,7 @@ model ModularReversible_OneRoomRadiator
   IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
-    QUse_flow_nominal=Q_flow_nominal,
+    QHea_flow_nominal=Q_flow_nominal,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
     use_intSafCtr=true,
@@ -48,7 +48,7 @@ model ModularReversible_OneRoomRadiator
       use_TAmbSidOut=false,
       use_antFre=true,
       TAntFre=275.15),
-    QCoo_flow_nominal=Q_flow_nominal*0.5)
+    QCoo_flow_nominal=-Q_flow_nominal*0.5)
                        "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 

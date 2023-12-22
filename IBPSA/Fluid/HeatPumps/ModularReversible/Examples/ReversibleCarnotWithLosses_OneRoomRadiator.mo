@@ -13,7 +13,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
   IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
-    QUse_flow_nominal=Q_flow_nominal,
+    QHea_flow_nominal=Q_flow_nominal,
     use_rev=true,
     use_intSafCtr=true,
     TCon_nominal=TRadSup_nominal,
@@ -31,6 +31,7 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
+    QCoo_flow_nominal=-Q_flow_nominal,
     etaCarnot_nominal=0.4)
               "Reversible heat pump with losses and Carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));

@@ -3,20 +3,25 @@ model ModularReversible
   "Grey-box model for reversible chillers"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
+    con(preDro(m_flow(nominal=-QCoo_flow_nominal/1000/10))),
+    eva(preDro(m_flow(nominal=-QCoo_flow_nominal/1000/10))),
     safCtr(redeclare
         IBPSA.Fluid.Chillers.ModularReversible.Controls.Safety.OperationalEnvelope
         opeEnv),
     final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
-    mEva_flow_nominal=QUse_flow_nominal/(dTEva_nominal*cpEva),
-    mCon_flow_nominal=(QUse_flow_nominal + PEle_nominal)/(dTCon_nominal*cpCon),
+    mEva_flow_nominal=-QCoo_flow_nominal/(dTEva_nominal*cpEva),
+    mCon_flow_nominal=(PEle_nominal - QCoo_flow_nominal)/(dTCon_nominal*cpCon),
     final scaFac=refCyc.refCycChiCoo.scaFac,
     use_rev=true,
     redeclare IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling, redeclare model
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=refCyc.refCycChiHea.QUseNoSca_flow_nominal*scaFac
-    "Nominal heat flow rate for heating"
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0)
+    "Nominal cooling capcaity"
+      annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=0
+    "Nominal heating capacity"
       annotation(Dialog(group="Nominal condition", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
@@ -24,7 +29,7 @@ model ModularReversible
     constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=true,
-       final QUse_flow_nominal=QUse_flow_nominal,
+       final QCoo_flow_nominal=QCoo_flow_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,
        final dTCon_nominal=dTCon_nominal,
@@ -42,7 +47,7 @@ model ModularReversible
        constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=false,
-       final QUse_flow_nominal=QHea_flow_nominal,
+       final QHea_flow_nominal=QHea_flow_nominal,
        final PEle_nominal=refCyc.refCycChiCoo.PEle_nominal,
        final TCon_nominal=TCon_nominal,
        final TEva_nominal=TEva_nominal,

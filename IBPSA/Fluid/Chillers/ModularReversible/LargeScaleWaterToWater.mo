@@ -4,8 +4,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final safCtrPar=safCtrParEurNor,
     dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
-    final dTEva_nominal=QUse_flow_nominal/cpEva/mEva_flow_nominal,
-    final dTCon_nominal=(QUse_flow_nominal - PEle_nominal)/cpCon/mCon_flow_nominal,
+    final dTEva_nominal=-QCoo_flow_nominal/cpEva/mEva_flow_nominal,
+    final dTCon_nominal=(PEle_nominal - QCoo_flow_nominal)/cpCon/mCon_flow_nominal,
     redeclare package MediumCon = IBPSA.Media.Water,
     redeclare package MediumEva = IBPSA.Media.Water,
     final GEvaIns=0,
@@ -33,10 +33,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final tauEva=autCalVEva*rhoEva/autCalMasEva_flow);
 
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations(
-    final autCalMasCon_flow=max(5E-5*QUse_flow_nominal + 0.3161, autCalMMin_flow),
-    final autCalMasEva_flow=max(5E-5*QUse_flow_nominal - 0.5662, autCalMMin_flow),
-    final autCalVCon=max(2E-7*QUse_flow_nominal - 84E-4, autCalVMin),
-    final autCalVEva=max(1E-7*QUse_flow_nominal - 66E-4, autCalVMin));
+    final autCalMasCon_flow=max(5E-5*abs(QCoo_flow_nominal) + 0.3161, autCalMMin_flow),
+    final autCalMasEva_flow=max(5E-5*abs(QCoo_flow_nominal) - 0.5662, autCalMMin_flow),
+    final autCalVCon=max(2E-7*abs(QCoo_flow_nominal) - 84E-4, autCalVMin),
+    final autCalVEva=max(1E-7*abs(QCoo_flow_nominal) - 66E-4, autCalVMin));
   replaceable parameter
     IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     datTab constrainedby Data.TableData2D.Generic "Data Table of Chiller"

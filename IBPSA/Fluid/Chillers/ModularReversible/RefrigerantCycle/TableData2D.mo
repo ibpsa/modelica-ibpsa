@@ -10,7 +10,7 @@ model TableData2D
         tabIdePEle,
         TEva_nominal,
         TCon_nominal) * scaFac * y_nominal,
-    QUseNoSca_flow_nominal=
+    QCooNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdeQUse_flow,
         TEva_nominal,
@@ -21,7 +21,7 @@ model TableData2D
     final use_TEvaOutForTab=datTab.use_TEvaOutForTab,
     tabQUse_flow(final table=datTab.tabQEva_flow),
     tabPEle(final table=datTab.tabPEle),
-    final valTabQEva_flow = {{tabQUse_flow.table[j, i] for i in 2:numCol} for j in 2:numRow},
+    final valTabQEva_flow = {{-tabQUse_flow.table[j, i] for i in 2:numCol} for j in 2:numRow},
     final valTabQCon_flow = valTabQEva_flow .+ valTabPEle,
     final mCon_flow_nominal_internal=mCon_flow_nominal,
     final mEva_flow_nominal_internal=mEva_flow_nominal,

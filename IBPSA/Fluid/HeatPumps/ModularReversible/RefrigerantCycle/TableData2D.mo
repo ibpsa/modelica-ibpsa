@@ -9,7 +9,7 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
         tabIdePEle,
         TCon_nominal,
         TEva_nominal) * scaFac * y_nominal,
-    QUseNoSca_flow_nominal=
+    QHeaNoSca_flow_nominal=
         Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdeQUse_flow,
         TCon_nominal,
@@ -35,14 +35,10 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
 
 equation
 
-  connect(scaFacTimPel.y, feeHeaFloEva.u2) annotation (Line(points={{-40,-9},{-40,
-          -24},{-70,-24},{-70,-18}}, color={0,0,127}));
   connect(scaFacTimPel.y, PEle) annotation (Line(points={{-40,-9},{-40,-24},{0,
           -24},{0,-130}}, color={0,0,127}));
   connect(scaFacTimPel.y, redQCon.u2) annotation (Line(points={{-40,-9},{-40,-24},
           {64,-24},{64,-78}}, color={0,0,127}));
-  connect(scaFacTimQUse_flow.y, feeHeaFloEva.u1) annotation (Line(points={{40,-9},
-          {40,-18},{-86,-18},{-86,-10},{-78,-10}}, color={0,0,127}));
   connect(ySetTimScaFac.u1, sigBus.ySet) annotation (Line(points={{-54,62},{-54,
           74},{-70,74},{-70,120},{1,120}},
                                color={0,0,127}), Text(
@@ -114,6 +110,10 @@ equation
     connect(reaPasThrTConIn.y, tabQUse_flow.u2)
       annotation (Line(points={{50,79},{50,70},{44,70},{44,62}}, color={0,0,127}));
   end if;
+  connect(scaFacTimPel.y, feeHeaFloEva.u1) annotation (Line(points={{-40,-9},{-40,
+          -24},{-86,-24},{-86,-10},{-78,-10}}, color={0,0,127}));
+  connect(scaFacTimQUse_flow.y, feeHeaFloEva.u2) annotation (Line(points={{40,-9},
+          {40,-26},{-70,-26},{-70,-18}}, color={0,0,127}));
   annotation (Icon(graphics={
     Line(points={
           {-60.0,40.0},{-60.0,-40.0},{60.0,-40.0},{60.0,40.0},{30.0,40.0},

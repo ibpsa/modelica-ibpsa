@@ -22,10 +22,6 @@ partial model PartialReversibleRefrigerantMachine
     PartialModularRefrigerantCycle(final use_rev=use_rev)
     "Model of the refrigerant cycle" annotation (Placement(transformation(
           extent={{-18,-18},{18,18}}, rotation=90)));
-  parameter Modelica.Units.SI.HeatFlowRate QUse_flow_nominal
-    "Nominal heat flow rate at useful side of the device"
-    annotation (Dialog(group="Nominal condition"));
-
   parameter Real y_nominal(unit="1", min=0, max=1)=1
     "Nominal relative compressor speed"
     annotation (Dialog(group="Nominal condition"));
@@ -233,8 +229,7 @@ partial model PartialReversibleRefrigerantMachine
     final GOut=GConOut,
     final m_flow_nominal=mCon_flow_nominal,
     final dp_nominal=dpCon_nominal,
-    final GInn=GConIns,
-    preDro(m_flow(nominal=abs(QUse_flow_nominal)/1000/10))) "Heat exchanger model for the condenser"
+    final GInn=GConIns) "Heat exchanger model for the condenser"
     annotation (Placement(transformation(extent={{-20,80},{20,120}})));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity eva(
     redeclare final package Medium = MediumEva,
@@ -255,8 +250,7 @@ partial model PartialReversibleRefrigerantMachine
     final dp_nominal=dpEva_nominal,
     final TCap_start=TEvaCap_start,
     final GOut=GEvaOut,
-    final GInn=GEvaIns,
-    preDro(m_flow(nominal=abs(QUse_flow_nominal)/1000/10))) "Heat exchanger model for the evaporator"
+    final GInn=GEvaIns) "Heat exchanger model for the evaporator"
     annotation (Placement(transformation(extent={{20,-80},{-20,-120}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutEva
     if use_evaCap "Forces heat losses according to ambient temperature"

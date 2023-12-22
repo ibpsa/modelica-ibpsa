@@ -3,16 +3,16 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
       useInHeaPum=true,
-      PEle_nominal=QUse_flow_nominal / COP_nominal / y_nominal,
-      QUseNoSca_flow_nominal=QUse_flow_nominal,
+      PEle_nominal=QHea_flow_nominal / COP_nominal / y_nominal,
+      QHeaNoSca_flow_nominal=QHea_flow_nominal,
       datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(
      TAppCon_nominal=if cpCon < 1500 then 5 else 2,
      TAppEva_nominal=if cpEva < 1500 then 5 else 2,
      final useForChi=false,
-     final QEva_flow_nominal=QUse_flow_nominal-PEle_nominal,
-     final QCon_flow_nominal=QUse_flow_nominal,
+     final QEva_flow_nominal=PEle_nominal-QHea_flow_nominal,
+     final QCon_flow_nominal=QHea_flow_nominal,
      constPEle(final k=PEle_nominal));
   parameter Real COP_nominal(
     min=0,
@@ -63,10 +63,6 @@ equation
           -26},{62,-78},{64,-78}}, color={0,0,127}));
   connect(swiPEle.y, PEle) annotation (Line(points={{50,-1},{50,-92},{0,-92},{0,
           -130}}, color={0,0,127}));
-  connect(swiPEle.y, feeHeaFloEva.u2) annotation (Line(points={{50,-1},{50,-24},{
-          -70,-24},{-70,-18}},  color={0,0,127}));
-  connect(swiQUse.y, feeHeaFloEva.u1) annotation (Line(points={{-50,-1},{-88,-1},
-          {-88,-10},{-78,-10}}, color={0,0,127}));
   connect(swiQUse.u2, sigBus.onOffMea) annotation (Line(points={{-50,22},{-50,30},
           {0,30},{0,122},{1,122},{1,120}},
                                color={255,0,255}), Text(
@@ -83,6 +79,10 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(swiPEle.y, calCOP.PEle) annotation (Line(points={{50,-1},{50,-24},{-44,
           -24},{-44,-86},{-58,-86}}, color={0,0,127}));
+  connect(swiPEle.y, feeHeaFloEva.u1) annotation (Line(points={{50,-1},{50,-24},{
+          -90,-24},{-90,-10},{-78,-10}}, color={0,0,127}));
+  connect(feeHeaFloEva.u2, swiQUse.y)
+    annotation (Line(points={{-70,-18},{-50,-18},{-50,-1}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
@@ -97,7 +97,7 @@ equation
 </p>
 <p>
   <code>PEle_nominal</code> is computed from the provided
-  <code>QUse_flow_nominal</code> and other nominal conditions.
+  <code>QHea_flow_nominal</code> and other nominal conditions.
   <code>PEle_nominal</code> stays constant over all boundary conditions
   and is used to calculate <code>PEle</code> by multiplying it with the
   relative compressor speed.
