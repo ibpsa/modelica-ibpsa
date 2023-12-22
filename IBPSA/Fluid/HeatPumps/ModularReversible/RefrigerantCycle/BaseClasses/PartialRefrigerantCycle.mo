@@ -76,7 +76,7 @@ partial model PartialRefrigerantCycle
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-130})));
-  Modelica.Blocks.Math.Add redQCon
+  Modelica.Blocks.Math.Add redQCon(final k1=-1, final k2=+1)
     "Reduce heat flow to the condenser based on the reduction to the evaporator"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
