@@ -2,6 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model NoHeating
   "Placeholder to disable heating"
   extends PartialHeatPumpCycle(
+    cpEva=4184,
+    cpCon=4184,
     PEle_nominal=0,
     redeclare final
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting

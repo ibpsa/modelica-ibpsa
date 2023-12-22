@@ -2,6 +2,8 @@ within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses;
 model NoCooling
   "Placeholder to disable cooling"
   extends PartialChillerCycle(
+    cpEva=4184,
+    cpCon=4184,
     PEle_nominal=0,
     redeclare final
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
