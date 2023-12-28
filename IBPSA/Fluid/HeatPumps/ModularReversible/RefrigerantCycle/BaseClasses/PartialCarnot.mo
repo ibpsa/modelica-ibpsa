@@ -90,10 +90,10 @@ protected
   parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal
     "Nominal evaporator heat flow rate";
   Modelica.Units.SI.HeatFlowRate QCon_flow_internal = if useForChi then
-    swiPEle.y + swiQUse.y else swiQUse.y
+    swiPEle.y - swiQUse.y else swiQUse.y
     "Condenser heat flow rate";
   Modelica.Units.SI.HeatFlowRate QEva_flow_internal = if useForChi then
-    swiQUse.y else swiQUse.y - swiPEle.y
+    swiQUse.y else swiPEle.y - swiQUse.y
      "Evaporator heat flow rate";
 
 equation
