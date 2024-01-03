@@ -58,33 +58,52 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
                 Documentation(info="<html>
-<p>This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings.<br/>
-The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:</p>
-<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" alt='Single Diode Scheme'> </p>
-<p>In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.</p>
-<p><i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub></p>
-<p><i>I</i><sub>d</sub> derives from the Shockley equation </p>
+<p>
+This is a photovoltaic generator model based on a single diode approach with replaceable thermal models accounting for different mountings.
+</p>
+<p>
+The solar cell is approximated as a simplified diode circuit following the scheme illustrated in the following:
+</p>
+<p align=\"center\"><img src=\"modelica://IBPSA/Resources/Images/Electrical/DC/Sources/single_diode_scheme.png\" alt='Single Diode Scheme'>
+</p>
+<p>
+In the figure, <i>I</i><sub>ph</sub> denotes the photocurrent and <i>I</i><sub>d</sub> is the dark current.
+</p>
+<p>
+<i>I</i><sub>d</sub> is opposed to <i>I</i><sub>ph</sub></p>
+<p>
+<i>I</i><sub>d</sub> derives from the Shockley equation</p>
 <p align=\"center\" style=\"font-style:italic;\">
-<i>I</i><sub>d</sub> =
-I<sub>s</sub>(e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1)</p>
-<p>that bases on the saturation current <i>I</i><sub>s</sub>.</p>
-<p>The Shockley equation uses the modified ideality factor </p>
+<i>I</i><sub>d</sub> = I<sub>s</sub>(e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1)</p>
+<p>
+that is based on the saturation current <i>I</i><sub>s</sub>.
+</p>
+<p>
+The Shockley equation uses the modified ideality factor
+</p>
 <p align=\"center\" style=\"font-style:italic;\">a =(N<sub>s</sub> n<sub>I</sub> k T<sub>cell</sub> &frasl; q).</p>
-<p>The modified ideality factor <i>a</i> results from the number of serial cells <i>N</i><sub>s</sub>,
+<p>
+The modified ideality factor <i>a</i> results from the number of serial cells <i>N</i><sub>s</sub>,
 the ideality factor <i>n</i><sub>I</sub>, the Boltzman constant k,
 the elementary charge q,and the cell temperature <i>T</i><sub>cell</sub>.
-<i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.</p>
-<p>The parallel resistance <i>R</i><sub>sh</sub> accounts for the leakage currents along the cell's side
+<i>R</i><sub>s</sub> is the serial resistance that results in a voltage loss.
+</p>
+<p>
+The parallel resistance <i>R</i><sub>sh</sub> accounts for the leakage currents along the cell's side
 and <i>I</i><sub>sh</sub> is the resulting leakage current.
 The result is the I-V-curve</p>
 <p align=\"center\" style=\"font-style:italic;\">
-<i>I</i> =
-I<sub>ph</sub> - I<sub>d</sub> - I<sub>sh</sub> <br/>
+I =
+I<sub>ph</sub> - I<sub>d</sub> - I<sub>sh</sub>
 = I<sub>ph</sub> - I<sub>s</sub> (e<sup>((U+IR<sub>s</sub>) &frasl; a)</sup>-1) - (U+IR<sub>s</sub>) &frasl; R<sub>sh</sub>
 </p>
-<p>that bases on five unknown parameters (<i>I</i><sub>ph</sub>, <i>I</i><sub>s</sub>, <i>a</i>, <i>R</i><sub>s</sub>, and <i>R</i><sub>sh</sub>) only.<br/>
-Hence, the name 5-p approach is common.</p>
-<p><br><br>For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>. </p>
+<p>
+that is based on five unknown parameters (<i>I</i><sub>ph</sub>, <i>I</i><sub>s</sub>, <i>a</i>, <i>R</i><sub>s</sub>, and <i>R</i><sub>sh</sub>) only.<br/>
+Hence, the name 5-p approach.
+</p>
+<p>
+For a definition of the parameters, see the <a href=\"modelica://IBPSA.BoundaryConditions.UsersGuide\">IBPSA.BoundaryConditions.UsersGuide</a>.
+</p>
 <h4>References</h4>
 <p>
 Humada, Ali M. ; Hojabri, Mojgan ; Mekhilef, Saad ; Hamada, Hussein M.: Solar
