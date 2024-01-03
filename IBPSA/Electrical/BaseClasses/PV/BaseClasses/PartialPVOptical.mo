@@ -18,7 +18,7 @@ partial model PartialPVOptical
     "Ratio of absorbed radiation under operating conditions to standard conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad", final
-      displayUnit="deg")                                                                 "Zenith angle for object"
+      displayUnit="deg") "Zenith angle for object"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput HGloHor(final unit="W/m2") "Global horizontal irradiation"
@@ -28,7 +28,7 @@ partial model PartialPVOptical
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput incAng(final unit="rad", final
-      displayUnit="deg")                                                                 "Incidence angle"
+      displayUnit="deg") "Incidence angle"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 Modelica.Blocks.Interfaces.RealInput tilSet(final unit="rad") if use_Til_in
