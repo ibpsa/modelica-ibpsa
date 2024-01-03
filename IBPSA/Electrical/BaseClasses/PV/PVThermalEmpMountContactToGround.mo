@@ -19,7 +19,7 @@ the wind velocity.
 <h4>References</h4>
 <p>
 Duffie, John A. and Beckman, W. A.
-Solar engineering of thermal processes. John Wiley & Sons, Inc. 2013.
+Solar engineering of thermal processes. John Wiley &amp; Sons, Inc. 2013.
 </p>
 </html>", revisions="<html>
 <ul>
