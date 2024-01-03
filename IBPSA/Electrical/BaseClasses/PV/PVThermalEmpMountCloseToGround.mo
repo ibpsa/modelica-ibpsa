@@ -17,8 +17,8 @@ equation
 </p>
 <h4>References</h4>
 <p>
-<q>Solar engineering of thermal processes.</q> by Duffie, John A. ; 
-Beckman, W. A.
+Duffie, John A. and Beckman, W. A.
+Solar engineering of thermal processes. 2013.
 </p>
 </html>", revisions="<html>
 <ul>
