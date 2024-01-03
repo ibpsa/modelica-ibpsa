@@ -48,25 +48,34 @@ airMasMod =if (b0 + b1*(airMas^1) + b2*(airMas^2) + b3*(airMas^3) + b4*(airMas^4
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-        Documentation(info="<html><p>The model computes the air mass modifier.</br>
-        The air mass modifier depends on the PV technology type and is automatically parameterized.</br>
-        The computation results from five parameters which have been determined empirically.
-        The parameters are found in Fanney et al. and De Soto et al.</br>
-        Even though the studies find a neglible influence on the overall PV performance,
-        this model accounts for a change in parameters based on the selected PV technology type.</br>
-        The air mass modifier is used to account for a change in the absorption ratio of a PV module
-        compared to standard conditions.</p>
-        <h4>References</h4>
+        Documentation(info="<html>
+<p>The model computes the air mass modifier.</p>
 <p>
-Fanney, A. H., Dougherty, B. P., &amp; Davis, M. W. (2003). 
-Short-term characterization of building integrated photovoltaic panels. 
+The air mass modifier depends on the PV technology type and is automatically parameterized.
+</p>
+<p>
+The computation results from five parameters which have been determined empirically.
+The parameters are found in Fanney et al. 2003 and De Soto et al. 2006.
+</p>
+<p>
+Even though the studies find a neglible influence on the overall PV performance,
+this model accounts for a change in parameters based on the selected PV technology type.
+</p>
+<p>
+The air mass modifier is used to account for a change in the absorption ratio of a PV module
+compared to standard conditions.
+</p>
+<h4>References</h4>
+<p>
+Fanney, A. H., Dougherty, B. P., &amp; Davis, M. W. (2003).
+Short-term characterization of building integrated photovoltaic panels.
 J. Sol. Energy Eng., 125(1), 13-20.
 <a href=\"https://doi.org/10.1115/1.1531642\">
 https://doi.org/10.1115/1.1531642</a>
 </p>
 <p>
-De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). 
-Improvement and validation of a model for photovoltaic array performance. 
+De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006).
+Improvement and validation of a model for photovoltaic array performance.
 Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
