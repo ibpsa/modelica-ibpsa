@@ -3,9 +3,9 @@ model PVSingleDiodeRooftopBuildingValidation
   "Validation of the single-diode model with empirical data from a rooftop PV system with CIGS modules at UdK, Berlin"
   extends
     IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVValidation(
-    HGloTil(H(start=100)), weaDat(filNam=
-          Modelica.Utilities.Files.loadResource(
-          "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Weather_Berlin_rooftop.mos")));
+    HGloTil(H(start=100)),
+    weaDat(filNam=Modelica.Utilities.Files.loadResource(
+      "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Weather_Berlin_rooftop.mos")));
   extends Modelica.Icons.Example;
 
   PVSingleDiode pVSys1Dio115Wp(
@@ -42,11 +42,12 @@ model PVSingleDiodeRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable MeaDatPVPDC(
     tableOnFile=true,
     tableName="meaPV",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Measurement_data_rooftop_PV_validation.txt"),
+    fileName=Modelica.Utilities.Files.loadResource(
+      "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Measurement_data_rooftop_PV_validation.txt"),
     columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay - 1800)
-    "This file contains the DC power output of two selected modules. The PVSystem model is validaded with measurement data from Rooftop building: http://www.solar-rooftop.de."
+    "This file contains the DC power output of two selected modules. The PVSystem model is validated with measurement data from Rooftop building."
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 
   Modelica.Blocks.Interfaces.RealOutput PDCMea(final unit="W")
@@ -129,11 +130,14 @@ equation
           "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeRooftopBuildingValidation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>The PVSystem single-diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a> </p>
-<p>The dates 29.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model. </p>
-<p>The system consists of four modules with 120 Wp and two modules with 115 Wp. </p>
-<p>The validation model proves that single-diode PV models tend to overestimate the power output.</p>
-<p>This is due to the neglection of staining, shading, other loss effects.</p>
+<p>
+The PVSystem single-diode model is validated with empirical data from the Rooftop solar builidng of UdK Berlin:
+<a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a>.
+The dates 29.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model.
+The system consists of four modules with 120 Wp and two modules with 115 Wp.
+The validation model proves that single-diode PV models tend to overestimate the power output
+This is due to the neglection of staining, shading, other loss effects
+</p>
 </html>",revisions="<html>
 <ul>
 <li>

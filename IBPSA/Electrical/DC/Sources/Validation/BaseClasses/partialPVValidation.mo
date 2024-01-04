@@ -140,7 +140,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-The PVSystem single-diode model is validaded with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a>.
+The PVSystem single-diode model is validated with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a>.
 The dates 28.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model.
 The validation model proves that single diode PV models tend to overestimate the power output.
 This is due to the neglection of staining, shading, other loss effects.
