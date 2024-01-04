@@ -12,8 +12,7 @@ partial model PartialPVThermalEmp
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {120,100}}),
    graphics={
-                             Text(extent={{-40,-68},{44,-102}},
-                                                              textString= "%name"),
+    Text(extent={{-40,-68},{44,-102}}, textString= "%name"),
     Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-90,24},{-62,-4}},
@@ -72,10 +71,13 @@ partial model PartialPVThermalEmp
           thickness=0.5),
         Text(
           extent={{92,4},{-28,-26}},
-          textString="T")}),                                     Diagram(
+          textString="T")}),
+      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
-        <p>This is a partial model for the thermal surrogate model of a photovoltaic model based on empirical descriptions.</p>
+<p>
+This is a partial model for the thermal surrogate model of a photovoltaic model based on empirical descriptions.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
