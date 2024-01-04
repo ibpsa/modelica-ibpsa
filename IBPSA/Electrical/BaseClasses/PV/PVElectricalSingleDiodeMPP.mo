@@ -126,33 +126,62 @@ information.
   The analytical approach bases on simplifications that result in explicit equations.
   These can be solved more easily by the solver resulting in higher simulation speed.
   The resulting five unknown parameters at standard conditions basing non explicit functions are
-  the modified ideality factor </p> 
-  <p align=\"center\" style=\"font-style:italic;\">a<sub>0</sub> = U<sub>L,0</sub> (1- T<sub>cell,0</sub> &beta;<sub>U,L</sub>) &frasl; (50.1 - T<sub>cell,0</sub> &alpha;<sub>I,K</sub>),</p>
-  <p> the serial resistance </p> 
-  <p align=\"center\" style=\"font-style:italic;\">R<sub>s,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1) - U<sub>mp,0</sub> ) &frasl; (I<sub>mp,0</sub>),</p>
-  <p> the parallel resistance </p> 
-  <p align=\"center\" style=\"font-style:italic;\">R<sub>sh,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1)) &frasl; (I<sub>L,0</sub>(1-1 &frasl; w<sub>0</sub>)-I<sub>mp,0</sub>),</p>
-  <p> the photo current </p> 
-  <p align=\"center\" style=\"font-style:italic;\">I<sub>ph,0</sub> = (1+R<sub>s,0</sub> &frasl; R<sub>sh,0</sub>) I<sub>K,0</sub>,</p>
-  <p> and the saturation current </p> 
-  <p align=\"center\" style=\"font-style:italic;\">I<sub>s,0</sub> =  I<sub>ph,0</sub> e<sup>(-U<sub>L,0</sub>/a<sub>0+1</sub>)</sup>.</p>
-  <p>The system of equations bases on an approximation of the Lambert equation W at standard conditions </p>
-  <p align=\"center\" style=\"font-style:italic;\">w<sub>0</sub> =  W(e<sup>U<sub>L,0</sub>/a<sub>L,0</sub></sup>).</p>
-  <p>Finally, an explicit formulation of the I-V charactierstic at the maximum power point (mp) is dervied</br>
-  for the current at the maximum power point</p>
-  <p align=\"center\" style=\"font-style:italic;\">I<sub>mp</sub> = I<sub>ph</sub>(1-1/w)-a(w-1)/R<sub>sh</sub> </p>
-  <p>and the voltage at the maximum power point</p>
-  <p align=\"center\" style=\"font-style:italic;\">U<sub>mp</sub> = a(w-1) - R<sub>s</sub> I<sub>mp</sub>.</p>
+  the modified ideality factor </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  a<sub>0</sub> = U<sub>L,0</sub> (1- T<sub>cell,0</sub> &beta;<sub>U,L</sub>) &frasl; (50.1 - T<sub>cell,0</sub> &alpha;<sub>I,K</sub>),
+  </p>
+  <p> the serial resistance
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  R<sub>s,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1) - U<sub>mp,0</sub> ) &frasl; (I<sub>mp,0</sub>),</p>
+  <p>
+  the parallel resistance
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  R<sub>sh,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1)) &frasl; (I<sub>L,0</sub>(1-1 &frasl; w<sub>0</sub>)-I<sub>mp,0</sub>),
+  </p>
+  <p>
+  the photo current
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  I<sub>ph,0</sub> = (1+R<sub>s,0</sub> &frasl; R<sub>sh,0</sub>) I<sub>K,0</sub>,
+  </p>
+  <p>
+  and the saturation current
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  I<sub>s,0</sub> =  I<sub>ph,0</sub> e<sup>(-U<sub>L,0</sub>/a<sub>0+1</sub>)</sup>.
+  </p>
+  <p>
+  The system of equations bases on an approximation of the Lambert equation W at standard conditions
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  w<sub>0</sub> =  W(e<sup>U<sub>L,0</sub>/a<sub>L,0</sub></sup>).
+  </p>
+  <p>
+  Finally, an explicit formulation of the I-V charactierstic at the maximum power point (mp) is derived
+  for the current at the maximum power point
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  I<sub>mp</sub> = I<sub>ph</sub>(1-1/w)-a(w-1)/R<sub>sh</sub>
+  </p>
+  <p>
+  and the voltage at the maximum power point
+  </p>
+  <p align=\"center\" style=\"font-style:italic;\">
+  U<sub>mp</sub> = a(w-1) - R<sub>s</sub> I<sub>mp</sub>.
+  </p>
 
-  
-<p>The parameters during operating conditions result from simplified relations
-to the parameter values at standard conditions following (DeSoto et al.,2006).</p>
+
 <p>
-  <br/>
-  Validated with experimental data from NIST (Boyd, 2017).
+The parameters during operating conditions result from simplified relations
+to the parameter values at standard conditions following (DeSoto et al.,2006).
 </p>
 <p>
-  Module calibration is based on manufactory data.
+The model was validated with experimental data from NIST (Boyd, 2017).
+</p>
+<p>
+The module calibration is based on manufactory data.
 </p>
 <p>
   <br/>
