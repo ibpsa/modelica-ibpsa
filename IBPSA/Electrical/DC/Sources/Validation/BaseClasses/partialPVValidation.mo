@@ -42,11 +42,11 @@ partial model partialPVValidation
     TDryBulSou=IBPSA.BoundaryConditions.Types.DataSource.File,
     winSpeSou=IBPSA.BoundaryConditions.Types.DataSource.File,
     HSou=IBPSA.BoundaryConditions.Types.RadiationDataSource.File)
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-92,-20},{-72,0}})));
 
   Modelica.Blocks.Sources.Constant sounDay(k=nDay)
     "Number of validation day (July 28th 2023) in seconds"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
   BoundaryConditions.SolarGeometry.IncidenceAngle incAng(azi=azi, til=til)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -56,16 +56,16 @@ partial model partialPVValidation
 
   Modelica.Blocks.Routing.RealPassThrough realPassThroughSolHouAng
     "Pass through for solar hour angle"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Modelica.Blocks.Routing.RealPassThrough realPassThroughCloTim
     "Pass through for clock time"
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Modelica.Blocks.Routing.RealPassThrough realPassThroughSolDec
     "Pass through for solar decimal angle"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Modelica.Blocks.Routing.RealPassThrough realPassThroughHGloHor
     "Pass through for horizontal global irradiation"
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
+    annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
 equation
   //Approximation of diffuse horizontal irradiation still necessary because
   //the validation data does not contain this information so far
@@ -94,15 +94,15 @@ equation
               (0.9511 - 0.1604*k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
 
   connect(weaDat.weaBus, HGloTil.weaBus) annotation (Line(
-      points={{-80,-10},{-74,-10},{-74,70},{-40,70}},
+      points={{-72,-10},{-60,-10},{-60,70},{-40,70}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(
-      points={{-80,-10},{-74,-10},{-74,30},{-40,30}},
+      points={{-72,-10},{-60,-10},{-60,30},{-40,30}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-80,-10},{-60,-10}},
+      points={{-72,-10},{-60,-10}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.solZen, zen.u) annotation (Line(
@@ -110,19 +110,19 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.solHouAng, realPassThroughSolHouAng.u) annotation (Line(
-      points={{-59.95,-9.95},{-59.95,-90},{-62,-90}},
+      points={{-59.95,-9.95},{-59.95,-80},{-52,-80}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.cloTim, realPassThroughCloTim.u) annotation (Line(
-      points={{-59.95,-9.95},{-59.95,-70},{-30,-70},{-30,-90},{-22,-90}},
+      points={{-59.95,-9.95},{-59.95,-62},{-20,-62},{-20,-80},{-12,-80}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.solDec, realPassThroughSolDec.u) annotation (Line(
-      points={{-59.95,-9.95},{-59.95,-20},{10,-20},{10,-90},{18,-90}},
+      points={{-59.95,-9.95},{-59.95,-62},{20,-62},{20,-80},{28,-80}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus.HGloHor, realPassThroughHGloHor.u) annotation (Line(
-      points={{-59.95,-9.95},{50,-9.95},{50,-90},{58,-90}},
+      points={{-59.95,-9.95},{-60,-9.95},{-60,-62},{60,-62},{60,-80},{68,-80}},
       color={255,204,51},
       thickness=0.5));
   annotation (
