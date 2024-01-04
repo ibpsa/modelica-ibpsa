@@ -6,7 +6,8 @@ model Capacitive "Model of a capacitive and resistive load"
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics={
+            -100},{100,100}}),
+   graphics={
         Rectangle(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},

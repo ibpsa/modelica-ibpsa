@@ -24,7 +24,8 @@ partial model PartialPVThermal
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{120,100}}),                                  graphics={
+            -100},{120,100}}),
+   graphics={
                              Text(extent={{-84,-68},{0,-102}},textString= "%name"),
     Rectangle(extent={{-94,84},{6,-74}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern = FillPattern.Solid),

@@ -73,7 +73,8 @@ equation
       color={127,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),      graphics={Text(
+            -100},{100,100}}),
+   graphics={Text(
           extent={{-80,80},{0,74}},
           textColor={0,0,0},
           pattern=LinePattern.Dash,

@@ -10,7 +10,8 @@ partial model PartialPVThermalEmp
     "Irradiance under NOCT conditions";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {120,100}}),                                        graphics={
+            {120,100}}),
+   graphics={
                              Text(extent={{-40,-68},{44,-102}},
                                                               textString= "%name"),
     Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},

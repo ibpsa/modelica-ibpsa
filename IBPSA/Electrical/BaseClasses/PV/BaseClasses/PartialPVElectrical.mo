@@ -48,7 +48,8 @@ protected
     "Boltzmann constant";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
-            {100,100}}),                                        graphics={
+            {100,100}}),
+   graphics={
      Rectangle(
       lineColor={0,0,0},
       fillColor={255,255,255},
