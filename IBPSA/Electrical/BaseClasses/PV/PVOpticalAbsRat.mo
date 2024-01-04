@@ -80,10 +80,7 @@ protected
 
 equation
 // Restriction for zenith angle
-zen = if zenAng <= Modelica.Constants.pi/2 then
-zenAng
- else
-   Modelica.Constants.pi/2;
+zen = if zenAng <= Modelica.Constants.pi/2 then zenAng else Modelica.Constants.pi/2;
 
 //Refraction angle that the incoming irradiation is refracted by due to the glazing
 refAng = if noEvent(incAng >= Modelica.Constants.eps and incAng <=
@@ -176,7 +173,7 @@ absRadRat =if noEvent(HGloHor <= 0.1) then 0
         Documentation(info="<html>
 <p>
 This is an optical model to calculate the absorption ratio of a PV cell based on the radiation.
-The model computes the air mass AM = 
+The model computes the air mass AM =
 </p>
 <p>
 For a definition of the parameters, see the
@@ -185,13 +182,13 @@ IBPSA.BoundaryConditions.UsersGuide</a>.
 </p>
 <h4>References</h4>
 <p>
-De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
 </p>
 <p>
-De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation 
+De Soto, W., Klein, S. A., &amp; Beckman, W. A. (2006). Improvement and validation
 of a model for photovoltaic array performance. Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
