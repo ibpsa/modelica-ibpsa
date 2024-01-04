@@ -20,17 +20,17 @@ services:
 
 env:
   global:
-    - BUILDINGSPY_VERSION=BuildingsPy@50ac74d8e4fd067179bb38bc23140c2c9254c94c
-
-    - OMC_VERSION=ubuntu-2004-omc:1.20.0_dev-314-g3033f43-1
-    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2023x-x86_64
+    - DOCKER_REPONAME=lbnlblum
+    - BUILDINGSPY_VERSION=BuildingsPy@v5.0.0
+    - OMC_VERSION=ubuntu-2204-omc:1.22.0_dev-41-g8a5b18f-1
+    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2023x-x86_64_rev-1
 
   jobs:
     # Test matrix for regression tests.
     # The documentation is tested using github actions.
     - TEST_ARG="make test-bestest"
-    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Experimental\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Experimental\""
+    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.{Examples,Experimental}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.{Examples,Experimental}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
@@ -45,11 +45,11 @@ env:
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* ]]; then
-       docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
+       docker pull "$DOCKER_REPONAME"/${DYMOLA_VERSION};
        cp IBPSA/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
   - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
-       docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
+       docker pull "$DOCKER_REPONAME"/${OMC_VERSION};
        cp IBPSA/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
 

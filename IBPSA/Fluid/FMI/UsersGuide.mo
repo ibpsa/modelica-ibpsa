@@ -249,7 +249,7 @@ The model
 <a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
 IBPSA.Fluid.Movers.FlowControlled_m_flow</a>
 cannot be exported as an FMU.
-This is because it assignes the mass flow rate.
+This is because it assigns the mass flow rate.
 However, the input connector
 <a href=\"modelica://IBPSA.Fluid.FMI.Interfaces.Inlet\">
 IBPSA.Fluid.FMI.Interfaces.Inlet</a>

@@ -172,7 +172,7 @@ as this seems to be the typical configuration.
 </p>
 <p>
 The heat exchanger is implemented in
-<a href=\"IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
+<a href=\"modelica://IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\">
 IBPSA.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a>.
 </p>
 </td>
