@@ -4,7 +4,7 @@ model PVSingleDiodeRooftopBuildingValidation
   extends
     IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVValidation(
     HGloTil(H(start=100)), weaDat(filNam=
-          ModelicaServices.ExternalReferences.loadResource(
+          Modelica.Utilities.Files.loadResource(
           "modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Weather_Berlin_rooftop.mos")));
   extends Modelica.Icons.Example;
 
@@ -42,7 +42,7 @@ model PVSingleDiodeRooftopBuildingValidation
   Modelica.Blocks.Sources.CombiTimeTable MeaDatPVPDC(
     tableOnFile=true,
     tableName="meaPV",
-    fileName=ModelicaServices.ExternalReferences.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Measurement_data_rooftop_PV_validation.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Electrical/DC/Sources/Validation/Measurement_data_rooftop_PV_validation.txt"),
     columns={2,3},
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     shiftTime=nDay - 1800)
