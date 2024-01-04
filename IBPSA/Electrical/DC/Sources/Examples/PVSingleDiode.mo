@@ -3,7 +3,7 @@ model PVSingleDiode "Example for the single-diode PV model"
   extends Modelica.Icons.Example;
   extends
     IBPSA.Electrical.DC.Sources.Validation.BaseClasses.partialPVValidation(
-      weaDat(filNam=ModelicaServices.ExternalReferences.loadResource(
+      weaDat(filNam=Modelica.Utilities.Files.loadResource(
       "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-56,-20},{-36,0}})));
