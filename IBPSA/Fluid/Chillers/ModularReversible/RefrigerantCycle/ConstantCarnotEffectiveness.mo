@@ -69,8 +69,8 @@ equation
   end if;
   connect(swiQUse.y, proRedQEva.u2) annotation (Line(points={{-50,-1},{-50,-30},{
           -24,-30},{-24,-78}},  color={0,0,127}));
-  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-78,-86},{-60,-86},{
-          -60,-60},{0,-60},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
+  connect(calEER.PEle, swiPEle.y) annotation (Line(points={{-88,-86},{-82,-86},{
+          -82,-66},{0,-66},{0,-8},{50,-8},{50,-1}}, color={0,0,127}));
   connect(constNegOne.y, proQUse_flow.u[4]) annotation (Line(points={{-79,30},{
           -68,30},{-68,70},{-50,70},{-50,60}}, color={0,0,127}));
   annotation (Documentation(revisions="<html><ul>

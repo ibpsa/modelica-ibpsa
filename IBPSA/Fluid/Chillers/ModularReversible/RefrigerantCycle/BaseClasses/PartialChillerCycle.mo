@@ -15,7 +15,11 @@ partial model PartialChillerCycle
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCOP
     calEER(PEleMin=PEle_nominal*0.1)  if calEff
                                       "Calculate the EER"
-    annotation (Placement(transformation(extent={{-80,-80},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-90,-80},{-110,-100}})));
+  Modelica.Blocks.Math.Gain gain(final k=-1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-70,-90})));
 equation
   connect(iceFacCal.iceFac, sigBus.iceFacChiMea) annotation (Line(points={{-81.2,-50},
           {-72,-50},{-72,-30},{-110,-30},{-110,120},{1,120}},      color={0,0,
@@ -24,15 +28,17 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(calEER.COP, sigBus.EER) annotation (Line(points={{-101,-90},{-110,-90},{
-          -110,120},{1,120}},  color={0,0,127}), Text(
+  connect(calEER.COP, sigBus.EER) annotation (Line(points={{-111,-90},{-116,-90},
+          {-116,-30},{-110,-30},{-110,120},{1,120}},
+                               color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(calEER.QUse_flow, proRedQEva.y) annotation (Line(points={{-78,-94},{-60,
-          -94},{-60,-108},{-30,-108},{-30,-101}},
-                                               color={0,0,127}));
+  connect(calEER.QUse_flow, gain.y) annotation (Line(points={{-88,-94},{-84,-94},
+          {-84,-90},{-81,-90}}, color={0,0,127}));
+  connect(gain.u, proRedQEva.y) annotation (Line(points={{-58,-90},{-50,-90},{-50,
+          -108},{-30,-108},{-30,-101}}, color={0,0,127}));
   annotation (Documentation(
   info="<html>
 <p>
