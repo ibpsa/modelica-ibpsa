@@ -37,8 +37,8 @@ env:
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.ThermalZones\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.ThermalZones\""
-    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls}\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls}\""
+    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls,Electrical}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls,Electrical}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.{Media,Utilities}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.{Media,Utilities}\""
 
