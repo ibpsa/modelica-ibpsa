@@ -1,5 +1,5 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx;
-model Case900
+model Case900 "Case 600, but with high thermal mass"
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(
     daiLoaSumBESTEST(fileName=
           "C:/Cdrive_fromOldPC_Dec2021/My_working/ISO13790_DataASHRAE/900summer.txt"),
