@@ -1,5 +1,6 @@
-within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
-model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
+within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
+model Case600
+  "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
     "Sum of heating and cooling heat flow rate"
@@ -24,16 +25,12 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
         origin={0,72},
         extent={{-6,-6},{6,6}},
         rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20) "Set-point for heating"
+  Modelica.Blocks.Sources.CombiTimeTable
+                                   TSetHea(table=[0.0,273.15 + 20])
+    "Set-point for heating"
     annotation (Placement(
         visible=true, transformation(
         origin={-24,72},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27) "Set-point for cooling"
-    annotation (Placement(
-        visible=true, transformation(
-        origin={-24,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
   Modelica.Blocks.Routing.Multiplex2 multiplex2
@@ -58,45 +55,29 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0,
     u(unit="W"),
-    y(unit="J")) "Cooling energy in Joules"
+    y(unit="J", displayUnit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,34},{66,46}})));
-  Modelica.Blocks.Continuous.Integrator EHea(
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    u(unit="W"),
-    y(unit="J")) "Heating energy in Joules"
-    annotation (Placement(transformation(extent={{54,76},{66,88}})));
-  Modelica.Blocks.Sources.CombiTimeTable daiComBESTEST(table=[0,0,0,0,0,0,0,0;
-        259200,0,0,0,0,0,0,0; 262800,3250,3800,3930,4130,3930,3770,4230; 266400,
-        3410,3910,4040,4260,4040,3870,4350; 270000,3390,3870,4010,4230,4000,
-        3900,4320; 273600,3380,3920,4040,4220,4000,3890,4310; 277200,3420,3940,
-        4050,4220,4000,3920,4300; 280800,3430,3930,4040,4220,4000,3930,4310;
-        284400,3420,3940,4050,4220,4000,3930,4310; 288000,3340,3700,3860,4090,
-        3900,3750,4170; 291600,2770,2680,2560,2900,2710,2420,2910; 295200,1500,
-        1380,840,1280,1150,800,1470; 298800,150,0,0,0,0,-30,0; 302400,-770,-1230,
-        -1550,-1070,-1040,-1440,-420; 306000,-2660,-2490,-2850,-2590,-2500,-2720,
-        -2360; 309600,-3580,-2960,-3400,-3230,-3090,-3160,-2760; 313200,-3530,-2630,
-        -3120,-2830,-2640,-2840,-2430; 316800,-2440,-1350,-1820,-1550,-1350,-1720,
-        -1140; 320400,-360,0,0,0,0,0,0; 324000,240,950,780,800,880,770,1290;
-        327600,1530,2380,2230,2340,2330,2300,2450; 331200,2320,2870,2930,2990,
-        2950,2970,2940; 334800,2640,3210,3320,3370,3310,3280,3410; 338400,2900,
-        3280,3490,3530,3350,3460,3590; 342000,3020,3330,3510,3610,3490,3500,
-        3700; 345600,3010,3390,3560,3660,3530,3470,3770; 345600,0,0,0,0,0,0,0;
-        3153600,0,0,0,0,0,0,0]) "Daily comparison BESTEST"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  Modelica.Blocks.Sources.CombiTimeTable daiLoaWinBESTEST(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=
+        "C:/Cdrive_fromOldPC_Dec2021/My_working/ISO13790_DataASHRAE/600.txt",
+    columns={2,3,4,5,6,7},
+    timeScale(displayUnit="s")) "Daily comparison BESTEST"
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Zone5R1C.Zone zon5R1C(
     airRat=0.414,
     AWin={0,0,12,0},
-    UWin=3.095,
+    UWin=3.1,
     AWal={21.6,16.2,9.6,16.2},
     ARoo=48,
-    UWal=0.534,
-    URoo=0.327,
-    UFlo=0.0377,
+    UWal=0.53,
+    URoo=0.33,
+    UFlo=0.038,
     b=1,
     AFlo=48,
     VRoo=129.6,
-    hInt=2.49,
+    hInt=2.1,
     redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Mass buiMas,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
@@ -113,18 +94,61 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     "Weather data"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Results annComBESTEST "Annual comparison BESTEST "
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+  Modelica.Blocks.Continuous.Integrator EHea(
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(unit="W"),
+    y(unit="J", displayUnit="J")) "Cooling energy in Joules"
+    annotation (Placement(transformation(extent={{54,74},{66,86}})));
+  Modelica.Blocks.Math.Gain EHeaMWh(k=1/3600000000) "Gain for heating"
+    annotation (Placement(visible=true,
+        transformation(
+        origin={82,80},
+        extent={{-6,-6},{6,6}},
+        rotation=0)));
+  Modelica.Blocks.Math.Gain ECooMWh(k=1/3600000000) "Gain for heating"
+    annotation (Placement(visible=true, transformation(
+        origin={84,40},
+        extent={{-6,-6},{6,6}},
+        rotation=0)));
+  Utilities.Math.MovingAverage                   PHea(delta=3600)
+    "Hourly averaged heating power"
+    annotation (Placement(transformation(extent={{34,84},{42,92}})));
+  Utilities.Math.MovingAverage                   PHea1(delta=3600)
+    "Hourly averaged heating power"
+    annotation (Placement(transformation(extent={{38,22},{46,30}})));
+  Modelica.Blocks.Math.Gain PCookW(k=1/1000) "Gain for heating" annotation (
+      Placement(visible=true, transformation(
+        origin={60,16},
+        extent={{-6,-6},{6,6}},
+        rotation=0)));
+  Modelica.Blocks.Math.Gain PHeakW(k=1/1000) "Gain for heating" annotation (
+      Placement(visible=true, transformation(
+        origin={58,98},
+        extent={{-6,-6},{6,6}},
+        rotation=0)));
+  Modelica.Blocks.Sources.CombiTimeTable daiLoaSumBESTEST(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=
+        "C:/Cdrive_fromOldPC_Dec2021/My_working/ISO13790_DataASHRAE/600summer.txt",
+    columns={2,3,4,5,6,7},
+    timeScale(displayUnit="s")) "Daily comparison BESTEST"
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable TSetCoo(table=[0.0,273.15 + 27])
+    "Set-point for heating" annotation (Placement(visible=true, transformation(
+        origin={-24,46},
+        extent={{-6,-6},{6,6}},
+        rotation=0)));
 equation
   connect(sumHeaCoo.y,preHeaCoo. Q_flow)
     annotation (Line(points={{62.4,60},{68,60}}, color={0,0,127}));
   connect(conHeaPID.y,gaiHea. u)
     annotation (Line(points={{6.6,72},{14.8,72}}, color={0,0,127}));
-  connect(TSetHea.y,conHeaPID. u_s)
-    annotation (Line(points={{-17.4,72},{-7.2,72}},  color={0,0,127}));
   connect(multiplex2.y,sumHeaCoo. u) annotation (
     Line(points={{46.4,60},{53.2,60}},      color = {0, 0, 127}));
-  connect(conCooPID.u_s,TSetCoo. y)
-    annotation (Line(points={{-7.2,46},{-17.4,46}},  color={0,0,127}));
   connect(conCooPID.y,gaiCoo. u)
     annotation (Line(points={{6.6,46},{14.8,46}}, color={0,0,127}));
   connect(gaiHea.y,multiplex2. u1[1]) annotation (Line(points={{28.6,72},{32,72},
@@ -135,8 +159,6 @@ equation
                             color={0,0,127}));
   connect(gaiCoo.u,conCooPID. y)
     annotation (Line(points={{14.8,46},{6.6,46}}, color={0,0,127}));
-  connect(EHea.u, gaiHea.y) annotation (Line(points={{52.8,82},{44,82},{44,72},
-          {28.6,72}}, color={0,0,127}));
   connect(ECoo.u, gaiCoo.y) annotation (Line(points={{52.8,40},{44,40},{44,46},
           {28.6,46}}, color={0,0,127}));
 
@@ -152,6 +174,24 @@ equation
           20,30},{0,30},{0,38.8}}, color={0,0,127}));
   connect(zon5R1C.TAir, conHeaPID.u_m) annotation (Line(points={{15,8},{20,8},{
           20,30},{-40,30},{-40,60},{0,60},{0,64.8}}, color={0,0,127}));
+  connect(EHea.u, gaiHea.y) annotation (Line(points={{52.8,80},{44,80},{44,72},
+          {28.6,72}}, color={0,0,127}));
+  connect(EHeaMWh.u, EHea.y)
+    annotation (Line(points={{74.8,80},{66.6,80}}, color={0,0,127}));
+  connect(ECooMWh.u, ECoo.y)
+    annotation (Line(points={{76.8,40},{66.6,40}}, color={0,0,127}));
+  connect(TSetHea.y[1], conHeaPID.u_s)
+    annotation (Line(points={{-17.4,72},{-7.2,72}}, color={0,0,127}));
+  connect(TSetCoo.y[1], conCooPID.u_s)
+    annotation (Line(points={{-17.4,46},{-7.2,46}}, color={0,0,127}));
+  connect(gaiCoo.y, PHea1.u) annotation (Line(points={{28.6,46},{32,46},{32,26},
+          {37.2,26}}, color={0,0,127}));
+  connect(PHea.u, gaiHea.y) annotation (Line(points={{33.2,88},{28.6,88},{28.6,
+          72}}, color={0,0,127}));
+  connect(PHeakW.u, PHea.y) annotation (Line(points={{50.8,98},{46,98},{46,88},
+          {42.8,88}}, color={0,0,127}));
+  connect(PCookW.u, PHea1.y) annotation (Line(points={{52.8,16},{46.8,16},{46.8,
+          26}}, color={0,0,127}));
  annotation(experiment(
       StopTime=31536000,
       Interval=3600,

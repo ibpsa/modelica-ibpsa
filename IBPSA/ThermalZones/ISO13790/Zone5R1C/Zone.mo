@@ -35,6 +35,8 @@ model Zone "Thermal zone based on 5R1C network"
    annotation(Dialog(group="Windows"));
   parameter Real coeFac[:]={0.9} "Polynomial coefficients for gFac"
    annotation(Dialog(group="Windows"));
+  parameter Real shaRedFac=1 "Shading reduction factor"
+   annotation(Dialog(group="Windows"));
 
 
   Modelica.Blocks.Interfaces.RealInput intSenGai(final unit="W") "Internal sensible heat gains"
@@ -94,8 +96,8 @@ model Zone "Thermal zone based on 5R1C network"
         rotation=90,
         origin={40,-40})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capMas(
-      C=buiMas.heaC*AFlo,
-      T(displayUnit="degC",
+      C=buiMas.heaC*AFlo, T(
+      displayUnit="degC",
       fixed=true,
       start=293.15)) "Zone thermal capacity" annotation (Placement(
         transformation(
@@ -115,7 +117,8 @@ model Zone "Thermal zone based on 5R1C network"
     final surTil=surTil,
     final surAzi=surAzi,
     final gFac=gFac,
-    final winFra=winFra) "Solar heat gains of glazed elements"
+    final winFra=winFra,
+    shaRedFac=shaRedFac) "Solar heat gains of glazed elements"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   BaseClasses.OpaqueElements opa(
     final n=nOrientations,
@@ -143,7 +146,7 @@ model Zone "Thermal zone based on 5R1C network"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
 protected
-  parameter Real ratSur=4.5 "Ratio between the internal surfaces area and the floor area";
+  parameter Real ratSur=(sum(AWal)+sum(AWin)+ARoo+AFlo)/AFlo "Ratio between the internal surfaces area and the floor area";
   parameter Modelica.Units.SI.CoefficientOfHeatTransfer hSur=9.1 "Heat transfer coefficient between mass and surface nodes";
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTAir
@@ -179,7 +182,7 @@ equation
   connect(heaPorSur, HMas.port_b)
     annotation (Line(points={{40,0},{40,-30}}, color={191,0,0}));
   connect(weaBus.TDryBul,TExt. T) annotation (Line(
-      points={{120,120},{-112,120},{-112,0},{-102,0}},
+      points={{120.1,120.1},{-112,120.1},{-112,0},{-102,0}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -219,7 +222,7 @@ equation
   connect(TVen.port, HVen.port_a)
     annotation (Line(points={{-80,80},{0,80}}, color={191,0,0}));
   connect(weaBus.TDryBul,TVen. T) annotation (Line(
-      points={{120,120},{-112,120},{-112,80},{-102,80}},
+      points={{120.1,120.1},{-112,120.1},{-112,80},{-102,80}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

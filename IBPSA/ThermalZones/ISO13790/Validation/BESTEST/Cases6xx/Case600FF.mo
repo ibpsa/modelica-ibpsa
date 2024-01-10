@@ -1,10 +1,11 @@
-within IBPSA.ThermalZones.ISO13790.Validation.BESTEST;
-model Case600FF "Basic test with light-weight construction and free floating temperature"
+within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
+model Case600FF
+  "Basic test with light-weight construction and free floating temperature"
   extends Modelica.Icons.Example;
   Zone5R1C.Zone zon5R1C(
     airRat=0.414,
     AWin={0,0,12,0},
-    UWin=3.095,
+    UWin=3.1,
     AWal={21.6,16.2,9.6,16.2},
     ARoo=48,
     UWal=0.534,
@@ -13,7 +14,7 @@ model Case600FF "Basic test with light-weight construction and free floating tem
     b=1,
     AFlo=48,
     VRoo=129.6,
-    hInt=2.49,
+    hInt=2.1,
     redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case600Mass buiMas,
     nOrientations=4,
     surTil={1.5707963267949,1.5707963267949,1.5707963267949,1.5707963267949},
