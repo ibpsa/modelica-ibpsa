@@ -1,18 +1,19 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+  extends
+    IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
-        useInHeaPum=true)
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
+      ( useInHeaPum=true)
      constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
-        useInChi=true)
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
+      ( useInChi=true)
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a heat pump in reversed operation mode"
@@ -21,7 +22,7 @@ model RefrigerantCycle
   RefrigerantCycleHeatPumpHeating refCycHeaPumHea
     "Refrigerant cycle instance for heating"
   annotation (Placement(transformation(extent={{20,40},{60,80}}, rotation=0)));
-  RefrigerantCycleHeatPumpCooling refCycHeaPumCoo
+  RefrigerantCycleHeatPumpCooling refCycHeaPumCoo if use_rev
     "Refrigerant cycle instance for cooling"
   annotation (Placement(transformation(extent={{-60,40},{-19,80}}, rotation=0)));
 protected
@@ -71,10 +72,10 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(refCycHeaPumHea.QCon_flow, swiQCon.u1) annotation (Line(points={{
-          26.6667,38.3333},{26.6667,8},{58,8}}, color={0,0,127}));
-  connect(refCycHeaPumHea.QEva_flow, swiQEva.u1) annotation (Line(points={{
-          53.3333,38.3333},{53.3333,28},{-12,28},{-12,8},{-58,8}}, color={0,0,127}));
+  connect(refCycHeaPumHea.QCon_flow, swiQCon.u1) annotation (Line(points={{26.6667,
+          38.3333},{26.6667,8},{58,8}},         color={0,0,127}));
+  connect(refCycHeaPumHea.QEva_flow, swiQEva.u1) annotation (Line(points={{53.3333,
+          38.3333},{53.3333,28},{-12,28},{-12,8},{-58,8}},         color={0,0,127}));
   connect(refCycHeaPumCoo.QEva_flow, swiQCon.u3) annotation (Line(points={{
           -25.8333,38.3333},{-25.8333,-8},{58,-8}}, color={0,0,127}));
   connect(refCycHeaPumCoo.QCon_flow, swiQEva.u3) annotation (Line(points={{
@@ -83,6 +84,18 @@ equation
           38.3333},{-39.5,-48},{-8,-48},{-8,-58}}, color={0,0,127}));
   connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38.3333},
           {40,-48},{8,-48},{8,-58}}, color={0,0,127}));
+  connect(refCycHeaPumHea.QCon_flow, QCon_flow) annotation (Line(
+      points={{26.6667,38.3333},{26.6667,22},{92,22},{92,0},{110,0}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(refCycHeaPumHea.QEva_flow, QEva_flow) annotation (Line(
+      points={{53.3333,38.3333},{53.3333,28},{-90,28},{-90,0},{-110,0}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(refCycHeaPumHea.PEle, PEle) annotation (Line(
+      points={{40,38.3333},{40,-86},{0.5,-86},{0.5,-110.5}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-24,88},{22,44}},
