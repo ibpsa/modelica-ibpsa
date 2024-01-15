@@ -27,7 +27,9 @@ model ModularReversible
       annotation(Dialog(group="Nominal condition", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
+       PEle_nominal=0,
+       QCooNoSca_flow_nominal=0)
     constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=true,
