@@ -25,7 +25,9 @@ model ModularReversible
       annotation(Dialog(group="Nominal condition", enable=use_rev));
 
   replaceable model RefrigerantCycleHeatPumpHeating =
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
+       PEle_nominal=0,
+       QHeaNoSca_flow_nominal=0)
        constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=true,
