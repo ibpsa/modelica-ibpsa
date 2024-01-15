@@ -1,21 +1,20 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
-  extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
-      ( useInHeaPum=true)
-     constrainedby
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
+      useInHeaPum=true)
+      constrainedby
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
     "Replaceable model for refrigerant cycle of a heat pump in main operation mode"
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
-      ( useInChi=true)
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
+        useInChi=true)
       constrainedby
-    IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a heat pump in reversed operation mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
 
@@ -25,12 +24,14 @@ model RefrigerantCycle
   RefrigerantCycleHeatPumpCooling refCycHeaPumCoo if use_rev
     "Refrigerant cycle instance for cooling"
   annotation (Placement(transformation(extent={{-60,40},{-19,80}}, rotation=0)));
+
 protected
   IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
     "String pass through to enable conditional string data";
   IBPSA.Utilities.IO.Strings.Constant conStrSou(
     final k=refCycHeaPumHea.datSou)
     "Constant String data source";
+
 initial algorithm
   assert(
     strPasThr.y == refCycHeaPumHea.datSou,
@@ -38,6 +39,7 @@ initial algorithm
     Heating data source is " + refCycHeaPumHea.datSou + ", cooling data source is "
     + strPasThr.y + ". Only continue if this is intended.",
     AssertionLevel.warning);
+
 equation
  if use_rev then
   connect(refCycHeaPumCoo.datSouOut,  strPasThr.u);
