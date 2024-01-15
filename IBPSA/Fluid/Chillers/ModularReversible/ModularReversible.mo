@@ -3,6 +3,8 @@ model ModularReversible
   "Grey-box model for reversible chillers"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
+    final use_COP=use_rev,
+    final use_EER=true,
     con(preDro(m_flow(nominal=-QCoo_flow_nominal/1000/10))),
     eva(preDro(m_flow(nominal=-QCoo_flow_nominal/1000/10))),
     safCtr(redeclare
@@ -74,7 +76,7 @@ model ModularReversible
         origin={-110,-130})));
 equation
   connect(conCoo.y, sigBus.coo)
-    annotation (Line(points={{-99,-130},{-84,-130},{-84,-40},{-138,-40},{-138,-42},
+    annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-138,-40},{-138,-42},
           {-140,-42},{-140,-41},{-141,-41}},
                                 color={255,0,255}));
   connect(coo, sigBus.coo)

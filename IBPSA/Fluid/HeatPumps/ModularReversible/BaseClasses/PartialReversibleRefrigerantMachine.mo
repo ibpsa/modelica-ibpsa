@@ -256,14 +256,14 @@ partial model PartialReversibleRefrigerantMachine
     if use_evaCap "Forces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={70,-130})));
+        rotation=0,
+        origin={-50,-130})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature varTOutCon
     if use_conCap "Forces heat losses according to ambient temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={70,130})));
+        rotation=0,
+        origin={-50,130})));
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Safety safCtr(
     final mEva_flow_nominal=mEva_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
@@ -280,19 +280,20 @@ partial model PartialReversibleRefrigerantMachine
     "Ambient temperature on the evaporator side" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={146,-130}), iconTransformation(extent={{10,-10},{-10,10}},
-          origin={110,-20})));
+        rotation=180,
+        origin={-150,-130}),iconTransformation(extent={{10,-10},{-10,10}},
+          origin={-112,-90},
+        rotation=180)));
   Modelica.Blocks.Interfaces.RealInput TConAmb(final unit="K", final
       displayUnit="degC") if use_conCap and not use_busConOnl
     "Ambient temperature on the condenser side" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={150,130}), iconTransformation(
+        rotation=0,
+        origin={-152,130}),iconTransformation(
         extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={110,24})));
+        rotation=0,
+        origin={-112,90})));
 
   IBPSA.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
@@ -345,11 +346,33 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-98,12})));
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
+      final unit="W")
+                    "Actual heating heat flow rate added to fluid 1"
+    annotation (Placement(transformation(extent={{140,120},{160,140}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
+    "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{140,-10},{160,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
+      final unit="W")
+                    "Actual cooling heat flow rate removed from fluid 2"
+    annotation (Placement(transformation(extent={{140,-140},{160,-120}}),
+        iconTransformation(extent={{100,-100},{120,-80}})));
+  Modelica.Blocks.Interfaces.RealOutput EER(unit="1") if use_EER
+    "Energy efficieny ratio" annotation (Placement(transformation(extent={{140,-40},
+            {160,-20}}), iconTransformation(extent={{100,-40},{120,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput COP(unit="1") if use_COP
+    "Coefficient of performance" annotation (Placement(transformation(extent={{140,
+            20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
 // To avoid using the bus, set the section below to protected
 protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
 // -->
+
+
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -365,6 +388,8 @@ protected
 protected
 // -->
 
+  parameter Boolean use_COP "=true to enable COP output";
+  parameter Boolean use_EER "=true to enable EER output";
   parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
@@ -378,30 +403,30 @@ equation
 
   // Non bus connections
   connect(safCtr.sigBus, sigBus) annotation (Line(
-      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,
-          -40},{-140,-41},{-141,-41}},
+      points={{-111.917,-16.0833},{-111.917,-16},{-116,-16},{-116,-40},{-140,-40},
+          {-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{
-          -84,-10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,
-          -41}},                                    color={0,0,127}));
+  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{-84,
+          -10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,-41}},
+                                                    color={0,0,127}));
   connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
           -10},{-113.333,-10}},
                        color={0,0,127}));
   connect(TConAmb, varTOutCon.T) annotation (Line(
-      points={{150,130},{82,130}},
+      points={{-152,130},{-62,130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(varTOutCon.port, con.port_out) annotation (Line(
-      points={{60,130},{0,130},{0,120}},
+      points={{-40,130},{0,130},{0,120}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(TEvaAmb, varTOutEva.T) annotation (Line(
-      points={{146,-130},{82,-130}},
+      points={{-150,-130},{-130,-130},{-130,-150},{-70,-150},{-70,-130},{-62,-130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(eva.port_out, varTOutEva.port) annotation (Line(
-      points={{0,-120},{0,-130},{60,-130}},
+      points={{0,-120},{0,-130},{-40,-130}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60}},
@@ -463,13 +488,12 @@ equation
           -88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
                                            color={255,0,255}));
   connect(TConAmb, sigBus.TConAmbMea) annotation (Line(
-      points={{150,130},{120,130},{120,32},{-76,32},{-76,-40},{-138,-40},{-138,-42},
-          {-140,-42},{-140,-41},{-141,-41}},
+      points={{-152,130},{-128,130},{-128,50},{-76,50},{-76,-42},{-78,-42},{-78,-41},
+          {-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TEvaAmb, sigBus.TEvaAmbMea) annotation (Line(
-      points={{146,-130},{110,-130},{110,-150},{-76,-150},{-76,-40},{-138,-40},{-138,
-          -41},{-141,-41}},
+      points={{-150,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(hys.u, sigBus.ySet) annotation (Line(points={{-122,-90},{-132,-90},{-132,
@@ -501,6 +525,24 @@ equation
                        color={0,0,127}));
   end if;
 
+  connect(refCyc.PEle, P) annotation (Line(points={{19.89,0.09},{26,0.09},{26,0},{
+          150,0}}, color={0,0,127}));
+  connect(refCycIneEva.y, QEva_flow) annotation (Line(points={{-1.9984e-15,-61},{-1.9984e-15,
+          -68},{50,-68},{50,-130},{150,-130}}, color={0,0,127}));
+  connect(refCycIneCon.y, QCon_flow) annotation (Line(points={{8.88178e-16,61},{8.88178e-16,
+          70},{70,70},{70,130},{150,130}}, color={0,0,127}));
+  connect(EER, sigBus.EER) annotation (Line(points={{150,-30},{-20,-30},{-20,-41},
+          {-141,-41}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(COP, sigBus.COP) annotation (Line(points={{150,30},{120,30},{120,-30},{-20,
+          -30},{-20,-41},{-141,-41}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Rectangle(

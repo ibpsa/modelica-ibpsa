@@ -3,6 +3,8 @@ model ModularReversible
   "Grey-box model for reversible heat pumps"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
+    final use_COP=true,
+    final use_EER=use_rev,
     con(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
     eva(preDro(m_flow(nominal=QHea_flow_nominal/1000/10))),
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
@@ -72,8 +74,8 @@ model ModularReversible
         iconTransformation(extent={{-120,-28},{-102,-10}})));
 equation
   connect(conHea.y, sigBus.hea)
-    annotation (Line(points={{-99,-130},{-80,-130},{-80,-40},{-140,-40},{-140,
-          -41},{-141,-41}},     color={255,0,255}));
+    annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},
+          {-141,-41}},          color={255,0,255}));
   connect(hea, sigBus.hea)
     annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
           -41},{-141,-41}},
