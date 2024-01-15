@@ -47,13 +47,13 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva
     "Evaporator medium specific heat capacity"
     annotation (Dialog(tab="Advanced", group="Medium properties"));
-  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W")
     "Electrical Power consumed by the device" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-130})));
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(final unit="W")
   "Heat flow rate through condenser" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -64,7 +64,7 @@ partial model PartialRefrigerantCycle
         extent={{-15,-14},{15,14}},
         rotation=0,
         origin={1,120})));
-  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(final unit="W")
     "Heat flow rate through evaporator" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
