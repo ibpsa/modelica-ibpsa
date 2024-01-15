@@ -42,6 +42,18 @@ equation
  if use_rev then
   connect(refCycHeaPumCoo.datSouOut,  strPasThr.u);
  else
+  connect(refCycHeaPumHea.QCon_flow, QCon_flow) annotation (Line(
+      points={{26.6667,38.3333},{26.6667,22},{92,22},{92,0},{110,0}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(refCycHeaPumHea.QEva_flow, QEva_flow) annotation (Line(
+      points={{53.3333,38.3333},{53.3333,28},{-90,28},{-90,0},{-110,0}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(refCycHeaPumHea.PEle, PEle) annotation (Line(
+      points={{40,38.3333},{40,-86},{0.5,-86},{0.5,-110.5}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(conStrSou.y, strPasThr.u);
  end if;
   connect(pasTrhModSet.u, sigBus.hea);
@@ -84,18 +96,7 @@ equation
           38.3333},{-39.5,-48},{-8,-48},{-8,-58}}, color={0,0,127}));
   connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38.3333},
           {40,-48},{8,-48},{8,-58}}, color={0,0,127}));
-  connect(refCycHeaPumHea.QCon_flow, QCon_flow) annotation (Line(
-      points={{26.6667,38.3333},{26.6667,22},{92,22},{92,0},{110,0}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(refCycHeaPumHea.QEva_flow, QEva_flow) annotation (Line(
-      points={{53.3333,38.3333},{53.3333,28},{-90,28},{-90,0},{-110,0}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(refCycHeaPumHea.PEle, PEle) annotation (Line(
-      points={{40,38.3333},{40,-86},{0.5,-86},{0.5,-110.5}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
           extent={{-24,88},{22,44}},

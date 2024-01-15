@@ -43,6 +43,18 @@ equation
   if use_rev then
     connect(refCycChiHea.datSouOut, strPasThr.u);
   else
+    connect(QEva_flow, refCycChiCoo.QEva_flow) annotation (Line(
+        points={{-110,0},{-90,0},{-90,24},{54,24},{54,38.3333},{53.5,38.3333}},
+        color={0,0,127},
+        pattern=LinePattern.Dash));
+    connect(refCycChiCoo.QCon_flow, QCon_flow) annotation (Line(
+        points={{27.5,38.3333},{27.5,20},{92,20},{92,0},{110,0}},
+        color={0,0,127},
+        pattern=LinePattern.Dash));
+    connect(refCycChiCoo.PEle, PEle) annotation (Line(
+        points={{40.5,38.3333},{40.5,-90},{0,-90},{0,-110.5},{0.5,-110.5}},
+        color={0,0,127},
+        pattern=LinePattern.Dash));
     connect(conStrSou.y, strPasThr.u);
   end if;
 
@@ -88,18 +100,7 @@ equation
           36.25},{-53.1667,-8},{-58,-8}}, color={0,0,127}));
   connect(refCycChiHea.QEva_flow, swiQCon.u3) annotation (Line(points={{-25.8333,
           36.25},{-25.8333,-8},{58,-8}}, color={0,0,127}));
-  connect(QEva_flow, refCycChiCoo.QEva_flow) annotation (Line(
-      points={{-110,0},{-90,0},{-90,24},{54,24},{54,38.3333},{53.5,38.3333}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(refCycChiCoo.QCon_flow, QCon_flow) annotation (Line(
-      points={{27.5,38.3333},{27.5,20},{92,20},{92,0},{110,0}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(refCycChiCoo.PEle, PEle) annotation (Line(
-      points={{40.5,38.3333},{40.5,-90},{0,-90},{0,-110.5},{0.5,-110.5}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
