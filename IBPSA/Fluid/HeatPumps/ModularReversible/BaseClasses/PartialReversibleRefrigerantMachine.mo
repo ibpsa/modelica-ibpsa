@@ -347,8 +347,7 @@ partial model PartialReversibleRefrigerantMachine
         rotation=0,
         origin={-98,12})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(final quantity="HeatFlowRate",
-      final unit="W")
-                    "Actual heating heat flow rate added to fluid 1"
+      final unit="W") "Actual heating heat flow rate added to fluid 1"
     annotation (Placement(transformation(extent={{140,120},{160,140}}),
         iconTransformation(extent={{100,80},{120,100}})));
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", final unit="W")
@@ -356,8 +355,7 @@ partial model PartialReversibleRefrigerantMachine
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(final quantity="HeatFlowRate",
-      final unit="W")
-                    "Actual cooling heat flow rate removed from fluid 2"
+      final unit="W") "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{140,-140},{160,-120}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
   Modelica.Blocks.Interfaces.RealOutput EER(unit="1") if use_EER
