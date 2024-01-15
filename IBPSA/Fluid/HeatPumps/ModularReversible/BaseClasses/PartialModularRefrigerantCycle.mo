@@ -10,26 +10,26 @@ partial model PartialModularRefrigerantCycle
         transformation(extent={{-18,84},{18,116}}), iconTransformation(extent={{-16,84},
             {18,114}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
-    final unit="W", final displayUnit="kW")
+    final unit="W", displayUnit="kW")
     "Heat flow rate from the refrigerant to the condenser medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
-    final unit="W", final displayUnit="kW")
+    final unit="W", displayUnit="kW")
     "Heat flow rate from the evaporator medium to the refrigerant"
     annotation (Placement(transformation(extent={{-100,-10},{-120,10}})));
   Modelica.Blocks.Logical.Switch swiQEva(
-    u1(final unit="W", final displayUnit="kW"),
-    u3(final unit="W", final displayUnit="kW"),
-    y(final unit="W", final displayUnit="kW")) if use_rev
+    u1(final unit="W", displayUnit="kW"),
+    u3(final unit="W", displayUnit="kW"),
+    y(final unit="W", displayUnit="kW")) if use_rev
     "Routing block that picks the component acting as evaporator"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Modelica.Blocks.Logical.Switch swiQCon(
-    y(final unit="W", final displayUnit="kW"),
-    u1(final unit="W", final displayUnit="kW"),
-    u3(final unit="W", final displayUnit="kW")) if use_rev
+    y(final unit="W", displayUnit="kW"),
+    u1(final unit="W", displayUnit="kW"),
+    u3(final unit="W", displayUnit="kW")) if use_rev
     "Routing block that picks the component acting as condenser"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", displayUnit="kW")
     "Routing block that picks the component for electric power consumption"
     annotation (Placement(
         transformation(
@@ -38,9 +38,9 @@ partial model PartialModularRefrigerantCycle
         origin={0.5,-110.5})));
 
   Modelica.Blocks.Logical.Switch swiPEle(
-    u1(final unit="W", final displayUnit="kW"),
-    u3(final unit="W", final displayUnit="kW"),
-    y(final unit="W", final displayUnit="kW")) if use_rev
+    u1(final unit="W", displayUnit="kW"),
+    u3(final unit="W", displayUnit="kW"),
+    y(final unit="W", displayUnit="kW")) if use_rev
     "Whether to use cooling or heating power output" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

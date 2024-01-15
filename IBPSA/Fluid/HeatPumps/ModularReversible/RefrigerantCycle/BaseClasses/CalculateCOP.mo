@@ -6,11 +6,11 @@ model CalculateCOP
   parameter Modelica.Units.SI.Power PEleMin(min=Modelica.Constants.eps)
     "If eletrical power consumption falls below this value, COP will be set to zero";
 
-  Modelica.Blocks.Interfaces.RealInput PEle(final unit="W", final displayUnit="W")
+  Modelica.Blocks.Interfaces.RealInput PEle(final unit="W", displayUnit="W")
     "Electrical power consumed by the system" annotation (Placement(
         transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(extent=
            {{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput QUse_flow(final unit="W", final displayUnit="W")
+  Modelica.Blocks.Interfaces.RealInput QUse_flow(final unit="W", displayUnit="W")
     "Useful heat flow" annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,
             60}})));

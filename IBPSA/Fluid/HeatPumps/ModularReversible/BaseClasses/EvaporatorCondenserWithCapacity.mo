@@ -86,7 +86,7 @@ model EvaporatorCondenserWithCapacity
         origin={50,-50})));
   Modelica.Blocks.Interfaces.RealOutput T(
     final unit="K",
-    final displayUnit="degC")
+    displayUnit="degC")
     "Temperature of the condenser volume" annotation (Placement(
         transformation(extent={{100,-62},{124,-38}}), iconTransformation(extent=
            {{100,-62},{124,-38}})));

@@ -47,7 +47,7 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.SpecificHeatCapacity cpEva
     "Evaporator medium specific heat capacity"
     annotation (Dialog(tab="Advanced", group="Medium properties"));
-  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", final displayUnit=
+  Modelica.Blocks.Interfaces.RealOutput PEle(final unit="W", displayUnit=
         "kW") "Electrical Power consumed by the device" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

@@ -3,7 +3,7 @@ block InflowTemperatureSensor "Custom block to measure instream fluid temperatur
 
   Modelica.Blocks.Interfaces.RealOutput y(
     final unit="K",
-    final displayUnit="degC")=0.0
+    displayUnit="degC")=0.0
     "Inflow temperature"
     annotation (Dialog(group="Time varying output signal"), Placement(
         transformation(extent={{100,-10},{120,10}})));
