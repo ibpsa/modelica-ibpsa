@@ -51,9 +51,9 @@ equation
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},           color={0,127,255}));
   connect(temAmbBas.y, heaPum.TEvaAmb) annotation (Line(points={{10,-179},{10,
-          -166},{-6,-166},{-6,-152},{-1,-152}},           color={0,0,127}));
+          -166},{28,-166},{28,-159},{21.2,-159}},         color={0,0,127}));
   connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{10,-179},{10,
-          -166},{-6,-166},{-6,-147.6},{-1,-147.6}},       color={0,0,127}));
+          -166},{28,-166},{28,-141},{21.2,-141}},         color={0,0,127}));
 
   connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(
         points={{-139,-76},{-94,-76},{-94,-166},{28,-166},{28,-151.9},{21.1,
