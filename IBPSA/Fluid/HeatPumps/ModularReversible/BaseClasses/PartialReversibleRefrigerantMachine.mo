@@ -275,8 +275,8 @@ partial model PartialReversibleRefrigerantMachine
         transformation(extent={{-172,4},{-140,36}}), iconTransformation(extent={{-122,10},
             {-102,30}})));
 
-  Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", final
-      displayUnit="degC") if use_evaCap and not use_busConOnl
+  Modelica.Blocks.Interfaces.RealInput TEvaAmb(final unit="K", displayUnit="degC")
+    if use_evaCap and not use_busConOnl
     "Ambient temperature on the evaporator side" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -284,8 +284,8 @@ partial model PartialReversibleRefrigerantMachine
         origin={-150,-130}),iconTransformation(extent={{10,-10},{-10,10}},
           origin={-112,-90},
         rotation=180)));
-  Modelica.Blocks.Interfaces.RealInput TConAmb(final unit="K", final
-      displayUnit="degC") if use_conCap and not use_busConOnl
+  Modelica.Blocks.Interfaces.RealInput TConAmb(final unit="K", displayUnit="degC")
+    if use_conCap and not use_busConOnl
     "Ambient temperature on the condenser side" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
