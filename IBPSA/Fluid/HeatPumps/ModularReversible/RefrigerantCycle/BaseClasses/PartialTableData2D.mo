@@ -19,7 +19,7 @@ partial model PartialTableData2D
     final smoothness=smoothness,
     final u1(unit="K", displayUnit="degC"),
     final u2(unit="K", displayUnit="degC"),
-    final y(unit="W", displayUnit="kW"),
+    final y(unit="W"),
     final extrapolation=extrapolation) "Electrical power consumption table" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -33,7 +33,7 @@ partial model PartialTableData2D
     final smoothness=smoothness,
     final u1(unit="K", displayUnit="degC"),
     final u2(unit="K", displayUnit="degC"),
-    final y(unit="W", displayUnit="kW"),
+    final y(unit="W"),
     final extrapolation=extrapolation) "Table for useful heat flow rate"
                                        annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
