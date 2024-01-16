@@ -17,6 +17,7 @@ model TableData2D
         TCon_nominal) * y_nominal);
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
+    final useInRevDev=not useInChi,
     final use_TConOutForTab=datTab.use_TConOutForTab,
     final use_TEvaOutForTab=datTab.use_TEvaOutForTab,
     tabQUse_flow(final table=datTab.tabQEva_flow),

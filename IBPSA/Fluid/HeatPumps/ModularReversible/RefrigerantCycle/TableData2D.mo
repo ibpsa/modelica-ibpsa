@@ -16,6 +16,7 @@ model TableData2D "Performance data based on condenser outlet and evaporator inl
         TEva_nominal) * y_nominal);
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
+    final useInRevDev=not useInHeaPum,
     final valTabQEva_flow = valTabQCon_flow .- valTabPEle,
     final valTabQCon_flow = {{tabQUse_flow.table[j, i] for i in 2:numCol} for j in 2:numRow},
     final mCon_flow_nominal_internal=mCon_flow_nominal,

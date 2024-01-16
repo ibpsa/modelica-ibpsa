@@ -63,25 +63,25 @@ partial model PartialTableData2D
         origin={-90,70})));
 
 
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaIn if not use_TEvaOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaIn if (not useInRevDev and not use_TEvaOutForTab) or (useInRevDev and not use_TConOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-50,90})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if not use_TConOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConIn if (not useInRevDev and not use_TConOutForTab) or (useInRevDev and not use_TEvaOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={50,90})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if use_TEvaOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTEvaOut if (not useInRevDev and use_TEvaOutForTab) or (useInRevDev and use_TConOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,90})));
-  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if use_TConOutForTab
+  Modelica.Blocks.Routing.RealPassThrough reaPasThrTConOut if (not useInRevDev and use_TConOutForTab) or (useInRevDev and use_TEvaOutForTab)
     "Used to enable conditional bus connection" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -89,6 +89,7 @@ partial model PartialTableData2D
         origin={90,90})));
 
 protected
+  parameter Boolean useInRevDev "=true to indicate usage in reversed operation";
   parameter Integer numRow=size(tabPEle.table, 1) "Number of rows in table";
   parameter Integer numCol=size(tabPEle.table, 2) "Number of columns in table";
   parameter Modelica.Units.SI.TemperatureDifference dTMin=3
