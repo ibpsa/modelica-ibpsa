@@ -71,8 +71,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(scaFacTimPel.y, calCOP.PEle) annotation (Line(points={{-40,-9},{-40,-24},
-          {-50,-24},{-50,-86},{-58,-86}},                      color={0,0,127}));
   if useInHeaPum then
     connect(reaPasThrTConOut.y, tabPEle.u1)
       annotation (Line(points={{90,79},{90,70},{96,70},{96,62}}, color={0,0,127}));

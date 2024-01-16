@@ -77,8 +77,6 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(swiPEle.y, calCOP.PEle) annotation (Line(points={{50,-1},{50,-24},{-44,
-          -24},{-44,-86},{-58,-86}}, color={0,0,127}));
   connect(swiPEle.y, feeHeaFloEva.u1) annotation (Line(points={{50,-1},{50,-24},{
           -90,-24},{-90,-10},{-78,-10}}, color={0,0,127}));
   connect(feeHeaFloEva.u2, swiQUse.y)

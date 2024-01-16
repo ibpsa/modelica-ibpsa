@@ -31,9 +31,6 @@ partial model PartialRefrigerantCycle
   parameter String datSou=""
     "Indicates the data source, used to warn users
     about different data sources in reversible models";
-  parameter Boolean calEff=true
-    "=false to disable efficiency calculation, may speed up the simulation"
-    annotation(Dialog(tab="Advanced"));
   replaceable IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
   constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor

@@ -25,8 +25,8 @@ model ModularReversible
       annotation(Dialog(group="Nominal condition", enable=use_rev));
 
   replaceable model RefrigerantCycleHeatPumpHeating =
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
-       PEle_nominal=0,
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
+      (PEle_nominal=0,
        QHeaNoSca_flow_nominal=0)
        constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
@@ -82,6 +82,15 @@ equation
     annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
           -41},{-141,-41}},
                        color={255,0,255}));
+  connect(eff.QUse_flow, refCycIneCon.y) annotation (Line(points={{98,37},{48,37},
+          {48,66},{8.88178e-16,66},{8.88178e-16,61}}, color={0,0,127}));
+  connect(eff.hea, sigBus.hea) annotation (Line(points={{98,30},{48,30},{48,0},{
+          26,0},{26,-30},{-20,-30},{-20,-41},{-141,-41}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="

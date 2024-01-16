@@ -210,6 +210,9 @@ partial model PartialReversibleRefrigerantMachine
   parameter Real ySet_small=0.01
     "Threshold for relative speed for the device to be considered on"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
+  parameter Boolean calEff=true
+    "=false to disable efficiency calculation, may speed up the simulation"
+    annotation(Dialog(tab="Advanced"));
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = MediumCon,
     final allowFlowReversal=allowFlowReversalCon,
@@ -298,7 +301,7 @@ partial model PartialReversibleRefrigerantMachine
   IBPSA.Fluid.Sensors.MassFlowRate mEva_flow(redeclare final package Medium =
         MediumEva, final allowFlowReversal=allowFlowReversalEva)
     "Mass flow sensor at the evaporator" annotation (Placement(transformation(
-        origin={72,-60},
+        origin={70,-60},
         extent={{10,-10},{-10,10}},
         rotation=0)));
   IBPSA.Fluid.Sensors.MassFlowRate mCon_flow(final allowFlowReversal=
@@ -365,11 +368,16 @@ partial model PartialReversibleRefrigerantMachine
     "Coefficient of performance" annotation (Placement(transformation(extent={{140,
             20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
+  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCOP
+    eff(PEleMin=PEle_nominal*0.1) if calEff "Calculate efficiencies of device"
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={110,30})));
 // To avoid using the bus, set the section below to protected
 protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
 // -->
-
 
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
@@ -385,6 +393,7 @@ protected
 // <!-- @include_AixLib
 protected
 // -->
+
 
   parameter Boolean use_COP "=true to enable COP output";
   parameter Boolean use_EER "=true to enable EER output";
@@ -430,11 +439,11 @@ equation
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-100,-60}},
                  color={0,127,255}));
   connect(mEva_flow.port_a, port_a2)
-    annotation (Line(points={{82,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{80,-60},{100,-60}}, color={0,127,255}));
   connect(port_a1,mCon_flow. port_a)
     annotation (Line(points={{-100,60},{-68,60},{-68,100},{-60,100}},
                                                   color={0,127,255}));
-  connect(mEva_flow.port_b, eva.port_a) annotation (Line(points={{62,-60},{32,-60},
+  connect(mEva_flow.port_b, eva.port_a) annotation (Line(points={{60,-60},{32,-60},
           {32,-100},{20,-100}},
                               color={0,127,255}));
   connect(eva.port_b, port_b2) annotation (Line(points={{-20,-100},{-80,-100},{-80,
@@ -457,9 +466,9 @@ equation
   connect(con.port_b, port_b1) annotation (Line(points={{20,100},{100,100},{100,
           60}},      color={0,127,255}));
   // External bus connections
-  connect(mEva_flow.m_flow, sigBus.mEvaMea_flow) annotation (Line(points={{72,-49},
-          {72,-40},{20,-40},{20,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{
-          -141,-41}},                                           color={0,0,127}),
+  connect(mEva_flow.m_flow, sigBus.mEvaMea_flow) annotation (Line(points={{70,-49},
+          {70,-40},{26,-40},{26,-30},{-20,-30},{-20,-40},{-138,-40},{-138,-41},{-141,
+          -41}},                                                color={0,0,127}),
       Text(
       string="%second",
       index=1,
@@ -529,18 +538,12 @@ equation
           -68},{50,-68},{50,-130},{150,-130}}, color={0,0,127}));
   connect(refCycIneCon.y, QCon_flow) annotation (Line(points={{8.88178e-16,61},{8.88178e-16,
           70},{70,70},{70,130},{150,130}}, color={0,0,127}));
-  connect(EER, sigBus.EER) annotation (Line(points={{150,-30},{-20,-30},{-20,-41},
-          {-141,-41}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(COP, sigBus.COP) annotation (Line(points={{150,30},{120,30},{120,-30},{-20,
-          -30},{-20,-41},{-141,-41}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+  connect(eff.PEle, refCyc.PEle) annotation (Line(points={{98,23},{48,23},{48,0.09},
+          {19.89,0.09}}, color={0,0,127}));
+  connect(eff.COP, COP) annotation (Line(points={{121,36},{130,36},{130,30},{150,30}},
+        color={0,0,127}));
+  connect(eff.EER, EER) annotation (Line(points={{121,24},{130,24},{130,-30},{150,
+          -30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
                    graphics={
         Rectangle(

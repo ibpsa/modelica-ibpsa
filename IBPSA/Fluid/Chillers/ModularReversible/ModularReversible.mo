@@ -27,8 +27,8 @@ model ModularReversible
       annotation(Dialog(group="Nominal condition", enable=use_rev));
 
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
-       PEle_nominal=0,
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
+      (PEle_nominal=0,
        QCooNoSca_flow_nominal=0)
     constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
@@ -76,6 +76,11 @@ model ModularReversible
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-130})));
+  Modelica.Blocks.Logical.Not notCoo "Not cooling is heating" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,50})));
 equation
   connect(conCoo.y, sigBus.coo)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-138,-40},{-138,-42},
@@ -85,6 +90,13 @@ equation
     annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
           -41},{-141,-41}},
                        color={255,0,255}));
+  connect(eff.QUse_flow, refCycIneEva.y) annotation (Line(points={{98,37},{48,37},
+          {48,0},{26,0},{26,-68},{0,-68},{0,-61}}, color={0,0,127}));
+  connect(eff.hea, notCoo.y) annotation (Line(points={{98,30},{90,30},{90,50},{81,
+          50}}, color={255,0,255}));
+  connect(notCoo.u, coo) annotation (Line(points={{58,50},{48,50},{48,0},{26,0},{
+          26,-30},{-20,-30},{-20,-40},{-128,-40},{-128,-70},{-156,-70}}, color={
+          255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-88,60},{88,60}}, color={28,108,200})}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),

@@ -72,8 +72,6 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(scaFacTimPel.y, calEER.PEle) annotation (Line(points={{-40,-9},{-40,-70},
-          {-80,-70},{-80,-86},{-88,-86}},                     color={0,0,127}));
 
   if useInChi then
     connect(reaPasThrTConOut.y, tabPEle.u2)
