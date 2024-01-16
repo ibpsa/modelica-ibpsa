@@ -1,5 +1,5 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
-model CalculateCOP
+within IBPSA.Fluid.HeatPumps.ModularReversible;
+model BaseClasses,CalculateEfficiency
   "Calculate the COP or EER of a device"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Power PEleMin(min=Modelica.Constants.eps)
@@ -117,4 +117,4 @@ equation
   avoid division by zero.
 </p>
 </html>"));
-end CalculateCOP;
+end BaseClasses,CalculateEfficiency;

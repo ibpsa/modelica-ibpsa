@@ -368,7 +368,7 @@ partial model PartialReversibleRefrigerantMachine
     "Coefficient of performance" annotation (Placement(transformation(extent={{140,
             20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.CalculateCOP
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses,CalculateEfficiency
     eff(PEleMin=PEle_nominal*0.1) if calEff "Calculate efficiencies of device"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
