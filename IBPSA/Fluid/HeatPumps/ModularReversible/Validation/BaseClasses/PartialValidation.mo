@@ -100,10 +100,10 @@ partial model PartialValidation
   Modelica.Blocks.Interfaces.RealOutput TEvaOutMea(unit="K", displayUnit="degC")
     "Measured evaporator outlet"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
-  Modelica.Blocks.Interfaces.RealOutput PEleMea(unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput PEleMea(unit="W")
     "Measured electrical power consumption"
     annotation (Placement(transformation(extent={{100,-78},{120,-58}})));
-  Modelica.Blocks.Interfaces.RealOutput PEleSim(unit="W", displayUnit="kW")
+  Modelica.Blocks.Interfaces.RealOutput PEleSim(unit="W")
     "Simulated electrical power consumption"
     annotation (Placement(transformation(extent={{100,-102},{120,-82}})));
   Modelica.Blocks.Interfaces.RealOutput TConOutSim(unit="K", displayUnit="degC")
