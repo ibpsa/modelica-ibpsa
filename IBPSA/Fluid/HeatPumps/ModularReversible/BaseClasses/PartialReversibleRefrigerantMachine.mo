@@ -213,6 +213,12 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean calEff=true
     "=false to disable efficiency calculation, may speed up the simulation"
     annotation(Dialog(tab="Advanced"));
+
+  Modelica.Units.SI.HeatFlowRate Q1_flow = QCon_flow
+    "Heat transferred into the medium 1";
+  Modelica.Units.SI.HeatFlowRate Q2_flow = QEva_flow
+    "Heat transferred into the medium 2";
+
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.EvaporatorCondenserWithCapacity con(
     redeclare final package Medium = MediumCon,
     final allowFlowReversal=allowFlowReversalCon,
@@ -368,7 +374,7 @@ partial model PartialReversibleRefrigerantMachine
     "Coefficient of performance" annotation (Placement(transformation(extent={{140,
             20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses,CalculateEfficiency
+  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.CalculateEfficiency
     eff(PEleMin=PEle_nominal*0.1) if calEff "Calculate efficiencies of device"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
