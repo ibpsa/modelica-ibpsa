@@ -94,9 +94,13 @@ equation
           {48,0},{26,0},{26,-68},{0,-68},{0,-61}}, color={0,0,127}));
   connect(eff.hea, notCoo.y) annotation (Line(points={{98,30},{90,30},{90,50},{81,
           50}}, color={255,0,255}));
-  connect(notCoo.u, coo) annotation (Line(points={{58,50},{48,50},{48,0},{26,0},{
-          26,-30},{-20,-30},{-20,-40},{-128,-40},{-128,-70},{-156,-70}}, color={
-          255,0,255}));
+  connect(notCoo.u, sigBus.coo) annotation (Line(points={{58,50},{48,50},{48,0},{
+          26,0},{26,-30},{-20,-30},{-20,-41},{-141,-41}}, color={255,0,255}),
+      Text(
+      string="%second",
+      index=1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-88,60},{88,60}}, color={28,108,200})}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
