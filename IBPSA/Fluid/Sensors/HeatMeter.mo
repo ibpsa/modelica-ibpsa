@@ -1,10 +1,15 @@
 within IBPSA.Fluid.Sensors;
-model HeatMeter "Measures thermal energy provided by a source or delivered to a sink"
-  extends BaseClasses.PartialDynamicFlowSensor(tau=0);
+model HeatMeter "Measures thermal energy provided between supply and return pipes"
+  extends BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RoundSensor;
-  Modelica.Blocks.Interfaces.RealInput T_other(final unit="K", displayUnit="degC") "External temperature measurement to calculate temperature difference"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(final quantity="HeatFlowRate", final unit="W") "Heat flow rate"
+  Modelica.Blocks.Interfaces.RealInput TExt(
+    final unit="K",
+    displayUnit="degC") "External temperature measurement to calculate temperature difference"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    final quantity="HeatFlowRate",
+    final unit="W") "Heat flow rate"
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -49,9 +54,49 @@ equation
   else
     T = TMed;
   end if;
-  Q_flow = port_a.m_flow * Medium.cp_const * (T - T_other);
-annotation (Documentation(info="<html>
-<p>This model measures thermal energy provided by a source or delivered to a sink, by measuring the flow rate of the heat transfer fluid and the change in its temperature compared to an externally attached temperature measurement connected via <code>T_other</code>. The sensor does not influence the fluid.</p>
-<p>The rate of heat flow is calculated as <i>Q&#775; = m&#775; c<sub>p</sub> (T - T<sub>other</sub>)</i>.</p>
+  Q_flow = port_a.m_flow * Medium.cp_const * (T - TExt);
+
+annotation (defaultComponentName="senHeaFlo",
+  Icon(graphics={
+        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
+        Line(points={{70,0},{100,0}}, color={0,128,255}),
+        Line(points={{0,100},{0,70}}, color={0,0,127}),
+        Text(
+          extent={{180,151},{20,99}},
+          textColor={0,0,0},
+          textString="Q_flow"),
+        Text(
+          extent={{-20,120},{-140,70}},
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(Q_flow, leftJustified=false, significantDigits=3))),
+        Text(
+          extent={{-22,120},{-100,48}},
+          textColor={0,0,127},
+          textString="TExt")}),
+Documentation(info="<html>
+<p>
+This model measures thermal energy provided between a supply and return pipe.
+It measures the capacity flow rate of the heat transfer fluid and the change in its
+temperature compared to an external temperature measurement that is input into the port
+<code>TExt</code>. The sensor does not influence the fluid.
+</p>
+<p>
+The rate of heat flow is calculated as <i>Q&#775; = m&#775; c<sub>p</sub> (T - T<sub>Ext</sub>)</i>.</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+February 1, 2024, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1831\">IBPSA, #1831</a>.
+</li>
+<li>
+February 1, 2024, by Jan Gall:<br/>
+First implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1831\">IBPSA, #1831</a>.
+</li>
+</ul>
 </html>"));
 end HeatMeter;
