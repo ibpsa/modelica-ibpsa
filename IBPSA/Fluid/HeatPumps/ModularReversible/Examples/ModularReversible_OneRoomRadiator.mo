@@ -57,9 +57,9 @@ model ModularReversible_OneRoomRadiator
       displayUnit="degC") = 291.15)
     "Ambient temperature in basement of building" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,-148})));
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={70,-160})));
 equation
   connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,-156},
           {38,-200},{60,-200}},           color={0,127,255}));
@@ -69,13 +69,15 @@ equation
           -144},{-70,-120}},      color={0,127,255}));
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,-144},
           {60,-30}},           color={0,127,255}));
-  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{-79,-148},{-1,-148},
-          {-1,-147.6}},                   color={0,0,127}));
-  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,-151.9},
-          {24,-151.9},{24,-152},{26,-152},{26,-92},{-132,-92},{-132,-76},{-139,-76}},
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{59,-160},{40,
+          -160},{40,-140},{21.2,-140},{21.2,-141}},
+                                          color={0,0,127}));
+  connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,
+          -151.9},{24,-151.9},{24,-75},{-139.167,-75}},
                  color={255,0,255}));
-  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={{-139,-66},
-          {30,-66},{30,-148},{21.2,-148}},            color={0,0,127}));
+  connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={{
+          -139.167,-66.6667},{30,-66.6667},{30,-148},{21.2,-148}},
+                                                      color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   This example demonstrates how to use the
