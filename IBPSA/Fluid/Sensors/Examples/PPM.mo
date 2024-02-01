@@ -20,7 +20,7 @@ model PPM "Test model for the extra property sensor outputting PPM"
     redeclare package Medium = Medium,
     nPorts=2,
     m_flow=m_flow_nominal) "Fresh air supply"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(origin = {-28, 0}, extent = {{-40, 30}, {-20, 50}})));
 
   IBPSA.Fluid.Sensors.PPM senPPMVol(
     redeclare package Medium = Medium,
@@ -82,11 +82,19 @@ model PPM "Test model for the extra property sensor outputting PPM"
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal) "Fresh air supply for steady state volume"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
+    annotation (Placement(transformation(origin = {-28, 0}, extent = {{-40, 110}, {-20, 130}})));
   IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2) "Exhaust air"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(origin = {-30, 0}, extent = {{-40, -60}, {-20, -40}})));
+
+  IBPSA.Fluid.FixedResistances.PressureDrop dp(
+     redeclare package Medium = Medium,
+     dp_nominal = 200,
+     m_flow_nominal = m_flow_nominal)
+     "Pressure drop to decouple volume pressure from boundary pressure"
+     annotation(
+    Placement(transformation(origin = {-28, -50}, extent = {{-2, -10}, {18, 10}})));
 
 protected
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
@@ -97,15 +105,15 @@ protected
   final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
       state_default) "Density, used to compute fluid mass";
 
+
 equation
-  connect(mSou.ports[1], volDyn.ports[1]) annotation (Line(points={{-20,42},{
-          77.3333,42},{77.3333,50}},       color={0,127,255}));
+  connect(mSou.ports[1], volDyn.ports[1]) annotation (Line(points={{-48,40},{-48,50},{77.3333,50}},       color={0,127,255}));
   connect(CO2In.y, volDyn.C_flow[1]) annotation (Line(points={{21,70},{32,70},{32,
           54},{68,54}}, color={0,0,127}));
   connect(senPPMVol.port, volDyn.ports[2]) annotation (Line(points={{130,40},{80,
           40},{80,50}},         color={0,127,255}));
   connect(senPPMIn.port, mSou.ports[2])
-    annotation (Line(points={{-10,80},{-10,38},{-20,38}}, color={0,127,255}));
+    annotation (Line(points={{-10,80},{-10,40},{-48,40}}, color={0,127,255}));
   connect(senPPMTwoPort.port_a, volDyn.ports[3]) annotation (Line(points={{80,20},
           {80,50},{82.6667,50}},         color={0,127,255}));
   connect(senPPMNoRev.port_a, senPPMTwoPort.port_b)
@@ -118,13 +126,14 @@ equation
           84},{68,84}}, color={0,0,127}));
   connect(volSte.ports[1], senPPMVol2.port) annotation (Line(points={{77.3333,
           80},{130,80}},          color={0,127,255}));
-  connect(mSouSta.ports[1], volSte.ports[2]) annotation (Line(points={{-20,120},
+  connect(mSouSta.ports[1], volSte.ports[2]) annotation (Line(points={{-48,120},
           {54,120},{54,80},{80,80}},      color={0,127,255}));
-  connect(sin.ports[1], senPPMSta.port_b) annotation (Line(points={{-20,-48},{-10,
-          -48},{-10,-50},{0,-50}}, color={0,127,255}));
-  connect(sin.ports[2], volSte.ports[3]) annotation (Line(points={{-20,-52},{
-          -20,-80},{110,-80},{110,80},{82.6667,80}},
-                                                 color={0,127,255}));
+  connect(sin.ports[1], volSte.ports[3]) annotation(
+    Line(points = {{-50, -50}, {-50, -80}, {110, -80}, {110, 80}, {82.6667, 80}}, color = {0, 127, 255}));
+  connect(dp.port_b, senPPMSta.port_b) annotation(
+    Line(points = {{-10, -50}, {0, -50}}, color = {0, 127, 255}));
+  connect(dp.port_a, sin.ports[2]) annotation(
+    Line(points = {{-30, -50}, {-50, -50}}, color = {0, 127, 255}));
     annotation (
 experiment(Tolerance=1e-6, StopTime=3),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos"
@@ -141,6 +150,11 @@ and with or without dynamics are tested.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 1, 2024, by Michael Wetter:<br/>
+Added pressure drop to avoid redundant initial conditions for pressure of control volume.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1830\"> #1830</a>.
+</li>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for
