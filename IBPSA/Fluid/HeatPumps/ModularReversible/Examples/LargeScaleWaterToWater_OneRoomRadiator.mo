@@ -11,7 +11,6 @@ model LargeScaleWaterToWater_OneRoomRadiator
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    oneRooRadHeaPumCtr(PIDHea(Ti=10)),
     pumHeaPum(
       redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per),
     pumHeaPumSou(
@@ -42,7 +41,8 @@ equation
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,
           -144},{60,-30}},                color={0,127,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
-        points={{-139,-66},{-62,-66},{-62,-76},{21.2,-76},{21.2,-148}}, color={
+        points={{-139.167,-66.6667},{26,-66.6667},{26,-148},{21.2,-148}},
+                                                                        color={
           0,0,127}));
   annotation (
      __Dymola_Commands(file=
