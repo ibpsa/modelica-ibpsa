@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
   parameter Boolean witCoo=true
@@ -42,7 +42,7 @@ model OneRoomRadiatorHeatPumpControl
     Ti=800,
     yMax=1,
     yMin=0.3,
-    I(use_reset=true, reset=hysCoo.y)) if witCoo
+    I(use_reset=true, reset=booPasThrCoo.y)) if witCoo
               "PI control for cooling, inverse"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Continuous.LimPID PIDHea(
@@ -53,7 +53,7 @@ model OneRoomRadiatorHeatPumpControl
     yMin=0.3,
     I(use_reset=true, reset=hysHea.y))
               "PI control for heating"
-    annotation (Placement(transformation(extent={{-58,80},{-38,100}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Modelica.Blocks.Sources.Constant constTSetRooHea(final k=TRooSetHea)
     "Room set point temperature for heating"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -109,6 +109,8 @@ model OneRoomRadiatorHeatPumpControl
   Modelica.Blocks.Logical.Or cooValOrHea
     "Cooling safety control is used only when the device is not heating" annotation (
       Placement(transformation(extent={{-10,-10},{10,10}}, origin={-10,-90})));
+  Modelica.Blocks.Routing.BooleanPassThrough booPasThrCoo "Used for reset of PID"
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(hysHea.y, heaIsOn.u)
     annotation (Line(points={{-79,20},{-62,20}}, color={255,0,255}));
@@ -120,8 +122,8 @@ equation
   connect(heaIsOn.y, heaOrCooIsOn.u1) annotation (Line(points={{-39,20},{-30,20},{
           -30,10},{-22,10}},  color={255,0,255}));
   connect(PIDHea.u_s,constTSetRooHea. y)
-    annotation (Line(points={{-60,90},{-79,90}},  color={0,0,127}));
-  connect(PIDHea.y, swiHeaCooYSet.u3) annotation (Line(points={{-37,90},{18,90},{18,
+    annotation (Line(points={{-62,90},{-79,90}},  color={0,0,127}));
+  connect(PIDHea.y, swiHeaCooYSet.u3) annotation (Line(points={{-39,90},{18,90},{18,
           78}},             color={0,0,127}));
   connect(constTSetRooCoo.y,PIDCoo. u_m) annotation (Line(points={{-39,50},{-10,50},
           {-10,58}},                         color={0,0,127}));
@@ -143,7 +145,7 @@ equation
   connect(PIDCoo.u_s, TRooMea) annotation (Line(points={{-22,70},{-30,70},{-30,66},
           {-108,66},{-108,0},{-140,0}},
                                       color={0,0,127}));
-  connect(PIDHea.u_m, TRooMea) annotation (Line(points={{-48,78},{-48,66},{-108,66},
+  connect(PIDHea.u_m, TRooMea) annotation (Line(points={{-50,78},{-50,66},{-108,66},
           {-108,0},{-140,0}},color={0,0,127}));
   connect(PIDCoo.y, swiHeaCooYSet.u1) annotation (Line(points={{1,70},{6,70},{6,62},
           {18,62}},         color={0,0,127}));
@@ -166,10 +168,14 @@ equation
           -90},{-22,-90}},     color={255,0,255}));
   if not witCoo then
     connect(PIDHea.y, swiYSet.u1) annotation (Line(
-      points={{-37,90},{50,90},{50,58},{58,58}},
+      points={{-39,90},{50,90},{50,58},{58,58}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   end if;
+  connect(hysCoo.y, booPasThrCoo.u) annotation (Line(points={{-79,-10},{-49.5,-10},
+          {-49.5,-30},{-42,-30}}, color={255,0,255}));
+  connect(conFal.y, booPasThrCoo.u) annotation (Line(points={{-59,-40},{-50,-40},{
+          -50,-30},{-42,-30}}, color={255,0,255}));
   annotation (                                                   Diagram(
         coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(info="<html>

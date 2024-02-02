@@ -71,8 +71,9 @@ partial model PartialOneRoomRadiator
 
 //----------------------------------------------------------------------------//
 
-  Movers.Preconfigured.FlowControlled_m_flow pumHeaPum(
+  Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mCon_flow_nominal,
     m_flow_start=0.85,
     T_start=TRadSup_nominal,
@@ -108,7 +109,7 @@ partial model PartialOneRoomRadiator
 
 //--------------------------------------------------------------------------------------//
 
-  Movers.Preconfigured.FlowControlled_m_flow pumHeaPumSou(
+  Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumWat,
     m_flow_start=0.85,
     m_flow_nominal=mEva_flow_nominal,
