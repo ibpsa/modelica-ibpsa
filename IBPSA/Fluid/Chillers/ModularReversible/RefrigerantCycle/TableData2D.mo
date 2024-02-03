@@ -28,8 +28,8 @@ model TableData2D
     final mEva_flow_nominal_internal=mEva_flow_nominal,
     final mCon_flow_max=max(valTabQCon_flow) * scaFac / cpCon / dTMin,
     final mCon_flow_min=min(valTabQCon_flow) * scaFac / cpCon / dTMax,
-    final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpCon / dTMax,
-    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpCon / dTMin,
+    final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpEva / dTMax,
+    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpEva / dTMin,
     constScaFac(final k=scaFac));
   replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTab
     "Data Table of Chiller" annotation (choicesAllMatching=true);
