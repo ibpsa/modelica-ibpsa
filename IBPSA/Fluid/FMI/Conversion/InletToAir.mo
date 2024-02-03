@@ -24,7 +24,7 @@ block InletToAir
     if allowFlowReversal
     "Zone air temperature"
     annotation (Placement(
-        visible=allowFloWReserval,
+        visible=allowFlowReversal,
         transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120}),
@@ -37,7 +37,7 @@ block InletToAir
     if Medium.nXi > 0 and allowFlowReversal
     "Zone air water mass fraction per total air mass"
     annotation (Placement(
-        visible=allowFloWReserval,
+        visible=allowFlowReversal,
         transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120}),
@@ -50,7 +50,7 @@ block InletToAir
     if allowFlowReversal
     "Zone air trace substances"
     annotation (Placement(
-        visible=allowFloWReserval,
+        visible=allowFlowReversal,
         transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-120}),
