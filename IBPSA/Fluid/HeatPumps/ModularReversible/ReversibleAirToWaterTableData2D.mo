@@ -5,7 +5,14 @@ model ReversibleAirToWaterTableData2D
     final QCoo_flow_nominal=refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal*scaFac,
     dpEva_nominal=datTabHea.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTabHea.dpCon_nominal*scaFac^2,
-    final safCtrPar=safCtrParEurNor,
+    redeclare replaceable
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+      constrainedby
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+      final tabUppHea=datTabHea.tabUppBou,
+      final tabLowCoo=datTabCoo.tabLowBou,
+      final use_TUseSidOut=datTabHea.use_TConOutForOpeEnv,
+      final use_TAmbSidOut=datTabCoo.use_TEvaOutForOpeEnv),
     dTEva_nominal=(QHea_flow_nominal - PEle_nominal)/cpEva/mEva_flow_nominal,
     mEva_flow_nominal=datTabHea.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTabHea.mCon_flow_nominal*scaFac,
@@ -40,15 +47,6 @@ model ReversibleAirToWaterTableData2D
     constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     "Data table of chiller"    annotation (choicesAllMatching=true,
     Placement(transformation(extent={{114,-18},{130,-2}})));
-  replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
-      constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
-      final tabUppHea=datTabHea.tabUppBou,
-      final tabLowCoo=datTabCoo.tabLowBou,
-      final use_TUseSidOut=datTabHea.use_TConOutForOpeEnv,
-      final use_TAmbSidOut=datTabCoo.use_TEvaOutForOpeEnv)
-    "Safety control parameters"
-      annotation (Dialog(enable=use_intSafCtr, group="Safety control"), choicesAllMatching=true);
 
   annotation (Documentation(info="<html>
 <p>
