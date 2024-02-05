@@ -6,7 +6,7 @@ model ReversibleAirToWaterTableData2D
     dpEva_nominal=datTabHea.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTabHea.dpCon_nominal*scaFac^2,
     final safCtrPar=safCtrParEurNor,
-    final dTEva_nominal=0,
+    dTEva_nominal=(QHea_flow_nominal - PEle_nominal)/cpEva/mEva_flow_nominal,
     mEva_flow_nominal=datTabHea.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTabHea.mCon_flow_nominal*scaFac,
     dTCon_nominal=QHea_flow_nominal/cpCon/mCon_flow_nominal,
