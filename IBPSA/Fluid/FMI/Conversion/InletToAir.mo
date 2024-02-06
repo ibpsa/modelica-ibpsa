@@ -77,7 +77,7 @@ block InletToAir
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
 
 protected
-  IBPSA.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  input IBPSA.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
 
@@ -171,6 +171,11 @@ for its usage.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 1, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">#1829</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.
