@@ -280,7 +280,7 @@ David Blum, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 Massimo Cimmino, Polytechnique Montreal, Canada
 </li>
 <li>
-Jan Gall, Bosch, Germany
+Jan Gall, Robert Bosch GmbH, Germany
 </li>
 <li>
 Jianjun Hu, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
