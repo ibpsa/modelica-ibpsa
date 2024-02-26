@@ -30,7 +30,7 @@ algorithm
       y1d=d[i],
       y2d=d[i + 1]);
 
-  annotation (
+  annotation (smoothOrder = 1,
     Documentation(info="<html>
 <p>
 This function returns the value on a cubic hermite spline through the given support points
