@@ -59,6 +59,12 @@ National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
 </html>", revisions="<html>
 <ul>
 <li>
+February 26, 2024, by Hongxiang Fu:<br/>
+Correct implementation to make it smooth.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1840\">IBPSA, #1840</a>.
+</li>
+<li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>
 This is for
