@@ -35,7 +35,8 @@ algorithm
 <p>
 This function returns the value on a cubic hermite spline through the given support points
 and provided spline derivatives at these points with monotonically increasing values.
-The last 2 points in the table are linearly interpolated.
+Outside the provided support points, the function returns a linear extrapolation with
+the same slope as the cubic spline has at the respective support point.
 </p>
 <p>
 A similar model is also used in the CONTAM software (Dols and Walton, 2015).
