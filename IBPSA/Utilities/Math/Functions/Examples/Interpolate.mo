@@ -1,4 +1,4 @@
-within IBPSA.Airflow.Multizone.BaseClasses.Examples;
+within IBPSA.Utilities.Math.Functions.Examples;
 model Interpolate "Test model for the interpolation function"
   extends Modelica.Icons.Example;
 
@@ -28,18 +28,18 @@ initial equation
     ensureMonotonicity=true);
 equation
    dp=ramp.y;
-   m_flow =IBPSA.Airflow.Multizone.BaseClasses.interpolate(u=dp,xd=xd,yd=yd,d=d);
+   m_flow =IBPSA.Utilities.Math.Functions.interpolate(u=dp,xd=xd,yd=yd,d=d);
 
   annotation (
 experiment(
       StopTime=500,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/Interpolate.mos"
+  __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/Interpolate.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example demonstrates the function
-<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.interpolate\">
-IBPSA.Airflow.Multizone.BaseClasses.interpolate</a>.
+<a href=\"modelica://IBPSA.Utilities.Math.Functions.interpolate\">
+IBPSA.Utilities.Math.Functions.interpolate</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,4 +1,4 @@
-within IBPSA.Airflow.Multizone.BaseClasses;
+within IBPSA.Utilities.Math.Functions;
 function interpolate
   "Function for the interpolation of table data for airflow models"
   extends Modelica.Icons.Function;
