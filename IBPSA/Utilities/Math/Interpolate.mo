@@ -5,7 +5,7 @@ block Interpolate
 
   parameter Real[:] xd "X-axis support points";
   parameter Real[size(xd, 1)] yd "Y-axis support points";
-  parameter Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
+  parameter Real[size(xd, 1)] d "Derivatives at the support points";
 equation
   y = IBPSA.Utilities.Math.Functions.interpolate(u=u,xd=xd,yd=yd,d=d);
 
