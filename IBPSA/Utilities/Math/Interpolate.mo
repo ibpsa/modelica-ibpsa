@@ -27,5 +27,25 @@ This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(
+          extent={{-58,-56},{-68,-46}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-64,-52},{-36,6},{8,40},{78,26}},
+          color={28,108,200},
+          smooth=Smooth.Bezier),
+        Ellipse(
+          extent={{82,20},{72,30}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-10,18},{-20,28}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid)}));
 end Interpolate;
