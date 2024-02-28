@@ -44,6 +44,17 @@ IBPSA.Utilities.Math.Functions.interpolate</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 29, 2024, by Hongxiang Fu:<br/>
+Moved to
+<a href=\"modelica://IBPSA.Utilities.Math.Functions.Examples\">
+IBPSA.Utilities.Math.Functions</a>
+from
+<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.Examples\">
+IBPSA.Airflow.Multizone.BaseClasses</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+</li>
+<li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>
 This is for

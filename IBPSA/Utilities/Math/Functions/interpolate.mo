@@ -60,6 +60,17 @@ National Institute of Standards and Technology, NIST TN 1887, Sep. 2015. doi:
 </html>", revisions="<html>
 <ul>
 <li>
+February 29, 2024, by Hongxiang Fu:<br/>
+Moved to
+<a href=\"modelica://IBPSA.Utilities.Math.Functions\">
+IBPSA.Utilities.Math.Functions</a>
+from
+<a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses\">
+IBPSA.Airflow.Multizone.BaseClasses</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1844\">IBPSA, #1844</a>.
+</li>
+<li>
 February 26, 2024, by Hongxiang Fu:<br/>
 Correct implementation to make it smooth.<br/>
 This is for
