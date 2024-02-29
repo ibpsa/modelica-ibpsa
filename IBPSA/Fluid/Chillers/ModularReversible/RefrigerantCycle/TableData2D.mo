@@ -4,17 +4,10 @@ model TableData2D
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
     final datSou=datTab.devIde,
-    mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
-    mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     PEle_nominal=Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
         tabIdePEle,
         TEva_nominal,
-        TCon_nominal) * scaFac * y_nominal,
-    QCooNoSca_flow_nominal=
-        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-        tabIdeQUse_flow,
-        TEva_nominal,
-        TCon_nominal) * y_nominal);
+        TCon_nominal) * scaFac);
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialTableData2D(
     final useInRevDev=not useInChi,
@@ -22,15 +15,22 @@ model TableData2D
     final use_TEvaOutForTab=datTab.use_TEvaOutForTab,
     tabQUse_flow(final table=datTab.tabQEva_flow),
     tabPEle(final table=datTab.tabPEle),
+    scaFac=QCoo_flow_nominal/QCooNoSca_flow_nominal,
+    mEva_flow_nominal=datTab.mEva_flow_nominal*scaFac,
+    mCon_flow_nominal=datTab.mCon_flow_nominal*scaFac,
     final valTabQEva_flow = {{-tabQUse_flow.table[j, i] for i in 2:numCol} for j in 2:numRow},
     final valTabQCon_flow = valTabQEva_flow .+ valTabPEle,
-    final mCon_flow_nominal_internal=mCon_flow_nominal,
-    final mEva_flow_nominal_internal=mEva_flow_nominal,
     final mCon_flow_max=max(valTabQCon_flow) * scaFac / cpCon / dTMin,
     final mCon_flow_min=min(valTabQCon_flow) * scaFac / cpCon / dTMax,
     final mEva_flow_min=min(valTabQEva_flow) * scaFac / cpEva / dTMax,
-    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpEva / dTMin,
-    constScaFac(final k=scaFac));
+    final mEva_flow_max=max(valTabQEva_flow) * scaFac / cpEva / dTMin);
+  parameter Modelica.Units.SI.HeatFlowRate QCooNoSca_flow_nominal=
+        Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+        tabIdeQUse_flow,
+        TEva_nominal,
+        TCon_nominal)
+    "Unscaled nominal cooling capacity "
+    annotation (Dialog(group="Nominal condition"));
   replaceable parameter IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic datTab
     "Data Table of Chiller" annotation (choicesAllMatching=true);
 

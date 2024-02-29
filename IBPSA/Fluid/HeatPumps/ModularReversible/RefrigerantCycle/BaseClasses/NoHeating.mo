@@ -2,6 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 model NoHeating
   "Placeholder to disable heating"
   extends PartialHeatPumpCycle(
+    TEva_nominal=273.15,
+    TCon_nominal=273.15,
     cpEva=4184,
     cpCon=4184,
     PEle_nominal=0,
@@ -9,14 +11,6 @@ model NoHeating
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
       iceFacCal,
     datSou="",
-    QHeaNoSca_flow_nominal=0,
-    scaFac=0,
-    mEva_flow_nominal=0,
-    mCon_flow_nominal=0,
-    dTEva_nominal=0,
-    dTCon_nominal=0,
-    TEva_nominal=273.15,
-    TCon_nominal=273.15,
     QHea_flow_nominal=0);
   Modelica.Blocks.Sources.Constant constZer(final k=0)
     "No heating, hence, zero"

@@ -19,13 +19,13 @@ model LargeScaleWaterToWater_OneRoomRadiator
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
-    TCon_nominal=TRadSup_nominal,
+    TConHea_nominal=TRadSup_nominal,
     dpCon_nominal(displayUnit="Pa"),
-    TEva_nominal=sou.T,
+    TEvaHea_nominal=sou.T,
     dpEva_nominal(displayUnit="Pa"),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrParEurNor,
+      safCtrPar,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
       datTab)

@@ -11,8 +11,10 @@ model ReversibleAirToWaterTableData2D
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
       final tabUppHea=datTabHea.tabUppBou,
       final tabLowCoo=datTabCoo.tabLowBou,
-      final use_TUseSidOut=datTabHea.use_TConOutForOpeEnv,
-      final use_TAmbSidOut=datTabCoo.use_TEvaOutForOpeEnv),
+      final use_TConOutHea=datTabHea.use_TConOutForOpeEnv,
+      final use_TEvaOutHea=datTabHea.use_TEvaOutForOpeEnv,
+      final use_TConOutCoo=datTabCoo.use_TConOutForOpeEnv,
+      final use_TEvaOutCoo=datTabCoo.use_TEvaOutForOpeEnv),
     dTEva_nominal=(QHea_flow_nominal - PEle_nominal)/cpEva/mEva_flow_nominal,
     mEva_flow_nominal=datTabHea.mEva_flow_nominal*scaFac,
     mCon_flow_nominal=datTabHea.mCon_flow_nominal*scaFac,
@@ -26,16 +28,31 @@ model ReversibleAirToWaterTableData2D
     final CCon=0,
     final use_conCap=false,
     redeclare model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
-        redeclare IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
+        final PEle_nominal=PEle_nominal,
+        redeclare
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
+          iceFacCal,
+        final scaFac=scaFac,
+        final mCon_flow_nominal=mCon_flow_nominal,
+        final mEva_flow_nominal=mEva_flow_nominal,
+        final smoothness=smoothness,
+        final extrapolation=extrapolation,
         final datTab=datTabCoo),
     redeclare model RefrigerantCycleHeatPumpHeating =
-      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
-        redeclare IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal,
+        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D (
+        redeclare
+          IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
+          iceFacCal,
+        final mCon_flow_nominal=mCon_flow_nominal,
+        final mEva_flow_nominal=mEva_flow_nominal,
+        final smoothness=smoothness,
+        final extrapolation=extrapolation,
         final datTab=datTabHea),
     final use_rev=true,
     redeclare model RefrigerantCycleInertia =
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia);
+  final parameter Real scaFac=refCyc.refCycHeaPumHea.scaFac "Scaling factor of heat pump";
 
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater datTabHea
@@ -47,6 +64,12 @@ model ReversibleAirToWaterTableData2D
     constrainedby IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.Generic
     "Data table of chiller"    annotation (choicesAllMatching=true,
     Placement(transformation(extent={{114,-18},{130,-2}})));
+
+  parameter Modelica.Blocks.Types.Smoothness smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments
+    "Smoothness of table interpolation" annotation (Dialog(tab="Advanced"));
+  parameter Modelica.Blocks.Types.Extrapolation extrapolation=Modelica.Blocks.Types.Extrapolation.LastTwoPoints
+    "Extrapolation of data outside the definition range"
+    annotation (Dialog(tab="Advanced"));
 
   annotation (Documentation(info="<html>
 <p>

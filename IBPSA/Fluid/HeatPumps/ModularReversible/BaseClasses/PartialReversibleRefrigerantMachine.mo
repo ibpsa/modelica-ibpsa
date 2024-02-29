@@ -22,9 +22,6 @@ partial model PartialReversibleRefrigerantMachine
     PartialModularRefrigerantCycle(final use_rev=use_rev)
     "Model of the refrigerant cycle" annotation (Placement(transformation(
           extent={{-18,-18},{18,18}}, rotation=90)));
-  parameter Real y_nominal(unit="1", min=0, max=1)=1
-    "Nominal relative compressor speed"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate PEle_nominal
     "Nominal electrical power consumption"
     annotation (Dialog(group="Nominal condition"));
@@ -43,19 +40,16 @@ partial model PartialReversibleRefrigerantMachine
   parameter Modelica.Units.SI.Time tauCon=30
     "Condenser heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Condenser", group="Dynamics"));
-  parameter Modelica.Units.SI.Temperature TCon_nominal
-    "Nominal temperature of condenser medium"
-    annotation (Dialog(group="Nominal condition - Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal
-    "Nominal temperature difference in condenser medium"
-    annotation (Dialog(group="Nominal condition - Condenser"));
+    "Nominal temperature difference in condenser medium, used to calculate mass flow rate"
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
     "Nominal mass flow rate of the condenser medium"
-    annotation (Dialog(group="Nominal condition - Condenser"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
 
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition - Condenser"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Real deltaMCon=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Condenser", group="Flow resistance"));
@@ -92,19 +86,16 @@ partial model PartialReversibleRefrigerantMachine
   parameter Modelica.Units.SI.Time tauEva=30
     "Evaporator heat transfer time constant at nominal flow"
     annotation (Dialog(tab="Evaporator", group="Dynamics"));
-  parameter Modelica.Units.SI.Temperature TEva_nominal
-    "Nominal temperature of evaporator medium"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal
-    "Nominal temperature difference in evaporator medium"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
+    "Nominal temperature difference in evaporator medium, used to calculate mass flow rate"
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
     "Nominal mass flow rate of the evaporator medium"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
 
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation (Dialog(group="Nominal condition - Evaporator"));
+    annotation (Dialog(group="Nominal condition - Pressure losses"));
   parameter Real deltaMEva=0.1
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation (Dialog(tab="Evaporator", group="Flow resistance"));
@@ -381,10 +372,10 @@ partial model PartialReversibleRefrigerantMachine
         rotation=180,
         origin={110,30})));
 // To avoid using the bus, set the section below to protected
-protected
 // <!-- @include_Buildings @include_IDEAS @include_BuildingSystems
 // -->
 
+protected
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -397,13 +388,12 @@ protected
           use_intSafCtr));
 
 // <!-- @include_AixLib
-protected
 // -->
 
 
+protected
   parameter Boolean use_COP "=true to enable COP output";
   parameter Boolean use_EER "=true to enable EER output";
-  parameter Real scaFac "Scaling factor";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
       T=MediumCon.T_default, p=MediumCon.p_default, X=MediumCon.X_default)
       "Nominal state of condenser medium";

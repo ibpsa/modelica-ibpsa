@@ -2,13 +2,9 @@ within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialChillerCycle
   "Partial model of refrigerant cycle used for chiller applications"
   extends
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle(
-      scaFac=QCoo_flow_nominal/QCooNoSca_flow_nominal);
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialRefrigerantCycle;
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal
     "Nominal cooling capacity"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QCooNoSca_flow_nominal
-    "Unscaled nominal cooling capacity "
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean useInChi
     "=false to indicate that this model is used as a heat pump";

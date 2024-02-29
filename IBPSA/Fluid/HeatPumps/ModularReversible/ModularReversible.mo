@@ -10,7 +10,6 @@ model ModularReversible
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
     mCon_flow_nominal=QHea_flow_nominal/(dTCon_nominal*cpCon),
     mEva_flow_nominal=(QHea_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
-    final scaFac=refCyc.refCycHeaPumHea.scaFac,
     use_rev=true,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
       redeclare model RefrigerantCycleHeatPumpHeating =
@@ -22,25 +21,19 @@ model ModularReversible
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0)=0
     "Nominal cooling capacity"
-      annotation(Dialog(group="Nominal condition", enable=use_rev));
+      annotation(Dialog(group="Nominal condition - Cooling", enable=use_rev));
 
   replaceable model RefrigerantCycleHeatPumpHeating =
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
-      (PEle_nominal=0,
-       QHeaNoSca_flow_nominal=0)
+      (PEle_nominal=0)
        constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
        final useInHeaPum=true,
        final QHea_flow_nominal=QHea_flow_nominal,
-       final TCon_nominal=TCon_nominal,
-       final TEva_nominal=TEva_nominal,
-       final dTCon_nominal=dTCon_nominal,
-       final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal,
-       final mEva_flow_nominal=mEva_flow_nominal,
+       final TCon_nominal=TConHea_nominal,
+       final TEva_nominal=TEvaHea_nominal,
        final cpCon=cpCon,
-       final cpEva=cpEva,
-       final y_nominal=y_nominal)
+       final cpEva=cpEva)
   "Refrigerant cycle module for the heating mode"
     annotation (choicesAllMatching=true);
 
@@ -49,19 +42,25 @@ model ModularReversible
       constrainedby
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
        final useInChi=false,
-       final QCoo_flow_nominal=QCoo_flow_nominal,
-       final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
-       final TCon_nominal=TCon_nominal,
-       final TEva_nominal=TEva_nominal,
-       final dTCon_nominal=dTCon_nominal,
-       final dTEva_nominal=dTEva_nominal,
-       final mCon_flow_nominal=mCon_flow_nominal,
-       final mEva_flow_nominal=mEva_flow_nominal,
        final cpCon=cpCon,
        final cpEva=cpEva,
-       final y_nominal=y_nominal)
+       final TCon_nominal=TEvaCoo_nominal,
+       final TEva_nominal=TConCoo_nominal,
+       QCoo_flow_nominal=QCoo_flow_nominal)
   "Refrigerant cycle module for the cooling mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
+  parameter Modelica.Units.SI.Temperature TConHea_nominal
+    "Nominal temperature at secondary condenser side in heating mode"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TEvaHea_nominal
+    "Nominal temperature at secondary evaporator side in heating mode"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConCoo_nominal=TConHea_nominal
+    "Nominal temperature at secondary condenser side in cooling mode"
+    annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
+  parameter Modelica.Units.SI.Temperature TEvaCoo_nominal=TEvaHea_nominal
+    "Nominal temperature at secondary evaporator side in cooling mode"
+    annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
 
   Modelica.Blocks.Sources.BooleanConstant conHea(final k=true)
     if not use_busConOnl and not use_rev

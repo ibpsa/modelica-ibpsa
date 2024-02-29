@@ -2,11 +2,12 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+    TEvaCoo_nominal=273.15,
+    TConCoo_nominal=273.15,
     redeclare package MediumCon = IBPSA.Media.Water,
     redeclare package MediumEva = IBPSA.Media.Water,
     dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
-    final safCtrPar=safCtrParEurNor,
     final dTEva_nominal=(QHea_flow_nominal - PEle_nominal)/cpEva/
         mEva_flow_nominal,
     final dTCon_nominal=QHea_flow_nominal/cpCon/mCon_flow_nominal,
@@ -18,6 +19,14 @@ model LargeScaleWaterToWater
     final GConOut=0,
     final CCon=0,
     final use_conCap=false,
+    redeclare replaceable
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+      constrainedby
+      IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
+      final tabUppHea=datTab.tabUppBou,
+      final tabLowCoo=datTab.tabUppBou,
+      final use_TConOutHea=datTab.use_TConOutForOpeEnv,
+      final use_TEvaOutHea=datTab.use_TEvaOutForOpeEnv),
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling,
     redeclare model RefrigerantCycleHeatPumpHeating =
@@ -38,23 +47,11 @@ model LargeScaleWaterToWater
     final autCalMasEva_flow=max(4E-5*QHea_flow_nominal - 0.3177, autCalMMin_flow),
     final autCalVCon=max(1E-7*QHea_flow_nominal - 94E-4, autCalVMin),
     final autCalVEva=max(1E-7*QHea_flow_nominal - 75E-4, autCalVMin));
-
+  final parameter Real scaFac=refCyc.refCycHeaPumHea.scaFac "Scaling factor of heat pump";
   replaceable parameter
     IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericHeatPump datTab
     "Data table of heat pump" annotation (choicesAllMatching=true,
     Placement(transformation(extent={{42,12},{58,28}})));
-  // Lower boundary has no influence as use_rev=false.
-  // Thus, setting tabLowBou to tabUppHea
-  replaceable parameter
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrParEurNor
-      constrainedby IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
-    final tabUppHea=datTab.tabUppBou,
-    final tabLowCoo=datTab.tabUppBou,
-    final use_TUseSidOut=datTab.use_TConOutForOpeEnv,
-    final use_TAmbSidOut=datTab.use_TEvaOutForOpeEnv) "Safety control parameters"
-    annotation (Dialog(enable=use_intSafCtr, group="Safety control"),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{72,12},{88,28}})));
 
   annotation (Documentation(info="<html>
 <p>

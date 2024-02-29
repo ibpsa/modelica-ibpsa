@@ -18,13 +18,13 @@ model ModularReversible
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(minOffTime=100, use_opeEnv=false),
-    TCon_nominal=313.15,
+    TConCoo_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,
     CCon=0,
     GConOut=0,
     GConIns=0,
-    TEva_nominal=278.15,
+    TEvaCoo_nominal=278.15,
     dTEva_nominal=5,
     dTCon_nominal=5,
     dpEva_nominal(displayUnit="Pa") = 6000,
@@ -89,11 +89,11 @@ model ModularReversible
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(souCon.ports[1], chi.port_a1) annotation (Line(
-      points={{-40,16},{-20,16},{-20,16},{-5.55112e-16,16}},
+      points={{-40,16},{0,16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souEva.ports[1], chi.port_a2) annotation (Line(
-      points={{40,4},{30,4},{30,4},{20,4}},
+      points={{40,4},{20,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_b1, sinCon.ports[1]) annotation (Line(
@@ -101,7 +101,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinEva.ports[1], chi.port_b2) annotation (Line(
-      points={{-40,-20},{-10,-20},{-10,4},{-5.55112e-16,4}},
+      points={{-40,-20},{-10,-20},{-10,4},{0,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TConIn.y, souCon.T_in) annotation (Line(
@@ -112,10 +112,10 @@ equation
       points={{75,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,12},{-1.2,
-          12}},                     color={0,0,127}));
-  connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},{-22,7.9},
-          {-1.1,7.9}},      color={255,0,255}));
+  connect(ySet.y, chi.ySet) annotation (Line(points={{-39,60},{-16,60},{-16,12},{
+          -1.2,12}},                color={0,0,127}));
+  connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},{-22,
+          7.9},{-1.1,7.9}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/ModularReversible.mos"
         "Simulate and plot"),

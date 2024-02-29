@@ -1,12 +1,9 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialHeatPumpCycle
   "Partial model to allow selection of only heat pump options"
-  extends PartialRefrigerantCycle(scaFac=QHea_flow_nominal/QHeaNoSca_flow_nominal);
+  extends PartialRefrigerantCycle;
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal
     "Nominal heating capacity"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QHeaNoSca_flow_nominal
-    "Unscaled nominal heating capacity "
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean useInHeaPum
     "=false to indicate that this model is used in a chiller";

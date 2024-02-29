@@ -2,9 +2,11 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ReversibleCarnotWithLosses
   "Heat pump using the Carnot approach, but with added reversibility and losses (heat, frost, inertia)"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+    QCoo_flow_nominal=-PEle_nominal*refCyc.refCycHeaPumCoo.EER_nominal,
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
+        PEle_nominal=PEle_nominal,
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
@@ -19,6 +21,7 @@ model ReversibleCarnotWithLosses
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.FunctionalIcingFactor
           iceFacCal(redeclare function icingFactor =
               IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
+
         etaCarnot_nominal=etaCarnot_nominal,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal),
@@ -35,11 +38,11 @@ model ReversibleCarnotWithLosses
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=
     if cpCon < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
-    annotation(Dialog(group="Nominal condition - Condenser"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=
     if cpEva < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
-    annotation(Dialog(group="Nominal condition - Evaporator"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay"
     annotation(Dialog(group="Refrigerant cycle inertia"));

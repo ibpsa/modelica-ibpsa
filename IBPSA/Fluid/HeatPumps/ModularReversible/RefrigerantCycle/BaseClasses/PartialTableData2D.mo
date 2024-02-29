@@ -1,6 +1,13 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialTableData2D
   "Partial model with components for TableData2D approach for heat pumps and chillers"
+  parameter Real scaFac "Scaling factor";
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
+    "Nominal mass flow rate in secondary condenser side"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal
+    "Nominal mass flow rate in secondary evaporator side"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Blocks.Types.Smoothness smoothness=
     Modelica.Blocks.Types.Smoothness.LinearSegments
     "Smoothness of table interpolation";
@@ -56,7 +63,7 @@ partial model PartialTableData2D
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,2})));
-  Modelica.Blocks.Sources.Constant constScaFac
+  Modelica.Blocks.Sources.Constant constScaFac(final k=scaFac)
     "Calculates correction of table output based on scaling factor"
     annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0,
@@ -119,10 +126,6 @@ protected
       smoothness,
       extrapolation,
       false) "External table object for nominal electrical power consumption";
-  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal_internal
-    "Internal nominal condenser mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mEva_flow_nominal_internal
-    "Internal nominal evaporator mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_min
     "Minimal evaporator mass flow rate";
   parameter Modelica.Units.SI.MassFlowRate mEva_flow_max
@@ -132,27 +135,27 @@ protected
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_max
     "Maximal evaporator mass flow rate";
 initial algorithm
-  assert(mCon_flow_nominal_internal >= mCon_flow_min,
+  assert(mCon_flow_nominal >= mCon_flow_min,
     "In " + getInstanceName() + ": The nominal condenser mass flow rate ("
-    + String(mCon_flow_nominal_internal) + " kg/s) is smaller than the 
+    + String(mCon_flow_nominal) + " kg/s) is smaller than the 
     minimal value (" + String(mCon_flow_min) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
-  assert(mCon_flow_nominal_internal <= mCon_flow_max,
+  assert(mCon_flow_nominal <= mCon_flow_max,
     "In " + getInstanceName() + ": The nominal condenser mass flow rate ("
-    + String(mCon_flow_nominal_internal) + " kg/s) is bigger than the 
+    + String(mCon_flow_nominal) + " kg/s) is bigger than the 
     maximal value (" + String(mCon_flow_max) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
-  assert(mEva_flow_nominal_internal >= mEva_flow_min,
+  assert(mEva_flow_nominal >= mEva_flow_min,
     "In " + getInstanceName() + ": The nominal evaporator mass flow rate ("
-    + String(mEva_flow_nominal_internal) + " kg/s) is smaller than the 
+    + String(mEva_flow_nominal) + " kg/s) is smaller than the 
     minimal value (" + String(mEva_flow_min) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
-  assert(mEva_flow_nominal_internal <= mEva_flow_max,
+  assert(mEva_flow_nominal <= mEva_flow_max,
     "In " + getInstanceName() + ": The nominal evaporator mass flow rate ("
-    + String(mEva_flow_nominal_internal) + " kg/s) is bigger than the 
+    + String(mEva_flow_nominal) + " kg/s) is bigger than the 
     maximal value (" + String(mEva_flow_max) + " kg/s) for the table data 
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);

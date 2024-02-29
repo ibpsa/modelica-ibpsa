@@ -3,8 +3,7 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
   extends
     IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle(
       useInChi=true,
-      PEle_nominal=-QCoo_flow_nominal/EER_nominal/y_nominal,
-      QCooNoSca_flow_nominal=QCoo_flow_nominal,
+      PEle_nominal=-QCoo_flow_nominal/EER_nominal,
       datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(

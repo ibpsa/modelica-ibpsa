@@ -3,8 +3,7 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
       useInHeaPum=true,
-      PEle_nominal=QHea_flow_nominal / COP_nominal / y_nominal,
-      QHeaNoSca_flow_nominal=QHea_flow_nominal,
+      PEle_nominal=QHea_flow_nominal / COP_nominal,
       datSou="ConstantCarnotEffectiveness");
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialCarnot(

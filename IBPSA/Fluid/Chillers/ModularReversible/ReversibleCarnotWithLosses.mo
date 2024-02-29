@@ -2,9 +2,11 @@ within IBPSA.Fluid.Chillers.ModularReversible;
 model ReversibleCarnotWithLosses
   "Reversible chiller using Carnot approach with losses (frost, heat, inertia)"
   extends IBPSA.Fluid.Chillers.ModularReversible.ModularReversible(
+    QHea_flow_nominal=PEle_nominal*refCyc.refCycChiHea.COP_nominal,
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
         (
+        PEle_nominal=PEle_nominal,
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
@@ -33,11 +35,11 @@ model ReversibleCarnotWithLosses
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal=if
       cpCon < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in condenser"
-    annotation(Dialog(group="Nominal condition - Condenser"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.TemperatureDifference TAppEva_nominal=if
       cpEva < 1500 then 5 else 2
     "Temperature difference between refrigerant and working fluid outlet in evaporator"
-    annotation(Dialog(group="Nominal condition - Evaporator"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Time refIneTimCon = 300
     "Refrigerant cycle inertia time constant for first order delay"
     annotation(Dialog(group="Refrigerant cycle inertia"));

@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -366,7 +366,10 @@ The following tables summarizes the possible options.
   For chillers, it is the nominal
   evaporator heat flow rate <code>QCoo_flow_nominal</code> (negative).
   This nominal heat flow rate is only valid at the
-  nominal conditions of the
+  nominal conditions. Whether parameters influence the nominal heat flow rates
+  depends on the model approach used to estimate the heat flow rate and efficiencies.
+  Typically, at least nominal source and sink temperatures will influence the 
+  nominal conditions:
 </p>
 <ul>
 <li>
@@ -376,48 +379,28 @@ The following tables summarizes the possible options.
   evaporator temperature <code>TEva_nominal</code>,
 </li>
 <li>
-  condenser temperature difference<code>dTCon_nominal</code>,
-</li>
-<li>
-  evaporator temperature difference<code>dTEva_nominal</code>,
-</li>
-<li>
-  condenser mass flow rate <code>mCon_flow_nominal</code>,
-</li>
-<li>
-  evaporator mass flow rate <code>mCon_flow_nominal</code>, and
-</li>
-<li>
   compressor speed <code>y_nominal</code>.
 </li>
 </ul>
 <p>
-  The temperature differences and mass flow rates presuppose each other.
-  The temperature levels are left without further specification of
-  inlet or outlet on purpose. Some refrigerant cycle models will
-  use the inlet, some the outlet to determine the outputs.
+  Depending on the model in use, this may be in- out outlet.
 </p>
 <p>
-  For inverter driven devices, the compressor speed influences the
+  Another example would be inverter driven devices.
+  Here, the compressor speed influences the
   refrigerant mass flow rate and compressor efficiencies.
-  The refrigerant mass flow rate influences the electrical power
-  consumption and the heat flow rates approximately
-  <code>Q_flow_nominal</code> linearly.
-  Thus, setting <code>y_nominal</code> to, e.g. 0.5, doubles
-  the nominal electrical power consumption to achieve the same
-  <code>Q_flow_nominal</code>.
   If the performance data is dependent on the compressor speed,
-  <code>y_nominal</code> also influences the nominal efficiencies.
-  Setting <code>y_nominal</code> smaller than one (the default),
-  can be necessary if the nominal values are not at the maximal
-  heating or cooling capacities required during operation.
+  <code>y_nominal</code> influences the nominal efficiencies.
+  In such cases, specifying additional nominal parameters will
+  be nessary.
 </p>
 <p>
-Other parameters, such as the nominal pressure drops or
-advanced model settings will not influence the refrigerant cycle
-models. Thus, only the listed nominal conditions are contained
-in both the <code>ModularReversible</code> models and the refrigerant cycle models
-for heating and cooling.
+  Using the nominal conditions and the specified heat flow rate, 
+  the nominal electrical power consumption <code>PEle_nominal</code> is calculated. 
+  As reversible devices have typically a four-way-valve and a single
+  compressor, you have to make sure that the values for <code>PEle_nominal</code> 
+  are similar between heating and cooling. The pre-configured models 
+  already contain assumptions in this regard. 
 </p>
 
 

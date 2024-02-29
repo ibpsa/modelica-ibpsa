@@ -16,14 +16,14 @@ model ReversibleCarnotWithLosses
       use_maxCycRat=false,
       tabUppHea=[263.15,313.15; 333.15,313.15],
       tabLowCoo=[263.15,283.15; 333.15,283.15],
-      use_TUseSidOut=true),
-    TCon_nominal=313.15,
+      use_TEvaOutCoo=true),
+    TConCoo_nominal=313.15,
     dpCon_nominal(displayUnit="Pa") = 6000,
     use_conCap=false,
     CCon=0,
     GConOut=0,
     GConIns=0,
-    TEva_nominal=278.15,
+    TEvaCoo_nominal=278.15,
     dTEva_nominal(displayUnit="K") = 10,
     dTCon_nominal(displayUnit="K") = 5,
     dpEva_nominal(displayUnit="Pa") = 6000,
@@ -33,7 +33,9 @@ model ReversibleCarnotWithLosses
     GEvaIns=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
-    QHea_flow_nominal=40000)
+    QHea_flow_nominal=40000,
+    TConHea_nominal=293.15,
+    TEvaHea_nominal=303.15)
                  "Chiller instance with reversbile Carnot approach"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   IBPSA.Fluid.Sources.MassFlowSource_T souCon(

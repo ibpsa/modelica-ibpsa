@@ -2,6 +2,8 @@ within IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses;
 model NoCooling
   "Placeholder to disable cooling"
   extends PartialChillerCycle(
+    TEva_nominal=273.15,
+    TCon_nominal=273.15,
     cpEva=4184,
     cpCon=4184,
     PEle_nominal=0,
@@ -9,14 +11,6 @@ model NoCooling
       IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
       iceFacCal,
     datSou="",
-    QCooNoSca_flow_nominal=1,
-    scaFac=0,
-    mEva_flow_nominal=1,
-    mCon_flow_nominal=1,
-    dTEva_nominal=0,
-    dTCon_nominal=0,
-    TEva_nominal=273.15,
-    TCon_nominal=273.15,
     QCoo_flow_nominal=0);
 
   Modelica.Blocks.Sources.Constant const(final k=0) "Zero energy flows"
