@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialOperationalEnvelope
   "Indicates if the device operation is within a defined envelope"
   extends BaseClasses.PartialSafetyWithCounter;
@@ -8,16 +8,16 @@ partial model PartialOperationalEnvelope
     "Lower boundary for cooling with second column as useful temperature side";
   parameter Boolean use_TConOutHea=true
     "=true to use condenser outlet temperature for envelope in heating mode, false for inlet"
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+    annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TEvaOutHea=false
     "=true to use evaporator outlet temperature for envelope in heating mode, false for inlet"
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+    annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TConOutCoo=false
     "=true to use useful side outlet temperature for envelope in cooling mode, false for inlet"
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+    annotation (Dialog(group="Operational Envelope"));
   parameter Boolean use_TEvaOutCoo=true
     "=true to use evaporator outlet temperature for envelope in cooling mode, false for inlet"
-    annotation (Dialog(group="Operational Envelope", enable=use_opeEnv));
+    annotation (Dialog(group="Operational Envelope"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys=5
     "Temperature deadband in the operational envelope";
