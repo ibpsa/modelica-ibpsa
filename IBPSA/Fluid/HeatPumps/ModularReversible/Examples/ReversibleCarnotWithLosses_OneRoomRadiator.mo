@@ -29,11 +29,10 @@ model ReversibleCarnotWithLosses_OneRoomRadiator
     GEvaOut=perHeaLos*Q_flow_nominal/(temAmbBas.k - sou.T),
     GEvaIns=20000,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
-    TEvaCoo_nominal=sou.T,
+    TEvaCoo_nominal=sou.T + 10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
-    QCoo_flow_nominal=-Q_flow_nominal,
     etaCarnot_nominal=0.4)
               "Reversible heat pump with losses and Carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));

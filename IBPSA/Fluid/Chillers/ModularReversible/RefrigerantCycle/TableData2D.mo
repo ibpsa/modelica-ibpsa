@@ -42,7 +42,7 @@ equation
           {-30,-26},{-30,-48},{64,-48},{64,-78}}, color={0,0,127}));
   connect(scaFacTimQUse_flow.y, proRedQEva.u2) annotation (Line(points={{40,-9},{
           40,-40},{-24,-40},{-24,-78}},  color={0,0,127}));
-  connect(ySetTimScaFac.u1, sigBus.ySet) annotation (Line(points={{-54,62},{-54,
+  connect(yMeaTimScaFac.u1, sigBus.yMea) annotation (Line(points={{-54,62},{-54,
           72},{-70,72},{-70,120},{1,120}},   color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -182,7 +182,7 @@ This implies a constant COP over different design sizes:
   compressor speed range. Typically, efficiencies will drop at minimal
   and maximal compressor speeds.
   To model an inverter controlled chiller, the relative
-  compressor speed <code>ySet</code> is used to scale
+  compressor speed <code>yMea</code> is used to scale
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the

@@ -22,9 +22,9 @@ model ReversibleAirToWater2D_OneRoomRadiator
     dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TConHea_nominal=rad.TRad_nominal,
-    TEvaHea_nominal=TAirSouSte.offset,
+    TEvaHea_nominal=556.3,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
-    TEvaCoo_nominal=TAirSouSte.offset + TAirSouSte.amplitude,
+    TEvaCoo_nominal=576.3,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08
       datTabHea,

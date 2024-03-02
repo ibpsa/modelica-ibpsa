@@ -20,7 +20,7 @@ model ConstantCarnotEffectiveness "Carnot COP with a constant Carnot effectivene
     "Nominal coefficient of performance";
 equation
 
-  connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{0,70},{0,
+  connect(pasThrYMea.u, sigBus.yMea) annotation (Line(points={{18,70},{0,70},{0,
           118},{2,118},{2,120},{1,120}},
                  color={0,0,127}), Text(
       string="%second",
@@ -102,14 +102,14 @@ equation
 </p>
 <p>
   <code>
-    QCon_flow = PEle_nominal * etaCarnot_nominal * ySet *
+    QCon_flow = PEle_nominal * etaCarnot_nominal * yMea *
     (TConOut + TAppCon) /
     (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
 </p>
 <p>
   <code>
-    PEle = PEle_nominal * ySet
+    PEle = PEle_nominal * yMea
   </code>
 </p>
 <p>

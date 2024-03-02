@@ -287,9 +287,10 @@ The following tables summarizes the possible options.
 <p>
   We use the notation <code>Set</code> to indicate a set value.
   It may be modified by the safety control blocks which produces a signal
-  with the <code>Out</code> notation. For example, the compressor
-  speed <code>ySet</code> from the bus connector <code>sigBus</code>
-  is modified by the safety control block to <code>yOut</code>.
+  with the <code>Mea</code> notation. For example, the compressor
+  speed <code>ySet</code> is modified by the safety 
+  control block to <code>yMea</code>. If no safety violations
+  occur, <code>ySet</code> equals <code>yMea</code>.
 </p>
 
 <h5>Expandable bus connector</h5>

@@ -45,7 +45,7 @@ equation
       index=1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(pasThrYSet.u, sigBus.ySet) annotation (Line(points={{18,70},{1,70},{1,
+  connect(pasThrYMea.u, sigBus.yMea) annotation (Line(points={{18,70},{1,70},{1,
           120}}, color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -92,14 +92,14 @@ equation
 </p>
 <p>
   <code>
-    QEva_flow = PEle_nominal * etaCarnot_nominal * ySet *
+    QEva_flow = PEle_nominal * etaCarnot_nominal * yMea *
     (TEvaOut - TAppEva) /
     (TConOut + TAppCon - (TEvaOut - TAppEva))
   </code>
 </p>
 <p>
   <code>
-    PEle = PEle_nominal * ySet
+    PEle = PEle_nominal * yMea 
   </code>
 </p>
 <p>

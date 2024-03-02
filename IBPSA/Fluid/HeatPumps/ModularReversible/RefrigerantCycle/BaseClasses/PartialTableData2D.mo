@@ -45,7 +45,7 @@ partial model PartialTableData2D
                                        annotation (Placement(transformation(
           extent={{-10,-10},{10,10}}, rotation=-90,
         origin={50,50})));
-  Modelica.Blocks.Math.Product ySetTimScaFac
+  Modelica.Blocks.Math.Product yMeaTimScaFac
     "Create the product of the scaling factor and relative compressor speed"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -160,14 +160,14 @@ initial algorithm
     when assuming a temperature spread between 3 and 10 K, as in EN 14511.",
     AssertionLevel.warning);
 equation
-  connect(constScaFac.y, ySetTimScaFac.u2)
+  connect(constScaFac.y,yMeaTimScaFac. u2)
     annotation (Line(points={{-79,70},{-66,70},{-66,62}}, color={0,0,127}));
-  connect(scaFacTimPel.u2, ySetTimScaFac.y) annotation (Line(points={{-46,14},{
+  connect(scaFacTimPel.u2,yMeaTimScaFac. y) annotation (Line(points={{-46,14},{
           -46,20},{-60,20},{-60,39}},
                                   color={0,0,127}));
   connect(tabQUse_flow.y, scaFacTimQUse_flow.u1) annotation (Line(points={{50,39},
           {50,32},{46,32},{46,14}}, color={0,0,127}));
-  connect(scaFacTimQUse_flow.u2, ySetTimScaFac.y) annotation (Line(points={{34,14},
+  connect(scaFacTimQUse_flow.u2,yMeaTimScaFac. y) annotation (Line(points={{34,14},
           {34,20},{-60,20},{-60,39}}, color={0,0,127}));
   connect(tabPEle.y, scaFacTimPel.u1) annotation (Line(points={{90,39},{90,26},{
           -34,26},{-34,14}}, color={0,0,127}));

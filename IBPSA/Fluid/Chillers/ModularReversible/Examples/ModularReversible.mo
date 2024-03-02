@@ -136,7 +136,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 <p>
   As the model contains internal safety controls, the
   compressor set speed <code>ySet</code> and actually applied
-  speed <code>yOut</code> are plotted to show the influence of
+  speed <code>yMea</code> are plotted to show the influence of
   the safety control.
 </p>
 <p>

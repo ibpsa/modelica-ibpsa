@@ -410,7 +410,7 @@ equation
           {-140,-41},{-141,-41}},
       color={255,204,51},
       thickness=0.5));
-  connect(safCtr.yOut, sigBus.ySet) annotation (Line(points={{-91.1667,-10},{-84,
+  connect(safCtr.yOut, sigBus.yMea) annotation (Line(points={{-91.1667,-10},{-84,
           -10},{-84,-40},{-138,-40},{-138,-42},{-140,-42},{-140,-41},{-141,-41}},
                                                     color={0,0,127}));
   connect(ySet, safCtr.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
@@ -499,7 +499,7 @@ equation
       points={{-150,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(hys.u, sigBus.ySet) annotation (Line(points={{-122,-90},{-132,-90},{-132,
+  connect(hys.u, sigBus.yMea) annotation (Line(points={{-122,-90},{-132,-90},{-132,
           -40},{-136,-40},{-136,-41},{-141,-41}},
                        color={0,0,127}));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,90},{38,90},{
@@ -523,11 +523,13 @@ equation
           12},{-76,-40},{-148,-40},{-148,-41},{-141,-41}},              color={0,
           0,127}));
   if not use_intSafCtr then
-    connect(ySet, sigBus.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+    connect(ySet, sigBus.yMea) annotation (Line(points={{-156,20},{-120,20},{-120,
             -40},{-136,-40},{-136,-41},{-141,-41}},
                        color={0,0,127}));
   end if;
-
+  connect(ySet, sigBus.ySet) annotation (Line(points={{-156,20},{-120,20},{-120,
+          -40},{-136,-40},{-136,-41},{-141,-41}},
+                     color={0,0,127}));
   connect(refCyc.PEle, P) annotation (Line(points={{19.89,0.09},{26,0.09},{26,0},{
           150,0}}, color={0,0,127}));
   connect(refCycIneEva.y, QEva_flow) annotation (Line(points={{-1.9984e-15,-61},{-1.9984e-15,
