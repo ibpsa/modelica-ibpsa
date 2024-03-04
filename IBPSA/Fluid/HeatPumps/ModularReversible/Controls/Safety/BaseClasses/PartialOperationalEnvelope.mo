@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
+within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialOperationalEnvelope
   "Indicates if the device operation is within a defined envelope"
   extends BaseClasses.PartialSafetyWithCounter;
