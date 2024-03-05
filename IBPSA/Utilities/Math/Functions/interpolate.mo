@@ -6,7 +6,7 @@ function interpolate
   input Real u "Independent variable";
   input Real[:] xd "x-axis support points";
   input Real[size(xd, 1)] yd "y-axis support points";
-  input Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
+  input Real[size(xd, 1)] d "Derivatives at the support points";
 
   output Real z "Dependent variable with monotone interpolation";
 
