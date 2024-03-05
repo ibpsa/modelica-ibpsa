@@ -3,8 +3,8 @@ block Interpolate
   "Output the smooth interpolation of the input signal on the given curve"
   extends Modelica.Blocks.Interfaces.SISO;
 
-  parameter Real[:] xd "X-axis support points";
-  parameter Real[size(xd, 1)] yd "Y-axis support points";
+  parameter Real[:] xd "x-axis support points";
+  parameter Real[size(xd, 1)] yd "y-axis support points";
   parameter Real[size(xd, 1)] d "Derivatives at the support points";
 equation
   y = IBPSA.Utilities.Math.Functions.interpolate(u=u,xd=xd,yd=yd,d=d);

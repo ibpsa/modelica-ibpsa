@@ -13,8 +13,8 @@ model Interpolate "Test model for the interpolation function"
     "Mass flow rate";
 
 protected
-  parameter Real[:] xd=table[:,1] "X-axis support points";
-  parameter Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
+  parameter Real[:] xd=table[:,1] "x-axis support points";
+  parameter Real[size(xd, 1)] yd=table[:,2] "y-axis support points";
   parameter Real[size(xd, 1)] d(each fixed=false) "Derivatives at the support points";
 
   Modelica.Blocks.Sources.Ramp ramp(

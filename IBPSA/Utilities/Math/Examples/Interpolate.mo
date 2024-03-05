@@ -6,8 +6,8 @@ model Interpolate "Example model of the Interpolate block"
     -3,-0.02133; -2,-0.01742; -1,-0.01232; 0,0; 1,0.01232; 2,0.01742; 3,0.02133;
     4.5,0.02613; 50,0.02614]
     "Table of mass flow rate in kg/s (second column) as a function of pressure difference in Pa (first column)";
-  parameter Real[:] xd=table[:,1] "X-axis support points";
-  parameter Real[size(xd, 1)] yd=table[:,2] "Y-axis support points";
+  parameter Real[:] xd=table[:,1] "x-axis support points";
+  parameter Real[size(xd, 1)] yd=table[:,2] "y-axis support points";
   parameter Real[size(xd, 1)] d =
     IBPSA.Utilities.Math.Functions.splineDerivatives(
       x=xd,
