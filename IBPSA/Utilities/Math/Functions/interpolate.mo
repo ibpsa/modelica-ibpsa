@@ -1,6 +1,6 @@
 within IBPSA.Utilities.Math.Functions;
 function interpolate
-  "Function for the interpolation of table data for airflow models"
+  "Function for cubic hermite spline interpolation of table data"
   extends Modelica.Icons.Function;
 
   input Real u "Independent variable";
