@@ -61,7 +61,7 @@ function value <i>y<sup>1</sup></i> is returned.
 </p>
 <p>
 Note that if <code>xSup</code> and <code>ySup</code> only depend on parameters
-or constants and will not change during the simulation,
+or constants, and therefore will not change during the simulation,
 it is more efficient to first call
 <a href=\"modelica://IBPSA.Utilities.Math.Functions.splineDerivatives\">
 IBPSA.Utilities.Math.Functions.splineDerivatives</a>
