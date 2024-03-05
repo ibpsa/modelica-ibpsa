@@ -34,7 +34,11 @@ algorithm
     Documentation(info="<html>
 <p>
 This function returns the value on a cubic hermite spline through the given support points
-and provided spline derivatives at these points with monotonically increasing values.
+and provided spline derivatives at these points.
+The spline derivatives at the support points can be computed using
+<a href=\"modelica://IBPSA.Utilities.Math.Functions.splineDerivatives\">
+IBPSA.Utilities.Math.Functions.splineDerivatives</a>.
+The support points must be monotonically increasing.
 Outside the provided support points, the function returns a linear extrapolation with
 the same slope as the cubic spline has at the respective support point.
 </p>

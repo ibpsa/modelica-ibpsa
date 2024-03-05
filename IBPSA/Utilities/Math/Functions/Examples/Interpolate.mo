@@ -22,13 +22,13 @@ protected
     height=100,
     offset=-50) "Ramp from -50Pa to +50Pa";
 initial equation
-  d =IBPSA.Utilities.Math.Functions.splineDerivatives(
+  d = IBPSA.Utilities.Math.Functions.splineDerivatives(
     x=xd,
     y=yd,
     ensureMonotonicity=true);
 equation
    dp=ramp.y;
-   m_flow =IBPSA.Utilities.Math.Functions.interpolate(u=dp,xd=xd,yd=yd,d=d);
+   m_flow = IBPSA.Utilities.Math.Functions.interpolate(u=dp, xd=xd, yd=yd, d=d);
 
   annotation (
 experiment(
