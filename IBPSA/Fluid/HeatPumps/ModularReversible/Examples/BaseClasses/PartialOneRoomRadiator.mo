@@ -73,7 +73,6 @@ partial model PartialOneRoomRadiator
 
   Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
-    per(pressure(V_flow={0,2*pumHeaPum.m_flow_nominal/1000}, dp={2*pumHeaPum.dp_nominal,0})),
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mCon_flow_nominal,
     m_flow_start=0.85,
