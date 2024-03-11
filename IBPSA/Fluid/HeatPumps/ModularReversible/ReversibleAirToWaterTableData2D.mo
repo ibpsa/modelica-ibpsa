@@ -2,7 +2,7 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model ReversibleAirToWaterTableData2D
   "Reversible air to water heat pump based on 2D manufacturer data in Europe"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
-    final QCoo_flow_nominal=refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal*scaFac,
+    QCoo_flow_nominal=refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal*scaFac,
     dpEva_nominal=datTabHea.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTabHea.dpCon_nominal*scaFac^2,
     redeclare replaceable
