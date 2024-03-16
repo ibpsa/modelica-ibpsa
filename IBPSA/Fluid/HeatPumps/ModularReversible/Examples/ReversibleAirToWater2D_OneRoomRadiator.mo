@@ -21,6 +21,7 @@ model ReversibleAirToWater2D_OneRoomRadiator
     dpCon_nominal(displayUnit="Pa") = 2000,
     dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    QCoo_flow_nominal=-20000,
     TConHea_nominal=rad.TRad_nominal,
     TEvaHea_nominal=283.15,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
