@@ -104,7 +104,7 @@ and the mass flow rate of the system.
 <li>
 March 18, 2024, by Michael Wetter:<br/>
 Added causality.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">#1853</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
 </li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
