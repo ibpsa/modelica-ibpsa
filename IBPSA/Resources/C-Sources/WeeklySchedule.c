@@ -3,6 +3,8 @@
   This code implements a weekly schedule.
 
   Changelog:
+    March 30, 2024 by Filip Jorissen, Builtwins
+          Revisions for #1860 to avoid memory leaks when calling ModelicaFormatError.
     May 25, 2022 by Michael Wetter, LBNL
           Refactored to comply with C89.
     March 9, 2022 by Filip Jorissen, KU Leuven

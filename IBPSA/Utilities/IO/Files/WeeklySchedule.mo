@@ -54,6 +54,10 @@ protected
         revisions="<html>
 <ul>
 <li>
+March 30 2024, by Filip Jorissen:<br/>
+Avoiding memory leaks for #1860.
+</li>
+<li>
 April 10 2022, by Filip Jorissen:<br/>
 Added parameter source implementation.
 </li>
