@@ -16,6 +16,7 @@
 #ifndef WEEKCAL_h
 #define WEEKCAL_h
 
+
 typedef struct TimeDataTuple {
   double time;	/* Time relative to monday midnight. */
   double *data; /* Corresponding column data */
@@ -31,7 +32,14 @@ typedef struct WeeklySchedule {
   double previousTimestamp; /* Time where the schedule was called the previous time */
   int previousIndex;        /* Index where the schedule was called the previous time */
 
-  struct TimeDataTuple ** schedule;
+  int n_allocatedRules;
+  int n_allocatedRulesData;
+  double * lastData;
+  char * token;
+  FILE* fp;
+  char* buff2;
+  struct TimeDataTuple **rules;
+
 } WeeklySchedule;
 
 
@@ -39,6 +47,8 @@ typedef struct WeeklySchedule {
 void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, char* stringData);
 
 void weeklyScheduleFree(void * ID);
+
+void weeklyScheduleFreeInit(void * ID);
 
 double getScheduleValue(void * ID, const int column, const double time);
 
