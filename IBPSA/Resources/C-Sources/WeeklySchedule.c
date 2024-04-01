@@ -108,7 +108,9 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
       c = stringData[j]; /* read a character from the string */
       j++;
     }
-    if ( c == EOF || c == '\0') {
+    if ( c == '\r' ){
+        continue;
+    } else if ( c == EOF || c == '\0') {
       if (!tableOnFile && c == '\0'){
         break;
       }else if (tableOnFile && feof(scheduleID->fp)) {
