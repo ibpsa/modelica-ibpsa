@@ -55,7 +55,7 @@ protected
 <ul>
 <li>
 March 30 2024, by Filip Jorissen:<br/>
-Avoiding memory leaks for #1860.
+Avoiding memory leaks for <a href="https://github.com/ibpsa/modelica-ibpsa/pull/1861">#1860</a>.
 </li>
 <li>
 April 10 2022, by Filip Jorissen:<br/>
