@@ -55,7 +55,7 @@ protected
 <ul>
 <li>
 March 30 2024, by Filip Jorissen:<br/>
-Avoiding memory leaks for <a href="https://github.com/ibpsa/modelica-ibpsa/pull/1861">#1860</a>.
+Avoiding memory leaks for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1861\">IBPSA, #1860</a>.
 </li>
 <li>
 April 10 2022, by Filip Jorissen:<br/>
@@ -94,7 +94,7 @@ The parameter <code>columns</code> is used to specify which columns of the table
 The first column is time, hence for the above example, set <code>columns = {2}</code>.
 </p>
 <p>
-See <a href=\"modelica://IBPSA/Resources/Data/schedule.txt\">IBPSA/Resources/Data/schedule.txt</a> 
+See <a href=\"modelica://IBPSA/Resources/Data/schedule.txt\">IBPSA/Resources/Data/schedule.txt</a>
 for an example of the supported file format.
 </p>
 </html>"),
