@@ -176,6 +176,11 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
             weeklyScheduleFree(scheduleID);
             ModelicaFormatError("Incorrect header when reading weekly schedule '%s'. No comma was found in the header.", name);
           }
+          if ( ncharsRow > bufLen - 2 ) {
+            weeklyScheduleFreeInit(scheduleID);
+            weeklyScheduleFree(scheduleID);
+            ModelicaFormatError("Header length exceeds buffer size.");
+          }
           strncpy(scheduleID->buff2, source, ncharsRow);
           scheduleID->buff2[ncharsRow] = '\0';
 
