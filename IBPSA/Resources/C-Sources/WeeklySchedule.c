@@ -413,10 +413,6 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
     }
   }
 
-  if (tableOnFile){
-    fclose(scheduleID->fp);
-  }
-
   if (n_newLines==0){
     weeklyScheduleFreeInit(scheduleID);
     weeklyScheduleFree(scheduleID);
