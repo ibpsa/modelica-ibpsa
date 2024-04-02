@@ -43,7 +43,7 @@ typedef struct WeeklySchedule {
 
 
 
-void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, char* stringData);
+void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, const char* stringData);
 
 void weeklyScheduleFree(void * ID);
 
