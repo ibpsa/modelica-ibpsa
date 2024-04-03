@@ -204,6 +204,9 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean calEff=true
     "=false to disable efficiency calculation, may speed up the simulation"
     annotation(Dialog(tab="Advanced"));
+  parameter Real limWarDifSca = 5
+    "Percentage of different scaling between cooling and heating to raise warning"
+    annotation(Dialog(tab="Advanced"));
 
   Modelica.Units.SI.HeatFlowRate Q1_flow = QCon_flow
     "Heat transferred into the medium 1";

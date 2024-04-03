@@ -55,10 +55,10 @@ model ModularReversible
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
     "Nominal temperature at secondary evaporator side in heating mode"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TConCoo_nominal=TConHea_nominal
+  parameter Modelica.Units.SI.Temperature TConCoo_nominal
     "Nominal temperature at secondary condenser side in cooling mode"
     annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
-  parameter Modelica.Units.SI.Temperature TEvaCoo_nominal=TEvaHea_nominal
+  parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
     "Nominal temperature at secondary evaporator side in cooling mode"
     annotation(Dialog(enable=use_rev, group="Nominal condition - Cooling"));
 

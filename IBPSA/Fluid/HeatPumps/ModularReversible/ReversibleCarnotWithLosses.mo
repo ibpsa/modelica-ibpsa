@@ -21,7 +21,6 @@ model ReversibleCarnotWithLosses
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.FunctionalIcingFactor
           iceFacCal(redeclare function icingFactor =
               IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.Functions.wetterAfjei1997),
-
         etaCarnot_nominal=etaCarnot_nominal,
         TAppCon_nominal=TAppCon_nominal,
         TAppEva_nominal=TAppEva_nominal),
@@ -49,6 +48,13 @@ model ReversibleCarnotWithLosses
   parameter Integer nthOrd(min=1)=1 "Order of refrigerant cycle interia"
     annotation(Dialog(group="Refrigerant cycle inertia"));
 
+initial algorithm
+  assert(use_rev and ((refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal * 100 < limWarDifSca),
+    "In " + getInstanceName() + ": Nominal electrical powers for heating and cooling 
+    operation differ by " + String((refCyc.refCycHeaPumCoo.PEle_nominal - PEle_nominal) / PEle_nominal * 100) +
+    " %. The simulated nominal heating and cooling 
+    capacities may not be realistic for a single device",
+    AssertionLevel.warning);
   annotation (Documentation(info="<html>
 <p>
   Model of a reversible heat pump.
