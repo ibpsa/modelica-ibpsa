@@ -31,11 +31,11 @@ int cmpfun(const void * tuple1, const void * tuple2) {
   return  (time1 - time2);
 }
 
-void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, char* stringData) {
+void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t_offset, const char* stringData) {
   const int bufLen = 255;
   WeeklySchedule* scheduleID = NULL;
 
-  
+
   int i = 0;              /* iterator */
   int j = 0;              /* iterator */
   int k = 0;              /* iterator */
@@ -526,7 +526,7 @@ double getScheduleValue(void * ID, const int column, const double modelicaTime) 
   int i;
   const int columnIndex = column - 1; /* Since we do not store the time indices in the data table */
 
-  /* Not calling weeklyScheduleFreeInit() or weeklyScheduleFree() since weeklyScheduleFreeInit() has already been called at the end of the 
+  /* Not calling weeklyScheduleFreeInit() or weeklyScheduleFree() since weeklyScheduleFreeInit() has already been called at the end of the
   initialization and Modelica will call weeklyScheduleFree() upon a call of ModelicaFormatError) */
   if (column < 0 || column > scheduleID->n_cols_in - 1) {
     ModelicaFormatError("The requested column index '%i' is outside of the table range.", column + 1);
