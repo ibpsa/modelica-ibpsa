@@ -6,7 +6,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     V=6*100*3,
-    witCoo=false,
+    witCoo=true,
     mAirRoo_flow_nominal=V*1.2*6/3600*10,
     Q_flow_nominal=200000,
     sin(nPorts=1),
@@ -16,7 +16,7 @@ model LargeScaleWaterToWater_OneRoomRadiator
     pumHeaPumSou(
       redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater heaPum(
     QHea_flow_nominal=Q_flow_nominal,
     use_intSafCtr=true,
     TConHea_nominal=TRadSup_nominal,
@@ -26,9 +26,14 @@ model LargeScaleWaterToWater_OneRoomRadiator
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar,
+    TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
+    TEvaCoo_nominal=sou.T + 10,
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.EN14511.WAMAK_WaterToWater_220kW
-      datTab)
+      datTabHea,
+    redeclare
+      IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Carrier30XWP1012_1MW
+      datTabCoo)
     "Large scale water to water heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 equation
@@ -44,6 +49,8 @@ equation
         points={{-139.167,-66.6667},{26,-66.6667},{26,-148},{21.2,-148}},
                                                                         color={
           0,0,127}));
+  connect(oneRooRadHeaPumCtr.hea, heaPum.hea) annotation (Line(points={{
+          -139.167,-75},{32,-75},{32,-151.9},{21.1,-151.9}}, color={255,0,255}));
   annotation (
      __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/LargeScaleWaterToWater_OneRoomRadiator.mos"
@@ -56,8 +63,8 @@ equation
    info="<html>
 <p>
   This example demonstrates how to use the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater</a>
   heat pump model. Please check the associated documentation for
   further information.
 </p>

@@ -115,8 +115,8 @@ to the section <b>Refrigerant cycle models</b>.
 </p>
 <ul>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater</a>
 </li>
 <li>
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">

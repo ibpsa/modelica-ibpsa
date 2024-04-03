@@ -65,8 +65,8 @@ equation
         points={{-139.167,-66.6667},{21.2,-66.6667},{21.2,-148}},         color=
          {0,0,127}));
   connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(
-        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-75},{-139.167,
-          -75}},                                  color={255,0,255}));
+        points={{21.1,-151.9},{24,-151.9},{24,-152},{26,-152},{26,-75},{
+          -139.167,-75}},                         color={255,0,255}));
   connect(TAirSouSte.y, sou.T_in) annotation (Line(points={{-139,-210},{-94,-210},
           {-94,-196},{-82,-196}}, color={0,0,127}));
   annotation (
