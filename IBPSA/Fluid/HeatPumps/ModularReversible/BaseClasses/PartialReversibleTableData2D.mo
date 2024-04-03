@@ -102,6 +102,37 @@ initial algorithm
   Also, icing is disabled as the performance degradation
   is already contained in the data.
 </p>
+  
+<h4>Sizing</h4>
+
+<p>
+  At the nominal conditions, the refrigerant cycle model will
+  calculate the unscaled nominal heat flow rate, which is
+  named <code>QHeaNoSca_flow_nominal</code> for heat pumps and 
+  <code>QCooNoSca_flow_nominal</code> for chillers.
+  This value is probably
+  different from <code>QUse_flow_nominal</code> which is for sizing.
+  For example, suppose you need a 7.6 kW heat pump,
+  but the datasheets only provides 5 kW and 10 kW options.
+  In such cases, the performance data and relevant parameters
+  are scaled using a scaling factor <code>scaFac</code>.
+  Resulting, the refrigerant machine can supply more or less heat with
+  the COP staying constant. However, one has to make sure
+  that the movers in use also scale with this factor.
+  Note that most parameters are scaled linearly. Only the
+  pressure differences are scaled quadratically due to
+  the linear scaling of the mass flow rates and the
+  basic assumption:
+  <p align=\"center\" style=\"font-style:italic;\">
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+  Both <code>QHeaNoSca_flow_nominal</code> or <code>QCooNoSca_flow_nominal</code> 
+  and <code>scaFac</code>
+  are calculated in the refrigerant cycle models.
+</p>
+  
+  
 <p>
 Please read the documentation of the model for heating at
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">

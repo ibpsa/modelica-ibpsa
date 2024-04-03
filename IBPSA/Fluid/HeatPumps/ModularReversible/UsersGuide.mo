@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -379,9 +379,6 @@ The following tables summarizes the possible options.
 <li>
   evaporator temperature <code>TEva_nominal</code>,
 </li>
-<li>
-  compressor speed <code>y_nominal</code>.
-</li>
 </ul>
 <p>
   Depending on the model in use, this may be in- out outlet.
@@ -401,42 +398,7 @@ The following tables summarizes the possible options.
   As reversible devices have typically a four-way-valve and a single
   compressor, you have to make sure that the values for <code>PEle_nominal</code> 
   are similar between heating and cooling. The pre-configured models 
-  already contain assumptions in this regard. 
-</p>
-
-
-<h4>Sizing</h4>
-
-<p>
-  At the nominal conditions, the refrigerant cycle model will
-  calculate the unscaled nominal heat flow rate, which is
-  named <code>QHeaNoSca_flow_nominal</code> for heat pumps and 
-  <code>QCooNoSca_flow_nominal</code> for chillers.
-  This value is probably
-  different from <code>QUse_flow_nominal</code> which is for sizing.
-  For example, suppose you need a 7.6 kW heat pump,
-  but the datasheets only provides 5 kW and 10 kW options.
-  In such cases, the performance data and relevant parameters
-  are scaled using a scaling factor <code>scaFac</code>.
-  Resulting, the refrigerant machine can supply more or less heat with
-  the COP staying constant. However, one has to make sure
-  that the movers in use also scale with this factor.
-  Note that most parameters are scaled linearly. Only the
-  pressure differences are scaled quadratically due to
-  the linear scaling of the mass flow rates and the
-  basic assumption:
-  <p align=\"center\" style=\"font-style:italic;\">
-  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
-</p>
-<p>
-  Both <code>QHeaNoSca_flow_nominal</code> or <code>QCooNoSca_flow_nominal</code> 
-  and <code>scaFac</code>
-  are calculated in the refrigerant cycle models.
-  The <code>scaFac</code> is propagated to the
-  uppermost layer of the <code>ModularReversible</code> models.
-  If both heating and cooling operation is enabled
-  using <code>use_rev</code>, the scaling of the secondary
-  operation is overwritten by the one in the primary operation.
+  warn about deviations if they are too large.
 </p>
 
 <h4>Safety controls</h4>
