@@ -1,4 +1,4 @@
-﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
+within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
