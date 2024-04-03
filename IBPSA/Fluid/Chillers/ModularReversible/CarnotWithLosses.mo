@@ -1,7 +1,7 @@
 within IBPSA.Fluid.Chillers.ModularReversible;
-model ReversibleCarnotWithLosses
+model CarnotWithLosses
   "Reversible chiller using Carnot approach with losses (frost, heat, inertia)"
-  extends IBPSA.Fluid.Chillers.ModularReversible.ModularReversible(
+  extends IBPSA.Fluid.Chillers.ModularReversible.Modular(
     QHea_flow_nominal=PEle_nominal*refCyc.refCycChiHea.COP_nominal,
     redeclare model RefrigerantCycleChillerHeating =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
@@ -61,8 +61,8 @@ model ReversibleCarnotWithLosses
 </p>
 <p>
   This model extends
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> and selects the
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Modular\">
+  IBPSA.Fluid.Chillers.ModularReversible.Modular</a> and selects the
   constant Carnot effectiveness module for chillers
   (<a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a>)
@@ -88,4 +88,4 @@ For more information, see
   IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide</a>.
 </p>
 </html>"));
-end ReversibleCarnotWithLosses;
+end CarnotWithLosses;

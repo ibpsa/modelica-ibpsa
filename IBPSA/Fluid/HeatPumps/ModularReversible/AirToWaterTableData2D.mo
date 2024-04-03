@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
-model ReversibleAirToWaterTableData2D
+model AirToWaterTableData2D
   "Reversible air to water heat pump based on 2D manufacturer data in Europe"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleTableData2D(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialTableData2D(
     redeclare package MediumEva = IBPSA.Media.Air,
     redeclare package MediumCon = IBPSA.Media.Water,
     redeclare replaceable IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater datTabHea
@@ -14,8 +14,8 @@ model ReversibleAirToWaterTableData2D
   Reversible air-to-water heat pump based on
   two-dimensional data from manufacturer data, (e.g. based on EN 14511),
   using the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> approach.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a> approach.
 </p>
 <p>
   For more information on the approach, see
@@ -48,4 +48,4 @@ https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
 </p>
 
 </html>"));
-end ReversibleAirToWaterTableData2D;
+end AirToWaterTableData2D;

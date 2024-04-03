@@ -55,12 +55,12 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 <p>
   Large scale water-to-water chiller,
   using the
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> approach.
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Modular\">
+  IBPSA.Fluid.Chillers.ModularReversible.Modular</a> approach.
 </p>
 <p>
-  Contrary to the standard sizing approach for the <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> models,
+  Contrary to the standard sizing approach for the <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Modular\">
+  IBPSA.Fluid.Chillers.ModularReversible.Modular</a> models,
   the parameters are based on an automatic estimation as described in
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.

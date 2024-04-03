@@ -657,8 +657,8 @@ equation
   model for heat pumps and chillers, e.g. by
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle</a>
-  in <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a>.
+  in <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a>.
 </p>
 <p>
   For more information on the approach, please read the

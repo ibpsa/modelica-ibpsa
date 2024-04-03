@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
-model ReversibleCarnotWithLosses
+model CarnotWithLosses
   "Heat pump using the Carnot approach, but with added reversibility and losses (heat, frost, inertia)"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.Modular(
     QCoo_flow_nominal=-PEle_nominal*refCyc.refCycHeaPumCoo.EER_nominal,
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
@@ -61,8 +61,8 @@ initial algorithm
 </p>
 <p>
   This model extends
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and selects the
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a> and selects the
   constant Carnot effectiveness module for heat pumps
   (<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a>)
@@ -96,4 +96,4 @@ initial algorithm
 </li>
 </ul>
 </html>"));
-end ReversibleCarnotWithLosses;
+end CarnotWithLosses;

@@ -9,7 +9,7 @@ partial model PartialModularComparison
     sou2(nPorts=1),
     sin1(nPorts=1));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare final package MediumCon = Medium1,
     redeclare final package MediumEva = Medium2,
     QHea_flow_nominal=QUse_flow_nominal,

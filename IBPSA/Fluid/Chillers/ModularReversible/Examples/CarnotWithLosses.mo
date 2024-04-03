@@ -5,7 +5,7 @@ model CarnotWithLosses
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
-  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses chi(
+  IBPSA.Fluid.Chillers.ModularReversible.CarnotWithLosses chi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QCoo_flow_nominal=-30000,
@@ -123,8 +123,8 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 <p>
   Example that simulates a chiller based on the modular reversible approach
   using the
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses</a>.
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.CarnotWithLosses\">
+  IBPSA.Fluid.Chillers.ModularReversible.CarnotWithLosses</a>.
   model directly.
   The chiller control signal is the compressor speed
   <code>ySet</code> and the mode <code>coo</code>.

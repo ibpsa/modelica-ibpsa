@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
-model ReversibleLargeScaleWaterToWater
+model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleTableData2D(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialTableData2D(
     redeclare package MediumCon = IBPSA.Media.Water,
     redeclare package MediumEva = IBPSA.Media.Water,
     final mCon_flow_nominal=autCalMasCon_flow,
@@ -22,8 +22,8 @@ model ReversibleLargeScaleWaterToWater
 </p>
 <p>
   Contrary to the standard sizing approach for the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> models,
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a> models,
   the parameters are based on an automatic estimation as described in
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations\">
   IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.LargeScaleWaterToWaterDeclarations</a>.
@@ -53,4 +53,4 @@ model ReversibleLargeScaleWaterToWater
   </li>
 </ul>
 </html>"));
-end ReversibleLargeScaleWaterToWater;
+end LargeScaleWaterToWater;

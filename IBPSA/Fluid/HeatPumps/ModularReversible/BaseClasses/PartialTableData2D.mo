@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
-partial model PartialReversibleTableData2D
+partial model PartialTableData2D
   "Reversible heat pump based on 2D manufacturer data"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.Modular(
     final use_rev=true,
     QCoo_flow_nominal=refCyc.refCycHeaPumCoo.QCooNoSca_flow_nominal*scaFacHea,
     dpEva_nominal=datTabHea.dpEva_nominal*scaFacHea^2,
@@ -87,8 +87,8 @@ initial algorithm
   Heat pump based on
   two-dimensional data from manufacturer data, (e.g. based on EN 14511),
   using the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> approach.
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a> approach.
 </p>
 <p>
   For more information on the approach, see
@@ -152,4 +152,4 @@ https://www.beuth.de/de/norm/din-en-14511-1/298537524</a>
 </p>
 
 </html>"));
-end PartialReversibleTableData2D;
+end PartialTableData2D;

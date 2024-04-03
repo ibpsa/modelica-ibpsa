@@ -4,6 +4,6 @@ InflowTemperatureSensor
 LargeScaleWaterToWaterDeclarations
 PartialModularRefrigerantCycle
 PartialReversibleRefrigerantMachine
-PartialReversibleTableData2D
+PartialTableData2D
 RefrigerantCycle
 RefrigerantMachineControlBus

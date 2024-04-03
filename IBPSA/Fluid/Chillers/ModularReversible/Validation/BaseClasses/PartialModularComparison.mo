@@ -9,7 +9,7 @@ partial model PartialModularComparison
     sou2(nPorts=1),
     sin1(nPorts=1));
 
-  ModularReversible chi(
+  Modular chi(
     redeclare final package MediumCon = Medium1,
     redeclare final package MediumEva = Medium2,
     QCoo_flow_nominal=-QUse_flow_nominal,

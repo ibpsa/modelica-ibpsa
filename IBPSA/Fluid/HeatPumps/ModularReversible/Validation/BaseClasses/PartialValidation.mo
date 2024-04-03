@@ -27,7 +27,7 @@ partial model PartialValidation
         extent={{-11,11},{11,-11}},
         rotation=0,
         origin={-31,11})));
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare final package MediumCon = MediumSin,
     redeclare final package MediumEva = MediumSou,
     final use_intSafCtr=false,

@@ -11,7 +11,7 @@ model AirToWater2D_OneRoomRadiator
     sou(use_T_in=true,
         redeclare package Medium = MediumAir));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D
+  IBPSA.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D
     heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
@@ -80,8 +80,8 @@ equation
     Documentation(info="<html>
 <p>
   This example demonstrates how to use the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D</a>
   heat pump model. Please check the associated documentation for
   further information.
 </p>

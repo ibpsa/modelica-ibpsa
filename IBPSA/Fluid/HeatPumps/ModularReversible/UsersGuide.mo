@@ -86,8 +86,8 @@ package UsersGuide
 
 <h5>Heat pump models</h5>
 <p>
-For heat pumps, the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> extends the partial model and adds
+For heat pumps, the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a> extends the partial model and adds
 the connector <code>hea</code> to choose
 between the operation modes of the heat pump:
 </p>
@@ -115,24 +115,24 @@ to the section <b>Refrigerant cycle models</b>.
 </p>
 <ul>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleLargeScaleWaterToWater</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
 </li>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleAirToWaterTableData2D</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D</a>
 </li>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.CarnotWithLosses\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.CarnotWithLosses</a>
 </li>
 </ul>
 
 <h5>Chiller models</h5>
 
 <p>
-For chillers, the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a> extends the partial model and adds
+For chillers, the model <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Modular\">
+IBPSA.Fluid.Chillers.ModularReversible.Modular</a> extends the partial model and adds
 the connector <code>coo</code> to choose
 between the operation mode of the chiller:
 </p>
@@ -164,8 +164,8 @@ to the section <b>Refrigerant cycle models</b>.
   IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater</a>
 </li>
 <li>
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.Chillers.ModularReversible.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.CarnotWithLosses\">
+  IBPSA.Fluid.Chillers.ModularReversible.CarnotWithLosses</a>
 </li>
 </ul>
 

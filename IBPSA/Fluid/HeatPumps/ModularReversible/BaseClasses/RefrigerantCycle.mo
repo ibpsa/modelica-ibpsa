@@ -168,8 +168,8 @@ equation
 </html>", info="<html>
 <p>
   Modular refrigerant cycle model for heat pump applications used in
-  the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a> and extending models
+  the model <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a> and extending models
   of the modular approach.
 </p>
 <p>

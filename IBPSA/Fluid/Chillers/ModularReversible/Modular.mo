@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible;
-model ModularReversible
+model Modular
   "Grey-box model for reversible chillers"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
@@ -132,4 +132,4 @@ equation
   IBPSA.Fluid.HeatPumps.ModularReversible.UsersGuide</a>.
 </p>
 </html>"));
-end ModularReversible;
+end Modular;

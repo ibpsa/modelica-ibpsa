@@ -5,7 +5,7 @@ model Modular
   package MediumCon = IBPSA.Media.Air "Medium model for condenser";
   package MediumEva = IBPSA.Media.Water "Medium model for evaporator";
 
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible chi(
+  IBPSA.Fluid.Chillers.ModularReversible.Modular chi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
     QCoo_flow_nominal=-30000,
@@ -142,8 +142,8 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
 <p>
   The example further demonstrates how to redeclare the replaceable options
   in the model approach
-  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a>.
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.Modular\">
+  IBPSA.Fluid.Chillers.ModularReversible.Modular</a>.
 </p>
 </html>"));
 end Modular;

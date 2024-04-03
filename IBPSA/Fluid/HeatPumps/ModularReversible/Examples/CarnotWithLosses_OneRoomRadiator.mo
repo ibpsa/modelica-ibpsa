@@ -10,7 +10,7 @@ model CarnotWithLosses_OneRoomRadiator
 
   parameter Real perHeaLos=0.1
     "Percentage of heat losses in the heat exchangers to the nominal heating output";
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.CarnotWithLosses heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumWat,
     QHea_flow_nominal=Q_flow_nominal,
@@ -74,8 +74,8 @@ equation
     Documentation(info="<html>
 <p>
   This example demonstrates how to use the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ReversibleCarnotWithLosses</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.CarnotWithLosses\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.CarnotWithLosses</a>
   heat pump model. Please check the associated documentation for
   further information.
 </p>

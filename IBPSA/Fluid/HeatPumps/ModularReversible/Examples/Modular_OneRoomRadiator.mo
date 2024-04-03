@@ -10,7 +10,7 @@ model Modular_OneRoomRadiator
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal));
   extends Modelica.Icons.Example;
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible heaPum(
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
     QHea_flow_nominal=Q_flow_nominal,
@@ -84,8 +84,8 @@ equation
   annotation (Documentation(info="<html>
 <p>
   This example demonstrates how to use the
-  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible\">
-  IBPSA.Fluid.HeatPumps.ModularReversible.ModularReversible</a>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Modular\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.Modular</a>
   heat pump model directly. Please check the associated documentation for
   further information.
 </p>
