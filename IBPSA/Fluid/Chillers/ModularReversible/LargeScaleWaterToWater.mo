@@ -1,6 +1,6 @@
 within IBPSA.Fluid.Chillers.ModularReversible;
 model LargeScaleWaterToWater "Large scale water to water chiller"
-  extends ModularReversible(
+  extends Modular(
     dpEva_nominal=datTab.dpEva_nominal*scaFac^2,
     dpCon_nominal=datTab.dpCon_nominal*scaFac^2,
     final dTEva_nominal=-QCoo_flow_nominal/cpEva/mEva_flow_nominal,
