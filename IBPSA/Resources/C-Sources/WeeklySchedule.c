@@ -50,7 +50,9 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   int n_rulesInRow = 0;   /* number of rules that exist in the current row */
   int n_rowsPacked = 0;   /* number of rules */
   int n_newLines = 0;     /* number of newlines */
+  int mustHaveNewLine = 0;/* The next character must be a newline */
   char c;                 /* the character that is being parsed in this iteration */
+ 
 
   int parseToken = 0;
   double timeStamp;
@@ -108,9 +110,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
       c = stringData[j]; /* read a character from the string */
       j++;
     }
-    if ( c == '\r' ){
-        continue;
-    } else if ( c == EOF || c == '\0') {
+    if ( c == EOF || c == '\0') {
       if (!tableOnFile && c == '\0'){
         break;
       }else if (tableOnFile && feof(scheduleID->fp)) {
@@ -130,7 +130,14 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
       if (c == '\n') { /* Check whether a token ends */
         parseToken = 1;
+        mustHaveNewLine = 0;
         n_newLines++;
+      } else if (mustHaveNewLine == 1){
+        weeklyScheduleFreeInit(scheduleID);
+        weeklyScheduleFree(scheduleID);
+        ModelicaFormatError("Error while reading weekly schedule '%s'. Inconsistent line endings: \\r must be followed by \\n.", name);
+      } else if (c == '\r') { /* Check whether a token ends */
+        mustHaveNewLine = 1;
       } else if (comment == 1 || c == '#') {
         comment = 1;
         continue; /* ignore this character and the next characters until a newline is detected, then parse the token */
@@ -153,7 +160,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
         tokenLen = strlen(scheduleID->token);
         index = 0;
 
-        /* ModelicaFormatWarning("Parsing token %s", token);*/
+        /* ModelicaFormatWarning("Parsing token %s", scheduleID->token); */
 
         if (foundHeader == 0 && strcmp("double", scheduleID->token) == 0) {
 		  /* we found a header line, we expect a specific format after the whitespace */
@@ -344,7 +351,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
               weeklyScheduleFree(scheduleID);
               ModelicaFormatError("Failed to allocate memory for rules[rule_i] in WeeklySchedule.c.");
             }
-            scheduleID->n_allocatedRules = rule_i;
+            scheduleID->n_allocatedRules++;
 
             scheduleID->rules[rule_i]->time = time_i;
             scheduleID->rules[rule_i]->data = (double*)calloc(sizeof(double), (scheduleID->n_cols_in - 1));
@@ -353,7 +360,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
               weeklyScheduleFree(scheduleID);
               ModelicaFormatError("Failed to allocate memory for rules[rule_i]->data in WeeklySchedule.c.");
             }
-            scheduleID->n_allocatedRulesData = rule_i;
+            scheduleID->n_allocatedRulesData++;
 
             rule_i++;
             n_rulesInRow++;
