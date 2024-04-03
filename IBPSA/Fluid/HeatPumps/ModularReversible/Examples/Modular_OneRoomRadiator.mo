@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
-model ModularReversible_OneRoomRadiator
+model Modular_OneRoomRadiator
   "Modular reversible heat pump connected to a simple room model with radiator"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
@@ -110,10 +110,10 @@ equation
 </ul>
 </html>"),
    __Dymola_Commands(file=
-     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ModularReversible_OneRoomRadiator.mos"
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/Modular_OneRoomRadiator.mos"
         "Simulate and plot"),
   experiment(
       StartTime=0,
       StopTime=86400,
       Tolerance=1e-08));
-end ModularReversible_OneRoomRadiator;
+end Modular_OneRoomRadiator;

@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Examples;
-model ModularReversible
+model Modular
   "Example for modular reversible chiller"
   extends Modelica.Icons.Example;
   package MediumCon = IBPSA.Media.Air "Medium model for condenser";
@@ -117,7 +117,7 @@ equation
   connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},{-22,
           7.9},{-1.1,7.9}}, color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/ModularReversible.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/Modular.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -146,4 +146,4 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   IBPSA.Fluid.Chillers.ModularReversible.ModularReversible</a>.
 </p>
 </html>"));
-end ModularReversible;
+end Modular;

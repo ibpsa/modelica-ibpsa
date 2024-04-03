@@ -1,5 +1,5 @@
 within IBPSA.Fluid.Chillers.ModularReversible.Examples;
-model ReversibleCarnotWithLosses
+model CarnotWithLosses
   "Example for reversible Carnot chiller model"
   extends Modelica.Icons.Example;
   package MediumCon = IBPSA.Media.Water "Medium model for condenser";
@@ -109,7 +109,7 @@ equation
   connect(chiCoo.y, chi.coo) annotation (Line(points={{-39,-50},{-22,-50},{-22,7.9},
           {-1.1,7.9}},           color={255,0,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/ReversibleCarnotWithLosses.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers/ModularReversible/Examples/CarnotWithLosses.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -136,4 +136,4 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Chillers
   the safety control.
 </p>
 </html>"));
-end ReversibleCarnotWithLosses;
+end CarnotWithLosses;

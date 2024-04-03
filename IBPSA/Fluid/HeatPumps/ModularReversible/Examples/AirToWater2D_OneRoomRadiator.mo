@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
-model ReversibleAirToWater2D_OneRoomRadiator
+model AirToWater2D_OneRoomRadiator
   "Reversible heat pump with EN 2D data connected to a simple room model with radiator"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
@@ -71,7 +71,7 @@ equation
           {-94,-196},{-82,-196}}, color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
-     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ReversibleAirToWater2D_OneRoomRadiator.mos"
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/AirToWater2D_OneRoomRadiator.mos"
         "Simulate and plot"),
   experiment(
       StartTime=0,
@@ -100,4 +100,4 @@ equation
 </li>
 </ul>
 </html>"));
-end ReversibleAirToWater2D_OneRoomRadiator;
+end AirToWater2D_OneRoomRadiator;

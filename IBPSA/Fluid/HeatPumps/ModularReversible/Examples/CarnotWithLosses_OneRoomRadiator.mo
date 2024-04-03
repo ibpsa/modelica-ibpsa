@@ -1,5 +1,5 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
-model ReversibleCarnotWithLosses_OneRoomRadiator
+model CarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with Carnot approach connected to a simple room model with radiator"
   extends Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
@@ -65,7 +65,7 @@ equation
                                                             color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
-     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/ReversibleCarnotWithLosses_OneRoomRadiator.mos"
+     "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/CarnotWithLosses_OneRoomRadiator.mos"
         "Simulate and plot"),
   experiment(
       StartTime=0,
@@ -94,4 +94,4 @@ equation
 </li>
 </ul>
 </html>"));
-end ReversibleCarnotWithLosses_OneRoomRadiator;
+end CarnotWithLosses_OneRoomRadiator;
