@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses;
 partial model PartialOperationalEnvelope
   "Indicates if the device operation is within a defined envelope"
   extends BaseClasses.PartialSafetyWithCounter;
@@ -124,7 +124,7 @@ equation
 </ul>
 
 <h4>Existing envelopes</h4>
-
+<p>
   Technical datasheets often contain
   information about the operational envelope.
   The device records for heat pumps
@@ -136,7 +136,7 @@ equation
   contain typical values. Older devices typically have lower limits
   while new refrigerant machines based on propane or advanced flowsheets
   are able to achieve temperature over 70 °C for heating.
-
+</p>
 <h4>Parameterization from datasheets</h4>
 <p>
   Depending on the underlying datasheet in use, you have to think

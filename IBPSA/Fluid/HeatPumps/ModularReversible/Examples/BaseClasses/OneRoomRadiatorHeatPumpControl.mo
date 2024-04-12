@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
   parameter Boolean witCoo=true
@@ -6,11 +6,11 @@ model OneRoomRadiatorHeatPumpControl
   parameter Modelica.Units.SI.Temperature TRooSetHea=293.15
     "Room set temperature for heating";
   parameter Modelica.Units.SI.Temperature TRooSetCoo=296.15
-    "Room set temperature for heating";
+    "Room set temperature for cooling";
   parameter Modelica.Units.SI.Temperature TRadMinSup=290.15
     "Minimal radiator supply temperature to avoid condensation effects";
   parameter Modelica.Units.SI.TemperatureDifference dTHysRoo=2
-    "Room set temperature for heating";
+    "Temperature hysteresis for room control";
   Modelica.Blocks.Logical.Hysteresis hysHea(
     final uLow=TRooSetHea - dTHysRoo,
     final uHigh=TRooSetHea + dTHysRoo,

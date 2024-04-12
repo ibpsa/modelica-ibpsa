@@ -14,7 +14,7 @@ model Modular
     mEva_flow_nominal=-QCoo_flow_nominal/(dTEva_nominal*cpEva),
     mCon_flow_nominal=(PEle_nominal - QCoo_flow_nominal)/(dTCon_nominal*cpCon),
     use_rev=true,
-    redeclare IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
+    redeclare final IBPSA.Fluid.Chillers.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
         redeclare model RefrigerantCycleChillerCooling =
           RefrigerantCycleChillerCooling, redeclare model
         RefrigerantCycleChillerHeating = RefrigerantCycleChillerHeating));

@@ -11,7 +11,7 @@ model Modular
     mCon_flow_nominal=QHea_flow_nominal/(dTCon_nominal*cpCon),
     mEva_flow_nominal=(QHea_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
     use_rev=true,
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
+    redeclare final IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
       redeclare model RefrigerantCycleHeatPumpHeating =
           RefrigerantCycleHeatPumpHeating,
       redeclare model RefrigerantCycleHeatPumpCooling =
