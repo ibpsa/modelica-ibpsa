@@ -48,42 +48,7 @@ equation
   connect(bouMapHea.noErr, swiHeaCoo.u1)
     annotation (Line(points={{-17,70},{-12,70},{-12,8},{-6,8}},
                                                        color={255,0,255}));
-  if use_TConOutHea then
-    connect(bouMapHea.TUseSid, sigBus.TConOutMea) annotation (Line(points={{-84.2,
-            82},{-104,82},{-104,-61},{-119,-61}},                       color={0,
-            0,127}));
-  else
-    connect(bouMapHea.TUseSid, sigBus.TConInMea) annotation (Line(points={{-84.2,
-            82},{-104,82},{-104,-61},{-119,-61}},                       color={0,
-            0,127}));
-  end if;
-  if use_TConOutCoo then
-    connect(bouMapCoo.TAmbSid, sigBus.TConOutMea) annotation (Line(points={{-84.8,
-            -62},{-104,-62},{-104,-61},{-119,-61}},
-                                                color={0,0,127}));
-  else
-    connect(bouMapCoo.TAmbSid, sigBus.TConInMea) annotation (Line(points={{-84.8,
-            -62},{-104,-62},{-104,-61},{-119,-61}},
-                                                color={0,0,127}));
-  end if;
-  if use_TEvaOutHea then
-    connect(bouMapHea.TAmbSid, sigBus.TEvaOutMea) annotation (Line(points={{-84.8,
-            58},{-104,58},{-104,-60},{-106,-60},{-106,-61},{-119,-61}},
-                                                color={0,0,127}));
-  else
-    connect(bouMapHea.TAmbSid, sigBus.TEvaInMea) annotation (Line(points={{-84.8,
-            58},{-104,58},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
-                                                color={0,0,127}));
-  end if;
-  if use_TEvaOutCoo then
-    connect(bouMapCoo.TUseSid, sigBus.TEvaOutMea) annotation (Line(points={{-84.2,
-            -38},{-104,-38},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
-                                                      color={0,0,127}));
-  else
-    connect(bouMapCoo.TUseSid, sigBus.TEvaInMea) annotation (Line(points={{-84.2,
-            -38},{-104,-38},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
-                                                      color={0,0,127}));
-  end if;
+
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(revisions="<html><ul>
   <li>
