@@ -318,11 +318,11 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
               ModelicaFormatError("Too many columns on data line %i when reading weekly schedule '%s'. %i instead of %i.", line, name, tokensInLine + 1, tokensInFirstLine);
           }else if (tokensInLine >= n_reservedColumns) { /* This code should only be reached upon passing the first line of data */
             n_reservedColumns += allocSize;
-            scheduleID->rules[rule_i]->data = (double*)realloc(scheduleID->rules[rule_i]->data, sizeof(double)*n_reservedColumns);
-            if ( scheduleID->rules[rule_i]->data == NULL){
+            scheduleID->rules[rule_i-1]->data = (double*)realloc(scheduleID->rules[rule_i-1]->data, sizeof(double)*n_reservedColumns);
+            if ( scheduleID->rules[rule_i-1]->data == NULL){
               weeklyScheduleFreeInit(scheduleID);
               weeklyScheduleFree(scheduleID);
-              ModelicaFormatError("Failed to allocate memory for rules[rule_i]->data in WeeklySchedule.c.");
+              ModelicaFormatError("Failed to reallocate memory for rules[rule_i-1]->data in WeeklySchedule.c.");
             }
           }
 
