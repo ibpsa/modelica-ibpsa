@@ -1,6 +1,6 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
 model Modular
-  "Grey-box model for reversible heat pumps"
+  "Grey-box model for reversible and non-reversible heat pumps"
   extends
     IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialReversibleRefrigerantMachine(
     final use_COP=true,
@@ -10,7 +10,7 @@ model Modular
     final PEle_nominal=refCyc.refCycHeaPumHea.PEle_nominal,
     mCon_flow_nominal=QHea_flow_nominal/(dTCon_nominal*cpCon),
     mEva_flow_nominal=(QHea_flow_nominal - PEle_nominal)/(dTEva_nominal*cpEva),
-    use_rev=true,
+    use_rev=false,
     redeclare final IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.RefrigerantCycle refCyc(
       redeclare model RefrigerantCycleHeatPumpHeating =
           RefrigerantCycleHeatPumpHeating,

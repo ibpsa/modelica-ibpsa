@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible;
 package UsersGuide
   "User's Guide for modular reversible heat pump and chiller models"
   extends Modelica.Icons.Information;
@@ -7,7 +7,7 @@ package UsersGuide
 <p>
   The packages <a href=\"modelica://IBPSA.Fluid.HeatPumps\">IBPSA.Fluid.HeatPumps</a>
   and <a href=\"modelica://IBPSA.Fluid.Chillers\">IBPSA.Fluid.Chillers</a> contain
-  models for reversible refrigerant
+  models for both reversible and non-reversible refrigerant
   machines (heat pumps and chillers) based on grey-box approaches.
   Either empirical data or physical equations are used to model
   the refrigerant cycle. The model for a refrigerant cycle calculates
