@@ -53,13 +53,13 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
-- model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    translate: false
 - model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
   openmodelica:
     comment: returned non-zero exit status 2
+    translate: false
+- model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
     translate: false
 - model_name: IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
