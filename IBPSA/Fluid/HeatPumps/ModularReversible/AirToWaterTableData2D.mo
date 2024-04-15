@@ -1,7 +1,7 @@
 within IBPSA.Fluid.HeatPumps.ModularReversible;
 model AirToWaterTableData2D
   "Reversible air to water heat pump based on 2D manufacturer data in Europe"
-  extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialTableData2D(
+  extends IBPSA.Fluid.HeatPumps.ModularReversible.TableData2D(
     redeclare replaceable package MediumEva = IBPSA.Media.Air,
     redeclare replaceable package MediumCon = IBPSA.Media.Water,
     redeclare replaceable IBPSA.Fluid.HeatPumps.ModularReversible.Data.TableData2D.GenericAirToWater datTabHea
