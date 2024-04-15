@@ -2,8 +2,8 @@ within IBPSA.Fluid.HeatPumps.ModularReversible;
 model LargeScaleWaterToWater
   "Model with automatic parameter estimation for large scale water-to-water heat pumps"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialTableData2D(
-    redeclare package MediumCon = IBPSA.Media.Water,
-    redeclare package MediumEva = IBPSA.Media.Water,
+    redeclare replaceable package MediumCon = IBPSA.Media.Water,
+    redeclare replaceable package MediumEva = IBPSA.Media.Water,
     final mCon_flow_nominal=autCalMasCon_flow,
     final mEva_flow_nominal=autCalMasEva_flow,
     final tauCon=autCalVCon*rhoCon/autCalMasCon_flow,
