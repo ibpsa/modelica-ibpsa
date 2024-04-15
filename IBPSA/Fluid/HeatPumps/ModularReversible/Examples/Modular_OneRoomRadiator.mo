@@ -13,6 +13,7 @@ model Modular_OneRoomRadiator
   IBPSA.Fluid.HeatPumps.ModularReversible.Modular heaPum(
     redeclare package MediumCon = MediumWat,
     redeclare package MediumEva = MediumAir,
+    use_rev=true,
     QHea_flow_nominal=Q_flow_nominal,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.NoInertia,
@@ -41,10 +42,12 @@ model Modular_OneRoomRadiator
         TAppEva_nominal=0),
     redeclare model RefrigerantCycleHeatPumpCooling =
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
-          redeclare
+        redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, datTab=
-            IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
+          iceFacCal,
+        mCon_flow_nominal=heaPum.mCon_flow_nominal,
+        mEva_flow_nominal=heaPum.mEva_flow_nominal,
+        datTab=IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
     redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
       use_TConOutHea=true,

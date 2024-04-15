@@ -8,6 +8,7 @@ model Modular
   IBPSA.Fluid.Chillers.ModularReversible.Modular chi(
     redeclare package MediumCon = MediumCon,
     redeclare package MediumEva = MediumEva,
+    use_rev=true,
     QCoo_flow_nominal=-30000,
     redeclare model RefrigerantCycleInertia =
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.VariableOrder
