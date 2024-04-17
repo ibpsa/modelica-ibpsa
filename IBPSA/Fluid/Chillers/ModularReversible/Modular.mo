@@ -52,18 +52,19 @@ model Modular
        final cpEva=cpEva)
   "Refrigerant cycle module for the heating mode"
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
-  parameter Modelica.Units.SI.Temperature TConCoo_nominal
-    "Nominal temperature at source side, the condenser"
-    annotation(Dialog(enable=use_rev, group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
-    "Nominal temperature at load side, the evaporator"
+    "Nominal temperature of the cooled fluid"
     annotation(Dialog(enable=use_rev, group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TConHea_nominal
-    "Nominal temperature at source side, the condenser of the cooling mode"
-    annotation (Dialog(group="Nominal condition - Heating"));
+  parameter Modelica.Units.SI.Temperature TConCoo_nominal
+    "Nominal temperature of the heated fluid"
+    annotation(Dialog(enable=use_rev, group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
-    "Nominal temperature at load side, the evaporator of the cooling mode"
+    "Nominal temperature of the heated fluid"
     annotation (Dialog(group="Nominal condition - Heating"));
+  parameter Modelica.Units.SI.Temperature TConHea_nominal
+    "Nominal temperature of the cooled fluid"
+    annotation (Dialog(group="Nominal condition - Heating"));
+
 
   Modelica.Blocks.Interfaces.BooleanInput coo if not use_busConOnl and use_rev
     "=true for cooling, =false for heating"

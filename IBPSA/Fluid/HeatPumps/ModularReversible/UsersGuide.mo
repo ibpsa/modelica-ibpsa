@@ -170,7 +170,7 @@ to the section <b>Refrigerant cycle models</b>.
 </ul>
 
 
-<h4>Reversible operation</h4>
+<h4>Naming and reversible operation</h4>
 
 <p>
 Simulating reversible heat pumps and chillers can get confusing, as the same heat
@@ -184,12 +184,17 @@ and, consuming electrical energy, provide heating or cooling
 on the <i>useful</i> or <i>load side</i>.
 For building applications, this <i>useful / load side</i> is inside the building.
 The ambient heat is outside of the building, on the <i>ambient / source side</i>.
-</p>
-<p>
 However, vapor compression machines can also be used to provide heating 
 and cooling simultaneously.
 In this case, both sides provide utility to the energy system. 
 Hence, both sides are <i>useful / load sides</i>.
+</p>
+<p>
+What always stays the same is that there is one heated fluid, and
+one cooled fluid. Thus, specifying the nominal temperatures, users have
+to specify the temperatures of both heated and cooled fluids, for both cooling
+and heating operation. Note, that the heated fluid will be the cooled fluid in
+reversed operation, and vice versa.
 </p>
 <p>
 Because of this, we decided on a naming scheme which is based on the main operation
@@ -202,11 +207,16 @@ This applies to the instance and variable names,
 such as the heat exchangers <code>con</code> and <code>eva</code>,
 as well as sensors such as <code>TConOutMea</code> and <code>TEvaInMea</code>,
 or nominal conditions <code>TConHea_nominal</code> and <code>TConCoo_nominal</code>.
-As the temperature values are for table-based performance data
+
+As the nominal temperatures may be used table-based performance data
 and the operational envelope model,
 users also have to think about the <i>useful / load</i>
-and <i>ambient / source side</i> in the datasheets and how they translate to
-heat pumps and chillers in both main and reversed operation.
+and <i>ambient / source side</i> and how they translate to
+heat pumps and chillers in both main and reversed operation
+when adding new datasheets.
+Thinking about the heated and cooled fluid helps.
+</p>
+<p>
 The following tables summarizes the possible options.
 </p>
 
@@ -256,8 +266,8 @@ The following tables summarizes the possible options.
 </table>
 <b>Footnotes:</b>
 <p>
-<sup>1</sup> In reality, the condenser of the main operation is used for evaporation.
-<sup>2</sup> In reality, the evaporator of the main operation is used for condensation.
+<sup>1</sup> In reality, the condenser, e.g. a plate heat exchanger, of the main operation is used for evaporation.
+<sup>2</sup> In reality, the evaporator, e.g. fin-tube heat exchanger, of the main operation is used for condensation.
 </p>
 
 <h4>Connectors</h4>
