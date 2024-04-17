@@ -14,6 +14,8 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final GConIns=0,
     final GConOut=0,
     final CCon=0,
+    final TConHea_nominal=0,
+    final TEvaHea_nominal=0,
     final use_conCap=false,
         redeclare replaceable
     IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar

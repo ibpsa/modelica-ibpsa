@@ -54,16 +54,16 @@ model Modular
     annotation (Dialog(enable=use_rev),choicesAllMatching=true);
   parameter Modelica.Units.SI.Temperature TEvaCoo_nominal
     "Nominal temperature of the cooled fluid"
-    annotation(Dialog(enable=use_rev, group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConCoo_nominal
     "Nominal temperature of the heated fluid"
-    annotation(Dialog(enable=use_rev, group="Nominal condition"));
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TEvaHea_nominal
     "Nominal temperature of the heated fluid"
-    annotation (Dialog(group="Nominal condition - Heating"));
+    annotation (Dialog(enable=use_rev, group="Nominal condition - Heating"));
   parameter Modelica.Units.SI.Temperature TConHea_nominal
     "Nominal temperature of the cooled fluid"
-    annotation (Dialog(group="Nominal condition - Heating"));
+    annotation (Dialog(enable=use_rev, group="Nominal condition - Heating"));
 
 
   Modelica.Blocks.Interfaces.BooleanInput coo if not use_busConOnl and use_rev
