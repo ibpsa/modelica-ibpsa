@@ -71,7 +71,7 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case600FF.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case600FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the test case 600FF of the BESTEST validation suite.
