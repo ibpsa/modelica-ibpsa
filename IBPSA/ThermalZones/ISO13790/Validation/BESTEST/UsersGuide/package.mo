@@ -55,21 +55,21 @@ in the table after the plots below.
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/annual_cooling.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/annual_cooling.png\"
      alt=\"annual_cooling.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/annual_heating.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/annual_heating.png\"
      alt=\"annual_heating.png\" />
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/peak_cooling.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/peak_cooling.png\"
      alt=\"peak_cooling.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/peak_heating.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/peak_heating.png\"
      alt=\"peak_heating.png\" />
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/hourly_load_600_Feb1.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/hourly_load_600_Feb1.png\"
      alt=\"hourly_load_600_Jan4.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/hourly_load_900_Feb1.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/hourly_load_900_Feb1.png\"
      alt=\"hourly_load_900_Jan4.png\" />
 </p>
 <!-- table start: load data -->
@@ -83,7 +83,7 @@ in the table after the plots below.
 <th>EnergyPlus</th>
 <th>ESP-r</th>
 <th>TRNSYS</th>
-<th>MBL</th>
+<th>ISO13790</th>
 </tr><tr>
 <td>Case600</td>
 <td>4.050</td>
@@ -526,7 +526,7 @@ in the table after the plots below.
 <th colspan=\"2\">EnergyPlus</th>
 <th colspan=\"2\">ESP-r</th>
 <th colspan=\"2\">TRNSYS</th>
-<th colspan=\"2\">MBL</th>
+<th colspan=\"2\">ISO13790</th>
 </tr>
 <tr>
 <td>kW</td><td>hour</td>
@@ -1282,27 +1282,27 @@ comparing the distribution of the annual temperature. The detailed comparisons, 
 show the peak temperature hour, are shown in the table after the plots.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/max_temperature.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/max_temperature.png\"
      alt=\"max_temperature.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/min_temperature.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/min_temperature.png\"
      alt=\"min_temperature.png\" />
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/FF_temperature_600FF_Feb1.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/FF_temperature_600FF_Feb1.png\"
      alt=\"FF_temperature_600FF_Feb1.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/FF_temperature_900FF_Feb1.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/FF_temperature_900FF_Feb1.png\"
      alt=\"FF_temperature_900FF_Feb1.png\" />
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/FF_temperature_650FF_Jul14.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/FF_temperature_650FF_Jul14.png\"
      alt=\"FF_temperature_650FF_Jul14.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/FF_temperature_950FF_Jul14.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/FF_temperature_950FF_Jul14.png\"
      alt=\"FF_temperature_950FF_Jul14.png\" />
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/ave_temperature.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/ave_temperature.png\"
      alt=\"ave_temperature.png\" />
-<img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Validation/BESTEST/bin_temperature_900FF.png\"
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/bin_temperature_900FF.png\"
      alt=\"bin_temperature_900FF.png\" />
 </p>
 
@@ -1317,7 +1317,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <th colspan=\"2\">EnergyPlus</th>
 <th colspan=\"2\">ESP-r</th>
 <th colspan=\"2\">TRNSYS</th>
-<th colspan=\"2\">MBL</th>
+<th colspan=\"2\">ISO13790</th>
 </tr>
 <tr>
 <td>&deg;C</td><td>hour</td>
@@ -1455,7 +1455,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <th colspan=\"2\">EnergyPlus</th>
 <th colspan=\"2\">ESP-r</th>
 <th colspan=\"2\">TRNSYS</th>
-<th colspan=\"2\">MBL</th>
+<th colspan=\"2\">IBPSA</th>
 </tr>
 <tr>
 <td>&deg;C</td><td>hour</td>
@@ -1592,7 +1592,7 @@ show the peak temperature hour, are shown in the table after the plots.
 To generate the data shown in this user guide, run
 </p>
 <pre>
-  cd Buildings/Resources/src/ThermalZones/Detailed/Validation/BESTEST
+  cd IBPSA/Resources/src/ThermalZones/ISO13790/Validation/BESTEST
   python3 simulateAndPlot.py
 </pre>
 <h4>References</h4>

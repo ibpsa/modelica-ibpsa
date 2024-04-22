@@ -57,14 +57,6 @@ model Case600
     u(unit="W"),
     y(unit="J", displayUnit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,34},{66,46}})));
-  Modelica.Blocks.Sources.CombiTimeTable daiLoaWinBESTEST(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=
-        "C:/Cdrive_fromOldPC_Dec2021/My_working/ISO13790_DataASHRAE/600.txt",
-    columns={2,3,4,5,6,7},
-    timeScale(displayUnit="s")) "Daily comparison BESTEST"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Zone5R1C.Zone zon5R1C(
     airRat=0.414,
     AWin={0,0,12,0},
@@ -115,27 +107,8 @@ model Case600
   Utilities.Math.MovingAverage                   PHea(delta=3600)
     "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{34,84},{42,92}})));
-  Utilities.Math.MovingAverage                   PHea1(delta=3600)
-    "Hourly averaged heating power"
+  Utilities.Math.MovingAverage PCoo(delta=3600) "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{38,22},{46,30}})));
-  Modelica.Blocks.Math.Gain PCookW(k=1/1000) "Gain for heating" annotation (
-      Placement(visible=true, transformation(
-        origin={60,16},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Modelica.Blocks.Math.Gain PHeakW(k=1/1000) "Gain for heating" annotation (
-      Placement(visible=true, transformation(
-        origin={58,98},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Modelica.Blocks.Sources.CombiTimeTable daiLoaSumBESTEST(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=
-        "C:/Cdrive_fromOldPC_Dec2021/My_working/ISO13790_DataASHRAE/600summer.txt",
-    columns={2,3,4,5,6,7},
-    timeScale(displayUnit="s")) "Daily comparison BESTEST"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSetCoo(table=[0.0,273.15 + 27])
     "Set-point for heating" annotation (Placement(visible=true, transformation(
@@ -184,14 +157,10 @@ equation
     annotation (Line(points={{-17.4,72},{-7.2,72}}, color={0,0,127}));
   connect(TSetCoo.y[1], conCooPID.u_s)
     annotation (Line(points={{-17.4,46},{-7.2,46}}, color={0,0,127}));
-  connect(gaiCoo.y, PHea1.u) annotation (Line(points={{28.6,46},{32,46},{32,26},
+  connect(gaiCoo.y, PCoo.u) annotation (Line(points={{28.6,46},{32,46},{32,26},
           {37.2,26}}, color={0,0,127}));
   connect(PHea.u, gaiHea.y) annotation (Line(points={{33.2,88},{28.6,88},{28.6,
           72}}, color={0,0,127}));
-  connect(PHeakW.u, PHea.y) annotation (Line(points={{50.8,98},{46,98},{46,88},
-          {42.8,88}}, color={0,0,127}));
-  connect(PCookW.u, PHea1.y) annotation (Line(points={{52.8,16},{46.8,16},{46.8,
-          26}}, color={0,0,127}));
  annotation(experiment(
       StopTime=31536000,
       Interval=3600,
