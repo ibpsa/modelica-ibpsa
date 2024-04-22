@@ -303,7 +303,7 @@ in the table after the plots below.
 <th>EnergyPlus</th>
 <th>ESP-r</th>
 <th>TRNSYS</th>
-<th>MBL</th>
+<th>ISO13790</th>
 </tr><tr>
 <td>Case600</td>
 <td>5.822</td>
@@ -902,7 +902,7 @@ in the table after the plots below.
 <th colspan=\"2\">EnergyPlus</th>
 <th colspan=\"2\">ESP-r</th>
 <th colspan=\"2\">TRNSYS</th>
-<th colspan=\"2\">MBL</th>
+<th colspan=\"2\">ISO13790</th>
 </tr>
 <tr>
 <td>kW</td><td>hour</td>
@@ -1455,7 +1455,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <th colspan=\"2\">EnergyPlus</th>
 <th colspan=\"2\">ESP-r</th>
 <th colspan=\"2\">TRNSYS</th>
-<th colspan=\"2\">IBPSA</th>
+<th colspan=\"2\">ISO13790</th>
 </tr>
 <tr>
 <td>&deg;C</td><td>hour</td>
