@@ -946,7 +946,7 @@ def update_html_tables(comDat):
 </tr>'''
     loadContent = _generate_load_tables(comDat, allTools, lessTools)
     ffContent = _generate_ff_tables(comDat, lessTools)
-    userGuideFile = "../../../../../../ThermalZones/Validation/BESTEST/UsersGuide.mo"
+    userGuideFile = "../../../../../../ThermalZones/ISO13790/Validation/BESTEST/UsersGuide.mo"
     moFile = open(userGuideFile)
     beforeTables = ''
     betweenTables = ''
@@ -988,7 +988,7 @@ def _generate_load_tables(comDat, allTools, lessTools):
 <th>EnergyPlus</th>
 <th>ESP-r</th>
 <th>TRNSYS</th>
-<th>IBPSA</th>
+<th>ISO13790</th>
 </tr>'''
     for ele in comDat:
         setName = ele['data_set']
