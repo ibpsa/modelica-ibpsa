@@ -729,7 +729,7 @@ def combine_data(standard_data, moData):
     :param standard_data: data set from ASHRAE-140
     :param moData: data set extract from Modelica simulation
     """
-    tool = 'IBPSA'
+    tool = 'ISO13790'
     temp = list()
     for i in range(len(standard_data)):
         ithData = standard_data[i]
@@ -810,7 +810,7 @@ def _addSingleCase_to_standard(keyWord, table_name, moData, oneSet, tool):
 def bar_compare(data, yLabel, minimum, maximum):
     import numpy as np
 
-    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'IBPSA']
+    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'ISO13790']
     fillColor = plt.get_cmap('tab20c')
     yLim = [minimum, maximum]
     pltName = data['data_set']
@@ -855,7 +855,7 @@ def bar_compare(data, yLabel, minimum, maximum):
 
 def plot_lines(data, xLabel, yLabel, xMin, xMax, dx, yMin, yMax):
     import numpy as np
-    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'IBPSA']
+    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'ISO13790']
     lineColor = plt.get_cmap('tab20c')
     lineMarker = ['.', ',', 'o', 's', 'p', '*', 'x']
     pltName = data['data_set']
@@ -931,7 +931,7 @@ def update_html_tables(comDat):
 <th>EnergyPlus</th>
 <th>ESP-r</th>
 <th>TRNSYS</th>
-<th>IBPSA</th>
+<th>ISO13790</th>
 </tr>'''
     lessTools = '''
 <tr>
@@ -942,7 +942,7 @@ def update_html_tables(comDat):
 <th colspan=\\"2\\">EnergyPlus</th>
 <th colspan=\\"2\\">ESP-r</th>
 <th colspan=\\"2\\">TRNSYS</th>
-<th colspan=\\"2\\">IBPSA</th>
+<th colspan=\\"2\\">ISO13790</th>
 </tr>'''
     loadContent = _generate_load_tables(comDat, allTools, lessTools)
     ffContent = _generate_ff_tables(comDat, lessTools)
