@@ -71,16 +71,15 @@ model Modular
         origin={-110,-130})));
   Modelica.Blocks.Interfaces.BooleanInput hea if not use_busConOnl and use_rev
     "=true for heating, =false for cooling"
-    annotation (Placement(transformation(extent={{-172,-86},{-140,-54}}),
-        iconTransformation(extent={{-120,-28},{-102,-10}})));
+    annotation (Placement(transformation(extent={{-164,-82},{-140,-58}}),
+        iconTransformation(extent={{-120,-30},{-102,-12}})));
 equation
   connect(conHea.y, sigBus.hea)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},
           {-141,-41}},          color={255,0,255}));
   connect(hea, sigBus.hea)
-    annotation (Line(points={{-156,-70},{-128,-70},{-128,-40},{-134,-40},{-134,
-          -41},{-141,-41}},
-                       color={255,0,255}));
+    annotation (Line(points={{-152,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},
+          {-141,-41}}, color={255,0,255}));
   connect(eff.QUse_flow, refCycIneCon.y) annotation (Line(points={{98,37},{48,37},
           {48,66},{8.88178e-16,66},{8.88178e-16,61}}, color={0,0,127}));
   connect(eff.hea, sigBus.hea) annotation (Line(points={{98,30},{48,30},{48,0},{
@@ -90,7 +89,12 @@ equation
       index=1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+          Text(
+          extent={{-100,-12},{-72,-30}},
+          textColor={255,85,255},
+          visible=not use_busConOnl and use_rev,
+          textString="hea")}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="
 <html>
