@@ -35,8 +35,8 @@ IBPSA.Controls.Continuous.LimPID</a>.
 </p>
 <p>
 Hourly averaged values and annual mean values are computed using an instance of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingAverage\">
-Buildings.Controls.OBC.CDL.Continuous.MovingAverage</a>.
+<a href=\"modelica://IBPSA.Utilities.Math.MovingAverage\">
+IBPSA.Utilities.Math.MovingAverage</a>.
 </p>
 <h4>Validation results</h4>
 <p>
@@ -123,6 +123,18 @@ in the table after the plots below.
 <td>4.796</td>
 </tr>
 <tr>
+<td>Case630</td>
+<td>3.69</td>
+<td>6.12</td>
+<td>4.923</td>
+<td>4.356</td>
+<td>4.677</td>
+<td>4.784</td>
+<td>5.051</td>
+<td>5.139</td>
+<td>5.076</td>
+</tr>
+<tr>
 <td>Case900</td>
 <td>1.04</td>
 <td>2.28</td>
@@ -181,6 +193,18 @@ in the table after the plots below.
 <td>4.246</td>
 <td>3.841</td>
 <td>3.978</td>
+</tr>
+<tr>
+<td>Case630</td>
+<td>1.08</td>
+<td>4.42</td>
+<td>3.074</td>
+<td>3.02</td>
+<td>2.787</td>
+<td>2.836</td>
+<td>2.595</td>
+<td>2.573</td>
+<td>2.931</td>
 </tr>
 <tr>
 <td>Case900</td>
@@ -268,6 +292,23 @@ in the table after the plots below.
 <td>31-Dec:24</td>
 </tr>
 <tr>
+<td>Case630</td>
+<td>3.252</td>
+<td>31-Dec:24</td>
+<td>3.039</td>
+<td>01-Jan:1</td>
+<td>3.072</td>
+<td>01-Jan:0</td>
+<td>3.207</td>
+<td>31-Dec:24</td>
+<td>3.259</td>
+<td>01-Jan:1</td>
+<td>3.388</td>
+<td>01-Jan:1</td>
+<td>3.236</td>
+<td>31-Dec:24</td>
+</tr>
+<tr>
 <td>Case900</td>
 <td>2.551</td>
 <td>08-Feb:24</td>
@@ -352,6 +393,23 @@ in the table after the plots below.
 <td>4.588</td>
 <td>26-Jun:17</td>
 <td>4.356</td>
+<td>26-Jun:18</td>
+</tr>
+<tr>
+<td>Case630</td>
+<td>4.121</td>
+<td>26-Jun:18</td>
+<td>3.998</td>
+<td>26-Jun:18</td>
+<td>3.526</td>
+<td>26-Jun:17</td>
+<td>4.212</td>
+<td>26-Jun:17</td>
+<td>3.971</td>
+<td>26-Jun:17</td>
+<td>3.949</td>
+<td>26-Jun:17</td>
+<td>3.711</td>
 <td>26-Jun:18</td>
 </tr>
 <tr>
@@ -531,12 +589,6 @@ To generate the data shown in this user guide, run
 <p>
 ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007,
 Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
-</p>
-<p>
-Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
-<a href=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf\">
-Validation of the window model of the Modelica Buildings library.</a>
-<i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
 </html>"));
 end UsersGuide;
