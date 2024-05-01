@@ -75,14 +75,14 @@ equation
           -144},{-70,-120}},      color={0,127,255}));
   connect(heaPum.port_a1, temRet.port_b) annotation (Line(points={{20,-144},{60,-144},
           {60,-30}},           color={0,127,255}));
-  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{59,-160},{40,
-          -160},{40,-140},{21.2,-140},{21.2,-141}},
+  connect(temAmbBas.y, heaPum.TConAmb) annotation (Line(points={{59,-160},{54,
+          -160},{54,-141.1},{21.1,-141.1}},
                                           color={0,0,127}));
   connect(heaPum.hea, oneRooRadHeaPumCtr.hea) annotation (Line(points={{21.1,
-          -151.9},{24,-151.9},{24,-75},{-139.167,-75}},
+          -152.1},{24,-152.1},{24,-75},{-139.167,-75}},
                  color={255,0,255}));
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(points={{
-          -139.167,-66.6667},{30,-66.6667},{30,-148},{21.2,-148}},
+          -139.167,-66.6667},{30,-66.6667},{30,-148.1},{21.1,-148.1}},
                                                       color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
