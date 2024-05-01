@@ -583,8 +583,6 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(points={{-88,60},{88,60}}, color={28,108,200}),
-        Line(points={{-88,-60},{88,-60}}, color={28,108,200}),
     Line(
     origin={-75.5,-80.333},
     points={{43.5,8.3333},{37.5,0.3333},{25.5,-1.667},{33.5,-9.667},{17.5,-11.667},{27.5,-21.667},{13.5,-23.667},
@@ -656,7 +654,40 @@ equation
           extent={{72,-18},{96,-42}},
           textColor={0,0,127},
           visible=use_EER,
-          textString="EER")}),
+          textString="EER"),
+        Rectangle(
+          extent={{34,42},{38,-46}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{14,22},{58,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{36,22},{18,-10},{54,-10},{36,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-46,42},{-42,-46}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-44,2},{-54,-10},{-34,-10},{-44,2}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-44,2},{-54,12},{-34,12},{-44,2}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>
