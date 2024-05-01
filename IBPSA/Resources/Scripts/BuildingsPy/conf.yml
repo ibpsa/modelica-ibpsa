@@ -91,11 +91,11 @@
     simulate: false
 - model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
   openmodelica:
-    comment: returned non-zero exit status 2
+    comment: returned non-zero exit status 2. Works with April 30 2024 nightly build.
     translate: false
 - model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
   openmodelica:
-    comment: simulation terminated by an assertion at initialization
+    comment: simulation terminated by an assertion at initialization. Works with April 30 2024 nightly build.
     translate: false
 - model_name: IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
