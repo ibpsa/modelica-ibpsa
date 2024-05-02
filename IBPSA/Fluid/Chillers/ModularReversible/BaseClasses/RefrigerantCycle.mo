@@ -7,7 +7,7 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
     annotation(Dialog(enable=use_rev), choices(checkBox=true));
 
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.(
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
         useInChi=true)
     constrainedby
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
