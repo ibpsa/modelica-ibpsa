@@ -3,7 +3,8 @@ model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
   replaceable model RefrigerantCycleHeatPumpHeating =
-    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
+    IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
+      (
       useInHeaPum=true)
       constrainedby
         IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle
@@ -11,8 +12,8 @@ model RefrigerantCycle
     annotation (choicesAllMatching=true);
 
   replaceable model RefrigerantCycleHeatPumpCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
-        useInChi=true)
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling
+      ( useInChi=true)
       constrainedby
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
     "Replaceable model for refrigerant cycle of a heat pump in reversed operation mode"
@@ -26,16 +27,16 @@ model RefrigerantCycle
   annotation (Placement(transformation(extent={{-60,40},{-19,80}}, rotation=0)));
 
 protected
-  parameter String datSou = 
-    if use_rev then refCycHeaPumCoo.datSou else refCycHeaPumHea.datSou
+  parameter String devIde =
+    if use_rev then refCycHeaPumCoo.devIde else refCycHeaPumHea.devIde
     "Data source for refrigerant cycle";
 
-initial equation
+initial algorithm
   assert(
-    datSou == refCycHeaPumHea.datSou,
-    "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
-    Heating data source is " + refCycHeaPumHea.datSou + ", cooling data source is "
-    + datSou + ". Only continue if this is intended.",
+    devIde == refCycHeaPumHea.devIde,
+    "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
+    Heating device identifier is '" + refCycHeaPumHea.devIde + "' but cooling is '"
+    + devIde + "'. Only continue if this is intended.",
     AssertionLevel.warning);
 
 equation
@@ -77,8 +78,9 @@ equation
           -53.1667,38.3333},{-53.1667,-8},{-58,-8}}, color={0,0,127}));
   connect(refCycHeaPumCoo.PEle, swiPEle.u3) annotation (Line(points={{-39.5,
           38.3333},{-39.5,-48},{-8,-48},{-8,-58}}, color={0,0,127}));
-  connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,38.3333},
-          {40,-48},{8,-48},{8,-58}}, color={0,0,127}));
+  connect(refCycHeaPumHea.PEle, swiPEle.u1) annotation (Line(points={{40,
+          38.3333},{40,-48},{8,-48},{8,-58}},
+                                     color={0,0,127}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(

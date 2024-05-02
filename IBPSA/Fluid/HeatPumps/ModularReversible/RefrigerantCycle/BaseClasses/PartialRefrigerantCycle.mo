@@ -10,9 +10,9 @@ partial model PartialRefrigerantCycle
   parameter Modelica.Units.SI.Temperature TEva_nominal
     "Nominal temperature at secondary evaporator side"
     annotation (Dialog(group="Nominal condition"));
-  parameter String datSou=""
+  parameter String devIde=""
     "Indicates the data source, used to warn users
-    about different data sources in reversible models";
+    about different vapor compression devices in reversible models";
 
   replaceable IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
   constrainedby

@@ -25,16 +25,16 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
     annotation (Placement(transformation(extent={{-60,38},{-19,80}}, rotation=0)));
 
 protected
-  parameter String datSou = 
-    if use_rev then refCycChiHea.datSou else refCycChiCoo.datSou
+  parameter String devIde =
+    if use_rev then refCycChiHea.devIde else refCycChiCoo.devIde
     "Data source for refrigerant cycle";
 
 initial algorithm
   assert(
-    datSou == refCycChiCoo.datSou,
-    "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
-    Cooling data source is " + refCycChiCoo.datSou + ", heating data source is "
-    + datSou + ". Only continue if this is intended.",
+    devIde == refCycChiCoo.devIde,
+    "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
+    Cooling device identifier is '" + refCycChiCoo.devIde + "' but heating is '"
+    + devIde + "'. Only continue if this is intended.",
     AssertionLevel.warning);
 equation
   connect(pasTrhModSet.u, sigBus.coo);
