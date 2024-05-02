@@ -1,8 +1,13 @@
 within IBPSA.Fluid.Chillers.ModularReversible.BaseClasses;
 model RefrigerantCycle "Refrigerant cycle model of a chiller"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+
+  parameter Boolean allowDifferentDeviceIdentifiers=false
+    "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
+    annotation(Dialog(enable=use_rev), choices(checkBox=true));
+
   replaceable model RefrigerantCycleChillerCooling =
-      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.NoCooling(
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.(
         useInChi=true)
     constrainedby
       IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle
@@ -30,12 +35,14 @@ protected
     "Data source for refrigerant cycle";
 
 initial algorithm
-  assert(
-    devIde == refCycChiCoo.devIde,
-    "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
-    Cooling device identifier is '" + refCycChiCoo.devIde + "' but heating is '"
-    + devIde + "'. Only continue if this is intended.",
-    AssertionLevel.warning);
+  if not allowDifferentDeviceIdentifiers then
+    assert(
+      devIde == refCycChiCoo.devIde,
+      "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
+      Cooling device identifier is '" + refCycChiCoo.devIde + "' but heating is '"
+      + devIde + "'. To allow this, set 'allowDifferentDeviceIdentifiers=true'.",
+      AssertionLevel.error);
+  end if;
 equation
   connect(pasTrhModSet.u, sigBus.coo);
 
@@ -144,7 +151,13 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html><ul>
+    Documentation(revisions="<html>
+  <ul>
+  <li>
+  May 2, 2024, by Michael Wetter:<br/>
+  Refactored check for device identifiers.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>May 22, 2019,</i> by Julian Matthes:<br/>
     First implementation (see issue <a href=

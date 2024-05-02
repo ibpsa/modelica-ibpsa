@@ -2,6 +2,11 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses;
 model RefrigerantCycle
   "Refrigerant cycle model of a heat pump"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.PartialModularRefrigerantCycle;
+
+  parameter Boolean allowDifferentDeviceIdentifiers=false
+    "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
+    annotation(Dialog(enable=use_rev), choices(checkBox=true));
+
   replaceable model RefrigerantCycleHeatPumpHeating =
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating
       (
@@ -32,12 +37,14 @@ protected
     "Data source for refrigerant cycle";
 
 initial algorithm
-  assert(
-    devIde == refCycHeaPumHea.devIde,
-    "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
-    Heating device identifier is '" + refCycHeaPumHea.devIde + "' but cooling is '"
-    + devIde + "'. Only continue if this is intended.",
-    AssertionLevel.warning);
+  if not allowDifferentDeviceIdentifiers then
+    assert(
+      devIde == refCycHeaPumHea.devIde,
+      "In " + getInstanceName() + ": Device identifiers devIde for reversible operation are not equal.
+      Heating device identifier is '" + refCycHeaPumHea.devIde + "' but cooling is '"
+      + devIde + "'. To allow this, set 'allowDifferentDeviceIdentifiers=true'.",
+      AssertionLevel.error);
+  end if;
 
 equation
   connect(pasTrhModSet.u, sigBus.hea);
@@ -143,6 +150,11 @@ equation
           textString="%name")}),
           Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
+  <li>
+    May 2, 2024, by Michael Wetter:<br/>
+    Refactored check for device identifiers.<br/>
+    This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=
