@@ -1,17 +1,8 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx;
 model Case900 "Case 600, but with high thermal mass"
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(
-    zon5R1C(           redeclare replaceable
-        IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas),
-    annComBESTEST(
-      EHeaMax=7347600000,
-      EHeaMin=4212000000,
-      ECooMax=-11394000000,
-      ECooMin=-7686000000,
-      PHeaMax=3797,
-      PHeaMin=2850,
-      PCooMax=-3871,
-      PCooMin=-2888));
+      zonHVAC(redeclare replaceable
+        IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas));
 
  annotation(experiment(
       StopTime=31536000,

@@ -96,7 +96,7 @@ in the table after the plots below.
 <td>4.324</td>
 <td>4.362</td>
 <td>4.504</td>
-<td>4.607</td>
+<td>4.658</td>
 </tr>
 <tr>
 <td>Case610</td>
@@ -108,7 +108,7 @@ in the table after the plots below.
 <td>4.375</td>
 <td>4.527</td>
 <td>4.592</td>
-<td>4.738</td>
+<td>4.784</td>
 </tr>
 <tr>
 <td>Case620</td>
@@ -120,7 +120,7 @@ in the table after the plots below.
 <td>4.485</td>
 <td>4.514</td>
 <td>4.719</td>
-<td>4.796</td>
+<td>4.824</td>
 </tr>
 <tr>
 <td>Case630</td>
@@ -132,7 +132,7 @@ in the table after the plots below.
 <td>4.784</td>
 <td>5.051</td>
 <td>5.139</td>
-<td>5.076</td>
+<td>5.097</td>
 </tr>
 <tr>
 <td>Case640</td>
@@ -144,7 +144,7 @@ in the table after the plots below.
 <td>2.662</td>
 <td>2.654</td>
 <td>2.653</td>
-<td>2.799</td>
+<td>2.898</td>
 </tr>
 <tr>
 <td>Case650</td>
@@ -168,7 +168,7 @@ in the table after the plots below.
 <td>1.664</td>
 <td>1.585</td>
 <td>1.814</td>
-<td>1.83</td>
+<td>1.833</td>
 </tr>
 <tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>
 <tr>
@@ -192,7 +192,7 @@ in the table after the plots below.
 <td>6.027</td>
 <td>6.162</td>
 <td>5.78</td>
-<td>5.74</td>
+<td>5.803</td>
 </tr>
 <tr>
 <td>Case610</td>
@@ -204,7 +204,7 @@ in the table after the plots below.
 <td>4.333</td>
 <td>4.233</td>
 <td>4.117</td>
-<td>4.547</td>
+<td>4.602</td>
 </tr>
 <tr>
 <td>Case620</td>
@@ -216,7 +216,7 @@ in the table after the plots below.
 <td>4.06</td>
 <td>4.246</td>
 <td>3.841</td>
-<td>3.978</td>
+<td>4.009</td>
 </tr>
 <tr>
 <td>Case630</td>
@@ -228,7 +228,7 @@ in the table after the plots below.
 <td>2.836</td>
 <td>2.595</td>
 <td>2.573</td>
-<td>2.931</td>
+<td>2.954</td>
 </tr>
 <tr>
 <td>Case640</td>
@@ -240,7 +240,7 @@ in the table after the plots below.
 <td>5.763</td>
 <td>5.893</td>
 <td>5.477</td>
-<td>5.536</td>
+<td>5.617</td>
 </tr>
 <tr>
 <td>Case650</td>
@@ -252,7 +252,7 @@ in the table after the plots below.
 <td>4.817</td>
 <td>4.945</td>
 <td>4.632</td>
-<td>4.82</td>
+<td>4.961</td>
 </tr>
 <tr>
 <td>Case900</td>
@@ -264,7 +264,7 @@ in the table after the plots below.
 <td>2.489</td>
 <td>2.488</td>
 <td bgcolor=\"#FF4500\">2.267</td>
-<td bgcolor=\"#FF4500\">2.282</td>
+<td bgcolor=\"#FF4500\">2.284</td>
 </tr>
 </table>
 <br/>
@@ -302,7 +302,7 @@ in the table after the plots below.
 <td>01-Jan:1</td>
 <td>3.359</td>
 <td>01-Jan:1</td>
-<td>3.209</td>
+<td>3.232</td>
 <td>31-Dec:24</td>
 </tr>
 <tr>
@@ -319,7 +319,7 @@ in the table after the plots below.
 <td>01-Jan:1</td>
 <td>3.360</td>
 <td>01-Jan:1</td>
-<td>3.217</td>
+<td>3.236</td>
 <td>31-Dec:24</td>
 </tr>
 <tr>
@@ -336,7 +336,7 @@ in the table after the plots below.
 <td>01-Jan:1</td>
 <td>3.385</td>
 <td>01-Jan:1</td>
-<td>3.234</td>
+<td>3.249</td>
 <td>31-Dec:24</td>
 </tr>
 <tr>
@@ -353,7 +353,7 @@ in the table after the plots below.
 <td>01-Jan:1</td>
 <td>3.388</td>
 <td>01-Jan:1</td>
-<td>3.236</td>
+<td>3.251</td>
 <td>31-Dec:24</td>
 </tr>
 <tr>
@@ -370,8 +370,8 @@ in the table after the plots below.
 <td>26-Nov:8</td>
 <td>4.039</td>
 <td>26-Nov:8</td>
-<td>3.715</td>
-<td>8-Feb:9</td>
+<td>3.880</td>
+<td>26-Nov:8</td>
 </tr>
 <tr>
 <td>Case650</td>
@@ -404,7 +404,7 @@ in the table after the plots below.
 <td>09-Feb:7</td>
 <td>2.778</td>
 <td>09-Feb:7</td>
-<td>2.635</td>
+<td>2.640</td>
 <td>9-Feb:6</td>
 </tr>
 <tr><td colspan=\"15\"><b>Peak cooling load (kW)</b></td></tr>
@@ -440,7 +440,7 @@ in the table after the plots below.
 <td>22-Jan:14</td>
 <td>6.046</td>
 <td>22-Jan:14</td>
-<td>5.462</td>
+<td>5.570</td>
 <td>22-Jan:14</td>
 </tr>
 <tr>
@@ -457,7 +457,7 @@ in the table after the plots below.
 <td>22-Jan:14</td>
 <td>5.868</td>
 <td>01-Dec:14</td>
-<td>4.541</td>
+<td>4.611</td>
 <td>18-Oct:14</td>
 </tr>
 <tr>
@@ -474,7 +474,7 @@ in the table after the plots below.
 <td>26-Jun:17</td>
 <td>4.588</td>
 <td>26-Jun:17</td>
-<td>4.356</td>
+<td>4.384</td>
 <td>26-Jun:18</td>
 </tr>
 <tr>
@@ -491,7 +491,7 @@ in the table after the plots below.
 <td>26-Jun:17</td>
 <td>3.949</td>
 <td>26-Jun:17</td>
-<td>3.711</td>
+<td>3.734</td>
 <td>26-Jun:18</td>
 </tr>
 <tr>
@@ -508,7 +508,7 @@ in the table after the plots below.
 <td>22-Jan:14</td>
 <td>5.967</td>
 <td>22-Jan:14</td>
-<td>5.391</td>
+<td>5.516</td>
 <td>22-Jan:14</td>
 </tr>
 <tr>
@@ -525,8 +525,8 @@ in the table after the plots below.
 <td>18-Oct:14</td>
 <td>5.797</td>
 <td>18-Oct:14</td>
-<td>5.380</td>
-<td>18-Oct:14</td>
+<td>6.836</td>
+<td>26-Jun:19</td>
 </tr>
 <tr>
 <td>Case900</td>
@@ -542,7 +542,7 @@ in the table after the plots below.
 <td>12-Oct:15</td>
 <td>2.940</td>
 <td>01-Oct:14</td>
-<td>2.353</td>
+<td>2.365</td>
 <td>1-Oct:15</td>
 </tr>
 </table>
