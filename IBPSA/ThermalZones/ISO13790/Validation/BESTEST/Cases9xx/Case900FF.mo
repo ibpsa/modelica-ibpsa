@@ -2,9 +2,8 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx;
 model Case900FF
   "Case 600FF, but with high thermal mass"
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600FF(
-    zon5R1C(
-      redeclare replaceable IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas),
-    annComBESTESTFF(TavgMin=297.65));
+      zonHVAC(redeclare replaceable
+        IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas));
 
  annotation(experiment(Tolerance=1e-6, StopTime=3.1536e+007),
   __Dymola_Commands(file=
