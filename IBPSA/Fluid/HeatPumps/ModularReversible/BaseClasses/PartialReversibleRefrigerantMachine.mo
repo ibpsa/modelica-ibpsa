@@ -37,7 +37,7 @@ partial model PartialReversibleRefrigerantMachine
     annotation(choices(checkBox=true));
   parameter Boolean allowDifferentDeviceIdentifiers=false
     "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
-    annotation(Dialog(tab="Advanced", enable=use_rev), choices(checkBox=true));
+    annotation(Dialog(tab="Advanced", enable=use_rev));
 
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30

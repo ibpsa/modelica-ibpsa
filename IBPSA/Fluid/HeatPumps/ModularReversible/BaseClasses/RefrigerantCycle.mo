@@ -5,7 +5,7 @@ model RefrigerantCycle
 
   parameter Boolean allowDifferentDeviceIdentifiers=false
     "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
-    annotation(Dialog(enable=use_rev), choices(checkBox=true));
+    annotation(Dialog(enable=use_rev));
 
   replaceable model RefrigerantCycleHeatPumpHeating =
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.NoHeating(
