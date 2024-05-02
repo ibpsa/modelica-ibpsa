@@ -25,26 +25,18 @@ model RefrigerantCycle "Refrigerant cycle model of a chiller"
     annotation (Placement(transformation(extent={{-60,38},{-19,80}}, rotation=0)));
 
 protected
-  IBPSA.Utilities.IO.Strings.StringPassThrough strPasThr
-    "String pass through to enable conditional string data";
-  IBPSA.Utilities.IO.Strings.Constant conStrSou(
-    final k=refCycChiCoo.datSou)
-   "Constant String data source";
+  parameter String datSou = 
+    if use_rev then refCycChiHea.datSou else refCycChiCoo.datSou
+    "Data source for refrigerant cycle";
 
 initial algorithm
   assert(
-    strPasThr.y == refCycChiCoo.datSou,
+    datSou == refCycChiCoo.datSou,
     "In " + getInstanceName() + ": Data sources for reversible operation are not equal.
     Cooling data source is " + refCycChiCoo.datSou + ", heating data source is "
-    + strPasThr.y + ". Only continue if this is intended.",
+    + datSou + ". Only continue if this is intended.",
     AssertionLevel.warning);
 equation
-  if use_rev then
-    connect(refCycChiHea.datSouOut, strPasThr.u);
-  else
-    connect(conStrSou.y, strPasThr.u);
-  end if;
-
   connect(pasTrhModSet.u, sigBus.coo);
 
   connect(sigBus,refCycChiHea.sigBus)  annotation (Line(

@@ -13,6 +13,7 @@ partial model PartialRefrigerantCycle
   parameter String datSou=""
     "Indicates the data source, used to warn users
     about different data sources in reversible models";
+
   replaceable IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting iceFacCal
   constrainedby
     IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.BaseClasses.PartialIcingFactor
@@ -62,13 +63,7 @@ partial model PartialRefrigerantCycle
         rotation=270,
         origin={-30,-90})));
 
-  IBPSA.Utilities.IO.Strings.StringOutput datSouOut
-  "String output of data source";
-protected
-  IBPSA.Utilities.IO.Strings.Constant conStrSou(final k=datSou)
-    "Constant String with data source as output";
 equation
-  connect(conStrSou.y, datSouOut);
   connect(proRedQEva.y, QEva_flow) annotation (Line(points={{-30,-101},{-30,-108},
           {80,-108},{80,-130}},color={0,0,127}));
   connect(proRedQEva.y, redQCon.u1) annotation (Line(points={{-30,-101},{-30,-108},
