@@ -30,7 +30,8 @@ TOOL = 'dymola'
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
 PACKAGE = 'IBPSA.ThermalZones.ISO13790.Validation.BESTEST'
-CASES = ['Case600', 'Case600FF','Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF','Case900', 'Case900FF']
+CASES = ['Case600', 'Case600FF','Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
+	'Case660','Case900', 'Case900FF']
 
 plt.rc('axes', labelsize=9)
 plt.rc('xtick', labelsize=9)
