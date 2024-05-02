@@ -55,16 +55,16 @@ in the table after the plots below.
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/annual_cooling.png\"
-     alt=\"annual_cooling.png\" />
 <img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/annual_heating.png\"
      alt=\"annual_heating.png\" />
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/annual_cooling.png\"
+     alt=\"annual_cooling.png\" />
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/peak_cooling.png\"
-     alt=\"peak_cooling.png\" />
 <img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/peak_heating.png\"
      alt=\"peak_heating.png\" />
+<img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/peak_cooling.png\"
+     alt=\"peak_cooling.png\" />
 </p>
 <p align=\"center\">
 <img src=\"modelica://IBPSA/Resources/Images/ThermalZones/ISO13790/Validation/BESTEST/hourly_load_600_Feb1.png\"
@@ -205,6 +205,18 @@ in the table after the plots below.
 <td>4.904</td>
 <td>5.042</td>
 <td>5.063</td>
+</tr>
+<tr>
+<td>Case695</td>
+<td>1.70</td>
+<td>3.81</td>
+<td>2.709</td>
+<td>2.415</td>
+<td>2.385</td>
+<td>2.802</td>
+<td>2.732</td>
+<td>2.892</td>
+<td>3.147</td>
 </tr>
 <tr>
 <td>Case900</td>
@@ -349,6 +361,18 @@ in the table after the plots below.
 <td>9.121</td>
 <td>8.851</td>
 <td>8.651</td>
+</tr>
+<tr>
+<td>Case695</td>
+<td>7.49</td>
+<td>10.58</td>
+<td>8.755</td>
+<td>8.974</td>
+<td>8.386</td>
+<td>9.172</td>
+<td>9.149</td>
+<td>9.039</td>
+<td>9.323</td>
 </tr>
 <tr>
 <td>Case900</td>
@@ -555,6 +579,23 @@ in the table after the plots below.
 <td>31-Dec:24</td>
 </tr>
 <tr>
+<td>Case695</td>
+<td>2.138</td>
+<td>26-Nov:8</td>
+<td>1.795</td>
+<td>01-Jan:1</td>
+<td>1.855</td>
+<td>01-Jan:1</td>
+<td>2.072</td>
+<td>31-Dec:24</td>
+<td>2.025</td>
+<td>26-Nov:7</td>
+<td>2.118</td>
+<td>26-Nov:8</td>
+<td>2.271</td>
+<td>31-Dec:24</td>
+</tr>
+<tr>
 <td>Case900</td>
 <td>2.551</td>
 <td>08-Feb:24</td>
@@ -758,6 +799,23 @@ in the table after the plots below.
 <td>6.867</td>
 <td>22-Jan:14</td>
 <td>6.265</td>
+<td>22-Jan:14</td>
+</tr>
+<tr>
+<td>Case695</td>
+<td>6.232</td>
+<td>22-Jan:15</td>
+<td>7.541</td>
+<td>22-Jan:14</td>
+<td>6.355</td>
+<td>22-Jan:14</td>
+<td>7.334</td>
+<td>22-Jan:14</td>
+<td>7.239</td>
+<td>22-Jan:14</td>
+<td>7.175</td>
+<td>22-Jan:14</td>
+<td>6.829</td>
 <td>22-Jan:14</td>
 </tr>
 <tr>
