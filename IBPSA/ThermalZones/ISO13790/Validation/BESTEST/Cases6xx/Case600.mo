@@ -93,17 +93,6 @@ model Case600
     u(unit="W"),
     y(unit="J", displayUnit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,74},{66,86}})));
-  Modelica.Blocks.Math.Gain EHeaMWh(k=1/3600000000) "Gain for heating"
-    annotation (Placement(visible=true,
-        transformation(
-        origin={82,80},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Modelica.Blocks.Math.Gain ECooMWh(k=1/3600000000) "Gain for heating"
-    annotation (Placement(visible=true, transformation(
-        origin={84,40},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
   Utilities.Math.MovingAverage                   PHea(delta=3600)
     "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{34,84},{42,92}})));
@@ -149,10 +138,6 @@ equation
           20,30},{-40,30},{-40,60},{0,60},{0,64.8}}, color={0,0,127}));
   connect(EHea.u, gaiHea.y) annotation (Line(points={{52.8,80},{44,80},{44,72},
           {28.6,72}}, color={0,0,127}));
-  connect(EHeaMWh.u, EHea.y)
-    annotation (Line(points={{74.8,80},{66.6,80}}, color={0,0,127}));
-  connect(ECooMWh.u, ECoo.y)
-    annotation (Line(points={{76.8,40},{66.6,40}}, color={0,0,127}));
   connect(TSetHea.y[1], conHeaPID.u_s)
     annotation (Line(points={{-17.4,72},{-7.2,72}}, color={0,0,127}));
   connect(TSetCoo.y[1], conCooPID.u_s)

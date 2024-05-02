@@ -93,33 +93,11 @@ model Case650 "Case 600, but cooling based on schedule, night venting, and no he
     u(unit="W"),
     y(unit="J", displayUnit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,74},{66,86}})));
-  Modelica.Blocks.Math.Gain EHeaMWh(k=1/3600000000) "Gain for heating"
-    annotation (Placement(visible=true,
-        transformation(
-        origin={82,80},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Modelica.Blocks.Math.Gain ECooMWh(k=1/3600000000) "Gain for heating"
-    annotation (Placement(visible=true, transformation(
-        origin={84,40},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Buildings.Controls.OBC.CDL.Reals.MovingAverage PHea(delta=3600)
+  Utilities.Math.MovingAverage                   PHea(delta=3600)
     "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{34,84},{42,92}})));
-  Buildings.Controls.OBC.CDL.Reals.MovingAverage PHea1(delta=3600)
-    "Hourly averaged heating power"
+  Utilities.Math.MovingAverage PCoo(delta=3600) "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{38,22},{46,30}})));
-  Modelica.Blocks.Math.Gain PCookW(k=1/1000) "Gain for heating" annotation (
-      Placement(visible=true, transformation(
-        origin={60,16},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
-  Modelica.Blocks.Math.Gain PHeakW(k=1/1000) "Gain for heating" annotation (
-      Placement(visible=true, transformation(
-        origin={58,98},
-        extent={{-6,-6},{6,6}},
-        rotation=0)));
   Modelica.Blocks.Sources.Constant intGaiLat(k=0) "Latent Internal heat gains"
     annotation (Placement(transformation(extent={{-80,-54},{-60,-34}})));
   Modelica.Blocks.Sources.CombiTimeTable
@@ -129,7 +107,7 @@ model Case650 "Case 600, but cooling based on schedule, night venting, and no he
     "Ventilation air flow rate"
     annotation (Placement(transformation(extent={{92,-70},{72,-50}})));
   Fluid.Sources.MassFlowSource_T           sinInf(
-    redeclare package Medium = Buildings.Media.Air,
+    redeclare package Medium = IBPSA.Media.Air,
     use_m_flow_in=true,
     nPorts=1) "Sink model for air infiltration"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
@@ -180,18 +158,10 @@ equation
           20,30},{-40,30},{-40,60},{0,60},{0,64.8}}, color={0,0,127}));
   connect(EHea.u, gaiHea.y) annotation (Line(points={{52.8,80},{44,80},{44,72},{
           28.6,72}}, color={0,0,127}));
-  connect(EHeaMWh.u, EHea.y)
-    annotation (Line(points={{74.8,80},{66.6,80}}, color={0,0,127}));
-  connect(ECooMWh.u, ECoo.y)
-    annotation (Line(points={{76.8,40},{66.6,40}}, color={0,0,127}));
   connect(PHea.u, gaiHea.y)
     annotation (Line(points={{33.2,88},{28.6,88},{28.6,72}}, color={0,0,127}));
-  connect(PHea1.u, gaiCoo.y) annotation (Line(points={{37.2,26},{28,26},{28,46},
+  connect(PCoo.u, gaiCoo.y) annotation (Line(points={{37.2,26},{32,26},{32,46},
           {28.6,46}}, color={0,0,127}));
-  connect(PCookW.u, PHea1.y)
-    annotation (Line(points={{52.8,16},{46.8,16},{46.8,26}}, color={0,0,127}));
-  connect(PHea.y, PHeakW.u) annotation (Line(points={{42.8,88},{48,88},{48,94},{
-          46,94},{46,98},{50.8,98}}, color={0,0,127}));
   connect(TSetHea.y[1], conHeaPID.u_s)
     annotation (Line(points={{-17.4,72},{-7.2,72}}, color={0,0,127}));
   connect(intGaiLat.y, zonHVAC.intLatGai) annotation (Line(points={{-59,-44},{-26,
@@ -215,23 +185,49 @@ equation
           -32},{44,-32}}, color={0,0,127}));
   connect(TSetCoo.y[1], conCooPID.u_s)
     annotation (Line(points={{-17.4,46},{-7.2,46}}, color={0,0,127}));
- annotation(experiment(
-      StopTime=31536000,
+ annotation (
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case650.mos"
+        "Simulate and plot"),
+        experiment(
+      StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
-  __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Case600.mos"
-        "Simulate and plot"), Documentation(info="<html>
-<p>
-This model is used for the basic test case 600 of the BESTEST validation suite. 
-Case 600 is a light-weight building with room temperature control set to <i>20</i>&deg;C 
-for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south. 
-</p>
-</html>", revisions="<html><ul>
+      Tolerance=1e-06),
+    Documentation(revisions="<html>
+<ul>
 <li>
-Mar 16, 2022, by Alessandro Maccarini:<br/>
+May 3, 2024, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
-</ul></html>"));
+</ul>
+</html>", info="<html>
+<p>
+This model is used for the test case 650 of the BESTEST validation suite.
+Case650 is the same as Case600, but with the following modifications:
+</p>
+<ul>
+<li>
+From 1800 hours to 0700 hours, vent fan = on
+</li>
+<li>
+From 0700 hours to 1800 hours, vent fan = off
+</li>
+<li>
+Heating is always off
+</li>
+<li>
+From 0700 hours to 1800 hours, cooling is on if zone temperature &gt; 27&deg;C,
+otherwise cool = off.
+</li>
+<li>
+From 1800 hours to 0700 hours, cooling is always off.
+</li>
+<li>
+Ventilation fan capacity is 1700 standard m<sup>3</sup>/h (in addition to specified
+infiltration rate). After adjustment for the altitude, the capacity is 1409 m<sup>3</sup>/h.
+</li>
+<li>
+No waste heat from fan.
+</li>
+</ul>
+</html>"));
 end Case650;

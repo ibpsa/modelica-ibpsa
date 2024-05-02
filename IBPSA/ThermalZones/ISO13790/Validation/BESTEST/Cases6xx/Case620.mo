@@ -21,7 +21,7 @@ The shading reduction factor was set to 0.84, according to the procedure describ
 </p>
 </html>", revisions="<html><ul>
 <li>
-Mar 02, 2024, by Alessandro Maccarini:<br/>
+Mar 2, 2024, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul></html>"));
