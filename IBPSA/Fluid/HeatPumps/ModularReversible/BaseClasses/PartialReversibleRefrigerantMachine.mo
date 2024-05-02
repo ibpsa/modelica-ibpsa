@@ -35,6 +35,9 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean use_rev=true
     "=true if the chiller or heat pump is reversible"
     annotation(choices(checkBox=true));
+  parameter Boolean allowDifferentDeviceIdentifiers=false
+    "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
+    annotation(Dialog(tab="Advanced", enable=use_rev));
 
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
@@ -685,6 +688,11 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+  <li>
+    May 2, 2024, by Michael Wetter:<br/>
+    Refactored check for device identifiers.<br/>
+    This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">IBPSA, #1576</a>.
+  </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=
