@@ -413,6 +413,18 @@ The following tables summarizes the possible options.
   are similar between heating and cooling. The pre-configured models
   warn about deviations if they are too large.
 </p>
+<p>
+  To change the capacity of the model, users should change
+  <code>QHea_flow_nominal</code> for heating operation and
+  <code>QCoo_flow_nominal</code> for cooling operation. This will then also
+  update the electricity use <code>PEle_nominal</code>.<br/>
+  For models with table-based performance curves, changing these values will also scale
+  the design mass flow rates and pressure drops.
+  The documentation of
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.TableData2D\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.TableData2D</a>
+  further explains the scaling.
+</p>
 
 <h4>Safety controls</h4>
 
