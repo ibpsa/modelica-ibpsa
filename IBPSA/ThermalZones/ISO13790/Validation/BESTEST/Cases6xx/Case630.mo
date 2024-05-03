@@ -12,7 +12,7 @@ model Case630 "Case 620, but with added overhang and sidefins"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the case 630 of the BESTEST validation suite.
-Case 620 differs from case 620 in that windows on the west and 
+Case 630 differs from case 620 in that windows on the west and 
 east walls have an overhang and side fins.
 </p>
 <h4>Implementation</h4>
