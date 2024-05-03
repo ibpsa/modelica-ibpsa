@@ -31,7 +31,8 @@ TOOL = 'dymola'
 ASHRAE_DATA = './ASHRAE140_data.dat'
 PACKAGE = 'IBPSA.ThermalZones.ISO13790.Validation.BESTEST'
 CASES = ['Case600', 'Case600FF','Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
-	'Case660', 'Case670','Case680','Case680FF','Case685', 'Case695','Case900', 'Case900FF']
+	'Case660', 'Case670','Case680','Case680FF','Case685', 'Case695','Case900', 'Case900FF', \
+	'Case910']
 
 plt.rc('axes', labelsize=9)
 plt.rc('xtick', labelsize=9)
@@ -905,7 +906,7 @@ def plot_figures(comDat):
     line_xMax = [24, 24, 24, 24, 24, 24, 50]
     line_dx = [1, 1, 1, 1, 1, 1, 5]
     line_yMin = [-10, -10, 10, 10, -6, -2, 0]
-    line_yMax = [50, 50, 50, 50, 4, 2, 500]
+    line_yMax = [60, 60, 60, 60, 4, 2, 500]
 
     for i in range(len(comDat)):
         data = comDat[i]
