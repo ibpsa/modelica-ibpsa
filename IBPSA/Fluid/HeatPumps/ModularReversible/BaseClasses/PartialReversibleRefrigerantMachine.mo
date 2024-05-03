@@ -332,8 +332,10 @@ partial model PartialReversibleRefrigerantMachine
         rotation=270,
         origin={0,-50})));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.InflowTemperatureSensor senTConIn(
-    final y=MediumCon.temperature(MediumCon.setState_phX(
+  Modelica.Blocks.Sources.RealExpression senTConIn(
+    final y(
+      final unit="K",
+      displayUnit="degC")=MediumCon.temperature(MediumCon.setState_phX(
         port_a1.p,
         inStream(port_a1.h_outflow),
         inStream(port_a1.Xi_outflow))))
@@ -342,8 +344,10 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-98,32})));
-  IBPSA.Fluid.HeatPumps.ModularReversible.BaseClasses.InflowTemperatureSensor senTEvaIn(
-    final y=MediumEva.temperature(MediumEva.setState_phX(
+  Modelica.Blocks.Sources.RealExpression senTEvaIn(
+    final y(
+      final unit="K",
+      displayUnit="degC")=MediumEva.temperature(MediumEva.setState_phX(
         port_a2.p,
         inStream(port_a2.h_outflow),
         inStream(port_a2.Xi_outflow))))
