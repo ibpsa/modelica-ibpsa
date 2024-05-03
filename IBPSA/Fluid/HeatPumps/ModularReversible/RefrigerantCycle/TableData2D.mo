@@ -190,7 +190,7 @@ This implies a constant COP over different design sizes:
   the ouput of the tables linearly.
   For models including the compressor speed, check the SDF-Library
   dependent refrigerant cycle models in the
-  <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a>.
+  <a href=\"https://github.com/RWTH-EBC/AixLib\">AixLib</a> Library.
 </li>
 </ul>
 <h4>References</h4>
