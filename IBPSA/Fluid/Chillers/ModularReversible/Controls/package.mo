@@ -7,7 +7,7 @@ package Controls "Package of control sequences"
     Documentation(
       info="<html>
 <p>
-This package contains control logic for heat pumps.
+This package contains control logic for the chiller internal controls.
 </p>
 </html>"),
 Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100.0,-100.0},{100.0,100.0}}), graphics={
