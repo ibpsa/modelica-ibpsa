@@ -1,8 +1,6 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx;
 model Case910 "Case 900, but the window has an overhang"
-  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(
-        redeclare
-        IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas,
+  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx.Case900(zonHVAC(
         shaRedFac=0.84));
  annotation(experiment(
       StopTime=31536000,

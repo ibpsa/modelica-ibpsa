@@ -242,6 +242,18 @@ in the table after the plots below.
 <td>2.132</td>
 <td>2.284</td>
 </tr>
+<tr>
+<td>Case920</td>
+<td>2.55</td>
+<td>4.20</td>
+<td>3.5</td>
+<td>2.956</td>
+<td>3.259</td>
+<td>3.337</td>
+<td>3.3</td>
+<td>3.607</td>
+<td>3.65</td>
+</tr>
 <tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
@@ -409,6 +421,18 @@ in the table after the plots below.
 <td>1.283</td>
 <td>1.191</td>
 <td>1.674</td>
+</tr>
+<tr>
+<td>Case920</td>
+<td>2.43</td>
+<td>3.08</td>
+<td bgcolor=\"#FF4500\">3.128</td>
+<td>2.789</td>
+<td>2.706</td>
+<td>2.731</td>
+<td>2.814</td>
+<td>2.549</td>
+<td>2.684</td>
 </tr>
 </table>
 <br/>
@@ -653,6 +677,23 @@ in the table after the plots below.
 <td>2.679</td>
 <td>9-Feb:6</td>
 </tr>
+<tr>
+<td>Case920</td>
+<td>2.895</td>
+<td>26-Nov:8</td>
+<td>2.512</td>
+<td>09-Feb:6</td>
+<td>2.513</td>
+<td>09-Feb:5</td>
+<td>2.770</td>
+<td>09-Feb:6</td>
+<td>2.706</td>
+<td>09-Feb:7</td>
+<td>2.864</td>
+<td>09-Feb:6</td>
+<td>2.728</td>
+<td>9-Feb:6</td>
+</tr>
 <tr><td colspan=\"15\"><b>Peak cooling load (kW)</b></td></tr>
 <tr>
 <th rowspan=\"2\">Case</th>
@@ -892,6 +933,23 @@ in the table after the plots below.
 <td>12-Oct:15</td>
 <td>2.012</td>
 <td>11-Sep:15</td>
+</tr>
+<tr>
+<td>Case920</td>
+<td>3.481</td>
+<td>26-Jun:18</td>
+<td>3.057</td>
+<td>26-Jun:18</td>
+<td>2.710</td>
+<td>26-Jun:17</td>
+<td>3.260</td>
+<td>26-Jun:18</td>
+<td>3.099</td>
+<td>26-Jun:18</td>
+<td>3.154</td>
+<td>26-Jun:18</td>
+<td>2.798</td>
+<td>26-Jun:18</td>
 </tr>
 </table>
 <br/>

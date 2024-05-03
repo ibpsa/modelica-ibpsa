@@ -15,10 +15,6 @@ This model is the case 620 of the BESTEST validation suite.
 Case 620 differs from case 600 in that the west and east facing walls
 have a window, but there is no window in the south facing wall.
 </p>
-<h4>Implementation</h4>
-<p>
-The shading reduction factor was set to 0.84, according to the procedure described in the ISO13790 standard.
-</p>
 </html>", revisions="<html><ul>
 <li>
 Mar 2, 2024, by Alessandro Maccarini:<br/>
