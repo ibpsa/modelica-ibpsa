@@ -1251,6 +1251,23 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>43.4</td>
 <td>11-Sep:16</td>
 </tr>
+<tr>
+<td>Case950FF</td>
+<td>37.1</td>
+<td>01-Oct:17</td>
+<td>36.8</td>
+<td>11-Sep:15</td>
+<td>36.4</td>
+<td>11-Sep:15</td>
+<td>36.7</td>
+<td>11-Sep:16</td>
+<td>36.4</td>
+<td>05-Aug:16</td>
+<td>36.1</td>
+<td>11-Sep:16</td>
+<td>36.6</td>
+<td>11-Sep:16</td>
+</tr>
 <tr><td colspan=\"15\"><b>Minimum temperature (&deg;C)</b></td></tr>
 <tr>
 <th rowspan=\"2\">Case</th>
@@ -1337,6 +1354,23 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>09-Feb:7</td>
 <td>0.3</td>
 <td>9-Feb:7</td>
+</tr>
+<tr>
+<td>Case950FF</td>
+<td>-13.2</td>
+<td>31-Dec:24</td>
+<td>-13.2</td>
+<td>01-Jan:1</td>
+<td>-13.4</td>
+<td>30-Dec:23</td>
+<td>-12.8</td>
+<td>09-Feb:7</td>
+<td>-12.5</td>
+<td>09-Feb:6</td>
+<td>-12.8</td>
+<td>09-Feb:6</td>
+<td>-13.4</td>
+<td>31-Dec:24</td>
 </tr>
 </table>
 <br/>
