@@ -8,7 +8,7 @@ model Case920 "Case 900, but with windows on East and West side walls"
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case920.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases9xx/Case920.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the case 920 of the BESTEST validation suite.

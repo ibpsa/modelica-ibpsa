@@ -10,7 +10,7 @@ model Case940 "Case 900, but with heating schedule"
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
   __Dymola_Commands(file=
-  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case940.mos"
+  "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases9xx/Case940.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the basic test case 940 of the BESTEST validation suite.
