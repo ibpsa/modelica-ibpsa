@@ -1,7 +1,7 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx;
 model Case980 "Case 900, but with increased exterior wall and roof insulation"
-  extends Cases6xx.Case680(zonHVAC(redeclare
-        IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas));
+  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx.Case900(zonHVAC(
+        UWal=0.15, URoo=0.1))
  annotation (
   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases9xx/Case980.mos"
         "Simulate and plot"),
