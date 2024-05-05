@@ -33,7 +33,7 @@ model Zone "Thermal zone based on 5R1C network"
    annotation(Dialog(group="Windows"));
   parameter Real gFac(min=0, max=1) "Energy transmittance of glazings"
    annotation(Dialog(group="Windows"));
-  parameter Real coeFac[:]={0.9} "Polynomial coefficients for gFac"
+  parameter Real coeFac[:]={1} "Polynomial coefficients for gFac"
    annotation(Dialog(group="Windows"));
   parameter Real shaRedFac=1 "Shading reduction factor"
    annotation(Dialog(group="Windows"));
@@ -390,8 +390,8 @@ If a wall contains only opaque parts, the corresponding window area must be set 
 The parameter <code>coeFac</code> is used to vary the g-factor as a function of the incident angle 
 of the surface. Often, the curve can be approximated by a cubic polynomial, as shown in 
 <a href=\"IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600\">
-IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600</a>. When this information is not available, the Standard ISO13790
-recommends using a value equal to <i>0.9</i>. 
+IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600</a>. When this information is not available,
+the parameter <code>coeFac</code> must be set to <i>1</i>. 
 </li>
 </ul>
 </html>",
