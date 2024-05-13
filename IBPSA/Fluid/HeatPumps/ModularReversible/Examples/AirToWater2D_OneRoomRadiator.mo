@@ -21,7 +21,7 @@ model AirToWater2D_OneRoomRadiator
     dpCon_nominal(displayUnit="Pa") = 2000,
     dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    QCoo_flow_nominal=-20000,
+    QCoo_flow_nominal=-10000,
     TConHea_nominal=rad.TRad_nominal,
     TEvaHea_nominal=283.15,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
@@ -88,6 +88,16 @@ equation
   further information.
 </p>
 <p>
+  Furthermore, this example is useful to understand the different sizing options.
+  The selected value of <code>QCoo_flow_nominal</code> leads to
+  conflicting scaling factors for heating and cooling operation. This triggers a warning.
+  Using the default <code>QCoo_flow_nominal</code>, the warning disappears. 
+  Increasing (or decreasing) it, the number of on-off switches will increase (or decrease)
+  in cooling operation due to the low inertia of the system. 
+  In real air-to-water systems, thermal energy storage would be used to 
+  decrease cycling if the device is oversized.
+</p>  
+<p>
   Please check the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
   IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator</a>
@@ -95,6 +105,11 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+  <i>May 5, 2024</i> by Fabian Wuellhorst:<br/>
+  Updated documentation and changed default value (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1876\">#1576</a>)
+</li>
 <li>
   <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
   First implementation (see issue <a href=
