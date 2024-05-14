@@ -100,8 +100,8 @@ because otherwise
 <a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 would not know the pressure of the mover.
-See <a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerEuler\">
-IBPSA.Fluid.Movers.Validation.PowerEuler</a>
+See <a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerEuler\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerEuler</a>
 for a more typical use case where only the peak point itself is supplied.
 </p>
 </html>", revisions="<html>

@@ -1,20 +1,20 @@
-within IBPSA.Fluid.Movers.Validation;
+within IBPSA.Obsolete.Fluid.Movers.Validation;
 model PowerExact
   "Power calculation comparison among three mover types, using exact power computation for m_flow and dp"
-  extends IBPSA.Fluid.Movers.Validation.PowerSimplified(
+  extends IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified(
     pump_dp(per=per),
     pump_m_flow(per=per));
   annotation (
     experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Validation/PowerExact.mos"
         "Simulate and plot"),
         Documentation(
 info="<html>
 <p>
 This example is identical to
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerSimplified\">
-IBPSA.Fluid.Movers.Validation.PowerSimplified</a>, except that the
+<a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified</a>, except that the
 performance data for the flow controlled pumps
 <code>pump_dp</code> and <code>pump_m_flow</code> contain
 the pressure curves and efficiency curves.
@@ -22,7 +22,7 @@ The plot below shows that this leads to a computation of the power consumption
 that is identical to the one from the speed controlled pump <code>pump_y</code>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Movers/Validation/PowerExact.png\"/>
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Obsolete/Fluid/Movers/Validation/PowerExact.png\"/>
 </p>
 </html>",
 revisions="<html>

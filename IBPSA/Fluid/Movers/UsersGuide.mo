@@ -122,13 +122,13 @@ and the speed is unknown. This is because the models wouldn't be able
 to compute the elctrical power correctly using similarity laws without speed.
 In this case the user can mitigate the error by providing other information for
 hydraulic efficiency. Compare validation models
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerSimplified\">
-IBPSA.Fluid.Movers.Validation.PowerSimplified</a>,
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerExact\">
-IBPSA.Fluid.Movers.Validation.PowerExact</a>,
+<a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified</a>,
+<a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerExact\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerExact</a>,
 and
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerEuler\">
-IBPSA.Fluid.Movers.Validation.PowerEuler</a>
+<a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerEuler\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerEuler</a>
 as an example.
 </li>
 </ul>
@@ -462,8 +462,8 @@ or extrapolated using
 <a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 IBPSA.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
 See
-<a href=\"Modelica://IBPSA.Fluid.Movers.Validation.PowerSimplified\">
-IBPSA.Fluid.Movers.Validation.PowerSimplified</a>
+<a href=\"Modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerSimplified</a>
 as an example.
 </li>
 <li>
@@ -474,8 +474,8 @@ The power is interpolated or extrapolated using
 IBPSA.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 <i>&eta;<sub>hyd</sub></i> is then computed from <i>W&#775;<sub>hyd</sub></i>.
 See
-<a href=\"Modelica://IBPSA.Fluid.Movers.Validation.PowerExact\">
-IBPSA.Fluid.Movers.Validation.PowerExact</a>
+<a href=\"Modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerExact\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerExact</a>
 as an example.
 </li>
 <li>
@@ -523,8 +523,8 @@ IBPSA.Fluid.Movers.Examples.StaticReset</a>
 specifies the peak point directly.
 </li>
 <li>
-<a href=\"modelica://IBPSA.Fluid.Movers.Validation.PowerEuler\">
-IBPSA.Fluid.Movers.Validation.PowerEuler</a>
+<a href=\"modelica://IBPSA.Obsolete.Fluid.Movers.Validation.PowerEuler\">
+IBPSA.Obsolete.Fluid.Movers.Validation.PowerEuler</a>
 explictly calls the function.
 </li>
 <li>

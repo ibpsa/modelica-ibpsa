@@ -1,4 +1,4 @@
-within IBPSA.Fluid.Movers.Validation;
+within IBPSA.Obsolete.Fluid.Movers.Validation;
 model PowerSimplified
   "Power calculation comparison among three mover types, using simplified power computation for m_flow and dp"
   extends Modelica.Icons.Example;
@@ -112,7 +112,7 @@ equation
     annotation (Line(points={{-69,80},{-50,80},{-50,52}}, color={0,0,127}));
   annotation (    experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos"
+          "modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Validation/PowerSimplified.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -143,7 +143,7 @@ power calculation where the speed <i>y</i> differs from
 the nominal speed <i>y<sub>nominal</sub></i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png\"/>
+<img alt=\"image\" src=\"modelica://IBPSA/Resources/Images/Obsolete/Fluid/Movers/Validation/PowerSimplified.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
