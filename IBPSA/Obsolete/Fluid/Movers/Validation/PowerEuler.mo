@@ -45,6 +45,12 @@ the nominal speed <i>y<sub>nominal</sub></i>.
 revisions="<html>
 <ul>
 <li>
+May 14, 2024, by Hongxiang Fu:<br/>
+Moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
+<li>
 November 22, 2021, by Hongxiang Fu:<br/>
 First implementation.
 </li>
