@@ -37,5 +37,22 @@ equation
     annotation (Line(points={{-37,-50},{-30,-50},{-30,-58}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/ComparePowerInput.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+        Documentation(info="<html>
+<p>
+This validation model is similar to
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.ComparePowerHydraulic\">
+IBPSA.Fluid.Movers.Validation.ComparePowerHydraulic</a>.
+It demonstrates that the mover models with different input signals
+should produce the same power computation results.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 15, 2024, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
+</ul>
+</html>"));
 end ComparePowerInput;
