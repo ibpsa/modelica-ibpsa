@@ -21,7 +21,6 @@ model AirToWater2D_OneRoomRadiator
     dpCon_nominal(displayUnit="Pa") = 2000,
     dpEva_nominal(displayUnit="Pa") = 200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    QCoo_flow_nominal=-10000,
     TConHea_nominal=rad.TRad_nominal,
     TEvaHea_nominal=283.15,
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
@@ -35,7 +34,8 @@ model AirToWater2D_OneRoomRadiator
     redeclare
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
       safCtrPar(
-      use_minOnTime=false,
+      use_minOnTime=true,
+      minOnTime=300,
       use_minOffTime=true,
       minOffTime=300,
       use_maxCycRat=true)) "Reversible heat pump based on 2D table data"
@@ -87,16 +87,6 @@ equation
   heat pump model. Please check the associated documentation for
   further information.
 </p>
-<p>
-  Furthermore, this example is useful to understand the different sizing options.
-  The selected value of <code>QCoo_flow_nominal</code> leads to
-  conflicting scaling factors for heating and cooling operation. This triggers a warning.
-  Using the default <code>QCoo_flow_nominal</code>, the warning disappears. 
-  Increasing (or decreasing) it, the number of on-off switches will increase (or decrease)
-  in cooling operation due to the low inertia of the system. 
-  In real air-to-water systems, thermal energy storage would be used to 
-  decrease cycling if the device is oversized.
-</p>  
 <p>
   Please check the documentation of
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator\">
