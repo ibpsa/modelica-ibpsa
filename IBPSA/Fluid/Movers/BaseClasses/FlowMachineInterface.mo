@@ -109,13 +109,15 @@ model FlowMachineInterface
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
-    final unit="1") "Hydraulic efficiency"
+    final unit="1",
+    start = 0.7) "Hydraulic efficiency"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
-    final unit="1") "Motor efficiency"
+    final unit="1",
+    start = 0.7) "Motor efficiency"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
         iconTransformation(extent={{100,-110},{120,-90}})));
 
@@ -861,7 +863,9 @@ revisions="<html>
 <li>
 May 15, 2024, by Hongxiang Fu:<br/>
 Corrected efficiency equations if
-<code>powerOrEfficiencyIsHydraulic=false</code>.
+<code>powerOrEfficiencyIsHydraulic=false</code>
+and specified the <code>start</code> attribute for <code>etaHyd</code>
+and <code>etaMot</code> to suppress a warning.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
 </li>
