@@ -22,14 +22,10 @@ model ComparePowerHydraulic
       etaMotMet=per.etaMotMet)));
 
 equation
-  connect(ramSpe.y, mov2.y) annotation (Line(points={{-59,80},{-52,80},{-52,-10},
-          {-30,-10},{-30,-18}}, color={0,0,127}));
+  connect(ramSpe.y, mov2.y) annotation (Line(points={{-59,80},{-52,80},{-52,0},
+          {-30,0},{-30,-8}},    color={0,0,127}));
   connect(ramSpe.y, mov3.y) annotation (Line(points={{-59,80},{-52,80},{-52,-50},
           {-30,-50},{-30,-58}}, color={0,0,127}));
-  connect(ramDam.y, damExp2.y) annotation (Line(points={{21,80},{30,80},{30,-10},
-          {50,-10},{50,-18}}, color={0,0,127}));
-  connect(ramDam.y, damExp3.y) annotation (Line(points={{21,80},{30,80},{30,-50},
-          {50,-50},{50,-58}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/ComparePowerHydraulic.mos"
         "Simulate and plot"));

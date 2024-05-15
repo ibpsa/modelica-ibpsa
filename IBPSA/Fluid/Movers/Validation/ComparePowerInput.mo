@@ -24,15 +24,17 @@ model ComparePowerInput
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal),
     ramDam(height=-0.5));
+  Modelica.Blocks.Sources.RealExpression exp_dp(y=mov1.dpMachine)
+    "Expression to impose the same pressure rise"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Modelica.Blocks.Sources.RealExpression exp_m_flow(y=mov1.m_flow)
+    "Expression to impose the same mass flow rate"
+    annotation (Placement(transformation(extent={{-58,-60},{-38,-40}})));
 equation
-  connect(relPre.p_rel, mov2.dp_in)
-    annotation (Line(points={{-30,1},{-30,-18}}, color={0,0,127}));
-  connect(masFloRat.m_flow, mov3.m_flow_in) annotation (Line(points={{10,51},{10,
-          54},{-10,54},{-10,-52},{-30,-52},{-30,-58}}, color={0,0,127}));
-  connect(ramDam.y, damExp2.y) annotation (Line(points={{21,80},{30,80},{30,-10},
-          {50,-10},{50,-18}}, color={0,0,127}));
-  connect(ramDam.y, damExp3.y) annotation (Line(points={{21,80},{30,80},{30,-50},
-          {50,-50},{50,-58}}, color={0,0,127}));
+  connect(exp_dp.y, mov2.dp_in)
+    annotation (Line(points={{-39,0},{-30,0},{-30,-8}}, color={0,0,127}));
+  connect(exp_m_flow.y, mov3.m_flow_in)
+    annotation (Line(points={{-37,-50},{-30,-50},{-30,-58}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/Validation/ComparePowerInput.mos"
         "Simulate and plot"));
