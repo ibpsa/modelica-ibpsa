@@ -13,6 +13,7 @@ model Case695
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
 May 3, 2024, by Alessandro Maccarini:<br/>
 First implementation.
 </li>

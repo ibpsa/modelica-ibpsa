@@ -13,6 +13,7 @@ model Case995 "Case 900, but with single heating and cooling setpoint and increa
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
 May 3, 2024, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
