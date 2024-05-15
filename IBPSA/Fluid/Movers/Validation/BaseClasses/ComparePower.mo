@@ -121,5 +121,19 @@ equation
   connect(mov1.port_b, damExp1.port_a)
     annotation (Line(points={{-20,40},{40,40}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+        Documentation(info="<html>
+<p>
+This is the base class for a number of validation models that compare
+power computation of different mover model configurations.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 15, 2024, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
+</ul>
+</html>"));
 end ComparePower;
