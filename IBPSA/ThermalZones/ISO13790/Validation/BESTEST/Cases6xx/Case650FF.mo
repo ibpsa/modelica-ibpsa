@@ -43,7 +43,7 @@ equation
   connect(out.ports[1], zonHVAC.ports[3]) annotation (Line(points={{-60,60},{
           -38,60},{-38,-8.2},{-13,-8.2}}, color={0,127,255}));
  annotation (
-experiment(Tolerance=1e-06, StopTime=3.1536e+07),
+experiment(Tolerance=1e-06, Interval=3600,StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case650FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

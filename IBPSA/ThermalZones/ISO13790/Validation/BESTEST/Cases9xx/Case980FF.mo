@@ -4,7 +4,7 @@ model Case980FF
         UWal=0.15, URoo=0.1));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-experiment(Tolerance=1e-06, StopTime=3.1536e+07),
+experiment(Tolerance=1e-06, Interval=3600, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases9xx/Case980FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

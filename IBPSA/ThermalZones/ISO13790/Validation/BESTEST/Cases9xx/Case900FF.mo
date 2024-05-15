@@ -5,7 +5,7 @@ model Case900FF
       zonHVAC(redeclare replaceable
         IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Data.Case900Mass buiMas));
 
- annotation(experiment(Tolerance=1e-6, StopTime=3.1536e+007),
+ annotation(experiment(Tolerance=1e-6, Interval=3600, StopTime=3.1536e+007),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases9xx/Case900FF.mos"
         "Simulate and plot"), Documentation(info="<html>

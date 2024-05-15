@@ -1,12 +1,11 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
 model Case620 "Case 600, but with windows on East and West side walls"
-  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(AWin
-        ={0,6,0,6}));
+  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(AWin=
+         {0,6,0,6}));
  annotation(experiment(
       StopTime=31536000,
       Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case620.mos"
         "Simulate and plot"), Documentation(info="<html>

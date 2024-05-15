@@ -1,12 +1,11 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
 model Case630 "Case 620, but with added overhang and sidefins"
-  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(AWin
-        ={0,6,0,6}, shaRedFac=0.846*0.915));
+  extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(AWin=
+         {0,6,0,6}, shaRedFac=0.846*0.915));
  annotation(experiment(
       StopTime=31536000,
       Interval=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case630.mos"
         "Simulate and plot"), Documentation(info="<html>

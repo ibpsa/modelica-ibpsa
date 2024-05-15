@@ -42,7 +42,7 @@ equation
       color={255,204,51},
       thickness=0.5));
  annotation (
-experiment(Tolerance=1e-06, StopTime=3.1536e+07),
+ experiment(Tolerance=1e-06, Interval=3600, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases9xx/Case950FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
