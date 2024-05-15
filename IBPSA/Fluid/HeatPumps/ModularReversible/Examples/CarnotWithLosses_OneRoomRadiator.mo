@@ -12,7 +12,7 @@ model CarnotWithLosses_OneRoomRadiator
       redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per));
   extends Modelica.Icons.Example;
 
-  parameter Real perHeaLos=0.1
+  parameter Real perHeaLos=0.01
     "Percentage of heat losses in the heat exchangers to the nominal heating output";
   IBPSA.Fluid.HeatPumps.ModularReversible.CarnotWithLosses heaPum(
     redeclare package MediumCon = MediumWat,
