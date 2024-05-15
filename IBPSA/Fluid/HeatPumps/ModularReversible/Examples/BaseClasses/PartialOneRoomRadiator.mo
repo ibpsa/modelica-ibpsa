@@ -71,11 +71,11 @@ partial model PartialOneRoomRadiator
 
 //----------------------------------------------------------------------------//
 
-  Movers.FlowControlled_m_flow pumHeaPum(
+  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mCon_flow_nominal,
-    m_flow_start=0.85,
+    m_flow_start=mCon_flow_nominal,
     T_start=TRadSup_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -109,9 +109,9 @@ partial model PartialOneRoomRadiator
 
 //--------------------------------------------------------------------------------------//
 
-  Movers.FlowControlled_m_flow pumHeaPumSou(
+  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumWat,
-    m_flow_start=0.85,
+    m_flow_start=mEva_flow_nominal,
     m_flow_nominal=mEva_flow_nominal,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
