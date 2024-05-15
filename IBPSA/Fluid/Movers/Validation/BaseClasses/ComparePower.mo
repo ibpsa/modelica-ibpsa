@@ -46,7 +46,7 @@ model ComparePower
     "Mover (fan or pump)"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
-  Buildings.Fluid.Actuators.Dampers.Exponential damExp1(
+  IBPSA.Fluid.Actuators.Dampers.Exponential damExp1(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
@@ -54,7 +54,7 @@ model ComparePower
     y_start=1,
     dpFixed_nominal=dp_nominal) "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Fluid.Actuators.Dampers.Exponential damExp2(
+  IBPSA.Fluid.Actuators.Dampers.Exponential damExp2(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
@@ -62,7 +62,7 @@ model ComparePower
     y_start=1,
     dpFixed_nominal=dp_nominal) "Damper"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Fluid.Actuators.Dampers.Exponential damExp3(
+  IBPSA.Fluid.Actuators.Dampers.Exponential damExp3(
     redeclare final package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
