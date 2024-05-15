@@ -8,12 +8,9 @@ model AirToWater2D_OneRoomRadiator
     sin(nPorts=1, redeclare package Medium = MediumAir),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     pumHeaPumSou(
-      redeclare IBPSA.Fluid.Movers.Data.Fans.Greenheck.BIDW12 per,
       redeclare package Medium = MediumAir),
     sou(use_T_in=true,
-      redeclare package Medium = MediumAir),
-    pumHeaPum(
-      redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per));
+      redeclare package Medium = MediumAir));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.AirToWaterTableData2D
     heaPum(

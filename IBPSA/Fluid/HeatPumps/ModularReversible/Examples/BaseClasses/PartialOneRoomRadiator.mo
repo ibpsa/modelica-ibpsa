@@ -71,9 +71,8 @@ partial model PartialOneRoomRadiator
 
 //----------------------------------------------------------------------------//
 
-  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
+  IBPSA.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumHeaPum(
     redeclare package Medium = MediumWat,
-    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mCon_flow_nominal,
     m_flow_start=mCon_flow_nominal,
     T_start=TRadSup_nominal,
@@ -109,7 +108,7 @@ partial model PartialOneRoomRadiator
 
 //--------------------------------------------------------------------------------------//
 
-  IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
+  IBPSA.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumHeaPumSou(
     redeclare package Medium = MediumWat,
     m_flow_start=mEva_flow_nominal,
     m_flow_nominal=mEva_flow_nominal,
