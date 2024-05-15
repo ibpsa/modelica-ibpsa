@@ -10,13 +10,12 @@ model ComparePowerHydraulic
     mov2(per(
       powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
       pressure=per.pressure,
-      power=per.power,
       etaHydMet=IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
+      peak=per.peak,
       etaMotMet=per.etaMotMet)),
     mov3(per(
       powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
       pressure=per.pressure,
-      power=per.power,
       etaHydMet=IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       efficiency(V_flow={per.peak.V_flow}, eta={per.peak.eta}),
       etaMotMet=per.etaMotMet)));
@@ -63,7 +62,7 @@ at different speeds under constant system condition.
 Their power estimates diverge when the damper closes and the system curve is
 changed. The Euler number method was able to produce results close
 to the power curves and maintained positive power consumption as the flow rate
-approaches zero. However, the constant efficiency assumption was not able
+approached zero. However, the constant efficiency assumption was not able
 to capture this characteristic.
 </p>
 </html>", revisions="<html>
