@@ -859,6 +859,13 @@ See discussions and an example of this situation in
 revisions="<html>
 <ul>
 <li>
+May 15, 2024, by Hongxiang Fu:<br/>
+Corrected efficiency equations if
+<code>powerOrEfficiencyIsHydraulic=false</code>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
+<li>
 August 8, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
