@@ -5,7 +5,11 @@ model CarnotWithLosses_OneRoomRadiator
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
-    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal));
+    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
+    pumHeaPum(redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
+        per),
+    pumHeaPumSou(redeclare
+        IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per));
   extends Modelica.Icons.Example;
 
   parameter Real perHeaLos=0.1
