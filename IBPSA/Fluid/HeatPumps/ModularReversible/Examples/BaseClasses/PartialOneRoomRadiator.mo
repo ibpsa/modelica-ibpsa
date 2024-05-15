@@ -97,8 +97,8 @@ partial model PartialOneRoomRadiator
 //------------------------------------------------------------------------------------//
 
   IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    Modelica.Utilities.Files.loadResource(
+      "modelica://IBPSA/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
@@ -119,8 +119,9 @@ partial model PartialOneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-180})));
-  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(realTrue=mCon_flow_nominal,
-      y(start=0)) "Pump signal" annotation (Placement(transformation(
+  Modelica.Blocks.Math.BooleanToReal booToReaPumCon(
+    realTrue=mCon_flow_nominal,
+    y(start=0)) "Pump signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,-110})));

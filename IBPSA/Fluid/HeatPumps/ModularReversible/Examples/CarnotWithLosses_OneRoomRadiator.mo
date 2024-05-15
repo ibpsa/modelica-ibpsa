@@ -6,10 +6,10 @@ model CarnotWithLosses_OneRoomRadiator
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPum(redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
-        per),
-    pumHeaPumSou(redeclare
-        IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per));
+    pumHeaPum(
+      redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per),
+    pumHeaPumSou(
+      redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per));
   extends Modelica.Icons.Example;
 
   parameter Real perHeaLos=0.1
@@ -35,10 +35,9 @@ model CarnotWithLosses_OneRoomRadiator
     TConCoo_nominal=oneRooRadHeaPumCtr.TRadMinSup,
     TEvaCoo_nominal=sou.T + 10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrPar,
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar,
     etaCarnot_nominal=0.4)
-              "Reversible heat pump with losses and Carnot approach"
+      "Reversible heat pump with losses and Carnot approach"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
   Modelica.Blocks.Sources.Constant temAmbBas(final k(
       final unit="K",
