@@ -48,27 +48,27 @@ model ComparePower
 
   IBPSA.Fluid.Actuators.Dampers.Exponential damExp1(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
-    dpDamper_nominal=dp_nominal/2,
+    final dpDamper_nominal=dp_nominal/2,
     y_start=1,
-    dpFixed_nominal=dp_nominal) "Damper"
+    final dpFixed_nominal=dp_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IBPSA.Fluid.Actuators.Dampers.Exponential damExp2(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
-    dpDamper_nominal=dp_nominal/2,
+    final dpDamper_nominal=dp_nominal/2,
     y_start=1,
-    dpFixed_nominal=dp_nominal) "Damper"
+    final dpFixed_nominal=dp_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   IBPSA.Fluid.Actuators.Dampers.Exponential damExp3(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
-    dpDamper_nominal=dp_nominal/2,
+    final dpDamper_nominal=dp_nominal/2,
     y_start=1,
-    dpFixed_nominal=dp_nominal) "Damper"
+    final dpFixed_nominal=dp_nominal/2) "Damper"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   IBPSA.Fluid.Sources.Boundary_pT sou(
