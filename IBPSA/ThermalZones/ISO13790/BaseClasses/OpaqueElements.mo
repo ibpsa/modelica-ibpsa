@@ -31,7 +31,7 @@ model OpaqueElements
     "Total of direct and diffuse radiation on surface"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Math.Add addOpa[n](each k2=-1)
-    "Total of direct and diffuse radiation on vertical surfaces"
+    "Total solar gains through vertical walls"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Math.Gain theRadOpa[n](each k=5*eps*11*0.5)
     "Extra thermal radiation through walls"
@@ -45,8 +45,7 @@ model OpaqueElements
   Modelica.Blocks.Math.Gain theRadRoo(final k=5*eps*11*1)
     "Extra thermal radiation through roof"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Modelica.Blocks.Math.Add addRoo(k2=-1)
-    "Total of direct and diffuse radiation on the roof"
+  Modelica.Blocks.Math.Add addRoo(k2=-1) "Total solar gains through roof"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=n)
     annotation (Placement(transformation(extent={{48,44},{60,56}})));
