@@ -116,6 +116,7 @@ equation
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Validation/PowerSimplified.mos"
         "Simulate and plot"),
+    obsolete = "Obsolete model - refer to IBPSA.Fluid.Movers.Validation.ComparePowerInput",
     Documentation(info="<html>
 <p>
 This example compares the power consumed by pumps that

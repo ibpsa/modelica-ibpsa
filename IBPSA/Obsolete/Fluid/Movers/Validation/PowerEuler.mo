@@ -21,7 +21,8 @@ model PowerEuler
     __Dymola_Commands(file=
           "modelica://IBPSA/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Validation/PowerEuler.mos"
         "Simulate and plot"),
-        Documentation(
+    obsolete = "Obsolete model - refer to IBPSA.Fluid.Movers.Validation.ComparePowerInput",
+    Documentation(
 info="<html>
 <p>
 This example is identical to
