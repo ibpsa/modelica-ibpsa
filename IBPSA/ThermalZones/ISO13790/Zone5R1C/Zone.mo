@@ -389,7 +389,7 @@ If a wall contains only opaque parts, the corresponding window area must be set 
 <li>
 The parameter <code>coeFac</code> is used to vary the g-factor as a function of the incident angle 
 of the surface. Often, the curve can be approximated by a cubic polynomial, as shown in 
-<a href=\"IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600\">
+<a href=\"modelica://IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600\">
 IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Case600</a>. When this information is not available,
 the parameter <code>coeFac</code> must be set to <i>1</i>. 
 </li>
