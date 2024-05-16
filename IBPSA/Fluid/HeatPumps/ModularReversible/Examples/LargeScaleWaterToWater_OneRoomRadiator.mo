@@ -11,9 +11,9 @@ model LargeScaleWaterToWater_OneRoomRadiator
     Q_flow_nominal=200000,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPum(
+    redeclare IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPumSou(
       redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per),
-    pumHeaPumSou(
+    redeclare IBPSA.Fluid.Movers.FlowControlled_m_flow pumHeaPum(
       redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2 per));
 
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater heaPum(

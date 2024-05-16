@@ -6,12 +6,11 @@ model Modular_OneRoomRadiator
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
     pumHeaPumSou(
-      redeclare IBPSA.Fluid.Movers.Data.Fans.Greenheck.BIDW12 per,
+      dp_nominal=heaPum.dpEva_nominal,
       redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPum(
-      redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per));
+    pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Modular heaPum(
