@@ -5,9 +5,12 @@ model Modular_OneRoomRadiator
     IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     sin(nPorts=1, redeclare package Medium = MediumAir),
-    pumHeaPumSou(redeclare package Medium = MediumAir),
+    pumHeaPumSou(
+      dp_nominal=heaPum.dpEva_nominal,
+      redeclare package Medium = MediumAir),
     sou(redeclare package Medium = MediumAir),
-    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal));
+    booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
+    pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
   extends Modelica.Icons.Example;
 
   IBPSA.Fluid.HeatPumps.ModularReversible.Modular heaPum(
@@ -34,32 +37,31 @@ model Modular_OneRoomRadiator
     use_evaCap=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model RefrigerantCycleHeatPumpHeating =
-        IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness
-        (
+      IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness(
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
         TAppCon_nominal=0,
         TAppEva_nominal=0),
     redeclare model RefrigerantCycleHeatPumpCooling =
-        IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
+      IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D(
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
           iceFacCal,
         mCon_flow_nominal=heaPum.mCon_flow_nominal,
         mEva_flow_nominal=heaPum.mEva_flow_nominal,
         datTab=IBPSA.Fluid.Chillers.ModularReversible.Data.TableData2D.EN14511.Vitocal251A08()),
-    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021
-      safCtrPar(
+    redeclare IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar(
       use_TConOutHea=true,
       use_TEvaOutHea=false,
       use_antFre=true,
       TAntFre=275.15),
     QCoo_flow_nominal=-Q_flow_nominal*0.5)
-                       "Modular reversible heat pump"
+      "Modular reversible heat pump"
     annotation (Placement(transformation(extent={{20,-160},{0,-140}})));
 
-  Modelica.Blocks.Sources.Constant temAmbBas(final k(
+  Modelica.Blocks.Sources.Constant temAmbBas(
+    final k(
       final unit="K",
       displayUnit="degC") = 291.15)
     "Ambient temperature in basement of building" annotation (Placement(
