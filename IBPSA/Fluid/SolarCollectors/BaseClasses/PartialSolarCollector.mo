@@ -125,11 +125,11 @@ partial model PartialSolarCollector "Partial model for solar collectors"
       rotation=180,
       origin={0,-20})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
-                                          QGai[nSeg] "Rate of solar heat gain"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QGai[nSeg]
+    "Rate of solar heat gain"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
-                                          QLos[nSeg] "Rate of heat loss"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
+    "Rate of heat loss"
     annotation (Placement(transformation(extent={{50,10},{70,30}})));
   replaceable parameter IBPSA.Fluid.SolarCollectors.Data.GenericASHRAE93 per
     constrainedby IBPSA.Fluid.SolarCollectors.Data.BaseClasses.Generic
