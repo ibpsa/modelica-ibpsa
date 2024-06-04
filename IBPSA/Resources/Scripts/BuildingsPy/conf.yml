@@ -97,6 +97,18 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization. Works with April 30 2024 nightly build.
     translate: false
+- model_name: IBPSA.Fluid.Movers.Validation.ComparePowerHydraulic
+  optimica:
+    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
+    translate: false
+- model_name: IBPSA.Fluid.Movers.Validation.ComparePowerInput
+  optimica:
+    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
+    translate: false
+- model_name: IBPSA.Fluid.Movers.Validation.ComparePowerTotal
+  optimica:
+    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
+    translate: false
 - model_name: IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
     comment: returned non-zero exit status 139
