@@ -253,7 +253,7 @@ to fail with the error message
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Reimplemented media based on
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Buildings/Media/Water.mo\">446aa83</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Annex60/Media/Water.mo\">446aa83</a>.
 </li>
 <li>
 November 15, 2013, by Michael Wetter:<br/>
