@@ -25,6 +25,12 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Controls/Conti
     Documentation(revisions="<html>
 <ul>
 <li>
+June 16, 2024, by Hongxiang Fu:<br/>
+Changed pulse input from 0 to 1 to 0.01 to 1.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1897\">#1897</a>.
+</li>
+<li>
 January 12, 2017, by Thierry S. Nouidui:<br/>
 Modified example to prevent simultaneous events
 This is for
