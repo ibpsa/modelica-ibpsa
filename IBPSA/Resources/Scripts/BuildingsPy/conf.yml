@@ -1,3 +1,39 @@
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepUp.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepDown.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.DD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.UnbalancedStepUp.YD
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: IBPSA.Electrical.DC.Loads.Examples.LinearizedLoad
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
 - model_name: IBPSA.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -21,6 +57,10 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
+- model_name: IBPSA.Fluid.Geothermal.Aquifer.Validation.SimulationTest
+  openmodelica:
+    comment: Timeout after 300 s
+    time_out: 600
 - model_name: IBPSA.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -49,6 +89,14 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
+  openmodelica:
+    comment: returned non-zero exit status 2. Works with April 30 2024 nightly build.
+    translate: false
+- model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization. Works with April 30 2024 nightly build.
+    translate: false
 - model_name: IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
     comment: returned non-zero exit status 139

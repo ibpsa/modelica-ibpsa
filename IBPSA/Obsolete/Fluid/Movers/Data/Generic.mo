@@ -17,7 +17,7 @@ record Generic "Generic data record for movers"
                 * pressure.dp[end])
     else 0
       "Volume flow rate on the curve when pressure rise is zero";
-  parameter Modelica.Units.SI.PressureDifference dpMax=
+  parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa")=
     if havePressureCurve
       then (pressure.dp[1]
                 -(pressure.dp[1] - pressure.dp[2])
@@ -97,7 +97,7 @@ record Generic "Generic data record for movers"
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
-  parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
+  parameter Modelica.Units.SI.Power WMot_nominal=
     if max(power.P)>Modelica.Constants.eps
     then
       if powerOrEfficiencyIsHydraulic
