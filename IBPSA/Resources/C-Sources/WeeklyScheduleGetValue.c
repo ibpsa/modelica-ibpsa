@@ -3,18 +3,11 @@
   This code implements a weekly schedule.
 
   Changelog:
-    April 9, 2024 by Filip Jorissen, Builtwins
-          Revisions for #1869 to remove a header requirement that contains the number of rows/columns.
-    March 30, 2024 by Filip Jorissen, Builtwins
-          Revisions for #1860 to avoid memory leaks when calling ModelicaFormatError.
-    May 25, 2022 by Michael Wetter, LBNL
-          Refactored to comply with C89.
-    March 9, 2022 by Filip Jorissen, KU Leuven
-         Initial version.
-    April 10, 2022 by Filip Jorissen, KU Leuven
-        Added tableOnFile option.
+    June 15, 2024 by Filip Jorissen, Builtwins
+          Initial version for #1891: compliance with Modelica include annotation rules.
 
 */
+
 
 #include <stdio.h>
 #include <stdlib.h>

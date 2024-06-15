@@ -40,7 +40,7 @@ protected
     input Real timeIn "Time for look-up";
     output Real y "Schedule value";
     external "C" y=getScheduleValue(ID, iCol, timeIn)
-    annotation(Include="#include <WeeklyScheduleGet.c>",
+    annotation(Include="#include <WeeklyScheduleGetValue.c>",
     IncludeDirectory="modelica://IBPSA/Resources/C-Sources");
   end getCalendarValue;
 

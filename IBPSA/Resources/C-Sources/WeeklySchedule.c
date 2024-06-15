@@ -3,6 +3,8 @@
   This code implements a weekly schedule.
 
   Changelog:
+    June 15, 2024 by Filip Jorissen, Builtwins
+          Revisions for #1891: compliance with Modelica include annotation rules.
     April 9, 2024 by Filip Jorissen, Builtwins
           Revisions for #1869 to remove a header requirement that contains the number of rows/columns.
     March 30, 2024 by Filip Jorissen, Builtwins
@@ -414,6 +416,24 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   weeklyScheduleFreeInit(scheduleID);
 
   return (void*) scheduleID;
+}
+
+
+void weeklyScheduleFreeInit(void * ID) {
+  WeeklySchedule* scheduleID = (WeeklySchedule*)ID;
+
+  if (scheduleID->lastData != NULL)
+    free(scheduleID->lastData);
+
+  if (scheduleID->token != NULL)
+    free(scheduleID->token);
+
+  if (scheduleID->fp != NULL)
+    fclose(scheduleID->fp);
+
+  if (scheduleID->buff2 != NULL)
+    free(scheduleID->buff2);
+
 }
 
 #endif
