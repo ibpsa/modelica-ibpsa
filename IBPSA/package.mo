@@ -333,6 +333,9 @@ Kathryn Hinkelman, University of Colorado Boulder, USA
 <li>
 Michael Wetter, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 </li>
+<li>
+Fabian Wuellhorst, RWTH Aachen University, Germany
+</li>
 </ul>
 </html>"));
   end Acknowledgements;
