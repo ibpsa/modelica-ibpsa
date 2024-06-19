@@ -21,8 +21,7 @@ package Water "Package with model for liquid water with constant density"
     Modelica.Units.SI.Density d=d_const "Density of medium";
     Temperature T(
       start=293.15,
-      stateSelect=
-        if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
@@ -175,6 +174,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 September 28, 2020, by Michael Wetter:<br/>
 Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>
