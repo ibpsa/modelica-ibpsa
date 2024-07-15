@@ -694,8 +694,8 @@ equation
     Documentation(revisions="<html><ul>
   <li>
     <i>July 15, 2024</i> by Fabian Wuellhorst:<br/>
-    Adjust hysteresis bandwidth (see issue <a href=
-    \"https://github.com/ibpsa/modelica-ibpsa/issues/1908\">#1908</a>)
+    Adjust hysteresis bandwidth (see issue
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1908\">IBPSA #1908</a>)
   </li>
   <li>
     May 2, 2024, by Michael Wetter:<br/>
