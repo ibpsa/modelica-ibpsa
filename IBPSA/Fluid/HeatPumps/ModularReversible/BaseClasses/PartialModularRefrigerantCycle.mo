@@ -130,6 +130,11 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html><ul>
   <li>
+    <i>July 15, 2024</i> by Fabian Wuellhorst:<br/>
+    Adjust hysteresis bandwidth (see issue <a href=
+    \"https://github.com/ibpsa/modelica-ibpsa/issues/1908\">#1908</a>)
+  </li>
+  <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
     Adjusted based on the discussion in this issue <a href=
     \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
