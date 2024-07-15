@@ -1,4 +1,4 @@
-within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
+﻿within IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses;
 model OneRoomRadiatorHeatPumpControl
   "Helper model for the control of the system"
   parameter Boolean witCoo=true
@@ -77,7 +77,7 @@ model OneRoomRadiatorHeatPumpControl
         origin={90,-10})));
   Modelica.Blocks.Logical.Hysteresis hysSecCoo(
     final uLow=TRadMinSup,
-    final uHigh=TRadMinSup + 1,
+    final uHigh=TRadMinSup + 4,
     final pre_y_start=false)
             if witCoo
     "Hysteresis for avoiding temperatures below 15 °C when cooling"
