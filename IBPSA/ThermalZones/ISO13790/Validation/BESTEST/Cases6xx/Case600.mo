@@ -57,7 +57,7 @@ model Case600
     u(unit="W"),
     y(unit="J", displayUnit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,34},{66,46}})));
-  Zone5R1C.ZoneHVAC
+  IBPSA.ThermalZones.ISO13790.Zone5R1C.ZoneHVAC
                 zonHVAC(
     airRat=0.414,
     AWin={0,0,12,0},
@@ -82,7 +82,7 @@ model Case600
 
   Modelica.Blocks.Sources.Constant intGai(k=200) "Internal heat gains"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/weatherdata/USA_CO_Denver.Intl.AP.725650_TMY3.mos"))
     "Weather data"

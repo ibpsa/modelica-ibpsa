@@ -1,10 +1,8 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
 model Case650FF
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600FF(
-      zonHVAC(nPorts=3))
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-  Fluid.Sensors.Density senDen(redeclare package Medium = Media.Air,
+      zonHVAC(nPorts=3));
+  IBPSA.Fluid.Sensors.Density senDen(redeclare package Medium = IBPSA.Media.Air,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Blocks.Math.Product product1
@@ -16,12 +14,12 @@ model Case650FF
         Modelica.Blocks.Types.Extrapolation.Periodic)
     "Ventilation air flow rate"
     annotation (Placement(transformation(extent={{90,-90},{70,-70}})));
-  Fluid.Sources.MassFlowSource_T           sinInf(
-    redeclare package Medium = Media.Air,
+  IBPSA.Fluid.Sources.MassFlowSource_T           sinInf(
+    redeclare package Medium = IBPSA.Media.Air,
     use_m_flow_in=true,
     nPorts=1) "Sink model for air infiltration"
     annotation (Placement(transformation(extent={{8,-90},{-12,-70}})));
-  Fluid.Sources.Outside out(redeclare package Medium = Media.Air, nPorts=1)
+  IBPSA.Fluid.Sources.Outside out(redeclare package Medium = IBPSA.Media.Air, nPorts=1)
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(senDen.d,product1. u1) annotation (Line(points={{71,-30},{84,-30},{84,

@@ -2,7 +2,7 @@ within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
 model Case600FF
   "Basic test with light-weight construction and free floating temperature"
   extends Modelica.Icons.Example;
-  Zone5R1C.ZoneHVAC
+  IBPSA.ThermalZones.ISO13790.Zone5R1C.ZoneHVAC
                 zonHVAC(
     airRat=0.414,
     AWin={0,0,12,0},
@@ -32,10 +32,10 @@ model Case600FF
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Modelica.Blocks.Sources.Constant intGai(k=200) "Internal heat gains"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Utilities.Math.MovingAverage        TRooHou(delta=3600)
+  Utilities.Math.MovingAverage TRooHou(delta=3600)
     "Continuous mean of room air temperature"
     annotation (Placement(transformation(extent={{60,-2},{80,18}})));
-  Utilities.Math.MovingAverage        TRooAnn(delta=86400*365)
+  Utilities.Math.MovingAverage TRooAnn(delta=86400*365)
     "Continuous mean of room air temperature"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.Blocks.Sources.Constant latGai(k=0)   "Internal heat gains"
