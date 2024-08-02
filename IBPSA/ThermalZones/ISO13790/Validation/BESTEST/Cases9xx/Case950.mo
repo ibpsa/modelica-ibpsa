@@ -4,16 +4,14 @@ model Case950
         nPorts=3),
     gaiHea(k=0),
     TSetHea(table=[0, 273.15 -200]),
-        TSetCoo(table=[      0, 273.15+100;
+        TSetCoo(table=[0, 273.15+100;
                     7*3600, 273.15+100;
                     7*3600, 273.15+27;
                    18*3600, 273.15+27;
                    18*3600, 273.15+100;
-                   24*3600, 273.15+100], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic))
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-  Fluid.Sources.MassFlowSource_T           sinInf(
-    redeclare package Medium = Media.Air,
+                   24*3600, 273.15+100], extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic));
+  IBPSA.Fluid.Sources.MassFlowSource_T sinInf(
+    redeclare package Medium = IBPSA.Media.Air,
     use_m_flow_in=true,
     nPorts=1) "Sink model for air infiltration"
     annotation (Placement(transformation(extent={{8,-70},{-12,-50}})));
@@ -26,10 +24,10 @@ model Case950
         Modelica.Blocks.Types.Extrapolation.Periodic)
     "Ventilation air flow rate"
     annotation (Placement(transformation(extent={{90,-70},{70,-50}})));
-  Fluid.Sensors.Density senDen(redeclare package Medium = Media.Air,
+  IBPSA.Fluid.Sensors.Density senDen(redeclare package Medium = IBPSA.Media.Air,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{50,-20},{70,0}})));
-  Fluid.Sources.Outside out(redeclare package Medium = IBPSA.Media.Air, nPorts=1)
+  IBPSA.Fluid.Sources.Outside out(redeclare package Medium = IBPSA.Media.Air, nPorts=1)
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(product1.y,sinInf. m_flow_in) annotation (Line(points={{29,-40},{10,-40},
