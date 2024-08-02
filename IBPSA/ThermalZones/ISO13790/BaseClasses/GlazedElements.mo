@@ -1,13 +1,13 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model GlazedElements "Solar gains through glazed elements"
   parameter Integer n;
-  parameter Real AWin[:] "Area of windows";
+  parameter Modelica.Units.SI.Area AWin[:] "Area of windows";
   parameter Real coeFac[:] "Coefficient of g-factor reduction";
-  parameter Real UWin "U-value of windows";
-  parameter Real surTil[:] "Tilt angle of surfaces";
-  parameter Real surAzi[:] "Azimuth angle of surfaces";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin "U-value of windows";
+  parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
+  parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
   parameter Real eps=0.9 "Emissivity of external surface";
-  parameter Real surRes=0.04 "External surface heat resistance";
+  parameter Modelica.Units.SI.ThermalInsulance surRes=0.04 "External surface heat resistance";
   parameter Real gFac "Energy transmittance of glazings";
   parameter Real winFra "Frame fraction of windows";
   parameter Real shaRedFac(

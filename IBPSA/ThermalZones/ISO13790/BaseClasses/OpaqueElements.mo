@@ -1,15 +1,15 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
 model OpaqueElements "Solar gains through opaque elements"
   parameter Integer n;
-  parameter Real AWal[:] "Area of external walls";
-  parameter Real ARoo "Area of roof";
-  parameter Real UWal "U-value of external walls";
-  parameter Real URoo "U-value of roof";
-  parameter Real surTil[:] "Tilt angle of surfaces";
-  parameter Real surAzi[:] "Azimuth angle of surfaces";
+  parameter Modelica.Units.SI.Area AWal[:] "Area of external walls";
+  parameter Modelica.Units.SI.Area ARoo "Area of roof";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWal "U-value of external walls";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer URoo "U-value of roof";
+  parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
+  parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
   parameter Real eps=0.9 "Emissivity of external surface";
   parameter Real alp=0.6 "Absorption coefficient";
-  parameter Real surRes=0.04 "External surface heat resistance";
+  parameter Modelica.Units.SI.ThermalInsulance surRes=0.04 "External surface heat resistance";
 
   IBPSA.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
