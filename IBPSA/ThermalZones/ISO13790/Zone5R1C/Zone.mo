@@ -112,13 +112,13 @@ model Zone "Thermal zone based on 5R1C network"
   BaseClasses.GlazedElements win(
     final n=nOrientations,
     final AWin=AWin,
-    coeFac=coeFac,
+    final coeFac=coeFac,
     final UWin=UWin,
     final surTil=surTil,
     final surAzi=surAzi,
     final gFac=gFac,
     final winFra=winFra,
-    shaRedFac=shaRedFac) "Solar heat gains of glazed elements"
+    final shaRedFac=shaRedFac) "Solar heat gains of glazed elements"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   BaseClasses.OpaqueElements opa(
     final n=nOrientations,
