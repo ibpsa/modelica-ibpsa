@@ -51,7 +51,7 @@ The simulations of cases with heating and cooling are validated by comparing the
 annual heating and cooling energy, the peak heating and cooling demand with the validation
 data. In addition, one day load profiles are also validated.
 The detailed comparison, which also shows the peak load hours, are shown
-in the table after the plots below.
+in the table after the plots below. The simulation results obtained from the Modelica ISO13790 model are illustrated in black.
 </p>
 
 <p align=\"center\">
@@ -1306,7 +1306,7 @@ in the table after the plots below.
 <h5>Free floating cases</h5>
 <p>
 The following plots compare the maximum, minimum and average zone temperature simulated with
-the Modelica Buildings Library with the values simulated by other tools. The simulation
+the Modelica IBPSA Library with the values simulated by other tools. The simulation
 is also validated by comparing one-day simulation results in different days, and by
 comparing the distribution of the annual temperature. The detailed comparisons, which also
 show the peak temperature hour, are shown in the table after the plots.
