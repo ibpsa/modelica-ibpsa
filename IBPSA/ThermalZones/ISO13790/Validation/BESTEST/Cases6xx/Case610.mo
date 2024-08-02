@@ -15,7 +15,7 @@ Case 610 differs from case 600 in that the south-oriented window has an overhang
 </p>
 <h4>Implementation</h4>
 <p>
-The shading reduction factor was set to 0.84, according to the procedure described in the ISO13790 standard.
+The shading reduction factor was set to 0.84. This value was calculated based on Table G.6 in the ISO13790 standard.
 </p>
 </html>", revisions="<html><ul>
 <li>
