@@ -16,7 +16,8 @@ east walls have an overhang and side fins.
 </p>
 <h4>Implementation</h4>
 <p>
-The shading reduction factor was set to 0.846 for overhang and 0.915 for side fins, according to the procedure described in the ISO13790 standard.
+The shading reduction factor was set to 0.846 for overhang and 0.915 for side fins. These values were calculated based on Table G.6 and
+Table G.7 of the ISO13790 standard. 
 </p>
 </html>", revisions="<html><ul>
 <li>
