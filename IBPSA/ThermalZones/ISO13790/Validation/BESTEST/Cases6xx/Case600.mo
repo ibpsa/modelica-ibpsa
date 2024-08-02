@@ -93,10 +93,10 @@ model Case600
     u(unit="W"),
     y(unit="J", displayUnit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{54,74},{66,86}})));
-  Utilities.Math.MovingAverage                   PHea(delta=3600)
+  IBPSA.Utilities.Math.MovingAverage PHea(delta=3600)
     "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{34,84},{42,92}})));
-  Utilities.Math.MovingAverage PCoo(delta=3600) "Hourly averaged cooling power"
+  IBPSA.Utilities.Math.MovingAverage PCoo(delta=3600) "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{38,22},{46,30}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSetCoo(table=[0.0,273.15 + 27])
