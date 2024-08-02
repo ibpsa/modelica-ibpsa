@@ -1,5 +1,5 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
-model Case620 "Case 600, but with windows on East and West side walls"
+model Case620 "Case 600, but with windows on east and west side walls"
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(AWin=
          {0,6,0,6}));
  annotation(experiment(
