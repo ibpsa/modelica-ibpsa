@@ -164,6 +164,10 @@ for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window 
 </p>
 </html>", revisions="<html><ul>
 <li>
+May 2, 2024, by Alessandro Maccarini:<br/>
+Updated according to ASHRAE 140-2020.
+</li>
+<li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>

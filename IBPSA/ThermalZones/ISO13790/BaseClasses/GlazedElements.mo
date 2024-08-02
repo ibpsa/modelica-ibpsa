@@ -143,6 +143,10 @@ apparent sky temperature.
 </p>
 </html>", revisions="<html><ul>
 <li>
+May 15, 2024, by Alessandro Maccarini:<br/>
+Added the parameter <code>coeFac</code> in order to vary the g-factor as a function of the incident angle of the surface.
+</li>
+<li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
