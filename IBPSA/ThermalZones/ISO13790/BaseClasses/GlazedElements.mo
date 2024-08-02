@@ -1,5 +1,5 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
-model GlazedElements
+model GlazedElements "Solar gains through glazed elements"
   parameter Integer n;
   parameter Real AWin[:] "Area of windows";
   parameter Real coeFac[:] "Coefficient of g-factor reduction";

@@ -1,5 +1,5 @@
 within IBPSA.ThermalZones.ISO13790.BaseClasses;
-model OpaqueElements
+model OpaqueElements "Solar gains through opaque elements"
   parameter Integer n;
   parameter Real AWal[:] "Area of external walls";
   parameter Real ARoo "Area of roof";
