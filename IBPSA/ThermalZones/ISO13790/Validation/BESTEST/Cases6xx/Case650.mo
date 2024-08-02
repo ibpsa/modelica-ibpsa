@@ -3,7 +3,7 @@ model Case650
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600(zonHVAC(
         nPorts=3), gaiHea(k=0),
         TSetHea(table=[0, 273.15 -200]),
-        TSetCoo(table=[      0, 273.15+100;
+        TSetCoo(table=[0, 273.15+100;
                     7*3600, 273.15+100;
                     7*3600, 273.15+27;
                    18*3600, 273.15+27;
