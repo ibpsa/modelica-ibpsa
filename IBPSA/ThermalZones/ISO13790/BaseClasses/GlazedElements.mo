@@ -127,7 +127,19 @@ where <i>F<sub>sh,k</sub></i> is the shading reduction factor which is set to 1 
 per square meter of surface area, <i>g<sub>fac</sub></i> is the total solar energy transmittance of the trasparent
 element, <i>F<sub>frame</sub></i> is the frame area fraction, and <i>A<sub>win,k</sub></i> is the overall area of 
 the glazed element in square meters.
-The model neglects the extra heat flow due to thermal radiation to the sky from the building.
+</p>
+<p>
+The extra heat flow due to thermal radiation to the sky is given by
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&Phi;<sub>r,k</sub> =h<sub>r</sub> &#916;T<sub>sky</sub> R<sub>se</sub> U<sub>k</sub> A<sub>k</sub>
+</p>
+<p>
+where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficent
+which is approximated as 5 &epsilon; W/m<sup>2</sup>K (where &epsilon; is the emissivity for
+the thermal radiation of the external surface), and &#916;T<sub>sky</sub> is
+the average temperature difference between the external air temperature and the
+apparent sky temperature.
 </p>
 </html>", revisions="<html><ul>
 <li>
