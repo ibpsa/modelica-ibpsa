@@ -1,15 +1,13 @@
 within IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx;
 model Case950FF
   extends IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases9xx.Case900FF(
-      zonHVAC(nPorts=3))
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-  Fluid.Sources.MassFlowSource_T           sinInf(
-    redeclare package Medium = Media.Air,
+      zonHVAC(nPorts=3));
+  IBPSA.Fluid.Sources.MassFlowSource_T sinInf(
+    redeclare package Medium = IBPSA.Media.Air,
     use_m_flow_in=true,
     nPorts=1) "Sink model for air infiltration"
     annotation (Placement(transformation(extent={{8,-80},{-12,-60}})));
-  Fluid.Sources.Outside out(redeclare package Medium = Media.Air, nPorts=1)
+  IBPSA.Fluid.Sources.Outside out(redeclare package Medium = IBPSA.Media.Air, nPorts=1)
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Blocks.Math.Product product1
     "Product to compute infiltration mass flow rate"
@@ -20,7 +18,7 @@ model Case950FF
         Modelica.Blocks.Types.Extrapolation.Periodic)
     "Ventilation air flow rate"
     annotation (Placement(transformation(extent={{90,-80},{70,-60}})));
-  Fluid.Sensors.Density senDen(redeclare package Medium = Media.Air,
+  IBPSA.Fluid.Sensors.Density senDen(redeclare package Medium = IBPSA.Media.Air,
       warnAboutOnePortConnection=false)
     annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
 equation
