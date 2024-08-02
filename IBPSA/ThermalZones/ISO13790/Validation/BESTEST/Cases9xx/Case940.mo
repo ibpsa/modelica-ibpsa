@@ -20,11 +20,11 @@ Case940 is the same as Case900, but with the following modifications:
 From 23h00 hours to 07h00 hours, heat = on if zone temperature is below 10&deg;C
 </li>
 <li>
-From 07h00 hours to 08h00 hours, the thermostat set point shall vary linearly with
+From 07h00 hours to 08h00 hours, the thermostat setpoint shall vary linearly with
 time from 10 &deg;C to 20 &deg;C.
-If the zone temperature is less than the thermostat set point for a subhourly
+If the zone temperature is less than the thermostat setpoint for a subhourly
 time step, heat shall be added to the zone such that the zone temperature at the
-end of each subhourly time step shall correspond to the thermostat set point that
+end of each subhourly time step shall correspond to the thermostat setpoint that
 occurs at the end of each subhourly time step.
 </li>
 <li>
