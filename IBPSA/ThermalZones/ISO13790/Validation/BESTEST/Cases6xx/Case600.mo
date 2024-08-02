@@ -27,7 +27,7 @@ model Case600
         rotation=0)));
   Modelica.Blocks.Sources.CombiTimeTable
                                    TSetHea(table=[0.0,273.15 + 20])
-    "Set-point for heating"
+    "Setpoint for heating"
     annotation (Placement(
         visible=true, transformation(
         origin={-24,72},
@@ -100,7 +100,7 @@ model Case600
     annotation (Placement(transformation(extent={{38,22},{46,30}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSetCoo(table=[0.0,273.15 + 27])
-    "Set-point for heating" annotation (Placement(visible=true, transformation(
+    "Setpoint for cooling" annotation (Placement(visible=true, transformation(
         origin={-24,46},
         extent={{-6,-6},{6,6}},
         rotation=0)));
