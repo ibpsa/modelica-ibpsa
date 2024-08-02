@@ -62,20 +62,20 @@ Case650 is the same as Case600, but with the following modifications:
 </p>
 <ul>
 <li>
-From 1800 hours to 0700 hours, vent fan = on
+From 18h00 hours to 07h00 hours, vent fan = on
 </li>
 <li>
-From 0700 hours to 1800 hours, vent fan = off
+From 07h00 hours to 18h00 hours, vent fan = off
 </li>
 <li>
 Heating is always off
 </li>
 <li>
-From 0700 hours to 1800 hours, cooling is on if zone temperature &gt; 27&deg;C,
+From 07h00 hours to 18h00 hours, cooling is on if zone temperature &gt; 27&deg;C,
 otherwise cool = off.
 </li>
 <li>
-From 1800 hours to 0700 hours, cooling is always off.
+From 18h00 hours to 07h00 hours, cooling is always off.
 </li>
 <li>
 Ventilation fan capacity is 1700 standard m<sup>3</sup>/h (in addition to specified
