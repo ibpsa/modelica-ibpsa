@@ -172,7 +172,7 @@ per square meter of surface area, <i>&alpha;<sub>k</sub></i> is the dimensionles
 <i>R<sub>se</sub></i> is the external surface heat resistance of the opaque element in (m K/W), and <i>A<sub>k</sub></i> is the area of the opaque element.
 </p>
 <p>
-The form factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to
+The view factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to
 thermal radiation to the sky is given by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
