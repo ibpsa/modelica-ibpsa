@@ -1593,7 +1593,7 @@ To generate the data shown in this user guide, run
 </pre>
 <h4>References</h4>
 <p>
-ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007,
+ANSI/ASHRAE. 2020. ANSI/ASHRAE Standard 140-2020,
 Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
 </p>
 </html>"));
