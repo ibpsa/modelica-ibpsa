@@ -2,7 +2,7 @@ simulateModel("IBPSA.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case650FF
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",
- y = {"zon5R1C.TAir"},
+ y = {"TRooHou.y"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,
