@@ -20,12 +20,12 @@ model RadiatorEN442_2 "Test model for radiator"
     use_p_in=true,
     T=T_a_nominal)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  FixedResistances.PressureDrop res2(
+  IBPSA.Fluid.FixedResistances.PressureDrop res2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  FixedResistances.PressureDrop res1(
+  IBPSA.Fluid.FixedResistances.PressureDrop res1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal)
