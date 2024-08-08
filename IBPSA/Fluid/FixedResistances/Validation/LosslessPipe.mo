@@ -69,7 +69,7 @@ Validation model for a the pipe model with no friction and no heat loss.
 August 5, 2024, by Hongxiang Fu:<br/>
 Added two-port temperature sensors to replace <code>sta_?.T</code>
 in reference results. This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">#1913</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
 </li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>

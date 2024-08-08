@@ -704,7 +704,7 @@ Rewrote the protected model <code>Humidifier</code>
 to add two-port temperature sensors to replace <code>sta_?.T</code>
 and two-port mass fraction sensors to replace <code>sta_?.X[1]</code>.
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">#1913</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
 </li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>

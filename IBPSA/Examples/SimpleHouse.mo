@@ -307,7 +307,7 @@ equation
 August 5, 2024, by Hongxiang Fu:<br/>
 Added two-port temperature sensors to replace <code>sta_?.T</code>
 in reference results. This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">#1913</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
 </li>
 <li>
 September 15, 2023, by Jelger Jansen:<br/>
