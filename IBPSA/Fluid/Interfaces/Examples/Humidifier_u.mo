@@ -327,7 +327,8 @@ protected
       redeclare final package Medium = Medium,
       final m_flow_nominal=m_flow_nominal,
       final mWat_flow_nominal=mWat_flow_nominal,
-      final dp_nominal=dp_nominal) "Humidifier"
+      final dp_nominal=dp_nominal,
+      energyDynamics=energyDynamics) "Humidifier"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     IBPSA.Fluid.Sensors.TemperatureTwoPort T_a(
       redeclare final package Medium = Medium,
