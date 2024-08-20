@@ -91,7 +91,11 @@ record Generic "Generic data record for movers"
                        enable =  etaHydMet==
       IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber));
   final parameter IBPSA.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
-    IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    if etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    then IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    else IBPSA.Fluid.Movers.BaseClasses.Euler.peak(V_flow=V_flow_max/2,
+                                                   dp=dpMax/2,
+                                                   eta=0.7)
     "Internal peak variable";
   // The getPeak() function automatically handles the estimation of peak point
   //   when insufficient information is provided from the pressure curve.
@@ -160,6 +164,15 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+August 20, 2024, by Hongxiang Fu:<br/>
+Now the function
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak\">
+IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak</a>
+is not called unless the Euler number method is selected.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA, #1912</a>.
+</li>
 <li>
 April 8, 2024, by Hongxiang Fu:<br/>
 Default efficiency methods now depend on whether a pressure curve is available.
