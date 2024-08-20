@@ -123,11 +123,11 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={40,-80})));
-  IBPSA.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+  Modelica.Blocks.Math.BooleanToReal booToRea(
     realTrue = mCol_flow_nominal)
     "Constant speed primary pump control signal"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  IBPSA.Controls.OBC.CDL.Reals.Hysteresis hys(
+  Modelica.Blocks.Logical.Hysteresis hys(
     uLow=mCol_flow_nominal/3,
     uHigh=mCol_flow_nominal/2) "Hysteresis"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
