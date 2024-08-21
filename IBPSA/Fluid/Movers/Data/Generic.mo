@@ -95,7 +95,7 @@ record Generic "Generic data record for movers"
     then IBPSA.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
     else IBPSA.Fluid.Movers.BaseClasses.Euler.peak(V_flow=V_flow_max/2,
                                                    dp=dpMax/2,
-                                                   eta=0.7)
+                                                   eta=max(efficiency.eta))
     "Internal peak variable";
   // The getPeak() function automatically handles the estimation of peak point
   //   when insufficient information is provided from the pressure curve.
