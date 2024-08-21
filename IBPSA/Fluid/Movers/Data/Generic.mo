@@ -112,7 +112,7 @@ record Generic "Generic data record for movers"
       else max(power.P)
     else
       if havePressureCurve
-        then V_flow_max/2 * dpMax/2 /0.7*1.2
+        then V_flow_max/2 * dpMax/2 /etaMot_max*1.2
       else 0
     "Rated motor power"
       annotation(Dialog(group="Power computation",
