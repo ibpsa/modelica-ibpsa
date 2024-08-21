@@ -109,11 +109,13 @@ record Generic "Generic data record for movers"
     then
       if powerOrEfficiencyIsHydraulic
         then max(power.P)*1.2
-      else max(power.P)
+        else max(power.P)
     else
       if havePressureCurve
-        then V_flow_max/2 * dpMax/2 /etaMot_max*1.2
-      else 0
+        then if powerOrEfficiencyIsHydraulic
+          then V_flow_max/2 * dpMax/2 /peak.eta*1.2
+          else V_flow_max/2 * dpMax/2 /0.7*1.2
+        else 0
     "Rated motor power"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
