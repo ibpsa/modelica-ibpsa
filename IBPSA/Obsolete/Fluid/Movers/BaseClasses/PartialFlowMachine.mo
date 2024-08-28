@@ -51,7 +51,7 @@ partial model PartialFlowMachine
 
   // Classes used to implement the filtered speed
   parameter Boolean use_inputFilter=true
-    "= true, if speed is filtered to avoid a step change in motor speed"
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
   parameter Modelica.Units.SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
