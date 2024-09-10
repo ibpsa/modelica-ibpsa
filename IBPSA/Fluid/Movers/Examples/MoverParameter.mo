@@ -11,7 +11,7 @@ model MoverParameter
     redeclare package Medium = Medium,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
     inputType=IBPSA.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)

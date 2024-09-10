@@ -11,16 +11,14 @@ model ActuatorSignal
     annotation (Dialog(
       tab="Dynamics",
       group="Actuator position",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Actuator position",
-                                                               enable=
-          use_inputFilter));
+                      enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
     annotation(Dialog(tab="Dynamics", group="Actuator position",
-                                                               enable=
-          use_inputFilter));
+                      enable=use_strokeTime));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
     "Actuator position (0: closed, 1: open)"
@@ -54,7 +52,7 @@ protected
     Td=10/strokeTime,
     initType=init,
     y_start=y_start,
-    strict=true) if use_strokeTime and use_linearDynamics "Actuator position"
+    strict=true) if use_strokeTime "Actuator position"
     annotation (Placement(transformation(extent={{14,82},{26,94}})));
 equation
   connect(actPos.y, y_filtered)
@@ -82,19 +80,19 @@ equation
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -165,7 +163,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_strokeTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

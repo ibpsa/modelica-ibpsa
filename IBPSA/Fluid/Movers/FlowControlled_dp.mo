@@ -41,7 +41,7 @@ model FlowControlled_dp
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=Modelica.Constants.small,
-    displayUnit="Pa") = if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
+    displayUnit="Pa") = if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_riseTime=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
     annotation (Dialog(group="Nominal condition"));
@@ -142,7 +142,7 @@ User's Guide</a>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-If <code>use_inputFilter=true</code>, then the parameter <code>dp_nominal</code> is
+If <code>use_riseTime=true</code>, then the parameter <code>dp_nominal</code> is
 used to normalize the filter. This is used to improve the numerics of the transient response.
 The actual pressure raise of the mover at steady-state is independent
 of the value of <code>dp_nominal</code>. It is recommended to set
@@ -218,7 +218,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
