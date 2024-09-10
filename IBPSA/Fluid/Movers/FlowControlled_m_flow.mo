@@ -4,46 +4,29 @@ model FlowControlled_m_flow
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    final stageInputs(each final unit="kg/s")=massFlowRates,
-    final constInput(final unit="kg/s")=constantMassFlowRate,
-    final _m_flow_nominal = m_flow_nominal,
-    filter(
-      final y_start=m_flow_start,
-      u(final unit="kg/s"),
-      y(final unit="kg/s"),
-      x(each nominal=m_flow_nominal),
-      u_nominal=m_flow_nominal),
+    final stageInputs(each final unit="kg/s") = massFlowRates,
+    final constInput(final unit="kg/s") = constantMassFlowRate,
+    final _m_flow_nominal=m_flow_nominal,
     motSpe(
       final y_start=m_flow_start,
-      u(final unit="kg/s",
-        nominal=m_flow_nominal),
-      y(final unit="kg/s",
-        nominal=m_flow_nominal)),
-    eff(
-      per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
-          IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-        final etaHydMet=
-          if (per.etaHydMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-            or per.etaHydMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
-            and not per.havePressureCurve then
-              IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-          else per.etaHydMet,
-        final etaMotMet=
-          if (per.etaMotMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
-            or per.etaMotMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-            and (not per.haveWMot_nominal and not per.havePressureCurve) then
-               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-          else per.etaMotMet),
-      r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
+      u(final unit="kg/s", nominal=m_flow_nominal),
+      y(final unit="kg/s", nominal=m_flow_nominal)),
+    eff(per(
+        final pressure=if per.havePressureCurve then per.pressure else
+            IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(
+              nOri - 1)},
+            dp={i/(nOri - 1)*2.0*dp_nominal for i in (nOri - 1):-1:0}),
+        final etaHydMet=if (per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+             or per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+             and not per.havePressureCurve then IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+             else per.etaHydMet,
+        final etaMotMet=if (per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+             or per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+             and (not per.haveWMot_nominal and not per.havePressureCurve) then
+            IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+             else per.etaMotMet), r_N(start=if abs(m_flow_nominal) > 1E-8 then
+            m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
@@ -59,7 +42,7 @@ model FlowControlled_m_flow
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_start(min=0) = 0
     "Initial value of mass flow rate"
-    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
+    annotation (Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   parameter Modelica.Units.SI.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant" annotation (
@@ -103,7 +86,7 @@ equation
     or if the performance record is unreasonable. Please verify your model, and
     consider using one of the other pump or fan models.");
 
-  if use_inputFilter then
+  if use_riseTime then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{41,70.5},{44,70.5},{44,50},{110,50}},
       color={0,0,127},
@@ -111,11 +94,11 @@ equation
     connect(filter.y, preSou.m_flow_in)
       annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
     connect(motSpe.y, m_flow_actual) annotation (Line(
-      points={{41,70.5},{44,70.5},{44,50},{110,50}},
+      points={{24.4,80},{44,80},{44,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(motSpe.y, preSou.m_flow_in)
-      annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
+      annotation (Line(points={{24.4,80},{44,80},{44,8}},   color={0,0,127}));
   else
   connect(inputSwitch.y, m_flow_actual) annotation (Line(points={{1,50},{110,50}},
                                              color={0,0,127}));

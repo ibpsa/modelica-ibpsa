@@ -6,23 +6,18 @@ model SpeedControlled_y
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed,
-    filter(
-      final y_start=y_start,
-      u(final unit="1"),
-      y(final unit="1")),
+    final constInput(final unit="1") = per.constantSpeed,
     motSpe(
       final y_start=y_start,
       u(final unit="1"),
       y(final unit="1")),
-    eff(
-      per(final pressure = per.pressure,
-          final etaHydMet = per.etaHydMet,
-          final etaMotMet = per.etaMotMet),
-      r_N(start=y_start)));
+    eff(per(
+        final pressure=per.pressure,
+        final etaHydMet=per.etaHydMet,
+        final etaMotMet=per.etaMotMet), r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   Modelica.Blocks.Interfaces.RealInput y(
     unit="1")
@@ -55,11 +50,12 @@ equation
     annotation (Line(points={{-10,-9},{-10,14},{56,14},{56,8}},
                                                      color={0,0,127}));
 
-  if use_inputFilter then
-    connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
-            26},{-26,26},{-26,-46}},  color={0,0,127}));
-    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
-            26},{-26,26},{-26,-46}},  color={0,0,127}));
+  if use_riseTime then
+    connect(filter.y, eff.y_in) annotation (Line(points={{24.4,92.5},{44,92.5},{
+            44,26},{-26,26},{-26,-46}},
+                                      color={0,0,127}));
+    connect(motSpe.y, eff.y_in) annotation (Line(points={{24.4,80},{44,80},{44,26},
+            {-26,26},{-26,-46}},      color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
             26},{-26,26},{-26,-46}},

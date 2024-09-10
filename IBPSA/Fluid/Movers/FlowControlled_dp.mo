@@ -4,53 +4,35 @@ model FlowControlled_dp
   extends IBPSA.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=IBPSA.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
+    preSou(dp_start=dp_start, control_dp=not prescribeSystemPressure),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
-    final _m_flow_nominal = m_flow_nominal,
-    filter(
-      final y_start=dp_start,
-      u(final unit="Pa"),
-      y(final unit="Pa"),
-      x(each nominal=dp_nominal),
-      u_nominal=dp_nominal),
+    final _m_flow_nominal=m_flow_nominal,
     motSpe(
       final y_start=dp_start,
-      u(final unit="Pa",
-        nominal=dp_nominal),
-      y(final unit="Pa",
-      nominal=dp_nominal)),
-    eff(
-      per(
-        final pressure=
-          if per.havePressureCurve then
-            per.pressure
-          else
+      u(final unit="Pa", nominal=dp_nominal),
+      y(final unit="Pa", nominal=dp_nominal)),
+    eff(per(
+        final pressure=if per.havePressureCurve then per.pressure else
             IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-              V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-              dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-        final etaHydMet=
-          if (per.etaHydMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-            or per.etaHydMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
-            and not per.havePressureCurve then
-              IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-          else per.etaHydMet,
-        final etaMotMet=
-          if (per.etaMotMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
-            or per.etaMotMet ==
-               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-            and (not per.haveWMot_nominal and not per.havePressureCurve) then
-               IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-          else per.etaMotMet),
-      r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
+            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(
+              nOri - 1)},
+            dp={i/(nOri - 1)*2.0*dp_nominal for i in (nOri - 1):-1:0}),
+        final etaHydMet=if (per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+             or per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+             and not per.havePressureCurve then IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+             else per.etaHydMet,
+        final etaMotMet=if (per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+             or per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+             and (not per.haveWMot_nominal and not per.havePressureCurve) then
+            IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+             else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
+            dp_start/dp_nominal else 0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(
     min=0,
     displayUnit="Pa") = 0 "Initial value of pressure raise"
-    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
+    annotation (Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=Modelica.Constants.small)
@@ -116,13 +98,13 @@ equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
-  if use_inputFilter then
+  if use_riseTime then
     connect(filter.y, gain.u) annotation (Line(
-      points={{41,70.5},{44,70.5},{44,42}},
+      points={{24.4,92.5},{44,92.5},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(motSpe.y, gain.u) annotation (Line(
-      points={{41,70.5},{44,70.5},{44,42}},
+      points={{24.4,80},{44,80},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
