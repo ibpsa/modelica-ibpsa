@@ -87,12 +87,6 @@ equation
     consider using one of the other pump or fan models.");
 
   if use_riseTime then
-    connect(filter.y, m_flow_actual) annotation (Line(
-      points={{41,70.5},{44,70.5},{44,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(filter.y, preSou.m_flow_in)
-      annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
     connect(motSpe.y, m_flow_actual) annotation (Line(
       points={{24.4,80},{44,80},{44,50},{110,50}},
       color={0,0,127},

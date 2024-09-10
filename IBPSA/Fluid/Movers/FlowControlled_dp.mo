@@ -99,10 +99,6 @@ equation
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if use_riseTime then
-    connect(filter.y, gain.u) annotation (Line(
-      points={{24.4,92.5},{44,92.5},{44,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
     connect(motSpe.y, gain.u) annotation (Line(
       points={{24.4,80},{44,80},{44,42}},
       color={0,0,127},
