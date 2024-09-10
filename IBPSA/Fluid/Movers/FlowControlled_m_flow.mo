@@ -8,6 +8,8 @@ model FlowControlled_m_flow
     final constInput(final unit="kg/s") = constantMassFlowRate,
     final _m_flow_nominal=m_flow_nominal,
     motSpe(
+      Rising=m_flow_nominal/riseTime,
+      Falling=-m_flow_nominal/riseTime,
       final y_start=m_flow_start,
       u(final unit="kg/s", nominal=m_flow_nominal),
       y(final unit="kg/s", nominal=m_flow_nominal)),
@@ -87,15 +89,10 @@ equation
     consider using one of the other pump or fan models.");
 
   if use_riseTime then
-    connect(motSpe.y, m_flow_actual) annotation (Line(
-      points={{24.4,80},{44,80},{44,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
     connect(motSpe.y, preSou.m_flow_in)
-      annotation (Line(points={{24.4,80},{44,80},{44,8}},   color={0,0,127}));
+      annotation (Line(points={{41,70},{44,70},{44,8}},
+                                                     color={0,0,127}));
   else
-  connect(inputSwitch.y, m_flow_actual) annotation (Line(points={{1,50},{110,50}},
-                                             color={0,0,127}));
   connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
       points={{1,50},{44,50},{44,8}},
       color={0,0,127},
@@ -107,6 +104,10 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(eff.m_flow, senMasFlo.m_flow)
+    annotation (Line(points={{-34,-54},{-40,-54},{-40,-11}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, m_flow_actual) annotation (Line(points={{-40,-11},{
+          -40,-20},{-20,-20},{-20,20},{80,20},{80,50},{110,50}}, color={0,0,127}));
   annotation (
       Icon(graphics={
         Text(

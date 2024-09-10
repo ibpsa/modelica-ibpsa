@@ -51,12 +51,11 @@ equation
                                                      color={0,0,127}));
 
   if use_riseTime then
-    connect(motSpe.y, eff.y_in) annotation (Line(points={{24.4,80},{44,80},{44,26},
+    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70},{44,70},{44,26},
             {-26,26},{-26,-46}},      color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
-            26},{-26,26},{-26,-46}},
-                                   color={0,0,127}));
+            26}},                  color={0,0,127}));
   end if;
 
     annotation (defaultComponentName="mov",

@@ -9,6 +9,8 @@ model FlowControlled_dp
     final constInput(final unit="Pa") = constantHead,
     final _m_flow_nominal=m_flow_nominal,
     motSpe(
+      Rising=dp_nominal/riseTime,
+      Falling=-dp_nominal/riseTime,
       final y_start=dp_start,
       u(final unit="Pa", nominal=dp_nominal),
       y(final unit="Pa", nominal=dp_nominal)),
@@ -100,7 +102,7 @@ equation
 
   if use_riseTime then
     connect(motSpe.y, gain.u) annotation (Line(
-      points={{24.4,80},{44,80},{44,42}},
+      points={{41,70},{44,70},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
