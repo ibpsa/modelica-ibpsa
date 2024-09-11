@@ -187,6 +187,10 @@ apparent sky temperature.
 </p>
 </html>", revisions="<html><ul>
 <li>
+Aug 2, 2024, by Alessandro Maccarini:<br/>
+Added units.
+</li>
+<li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
 </li>
