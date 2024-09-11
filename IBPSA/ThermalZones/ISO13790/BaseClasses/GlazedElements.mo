@@ -129,13 +129,13 @@ element, <i>F<sub>frame</sub></i> is the frame area fraction, and <i>A<sub>win,k
 the glazed element in square meters.
 </p>
 <p>
-The extra heat flow due to thermal radiation to the sky is given by
+Additionally, an extra heat flow is modeled to represent the thermal radiation emitted towards the sky as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &Phi;<sub>r,k</sub> =h<sub>r</sub> &#916;T<sub>sky</sub> R<sub>se</sub> U<sub>k</sub> A<sub>k</sub>
 </p>
 <p>
-where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficent
+where <i>h<sub>r</sub></i> is the external radiative heat transfer coefficient
 which is approximated as 5 &epsilon; W/m<sup>2</sup>K (where &epsilon; is the emissivity for
 the thermal radiation of the external surface), and &#916;T<sub>sky</sub> is
 the average temperature difference between the external air temperature and the
