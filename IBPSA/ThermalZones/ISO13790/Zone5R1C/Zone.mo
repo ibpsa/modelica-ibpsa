@@ -191,8 +191,6 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(heaPorSur, HThe.port_a)
     annotation (Line(points={{40,0},{40,30}}, color={191,0,0}));
-  connect(heaPorSur, heaPorSur)
-    annotation (Line(points={{40,0},{40,0}}, color={191,0,0}));
   connect(win.weaBus, weaBus) annotation (Line(
       points={{-100,-50},{-112,-50},{-112,120},{120,120}},
       color={255,204,51},
@@ -397,6 +395,10 @@ the parameter <code>coeFac</code> must be set to <i>1</i>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 8, 2024, by Michael Wetter:<br/>
+Removed connection to itself.
+</li>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
