@@ -61,8 +61,7 @@ partial model PartialFlowMachine
       enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Motor speed",
-    enable=use_riseTime));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   // Connectors and ports
   Modelica.Blocks.Interfaces.IntegerInput stage
