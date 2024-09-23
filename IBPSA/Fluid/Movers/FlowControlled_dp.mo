@@ -16,19 +16,19 @@ model FlowControlled_dp
       y(final unit="Pa", nominal=dp_nominal)),
     eff(per(
         final pressure=if per.havePressureCurve then per.pressure else
-            IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(
-              nOri - 1)},
+          IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri - 1)},
             dp={i/(nOri - 1)*2.0*dp_nominal for i in (nOri - 1):-1:0}),
         final etaHydMet=if (per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-             or per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
-             and not per.havePressureCurve then IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-             else per.etaHydMet,
+          or per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+          and not per.havePressureCurve then
+            IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+          else per.etaHydMet,
         final etaMotMet=if (per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
-             or per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-             and (not per.haveWMot_nominal and not per.havePressureCurve) then
+          or per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+          and (not per.haveWMot_nominal and not per.havePressureCurve) then
             IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-             else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
+          else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
             dp_start/dp_nominal else 0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(
