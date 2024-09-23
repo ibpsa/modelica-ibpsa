@@ -89,7 +89,6 @@ Implemented linear dynamics for change in motor speed.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
 for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
-
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Removed the modification that normalised the speed input
