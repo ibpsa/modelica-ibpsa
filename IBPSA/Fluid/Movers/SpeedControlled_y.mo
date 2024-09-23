@@ -14,7 +14,8 @@ model SpeedControlled_y
     eff(per(
         final pressure=per.pressure,
         final etaHydMet=per.etaHydMet,
-        final etaMotMet=per.etaMotMet), r_N(start=y_start)));
+        final etaMotMet=per.etaMotMet),
+        r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
