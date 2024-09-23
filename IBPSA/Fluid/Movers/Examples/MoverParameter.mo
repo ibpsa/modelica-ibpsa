@@ -28,8 +28,9 @@ model MoverParameter
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   IBPSA.Fluid.Movers.SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
-    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(speeds=
-          {0,0.5,1}, constantSpeed=1),
+    redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+      speeds={0,0.5,1},
+      constantSpeed=1),
     use_riseTime=false,
     inputType=IBPSA.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
