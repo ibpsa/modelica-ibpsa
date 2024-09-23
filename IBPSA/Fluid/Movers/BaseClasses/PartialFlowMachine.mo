@@ -239,7 +239,7 @@ protected
     initType=init,
     strict=true)
     if use_riseTime
-      "Dynamics of engine speed"
+      "Dynamics of motor speed"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   IBPSA.Fluid.Movers.BaseClasses.IdealSource preSou(
