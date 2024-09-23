@@ -23,13 +23,16 @@ model FlowControlled_dp
           or per.etaHydMet == IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
           and not per.havePressureCurve then
             IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-          else per.etaHydMet,
+          else
+            per.etaHydMet,
         final etaMotMet=if (per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
           or per.etaMotMet == IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
           and (not per.haveWMot_nominal and not per.havePressureCurve) then
             IBPSA.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
           else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
-            dp_start/dp_nominal else 0)));
+            dp_start/dp_nominal
+          else
+            0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(
     min=0,
