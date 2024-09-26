@@ -32,8 +32,8 @@ annotation (
 <p>
 Record containing parameters for working fluid properties.
 A figure in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.BottomingCycle\">
-IBPSA.Fluid.CHPs.OrganicRankine.BottomingCycle</a>
+<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Cycle\">
+IBPSA.Fluid.CHPs.OrganicRankine.Cycle</a>
 shows which lines these arrays represent.
 </p>
 </html>"));
