@@ -212,8 +212,8 @@ Model of an organic Rankine cycle (ORC) as a bottoming cycle.
 The thermodynamic cycle is steady-state while the evaporator and the condenser
 can be configured to have first order dynamics.
 The fluid stream 1 (using <code>Medium1</code>, <code>port_a1</code>, etc.)
-is the evaporator hot fluid carrying waste heat
-and the stream 2 is the condenser cold fluid carrying the cooling fluid.
+is the evaporator hot fluid, e.g., waste heat,
+and the stream 2 is the condenser cold fluid.
 The working fluid of the cycle is not based on a typical Modelica medium model.
 See the Thermodynamic Properties section of this document for the rational.
 </p>
@@ -230,13 +230,14 @@ the pump efficiency <i>&eta;<sub>pum</sub></i>.
 The superheating temperature difference <i>&Delta;T<sub>sup</sub></i>
 is minimized, meaning it is zero whenever possible; otherwise it assumes
 the smallest value not to cause the expander outlet state to fall
-under the dome. Subcooling after the condenser is not considered.
+under the two-phase region, i.e. the \"dome\".
+Subcooling after the condenser is not considered.
 The Thermodynamic Properties section of this document details how these
 state points are found.
 </p>
 <p>
 An important assumption is that all heat is dissipated, i.e.,
-the cycle is not controlled thermal load.
+the cycle is not controlled by thermal load.
 </p>
 <p align=\"center\">
 <img src=\"modelica://IBPSA/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
@@ -350,7 +351,7 @@ The ORC system controls <i>m&#775;<sub>w</sub></i> to maintain the prescribed
 evaporator PP temperature difference set point.
 Although the model does not implement this as a control loop,
 an upper limit and a lower limit are imposed on
-<i>m&#775;<sub>w</sub></i> to reflect the characteristics of a sized cycle.
+<i>m&#775;<sub>w</sub></i> to reflect the capacity constraints of a sized cycle.
 </p>
 <ul>
 <li>
