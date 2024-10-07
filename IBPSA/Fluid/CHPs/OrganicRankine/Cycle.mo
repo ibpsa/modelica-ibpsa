@@ -474,6 +474,12 @@ if the expansion started from the saturated vapor line,
 the outlet point would end up under the dome.
 </li>
 </ul>
+<h4>Implementation</h4>
+The user can parameterise the evaporating condition by providing either the
+evaporating temperature <code>TWorEva</code> or the evaporating pressure
+<code>pWorEva</code>. To support this, a default parameter assignment is
+provided to both. Otherwise there would be unassigned parameters even though
+they are not needed.
 <h4>References</h4>
 <p>
 Bell IH, Wronski J, Quoilin S, Lemort V.
