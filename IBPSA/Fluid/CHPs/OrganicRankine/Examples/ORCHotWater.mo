@@ -18,7 +18,7 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
   parameter Modelica.Units.SI.ThermodynamicTemperature TCol_start = 35 + 273.15
     "Start value for cold fluid temperature";
 
-  IBPSA.Fluid.CHPs.OrganicRankine.Cycle orc(
+  IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation orc(
     redeclare final package Medium1 = MediumHot,
     redeclare final package Medium2 = MediumCol,
     T2_start=TCol_start,
@@ -204,8 +204,8 @@ annotation(experiment(StopTime=900,Tolerance=1E-6),
   Documentation(info="<html>
 <p>
 This example model demonstrates how
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Cycle\">
-IBPSA.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 can be integrated in a system.
 The three-way valve is controlled to track the hot water
 output temperature, which is the cold fluid of the ORC,

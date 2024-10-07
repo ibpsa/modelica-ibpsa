@@ -50,8 +50,8 @@ record R134a "Data record for R134a"
 Record containing properties of R134a.
 Its name in CoolProp is \"R134a\".
 A figure in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Cycle\">
-IBPSA.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>
 </html>"));

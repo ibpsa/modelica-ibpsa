@@ -48,8 +48,8 @@ record Toluene "Data record for toluene"
 Record containing properties of toluene.
 Its name in CoolProp is \"Toluene\".
 A figure in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Cycle\">
-IBPSA.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>
 </html>"));

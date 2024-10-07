@@ -307,8 +307,8 @@ protected
 <p>
 This model performs the property interpolations of a given working fluid.
 See the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Cycle\">
-IBPSA.Fluid.CHPs.OrganicRankine.Cycle</a>
+<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 for more details.
 </html>", revisions="<html>
 <ul>

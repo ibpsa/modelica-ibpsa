@@ -18,8 +18,8 @@ except that it validates the handling of wet working fluids.
 As a result, a superheating temperature is computed that ensures
 the expansion does not land under the dome.
 How this superheating temperature is found is explained in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Cycle\">
-IBPSA.Fluid.CHPs.OrganicRankine.Cycle</a>.
+<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>.
 </p>
 </html>",revisions="<html>
 <ul>

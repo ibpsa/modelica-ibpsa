@@ -1,5 +1,5 @@
 within IBPSA.Fluid.CHPs.OrganicRankine;
-model Cycle "Organic Rankine cycle as a bottoming cycle"
+model ConstantEvaporation "Organic Rankine cycle as a bottoming cycle"
 
   extends IBPSA.Fluid.Interfaces.FourPortHeatMassExchanger(
     final m1_flow_nominal = mHot_flow_nominal,
@@ -240,7 +240,7 @@ An important assumption is that all heat is dissipated, i.e.,
 the cycle is not controlled by thermal load.
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
+<img src=\"modelica://IBPSA/Resources/Images/Fluid/CHPs/OrganicRankine/ConstantEvaporationArchitecture.png\"
 alt=\"CycleArchitecture\" width=\"800\" height=\"300\"/></p>
 <p>
 The cycle processes the heat at a fixed
@@ -498,4 +498,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end Cycle;
+end ConstantEvaporation;
