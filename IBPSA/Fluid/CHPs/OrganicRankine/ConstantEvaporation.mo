@@ -240,7 +240,7 @@ An important assumption is that all heat is dissipated, i.e.,
 the cycle is not controlled by thermal load.
 </p>
 <p align=\"center\">
-<img src=\"modelica://IBPSA/Resources/Images/Fluid/CHPs/OrganicRankine/ConstantEvaporationArchitecture.png\"
+<img src=\"modelica://IBPSA/Resources/Images/Fluid/CHPs/OrganicRankine/CycleArchitecture.png\"
 alt=\"CycleArchitecture\" width=\"800\" height=\"300\"/></p>
 <p>
 The cycle processes the heat at a fixed
