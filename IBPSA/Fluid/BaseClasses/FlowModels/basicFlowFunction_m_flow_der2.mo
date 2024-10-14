@@ -36,7 +36,7 @@ Documentation(info="<html>
 Function that implements the second order derivative of
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
-with respect to the mass flow rate.
+with respect to time.
 </p>
 </html>",
 revisions="<html>

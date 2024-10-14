@@ -21,6 +21,7 @@ equation
     k = k,
     m_flow_turbulent=m_flow_turbulent);
   der(m_flow) = der(m_flow_comp);
+  der_m_flow_dp = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(dp);
   err = m_flow-m_flow_comp;
   assert(abs(err) < 1E-3, "Error in implementation.");
 annotation (
