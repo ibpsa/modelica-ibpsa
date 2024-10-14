@@ -140,19 +140,17 @@ The basic flow function
   m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
 </p>
 <p>
-with regularization near the origin, is used to compute the pressure drop.
-The flow coefficient
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
-</p>
-<p>
-is increased from <code>l*KV_Si</code> to <code>KV_Si</code>,
-where <code>KV_Si</code> is equal to <code>Kv</code> but in SI units.
-Therefore, the flow coefficient <code>k</code> is set to a value close to zero for negative pressure differences, thereby
-restricting reverse flow to a small value.
-The flow coefficient <code>k</code> saturates to its maximum value at the pressure <code>dpValve_closing</code>.
-For larger pressure drops, the pressure drop is a quadratic function of the flow rate.
+with regularization near the origin, is used to compute the mass flow rate
+through the fully closed and fully open valve, respectively.
+The valve is considered fully closed when subjected to a negative pressure drop,
+and its flow coefficient <i>k</i> is then equal to <code>l * Kv_SI</code>
+where <code>Kv_SI</code> is equal to <code>Kv</code> but in SI units.
+The valve is considered fully open when the pressure drop exceeds 
+<code>dpValve_closing</code>,
+and its flow coefficient <i>k</i> is then equal to <code>Kv_SI</code>.
+For valve positions between these two extremes, a quintic spline interpolation 
+is applied to determine the mass flow rate as a function of 
+the pressure drop across the valve.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -183,8 +181,13 @@ by default.
 </html>", revisions="<html>
 <ul>
 <li>
+October 14, 2024, by Antoine Gautier:<br/>
+Refactored using a spline interpolation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1937\">issue 1937</a>.
+</li>
+<li>
 February 3, 2023, by Michael Wetter:<br/>
-Corrected grahpical annotation.
+Corrected graphical annotation.
 </li>
 <li>
 September 16, 2019, by Kristoff Six and Filip Jorissen:<br/>
