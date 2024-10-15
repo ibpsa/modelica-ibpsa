@@ -47,18 +47,18 @@ initial equation
   assert(l > - Modelica.Constants.eps, "In " + getInstanceName() +
     ": We require l >= 0. Received l = " + String(l));
 equation
-  // min function ensures that m_flow_y1 does not increase further for dp_x > dp_x1
-  m_flow_min=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+  // min function ensures that m_flow_min does not increase further for dp > 0
+  m_flow_min = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=min(dp, 0),
     k=k_min,
     m_flow_turbulent=m_flow_turbulent);
-  // max function ensures that m_flow_y2 does not decrease further for dp_x < dp_x2
-  m_flow_max=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+  // max function ensures that m_flow_max does not decrease further for dp < dpValve_closing
+  m_flow_max = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=max(dp, dpValve_closing),
     k=k_max,
     m_flow_turbulent=m_flow_turbulent);
-  // We compute d(m_flow)/dp by calling d(m_flow)/dt with dp/dt=1,
-  // and d2(m_flow)/dp2 by calling d2(m_flow)/dt2 with dp/dt=1 and d2p/dt2=0
+  // We compute d(m_flow)/dp by calling the function d(m_flow)/dt with dp/dt=1,
+  // and d2(m_flow)/dp2 by calling the function d2(m_flow)/dt2 with dp/dt=1 and d2p/dt2=0
   m_flow_smooth=noEvent(smooth(2,
     if dp <= 0 then m_flow_min
     elseif dp >= dpValve_closing then m_flow_max
