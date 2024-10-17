@@ -27,48 +27,75 @@ model CheckValve "Check valve that avoids flow reversal"
     else 0
     "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-
-  Real k(min=Modelica.Constants.small)
-    "Flow coefficient of valve and pipe in series in allowed/forward direction,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-
 protected
-  Real a
-    "Scaled pressure variable";
-  Real cv
-    "Twice differentiable Heaviside check valve characteristic";
-  Real kCv
-    "Smoothed restriction characteristic";
-
+  parameter Real k_min=if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed ^ 2 + 1 /(l * Kv_SI) ^ 2)) else l * Kv_SI
+    "Minimum flow coefficient (valve closed)";
+  parameter Real k_max=if dpFixed_nominal > Modelica.Constants.eps then
+    sqrt(1 / (1 / kFixed ^ 2 + 1 / Kv_SI ^ 2)) else Kv_SI
+    "Maximum flow coefficient (valve fully open)";
+  Modelica.Units.SI.MassFlowRate m_flow_min
+    "Flow rate through closed valve";
+  Modelica.Units.SI.MassFlowRate m_flow_max
+    "Flow rate through fully open valve";
+  Modelica.Units.SI.MassFlowRate m_flow_smooth
+    "Smooth interpolation result between two flow regimes";
 initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": We require dpFixed_nominal >= 0.
+  assert(dpFixed_nominal > - Modelica.Constants.eps, "In " + getInstanceName() +
+    ": We require dpFixed_nominal >= 0.
     Received dpFixed_nominal = " + String(dpFixed_nominal) + " Pa.");
-  assert(l > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
+  assert(l > - Modelica.Constants.eps, "In " + getInstanceName() +
+    ": We require l >= 0. Received l = " + String(l));
 equation
-  a = dp/dpValve_closing;
-  cv = smooth(2, max(0, min(1, a^3*(10+a*(-15+6*a)))));
-  kCv = Kv_SI*(cv*(1-l) + l);
-
-  if (dpFixed_nominal > Modelica.Constants.eps) then
-    k = sqrt(1/(1/kFixed^2 + 1/kCv^2));
-  else
-    k = kCv;
-  end if;
-
+  // min function ensures that m_flow_min does not increase further for dp > 0
+  m_flow_min = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    dp=min(dp, 0),
+    k=k_min,
+    m_flow_turbulent=m_flow_turbulent);
+  // max function ensures that m_flow_max does not decrease further for dp < dpValve_closing
+  m_flow_max = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+    dp=max(dp, dpValve_closing),
+    k=k_max,
+    m_flow_turbulent=m_flow_turbulent);
+  // We compute d(m_flow)/dp by calling the function d(m_flow)/dt with dp/dt=1,
+  // and d2(m_flow)/dp2 by calling the function d2(m_flow)/dt2 with dp/dt=1 and d2p/dt2=0
+  m_flow_smooth=noEvent(smooth(2,
+    if dp <= 0 then m_flow_min
+    elseif dp >= dpValve_closing then m_flow_max
+    else IBPSA.Utilities.Math.Functions.quinticHermite(
+      x=dp,
+      x1=0,
+      x2=dpValve_closing,
+      y1=m_flow_min,
+      y2=m_flow_max,
+      y1d=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+        dp=0,
+        k=k_min,
+        m_flow_turbulent=m_flow_turbulent,
+        dp_der=1),
+      y2d=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+        dp=dpValve_closing,
+        k=k_max,
+        m_flow_turbulent=m_flow_turbulent,
+        dp_der=1),
+      y1dd=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+        dp=0,
+        k=k_min,
+        m_flow_turbulent=m_flow_turbulent,
+        dp_der=1,
+        dp_der2=0),
+      y2dd=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2(
+        dp=dpValve_closing,
+        k=k_max,
+        m_flow_turbulent=m_flow_turbulent,
+        dp_der=1,
+        dp_der2=0))));
   if homotopyInitialization then
-    m_flow = homotopy(
-      actual=IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-            dp = dp,
-            k = k,
-            m_flow_turbulent = m_flow_turbulent),
-      simplified = m_flow_nominal_pos*dp/dp_nominal_pos);
+    m_flow=homotopy(
+      actual=m_flow_smooth,
+      simplified=m_flow_nominal_pos * dp / dp_nominal_pos);
   else
-    m_flow = IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-        dp = dp,
-        k = k,
-        m_flow_turbulent = m_flow_turbulent);
+    m_flow=m_flow_smooth;
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
@@ -113,26 +140,22 @@ The basic flow function
   m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
 </p>
 <p>
-with regularization near the origin, is used to compute the pressure drop.
-The flow coefficient
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
-</p>
-<p>
-is increased from <code>l*KV_Si</code> to <code>KV_Si</code>,
-where <code>KV_Si</code> is equal to <code>Kv</code> but in SI units.
-Therefore, the flow coefficient <code>k</code> is set to a value close to zero for negative pressure differences, thereby
-restricting reverse flow to a small value.
-The flow coefficient <code>k</code> saturates to its maximum value at the pressure <code>dpValve_closing</code>.
-For larger pressure drops, the pressure drop is a quadratic function of the flow rate.
+with regularization near the origin, is used to compute the mass flow rate
+through the fully closed and fully open valve, respectively.
+The valve is considered fully closed when subjected to a negative pressure drop,
+and its flow coefficient <i>k</i> is then equal to <code>l * Kv_SI</code>,
+where <code>Kv_SI</code> is equal to <code>Kv</code> but in SI units.
+The valve is considered fully open when the pressure drop exceeds 
+<code>dpValve_closing</code>,
+and its flow coefficient <i>k</i> is then equal to <code>Kv_SI</code>.
+For valve positions between these two extremes, a quintic spline interpolation 
+is applied to determine the mass flow rate as a function of 
+the pressure drop across the valve.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code>
 determine the flow coefficient of the check valve when it is fully opened.
-A typical value for a nominal flow rate of <i>1</i> m/s is
-<code>dpValve_nominal = 3400 Pa</code>.
 The leakage ratio <code>l</code> determines the minimum flow coefficient,
 for negative pressure differences.
 The parameter <code>dpFixed_nominal</code> allows to include a series
@@ -156,8 +179,13 @@ by default.
 </html>", revisions="<html>
 <ul>
 <li>
+October 14, 2024, by Antoine Gautier:<br/>
+Refactored using a spline interpolation. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1937\">issue 1937</a>.
+</li>
+<li>
 February 3, 2023, by Michael Wetter:<br/>
-Corrected grahpical annotation.
+Corrected graphical annotation.
 </li>
 <li>
 September 16, 2019, by Kristoff Six and Filip Jorissen:<br/>

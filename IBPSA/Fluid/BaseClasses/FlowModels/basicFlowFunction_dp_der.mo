@@ -31,7 +31,7 @@ Documentation(info="<html>
 Function that implements the first order derivative of
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
 IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
-with respect to the mass flow rate.
+with respect to time.
 </p>
 </html>",
 revisions="<html>
