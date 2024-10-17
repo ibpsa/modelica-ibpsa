@@ -207,11 +207,6 @@ can be integrated in a system.
 The three-way valve is controlled to track the hot water
 output temperature, which is the cold fluid of the ORC,
 at a set point of 55&deg;C.
-The system and control are similar to the one implemented in
-<a href=\"Modelica://IBPSA.DHC.ETS.Combined.Subsystems.Validation.Chiller\">
-IBPSA.DHC.ETS.Combined.Subsystems.Validation.Chiller</a>.
-</p>
-<p>
 In addition, a safety control sequence prevents the ORC from turning on
 until a minimum flow rate is established in the condenser water loop.
 </p>
