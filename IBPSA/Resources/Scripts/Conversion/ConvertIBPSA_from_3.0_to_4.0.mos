@@ -5,6 +5,50 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1926
+convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("IBPSA.Fluid.Movers.FlowControlled_m_flow",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("IBPSA.Fluid.Movers.SpeedControlled_y",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("IBPSA.Fluid.Movers.Preconfigured.FlowControlled_dp",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("IBPSA.Fluid.Movers.Preconfigured.FlowControlled_m_flow",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+
+convertModifiers("IBPSA.Fluid.Actuators.Dampers.Exponential",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Dampers.MixingBox",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Dampers.PressureIndependent",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.ThreeWayLinear",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.ThreeWayTable",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayButterfly",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayEqualPercentage",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayLinear",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayPolynomial",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayQuickOpening",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayTable",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+
+
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1885
 convertModifiers("IBPSA.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield",
                 {"dynFil"}, fill("",0), true);
