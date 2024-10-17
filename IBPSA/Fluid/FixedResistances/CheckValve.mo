@@ -143,7 +143,7 @@ The basic flow function
 with regularization near the origin, is used to compute the mass flow rate
 through the fully closed and fully open valve, respectively.
 The valve is considered fully closed when subjected to a negative pressure drop,
-and its flow coefficient <i>k</i> is then equal to <code>l * Kv_SI</code>
+and its flow coefficient <i>k</i> is then equal to <code>l * Kv_SI</code>,
 where <code>Kv_SI</code> is equal to <code>Kv</code> but in SI units.
 The valve is considered fully open when the pressure drop exceeds 
 <code>dpValve_closing</code>,
