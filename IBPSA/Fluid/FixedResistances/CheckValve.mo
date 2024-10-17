@@ -156,8 +156,6 @@ the pressure drop across the valve.
 <p>
 The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code>
 determine the flow coefficient of the check valve when it is fully opened.
-A typical value for a nominal flow rate of <i>1</i> m/s is
-<code>dpValve_nominal = 3400 Pa</code>.
 The leakage ratio <code>l</code> determines the minimum flow coefficient,
 for negative pressure differences.
 The parameter <code>dpFixed_nominal</code> allows to include a series
