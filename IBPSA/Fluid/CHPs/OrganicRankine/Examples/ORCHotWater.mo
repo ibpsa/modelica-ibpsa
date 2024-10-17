@@ -38,9 +38,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     etaPum=0.6) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
 
-  Modelica.Units.SI.Efficiency etaThe =orc.PExp  / max(orc.QEva_flow,1)
-    "Thermal efficiency of the ORC";
-
   IBPSA.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,
     m_flow=mHot_flow_nominal,
