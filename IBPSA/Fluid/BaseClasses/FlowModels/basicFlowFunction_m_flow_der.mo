@@ -35,7 +35,7 @@ IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>,
 assuming a constant flow coefficient.
 </p>
 <p>
-When called with <code>m_flow_der=der(m_flow)</code>, this function returns 
+When called with <code>m_flow_der=der(m_flow)</code>, this function returns
 the time derivative of <code>dp</code>.
 When called with <code>m_flow_der=1</code>, this function returns
 the derivative of <code>dp</code> with respect to <code>m_flow</code>.
