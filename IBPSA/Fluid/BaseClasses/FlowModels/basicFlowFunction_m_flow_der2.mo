@@ -35,8 +35,13 @@ Documentation(info="<html>
 <p>
 Function that implements the second order derivative of
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
-with respect to time.
+IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>,
+assuming a constant flow coefficient.
+</p>
+<p>
+When called with <code>m_flow_der=1</code> and <code>m_flow_der2=0</code>, 
+this function returns the second order derivative of <code>dp</code> 
+with respect to <code>m_flow</code>.
 </p>
 </html>",
 revisions="<html>
