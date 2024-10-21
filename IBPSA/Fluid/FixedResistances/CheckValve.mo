@@ -153,21 +153,19 @@ The basic flow function
 with regularization near the origin, is used to compute the mass flow rate
 through the fully closed and fully open valve, respectively.
 The valve is considered fully closed when subjected to a negative pressure drop,
-and its flow coefficient <i>k</i> is then equal to <code>l * Kv_SI</code>
+and its flow coefficient <i>k</i> is then equal to <code>l * Kv_SI</code>,
 where <code>Kv_SI</code> is equal to <code>Kv</code> but in SI units.
-The valve is considered fully open when the pressure drop exceeds 
+The valve is considered fully open when the pressure drop exceeds
 <code>dpValve_closing</code>,
 and its flow coefficient <i>k</i> is then equal to <code>Kv_SI</code>.
-For valve positions between these two extremes, a quintic spline interpolation 
-is applied to determine the mass flow rate as a function of 
+For valve positions between these two extremes, a quintic spline interpolation
+is applied to determine the mass flow rate as a function of
 the pressure drop across the valve.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
 The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code>
 determine the flow coefficient of the check valve when it is fully open.
-A typical value for a nominal flow rate of <i>1</i> m/s is
-<code>dpValve_nominal = 3400 Pa</code>.
 The leakage ratio <code>l</code> determines the minimum flow coefficient,
 for negative pressure differences.
 The parameter <code>dpFixed_nominal</code> allows to include a series
