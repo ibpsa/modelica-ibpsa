@@ -11,7 +11,7 @@ function basicFlowFunction_dp_der
     "Mass flow rate where transition to turbulent flow occurs";
   input Real dp_der
     "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  output Real m_flow_der(unit="kg/s2")
+  output Real m_flow_der
     "Derivative of mass flow rate in design flow direction";
 protected
   Modelica.Units.SI.PressureDifference dp_turbulent=(m_flow_turbulent/k)^2

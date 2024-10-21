@@ -9,7 +9,7 @@ function basicFlowFunction_m_flow_der
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
-  input Real m_flow_der(unit="kg/s2")
+  input Real m_flow_der
     "Derivative of mass flow rate in design flow direction";
   output Real dp_der
     "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
