@@ -119,7 +119,8 @@ revisions="<html>
 <ul>
 <li>
 October 29, 2024, by Klaas De Jonge:<br/>
-Unprotected <code>dh</code> and changed prefixes of <code>dh</code>,<code>hAg</code> and <code>hBg</code> to <code>input</code>.This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1935\">#1935</a>.
+Unprotected <code>dh</code> and changed prefixes of <code>dh</code>,<code>hAg</code> and <code>hBg</code> to <code>input</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1935\">#1935</a>.
 </li>
 <li>
 January 8, 2019, by Michael Wetter:<br/>
