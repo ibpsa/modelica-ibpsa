@@ -280,6 +280,9 @@ David Blum, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 Massimo Cimmino, Polytechnique Montreal, Canada
 </li>
 <li>
+Jan Gall, Robert Bosch GmbH, Germany
+</li>
+<li>
 Jianjun Hu, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
 </li>
 <li>
@@ -329,6 +332,9 @@ Kathryn Hinkelman, University of Colorado Boulder, USA
 </li>
 <li>
 Michael Wetter, Lawrence Berkeley National Laboratory, Berkeley, CA, USA
+</li>
+<li>
+Fabian Wuellhorst, RWTH Aachen University, Germany
 </li>
 </ul>
 </html>"));

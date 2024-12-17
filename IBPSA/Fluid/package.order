@@ -1,5 +1,6 @@
 UsersGuide
 Actuators
+CHPs
 Chillers
 Delays
 FMI
@@ -12,6 +13,7 @@ MassExchangers
 MixingVolumes
 Movers
 Sensors
+SolarCollectors
 Sources
 Storage
 Types
