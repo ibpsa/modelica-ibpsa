@@ -24,7 +24,7 @@ equation
           info="<html>
 <p>
 The model computes the air mass.</br>
-It is based on an exact empirical approach by Kasten et al. and bases on the zenith angle of the object as well as its height.
+It is based on an empirical approach by Kasten et al. and bases on the zenith angle of the object as well as its height.
 </p>
 <h4>References</h4>
 <p>
