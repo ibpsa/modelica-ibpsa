@@ -75,10 +75,9 @@ equation
 
   RS = RS0;
 
-  IPh =if absRadRat > 0 then absRadRat*(IPh0 + TCoeISC*(TCel - TCel0)) else 0;
+  IPh =absRadRat*(IPh0 + TCoeISC*(TCel - TCel0));
 
-  RSh/RSh0 = if noEvent(absRadRat > Modelica.Constants.eps) then 1/absRadRat
-     else 0;
+  RSh/RSh0 = 1/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=absRadRat, delta=Modelica.Constants.eps);
 
   // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
@@ -89,15 +88,13 @@ equation
 
   VOC = if IPh >= Modelica.Constants.eps*10 then a*log(abs((IPh/IS + 1))) else 0;
 
-  w =if noEvent(VOC >= Modelica.Constants.eps) then
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/VOC) + 1))
-     else 0;
+  w =
+    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=VOC, delta=Modelica.Constants.eps)) + 1));
 
 
 // Efficiency and Performance
 
-  eta=if noEvent(HGloTil <= Modelica.Constants.eps*10) then 0 else PMod/(
-    HGloTil*APan);
+  eta=PMod/(IBPSA.Utilities.Math.Functions.inverseXRegularized(x=HGloTil, delta=Modelica.Constants.eps)*APan);
 
   PMod = VMP*IMP;
 
@@ -115,15 +112,15 @@ equation
   parameters following (DeSoto et al.,2006).
   For more information on the 5-p modeling approach (single-diode PV cell approximation),
   see model
-<a href=\"modelica://IBPSA.Electrical.DC.Sources.PVGenerators.PVGeneratorSingleDiode\">
-IBPSA.Electrical.DC.Sources.PVGenerators.PVGeneratorSingleDiode</a> for more
+<a href=\"modelica://IBPSA.Electrical.DC.Sources.PVSingleDiode\">
+IBPSA.Electrical.DC.Sources.PVSingleDiode</a> for more
 information.
 </p>
 <p>
   The final output of this model
   is the DC performance of the PV array or module.
   The parameters are first determined for standard boundary conditions denoted with index 0.
-  The analytical approach bases on simplifications that result in explicit equations.
+  The analytical approach is based on simplifications that result in explicit equations.
   These can be solved more easily by the solver resulting in higher simulation speed.
   The resulting five unknown parameters at standard conditions basing non explicit functions are
   the modified ideality factor </p>
@@ -153,7 +150,7 @@ information.
   I<sub>s,0</sub> =  I<sub>ph,0</sub> e<sup>(-U<sub>L,0</sub>/a<sub>0+1</sub>)</sup>.
   </p>
   <p>
-  The system of equations bases on an approximation of the Lambert equation W at standard conditions
+  The system of equations is based on an approximation of the Lambert equation W at standard conditions
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
   w<sub>0</sub> =  W(e<sup>U<sub>L,0</sub>/a<sub>L,0</sub></sup>).

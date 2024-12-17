@@ -22,7 +22,7 @@ partial model PartialPVElectrical
   final parameter Modelica.Units.SI.Energy Eg0 = dat.Eg0
     "Band gap energy under standard conditions";
 
-  Modelica.Units.SI.ElectricCurrent IPh "Photo current";
+  Modelica.Units.SI.ElectricCurrent IPh(min=0) "Photo current";
   Modelica.Blocks.Interfaces.RealInput TCel(final unit="K",final displayUnit="degC")
     "Cell temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
