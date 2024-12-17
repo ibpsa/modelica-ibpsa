@@ -21,10 +21,9 @@ equation
  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         Documentation(
-          info=
-          "<html>
+          info="<html>
 <p>
-The model computes the air mass, which is the number of particles in the atmosphere.</br>
+The model computes the air mass.</br>
 It is based on an exact empirical approach by Kasten et al. and bases on the zenith angle of the object as well as its height.
 </p>
 <h4>References</h4>
