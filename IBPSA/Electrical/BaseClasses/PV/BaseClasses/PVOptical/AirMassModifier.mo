@@ -42,7 +42,7 @@ protected
 
 equation
 
-airMasMod =if (b0 + b1*(airMas^1) + b2*(airMas^2) + b3*(airMas^3) + b4*(airMas^4)) <=
+airMasMod =if (b0 + b1*(airMas) + b2*(airMas^2) + b3*(airMas^3) + b4*(airMas^4)) <=
     0 then 0 else b0 + b1*(airMas^1) + b2*(airMas^2) + b3*(airMas^3) + b4*(
     airMas^4);
 
