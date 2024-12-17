@@ -32,16 +32,16 @@ protected
   final parameter Modelica.Units.SI.Power PMax=dat.PMP0*1.05
     "Maximal power of one PV module under standard conditions. P_MPP with 5 perc tolerance. This is used to limit DCOutputPower.";
 
-  final parameter Real TCoeISC(unit="A/K") = dat.TCoeISC
+  final parameter Real TCoeISC(unit="A/K", min=0) = dat.TCoeISC
     "Temperature coefficient for short circuit current, >0";
 
-  final parameter Real TCoeVOC(unit="V/K") = dat.TCoeVOC
+  final parameter Real TCoeVOC(unit="V/K", max=0) = dat.TCoeVOC
     "Temperature coefficient for open circuit voltage, <0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient alphaISC=dat.alphaISC
+  final parameter Modelica.Units.SI.LinearTemperatureCoefficient alphaISC(min=0)=dat.alphaISC
     "Normalized temperature coefficient for short circuit current, >0";
 
-  final parameter Modelica.Units.SI.LinearTemperatureCoefficient betaVOC=dat.betaVOC
+  final parameter Modelica.Units.SI.LinearTemperatureCoefficient betaVOC(max=0)=dat.betaVOC
     "Normalized temperature coefficient for open circuit voltage, <0";
 
   final parameter Modelica.Units.SI.LinearTemperatureCoefficient gammaPMP=dat.gammaPMP
