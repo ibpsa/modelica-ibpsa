@@ -109,26 +109,24 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Global irradiation on horizontal surface" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-60}),                           iconTransformation(extent={{-20,-20},
-            {20,20}},
+        origin={-120,-60}),
+		iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-60})));
   Modelica.Blocks.Interfaces.RealInput HDifHor(final unit="W/m2") if use_HDifHor
     "Diffuse irradiation on horizontal surface" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-120}),                            iconTransformation(
-          extent={{-20,-20},{20,20}},
+        origin={-120,-120}),
+		iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-120})));
   Modelica.Blocks.Interfaces.RealInput incAng(final unit="rad") if use_incAng
     "Incidence angle of irradiation"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}},
-                                                                     rotation=0)));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}},rotation=0)));
   Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad") if use_zenAng
     "Zenith angle of irradiation"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-                                                                     rotation=0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}},rotation=0)));
   replaceable IBPSA.Electrical.Interfaces.Terminal terminal(
     redeclare final package PhaseSystem = PhaseSystem) if use_ter "Generalized terminal"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
