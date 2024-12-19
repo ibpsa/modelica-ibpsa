@@ -27,7 +27,7 @@ partial model PartialPVSystem "Base PV model with internal or external MPP track
     "Effective index of refraction of the cell cover (glass)"
     annotation(Dialog(tab="Module mounting and specifications"));
   parameter Modelica.Units.SI.Length alt
-    "Site altitude in Meters, default= 1"
+    "Site altitude in Meters"
     annotation(Dialog(tab="Site specifications"));
   constant Modelica.Units.SI.Irradiance HGloTil0=1000
     "Total solar radiation on the horizontal surface under standard conditions"
