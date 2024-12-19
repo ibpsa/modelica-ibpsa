@@ -5,7 +5,7 @@ record SingleDiodeData
   extends IBPSA.Electrical.Data.PV.Generic;
 
   parameter Modelica.Units.SI.Efficiency eta0
-    "Efficiency under standard conditions. If not found in data sheet, use eta_0 = ((V_mp0*I_mp0)/(1000*A_cel*n_ser))"
+    "Efficiency under standard conditions. If not found in data sheet, use eta0 = ((VMP0*IMP0)/(1000*ACel*nSer))"
     annotation (Dialog(group="General"));
 
   parameter Modelica.Units.SI.ElectricCurrent IMP0
@@ -15,10 +15,10 @@ record SingleDiodeData
     "MPP power of one PV module under standard conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
   parameter Real TCoeISC(unit="A/K")
-    "Temperature coefficient for short circuit current, >0. If not found in data sheet, use TCoeff_Isc=alpha_Isc*I_sc0 and type in alpha_Isc manually"
+    "Temperature coefficient for short circuit current, >0. If not found in data sheet, use TCoeISC=alphaISC*ISC0 and type in alphaISC manually"
     annotation(Dialog(group="Cell specific: Electrical characteristics"));
   parameter Real TCoeVOC(unit="V/K")
-    "Temperature coefficient for open circuit voltage, <0. If not found in data sheet, use TCoeff_Voc=beta_Voc*V_oc0 and type in beta_Voc manually"
+    "Temperature coefficient for open circuit voltage, <0. If not found in data sheet, use TCoeVOC=betaVOC*VOC0 and type in betaVOC manually"
     annotation(Dialog(group="Cell specific: Electrical characteristics"));
   parameter Modelica.Units.SI.LinearTemperatureCoefficient alphaISC=TCoeISC/
       ISC0 "Normalized temperature coefficient for short circuit current, >0"

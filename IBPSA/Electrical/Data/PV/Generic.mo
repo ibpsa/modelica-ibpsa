@@ -7,7 +7,7 @@ record Generic "Basic record of a PV cell"
   parameter Integer nPar "Number of parallel cell circuits on the PV panel"
     annotation(Dialog(group="General"));
   parameter Modelica.Units.SI.Area ACel
-    "Area of a single cell. If not found in data sheet, use ACel = ((V_mp0*I_mp0)/(1000*eta_0))/n_ser"
+    "Area of a single cell"
     annotation (Dialog(group="Cell specific: Geometrical data"));
   parameter Modelica.Units.SI.Area APan=ACel*nSer*nPar
     "Area of one Panel, must not be confused with area of the whole module"
