@@ -5,7 +5,7 @@ model PVOpticalAbsRat
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVOptical;
 
  parameter Modelica.Units.SI.Height alt
-   "Site altitude in Meters, default= 1"
+   "Site altitude in Meters"
    annotation(Dialog(group="Location"));
 
  parameter Real groRef(unit="1") "Ground reflectance";
