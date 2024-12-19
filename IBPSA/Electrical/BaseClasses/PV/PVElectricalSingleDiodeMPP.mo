@@ -178,7 +178,7 @@ to the parameter values at standard conditions following (DeSoto et al.,2006).
 The model was validated with experimental data from NIST (Boyd, 2017).
 </p>
 <p>
-The module calibration is based on manufactory data.
+The module parameterization is based on manufacturer data.
 </p>
 <p>
   <br/>
