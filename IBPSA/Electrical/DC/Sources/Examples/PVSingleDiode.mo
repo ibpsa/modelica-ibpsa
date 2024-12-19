@@ -7,19 +7,15 @@ model PVSingleDiode "Example for the single-diode PV model"
       "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{-56,-20},{-36,0}})));
-  Loads.Resistor                            res(R=0.5, V_nominal=12)
-    "Resistance"
+  Loads.Resistor res(R=0.5, V_nominal=12) "Resistance"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  ConstantVoltage                                    sou(V=pVSys1Dio120Wp.dat.VOC0)
-                                                               "Voltage source"
+  ConstantVoltage sou(V=pVSys1Dio120Wp.dat.VOC0) "Voltage source"
     annotation (Placement(transformation(extent={{-32,-10},{-12,10}})));
-  Lines.TwoPortResistance                         lin(R=0.05)
-    "Transmission line"
+  Lines.TwoPortResistance lin(R=0.05) "Transmission line"
     annotation (Placement(transformation(extent={{6,40},{26,60}})));
-  Sensors.GeneralizedSensor                         sen "Sensor"
+  Sensors.GeneralizedSensor sen "Sensor"
     annotation (Placement(transformation(extent={{34,40},{54,60}})));
-  IBPSA.Electrical.DC.Sources.PVSingleDiode
-                pVSys1Dio120Wp(
+  IBPSA.Electrical.DC.Sources.PVSingleDiode pVSys1Dio120Wp(
     PVTecTyp=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.ThinFilmSI,
     use_ter=true,
     use_Til_in=false,
@@ -50,8 +46,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(sen.terminal_p, pVSys1Dio120Wp.terminal)
-    annotation (Line(points={{54,50},{70,50}},
-                                             color={0,0,255}));
+    annotation (Line(points={{54,50},{70,50}},color={0,0,255}));
   connect(pVSys1Dio120Wp.PDC, PDCSim)
     annotation (Line(points={{91,50},{110,50}}, color={0,0,127}));
   connect(weaBus.HDifHor, pVSys1Dio120Wp.HDifHor) annotation (Line(
