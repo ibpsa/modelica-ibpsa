@@ -1,0 +1,37 @@
+// Plot commands
+simulateModel("IBPSA.Electrical.DC.Sources.Examples.PVSingleDiode", startTime=3600, stopTime=86400, outputInterval=300, method="dassl", tolerance=1e-6, resultFile="PVSingleDiode");
+removePlots();
+Advanced.FilenameInLegend = false;
+Advanced.SequenceInLegend = true;
+Advanced.PlotLegendTooltip = true;
+Advanced.FullPlotTooltip = true;
+createPlot(id=1,
+position={0, 0, 1340, 565},
+y={"PDCSim"},
+range={0.0, 1.0, 4.0, 8.0},
+autoscale=true,
+autoerase=true,
+autoreplot=true,
+description=false,
+grid=true,
+color=true,
+online=false,
+filename="PVSingleDiode.mat",
+leftTitleType=1,
+bottomTitleType=1,
+colors={{0,0,255}});
+createPlot(id=1,
+position={0, 0, 1340, 279},
+y={"HGloHor"},
+range={0.0, 1.0, 8.0, 16.0},
+autoscale=true,
+autoerase=true,
+autoreplot=true,
+description=false,
+grid=true,
+color=true,
+online=false,
+subPlot=2,
+leftTitleType=1,
+bottomTitleType=1,
+colors={{0,0,255}});
