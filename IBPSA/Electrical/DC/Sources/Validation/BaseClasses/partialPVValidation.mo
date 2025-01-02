@@ -22,12 +22,29 @@ partial model partialPVValidation
     final quantity="Irradiance",
     final unit="W/m2") = 1376 "Solar constant";
 
-  Modelica.Units.SI.Irradiance HGloHor "Global horizontal irradiation";
-  Modelica.Units.SI.Irradiance HDifHor "Diffuse horizontal irradiation";
-  Real k_t(final unit="1", start=0.5) "Clearness index";
-  Modelica.Units.SI.Angle solDec "Solar decimal angle";
-  Modelica.Units.SI.Angle solHouAng "Solar hour angle";
-  Modelica.Units.SI.Time cloTim "Clock time";
+  Modelica.Units.SI.Irradiance HGloHor=realPassThroughHGloHor.y "Global horizontal irradiation";
+
+  //Approximation of diffuse horizontal irradiation still necessary because
+  //the validation data does not contain this information so far
+  // Erbs diffuse fraction relation
+  Real k_t(final unit="1", start=0.5)=if HGloHor <= 0.01
+            then 0
+            else min(1, max(0, (HGloHor/(GSC*(1 + 0.033*
+            cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
+            (cos(lat)*cos(solDec)*cos(solHouAng) + sin(lat)*sin(solDec)))))))
+            "Clearness index; factor needed for Erbs diffuse fraction relation";
+  Modelica.Units.SI.Irradiance HDifHor=if HGloHor <= 0.01
+            then 0
+            elseif k_t <= 0.22
+            then (HGloHor)*(1.0 - 0.09*k_t)
+            elseif k_t > 0.8
+            then (HGloHor)*0.165
+            else (HGloHor)*
+              (0.9511 - 0.1604*k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4) "Diffuse horizontal irradiation";
+
+  Modelica.Units.SI.Angle solDec=realPassThroughSolDec.y "Solar decimal angle";
+  Modelica.Units.SI.Angle solHouAng= realPassThroughSolHouAng.y "Solar hour angle";
+  Modelica.Units.SI.Time cloTim=realPassThroughCloTim.y "Clock time";
 
   Modelica.Blocks.Interfaces.RealOutput PDCSim(final unit="W")
     "Simulated DC output power"
@@ -67,31 +84,6 @@ partial model partialPVValidation
     "Pass through for horizontal global irradiation"
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
 equation
-  //Approximation of diffuse horizontal irradiation still necessary because
-  //the validation data does not contain this information so far
-
-  HGloHor=realPassThroughHGloHor.y;
-
-  solHouAng = realPassThroughSolHouAng.y;
-  solDec=realPassThroughSolDec.y;
-  cloTim=realPassThroughCloTim.y;
-
-  k_t =if HGloHor <= 0.01
-            then 0
-            else min(1, max(0, (HGloHor/(GSC*(1 + 0.033*
-            cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
-            (cos(lat)*cos(solDec)*cos(solHouAng) + sin(lat)*sin(solDec)))))))
-            "Factor needed for Erbs diffuse fraction relation";
-
-  // Erbs diffuse fraction relation
-  HDifHor = if HGloHor <= 0.01
-            then 0
-            elseif k_t <= 0.22
-            then (HGloHor)*(1.0 - 0.09*k_t)
-            elseif k_t > 0.8
-            then (HGloHor)*0.165
-            else (HGloHor)*
-              (0.9511 - 0.1604*k_t + 4.388*k_t^2 - 16.638*k_t^3 + 12.336*k_t^4);
 
   connect(weaDat.weaBus, HGloTil.weaBus) annotation (Line(
       points={{-72,-10},{-60,-10},{-60,70},{-40,70}},
