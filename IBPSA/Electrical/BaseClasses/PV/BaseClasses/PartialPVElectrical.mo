@@ -31,7 +31,7 @@ public
   Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
     "Ratio of absorbed radiation under operating conditions to standard conditions"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2",min=0)
     "Total solar irradiance on the tilted surface"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
