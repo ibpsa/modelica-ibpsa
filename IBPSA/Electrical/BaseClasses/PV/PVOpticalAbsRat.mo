@@ -158,11 +158,10 @@ HGloHor = HDirHor + HDifHor;
 
 
 //Computes the absorption irradiation ratio for operating conditions following De Soto et al.
-absRadRat =if (HGloHor <= 0.1) then 0
-          else airMasMod.airMasMod*(HDirHor/HGloHor0*R_b*incAngMod
+absRadRat =max(0, airMasMod.airMasMod*(HDirHor/HGloHor0*R_b*incAngMod
           + HDifHor/HGloHor0*incAngModDif*(0.5*(1 + cos(
           Til_in_int))) + HGloHor/HGloHor0*groRef*incAngModGro*
-          (1 - cos(Til_in_int))/2);
+          (1 - cos(Til_in_int))/2));
 
   connect(airMas.airMas, airMasMod.airMas)
     annotation (Line(points={{-39,70},{18,70}}, color={0,0,127}));

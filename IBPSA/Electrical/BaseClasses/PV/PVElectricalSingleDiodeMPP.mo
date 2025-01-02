@@ -69,7 +69,7 @@ equation
 
   a/a0 = TCel/TCel0;
 
-  IS/IS0 = (TCel/TCel0)^3*exp(1/k*(Eg0/TCel0 - Eg/TCel));
+  IS/IS0 = (TCel/TCel0)^3*exp(1/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=k, delta=Modelica.Constants.eps)*(Eg0/TCel0 - Eg/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=TCel, delta=Modelica.Constants.eps)));
 
   Eg/(Eg0) =1 - dat.C*(TCel - TCel0);
 
@@ -81,16 +81,15 @@ equation
 
   // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
-  IMP = if noEvent(absRadRat <= Modelica.Constants.eps or w <= Modelica.Constants.eps)
-     then 0 else IPh*(1 - 1/w) - a*(w - 1)/RSh;
+  IMP = max(0,IPh*(1 - 1/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=w, delta=Modelica.Constants.eps)) - a*(w - 1)/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=RSh, delta=Modelica.Constants.eps));
 
-  VMP = if absRadRat <= 0 then 0 else a*(w - 1) - RS*IMP;
 
-  VOC = if IPh >= Modelica.Constants.eps*10 then a*log(abs((IPh/IS + 1))) else 0;
+  VMP = max(a*(w - 1) - RS*IMP,0);
+
+  VOC = if IPh >= Modelica.Constants.eps then a*log(abs((IPh/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=IS, delta=Modelica.Constants.eps) + 1))) else 0;
 
   w =
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=VOC, delta=Modelica.Constants.eps)) + 1));
-
+    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(IBPSA.Utilities.Math.Functions.inverseXRegularized(x=a, delta=Modelica.Constants.eps)/IBPSA.Utilities.Math.Functions.inverseXRegularized(x=VOC, delta=Modelica.Constants.eps)) + 1));
 
 // Efficiency and Performance
 

@@ -38,7 +38,7 @@ record SingleDiodeData
   parameter Modelica.Units.SI.Voltage VMP0
     "MPP voltage under standard conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
-  parameter Real C
+  parameter Real C(unit="1")
     "Band gap temperature coefficient; for Silicon: 0.0002677";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
