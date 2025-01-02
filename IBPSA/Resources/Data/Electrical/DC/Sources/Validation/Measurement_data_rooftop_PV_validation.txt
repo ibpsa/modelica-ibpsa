@@ -3,7 +3,7 @@
 #C1: Time in s
 #C2: DC power output of the 1.1.2 modules in W
 #C3: Module temperature in K
-double meaPV (3454,3)
+double meaPV(3457,3)
 0	0	288.5866667
 300	0	288.0875
 600	0	287.7933333
