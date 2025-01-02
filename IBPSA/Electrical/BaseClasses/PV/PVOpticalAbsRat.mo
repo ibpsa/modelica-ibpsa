@@ -83,25 +83,25 @@ equation
 zen = if zenAng <= Modelica.Constants.pi/2 then zenAng else Modelica.Constants.pi/2;
 
 //Refraction angle that the incoming irradiation is refracted by due to the glazing
-refAng = if noEvent(incAng >= Modelica.Constants.eps and incAng <=
+refAng = if (incAng >= Modelica.Constants.eps and incAng <=
 Modelica.Constants.pi/2*0.999) then asin(sin(incAng)/refInd) else
 0;
 
 //Refraction angle that the ground-reflected irradiation is refracted by due to the glazing
-refAngGro = if noEvent(incAngGro >= Modelica.Constants.eps and
+refAngGro = if (incAngGro >= Modelica.Constants.eps and
             incAngGro <= Modelica.Constants.pi/2*0.999) then
             asin(sin(incAngGro)/refInd)
             else
             0;
 
 //Refraction angle that the diffuse irradiation is refracted by due to the glazing
-refAngDif =if noEvent(airMasMod.airMasMod >= Modelica.Constants.eps and
+refAngDif =if (airMasMod.airMasMod >= Modelica.Constants.eps and
             incAngDif <= Modelica.Constants.pi/2*0.999)
             then asin(sin(incAngDif)/refInd)
             else 0;
 
 //Transmission coefficient calculated based on the incidence angle
-tau = if noEvent(incAng >= Modelica.Constants.eps and
+tau = if (incAng >= Modelica.Constants.eps and
             incAng <= Modelica.Constants.pi/2*0.999 and
             refAng >= Modelica.Constants.eps) then
             exp(-(glaExtCoe*glaThi/cos(refAng)))*
@@ -111,7 +111,7 @@ tau = if noEvent(incAng >= Modelica.Constants.eps and
 
 //Transmission coefficient for the ground-reflected irradiation calculated based on the incidence angle
 //of the ground-reflected irradiation
-tau_gro = if noEvent(incAngGro >= Modelica.Constants.eps and
+tau_gro = if (incAngGro >= Modelica.Constants.eps and
           refAngGro >= Modelica.Constants.eps) then
           exp(-(glaExtCoe*glaThi/cos(refAngGro)))*
           (1 - 0.5*((sin(refAngGro - incAngGro)^2)/(sin(refAngGro + incAngGro)^2)
@@ -120,7 +120,7 @@ tau_gro = if noEvent(incAngGro >= Modelica.Constants.eps and
 
 //Transmission coefficient for the diffuse irradiation calculated based
 //on the incidence angle of the diffuse irradiation
-  tau_dif = if noEvent(incAngDif >= Modelica.Constants.eps and
+  tau_dif = if (incAngDif >= Modelica.Constants.eps and
           refAngDif >= Modelica.Constants.eps) then
           exp(-(glaExtCoe*glaThi/cos(refAngDif)))*
           (1 - 0.5*((sin(refAngDif - incAngDif)^2)/
@@ -149,7 +149,7 @@ incAngDif =(59.7 - 0.1388*Til_in_int*180/Modelica.Constants.pi +
           Modelica.Constants.pi/180;
 
 //Geometrical relation of normal to horizontal irradiation
-R_b = if noEvent((zen >= Modelica.Constants.pi/2*0.999) or
+R_b = if ((zen >= Modelica.Constants.pi/2*0.999) or
           (cos(incAng)> cos(zen)*4))
           then 4
           else (cos(incAng)/cos(zen));
@@ -158,7 +158,7 @@ HGloHor = HDirHor + HDifHor;
 
 
 //Computes the absorption irradiation ratio for operating conditions following De Soto et al.
-absRadRat =if noEvent(HGloHor <= 0.1) then 0
+absRadRat =if (HGloHor <= 0.1) then 0
           else airMasMod.airMasMod*(HDirHor/HGloHor0*R_b*incAngMod
           + HDifHor/HGloHor0*incAngModDif*(0.5*(1 + cos(
           Til_in_int))) + HGloHor/HGloHor0*groRef*incAngModGro*
