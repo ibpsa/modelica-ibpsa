@@ -10,7 +10,7 @@ package UsersGuide "User's Guide"
   Documentation(info="<html>
 <p>
 The <code>IBPSA.Controls.OBC</code> package follows the naming conventions of
-the <code>Buildings</code> Library,
+the <code>IBPSA</code> Library,
 see <a href=\"modelica://IBPSA.UsersGuide.Conventions\">IBPSA.UsersGuide.Conventions</a>.
 The table below shows some examples of commonly used names.
 Note that the names are generally composed as follows:
@@ -163,7 +163,7 @@ contains the Control Description Language (CDL) and models for building control 
 are implemented using CDL.
 The Control Description Language is a language that is being standardized through
 ASHRAE Standard 231P.
-It has been developed to digitalized the design, implementation and commissioning
+It has been developed to digitalize the design, implementation and commissioning
 of building control sequences in format that is independent of any particular
 control product line (Wetter et al., 2018).
 For a description of the process for digitalizing control delivery,
@@ -176,7 +176,7 @@ have been developed in the OpenBuildingControl project, see
 <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </p>
 <p>
-The package contains control sequences for
+This package contains control sequences for
 </p>
 <ul>
 <li>
