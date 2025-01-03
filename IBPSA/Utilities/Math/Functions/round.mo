@@ -41,7 +41,7 @@ Hence, the function outputs
 <p>
 To use this function as a block, use
 <a href=\"modelica://IBPSA.Controls.OBC.CDL.Reals.Round\">
-Buildings.Controls.OBC.CDL.Reals.Round</a>.
+IBPSA.Controls.OBC.CDL.Reals.Round</a>.
 </p>
 </html>", revisions="<html>
 <ul>
