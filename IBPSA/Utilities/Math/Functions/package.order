@@ -21,6 +21,7 @@ quadraticLinear
 quinticHermite
 regNonZeroPower
 regStep
+round
 smoothExponential
 smoothHeaviside
 smoothInterpolation
