@@ -235,11 +235,11 @@ average of a noisy measurement signal.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Validation.MovingAverage\">
-Buildings.Controls.OBC.CDL.Continuous.Validation.MovingAverage</a>
+<a href=\"modelica://IBPSA.Controls.OBC.CDL.Continuous.Validation.MovingAverage\">
+IBPSA.Controls.OBC.CDL.Continuous.Validation.MovingAverage</a>
 and
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Validation.MovingAverage_nonZeroStart\">
-Buildings.Controls.OBC.CDL.Continuous.Validation.MovingAverage_nonZeroStart</a>
+<a href=\"modelica://IBPSA.Controls.OBC.CDL.Continuous.Validation.MovingAverage_nonZeroStart\">
+IBPSA.Controls.OBC.CDL.Continuous.Validation.MovingAverage_nonZeroStart</a>
 for example.
 </p>
 </html>",

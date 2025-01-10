@@ -173,7 +173,7 @@ IBPSA.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
 as
 <a href=\"modelica://IBPSA.Media.Air.density\">
-Buildings.Media.Air.density</a>
+IBPSA.Media.Air.density</a>
 does not depend on temperature.
 </li>
 <li>June 18, 2014 by Michael Wetter:<br/>
