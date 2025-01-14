@@ -104,7 +104,7 @@ various values reported in the literature.
 The computation of the actual wind pressure coefficient <i>C<sub>p</sub></i>
 is explained in the function
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise\">
-Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
+IBPSA.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
 that is called by this model.
 </p>
 <p>

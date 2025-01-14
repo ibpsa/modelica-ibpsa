@@ -7,7 +7,7 @@ annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses\">
-Buildings.Airflow.Multizone.BaseClasses</a>.
+IBPSA.Airflow.Multizone.BaseClasses</a>.
 </p>
 </html>"));
 end Examples;
