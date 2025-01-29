@@ -158,14 +158,14 @@ protected
       totalArea/per.A "Number of panels used in the simulation";
   parameter Real nPanelsSer_internal=
     if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
-      nPanels
+      nPanels_internal
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
       1
     else
       nPanelsSer "Number of panels in series";
   parameter Real nPanelsPar_internal=
     if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
-      nPanels
+      nPanels_internal
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
       1
     else
@@ -257,6 +257,12 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2025, by Jelger Jansen:<br/>
+Use <code>nPanels_internal</code> when calculating <code>nPanelsPar_internal</code> and <code>nPanelsSer_internal</code>.
+This is for 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+</li>
 <li>
 February 27, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>
