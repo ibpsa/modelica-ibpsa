@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 
-# This script downloads the SDF library and imports it into the Buildings library.
-# It shall be run from 'modelica-buildings/.' where the directory 'Buildings' is located.
+"""Import the SDF Library into IBPSA.
+
+This script downloads a specified version of the SDF library from GitHub,
+integrates it into IBPSA as a new package, and optionally runs a validation test.
+
+Usage:
+    From 'modelica-ibpsa/.' (where the directory 'IBPSA' is located) run:
+    > ./bin/importSDF.py VERSION [--test]
+
+Arguments:
+    VERSION: SDF Library version (e.g., 0.4.4)
+    --test: Optional flag to run a validation test
+"""
 
 import argparse
 import os
@@ -17,9 +28,7 @@ SDF_BASE_URL = 'https://github.com/ScientificDataFormat/SDF-Modelica'
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description='Import the SDF library into the Buildings library'
-    )
+    parser = argparse.ArgumentParser(description='Import the SDF library')
     parser.add_argument('sdf_version', help='SDF Library version, e.g., 0.4.4')
     parser.add_argument(
         '--test',
