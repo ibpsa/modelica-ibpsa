@@ -189,7 +189,10 @@ initial equation
   if sysConfig==IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Array then
     assert(abs(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal) < 1E-6,
       "In " + getInstanceName() +
-      ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.",
+      ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.\n" +
+      "   Obtained nPanelsPar_internal*nPanelsSer_internal-nPanels_internal = " +
+      String(nPanelsPar_internal) + "*" + String(nPanelsSer_internal) + "-" + String(nPanels_internal) +
+      "=" + String(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal),
       level = AssertionLevel.error);
   end if;
 
@@ -260,7 +263,7 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 <li>
 January 29, 2025, by Jelger Jansen:<br/>
 Use <code>nPanels_internal</code> when calculating <code>nPanelsPar_internal</code> and <code>nPanelsSer_internal</code>.
-This is for 
+This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
 </li>
 <li>
