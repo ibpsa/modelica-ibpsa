@@ -1,0 +1,55 @@
+﻿import SDF.Functions.*;
+
+// write a (scalar) double dataset
+makeDatasetDouble(fileName="test.sdf", datasetName="/DS1", value=1.1, comment="Comment 1", displayName="Dataset 1", unit="U1", displayUnit="DU1", relativeQuantity=true)
+
+// set a string attribute
+setAttributeString("test.sdf", "/DS1", "A1", "Attribute 1")
+
+// write a Real vector
+makeDatasetDouble1D(fileName="test.sdf", datasetName="/DS2", values={2.1, 2.2}, comment="Comment 2", displayName="Dataset 2", unit="U2", displayUnit="DU2")
+
+// write a Real matrix
+makeDatasetDouble2D(fileName="test.sdf", datasetName="/DS3", values={{3.1, 3.2, 3.3}, {3.4, 3.5, 3.6}}, comment="Comment 3", displayName="Dataset 3", unit="U3", displayUnit="DU3", relativeQuantity=false)
+
+// write an Integer scalar
+makeDatasetInteger(fileName="test.sdf", datasetName="/DS4", value=4, comment="Comment 4", displayName="Dataset 4", unit="U4", displayUnit="DU4", relativeQuantity=true)
+
+// write an Integer vector
+makeDatasetInteger1D("test.sdf", "/DS5", {1, 2, 3}, "Comment 5", "Dataset 5", "U5", "DU5", false)
+
+// write an Integer matrix
+makeDatasetInteger2D("test.sdf", "/DS6", {{1, 2, 3}, {4, 5, 6}}, "Comment 6", "Dataset 6", "U6", "DU6", false)
+
+// attach /DS2 as scale for the second dimension to /DS3
+attachScale("test.sdf", "/DS3", "/DS2", "My scale", 1);
+
+// read a Real scalar
+readDatasetDouble("test.sdf", "/DS1", "U1")
+
+// get a string attribute
+getAttributeString("test.sdf", "/DS1", "A1")
+
+// read a Real vector
+readDatasetDouble1D("test.sdf", "/DS2", "U2")
+
+// read a Real matrix
+readDatasetDouble2D("test.sdf", "/DS3", "U3")
+
+// read an Integer scalar
+readDatasetInteger("test.sdf", "/DS4")
+
+// read an Integer scalar
+readDatasetInteger1D("test.sdf", "/DS5", "U5")
+
+// read an Integer matrix
+readDatasetInteger2D("test.sdf", "/DS6", "U6")
+
+// create a group
+createGroup("test.sdf", "/G1", "Group 1")
+
+// write a Real scalar to G1
+makeDatasetDouble("test.sdf", "/G1/DS7", 7)
+
+// read the Real scalar from G1
+readDatasetDouble("test.sdf", "/G1/DS7")

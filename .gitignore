@@ -34,10 +34,14 @@ success
 .buildinfo
 IBPSA/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
 
-######################################
 # Ignore files created by BuildingsPy
+##########################################
 *.py[cod]
 simulator*.log
 comparison*.log
 unitTests*.log
 funnel_comp
+
+# SDF executables
+#########################################
+IBPSA/IBPSA.Utilities.IO.SDF*
