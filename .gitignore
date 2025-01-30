@@ -42,6 +42,7 @@ comparison*.log
 unitTests*.log
 funnel_comp
 
-# SDF executables
+# SDF executables and required files
 #########################################
 IBPSA/IBPSA.Utilities.IO.SDF*
+!IBPSA/Utilities/IO/SDF/Resources/Data/Examples/*.mat
