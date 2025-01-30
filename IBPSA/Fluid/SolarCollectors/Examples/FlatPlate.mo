@@ -11,7 +11,6 @@ model FlatPlate "Test model for FlatPlate"
     nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     sysConfig=IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Array,
     nPanelsSer=5,
-    nPanelsPar=5,
     per=IBPSA.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_GuangdongFSPTY95(),
     nPanels=25,
     nSeg=9,
@@ -85,6 +84,12 @@ for a variable fluid flow rate and weather data from San Francisco, CA, USA.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 30, 2025, by Jelger Jansen:<br/>
+Remove <code>nPanelsPar</code> as a model parameter.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+</li>
 <li>
 February 15, 2024, by Jelger Jansen:<br/>
 Refactor model.<br/>

@@ -54,9 +54,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
-  parameter Integer nPanelsSer=0 "Number of array panels in series"
-    annotation(Dialog(group="Configuration declarations", enable= (sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
-  parameter Integer nPanelsPar=0 "Number of array panels in parallel"
+  parameter Real nPanelsSer=0 "Number of array panels in series"
     annotation(Dialog(group="Configuration declarations", enable= (sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
@@ -169,7 +167,7 @@ protected
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
       1
     else
-      nPanelsPar "Number of panels in parallel";
+      nPanels_internal/nPanelsSer_internal "Number of panels in parallel";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -185,16 +183,6 @@ initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
     level = AssertionLevel.warning);
-
-  if sysConfig==IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Array then
-    assert(abs(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal) < 1E-6,
-      "In " + getInstanceName() +
-      ": The product of the number of panels in series and parallel is not equal to the total number of panels in the array.\n" +
-      "   Obtained nPanelsPar_internal*nPanelsSer_internal-nPanels_internal = " +
-      String(nPanelsPar_internal) + "*" + String(nPanelsSer_internal) + "-" + String(nPanels_internal) +
-      "=" + String(nPanelsPar_internal*nPanelsSer_internal-nPanels_internal),
-      level = AssertionLevel.error);
-  end if;
 
 equation
   connect(shaCoe_internal,shaCoe_in);
@@ -261,8 +249,9 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January 29, 2025, by Jelger Jansen:<br/>
+January 30, 2025, by Jelger Jansen:<br/>
 Use <code>nPanels_internal</code> when calculating <code>nPanelsPar_internal</code> and <code>nPanelsSer_internal</code>.
+Only request <code>nPanelsSer</code> as an input for an array of collectors.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
 </li>
