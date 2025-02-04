@@ -54,7 +54,7 @@ partial model PartialSolarCollector "Partial model for solar collectors"
   IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series
     "Selection of system configuration"
     annotation(Dialog(group="Configuration declarations"));
-  parameter Real nPanelsSer=0 "Number of array panels in series"
+  parameter Integer nPanelsPar=0 "Number of array panels in parallel"
     annotation(Dialog(group="Configuration declarations", enable= (sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Array)));
 
   Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
@@ -160,14 +160,14 @@ protected
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
       1
     else
-      nPanelsSer "Number of panels in series";
+      nPanels_internal/nPanelsPar_internal "Number of panels in series";
   parameter Real nPanelsPar_internal=
     if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
       nPanels_internal
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
       1
     else
-      nPanels_internal/nPanelsSer_internal "Number of panels in parallel";
+      nPanelsPar "Number of panels in parallel";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -182,6 +182,11 @@ protected
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
+    level = AssertionLevel.warning);
+
+  assert(mod(ATot_internal,per.A)/per.A <= 0.01,
+    "In " + getInstanceName() +
+    ": The total collector area is not an exact multitude of a single collector's area.",
     level = AssertionLevel.warning);
 
 equation
@@ -249,9 +254,10 @@ EnergyPlus 23.2.0 Engineering Reference</a>
 </html>", revisions="<html>
 <ul>
 <li>
-January 30, 2025, by Jelger Jansen:<br/>
+February 4, 2025, by Jelger Jansen:<br/>
 Use <code>nPanels_internal</code> when calculating <code>nPanelsPar_internal</code> and <code>nPanelsSer_internal</code>.
-Only request <code>nPanelsSer</code> as an input for an array of collectors.
+Only request <code>nPanelsPar</code> as an input for an array of collectors and 
+add assert to check if the total collector area is an exact multitude of a single collector's area.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
 </li>
