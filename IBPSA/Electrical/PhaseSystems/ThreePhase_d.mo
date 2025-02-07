@@ -34,11 +34,13 @@ This package declares the functions that are used to implement
 the AC three-phase balanced and purely resistive models.
 </p>
 </html>", revisions="<html>
+<ul>
 <li>
 February 7, 2025, by Jelger Jansen:<br/>
 Added <code>Modelica.Units.</code> to relevant types.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
 </li>
-));
+</ul>
+</html>"));
 end ThreePhase_d;
