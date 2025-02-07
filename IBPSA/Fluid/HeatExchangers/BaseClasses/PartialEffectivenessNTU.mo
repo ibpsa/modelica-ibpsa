@@ -9,7 +9,7 @@ model PartialEffectivenessNTU
       mWat1_flow = 0,
       mWat2_flow = 0);
 
-  parameter con configuration "Heat exchanger configuration"
+  parameter IBPSA.Fluid.Types.HeatExchangerConfiguration configuration "Heat exchanger configuration"
     annotation (Evaluate=true);
 
   constant Boolean use_dynamicFlowRegime = false
@@ -83,9 +83,9 @@ protected
     "Nominal temperature at port b1";
   parameter Modelica.Units.SI.Temperature T_b2_nominal(fixed=false)
     "Nominal temperature at port b2";
-  parameter flo flowRegime_nominal(fixed=false)
+  parameter IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  flo flowRegime(fixed=false, start=flowRegime_nominal)
+  IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 initial equation
   assert(m1_flow_nominal > Modelica.Constants.eps,

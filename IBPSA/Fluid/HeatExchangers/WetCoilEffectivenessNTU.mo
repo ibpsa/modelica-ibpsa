@@ -217,9 +217,9 @@ protected
     IBPSA.Fluid.HeatExchangers.BaseClasses.determineWaterIndex(
       Medium2.substanceNames)
     "Index of water";
-  parameter flo flowRegime_nominal(fixed=false)
+  parameter IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  flo flowRegime(fixed=false, start=flowRegime_nominal)
+  IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
