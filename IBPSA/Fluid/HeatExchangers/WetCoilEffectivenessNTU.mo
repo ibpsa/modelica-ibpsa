@@ -7,9 +7,6 @@ model WetCoilEffectivenessNTU
     final computeFlowResistance1=true,
     final computeFlowResistance2=true);
 
-  import con = IBPSA.Fluid.Types.HeatExchangerConfiguration;
-  import flo = IBPSA.Fluid.Types.HeatExchangerFlowRegime;
-
   constant Boolean use_dynamicFlowRegime = false
     "If true, flow regime is determined using actual flow rates";
   // This switch is declared as a constant instead of a parameter
@@ -18,7 +15,7 @@ model WetCoilEffectivenessNTU
   //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
 
   parameter IBPSA.Fluid.Types.HeatExchangerConfiguration configuration=
-    con.CounterFlow
+    IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow
     "Heat exchanger configuration";
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient";
@@ -296,29 +293,29 @@ initial equation
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
   C2_flow_nominal = m2_flow_nominal*cp2_nominal;
-  if (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+  if (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
       then
-        flo.CrossFlowCMinMixedCMaxUnmixed
+        IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed
       else
-        flo.CrossFlowCMinUnmixedCMaxMixed;
-  elseif (configuration == con.CrossFlowStream1UnmixedStream2Mixed) then
+        IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
+  elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) then
     flowRegime_nominal = if (C1_flow_nominal < C2_flow_nominal)
       then
-        flo.CrossFlowCMinUnmixedCMaxMixed
+        IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed
       else
-        flo.CrossFlowCMinMixedCMaxUnmixed;
-  elseif (configuration == con.ParallelFlow) then
-    flowRegime_nominal = flo.ParallelFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime_nominal = flo.CounterFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime_nominal = flo.CrossFlowUnmixed;
+        IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
+  elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
+    flowRegime_nominal = IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+  elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
+    flowRegime_nominal = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
+    flowRegime_nominal = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
   else
     // Invalid flow regime. Assign a value to flowRegime_nominal, and stop with an assert
-    flowRegime_nominal = flo.CrossFlowUnmixed;
-    assert(configuration >= con.ParallelFlow and
-      configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
+    flowRegime_nominal = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+    assert(configuration >= IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow and
+      configuration <= IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
 
@@ -326,33 +323,33 @@ equation
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
   if use_dynamicFlowRegime then
-    if (configuration == con.ParallelFlow) then
+    if (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
       flowRegime = if (C1_flow*C2_flow >= 0)
         then
-          flo.ParallelFlow
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow
         else
-          flo.CounterFlow;
-    elseif (configuration == con.CounterFlow) then
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+    elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
       flowRegime = if (C1_flow*C2_flow >= 0)
         then
-          flo.CounterFlow
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
         else
-          flo.ParallelFlow;
-    elseif (configuration == con.CrossFlowUnmixed) then
-      flowRegime = flo.CrossFlowUnmixed;
-    elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+    elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
+      flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+    elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
       flowRegime = if (C1_flow < C2_flow)
         then
-          flo.CrossFlowCMinMixedCMaxUnmixed
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed
         else
-          flo.CrossFlowCMinUnmixedCMaxMixed;
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
     else
-      // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+      // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
       flowRegime = if (C1_flow < C2_flow)
         then
-          flo.CrossFlowCMinUnmixedCMaxMixed
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed
         else
-          flo.CrossFlowCMinMixedCMaxUnmixed;
+          IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
     end if;
   else
     flowRegime = flowRegime_nominal;
@@ -652,6 +649,12 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 February 3, 2023, by Jianjun Hu:<br/>
 Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>
