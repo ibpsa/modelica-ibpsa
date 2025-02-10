@@ -158,14 +158,14 @@ protected
       totalArea/per.A "Number of panels used in the simulation";
   parameter Real nPanelsSer_internal=
     if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
-      nPanels
+      nPanels_internal
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
       1
     else
       nPanelsSer "Number of panels in series";
   parameter Real nPanelsPar_internal=
     if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Parallel then
-      nPanels
+      nPanels_internal
     else if sysConfig == IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
       1
     else
