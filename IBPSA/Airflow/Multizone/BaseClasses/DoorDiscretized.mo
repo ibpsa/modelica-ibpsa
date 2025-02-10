@@ -164,7 +164,7 @@ Renamed protected parameters for consistency with the naming conventions.
 <li><i>August 12, 2011</i> by Michael Wetter:<br/>
        Changed model to use the new function
        <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM\">
-       Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
+       IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br/>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.

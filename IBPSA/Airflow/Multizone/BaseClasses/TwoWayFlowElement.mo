@@ -169,11 +169,11 @@ This is for
 February 24, 2015 by Michael Wetter:<br/>
 Changed model to use
 <a href=\"modelica://IBPSA.Utilities.Psychrometrics.Functions.density_pTX\">
-Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
+IBPSA.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
 as
 <a href=\"modelica://IBPSA.Media.Air.density\">
-Buildings.Media.Air.density</a>
+IBPSA.Media.Air.density</a>
 does not depend on temperature.
 </li>
 <li>June 18, 2014 by Michael Wetter:<br/>
