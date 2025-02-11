@@ -5,6 +5,12 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1956
+convertModifiers("IBPSA.Fluid.SolarCollectors.ASHRAE93",
+                {"nPanelsSer"}, fill("",0), true);
+convertModifiers("IBPSA.Fluid.SolarCollectors.EN12975",
+                {"nPanelsSer"}, fill("",0), true);
+
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1926
 convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",
                  {"use_inputFilter"}, {"use_riseTime"}, true);
