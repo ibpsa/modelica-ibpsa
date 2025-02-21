@@ -1,0 +1,9 @@
+LibraryInfoMenuCommand(
+  category="libraries",
+  text="SDF",
+  reference="SDF",
+  version="0.4.4",
+  isModel=true,
+  description="Scientific Data Format (0.4.4)",
+  ModelicaVersion=">=4.0.0",
+  pos=010)
