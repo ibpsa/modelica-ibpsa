@@ -35,8 +35,8 @@ IBPSA.Controls.Continuous.LimPID</a>.
 </p>
 <p>
 Hourly averaged values and annual mean values are computed using an instance of
-<a href=\"modelica://IBPSA.Utilities.Math.MovingAverage\">
-IBPSA.Utilities.Math.MovingAverage</a>.
+<a href=\"modelica://IBPSA.Controls.OBC.CDL.Reals.MovingAverage\">
+IBPSA.Controls.OBC.CDL.Reals.MovingAverage</a>.
 </p>
 <h4>Validation results</h4>
 <p>
