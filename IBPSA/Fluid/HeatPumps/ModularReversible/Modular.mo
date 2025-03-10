@@ -77,9 +77,10 @@ model Modular
   Modelica.Blocks.Logical.Hysteresis hys(
     final uLow=0.001,
     final uHigh=ySet_small,
-    final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(extent={{10,10},{-10,-10}}, rotation=180,
-        origin={-110,-90})));
+    final pre_y_start=false)
+    "Outputs whether the device is on based on the relative speed"
+    annotation (Placement(
+      transformation(extent={{10,10},{-10,-10}}, rotation=180, origin={-110,-90})));
 equation
   connect(conHea.y, sigBus.hea)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},
