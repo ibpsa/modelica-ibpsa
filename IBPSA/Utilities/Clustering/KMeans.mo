@@ -87,7 +87,7 @@ algorithm
         else
           new_centroids[j,:] := old_centroids[j,:];
         end if;
-        relDelta_centroids := max(relDelta_centroids, sum(abs(new_centroids[j,:] - old_centroids[j,:]) ./ (old_centroids[j,:] .+ Modelica.Constants.eps)));
+        relDelta_centroids := max(relDelta_centroids, sum(abs(new_centroids[j,:] - old_centroids[j,:]) ./ (abs(old_centroids[j,:]) .+ Modelica.Constants.eps)));
         absDelta_centroids := max(absDelta_centroids, sum(abs(new_centroids[j,:] - old_centroids[j,:])));
       end for;
       old_centroids := new_centroids;
