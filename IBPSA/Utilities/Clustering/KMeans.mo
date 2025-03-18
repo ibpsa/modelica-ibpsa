@@ -33,22 +33,20 @@ algorithm
  id := Modelica.Math.Random.Utilities.initializeImpureRandom(seed);
 
   // ---- Perform n_init successive runs of the k-means algorithm
-  inertia := 0.;
+  inertia := Modelica.Constants.inf;
   for run in 1:n_init loop
     // ---- Select initial centroids at random
     // Select 3 non-repeated data points in the data set
     n := Modelica.Math.Random.Utilities.impureRandomInteger(id,1,n_samples);
     old_centroids[1,:] := data[n,:];
     for i in 2:n_clusters loop
-      n := Modelica.Math.Random.Utilities.impureRandomInteger(id,1,n_samples);
-      old_centroids[i,:] := data[n,:];
-      min_dis := Modelica.Math.Vectors.norm(old_centroids[i,:]-old_centroids[1,:], p=2)^2;
+      min_dis := 0;
       while min_dis < Modelica.Constants.eps loop
         n := Modelica.Math.Random.Utilities.impureRandomInteger(id,1,n_samples);
         old_centroids[i,:] := data[n,:];
         min_dis := Modelica.Math.Vectors.norm(old_centroids[i,:]-old_centroids[1,:], p=2)^2;
-        for j in 1:i-1 loop
-          dis := Modelica.Math.Vectors.norm(old_centroids[j,:]-old_centroids[i,:], p=2)^2;
+        for j in 2:i-1 loop
+          dis := Modelica.Math.Vectors.norm(old_centroids[i,:]-old_centroids[j,:], p=2)^2;
           min_dis := min(dis, min_dis);
         end for;
       end while;
@@ -99,7 +97,7 @@ algorithm
     new_inertia := 0;
     for i in 1:n_samples loop
       dis := Modelica.Math.Vectors.norm(data[i,:]-centroids[new_labels[i],:], p=2)^2;
-      new_inertia := inertia + dis;
+      new_inertia := new_inertia + dis;
     end for;
 
     // Keep run results if inertia is minimum
@@ -139,7 +137,9 @@ March 18, 2025 by Massimo Cimmino<br/>
 Added absolute tolerance. The algorithm stops when any of the relative and
 absolute tolerances is satisfied. This fixes errors that occur when a centroid
 has a value close to zero on any of its axes. See
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">#1985</a>. 
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1985\">#1985</a>.
+Fixed the initial selection of centroids to avoid repeated centroids. See also
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1976\">#1976</a>.
 </li>
 <li>
 February 1, 2023, by Michael Wetter:<br/>
