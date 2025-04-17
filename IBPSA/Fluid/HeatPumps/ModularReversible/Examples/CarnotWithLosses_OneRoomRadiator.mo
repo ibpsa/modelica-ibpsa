@@ -2,12 +2,14 @@ within IBPSA.Fluid.HeatPumps.ModularReversible.Examples;
 model CarnotWithLosses_OneRoomRadiator
   "Reversible heat pump with Carnot approach connected to a simple room model with radiator"
   extends IBPSA.Fluid.HeatPumps.ModularReversible.Examples.BaseClasses.PartialOneRoomRadiator(
+    redeclare package MediumEva = MediumAir,
     mEva_flow_nominal=heaPum.mEva_flow_nominal,
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
     pumHeaPumSou(dp_nominal=heaPum.dpEva_nominal),
-    pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
+    pumHeaPum(dp_nominal=heaPum.dpCon_nominal),
+    sou(use_T_in=true));
   extends Modelica.Icons.Example;
 
   parameter Real perHeaLos=0.01
@@ -45,6 +47,15 @@ model CarnotWithLosses_OneRoomRadiator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-190})));
+  Modelica.Blocks.Sources.Ramp TEvaSou(
+    height=-8,
+    duration=3600,
+    offset=273.15 + 8,
+    startTime=68000) "Evaporator source temperature to show frosting"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,-210})));
 equation
   connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
           -156},{38,-200},{60,-200}},           color={0,127,255}));
@@ -66,6 +77,8 @@ equation
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
         points={{-139.167,-66.6667},{30,-66.6667},{30,-148},{26,-148},{26,
           -148.1},{21.1,-148.1}},                           color={0,0,127}));
+  connect(TEvaSou.y, sou.T_in) annotation (Line(points={{-119,-210},{-88,-210},{
+          -88,-196},{-82,-196}}, color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/CarnotWithLosses_OneRoomRadiator.mos"
@@ -90,6 +103,11 @@ equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 17, 2025, by Fabian Wuellhorst:<br/>
+Change evaporator medium and add ramp to have frosting occur in simulation, for <a href=
+\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">#1975</a>
+</li>
 <li>
 March 7, 2025, by Michael Wetter:<br/>
 Introduced medium <code>MediumEva</code> and refactored medium assignment

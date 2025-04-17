@@ -68,7 +68,7 @@ equation
     Documentation(revisions="<html>
     <ul>
     <li>
-    <>December 7, 2023, by Michael Wetter:<br/>
+    December 7, 2023, by Michael Wetter:<br/>
     Changed implementation to use graphical models.
     </li>
     <li>
