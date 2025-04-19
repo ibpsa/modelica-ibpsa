@@ -55,7 +55,7 @@ model CarnotWithLosses_OneRoomRadiator
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-130,-210})));
+        origin={-150,-196})));
 equation
   connect(heaPum.port_b2, sin.ports[1]) annotation (Line(points={{20,-156},{38,
           -156},{38,-200},{60,-200}},           color={0,127,255}));
@@ -77,8 +77,8 @@ equation
   connect(oneRooRadHeaPumCtr.ySet, heaPum.ySet) annotation (Line(
         points={{-139.167,-66.6667},{30,-66.6667},{30,-148},{26,-148},{26,
           -148.1},{21.1,-148.1}},                           color={0,0,127}));
-  connect(TEvaSou.y, sou.T_in) annotation (Line(points={{-119,-210},{-88,-210},{
-          -88,-196},{-82,-196}}, color={0,0,127}));
+  connect(TEvaSou.y, sou.T_in) annotation (Line(points={{-139,-196},{-82,-196}},
+                                 color={0,0,127}));
   annotation (
    __Dymola_Commands(file=
      "modelica://IBPSA/Resources/Scripts/Dymola/Fluid/HeatPumps/ModularReversible/Examples/CarnotWithLosses_OneRoomRadiator.mos"
@@ -106,7 +106,7 @@ equation
 <li>
 April 17, 2025, by Fabian Wuellhorst:<br/>
 Change evaporator medium and add ramp to have frosting occur in simulation, for <a href=
-\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">#1975</a>
+\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">IBPSA #1975</a>
 </li>
 <li>
 March 7, 2025, by Michael Wetter:<br/>

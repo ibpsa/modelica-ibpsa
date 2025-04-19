@@ -43,8 +43,8 @@ https://simulationresearch.lbl.gov/wetter/download/type204_hp.pdf</a>
   revisions="<html><ul>
   <li>
   April 17, 2025, by Fabian Wuellhorst:<br/>
-  Fix degC unit, for 
-  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">#1975</a>
+  Fix degC unit, for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1975\">IBPSA #1975</a>
   </li>
   <li>
   December 7, 2023, by Michael Wetter:<br/>
