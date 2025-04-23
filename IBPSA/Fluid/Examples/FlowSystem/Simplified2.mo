@@ -1,10 +1,11 @@
 within IBPSA.Fluid.Examples.FlowSystem;
 model Simplified2 "Using from_dp"
   extends Simplified1(
-    valSouth1(each from_dp=true),
+    valSouth1(each from_dp=true, dpFixed_nominal=tabsSouth1.dp_nominal),
     valSouth2(each from_dp=true),
     valNorth1(each from_dp=true),
-    valNorth2(each from_dp=true));
+    valNorth2(each from_dp=true),
+    tabsSouth1(each dp_nominal=50000, each computeFlowResistance=false));
   annotation (Documentation(info="<html>
 <p>
 The model is simplified: using <code>from_dp</code> to find more efficient tearing variables.
