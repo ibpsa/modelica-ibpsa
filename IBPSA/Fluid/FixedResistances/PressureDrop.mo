@@ -9,8 +9,8 @@ model PressureDrop
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
-  parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
-    "=false to disable computation of flow resistance and aggregate pressure drop in an actuator model"
+  parameter Boolean computeFlowResistance=dp_nominal_pos > Modelica.Constants.eps
+    "Override to false to disable computation of flow resistance"
    annotation(Dialog(tab="Advanced"), Evaluate=true);
 
   final parameter Real k = if computeFlowResistance then
@@ -126,6 +126,10 @@ then the pressure drop is computed as a linear function of the
 mass flow rate.
 </p>
 <p>
+To disable any pressure drop calculation, either set <code>dp_nominal = 0</code>
+or <code>computeFlowResistance = false</code>.
+</p>
+<p>
 Setting <code>allowFlowReversal=false</code> can lead to simpler
 equations. However, this should only be set to <code>false</code>
 if one can guarantee that the flow never reverses its direction.
@@ -177,6 +181,11 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 25, 2025, by Fabian Wuelhorst and Michael Wetter:<br/>
+Made <code>computeFlowResistance</code> a public parameter.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2001\">#2001</a>.
+</li>
 <li>
 September 21, 2018, by Michael Wetter:<br/>
 Decrease value of <code>deltaM(min=...)</code> attribute.
