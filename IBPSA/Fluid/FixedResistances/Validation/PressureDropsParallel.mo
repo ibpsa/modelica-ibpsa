@@ -3,9 +3,9 @@ model PressureDropsParallel
    "Test with multiple resistances in parallel"
   extends Modelica.Icons.Example;
 
- package Medium = IBPSA.Media.Water "Medium model";
+  package Medium = IBPSA.Media.Water "Medium model";
 
-    Modelica.Blocks.Sources.Ramp P(
+  Modelica.Blocks.Sources.Ramp P(
       duration=1,
       height=20,
       offset=101315) "Signal source"
@@ -57,7 +57,7 @@ model PressureDropsParallel
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,30},
             {40,50}})));
 
-  PressureDrop                              res3(
+  IBPSA.Fluid.FixedResistances.PressureDrop res3(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
     dp_nominal=10,
@@ -65,14 +65,15 @@ model PressureDropsParallel
     linearized=false,
     from_dp=true) "Flow resistance"
     annotation (Placement(transformation(extent={{-28,-90},{-8,-70}})));
-  Sensors.MassFlowRate             masFlo3(redeclare package Medium = Medium)
+  IBPSA.Fluid.Sensors.MassFlowRate masFlo3(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-90},
             {20,-70}})));
-  Utilities.Diagnostics.AssertEquality       assEqu1(message="Inputs differ, check that lossless pipe is correctly implemented.",
-      threShold=1E-4)
+  IBPSA.Utilities.Diagnostics.AssertEquality assEqu1(
+    message="Inputs differ, check that lossless pipe is correctly implemented.",
+    threShold=1E-4)
     "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  PressureDrop noRes(
+  IBPSA.Fluid.FixedResistances.PressureDrop noRes(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
     dp_nominal=10,
