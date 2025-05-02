@@ -6,7 +6,8 @@ model CarnotWithLosses_OneRoomRadiator
     mCon_flow_nominal=heaPum.mCon_flow_nominal,
     sin(nPorts=1),
     booToReaPumEva(realTrue=heaPum.mEva_flow_nominal),
-    pumHeaPumSou(dp_nominal=heaPum.dpEva_nominal));
+    pumHeaPumSou(dp_nominal=heaPum.dpEva_nominal),
+    pumHeaPum(dp_nominal=heaPum.dpCon_nominal));
   extends Modelica.Icons.Example;
 
   parameter Real perHeaLos=0.01
