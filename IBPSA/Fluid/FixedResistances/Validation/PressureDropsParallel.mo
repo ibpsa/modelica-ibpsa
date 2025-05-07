@@ -73,14 +73,13 @@ model PressureDropsParallel
     threShold=1E-4)
     "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  IBPSA.Fluid.FixedResistances.PressureDrop noRes(
+  IBPSA.Fluid.FixedResistances.HydraulicDiameter noRes(
     redeclare package Medium = Medium,
     m_flow_nominal=5,
-    dp_nominal=10,
-    deltaM=0.3,
     linearized=false,
     from_dp=true,
-    computeFlowResistance=false)
+    length=10,
+    disableComputeFlowResistance=true)
     "Flow resistance with computeFlowResistance set to false" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -132,15 +131,15 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/FixedRes
     Documentation(info="<html>
 <p>
 This model tests two resistances in parallel.
-The flow path at the bottom of the model also has one additional pressure
-drop model, but it has <code>noRes.computeFlowResistance=false</code>, thereby
+The flow path at the bottom of the model also has one additional hydraulic diameter
+model, but it has <code>noRes.disableComputeFlowResistance=true</code>, thereby
 removing the calculation of the flow resistance in that model.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 25, 2025, by Michael Wetter:<br/>
-Expanded model to include a component with <code>computeFlowResistance=false</code>.
+April 25, 2025, by Michael Wetter and Fabian Wuellhorst:<br/>
+Expanded model to include a component with <code>disableComputeFlowResistance=true</code>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br/>

@@ -9,15 +9,18 @@ model PressureDrop
        annotation(Evaluate=true,
                   Dialog(group = "Transition to laminar",
                          enable = not linearized));
-  parameter Boolean computeFlowResistance=dp_nominal_pos > Modelica.Constants.eps
-    "Override to false to disable computation of flow resistance"
-   annotation(Dialog(tab="Advanced"), Evaluate=true);
 
   final parameter Real k = if computeFlowResistance then
         m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-
 protected
+  parameter Boolean disableComputeFlowResistance_internal=false
+    "=false to disable computation of flow resistance"
+    annotation(Evaluate=true);
+  final parameter Boolean computeFlowResistance=
+    (dp_nominal_pos > Modelica.Constants.eps) and not disableComputeFlowResistance_internal
+    "Flag to enable/disable computation of flow resistance"
+   annotation(Evaluate=true);
   final parameter Real coeff=
     if linearized and computeFlowResistance
     then if from_dp then k^2/m_flow_nominal_pos else m_flow_nominal_pos/k^2
@@ -126,8 +129,7 @@ then the pressure drop is computed as a linear function of the
 mass flow rate.
 </p>
 <p>
-To disable any pressure drop calculation, either set <code>dp_nominal = 0</code>
-or <code>computeFlowResistance = false</code>.
+To disable any pressure drop calculation, set <code>dp_nominal = 0</code>.
 </p>
 <p>
 Setting <code>allowFlowReversal=false</code> can lead to simpler
@@ -183,7 +185,7 @@ This leads to simpler equations.
 <ul>
 <li>
 April 25, 2025, by Fabian Wuelhorst and Michael Wetter:<br/>
-Made <code>computeFlowResistance</code> a public parameter.<br/>
+Add option to disable <code>computeFlowResistance</code> for extending classes.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2001\">#2001</a>.
 </li>
 <li>
