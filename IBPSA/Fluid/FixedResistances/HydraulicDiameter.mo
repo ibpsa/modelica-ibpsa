@@ -131,9 +131,9 @@ mass flow rate.
 </p>
 <p>
 If the parameter <code>disableComputeFlowResistance</code> is set to <code>true</code>,
-then the pressure drop is not computed. This way, you can use the calculated 
-<code>dp_nominal</code> of this model and aggregate it in an actuators <code>dpFixed_nominal</code>.
-See <a href=\"modelica://IBPSA.Fluid.Actuators.UsersGuide\">IBPSA.Fluid.Actuators.UsersGuide</a> 
+then the pressure drop is not computed. This allows to aggregate <code>dp_nominal</code>
+in other components such as in an actuator using its parameter <code>dpFixed_nominal</code>.
+See <a href=\"modelica://IBPSA.Fluid.Actuators.UsersGuide\">IBPSA.Fluid.Actuators.UsersGuide</a>
 for further information on <code>dpFixed_nominal</code>.
 </p>
 <p>
