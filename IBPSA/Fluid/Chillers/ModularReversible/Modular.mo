@@ -91,9 +91,13 @@ model Modular
       transformation(extent={{10,10},{-10,-10}}, rotation=180, origin={-110,-90})));
 initial equation
   assert(TEvaCoo_nominal < TConCoo_nominal,
-    "In " + getInstanceName() +": Wrong parameterization. Require TEvaCoo_nominal < TConCoo_nominal.");
-  assert(TConHea_nominal < TEvaHea_nominal,
-    "In " + getInstanceName() +": Wrong parameterization. Require TConHea_nominal < TEvaHea_nominal.");
+    "In " + getInstanceName() +": Wrong parameterization. Require TEvaCoo_nominal < TConCoo_nominal.
+    Received TEvaCoo_nominal = " + String(TEvaCoo_nominal) + "
+             TConCoo_nominal = " + String(TConCoo_nominal) + ".");
+  assert(QHea_flow_nominal < 1E-6 or TConHea_nominal < TEvaHea_nominal,
+    "In " + getInstanceName() +": Wrong parameterization. Require TConHea_nominal < TEvaHea_nominal.
+    Received TConHea_nominal = " + String(TConHea_nominal) + "
+             TEvaHea_nominal = " + String(TEvaHea_nominal) + ".");
 
 equation
   connect(conCoo.y, sigBus.coo)

@@ -84,10 +84,13 @@ model Modular
 
 initial equation
   assert(TEvaHea_nominal < TConHea_nominal,
-    "In " + getInstanceName() +": Wrong parameterization. Require TEvaHea_nominal < TConHea_nominal.");
-  assert(TConCoo_nominal < TEvaCoo_nominal,
-    "In " + getInstanceName() +": Wrong parameterization. Require TConCoo_nominal < TEvaCoo_nominal.");
-
+    "In " + getInstanceName() +": Wrong parameterization. Require TEvaHea_nominal < TConHea_nominal.
+    Received TEvaHea_nominal = " + String(TEvaHea_nominal) + "
+             TConHea_nominal = " + String(TConHea_nominal) + ".");
+  assert(QCoo_flow_nominal > -1E-6 or TConCoo_nominal < TEvaCoo_nominal,
+    "In " + getInstanceName() +": Wrong parameterization. Require TConCoo_nominal < TEvaCoo_nominal..
+    Received TConCoo_nominal = " + String(TConCoo_nominal) + "
+             TEvaCoo_nominal = " + String(TEvaCoo_nominal) + ".");
 equation
   connect(conHea.y, sigBus.hea)
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},
