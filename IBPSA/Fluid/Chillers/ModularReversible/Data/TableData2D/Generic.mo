@@ -29,7 +29,7 @@ record Generic "Basic chiller data"
 <li>
 May 22, 2025, by Michael Wetter:<br/>
 Revised comment.<br/>
-This is for \"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
 </li>
   <li>
     <i>November 26, 2018,</i> by Fabian Wuellhorst:<br/>

@@ -98,7 +98,7 @@ record Generic "Generic record definition for safety control blocks"
 <li>
 May 22, 2025, by Michael Wetter:<br/>
 Revised comment.<br/>
-This is for \"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
+This is for <a>href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2007\">IBPSA #2007</a>.
 </li>
   <li>
     <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
