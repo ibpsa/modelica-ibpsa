@@ -25,11 +25,6 @@ model MinimalFlowRate "Safety control for minimum mass flow rate"
   Modelica.Blocks.Logical.And and1
     "Both condenser and evaporator have sufficient flow"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Logical.Hysteresis ySetOn(
-    final pre_y_start=onOffMea_start,
-    final uHigh=ySet_small,
-    final uLow=ySet_small/2) "=true if device is set on"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 equation
   connect(hysCon.y, and1.u1) annotation (Line(points={{-39,20},{-28,20},{-28,0},
           {-22,0}},      color={255,0,255}));
@@ -53,8 +48,6 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(ySet, swiErr.u1) annotation (Line(points={{-136,0},{-100,0},{-100,40},
           {68,40},{68,8},{78,8}}, color={0,0,127}));
-  connect(ySetOn.u, ySet) annotation (Line(points={{-82,-90},{-100,-90},{-100,0},
-          {-136,0}},  color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
   Safety control to prevent the device from turning on
