@@ -27,7 +27,7 @@ equation
                                                 color={0,0,127}));
   else
     connect(bouMapHea.TAmbSid, sigBus.TEvaInMea) annotation (Line(points={{-81.6,
-            46},{-104,46},{-104,-60},{-112,-60},{-112,-61},{-119,-61}},
+            46},{-104,46},{-104,-60},{-110,-60},{-110,-61},{-119,-61}},
                                                 color={0,0,127}));
   end if;
   if use_TConOutCoo then
