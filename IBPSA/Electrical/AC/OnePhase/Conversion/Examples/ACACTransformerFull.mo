@@ -33,8 +33,7 @@ model ACACTransformerFull
     offset=0,
     height=-4000*0.8) "Load power consumption profile"
     annotation (Placement(transformation(extent={{70,40},{50,60}})));
-  IBPSA.Electrical.AC.OnePhase.Conversion.ACACTransformerFull
-                                                              tra_cc(
+  IBPSA.Electrical.AC.OnePhase.Conversion.ACACTransformerFull tra_cc(
     VABase=4000,
     R1=0.01,
     L1=0.01,
