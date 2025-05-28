@@ -1256,9 +1256,14 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 </tr>
 </table>
 <!-- ============================================== -->
-<h4>Adding new weather data</h4>
+<h4>Using new weather data</h4>
 <p>
-To add new weather data, proceed as follows:
+To use new weather data, there are two supported ways.
+First, you can use the Python tool AixWeather (<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>) 
+which is installable via <code>pip</code> or accessible via a WebApp (<a href=\"https://aixweather.eonerc.rwth-aachen.de/\">https://aixweather.eonerc.rwth-aachen.de/</a>).
+Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data 
+to the desired <code>mos</code> format is supported.
+Second, you can follow the instructions below to convert <code>epw</code> to <code>mos</code> format.
 </p>
 <ol>
 <li>
@@ -1597,6 +1602,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 28, 2025, by Fabian Wuellhorst:<br/>
+Added information on AixWeather to documentation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2017\">IBPSA, #2017</a>.
+</li>
 <li>
 September 6, 2021, by Ettore Zanetti:<br/>
 Changed alt and lat to real inputs.<br/>
