@@ -1258,38 +1258,57 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <h4>Using new weather data</h4>
 <p>
-To use new weather data, there are two supported ways.
-First, you can use the Python tool AixWeather (<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>) 
+To use new weather data, there are two supported ways:
+</p>
+<ul>
+<li>
+<p>
+You can use the Python tool AixWeather
+(<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>),
 which is installable via <code>pip</code> or accessible via a WebApp (<a href=\"https://aixweather.eonerc.rwth-aachen.de/\">https://aixweather.eonerc.rwth-aachen.de/</a>).
 Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data 
 to the desired <code>mos</code> format is supported.
-Second, you can follow the instructions below to convert <code>epw</code> to <code>mos</code> format.
+</p>
+</li>
+<li>
+<p>
+You can use a Java application to convert <code>epw</code> to <code>mos</code> format by following these steps:
 </p>
 <ol>
 <li>
+<p>
 Download the weather data file with the <code>epw</code> extension from
 <a href=\"http://energyplus.net/weather\">
 http://energyplus.net/weather</a>.
+</p>
 </li>
 <li>
+<p>
 Add the file to <code>IBPSA/Resources/weatherdata</code> (or to any directory
 for which you have write permission).
+</p>
 </li>
 <li>
-On a console window, type<pre>
+<p>
+On a console window, type</p><pre>
   cd IBPSA/Resources/weatherdata
   java -jar ../bin/ConvertWeatherData.jar inputFile.epw
 </pre>
-  if inputFile contains space in the name:
+<p>
+or if <code>inputFile.epw</code> contains space in the name:
+</p>
 <pre>
   java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
 </pre>
+<p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
 IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</p>
 </li>
 </ol>
+</ul>
 <!-- ============================================== -->
 <h4>Location data that are read automatically from the weather data file</h4>
 <p>
