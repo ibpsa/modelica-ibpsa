@@ -17,10 +17,10 @@ package UsersGuide
   based on available variables of the sink and source streams.
   Thus, this model does not enable closed-loop simulations of
   the refrigerant cycle. However, such models are
-  highly demanding in terms computation time, and commercial implementations exist.
+  highly demanding in terms of computation time, and commercial implementations exist.
   When simulating the refrigerant machine in a more complex energy system,
   this modular approach enables detailed performance and
-  dynamic behaviour and fast computating times.
+  dynamic behaviour and fast computation times.
 </p>
 <p>
   This user guide will help understand how to use the models associated
@@ -40,7 +40,8 @@ package UsersGuide
   They may be on/off and inverter driven;
 </li>
 <li>
-  They are able reverse the operation between heating to cooling;
+  They are able to reverse the operation between heating and cooling, 
+  and some systems even provide simultaneous heating and cooling capabilities;
 </li>
 <li>
   They operate in a limited characteristic range (operational envelope);
@@ -53,7 +54,7 @@ package UsersGuide
 </li>
 </ul>
 <p>
-  To what extend all these effects need to be modeled depends
+  To what extent all these effects need to be modeled depends
   on the simulation aim. Sometimes a simple Carnot approach is
   sufficient, sometimes a more detailed performance data
   and a realistic control behaviour is required.
@@ -78,7 +79,7 @@ package UsersGuide
   detailed documentation of each model for further information.
 </p>
 <p>
-  All modular heat pump or chiller models base on the model
+  All modular heat pump or chiller models are based on the model
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle</a>.
   This partial model declares all common interfaces, parameters, etc.
@@ -217,7 +218,7 @@ when adding new datasheets.
 Thinking about the heated and cooled fluid helps.
 </p>
 <p>
-The following tables summarizes the possible options.
+The following table summarizes the possible options.
 </p>
 
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -332,7 +333,7 @@ The following tables summarizes the possible options.
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>.
 </p>
 <p>
-  Currently, two modules for refrigerant cycle are implemented.
+  Currently, two modules for the refrigerant cycle are implemented.
   First, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a> model
   uses the same equations as the Carnot models, i.e.  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
@@ -349,7 +350,7 @@ The following tables summarizes the possible options.
   the Modelica Standard Library.
   The first approach is similar to <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2D</a>
-  approach buts adds the 3rd dimension of compressor speed.
+  approach but adds the 3rd dimension of compressor speed.
   The second approach is based on white-box stationary Python models
   for closed-loop refrigerant cycles. The model has been empirically
   validated and can take up to n-dimensions.
@@ -363,7 +364,7 @@ The following tables summarizes the possible options.
   The refrigerant cycle models will output
   varying heat flow rates and electrical power consumptions.
   This is based on the fact that refrigerant cycle performance
-  depend heavily on the boundary conditions.
+  depends heavily on the boundary conditions.
 </p>
 <p>
   Still, the user needs to size the device or the system
@@ -403,7 +404,7 @@ The following tables summarizes the possible options.
   If the performance data is dependent on the compressor speed,
   <code>y_nominal</code> influences the nominal efficiencies.
   In such cases, specifying additional nominal parameters will
-  be nessary.
+  be necessary.
 </p>
 <p>
   Using the nominal conditions and the specified heat flow rate,
@@ -479,7 +480,7 @@ The following tables summarizes the possible options.
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.BaseClasses.PartialInertia\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Inertias.BaseClasses.PartialInertia
   </a>
-  can be extended to implement a costum model.
+  can be extended to implement a custom model.
 </p>
 
 
@@ -530,7 +531,7 @@ The following tables summarizes the possible options.
   Depending on the application, one may need to model
   the heat losses to the ambient, as those may
   impact the overall efficiency of the heat pump or chiller.
-  Thus, the heat exchangers in the models adds
+  Thus, the heat exchangers in the models add
   thermal capacities to the adiabatic heat exchanger.
   The parameterization may be challenging, as datasheets
   do not contain parameters for the required values.
