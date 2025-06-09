@@ -115,6 +115,14 @@ to the section <b>Refrigerant cycle models</b>.
   to check if this approach is suitable.
 </p>
 <ul>
+<!-- @include_Buildings
+<li>
+  <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
+  IBPSA.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>: 
+  This is the recommended model for energy simulation and any use case where detailed 
+  modeling of the heat pump onboard controls is not required.
+</li>
+-->
 <li>
   <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater\">
   IBPSA.Fluid.HeatPumps.ModularReversible.LargeScaleWaterToWater</a>
@@ -160,6 +168,14 @@ to the section <b>Refrigerant cycle models</b>.
   to check if this approach is suitable.
 </p>
 <ul>
+<!-- @include_Buildings
+<li>
+  <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.TableData2DLoadDep\">
+  IBPSA.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>: 
+  This is the recommended model for energy simulation and any use case where detailed 
+  modeling of the chiller onboard controls is not required.
+</li>
+-->
 <li>
   <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater\">
   IBPSA.Fluid.Chillers.ModularReversible.LargeScaleWaterToWater</a>
@@ -169,7 +185,6 @@ to the section <b>Refrigerant cycle models</b>.
   IBPSA.Fluid.Chillers.ModularReversible.CarnotWithLosses</a>
 </li>
 </ul>
-
 
 <h4>Naming and reversible operation</h4>
 
@@ -287,6 +302,16 @@ The following table summarizes the possible options.
 
 <h5>Compressor speed</h5>
 
+<!-- @include_Buildings
+<p>
+Prefatory note: This section only applies to the models that do not include
+onboard controls. The models that include onboard controls, such as 
+<a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
+IBPSA.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>,
+rather expose a connector <code>TSet</code> representing the temperature setpoint.
+</p>
+--> 
+
 <p>
   The input <code>ySet</code> represents the relative compressor speed.
   To model both on/off and inverter controlled refrigerant machines,
@@ -333,7 +358,7 @@ The following table summarizes the possible options.
   IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.BaseClasses.PartialChillerCycle</a>.
 </p>
 <p>
-  Currently, two modules for the refrigerant cycle are implemented.
+  Two basic modules for the refrigerant cycle are available.
   First, the <a href=\"modelica://IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness\">
   IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.ConstantCarnotEffectiveness</a> model
   uses the same equations as the Carnot models, i.e.  <a href=\"modelica://IBPSA.Fluid.HeatPumps.Carnot_y\">
@@ -357,7 +382,18 @@ The following table summarizes the possible options.
   If your simulation aim requires more detailed data, be sure
   to check out the models in the AixLib.
 </p>
-
+<p>
+  The Buildings Library provides an alternative modeling option where
+  the third dimension of the performance sensitivity is captured using
+  the part load ratio as a proxy variable for the actual capacity modulation observable.
+  This allows a unified modeling of various technologies such as
+  modulating the compressor speed, throttling the inlet guide vanes 
+  or staging a varying number of compressors.
+  This approach does not rely on any third-party dependency and is fully
+  supported by the existing classes from the Modelica Standard Library.
+  It is implemented in the modular heat pump and chiller models named 
+  <code>TableData2DLoadDep</code>.
+</p>
 
 <h4>Parameterization and naming</h4>
 <p>
@@ -556,6 +592,19 @@ Towards an integrated design of heat pump systems: Application of process intens
 Energy Conversion and Management, Volume 250, 2021.<br/>
 <a href=\"https://doi.org/10.1016/j.enconman.2021.114888\">doi:10.1016/j.enconman.2021.114888</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+  June 9, 2025, by Antoine Gautier:<br/>
+  Added description of new models from the Buildings Library.<br/>
+  This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2024\">IBPSA, #2024</a>.
+</li>
+<li>
+  <i>October 2, 2022</i> by Fabian Wuellhorst:<br/>
+  First implementation (see issue <a href=
+  \"https://github.com/ibpsa/modelica-ibpsa/issues/1576\">#1576</a>)
+</li>
+</ul>
 </html>"));
 
 end UsersGuide;
