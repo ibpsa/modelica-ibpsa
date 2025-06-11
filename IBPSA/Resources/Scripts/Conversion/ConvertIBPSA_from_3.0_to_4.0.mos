@@ -9,47 +9,42 @@ convertModifiers("IBPSA.Fluid.SolarCollectors.EN12975",
                 {"nPanelsSer"}, fill("",0), true);
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1926
-convertModifiers("IBPSA.Fluid.Movers.FlowControlled_dp",
-                 {"use_inputFilter"}, {"use_riseTime"}, true);
-convertModifiers("IBPSA.Fluid.Movers.FlowControlled_m_flow",
-                 {"use_inputFilter"}, {"use_riseTime"}, true);
-convertModifiers("IBPSA.Fluid.Movers.SpeedControlled_y",
-                 {"use_inputFilter"}, {"use_riseTime"}, true);
-convertModifiers("IBPSA.Fluid.Movers.Preconfigured.FlowControlled_dp",
-                 {"use_inputFilter"}, {"use_riseTime"}, true);
-convertModifiers("IBPSA.Fluid.Movers.Preconfigured.FlowControlled_m_flow",
-                 {"use_inputFilter"}, {"use_riseTime"}, true);
-convertModifiers("IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y",
-                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertElement("IBPSA.Fluid.Movers.FlowControlled_dp", "use_inputFilter", "use_riseTime");
+convertElement("IBPSA.Fluid.Movers.FlowControlled_m_flow", "use_inputFilter", "use_riseTime");
+convertElement("IBPSA.Fluid.Movers.SpeedControlled_y", "use_inputFilter", "use_riseTime");
+convertElement("IBPSA.Fluid.Movers.Preconfigured.FlowControlled_dp", "use_inputFilter", "use_riseTime");
+convertElement("IBPSA.Fluid.Movers.Preconfigured.FlowControlled_m_flow", "use_inputFilter", "use_riseTime");
+convertElement("IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y", "use_inputFilter", "use_riseTime");
 
-convertModifiers("IBPSA.Fluid.Actuators.Dampers.Exponential",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Dampers.MixingBox",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Dampers.MixingBoxMinimumFlow",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Dampers.PressureIndependent",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.ThreeWayLinear",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.ThreeWayTable",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayButterfly",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayEqualPercentage",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayLinear",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayPolynomial",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayQuickOpening",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
-convertModifiers("IBPSA.Fluid.Actuators.Valves.TwoWayTable",
-                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertElement("IBPSA.Fluid.Actuators.Dampers.Exponential", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Dampers.MixingBox", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Dampers.MixingBoxMinimumFlow", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Dampers.PressureIndependent", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.ThreeWayLinear", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.ThreeWayTable", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayButterfly", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayEqualPercentage", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayLinear", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayPolynomial", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayQuickOpening", "riseTime", "strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayTable", "riseTime", "strokeTime");
+
+convertElement("IBPSA.Fluid.Actuators.Dampers.Exponential", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Dampers.MixingBox", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Dampers.MixingBoxMinimumFlow", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Dampers.PressureIndependent", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.ThreeWayLinear", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.ThreeWayTable", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayButterfly", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayEqualPercentage", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayLinear", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayPolynomial", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayPressureIndependent", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayQuickOpening", "use_inputFilter", "use_strokeTime");
+convertElement("IBPSA.Fluid.Actuators.Valves.TwoWayTable", "use_inputFilter", "use_strokeTime");
 
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1885
