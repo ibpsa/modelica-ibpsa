@@ -85,7 +85,7 @@ model Safety "Model including all safety levels"
     final pre_y_start=safCtrPar.onOffMea_start,
     final uHigh=ySet_small,
     final uLow=ySet_small/2) "=true if device is set on after on off control"
-    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Logical.Switch swiErr
     "Switches to zero when an error occurs"
     annotation (Placement(transformation(extent={{94,-10},{114,10}})));
@@ -142,10 +142,10 @@ equation
       points={{-136,0},{-92,0},{-92,70},{-82,70}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(ySetOn.u, onOffCtr.yOut) annotation (Line(points={{-52,50},{-56,50},{
+  connect(ySetOn.u, onOffCtr.yOut) annotation (Line(points={{-42,50},{-56,50},{
           -56,30},{-59.1667,30}},
                               color={0,0,127}));
-  connect(ySetOn.u, reaPasThrOnOff.y) annotation (Line(points={{-52,50},{-56,50},
+  connect(ySetOn.u, reaPasThrOnOff.y) annotation (Line(points={{-42,50},{-56,50},
           {-56,70},{-59,70}}, color={0,0,127}));
   connect(conZer.y,swiErr. u3) annotation (Line(points={{81,-30},{84,-30},{84,-8},
           {92,-8}},         color={0,0,127}));
@@ -157,12 +157,12 @@ equation
           {-56,112},{86,112},{86,8},{92,8}}, color={0,0,127}));
   connect(andCanOpe.y, swiErr.u2)
     annotation (Line(points={{81.5,0},{92,0}}, color={255,0,255}));
-  connect(ySetOn.y, opeEnv.onOffSet) annotation (Line(points={{-29,50},{14,50},
-          {14,90},{18.3333,90}},          color={255,0,255}));
-  connect(ySetOn.y, antFre.onOffSet) annotation (Line(points={{-29,50},{14,50},
-          {14,30},{18.3333,30}},          color={255,0,255}));
-  connect(ySetOn.y, minVolFloRatSaf.onOffSet) annotation (Line(points={{-29,50},
-          {14,50},{14,-30},{18.3333,-30}},           color={255,0,255}));
+  connect(ySetOn.y, opeEnv.onOffSet) annotation (Line(points={{-19,50},{6,50},{
+          6,90},{18.3333,90}},            color={255,0,255}));
+  connect(ySetOn.y, antFre.onOffSet) annotation (Line(points={{-19,50},{6,50},{
+          6,30},{18.3333,30}},            color={255,0,255}));
+  connect(ySetOn.y, minVolFloRatSaf.onOffSet) annotation (Line(points={{-19,50},
+          {6,50},{6,-30},{18.3333,-30}},             color={255,0,255}));
   connect(sigBus, minVolFloRatSaf.sigBus) annotation (Line(
       points={{-119,-61},{14,-61},{14,-36.0833},{20.0833,-36.0833}},
       color={255,204,51},
