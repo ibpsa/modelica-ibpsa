@@ -57,7 +57,7 @@ equation
   else
     sta = if homotopyInitialization then
         Medium.setState_phX(
-          port_a.p,
+          if allowFlowReversal then max(port_a.p,port_b.p) else port_a.p,
           homotopy(
             actual=actualStream(port_a.h_outflow),
             simplified=inStream(port_a.h_outflow)),
@@ -66,7 +66,7 @@ equation
             simplified=inStream(port_a.Xi_outflow)))
       else
         Medium.setState_phX(
-          port_a.p,
+          if allowFlowReversal then max(port_a.p,port_b.p) else port_a.p,
           actualStream(port_a.h_outflow),
           actualStream(port_a.Xi_outflow));
 
