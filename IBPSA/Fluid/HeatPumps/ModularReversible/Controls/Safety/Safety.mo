@@ -16,16 +16,16 @@ model Safety "Model including all safety levels"
     "Safety control parameters" annotation (choicesAllMatching=true, Placement(
         transformation(extent={{-106,92},{-92,108}})));
   replaceable
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope
-    opeEnv if safCtrPar.use_opeEnv constrainedby
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope(
-      final use_TConOutHea=safCtrPar.use_TConOutHea,
-      final use_TEvaOutHea=safCtrPar.use_TEvaOutHea,
-      final use_TConOutCoo=safCtrPar.use_TConOutCoo,
-      final use_TEvaOutCoo=safCtrPar.use_TEvaOutCoo,
-      final tabUppHea=safCtrPar.tabUppHea,
-      final tabLowCoo=safCtrPar.tabLowCoo,
-      final dTHys=safCtrPar.dTHysOpeEnv) "Block for operational envelope"
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OperationalEnvelope opeEnv
+      if safCtrPar.use_opeEnv constrainedby
+        IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope(
+          final use_TConOutHea=safCtrPar.use_TConOutHea,
+          final use_TEvaOutHea=safCtrPar.use_TEvaOutHea,
+          final use_TConOutCoo=safCtrPar.use_TConOutCoo,
+          final use_TEvaOutCoo=safCtrPar.use_TEvaOutCoo,
+          final tabUppHea=safCtrPar.tabUppHea,
+          final tabLowCoo=safCtrPar.tabLowCoo,
+          final dTHys=safCtrPar.dTHysOpeEnv) "Block for operational envelope"
     annotation (Placement(transformation(extent={{20,80},{40,100}})),
       choicesAllMatching=true);
   IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.OnOff onOffCtr(
@@ -60,11 +60,10 @@ model Safety "Model including all safety levels"
         rotation=270,
         origin={60,-130})));
 
-  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate
-    minVolFloRatSaf(
-      final mEvaMin_flow=safCtrPar.r_mEvaMinPer_flow*mEva_flow_nominal,
-      final mConMin_flow=safCtrPar.r_mConMinPer_flow*mCon_flow_nominal)
-        if safCtrPar.use_minFlowCtr
+  IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.MinimalFlowRate minVolFloRatSaf(
+    final mEvaMin_flow=safCtrPar.r_mEvaMinPer_flow*mEva_flow_nominal,
+    final mConMin_flow=safCtrPar.r_mConMinPer_flow*mCon_flow_nominal)
+      if safCtrPar.use_minFlowCtr
     "Block to ensure minimal flow rates"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
