@@ -16,17 +16,17 @@ coil with water vapor condensation.
 </p>
 </html>"), Icon(graphics={
         Ellipse(
-          extent={{-60,60},{60,-60}},
+          extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-52,10},{0,-8}},
+          extent={{-58,10},{0,-8}},
           lineColor={0,0,0},
           lineThickness=0.5),
         Ellipse(
-          extent={{0,10},{52,-8}},
+          extent={{0,10},{58,-8}},
           lineColor={0,0,0},
           lineThickness=0.5),
         Line(
