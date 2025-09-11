@@ -8,7 +8,7 @@ This package contains component models for heat pumps.
 </p>
 <p>
 For chiller models, see
-<a href=\"IBPSA.Fluid.Chillers\">IBPSA.Fluid.Chillers</a>.
+<a href=\"modelica://IBPSA.Fluid.Chillers\">IBPSA.Fluid.Chillers</a>.
 </p>
 </html>"),
     Icon(graphics={
