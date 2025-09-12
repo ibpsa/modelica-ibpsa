@@ -19,13 +19,13 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
   parameter Modelica.Units.SI.Velocity vZer=0.001
     "Minimum velocity to prevent zero flow. Recommended: 0.001";
 
-  Modelica.Units.SI.VolumeFlowRate VAB_flow(nominal=0.001)
+  Modelica.Units.SI.VolumeFlowRate VAB_flow(nominal=1/3600)
     "Volume flow rate from A to B if positive";
-  Modelica.Units.SI.VolumeFlowRate VBA_flow(nominal=0.001)
+  Modelica.Units.SI.VolumeFlowRate VBA_flow(nominal=1/3600)
     "Volume flow rate from B to A if positive";
-  Modelica.Units.SI.MassFlowRate mAB_flow(nominal=0.001)
+  Modelica.Units.SI.MassFlowRate mAB_flow(nominal=1.2/3600)
     "Mass flow rate from A to B if positive";
-  Modelica.Units.SI.MassFlowRate mBA_flow(nominal=0.001)
+  Modelica.Units.SI.MassFlowRate mBA_flow(nominal=1.2/3600)
     "Mass flow rate from B to A if positive";
 
   Modelica.Units.SI.Velocity vAB(nominal=0.01) "Average velocity from A to B";
@@ -41,9 +41,9 @@ protected
   Modelica.Units.SI.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 
-  Modelica.Units.SI.Mass mExcAB(start=0, fixed=true)
+  output Modelica.Units.SI.Mass mExcAB(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
-  Modelica.Units.SI.Mass mExcBA(start=0, fixed=true)
+  output Modelica.Units.SI.Mass mExcBA(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
 
   Medium.MassFraction Xi_a1_inflow[Medium1.nXi]
@@ -88,8 +88,8 @@ equation
   vAB = VAB_flow/A;
   vBA = VBA_flow/A;
 
-  port_a1.m_flow = mAB_flow;
-  port_a2.m_flow = mBA_flow;
+  port_a1.m_flow = rho_a1_inflow*VAB_flow;
+  port_a2.m_flow = rho_a2_inflow*VBA_flow;
 
   // Energy balance (no storage, no heat loss/gain)
   port_a1.h_outflow = inStream(port_b1.h_outflow);
