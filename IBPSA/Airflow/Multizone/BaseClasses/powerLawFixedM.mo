@@ -22,13 +22,14 @@ protected
   Real pi2 "Square of normalized pressure";
 algorithm
  if (dp >= dp_turbulent) then
-   V_flow :=C *dp^m;
+   V_flow :=C * (if (m < 0.500000000001 and m > 0.499999999999) then sqrt(dp) else dp^m);
  elseif (dp <= -dp_turbulent) then
-   V_flow :=-C*(-dp)^m;
+   V_flow :=-C* (if (m < 0.500000000001 and m > 0.499999999999) then sqrt(-dp) else (-dp)^m);
  else
    pi  := dp/dp_turbulent;
    pi2 := pi*pi;
-   V_flow :=C *dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
+   V_flow :=C * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d))) *
+     (if (m < 0.500000000001 and m > 0.499999999999) then sqrt(dp_turbulent) else dp_turbulent^m);
  end if;
 
   annotation (smoothOrder=2,
@@ -77,6 +78,16 @@ IBPSA.Airflow.Multizone.BaseClasses.powerLaw</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 18, 2025, by Michael Wetter:<br/>
+Refactored to use <code>sqrt</code> rather than exponent <i>0.5</i>.<br/>
+Profiling <a href=\"IBPSA.Airflow.Multizone.Examples.OneOpenDoor\">
+IBPSA.Airflow.Multizone.Examples.OneOpenDoor</a>
+shows that this is around 10% faster. Also the cost of evaluating
+this function dropped by a factor of 2 as measured in Dymola's profiling.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 February 8, 2022, by Michael Wetter:<br/>
 Changed to use <code>C</code> for volume flow coefficient (<i>C = V_flow/dp^m</i>),
