@@ -19,13 +19,13 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
   parameter Modelica.Units.SI.Velocity vZer=0.001
     "Minimum velocity to prevent zero flow. Recommended: 0.001";
 
-  Modelica.Units.SI.VolumeFlowRate VAB_flow(nominal=1/3600)
+  Modelica.Units.SI.VolumeFlowRate VAB_flow(nominal=0.001)
     "Volume flow rate from A to B if positive";
-  Modelica.Units.SI.VolumeFlowRate VBA_flow(nominal=1/3600)
+  Modelica.Units.SI.VolumeFlowRate VBA_flow(nominal=0.001)
     "Volume flow rate from B to A if positive";
-  Modelica.Units.SI.MassFlowRate mAB_flow(nominal=1.2/3600)
+  Modelica.Units.SI.MassFlowRate mAB_flow(nominal=0.001)
     "Mass flow rate from A to B if positive";
-  Modelica.Units.SI.MassFlowRate mBA_flow(nominal=1.2/3600)
+  Modelica.Units.SI.MassFlowRate mBA_flow(nominal=0.001)
     "Mass flow rate from B to A if positive";
 
   Modelica.Units.SI.Velocity vAB(nominal=0.01) "Average velocity from A to B";
@@ -41,9 +41,9 @@ protected
   Modelica.Units.SI.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 
-  output Modelica.Units.SI.Mass mExcAB(start=0, fixed=true)
+  Modelica.Units.SI.Mass mExcAB(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
-  output Modelica.Units.SI.Mass mExcBA(start=0, fixed=true)
+  Modelica.Units.SI.Mass mExcBA(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
 
   Medium.MassFraction Xi_a1_inflow[Medium1.nXi]
@@ -55,8 +55,8 @@ equation
   // gives higher robustness. The reason may be that for bi-directional flow,
   // (VAB_flow - VBA_flow) may be close to zero.
   if forceErrorControlOnFlow then
-    der(mExcAB) = mAB_flow;
-    der(mExcBA) = mBA_flow;
+    der(mExcAB) = port_a1.m_flow;
+    der(mExcBA) = port_a2.m_flow;
   else
     der(mExcAB) = 0;
     der(mExcBA) = 0;
@@ -82,8 +82,8 @@ equation
 
   VZer_flow = vZer*A;
 
-  mAB_flow = rho_a1_inflow*VAB_flow;
-  mBA_flow = rho_a2_inflow*VBA_flow;
+  mAB_flow = port_a1.m_flow;
+  mBA_flow = port_a2.m_flow;
   // Average velocity (using the whole orifice area)
   vAB = VAB_flow/A;
   vBA = VBA_flow/A;
