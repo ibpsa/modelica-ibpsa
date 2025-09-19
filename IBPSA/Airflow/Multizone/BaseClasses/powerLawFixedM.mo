@@ -18,18 +18,16 @@ function powerLawFixedM
 protected
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-  Real pi "Normalized pressure";
-  Real pi2 "Square of normalized pressure";
+  Real pi = dp/dp_turbulent "Normalized pressure";
+  Real pi2 = pi*pi "Square of normalized pressure";
 algorithm
- if (dp >= dp_turbulent) then
-   V_flow :=C *dp^m;
- elseif (dp <= -dp_turbulent) then
-   V_flow :=-C*(-dp)^m;
- else
-   pi  := dp/dp_turbulent;
-   pi2 := pi*pi;
-   V_flow :=C *dp_turbulent^m * pi * ( a + pi2 * ( b + pi2 * ( c + pi2 * d)));
- end if;
+ V_flow :=
+   if (dp >= dp_turbulent) then
+     C*dp^m
+   elseif (dp <= -dp_turbulent) then
+     -C*(-dp)^m
+   else
+     C*dp_turbulent^m*pi*(a + pi2*(b + pi2*(c + pi2*d)));
 
   annotation (
   smoothOrder=2,
