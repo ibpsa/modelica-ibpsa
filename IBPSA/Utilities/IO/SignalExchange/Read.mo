@@ -24,8 +24,8 @@ model Read "Block that allows a signal to be read as an FMU output"
     KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)));
 
   parameter SignalTypes.SignalsForActuatorTravel actuatorType = SignalTypes.SignalsForActuatorTravel.None if (
-  KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ActuatorTravel)
-"Actuator type designation, required if KPIs is ActuatorTravel"
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ActuatorTravel)
+    "Actuator type designation, required if KPIs is ActuatorTravel"
   annotation(Dialog(enable=(
     KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ActuatorTravel)));
 
