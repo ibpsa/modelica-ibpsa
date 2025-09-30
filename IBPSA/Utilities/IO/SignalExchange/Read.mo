@@ -23,6 +23,13 @@ model Read "Block that allows a signal to be read as an FMU output"
     KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
     KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)));
 
+  parameter SignalTypes.SignalsForActuatorTravel actuatorType = SignalTypes.SignalsForActuatorTravel.None if (
+  KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ActuatorTravel)
+"Actuator type designation, required if KPIs is ActuatorTravel"
+  annotation(Dialog(enable=(
+    KPIs==IBPSA.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ActuatorTravel)));
+
+protected
   final parameter Boolean boptestRead = true
     "Parameter that is used by tools to search for read block in models";
 
@@ -53,11 +60,17 @@ variable <code>y</code>, assign a type if needed for KPI
 calculation using the <code>KPIs</code> parameter, and assign a zone 
 designation using the <code>zone</code> parameter if the KPI calculation is
 specific to a particular zone (for multi-zone models). See documentation for 
-the parameter <code>zone</code> for more details.
+assign an actuator type designation using the <code>actuatorType</code> parameter.
+ See documentation for the parameter <code>actuatorType</code> for more details. 
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 30, 2025 by Xing Lu:<br/>
+Added actuator type designation for KPI calculation by parameter <code>actuatorType</code>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2060\">#2060</a>.
+</li>
 <li>
 February 17, 2022 by David Blum:<br/>
 Made parameter <code>boptestRead</code> unprotected.
