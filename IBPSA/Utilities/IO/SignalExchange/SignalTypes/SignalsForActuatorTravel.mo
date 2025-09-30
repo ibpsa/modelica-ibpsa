@@ -16,7 +16,7 @@ type SignalsForActuatorTravel = enumeration(
       "Other")
   "Signals used for the calculation of key performance indexes"
   annotation (Documentation(info="<html>
-<p>This enumeration defines the signal types that are used by BOPTEST to compute the actuator travel. </p>
+<p>This enumeration defines the actuator signal types that are used by BOPTEST to compute the actuator travel. </p>
 <p>The following signal types are supported. </p>
 <table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
 <td><p align=\"center\"><h4>Value</h4></p></td>
