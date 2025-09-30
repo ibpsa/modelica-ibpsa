@@ -14,7 +14,7 @@ type SignalsForActuatorTravel = enumeration(
       "HVAC Equipment",
     Other
       "Other")
-  "Signals used for the calculation of key performance indexes"
+  "Signals used for the calculation of the actuator travel"
   annotation (Documentation(info="<html>
 <p>This enumeration defines the actuator signal types that are used by BOPTEST to compute the actuator travel. </p>
 <p>The following signal types are supported. </p>
