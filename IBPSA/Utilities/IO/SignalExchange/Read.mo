@@ -60,6 +60,7 @@ variable <code>y</code>, assign a type if needed for KPI
 calculation using the <code>KPIs</code> parameter, and assign a zone 
 designation using the <code>zone</code> parameter if the KPI calculation is
 specific to a particular zone (for multi-zone models). See documentation for 
+the parameter <code>zone</code> for more details. If the KPI type is for actuator travel,
 assign an actuator type designation using the <code>actuatorType</code> parameter.
  See documentation for the parameter <code>actuatorType</code> for more details. 
 </p>
