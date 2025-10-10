@@ -24,15 +24,15 @@ equation
   CVal = CD*dA*sqrt(2/rho_default);
   // orifice equation
   for i in 1:nCom loop
-    dV_flow[i] = IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM(
+    dV_flow[i] = IBPSA.Airflow.Multizone.BaseClasses.powerLaw05(
       C=CVal,
       dp=dpAB[i],
-      m=mFixed,
       a=a,
       b=b,
       c=c,
       d=d,
-      dp_turbulent=dp_turbulent);
+      dp_turbulent=dp_turbulent,
+      sqrt_dp_turbulent=sqrt_dp_turbulent);
   end for;
 
   annotation (defaultComponentName="doo",
@@ -49,12 +49,18 @@ An orifice equation is used to compute the flow for each compartment.
 In this model, the door is always open.
 Use the model
 <a href=\"modelica://IBPSA.Airflow.Multizone.DoorDiscretizedOperable\">
-Buildings.Airflow.Multizone.DoorDiscretizedOperable</a>
+IBPSA.Airflow.Multizone.DoorDiscretizedOperable</a>
 for a door that can either be open or closed.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Revised implementation to improve computing efficiency if flow exponent is <i>0.5</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
 <li>
 January 8, 2019, by Michael Wetter:<br/>
 Moved parameter <code>CD</code> from
@@ -79,7 +85,7 @@ as it seems to try negative values for the density during iterative solutions.
 <li>August 12, 2011 by Michael Wetter:<br/>
 Changed model to use the new function
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM\">
-Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
+IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
 <li>July 20, 2010 by Michael Wetter:<br/>
 Migrated model to Modelica 3.1 and integrated it into the Buildings library.

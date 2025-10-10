@@ -1,10 +1,10 @@
 os: Linux
-dist: focal
+dist: nobel
 
 language: python
 
 python:
-  - "3.8"
+  - "3.12"
 
 cache: pip
 
@@ -21,9 +21,9 @@ services:
 env:
   global:
     - DOCKER_REPONAME=lbnlblum
-    - BUILDINGSPY_VERSION=BuildingsPy@v5.1.0
+    - BUILDINGSPY_VERSION=BuildingsPy@v5.2.0
     - OMC_VERSION=ubuntu-2204-omc:1.24.0-1
-    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2024xRefresh1-x86_64
+    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2025x-x86_64_rev-2
 
   jobs:
     # Test matrix for regression tests.
@@ -33,8 +33,8 @@ env:
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.{Examples,Experimental}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Fluid.{Actuators,BaseClasses,Chillers,Delays,Geothermal,Examples,FMI,FixedResistances}\""
-    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,Sensors,Sources,Storage}\""
+    - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,SolarCollectors,Sensors,Sources,Storage}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.Fluid.{HeatExchangers,HeatPumps,Humidifiers,Interfaces,MassExchangers,MixingVolumes,Movers,SolarCollectors,Sensors,Sources,Storage}\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.ThermalZones\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"IBPSA.ThermalZones\""
     - TEST_ARG="make test-dymola       PACKAGE=\"IBPSA.{Airflow,BoundaryConditions,Controls,Electrical}\""
@@ -55,8 +55,6 @@ before_install:
 
 # Install dependencies
 install:
-  - pip3 install --upgrade pip wheel
-  - pip3 install --only-binary=numpy,scipy,matplotlib numpy==1.21.4 scipy==1.7.3 matplotlib==3.5.1
   - pip3 install git+https://github.com/lbl-srg/${BUILDINGSPY_VERSION}
 
 # Execute tests

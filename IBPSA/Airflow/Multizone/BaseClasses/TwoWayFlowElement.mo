@@ -41,9 +41,9 @@ protected
   Modelica.Units.SI.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 
-  Modelica.Units.SI.Mass mExcAB(start=0, fixed=true)
+  Modelica.Units.SI.Mass mExcAB(start=0, fixed=true, unbounded=true)
     "Air mass exchanged (for purpose of error control only)";
-  Modelica.Units.SI.Mass mExcBA(start=0, fixed=true)
+  Modelica.Units.SI.Mass mExcBA(start=0, fixed=true, unbounded=true)
     "Air mass exchanged (for purpose of error control only)";
 
   Medium.MassFraction Xi_a1_inflow[Medium1.nXi]
@@ -55,8 +55,8 @@ equation
   // gives higher robustness. The reason may be that for bi-directional flow,
   // (VAB_flow - VBA_flow) may be close to zero.
   if forceErrorControlOnFlow then
-    der(mExcAB) = mAB_flow;
-    der(mExcBA) = mBA_flow;
+    der(mExcAB) = port_a1.m_flow;
+    der(mExcBA) = port_a2.m_flow;
   else
     der(mExcAB) = 0;
     der(mExcBA) = 0;
@@ -82,14 +82,14 @@ equation
 
   VZer_flow = vZer*A;
 
-  mAB_flow = rho_a1_inflow*VAB_flow;
-  mBA_flow = rho_a2_inflow*VBA_flow;
+  mAB_flow = port_a1.m_flow;
+  mBA_flow = port_a2.m_flow;
   // Average velocity (using the whole orifice area)
   vAB = VAB_flow/A;
   vBA = VBA_flow/A;
 
-  port_a1.m_flow = mAB_flow;
-  port_a2.m_flow = mBA_flow;
+  port_a1.m_flow = rho_a1_inflow*VAB_flow;
+  port_a2.m_flow = rho_a2_inflow*VBA_flow;
 
   // Energy balance (no storage, no heat loss/gain)
   port_a1.h_outflow = inStream(port_b1.h_outflow);
@@ -135,6 +135,26 @@ for doors that can be open or closed as a function of an input signal.
 revisions="<html>
 <ul>
 <li>
+September 22, 2025, by Michael Wetter:<br/>
+Set <code>unbounded=true</code> for <code>mExcAB_flow</code> and <code>mExcBA_flow</code>
+to avoid spikes in <code>port_a.m_flow</code> in
+<a href=\"modelica://IBPSA.Airflow.Multizone.Examples.OneOpenDoor\">
+IBPSA.Airflow.Multizone.Examples.OneOpenDoor</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4360\">Buildings, #4360</a>.
+</li>
+<li>
+September 19, 2025, by Michael Wetter:<br/>
+Refactored implementation of underlying function that computes the flow rate
+to allow function to be inlined.
+This leads to a 20% faster simulation of
+<a href=\"modelica://IBPSA.Airflow.Multizone.Examples.OneOpenDoor\">
+IBPSA.Airflow.Multizone.Examples.OneOpenDoor</a> compared to the previous
+implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2043\">IBPSA, #2043</a>.
+</li>
+<li>
 May 12, 2020, by Michael Wetter:<br/>
 Changed assignment of <code>m1_flow_small</code> and
 <code>m2_flow_small</code> to <code>final</code>.
@@ -169,11 +189,11 @@ This is for
 February 24, 2015 by Michael Wetter:<br/>
 Changed model to use
 <a href=\"modelica://IBPSA.Utilities.Psychrometrics.Functions.density_pTX\">
-Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
+IBPSA.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
 as
 <a href=\"modelica://IBPSA.Media.Air.density\">
-Buildings.Media.Air.density</a>
+IBPSA.Media.Air.density</a>
 does not depend on temperature.
 </li>
 <li>June 18, 2014 by Michael Wetter:<br/>
