@@ -69,7 +69,7 @@ equation
 
   a/a0 = TCel/TCel0;
 
-  IS/IS0 = (TCel/TCel0)^3*exp(1/max(Modelica.Constants.eps, IBPSA.Utilities.Math.Functions.inverseXRegularized(x=k, delta=Modelica.Constants.eps))*(Eg0/TCel0 - Eg/max(Modelica.Constants.eps, IBPSA.Utilities.Math.Functions.inverseXRegularized(x=TCel, delta=Modelica.Constants.eps))));
+  IS/IS0 = (TCel/TCel0)^3*exp(1/max(Modelica.Constants.eps, k)*(Eg0/TCel0 - Eg/max(Modelica.Constants.eps, TCel)));
 
   Eg/(Eg0) =1 - dat.C*(TCel - TCel0);
 
@@ -77,23 +77,27 @@ equation
 
   IPh =absRadRat*(IPh0 + TCoeISC*(TCel - TCel0));
 
-  RSh/RSh0 = 1/max(IBPSA.Utilities.Math.Functions.inverseXRegularized(x=absRadRat, delta=Modelica.Constants.eps), Modelica.Constants.eps);
+  RSh/RSh0 = 1/max(absRadRat, Modelica.Constants.eps);
 
   // Simplified power correlations at MPP using Lambert W function (Batzelis et al., 2016)
 
-  IMP = max(0,IPh*(1 - 1/max(IBPSA.Utilities.Math.Functions.inverseXRegularized(x=w, delta=Modelica.Constants.eps), Modelica.Constants.eps)) - a*(w - 1)/max(Modelica.Constants.eps, IBPSA.Utilities.Math.Functions.inverseXRegularized(x=RSh, delta=Modelica.Constants.eps)));
+  IMP = max(0,IPh*(1 - 1/w) - a*(w - 1)/max(Modelica.Constants.eps, RSh));
 
 
   VMP = max(a*(w - 1) - RS*IMP,0);
 
-  VOC = if IPh >= Modelica.Constants.eps then a*log(abs(max(Modelica.Constants.eps, (IPh/max(Modelica.Constants.eps, IBPSA.Utilities.Math.Functions.inverseXRegularized(x=IS, delta=Modelica.Constants.eps) + 1))))) else 0;
+  VOC = if IPh >= Modelica.Constants.eps then
+    a*log(
+      abs((IPh/max(Modelica.Constants.eps,IS) + 1)))
+        else 0;
 
   w =
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/max(Modelica.Constants.eps,(IBPSA.Utilities.Math.Functions.inverseXRegularized(x=a, delta=Modelica.Constants.eps)/max(Modelica.Constants.eps, IBPSA.Utilities.Math.Functions.inverseXRegularized(x=VOC, delta=Modelica.Constants.eps)))) + 1));
+    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(
+      exp(1/(a/VOC) + 1));
 
 // Efficiency and Performance
 
-  eta=PMod/(max(Modelica.Constants.eps, IBPSA.Utilities.Math.Functions.inverseXRegularized(x=HGloTil, delta=Modelica.Constants.eps)*APan));
+  eta=PMod/(max(Modelica.Constants.eps, HGloTil*APan));
 
   PMod = VMP*IMP;
 
