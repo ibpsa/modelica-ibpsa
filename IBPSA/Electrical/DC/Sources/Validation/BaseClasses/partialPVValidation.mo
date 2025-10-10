@@ -27,13 +27,13 @@ partial model partialPVValidation
   //Approximation of diffuse horizontal irradiation still necessary because
   //the validation data does not contain this information so far
   // Erbs diffuse fraction relation
-  Real k_t(final unit="1", start=0.5)=if HGloHor <= 0.01
+  Real k_t(final unit="1", start=0.5)=if HGloHor <= Modelica.Constants.eps
             then 0
             else min(1, max(0, (HGloHor/(GSC*(1 + 0.033*
             cos(360*(Modelica.Constants.pi/180)*cloTim/24/60/60/365)*
             (cos(lat)*cos(solDec)*cos(solHouAng) + sin(lat)*sin(solDec)))))))
             "Clearness index; factor needed for Erbs diffuse fraction relation";
-  Modelica.Units.SI.Irradiance HDifHor=if HGloHor <= 0.01
+  Modelica.Units.SI.Irradiance HDifHor=if HGloHor <= Modelica.Constants.eps
             then 0
             elseif k_t <= 0.22
             then (HGloHor)*(1.0 - 0.09*k_t)
