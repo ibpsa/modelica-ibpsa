@@ -12,7 +12,7 @@ partial model PartialPVOptical
   "Prescribed tilt angle (used if til=Parameter)" annotation(Dialog(enable=not use_Til_in, tab="Module mounting and specifications"));
 
 
-  Modelica.Blocks.Interfaces.RealOutput absRadRat
+  Modelica.Blocks.Interfaces.RealOutput absRadRat(final unit="1")
     "Ratio of absorbed radiation under operating conditions to standard conditions"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput zenAng(
