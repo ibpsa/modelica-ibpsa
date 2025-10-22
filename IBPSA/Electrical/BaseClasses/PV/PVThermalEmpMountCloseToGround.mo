@@ -17,7 +17,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Model for determining the cell temperature of a PV module mounted on an open rack under operating conditions and under consideration of the wind velocity. </p>
-<p>Added parameters a to obtain correct units.</p>
+<p>Added parameters a_i to obtain correct units. </p>
 <p><br><h4>References</h4></p>
 <p>Duffie, John A. and Beckman, W. A. Solar engineering of thermal processes. John Wiley &amp; Sons, Inc. 2013. </p>
 </html>", revisions="<html>
