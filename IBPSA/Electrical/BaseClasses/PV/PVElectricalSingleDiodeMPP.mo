@@ -5,17 +5,20 @@ model PVElectricalSingleDiodeMPP
     IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
 
   // Main parameters under standard conditions
+  // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
 
-  Modelica.Units.SI.ElectricCurrent IPh0
+  parameter Modelica.Units.SI.ElectricCurrent IPh0=(1+RS0/RSh0)*ISC0
     "Photo current under standard conditions";
-  Modelica.Units.SI.ElectricCurrent IS0
+  parameter Modelica.Units.SI.ElectricCurrent IS0=IPh0*exp(-1/(a0/VOC0))
     "Saturation current under standard conditions";
-  Modelica.Units.SI.Resistance RS0
+  parameter Modelica.Units.SI.Resistance RS0=(a0*(w0-1)-VMP0)/IMP0
     "Series resistance under standard conditions";
-  Modelica.Units.SI.Resistance RSh0
+  parameter Modelica.Units.SI.Resistance RSh0=a0*(w0-1)/(ISC0*(1-1/w0)-IMP0)
     "Shunt resistance under standard conditions";
-  Real a0(unit="V") "Modified diode ideality factor under standard conditions";
-  Real w0(final unit="1")
+
+  parameter Real a0(unit="V")=VOC0*(1-TCel0*betaVOC)/(50.1-TCel0*alphaISC)
+    "Modified diode ideality factor under standard conditions";
+  parameter Real w0(final unit="1")=IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a0/VOC0)+1))
     "MPP auxiliary correlation coefficient under standard conditions";
 
 // Additional parameters and constants
@@ -49,21 +52,6 @@ model PVElectricalSingleDiodeMPP
     "Open circuit voltage under operating conditions";
 
 equation
-
-  // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
-
-  a0 = VOC0*(1 - TCel0*betaVOC)/(50.1 - TCel0*alphaISC);
-
-  w0 = IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a0/
-    VOC0) + 1));
-
-  RS0 = (a0*(w0 - 1) - VMP0)/IMP0;
-
-  RSh0 = a0*(w0 - 1)/(ISC0*(1 - 1/w0) - IMP0);
-
-  IPh0 = (1 + RS0/RSh0)*ISC0;
-
-  IS0 = IPh0*exp(-1/(a0/VOC0));
 
   // Parameter extrapolation equations to operating conditions (DeSoto et al., 2006)
 
