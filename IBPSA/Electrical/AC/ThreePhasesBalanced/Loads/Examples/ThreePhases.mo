@@ -175,8 +175,7 @@ equation
       color={0,120,120},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-   graphics={
+            -100},{100,100}}),        graphics={
         Text(
           extent={{-60,100},{60,80}},
           textColor={0,0,0},
