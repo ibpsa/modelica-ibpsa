@@ -2,22 +2,22 @@ within IBPSA.Electrical.Data.PV;
 record Generic "Basic record of a PV cell"
   extends Modelica.Icons.Record;
 
-  parameter Integer nSer "Number of cells connected in series on the PV panel"
+  parameter Integer nSer(start = 1) "Number of cells connected in series on the PV panel"
     annotation(Dialog(group="General"));
-  parameter Integer nPar "Number of parallel cell circuits on the PV panel"
+  parameter Integer nPar(start = 1) "Number of parallel cell circuits on the PV panel"
     annotation(Dialog(group="General"));
-  parameter Modelica.Units.SI.Area ACel
+  parameter Modelica.Units.SI.Area ACel(start = 1.0)
     "Area of a single cell"
     annotation (Dialog(group="Cell specific: Geometrical data"));
   parameter Modelica.Units.SI.Area APan=ACel*nSer*nPar
     "Area of one Panel, must not be confused with area of the whole module"
     annotation (Dialog(group="Cell specific: Geometrical data"));
-  parameter Modelica.Units.SI.Area AMod "Area of one module (housing)"
+  parameter Modelica.Units.SI.Area AMod(start = 1.0) "Area of one module (housing)"
     annotation (Dialog(group="Cell specific: Geometrical data"));
   parameter Modelica.Units.SI.Temperature TNOCT
     "Cell temperature under NOCT conditions"
     annotation (Dialog(group="Cell specific: Electrical characteristics"));
-  parameter Modelica.Units.SI.Energy Eg0
+  parameter Modelica.Units.SI.Energy Eg0(start = 1.79604e-19)
     "Band gap energy under standard conditions. For Si: 1.79604e-19 J or 1.121 eV";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
