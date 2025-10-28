@@ -1,30 +1,38 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses;
 partial model PartialPVThermal
- "Partial model for computing the cell temperature of a PV moduleConnector for PV record data"
+  "Partial model for computing the cell temperature of a PV moduleConnector for PV record data"
   replaceable parameter Data.PV.Generic dat constrainedby
     IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
-    annotation (choicesAllMatching);
-  Modelica.Blocks.Interfaces.RealOutput TCel(final unit="K", final displayUnit="degC")
+    annotation (choicesAllMatching=true);
+  Modelica.Blocks.Interfaces.RealOutput TCel(
+    final unit="K",
+    final displayUnit="degC")
     "Cell temperature"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput TDryBul(final unit="K", final displayUnit="degC")
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
+    final unit="K",
+    final displayUnit="degC")
     "Ambient temperature (dry bulb)"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput winVel(final unit="m/s")
+  Modelica.Blocks.Interfaces.RealInput winVel(
+    final unit="m/s")
     "Wind velocity"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2")
+  Modelica.Blocks.Interfaces.RealInput HGloTil(
+    final unit="W/m2")
     "Total solar irradiance on the tilted surface"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput eta(final unit="1")
+  Modelica.Blocks.Interfaces.RealInput eta(
+    final unit="1")
     "Efficiency of the PV module under operating conditions"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{120,100}}),
+            -100},{100,100}}),
    graphics={
     Text(extent={{-84,-68},{0,-102}},textString= "%name"),
     Rectangle(extent={{-94,84},{6,-74}}, lineColor={215,215,215},fillColor={215,215,215},
@@ -89,8 +97,10 @@ partial model PartialPVThermal
       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
-            Documentation(info="<html>
-        <p>This is a partial model for the thermal surrogate model of a photovoltaic modelt.</p>
+Documentation(info="<html>
+<p>
+This is a partial model for the thermal surrogate model of a photovoltaic modelt.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

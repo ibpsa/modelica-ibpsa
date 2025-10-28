@@ -1,8 +1,7 @@
 within IBPSA.Electrical.BaseClasses.PV;
 model PVElectricalSingleDiodeMPP
   "Analytical 5-p model for PV I-V characteristics with temperature dependency based on 5 parameters with automatic MPP control"
-  extends
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
+  extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
 
   // Main parameters under standard conditions
   // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
@@ -79,8 +78,7 @@ equation
       abs((IPh/max(Modelica.Constants.eps,IS) + 1)))
         else 0;
 
-  w =
-    IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(
+  w = IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(
       exp(1/(a/VOC) + 1));
 
 // Efficiency and Performance
@@ -91,76 +89,80 @@ equation
 
   P=max(0, min(PMax*nMod, PMod*nMod));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
-            {100,80}})),                                         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},{100,80}})),
-    Documentation(info="<html><h4>
-  <span style=\"color: #008000\">Overview</span>
-</h4>
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),
+                Diagram(coordinateSystem(preserveAspectRatio=false,
+   extent={{-100,-100},{100,100}})),
+Documentation(info="<html>
+<h4><span style=\"color: #008000\">Overview</span></h4>
 <p>
-  Analytical 5-p model for determining the I-V characteristics of a PV
-  array (Batzelis et al.,2016) with temp. dependency of the 5
-  parameters following (DeSoto et al.,2006).
-  For more information on the 5-p modeling approach (single-diode PV cell approximation),
-  see model
+Analytical 5-p model for determining the I-V characteristics of a PV
+array (Batzelis et al.,2016) with temp. dependency of the 5
+parameters following (DeSoto et al.,2006).
+For more information on the 5-p modeling approach (single-diode PV cell approximation),
+see model
 <a href=\"modelica://IBPSA.Electrical.DC.Sources.PVSingleDiode\">
 IBPSA.Electrical.DC.Sources.PVSingleDiode</a> for more
 information.
 </p>
 <p>
-  The final output of this model
-  is the DC performance of the PV array or module.
-  The parameters are first determined for standard boundary conditions denoted with index 0.
-  The analytical approach is based on simplifications that result in explicit equations.
-  These can be solved more easily by the solver resulting in higher simulation speed.
-  The resulting five unknown parameters at standard conditions basing non explicit functions are
-  the modified ideality factor </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  a<sub>0</sub> = U<sub>L,0</sub> (1- T<sub>cell,0</sub> &beta;<sub>U,L</sub>) &frasl; (50.1 - T<sub>cell,0</sub> &alpha;<sub>I,K</sub>),
-  </p>
-  <p> the serial resistance
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  R<sub>s,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1) - U<sub>mp,0</sub> ) &frasl; (I<sub>mp,0</sub>),</p>
-  <p>
-  the parallel resistance
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  R<sub>sh,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1)) &frasl; (I<sub>L,0</sub>(1-1 &frasl; w<sub>0</sub>)-I<sub>mp,0</sub>),
-  </p>
-  <p>
-  the photo current
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  I<sub>ph,0</sub> = (1+R<sub>s,0</sub> &frasl; R<sub>sh,0</sub>) I<sub>K,0</sub>,
-  </p>
-  <p>
-  and the saturation current
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  I<sub>s,0</sub> =  I<sub>ph,0</sub> e<sup>(-U<sub>L,0</sub>/a<sub>0+1</sub>)</sup>.
-  </p>
-  <p>
-  The system of equations is based on an approximation of the Lambert equation W at standard conditions
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  w<sub>0</sub> =  W(e<sup>U<sub>L,0</sub>/a<sub>L,0</sub></sup>).
-  </p>
-  <p>
-  Finally, an explicit formulation of the I-V charactierstic at the maximum power point (mp) is derived
-  for the current at the maximum power point
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  I<sub>mp</sub> = I<sub>ph</sub>(1-1/w)-a(w-1)/R<sub>sh</sub>
-  </p>
-  <p>
-  and the voltage at the maximum power point
-  </p>
-  <p align=\"center\" style=\"font-style:italic;\">
-  U<sub>mp</sub> = a(w-1) - R<sub>s</sub> I<sub>mp</sub>.
-  </p>
-
-
+The final output of this model
+is the DC performance of the PV array or module.
+The parameters are first determined for standard boundary conditions denoted with index 0.
+The analytical approach is based on simplifications that result in explicit equations.
+These can be solved more easily by the solver resulting in higher simulation speed.
+The resulting five unknown parameters at standard conditions basing non explicit functions are
+the modified ideality factor </p>
+<p align=\"center\" style=\"font-style:italic;\">
+a<sub>0</sub> = U<sub>L,0</sub> (1- T<sub>cell,0</sub> &beta;<sub>U,L</sub>) &frasl;
+(50.1 - T<sub>cell,0</sub> &alpha;<sub>I,K</sub>),
+</p>
+<p>
+the serial resistance
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>s,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1) - U<sub>mp,0</sub> ) &frasl;
+(I<sub>mp,0</sub>),</p>
+<p>
+the parallel resistance
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+R<sub>sh,0</sub> = (a<sub>0</sub> (w<sub>0</sub> -1)) &frasl; (I<sub>L,0</sub>(1-1 &frasl;
+w<sub>0</sub>)-I<sub>mp,0</sub>),
+</p>
+<p>
+the photo current
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+I<sub>ph,0</sub> = (1+R<sub>s,0</sub> &frasl; R<sub>sh,0</sub>) I<sub>K,0</sub>,
+</p>
+<p>
+and the saturation current
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+I<sub>s,0</sub> =  I<sub>ph,0</sub> e<sup>(-U<sub>L,0</sub>/a<sub>0+1</sub>)</sup>.
+</p>
+<p>
+The system of equations is based on an approximation of the Lambert equation W at
+standard conditions
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+w<sub>0</sub> =  W(e<sup>U<sub>L,0</sub>/a<sub>L,0</sub></sup>).
+</p>
+<p>
+Finally, an explicit formulation of the I-V charactierstic at the maximum power
+point (mp) is derived
+for the current at the maximum power point
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+I<sub>mp</sub> = I<sub>ph</sub>(1-1/w)-a(w-1)/R<sub>sh</sub>
+</p>
+<p>
+and the voltage at the maximum power point
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+U<sub>mp</sub> = a(w-1) - R<sub>s</sub> I<sub>mp</sub>.
+</p>
 <p>
 The parameters during operating conditions result from simplified relations
 to the parameter values at standard conditions following (DeSoto et al.,2006).
@@ -171,9 +173,7 @@ The model was validated with experimental data from NIST (Boyd, 2017).
 <p>
 The module parameterization is based on manufacturer data.
 </p>
-<p>
-  <br/>
-</p>
+
 <h4>References</h4>
 <p>
 Batzelis, E. I., &amp; Papathanassiou, S. A. (2015). A method for the analytical

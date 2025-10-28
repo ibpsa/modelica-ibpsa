@@ -1,5 +1,5 @@
 within IBPSA.Electrical.BaseClasses.PV;
-package BaseClasses "Package with base classes for IBPSA.Electrical"
+package BaseClasses "Package with base classes for PV base models"
   extends Modelica.Icons.BasesPackage;
 
    annotation(preferredView="info", Documentation(info="<html>

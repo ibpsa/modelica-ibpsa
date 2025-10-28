@@ -1,8 +1,11 @@
 within IBPSA.Electrical.DC.Sources.Validation.BaseClasses;
-partial model partialPVValidation
+partial model PartialPV
   "Partial model for validation of PV model with empirical data"
   extends Modelica.Icons.Example;
-    parameter Modelica.Units.SI.Time timZon=+7200
+  constant Real GSC(
+    final quantity="Irradiance",
+    final unit="W/m2") = 1376 "Solar constant";
+  parameter Modelica.Units.SI.Time timZon=+7200
     "Time zone";
   parameter Modelica.Units.SI.Angle lon=0.2303835
     "Longitude";
@@ -17,10 +20,6 @@ partial model partialPVValidation
   parameter Real alt(final unit="m")= 2 "Site altitude";
 
   parameter Real rho=0.2 "Ground reflectance";
-
-  constant Real GSC(
-    final quantity="Irradiance",
-    final unit="W/m2") = 1376 "Solar constant";
 
   Modelica.Units.SI.Irradiance HGloHor=realPassThroughHGloHor.y "Global horizontal irradiation";
 
@@ -83,8 +82,8 @@ partial model partialPVValidation
   Modelica.Blocks.Routing.RealPassThrough realPassThroughHGloHor
     "Pass through for horizontal global irradiation"
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
-equation
 
+equation
   connect(weaDat.weaBus, HGloTil.weaBus) annotation (Line(
       points={{-72,-10},{-60,-10},{-60,70},{-40,70}},
       color={255,204,51},
@@ -117,26 +116,23 @@ equation
       points={{-59.95,-9.95},{-60,-9.95},{-60,-62},{60,-62},{60,-80},{68,-80}},
       color={255,204,51},
       thickness=0.5));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{100,
             100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    experiment(
-      StartTime=18057600,
-      StopTime=19008000,
-      Interval=300,
-      Tolerance=1e-06),
-   __Dymola_Commands(file=
-          "modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeRooftopBuildingValidation.mos"
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  experiment(StartTime=18057600, StopTime=19008000, Interval=300, Tolerance=1e-06),
+   __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Electrical/DC/Sources/Validation/PVSingleDiodeRooftopBuildingValidation.mos"
         "Simulate and plot"),
-    Documentation(info="<html>
+Documentation(info="<html>
 <p>
-The PVSystem single-diode model is validated with empirical data from the Rooftop solar builidng of UdK Berlin: <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a>.
+The PVSystem single-diode model is validated with empirical data from the Rooftop
+solar builidng of UdK Berlin:
+<a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a>.
 The dates 28.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model.
 The validation model proves that single diode PV models tend to overestimate the power output.
 This is due to the neglection of staining, shading, other loss effects.
-The irradiation measurements need to be shifted 150 s backwards since the sensor integrates the solar power over a time interval.
+The irradiation measurements need to be shifted 150 s backwards since the sensor
+integrates the solar power over a time interval.
 This results in a lag between measured power and measured solar irradiation.
 </p>
 </html>",revisions="<html>
@@ -147,4 +143,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end partialPVValidation;
+end PartialPV;

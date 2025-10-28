@@ -9,39 +9,32 @@ partial model PartialPVThermalEmp
   final parameter Modelica.Units.SI.Irradiance HNOCT= 800
     "Irradiance under NOCT conditions";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {120,100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
    graphics={
-    Text(extent={{-40,-68},{44,-102}}, textString= "%name"),
     Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern = FillPattern.Solid),
-    Rectangle(extent={{-90,24},{-62,-4}},
-   lineColor={0,0,255},fillColor={0,0,255},
+    Rectangle(extent={{-90,24},{-62,-4}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
-    Rectangle(extent={{-58,24},{-30,-4}},
-   lineColor={0,0,255},fillColor={0,0,255},
+    Rectangle(extent={{-58,24},{-30,-4}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
-    Rectangle(extent={{-26,24},{2,-4}},
-   lineColor={0,0,255},fillColor={0,0,255},
+    Rectangle(extent={{-26,24},{2,-4}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-90,-8},{-62,-36}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
-    Rectangle(extent={{-58,-8},{-30,-36}},
-   lineColor={0,0,255},fillColor={0,0,255},
+    Rectangle(extent={{-58,-8},{-30,-36}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-26,-8},{2,-36}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-90,-40},{-62,-68}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
-    Rectangle(extent={{-58,56},{-30,28}},
-   lineColor={0,0,255},fillColor={0,0,255},
+    Rectangle(extent={{-58,56},{-30,28}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-26,56},{2,28}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-90,56},{-62,28}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
-    Rectangle(extent={{-58,-40},{-30,-68}},
-   lineColor={0,0,255},fillColor={0,0,255},
+    Rectangle(extent={{-58,-40},{-30,-68}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-26,-40},{2,-68}},lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
@@ -73,10 +66,12 @@ partial model PartialPVThermalEmp
           extent={{92,4},{-28,-26}},
           textString="T")}),
       Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-        Documentation(info="<html>
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+Documentation(info="<html>
 <p>
-This is a partial model for the thermal surrogate model of a photovoltaic model based on empirical descriptions.
+This is a partial model for the thermal surrogate model of a photovoltaic model
+based on empirical descriptions.
 </p>
 </html>", revisions="<html>
 <ul>

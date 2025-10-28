@@ -6,7 +6,8 @@ partial model PartialPVElectricalSingleDiode
 
   replaceable parameter Data.PV.SingleDiodeData dat
     constrainedby IBPSA.Electrical.Data.PV.SingleDiodeData
-    "PV Panel data definition" annotation (choicesAllMatching);
+    "PV Panel data definition"
+    annotation (choicesAllMatching=true);
 
 // Parameters from module data sheet
 
@@ -49,12 +50,8 @@ protected
 
   final parameter Modelica.Units.SI.Temperature TCel0 = 25.0 + 273.15
     "Thermodynamic cell temperature under standard conditions";
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-     Rectangle(
-      lineColor={0,0,0},
-      fillColor={255,255,255},
-      fillPattern=FillPattern.Solid,
-      extent={{-100,100},{100,-100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),                                  graphics={
         Line(
           points={{-66,-64},{-66,88}},
           color={0,0,0},
@@ -83,10 +80,13 @@ protected
           color={0,0,0},
           thickness=0.5,
           smooth=Smooth.Bezier)}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-        Documentation(info="<html>
-        <p>
-        This is a partial model for the electrical surrogate model of a photovoltaic model modeled as a single diode circuit.</p>
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+Documentation(info="<html>
+<p>
+This is a partial model for the electrical surrogate model of a photovoltaic model
+modeled as a single diode circuit.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -1,6 +1,6 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical;
 block AirMassModifier
-  "This block computes the air mass modifier based on selected PV technology"
+  "Air mass modifier based on selected PV technology"
   extends Modelica.Blocks.Icons.Block;
 
   parameter PVType PVTecTyp=IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.PVType.MonoSI
@@ -41,8 +41,7 @@ protected
        then -0.000019184 else -0.000011 "Regression parameter 4 to calculate air mass modifier";
 
 equation
-
-airMasMod =if (b0 + b1*(airMas) + b2*(airMas^2) + b3*(airMas^3) + b4*(airMas^4)) <=
+  airMasMod =if (b0 + b1*(airMas) + b2*(airMas^2) + b3*(airMas^3) + b4*(airMas^4)) <=
     0 then 0 else b0 + b1*(airMas^1) + b2*(airMas^2) + b3*(airMas^3) + b4*(
     airMas^4);
 
@@ -80,7 +79,6 @@ Solar energy, 80(1), 78-88.
 <a href=\"https://doi.org/10.1016/j.solener.2005.06.010\">
 https://doi.org/10.1016/j.solener.2005.06.010</a>
 </p>
-
 </html>",
 revisions="<html>
 <ul>

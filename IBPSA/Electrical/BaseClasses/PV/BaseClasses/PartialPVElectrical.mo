@@ -4,9 +4,7 @@ partial model PartialPVElectrical
 
   replaceable parameter Data.PV.Generic dat constrainedby
     IBPSA.Electrical.Data.PV.Generic "PV Panel data definition"
-    annotation (choicesAllMatching);
-
-    // Adjustable parameters
+    annotation (choicesAllMatching=true);
 
   parameter Integer nMod "Number of connected PV modules";
 
@@ -23,17 +21,22 @@ partial model PartialPVElectrical
     "Band gap energy under standard conditions";
 
   Modelica.Units.SI.ElectricCurrent IPh(min=0) "Photo current";
-  Modelica.Blocks.Interfaces.RealInput TCel(final unit="K",final displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput TCel(
+    final unit="K",
+    final displayUnit="degC")
     "Cell temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-public
-  Modelica.Blocks.Interfaces.RealInput absRadRat(final unit="1")
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealInput absRadRat(
+    final unit="1")
     "Ratio of absorbed radiation under operating conditions to standard conditions"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput HGloTil(final unit="W/m2",min=0)
+  Modelica.Blocks.Interfaces.RealInput HGloTil(
+    final unit="W/m2",
+    min=0)
     "Total solar irradiance on the tilted surface"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput eta(final unit="1")
     "Efficiency of the PV module under operating conditions"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
@@ -47,8 +50,8 @@ protected
   final constant Real k(unit = "J/K") = Modelica.Constants.R/Modelica.Constants.N_A
     "Boltzmann constant";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},
-            {100,100}}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
    graphics={
      Rectangle(
       lineColor={0,0,0},
@@ -83,11 +86,12 @@ protected
           color={0,0,0},
           thickness=0.5,
           smooth=Smooth.Bezier)}),                               Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
-    <p>
-    This is a partial model for the electrical surrogate models of a photovoltaic module.
-    </p>
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+Documentation(info="<html>
+<p>
+This is a partial model for the electrical surrogate models of a photovoltaic module.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

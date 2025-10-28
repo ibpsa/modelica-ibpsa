@@ -5,10 +5,11 @@ package PVOptical "Models for computing irradiance-related boundary conditions f
  annotation(Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models extending from
-<a href=\"modelica://IBPSA.Electrical.BaseClasses.PV.PVOpticalAbsRat\">IBPSA.Electrical.BaseClasses.PV.PVOpticalAbsRat</a>.
+<a href=\"modelica://IBPSA.Electrical.BaseClasses.PV.PVOpticalAbsRat\">
+IBPSA.Electrical.BaseClasses.PV.PVOpticalAbsRat</a>.
 </p>
 </html>",
-        revisions="<html>
+revisions="<html>
 <ul>
 <li>
 Oct 6, 2023, by Laura Maier:<br/>

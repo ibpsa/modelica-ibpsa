@@ -23,7 +23,7 @@ record SingleDiodeSolibroSL2CIGS120
 <p>
 This is an exemplary data model of the thin-film module Solibro SL2 CIGS 120 Wp used for the single-diode PV model.
 This data is used for validation in
-<a href=\"modelica://IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation\">IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation</a>.
+<a href=\"modelica://IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuilding\">IBPSA.Electrical.DC.Sources.Validation.PVSingleDiodeRooftopBuildingValidation</a>.
 </p>
 <p> The data record can be found here: <a href=\"https://reenergyhub.com/files/hersteller/Solibro/pdf/Solibro_SL2_CIGS_THIN-FILM_Module_G1.5-100-120_en.pdf\">https://reenergyhub.com/files/hersteller/Solibro/pdf/Solibro_SL2_CIGS_THIN-FILM_Module_G1.5-100-120_en.pdf</a></p>
 </html>",

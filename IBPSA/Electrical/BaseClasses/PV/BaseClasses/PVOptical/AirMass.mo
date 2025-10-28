@@ -1,10 +1,13 @@
 within IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical;
 block AirMass
-  "Air mass calculation depening on zenith angle and height of object"
+  "Air mass calculation depending on zenith angle and height of object"
   extends Modelica.Blocks.Icons.Block;
   parameter Modelica.Units.SI.Height alt "Height of object";
 
-  Modelica.Blocks.Interfaces.RealInput zenAng(final unit="rad", final displayUnit="deg") "Zenith angle for object"
+  Modelica.Blocks.Interfaces.RealInput zenAng(
+    final unit="rad",
+    final displayUnit="deg")
+    "Zenith angle for object"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput airMas(final unit="1")
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -23,8 +26,8 @@ equation
         Documentation(
           info="<html>
 <p>
-The model computes the air mass.</br>
-It is based on an empirical approach by Kasten et al. and bases on the zenith angle of the object as well as its height.
+The model computes the air mass. It is based on an empirical approach by Kasten
+et al. and bases on the zenith angle of the object as well as its height.
 </p>
 <h4>References</h4>
 <p>
