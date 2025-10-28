@@ -13,6 +13,7 @@ block AirMass
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Modelica.Units.SI.Angle zen "Zenith angle internal use";
+
 equation
 // Restriction for zenith angle
  zen = if zenAng <= Modelica.Constants.pi/2 then zenAng
