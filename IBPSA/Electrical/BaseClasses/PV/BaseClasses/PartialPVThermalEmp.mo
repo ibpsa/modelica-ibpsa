@@ -9,7 +9,7 @@ partial model PartialPVThermalEmp
   final parameter Modelica.Units.SI.Irradiance HNOCT= 800
     "Irradiance under NOCT conditions";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
    graphics={
     Rectangle(extent={{-94,86},{6,-72}}, lineColor={215,215,215},fillColor={215,215,215},

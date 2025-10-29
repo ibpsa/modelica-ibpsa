@@ -52,8 +52,7 @@ protected
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-   graphics={
-     Rectangle(
+   graphics={Rectangle(
       lineColor={0,0,0},
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid,

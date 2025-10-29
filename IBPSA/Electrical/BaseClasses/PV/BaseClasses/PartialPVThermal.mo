@@ -31,17 +31,17 @@ partial model PartialPVThermal
     "Efficiency of the PV module under operating conditions"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-   graphics={
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
     Text(extent={{-84,-68},{0,-102}},textString= "%name"),
     Rectangle(extent={{-94,84},{6,-74}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-90,24},{-62,-4}},
-   lineColor={0,0,255},fillColor={0,0,255},
-            fillPattern = FillPattern.Solid),
+              lineColor={0,0,255},fillColor={0,0,255},
+              fillPattern = FillPattern.Solid),
     Rectangle(extent={{-58,24},{-30,-4}},
-   lineColor={0,0,255},fillColor={0,0,255},
+              lineColor={0,0,255},fillColor={0,0,255},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-26,24},{2,-4}},
    lineColor={0,0,255},fillColor={0,0,255},

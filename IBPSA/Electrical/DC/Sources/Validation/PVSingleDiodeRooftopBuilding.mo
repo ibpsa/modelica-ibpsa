@@ -36,7 +36,8 @@ model PVSingleDiodeRooftopBuilding
   Modelica.Blocks.Math.Add add "Adds both module DC power outputs"
     annotation (Placement(transformation(extent={{86,44},{96,54}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TModMea(final unit="degC") "Measure module temperature"
+  Modelica.Blocks.Interfaces.RealOutput TModMea(final unit="degC")
+    "Measure module temperature"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
   Modelica.Blocks.Sources.CombiTimeTable MeaDatPVPDC(
     tableOnFile=true,
@@ -120,7 +121,7 @@ Documentation(info="<html>
 The PVSystem single-diode model is validated with empirical data from the Rooftop
 solar builidng of UdK Berlin:
 <a href=\"http://www.solar-rooftop.de/\">http://www.solar-rooftop.de/</a>.
-The dates 29.07.2023 to 09.08.2023 were chosen as an example for the PVSystem model.
+The dates 2023-07-29 to 2023-08-09 were chosen as an example for the PVSystem model.
 The system consists of four modules with 120 Wp and two modules with 115 Wp.
 The validation model proves that single-diode PV models tend to overestimate the
 power output. This is due to the neglection of staining, shading, other loss effects.

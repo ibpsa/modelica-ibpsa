@@ -48,7 +48,7 @@ equation
   connect(HDifHor, PVOpt.HDifHor) annotation (Line(points={{-120,-110},{-52,-110},
           {-52,26},{-22,26}}, color={0,0,127}));
   connect(PVEle.P, PDC) annotation (Line(points={{1,-45},{80,-45},{80,0},{120,0}},
-                    color={0,0,127}));
+          color={0,0,127}));
   connect(con.terminal, terminal)
     annotation (Line(points={{40,100},{-70,100},{-70,0},{-100,0}}, color={0,0,255}));
   connect(PVEle.P, con.Pow) annotation (Line(points={{1,-45},{80,-45},{80,100},{

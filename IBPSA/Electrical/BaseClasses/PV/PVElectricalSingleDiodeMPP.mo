@@ -3,6 +3,9 @@ model PVElectricalSingleDiodeMPP
   "Analytical 5-p model for PV I-V characteristics with temperature dependency based on 5 parameters with automatic MPP control"
   extends IBPSA.Electrical.BaseClasses.PV.BaseClasses.PartialPVElectricalSingleDiode;
 
+  constant Real q(unit = "A.s")= 1.602176620924561e-19
+    "Elementary charge";
+
   // Main parameters under standard conditions
   // Analytical parameter extraction equations under standard conditions (Batzelis et al., 2016)
 
@@ -19,11 +22,6 @@ model PVElectricalSingleDiodeMPP
     "Modified diode ideality factor under standard conditions";
   parameter Real w0(final unit="1")=IBPSA.Electrical.BaseClasses.PV.BaseClasses.lambertWSimple(exp(1/(a0/VOC0)+1))
     "MPP auxiliary correlation coefficient under standard conditions";
-
-// Additional parameters and constants
-
-  constant Real q(unit = "A.s")= 1.602176620924561e-19
-   "Elementary charge";
 
   Modelica.Units.SI.ElectricCurrent IMP(start=0.5*IMP0)
     "MPP current at operating conditions";
@@ -45,7 +43,7 @@ model PVElectricalSingleDiodeMPP
   Modelica.Units.SI.Power PMod "Output power of one PV module";
 
   Real w(final unit = "1", start = 0)
-   "MPP auxiliary correlation coefficient";
+    "MPP auxiliary correlation coefficient";
 
   Modelica.Units.SI.Voltage VOC
     "Open circuit voltage under operating conditions";

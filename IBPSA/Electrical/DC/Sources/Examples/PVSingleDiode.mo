@@ -1,11 +1,11 @@
 within IBPSA.Electrical.DC.Sources.Examples;
 model PVSingleDiode "Example for the single-diode PV model"
   extends Modelica.Icons.Example;
-  extends
-    IBPSA.Electrical.DC.Sources.Validation.BaseClasses.PartialPV          (
+  extends IBPSA.Electrical.DC.Sources.Validation.BaseClasses.PartialPV(
       weaDat(filNam=Modelica.Utilities.Files.loadResource(
       "modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")));
   Modelica.Electrical.Analog.Basic.Ground ground
+    "Ground of the electrical circuit"
     annotation (Placement(transformation(extent={{-56,-20},{-36,0}})));
   Loads.Resistor res(R=0.5, V_nominal=12) "Resistance"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -24,8 +24,8 @@ model PVSingleDiode "Example for the single-diode PV model"
     redeclare Data.PV.SingleDiodeSolibroSL2CIGS120 dat,
     groRef=rho,
     alt=0.08,
-    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround
-      PVThe) "PV modules with a peak power of 120 Wp"
+    redeclare IBPSA.Electrical.BaseClasses.PV.PVThermalEmpMountCloseToGround PVThe)
+    "PV modules with a peak power of 120 Wp"
     annotation (Placement(transformation(extent={{70,38},{90,62}})));
 
 equation
@@ -65,7 +65,6 @@ equation
       points={{-59.95,-9.95},{-59.95,2},{-60,2},{-60,14},{62,14},{62,45},{69,45}},
       color={255,204,51},
       thickness=0.5));
-
   connect(weaBus.TDryBul, pVSys1Dio120Wp.TDryBul) annotation (Line(
       points={{-59.95,-9.95},{-59.95,14},{62,14},{62,48},{69,48},{69,48}},
       color={255,204,51},

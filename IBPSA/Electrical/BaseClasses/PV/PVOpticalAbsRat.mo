@@ -17,13 +17,13 @@ model PVOpticalAbsRat
   parameter Real groRef(unit="1") "Ground reflectance";
 
   parameter Real glaExtCoe(unit="1/m")=4
-  "Glazing extinction coefficient for glass";
+    "Glazing extinction coefficient for glass";
 
   parameter Modelica.Units.SI.Length glaThi=0.002
-  "Glazing thickness for most PV cell panels it is 0.002 m";
+    "Glazing thickness for most PV cell panels it is 0.002 m";
 
   parameter Real refInd(unit="1")=1.526
-  "Effective index of refraction of the cell cover (glass)";
+    "Effective index of refraction of the cell cover (glass)";
 
   Modelica.Units.SI.Irradiance HDirHor
    "Beam solar radiation on the horizontal surface";
@@ -65,10 +65,12 @@ model PVOpticalAbsRat
 
   Modelica.Units.SI.Angle zen "Zenith angle";
 
-  BaseClasses.PVOptical.AirMass airMas(final alt=alt)
+  IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.AirMass airMas(
+    final alt=alt)
     "Air mass computation"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  BaseClasses.PVOptical.AirMassModifier airMasMod(
+
+  IBPSA.Electrical.BaseClasses.PV.BaseClasses.PVOptical.AirMassModifier airMasMod(
     final PVTecTyp=PVTecTyp)
     "Air mass modifier computation depending on PV type"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));

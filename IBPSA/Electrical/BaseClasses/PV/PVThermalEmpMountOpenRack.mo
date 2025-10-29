@@ -11,8 +11,8 @@ model PVThermalEmpMountOpenRack
   parameter Real a_0(unit = "s/m") = 3.8 "Coefficient a0 for empirical relation";
 
 equation
- TCel = TDryBul + (TNOCT - TDryBul0)*HGloTil/HNOCT*9.5/(5.7 + a_0*winVel)*
-       (1 - eta/coeTranAbs);
+  TCel = TDryBul + (TNOCT - TDryBul0)*HGloTil/HNOCT*9.5/(5.7 + a_0*winVel)*
+        (1 - eta/coeTranAbs);
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

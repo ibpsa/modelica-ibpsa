@@ -47,8 +47,10 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-        Documentation(info="<html>
-<p>The model computes the air mass modifier.</p>
+Documentation(info="<html>
+<p>
+The model computes the air mass modifier.
+</p>
 <p>
 The air mass modifier depends on the PV technology type and is automatically parameterized.
 </p>

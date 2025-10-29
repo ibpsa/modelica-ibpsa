@@ -140,8 +140,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
-    Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
+  Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
+  Icon(coordinateSystem(extent={{-100,-120},{100,120}}), graphics={
     Rectangle(extent={{-100,100},{100,-100}}, lineColor={215,215,215},fillColor={215,215,215},
             fillPattern = FillPattern.Solid),
     Rectangle(extent={{-62,30},{-34,2}},lineColor={0,0,255},fillColor={0,0,255},
