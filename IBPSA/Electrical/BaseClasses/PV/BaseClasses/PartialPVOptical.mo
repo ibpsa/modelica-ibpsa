@@ -71,11 +71,10 @@ equation
           arrow={Arrow.None,Arrow.Filled})}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
-Documentation(info="<html>
-<p>
+Documentation(info= "<html><head></head><body><p>
 This is a partial model for the optical surrogate model of a photovoltaic model.
-</p>
-</html>", revisions="<html>
+</p><p><br></p><p>The PV cell tilt can be either set via a parameter (if it is fixed) or via an interface (if it is adaptable).</p>
+</body></html>", revisions="<html>
 <ul>
 <li>
 Nov 17, 2022, by Laura Maier:<br/>
