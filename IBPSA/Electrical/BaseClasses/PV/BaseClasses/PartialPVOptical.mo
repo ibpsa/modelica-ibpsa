@@ -73,7 +73,7 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
 Documentation(info= "<html><head></head><body><p>
 This is a partial model for the optical surrogate model of a photovoltaic model.
-</p><p><br></p><p>The PV cell tilt can be either set via a parameter (if it is fixed) or via an interface (if it is adaptable).</p>
+</p><p>The PV cell tilt can be either set via a parameter (if it is fixed) or via an interface (if it is adaptable).</p>
 </body></html>", revisions="<html>
 <ul>
 <li>
