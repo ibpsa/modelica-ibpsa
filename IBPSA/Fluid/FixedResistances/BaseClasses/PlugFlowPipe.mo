@@ -293,7 +293,6 @@ equation
   connect(noMixPip_a.port_b, heaLos_a.port_b) annotation (Line(points={{-70,-20},
           {-64,-20},{-64,0},{-60,0}}, color={0,127,255}));
   annotation (
-    Line(points={{70,20},{72,20},{72,0},{100,0}}, color={0,127,255}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
