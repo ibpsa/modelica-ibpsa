@@ -118,7 +118,6 @@ equation
     extent={{-70,-110},{76,-146}},
     textColor={0,0,255},
     fillColor={236,99,92},
-    fillPattern=FillPattern.Solid,
     textString="%name"),
   Rectangle(
     extent={{-2,54},{100,-82}},

@@ -41,13 +41,11 @@ partial class GeneralizedSensor
           extent={{-60,-42},{60,-82}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="V"),
         Text(
           extent={{0,-40},{120,-80}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="I"),    Text(
           extent={{-140,110},{140,70}},
           textColor={0,0,0},

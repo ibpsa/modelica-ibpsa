@@ -85,6 +85,5 @@ First implementation.
           extent={{-120,-42},{0,-82}},
           textColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
           textString="S")}));
 end GeneralizedSensor;
