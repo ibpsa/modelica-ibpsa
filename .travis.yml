@@ -47,7 +47,7 @@ install:
 
 # Execute tests
 script:
-  - rm -f dslog.txt; rm -f *.fmu; dymola -r IBPSA/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Fan.mos ; unzip IBPSA_Fluid_FMI_ExportContainers_Examples_FMUs_Fan.fmu; cat dslog.txt; dymola -h
+  - rm -f dslog.txt; rm -f *.fmu; dymola -r IBPSA/Resources/Scripts/Dymola/Fluid/FMI/ExportContainers/Examples/FMUs/Fan.mos ;
 
 after_failure:
   - |
