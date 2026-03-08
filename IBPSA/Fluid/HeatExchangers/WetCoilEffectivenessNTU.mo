@@ -77,6 +77,9 @@ model WetCoilEffectivenessNTU
   Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 
+  IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
+    "Heat exchanger flow regime";
+
 protected
   final parameter Modelica.Units.SI.MassFraction X_w_a2_nominal=w_a2_nominal/(1
        + w_a2_nominal)
@@ -219,8 +222,6 @@ protected
     "Index of water";
   parameter IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime_nominal(fixed=false)
     "Heat exchanger flow regime at nominal flow rates";
-  IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
-    "Heat exchanger flow regime";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
