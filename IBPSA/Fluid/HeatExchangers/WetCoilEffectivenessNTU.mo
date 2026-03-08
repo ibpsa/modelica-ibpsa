@@ -281,7 +281,7 @@ protected
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
-  parameter Real mPro_flow_nominal(unit="kg*kg/s/s") = m1_flow_nominal*m2_flow_nominal
+  parameter Real mPro_flow_nominal(unit="kg.kg/(s.s)") = m1_flow_nominal*m2_flow_nominal
     "Product of nominal mass flow rates, used for scaling";
 
 initial equation

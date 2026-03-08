@@ -88,7 +88,7 @@ protected
   IBPSA.Fluid.Types.HeatExchangerFlowRegime flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 
-  parameter Real mPro_flow_nominal(unit="kg*kg/s/s") = m1_flow_nominal*m2_flow_nominal
+  parameter Real mPro_flow_nominal(unit="kg.kg/(s.s)") = m1_flow_nominal*m2_flow_nominal
     "Product of nominal mass flow rates, used for scaling";
 
 initial equation
