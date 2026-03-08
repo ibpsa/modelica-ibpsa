@@ -16,7 +16,8 @@ model WetCoilEffectivenessNTU
 
   parameter IBPSA.Fluid.Types.HeatExchangerConfiguration configuration=
     IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow
-    "Heat exchanger configuration";
+    "Heat exchanger configuration"
+    annotation(Evaluate=true);
   parameter Real r_nominal=2/3
     "Ratio between air-side and water-side convective heat transfer coefficient";
 
@@ -322,47 +323,45 @@ initial equation
       configuration <= IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
+  flowRegime = flowRegime_nominal;
 
-equation
+algorithm
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
-  if use_dynamicFlowRegime then
-    if (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
-      // ParallelFlow vs CounterFlow
-      when(flowRegime==flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.01)) then
-        flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
-      elsewhen(flowRegime==IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.01)) then
-        flowRegime = flowRegime_nominal;
-      end when;
 
-    elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
-      // CounterFlow vs ParallelFlow
-      when(flowRegime == flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.01)) then
-        flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
-      elsewhen(flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.01)) then
-        flowRegime = flowRegime_nominal;
-      end when;
+  // ParallelFlow vs CounterFlow
+  when(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) and
+        flowRegime==flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.001)) then
+    flowRegime := IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) and
+      flowRegime==IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.001)) then
+    flowRegime := flowRegime_nominal;
+    
+  // CounterFlow vs ParallelFlow
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) and
+    flowRegime == flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.001)) then
+      flowRegime := IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) and
+    flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.001)) then
+      flowRegime := flowRegime_nominal;
 
-    elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
-      flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
+  // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed)
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) and
+    flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
+      flowRegime := IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) and
+    (flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed and (C1_flow > 1.05*C2_flow))) then
+      flowRegime := flowRegime_nominal;
+  // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and 
+    flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
+      flowRegime := IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and
+    (flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed and (C1_flow > 1.05*C2_flow))) then
+      flowRegime := flowRegime_nominal;
+  end when;
 
-    elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
-      // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed)
-      when(flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
-        flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed;
-      elsewhen( (flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed and (C1_flow > 1.05*C2_flow)) ) then
-        flowRegime = flowRegime_nominal;
-      end when;
-    else
-      // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
-      when(flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
-        flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
-      elsewhen( (flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed and (C1_flow > 1.05*C2_flow)) ) then
-        flowRegime = flowRegime_nominal;
-      end when;
-    end if;
-  else
-    flowRegime = flowRegime_nominal;
+  if not use_dynamicFlowRegime then
     assert(noEvent(m1_flow > -0.1 * m1_flow_nominal)
        and noEvent(m2_flow > -0.1 * m2_flow_nominal),
 "*** Warning in " + getInstanceName() +
@@ -375,6 +374,7 @@ equation
       level = AssertionLevel.warning);
   end if;
 
+equation
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
       thickness=1));
   connect(heaCooHum_u.port_b, port_b2) annotation (Line(
