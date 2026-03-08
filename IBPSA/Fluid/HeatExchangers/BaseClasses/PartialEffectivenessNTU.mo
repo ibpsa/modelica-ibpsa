@@ -175,7 +175,7 @@ algorithm
   elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) and
       flowRegime==IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.001)) then
     flowRegime := flowRegime_nominal;
-    
+
   // CounterFlow vs ParallelFlow
   elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) and
     flowRegime == flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.001)) then
