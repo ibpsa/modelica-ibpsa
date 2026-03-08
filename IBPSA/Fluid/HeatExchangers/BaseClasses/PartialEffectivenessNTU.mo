@@ -192,7 +192,7 @@ algorithm
     (flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed and (C1_flow > 1.05*C2_flow))) then
       flowRegime := flowRegime_nominal;
   // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
-  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and 
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and
     flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
       flowRegime := IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
   elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and

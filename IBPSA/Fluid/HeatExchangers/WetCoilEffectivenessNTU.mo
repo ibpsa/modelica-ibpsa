@@ -336,7 +336,7 @@ algorithm
   elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) and
       flowRegime==IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow and (m1_flow*m2_flow/mPro_flow_nominal > 0.001)) then
     flowRegime := flowRegime_nominal;
-    
+
   // CounterFlow vs ParallelFlow
   elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) and
     flowRegime == flowRegime_nominal and (m1_flow*m2_flow/mPro_flow_nominal < -0.001)) then
@@ -353,7 +353,7 @@ algorithm
     (flowRegime == IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinMixedCMaxUnmixed and (C1_flow > 1.05*C2_flow))) then
       flowRegime := flowRegime_nominal;
   // have ( configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
-  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and 
+  elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and
     flowRegime == flowRegime_nominal and (C1_flow < 0.95*C2_flow)) then
       flowRegime := IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowCMinUnmixedCMaxMixed;
   elsewhen(use_dynamicFlowRegime and (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed) and
