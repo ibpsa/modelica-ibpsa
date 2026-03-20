@@ -346,7 +346,7 @@ Fabian Wuellhorst, RWTH Aachen University, Germany
     Documentation(info="<html>
 <h4>License</h4>
 <p>
-Modelica IBPSA Library. Copyright (c) 1998-2022
+Modelica IBPSA Library. Copyright (c) 1998-2026
 Modelica Association,
 International Building Performance Simulation Association (IBPSA) and
 contributors.
