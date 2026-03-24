@@ -57,10 +57,6 @@
   openmodelica:
     comment: Timeout after 300 s
     time_out: 600
-- model_name: IBPSA.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
 - model_name: IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
     comment: returned non-zero exit status 139
