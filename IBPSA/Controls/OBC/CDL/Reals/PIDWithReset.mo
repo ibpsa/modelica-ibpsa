@@ -65,6 +65,7 @@ block PIDWithReset
     "Proportional action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   IBPSA.Controls.OBC.CDL.Reals.IntegratorWithReset I(
+    y(nominal=max(yMax)),
     final k=k/Ti,
     final y_start=xi_start) if with_I
     "Integral term"
