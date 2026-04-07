@@ -191,20 +191,20 @@ by running the model in Dymola.</p>
 <span class="linenos">  8</span><span class="sd">heat pump parameters is generated.</span>
 <span class="linenos">  9</span>
 <span class="linenos"> 10</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="linenos"> 11</span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+<span class="linenos"> 11</span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 <span class="linenos"> 12</span>
-<span class="linenos"> 13</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="linenos"> 14</span><span class="kn">import</span> <span class="nn">os</span>
-<span class="linenos"> 15</span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="linenos"> 16</span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="linenos"> 13</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="linenos"> 14</span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="linenos"> 15</span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="linenos"> 16</span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 <span class="linenos"> 17</span>
 <span class="linenos"> 18</span>
-<span class="linenos"> 19</span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="linenos"> 19</span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
 <span class="linenos"> 20</span>    <span class="c1"># Add parent directory to system path</span>
 <span class="linenos"> 21</span>    <span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
 <span class="linenos"> 22</span>    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">parent_dir</span><span class="p">)</span>
 <span class="linenos"> 23</span>    <span class="c1"># Import Heat pump and calibration module</span>
-<span class="linenos"> 24</span>    <span class="kn">import</span> <span class="nn">PythonModel</span> <span class="k">as</span> <span class="nn">hp</span>
+<span class="linenos"> 24</span>    <span class="kn">import</span><span class="w"> </span><span class="nn">PythonModel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hp</span>
 <span class="linenos"> 25</span>    <span class="c1"># Change working directory to current directory</span>
 <span class="linenos"> 26</span>    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
 <span class="linenos"> 27</span>    <span class="c1"># Author info for record generation</span>
@@ -292,7 +292,7 @@ by running the model in Dymola.</p>
 <span class="linenos">109</span>    <span class="k">return</span> <span class="n">optRes</span><span class="p">,</span> <span class="n">dymRes</span>
 <span class="linenos">110</span>
 <span class="linenos">111</span>
-<span class="linenos">112</span><span class="k">def</span> <span class="nf">write_record_scroll</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="n">manufacturer</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">CoolingMode</span><span class="p">,</span>
+<span class="linenos">112</span><span class="k">def</span><span class="w"> </span><span class="nf">write_record_scroll</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="n">manufacturer</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">CoolingMode</span><span class="p">,</span>
 <span class="linenos">113</span>                        <span class="n">refrigerant</span><span class="p">,</span> <span class="n">Q_nominal</span><span class="p">,</span> <span class="n">COP_nominal</span><span class="p">,</span>
 <span class="linenos">114</span>                        <span class="n">optPar</span><span class="p">):</span>
 <span class="linenos">115</span>    <span class="c1"># Evaluate current date</span>

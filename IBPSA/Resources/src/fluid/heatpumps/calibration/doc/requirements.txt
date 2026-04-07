@@ -18,7 +18,7 @@ packaging==24.2
 pillow==12.2.0
 pybtex==0.24.0
 pybtex-docutils==1.0.3
-Pygments==2.18.0
+Pygments==2.20.0
 pyparsing==3.1.4
 python-dateutil==2.9.0.post0
 pytz==2024.1
