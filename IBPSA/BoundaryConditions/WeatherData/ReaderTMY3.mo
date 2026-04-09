@@ -1264,7 +1264,7 @@ to the desired <code>mos</code> format is supported.
 </li>
 <li>
 <p>
-You can use a Java application to convert <code>epw</code> to <code>mos</code> format by following these steps:
+You can use a Python application to convert <code>epw</code> to <code>mos</code> format by following these steps:
 </p>
 <ol>
 <li>
@@ -1284,13 +1284,13 @@ for which you have write permission).
 <p>
 On a console window, type</p><pre>
   cd IBPSA/Resources/weatherdata
-  java -jar ../bin/ConvertWeatherData.jar inputFile.epw
+  Python ConvertWeatherData.py inputFile.epw
 </pre>
 <p>
 or if <code>inputFile.epw</code> contains space in the name:
 </p>
 <pre>
-  java -jar ../bin/ConvertWeatherData.jar \"inputFile .epw\"
+  Python ConvertWeatherData.py \"inputFile .epw\"
 </pre>
 <p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
@@ -1613,6 +1613,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 7, 2026, by Ettore Zanetti:<br/>
+Update documentation on weather script.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
+</li>
 <li>
 May 28, 2025, by Fabian Wuellhorst:<br/>
 Added information on AixWeather to documentation.<br/>
