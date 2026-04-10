@@ -24,9 +24,9 @@ Python conversion maintains full compatibility with the original converter by:
     Version 1.0, January 2, 2026
 
 Usage:
-    python ConvertWeatherData.py input_file.epw
-    python ConvertWeatherData.py input_file.epw -o output_file.mos
-    python ConvertWeatherData.py input_file.epw --verbose
+    python convert_weather_data.py input_file.epw
+    python convert_weather_data.py input_file.epw -o output_file.mos
+    python convert_weather_data.py input_file.epw --verbose
 """
 
 import argparse

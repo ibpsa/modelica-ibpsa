@@ -1284,13 +1284,13 @@ for which you have write permission).
 <p>
 On a console window, type</p><pre>
   cd IBPSA/Resources/weatherdata
-  Python ConvertWeatherData.py inputFile.epw
+  python convert_weather_data.py inputFile.epw
 </pre>
 <p>
 or if <code>inputFile.epw</code> contains space in the name:
 </p>
 <pre>
-  Python ConvertWeatherData.py \"inputFile .epw\"
+  python convert_weather_data.py \"inputFile .epw\"
 </pre>
 <p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
