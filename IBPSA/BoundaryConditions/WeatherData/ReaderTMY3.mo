@@ -1302,7 +1302,7 @@ To see the script options use the help argument:
 <pre>
   python ../bin/convert_weather_data.py -h
 </pre>
-</p>
+
 </li>
 </ol>
 </ul>
