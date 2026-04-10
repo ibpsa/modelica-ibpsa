@@ -1284,19 +1284,24 @@ for which you have write permission).
 <p>
 On a console window, type</p><pre>
   cd IBPSA/Resources/weatherdata
-  python convert_weather_data.py inputFile.epw
+  python ../bin/convert_weather_data.py inputFile.epw
 </pre>
 <p>
 or if <code>inputFile.epw</code> contains space in the name:
 </p>
 <pre>
-  python convert_weather_data.py \"inputFile .epw\"
+  python ../bin/convert_weather_data.py \"inputFile .epw\"
 </pre>
 <p>
 This will generate the weather data file <code>inputFile.mos</code>, which can be read
 by the model
 <a href=\"modelica://IBPSA.BoundaryConditions.WeatherData.ReaderTMY3\">
 IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+To see the script options use the help argument:
+</p>
+<pre>
+  python ../bin/convert_weather_data.py -h
+</pre>
 </p>
 </li>
 </ol>
