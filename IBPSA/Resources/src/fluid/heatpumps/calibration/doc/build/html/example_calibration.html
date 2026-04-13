@@ -13,8 +13,10 @@
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css?v=0cb5a744" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css?v=18a45976" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css?v=b7c6d2d5" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=ed534ff7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=1cc63dce" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css?v=eb9de370" />
+    <script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
     <script src="_static/documentation_options.js?v=292eb321"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -100,20 +102,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="dummy_performance_data.html">Generate performance data from heat pump model</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Calibrate heat pump model from performance data</a></li>
-</ul>
-</ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Calibrate heat pump model from performance data</a></li>
 </ul>
 </ul>
 </li>
@@ -387,9 +375,9 @@ calibrated parameters.</span><a class="headerlink" href="#id2" title="Link to th
 </figcaption>
 </figure>
 <p>The following record is generated for use in Modelica:</p>
-<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kr">within</span> <span class="nn">IBPSA</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">HeatPumps</span><span class="o">.</span><span class="n">Data</span><span class="o">.</span><span class="n">ScrollWaterToWater</span><span class="o">.</span><span class="n">Heating</span><span class="p">;</span>
+<div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kr">within</span> <span class="nn">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">HeatPumps</span><span class="o">.</span><span class="n">Data</span><span class="o">.</span><span class="n">ScrollWaterToWater</span><span class="o">.</span><span class="n">Heating</span><span class="p">;</span>
 <span class="linenos"> 2</span><span class="kr">record</span> <span class="nc">SomeManufacturer_ABC060_70kW_4_0COP_R410A</span> <span class="o">=</span>
-<span class="linenos"> 3</span>  <span class="n">IBPSA</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">HeatPumps</span><span class="o">.</span><span class="n">Data</span><span class="o">.</span><span class="n">ScrollWaterToWater</span><span class="o">.</span><span class="n">Generic</span> <span class="p">(</span>
+<span class="linenos"> 3</span>  <span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">HeatPumps</span><span class="o">.</span><span class="n">Data</span><span class="o">.</span><span class="n">ScrollWaterToWater</span><span class="o">.</span><span class="n">Generic</span> <span class="p">(</span>
 <span class="linenos"> 4</span>    <span class="n">volRat</span> <span class="o">=</span> <span class="mf">2.36185869323</span><span class="p">,</span>
 <span class="linenos"> 5</span>    <span class="n">V_flow_nominal</span> <span class="o">=</span> <span class="mf">0.00287086738316</span><span class="p">,</span>
 <span class="linenos"> 6</span>    <span class="n">leaCoe</span> <span class="o">=</span> <span class="mf">0.00408074950474</span><span class="p">,</span>
@@ -433,7 +421,6 @@ calibrated parameters.</span><a class="headerlink" href="#id2" title="Link to th
     </p>
   </div>
 </footer>
-  <script type="text/javascript" src="_static/dropdown-fix.js"></script>
 
   </body>
 </html>
