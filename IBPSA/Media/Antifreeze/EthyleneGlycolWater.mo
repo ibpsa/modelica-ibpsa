@@ -170,6 +170,10 @@ protected
   revisions="<html>
   <ul>
   <li>
+  April 14, 2026, by Michael Wetter:<br/>
+  Corrected typo in documentation.
+  </li>
+  <li>
   May 2, 2018 by Massimo Cimmino:<br/>
   First implementation.
   This function is used by
@@ -464,6 +468,10 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2026, by Michael Wetter:<br/>
+Corrected typo in documentation.
+</li>
 <li>
 August 05, 2020, by Wen HU:<br/>
 First implementation.
