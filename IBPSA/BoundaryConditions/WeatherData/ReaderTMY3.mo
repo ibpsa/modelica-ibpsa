@@ -1579,8 +1579,8 @@ midnight at December 31 as the value for <i>t=0</i>. Rather, the
 value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
 To maintain a data record with <i>8760</i> hours, the weather data record from
 midnight at December 31 is deleted.
-These changes in the weather data file are done in the Java program
-<code>IBPSA/Resources/bin/ConvertWeatherData.jar</code> that converts
+These changes in the weather data file are done in the python script
+<code>IBPSA/Resources/bin/convert_weather_data.py</code> that converts
 EnergyPlus weather data file to Modelica weather data files, and which is described
 above.
 The length of the weather data is calculated as the
