@@ -46,7 +46,7 @@ logger.setLevel(logging.DEBUG)
 
 # Create console handler with formatting
 console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
+console_handler.setLevel(logging.WARNING)  # Default to WARNING, can be set to DEBUG with --verbose
 formatter = logging.Formatter('%(levelname)s: %(message)s')
 console_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
