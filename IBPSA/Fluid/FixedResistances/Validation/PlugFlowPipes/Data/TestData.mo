@@ -5,10 +5,10 @@ replaceable PipeDataAIT151218 pipeDataToBeRead constrainedby
     BaseClasses.PipeDataBaseDefinition "Measurement dataset from AIT"
     annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
     Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
-    tableOnFile=true,
-    tableName="dat",
-    fileName=pipeDataToBeRead.filNam,
-    columns=2:pipeDataToBeRead.nCol)
+    final tableOnFile=true,
+    final tableName="dat",
+    final fileName=pipeDataToBeRead.filNam,
+    final columns=2:pipeDataToBeRead.nCol)
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
 

@@ -38,11 +38,11 @@ model Analytic_20Years
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable timTabQ(
-    tableOnFile=true,
-    tableName="tab1",
-    columns={2},
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    fileName=Modelica.Utilities.Files.loadResource(
+    final tableOnFile=true,
+    final tableName="tab1",
+    final columns={2},
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final fileName=Modelica.Utilities.Files.loadResource(
       "modelica://IBPSA/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Analytic_20Years.txt"))
         "Table for heat injected, using constant segments"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));

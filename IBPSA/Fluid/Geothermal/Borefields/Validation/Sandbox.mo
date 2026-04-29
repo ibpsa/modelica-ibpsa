@@ -57,11 +57,11 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Blocks.Sources.CombiTimeTable sandBoxMea(
-    tableOnFile=true,
-    tableName="data",
-    offset={0,0,0},
-    columns={2,3,4},
-    fileName=Modelica.Utilities.Files.loadResource(
+    final tableOnFile=true,
+    final tableName="data",
+    final offset={0,0,0},
+    final columns={2,3,4},
+    final fileName=Modelica.Utilities.Files.loadResource(
       "modelica://IBPSA/Resources/Data/Fluid/Geothermal/Borefields/HeatTransfer/Validation/Beier_Smith_Spitler_2011_SandBox.txt"))
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   IBPSA.Fluid.HeatExchangers.HeaterCooler_u hea(

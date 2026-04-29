@@ -5,7 +5,9 @@ model WeeklySchedule "Weekly schedule"
     "Columns of the schedule to be produced at the output y. First column is time, hence value must be 2 or larger";
   parameter Boolean tableOnFile=false
     "= true, if table is defined on file; false if defined through parameter data"
-    annotation(Dialog(group="Data source"));
+    annotation(
+      Evaluate=true,
+      Dialog(group="Data source"));
   parameter String fileName = ""
     "Filename"
     annotation(Dialog(group="Data source", enable=tableOnFile));

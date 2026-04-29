@@ -18,7 +18,8 @@ partial model PartialWindTurbineBase
    annotation (Dialog(group="Wind correction"));
 
   parameter Boolean tableOnFile=false
-    "true, if table is defined on file or in function usertab";
+    "true, if table is defined on file or in function usertab"
+    annotation(Evaluate=true);
   parameter Real table[:,2]=
           [3.5, 0;
            5.5, 0.1;

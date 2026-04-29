@@ -37,10 +37,10 @@ model MSLAIT2Nodes
         rotation=-90,
         origin={-96,152})));
   Modelica.Blocks.Sources.CombiTimeTable DataReader(
-    tableOnFile=true,
-    tableName="dat",
-    columns=2:pipeDataAIT151218.nCol,
-    fileName=pipeDataAIT151218.filNam)
+    final tableOnFile=true,
+    final tableName="dat",
+    final columns=2:pipeDataAIT151218.nCol,
+    final fileName=pipeDataAIT151218.filNam)
     "Read measurement data"
     annotation (Placement(transformation(extent={{0,-158},{20,-138}})));
   Data.PipeDataAIT151218 pipeDataAIT151218 "Measurement data from AIT"
