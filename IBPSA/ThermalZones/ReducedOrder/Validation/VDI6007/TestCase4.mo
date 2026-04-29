@@ -63,7 +63,7 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         5148000,52.4; 5151600,52.6; 5155200,52.8; 5158800,53; 5162400,53.2;
         5166000,50.2; 5169600,49.9; 5173200,49.7; 5176800,49.5; 5180400,49.2;
         5184000,49],
-    finaloffset={273.15})
+    final offset={273.15})
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
