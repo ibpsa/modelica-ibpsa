@@ -1,5 +1,5 @@
 within IBPSA.BoundaryConditions.WeatherData;
-block ReaderTMY3 "Reader for TMY3 weather data"
+model ReaderTMY3 "Reader for TMY3 weather data"
 
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
             290,-10},{310,10}}), iconTransformation(extent={{190,-10},{210,10}})));
@@ -1258,7 +1258,7 @@ To use new weather data, there are two supported ways:
 You can use the Python tool AixWeather
 (<a href=\"https://github.com/RWTH-EBC/AixWeather\">https://github.com/RWTH-EBC/AixWeather</a>),
 which is installable via <code>pip</code> or accessible via a WebApp (<a href=\"https://aixweather.eonerc.rwth-aachen.de/\">https://aixweather.eonerc.rwth-aachen.de/</a>).
-Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data 
+Here, conversion of <code>epw</code> (EnergyPlus), <code>dat</code> (German Meteorological Service) or custom data
 to the desired <code>mos</code> format is supported.
 </p>
 </li>
@@ -1618,6 +1618,11 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2026, by Jianjun Hu:<br/>
+Changed the class type from block to model.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2091\">IBPSA, #2091</a>.
+</li>
 <li>
 April 7, 2026, by Ettore Zanetti:<br/>
 Update documentation on weather script.<br/>
