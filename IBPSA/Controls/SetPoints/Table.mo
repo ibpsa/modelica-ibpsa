@@ -74,6 +74,12 @@ Note that the first column must be strictly increasing.
 revisions="<html>
 <ul>
 <li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
+<li>
 August 30, 2016, by Michael Wetter:<br/>
 Changed protected final parameter <code>nCol</code> to <code>nRow</code>.<br/>
 This is for

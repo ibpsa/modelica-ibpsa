@@ -112,6 +112,12 @@ M.A.Sc. Thesis, &Eacute;cole Polytechnique de Montr&eacute;al.
 </html>", revisions="<html>
 <ul>
 <li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
+<li>
 March 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.
 </li>

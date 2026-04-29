@@ -129,6 +129,12 @@ spectral method to simulate borehole heat exchanger</i>. Geothermics 51:
 </html>", revisions="<html>
 <ul>
 <li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
+<li>
 November 15, 2022, by Michael Wetter:<br/>
 Set proper head for pump.<br/>
 This is for

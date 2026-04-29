@@ -89,6 +89,12 @@ g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 </html>", revisions="<html>
 <ul>
 <li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
+<li>
 July 18, 2018, by Massimo Cimmino:<br/>
 First implementation.
 </li>

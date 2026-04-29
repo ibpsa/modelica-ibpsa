@@ -434,6 +434,12 @@ R=1/(0.208)+1/(2 &nbsp; lambda_g &nbsp; Modelica.Constants.pi) &nbsp; log(1/0.18
 </html>", revisions="<html>
 <ul>
 <li>
+April 29, 2026, by Michael Wetter:<br/>
+Changed configuration of table to cause the parameters to be evaluated, as this leads to more efficient code.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2111\">IBPSA, #2111</a>.
+</li>
+<li>
 March 7, 2020, by Michael Wetter:<br/>
 Replaced measured data from specification in Modelica file to external table,
 as this reduces the computing time.<br/>
