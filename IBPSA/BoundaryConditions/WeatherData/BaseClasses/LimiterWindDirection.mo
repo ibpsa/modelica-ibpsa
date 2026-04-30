@@ -26,7 +26,7 @@ revisions="<html>
 <ul>
 <li>
 April 7, 2026, by Ettore Zanetti:<br/>
-Updated limit to from [0,360] to [-720,720].<br/>
+Updated limit from [0,360] to [-720,720].<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2068\">IBPSA, #2068</a>.
 </li>
