@@ -34,9 +34,10 @@ def updateFile(fil):
 
     for k, v in dic.iteritems():
         with open('temp.txt', "wt") as out:
-            for line in open(fil):
-                out.write(line.replace(k, v))
-            os.rename('temp.txt', fil)
+            with open(fil) as inp:
+                for line in inp:
+                    out.write(line.replace(k, v))
+        os.rename('temp.txt', fil)
 
 
 def deleteClass(package):
@@ -51,15 +52,13 @@ def deleteClass(package):
 
     def updatePackageOrder(packageName):
         filNam=os.path.join(os.path.split(packageName)[0], "package.order")
-        f = open(filNam)
-        out = []
-        for line in f:
-            if not os.path.split(packageName)[-1] in line:
-                out.append(line)
-        f.close()
-        f = open(filNam, 'w')
-        f.writelines(out)
-        f.close()
+        with open(filNam) as f:
+            out = []
+            for line in f:
+                if not os.path.split(packageName)[-1] in line:
+                    out.append(line)
+        with open(filNam, 'w') as f:
+            f.writelines(out)
 
     pacNam = getDirName(package)
     # Delete directory or file
