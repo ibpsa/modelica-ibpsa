@@ -40,8 +40,8 @@ for path, subdirs, files in os.walk(annex60Path):
             matchString=r'(^.*(https?://)?(www\.)?' + annex60Website + '.*)$'        # annex60Github url with optionally prepended http[s] and/or www.
             it = re.finditer(matchString, text, flags=re.MULTILINE)
             for match in it:
-                print "found reference to annex60 website in: " + filePath
-                print match.group()
+                print("found reference to annex60 website in: " + filePath)
+                print(match.group())
 
 # replace stuff
 for path, subdirs, files in os.walk(annex60Path):
@@ -52,8 +52,8 @@ for path, subdirs, files in os.walk(annex60Path):
                 text = f.read()
                 resultText=text
 
-                print "============================================"
-                print "Starting conversion for file " + filePath
+                print("============================================")
+                print("Starting conversion for file " + filePath)
 
                 # replace instances of modelica://Annex60/path
                 matchString=r'modelica://(' + annex60Name + r')\..*$'   # matches of modelica://Annex60/something
@@ -63,7 +63,7 @@ for path, subdirs, files in os.walk(annex60Path):
                     replaceText = matchText.replace('modelica://' + annex60Name, 'modelica://' + newName) # append modelica:// to avoid accidentally replacing other stuff that contains Annex60
                     if not dryRun:
                         resultText=resultText.replace(matchText,replaceText, 1)     # only replace first instance since others are treated by iterator later
-                    print "replacing " + matchText + " \nby " + replaceText+ "\n"
+                    print("replacing " + matchText + " \nby " + replaceText+ "\n")
 
 
                 # replace all references to the annex60 github page
@@ -74,7 +74,7 @@ for path, subdirs, files in os.walk(annex60Path):
                     matchText = match.group(1)
                     if not dryRun:
                         resultText=resultText.replace(matchText,newGithub, 1)       # only replace first instance since others are treated by iterator later
-                    print "replacing " + matchText + " \nby " + replaceText + "\n"
+                    print("replacing " + matchText + " \nby " + replaceText + "\n")
 
                 # replace references to buildings github that were wrongly replaced by link to annex60
                 if not dryRun:
@@ -87,7 +87,7 @@ for path, subdirs, files in os.walk(annex60Path):
                 for match in it:
                     matchText = match.group(0)
                     matchTextNew = matchText
-                    print "replacing " + annex60Name + " in line:\n" + matchText+ "\n"
+                    print("replacing " + annex60Name + " in line:\n" + matchText+ "\n")
                     matchTextNew = matchTextNew.replace(annex60Name, newName)       #replaces all instances
                     if not dryRun:
                         resultText=resultText.replace(matchText,matchTextNew, 1)    # only replace first instance since others are treated by iterator later
@@ -97,7 +97,7 @@ for path, subdirs, files in os.walk(annex60Path):
                 it = re.finditer(matchString, resultText, flags=re.MULTILINE)
                 for match in it:
                     matchText = match.group(0)
-                    print "replacing " + annex60Name.lower() + " in line:\n" + matchText.lower()+ "\n"
+                    print("replacing " + annex60Name.lower() + " in line:\n" + matchText.lower()+ "\n")
                     matchTextNew = matchText.replace(annex60Name.lower(), newName.lower())       #replaces all instances
                     if not dryRun:
                         resultText=resultText.replace(matchText,matchTextNew, 1)    # only replace first instance since others are treated by iterator later
@@ -109,6 +109,6 @@ for path, subdirs, files in os.walk(annex60Path):
         # rename files containing 'Annex60' in the name
         if annex60Name in fileName:
             newFilePath = os.path.join(path, fileName.replace(annex60Name,newName))
-            print "renaming file " + filePath + " into " + newFilePath
+            print("renaming file " + filePath + " into " + newFilePath)
             if not dryRun:
                 shell_command(cmd = ["git", "mv", filePath, newFilePath], path = os.curdir)
