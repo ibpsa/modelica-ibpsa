@@ -114,7 +114,7 @@ equation
   connect(intResUTub.port_wall, port_wall) annotation (Line(points={{0,0},{0,0},
           {0,6},{-28,6},{-28,86},{0,86},{0,100}},             color={191,0,0}));
     annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
+    Icon(coordinateSystem(preserveAspectRatio=false),
     graphics={Rectangle(
           extent={{88,54},{-88,64}},
           lineColor={0,0,255},
@@ -216,7 +216,5 @@ January 23, 2014, by Damien Picard:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, initialScale=0.1),
-    graphics));
+</html>"));
 end InternalHEXOneUTube;
