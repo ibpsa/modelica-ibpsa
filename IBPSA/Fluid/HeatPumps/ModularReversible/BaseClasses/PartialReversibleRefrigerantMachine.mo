@@ -397,7 +397,7 @@ protected
                 Dialog(group="Input Connectors", enable=not use_intSafCtr));
 
 //@modelica_select_start @remove_Buildings @remove_BuildingSystems @remove_IDEAS
-// removed: protected
+protected
 //@modelica_select_end
   parameter Boolean use_COP "=true to enable COP output";
   parameter Boolean use_EER "=true to enable EER output";
@@ -731,12 +731,12 @@ This is for
     <i>May 22, 2019</i> by Julian Matthes:<br/>
     Rebuild due to the introducion of the thermal machine partial model
     (see issue <a href=
-    \"https://github.com/RWTH-EBC/Buildings/issues/715\">#715</a>)
+    \"https://github.com/RWTH-EBC/IBPSA/issues/715\">#715</a>)
   </li>
   <li>
     <i>November 26, 2018</i> by Fabian Wuellhorst:<br/>
     First implementation (see issue <a href=
-    \"https://github.com/RWTH-EBC/Buildings/issues/577\">#577</a>)
+    \"https://github.com/RWTH-EBC/IBPSA/issues/577\">#577</a>)
   </li>
 </ul>
 </html>", info="<html>
