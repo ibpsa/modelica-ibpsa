@@ -91,6 +91,11 @@ IBPSA.Fluid.Sensors.UsersGuide</a> for an explanation.
 revisions="<html>
 <ul>
 <li>
+June 25, 2026, by Michael Wetter:<br/>
+Added <code>nominal</code> attribute to state variable.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2132\">IBPSA, #2132</a>.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
 This is for
