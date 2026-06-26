@@ -4,7 +4,8 @@ model DensityTwoPort "Ideal two port density sensor"
   extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
-                                          min=0) "Density of the passing fluid"
+                                          min=0,
+                                          nominal=d_start) "Density of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{10,-10},{-10,10}},
