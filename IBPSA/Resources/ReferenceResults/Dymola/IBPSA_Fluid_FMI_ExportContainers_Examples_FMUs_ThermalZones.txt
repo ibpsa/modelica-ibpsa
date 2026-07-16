@@ -209,6 +209,7 @@ statistics-fmu-dependencies=
     "fluPor[2,1].backward.X_w": [
       "vol2.dynBal.medium.Xi[1]"
     ],
+    "fluPor[2,2].backward.T": [
       "vol2.dynBal.medium.Xi[1]",
       "vol2.dynBal.U",
       "vol2.dynBal.m"
