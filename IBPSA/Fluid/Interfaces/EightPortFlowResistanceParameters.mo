@@ -11,7 +11,7 @@ record EightPortFlowResistanceParameters
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
 
-parameter Real n1(min=1, max=2) = 2
+  parameter Real n1(min=1, max=2) = 2
     "Flow exponent for side 1, n=1 for laminar, n=2 for turbulent"
     annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
   parameter Modelica.Units.SI.Pressure dp1_nominal(min=0, displayUnit="Pa")
@@ -77,7 +77,7 @@ parameter Real n1(min=1, max=2) = 2
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance4,
                 tab="Flow resistance", group="Medium 4"));
 
-parameter Real n4(min=1, max=2) = 2
+  parameter Real n4(min=1, max=2) = 2
     "Flow exponent for side 4, n=1 for laminar, n=2 for turbulent"
     annotation(Evaluate=true, Dialog(tab="Flow resistance", group="Medium 4"));
   parameter Modelica.Units.SI.Pressure dp4_nominal(min=0, displayUnit="Pa")
