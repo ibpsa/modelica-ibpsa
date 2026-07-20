@@ -1,0 +1,33 @@
+removePlots();
+simulateModel("IBPSA.Fluid.PVTCollectors.BaseClasses.Examples.ISO9806HeatLoss", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "ISO9806HeatLoss");
+createPlot(id = 11,
+ position = {0, 0, 1000, 500},
+ y = {"QLos_flow_SteSta[2]", "QLos_flow_QuaDyn[2]"},
+ range = {0.0, 100.0, -80.0, 10.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ISO9806HeatLoss.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+createPlot(id = 11,
+ position = {0, 0, 1000, 500},
+ y = {"TEnv.y", "T1.y", "T2.y", "T3.y"},
+ range = {0.0, 100.0, 275.0, 310.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}});
+
