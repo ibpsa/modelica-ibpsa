@@ -3,10 +3,10 @@ model PVT_UI_Thermal_DayType1
   "Validation model for an unglazed rear-insulated PVT Collector"
   extends .Modelica.Icons.Example;
 
-  replaceable package Medium = .IDEAS.Media.Water "Medium model";
-  replaceable parameter .IDEAS.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
+  replaceable package Medium = .IBPSA.Media.Water "Medium model";
+  replaceable parameter .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
   annotation (Placement(transformation(extent={{72,-6},{92,14}})));
-  replaceable parameter .IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.UI_Validation datPVTColVal "Collector parameter record"
+  replaceable parameter .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.UI_Validation datPVTColVal "Collector parameter record"
   annotation (Placement(transformation(extent={{72,-32},{92,-12}})));
 
   parameter String pvtTyp = "Typ1" "Type identifier for selecting the UI measurement dataset";
@@ -22,7 +22,7 @@ model PVT_UI_Thermal_DayType1
   parameter Integer idxWinSpe = 10 "Column index for wind speed";
   parameter Integer idxTAmb = 12 "Column index for ambient temperature";
   parameter Integer idxMeaPel = 21 "Column index for measured electrical power";
-  parameter String meaFile = "modelica://IDEAS/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UI/PVT_UI_" + pvtTyp + "_measurements.txt" "Full path to measurement file";
+  parameter String meaFile = "modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UI/PVT_UI_" + pvtTyp + "_measurements.txt" "Full path to measurement file";
 
   inner .Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
@@ -30,7 +30,7 @@ model PVT_UI_Thermal_DayType1
     fileName=.Modelica.Utilities.Files.loadResource(meaFile),
     columns=1:25) annotation (Placement(transformation(extent={{-92,20},{-72,40}})));
 
-  replaceable .IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtCol(
+  replaceable .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtCol(
     redeclare package Medium = Medium,
     energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -39,13 +39,13 @@ model PVT_UI_Thermal_DayType1
     azi=azi,
     til=til,
     rho=rho,
-    nColType=.IDEAS.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
     eleLosFac=eleLosFac)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  replaceable .IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtColVal(
+  replaceable .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtColVal(
     redeclare package Medium = Medium,
     energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -54,7 +54,7 @@ model PVT_UI_Thermal_DayType1
     azi=azi,
     til=til,
     rho=rho,
-    nColType=.IDEAS.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
     eleLosFac=eleLosFac)
@@ -67,13 +67,13 @@ model PVT_UI_Thermal_DayType1
     annotation (Placement(transformation(extent={{-87,-27},
             {-77,-17}})));
 
-  .IDEAS.Fluid.Sources.Boundary_pT sou(
+  .IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
     annotation (Placement(transformation(extent={{62,-10},{42,10}})));
-  .IDEAS.Fluid.Sources.MassFlowSource_T bou(
+  .IBPSA.Fluid.Sources.MassFlowSource_T bou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     m_flow=0.03,
@@ -81,13 +81,13 @@ model PVT_UI_Thermal_DayType1
     nPorts=1) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 
-  .IDEAS.Fluid.Sources.Boundary_pT sou1(
+  .IBPSA.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     use_p_in=false,
     p = 101325,
     nPorts=1) "Outlet for water flow"
     annotation (Placement(transformation(extent={{62,-36},{42,-16}})));
-  .IDEAS.Fluid.Sources.MassFlowSource_T bou1(
+  .IBPSA.Fluid.Sources.MassFlowSource_T bou1(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     m_flow=0.03,
@@ -123,8 +123,8 @@ model PVT_UI_Thermal_DayType1
     y=Medium.cp_const*pvtColVal.port_b.m_flow*(pvtColVal.sta_a.T -pvtColVal.sta_b.T))
     "Thermal power output of simplified pvt model [W]"
     annotation (Placement(transformation(extent={{-81,-86},{-55,-70}})));
-  .IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        .Modelica.Utilities.Files.loadResource("modelica://IDEAS/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+  .IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        .Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-40,18},{-20,38}})));
 equation
@@ -163,8 +163,8 @@ equation
     Documentation(info="<html>
 <p>
 See the documentation of
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">
-IDEAS.Fluid.PVTCollectors.Validation.PVT_UI
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">
+IBPSA.Fluid.PVTCollectors.Validation.PVT_UI
 </a>
 for details on the validation examples and usage.
 </p>
@@ -183,7 +183,7 @@ This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/1436\">#1436</a
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/PVTCollectors/Validation/PVT_UI/Thermal/PVT_UI_Thermal_DayType1.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/PVTCollectors/Validation/PVT_UI/Thermal/PVT_UI_Thermal_DayType1.mos"
         "Simulate and plot"),
  experiment(
       StartTime=18872521.2,

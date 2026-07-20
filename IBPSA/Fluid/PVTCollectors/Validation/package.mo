@@ -5,7 +5,7 @@ package Validation "Collection of validation models"
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package provides validation models for the classes in 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors\">IDEAS.Fluid.PVTCollectors</a>.
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors\">IBPSA.Fluid.PVTCollectors</a>.
 </p>
 
 <p>
@@ -17,7 +17,7 @@ The validation examples use experimental data from two types of unglazed PVT col
 </ul>
 
 <p>
-These are implemented in the subpackages <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a> and <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a>, respectively.
+These are implemented in the subpackages <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a> and <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a>, respectively.
 The naming convention used in this implementation (<code>PVT_UI</code> and <code>PVT_UN</code>) 
 corresponds to the datasets referred to as respectively <code>PVT1</code> and <code>PVT2</code> 
 in Meertens et al. (2026), where they are described in detail.
@@ -25,7 +25,7 @@ in Meertens et al. (2026), where they are described in detail.
 
 <p>
 The purpose of these models is to assess the accuracy and limitations of the quasi-dynamic PVT model 
-(<a href=\"modelica://IDEAS.Fluid.PvtCollectors.QuasiDynamicPvtCollector\">IDEAS.Fluid.PvtCollectors.QuasiDynamicPvtCollector</a>) under realistic conditions. 
+(<a href=\"modelica://IBPSA.Fluid.PvtCollectors.QuasiDynamicPvtCollector\">IBPSA.Fluid.PvtCollectors.QuasiDynamicPvtCollector</a>) under realistic conditions. 
 This is done by driving the model with experimental input data and comparing the simulated outputs 
 with measured results.
 </p>

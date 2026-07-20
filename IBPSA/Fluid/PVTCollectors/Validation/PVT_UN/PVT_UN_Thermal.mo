@@ -1,15 +1,15 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UN;
 model PVT_UN_Thermal
   "Validation model for an unglazed rear-non-insulated PVT Collector"
-   extends .IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.Thermal.PVT_UI_Thermal_DayType1(
+   extends .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Thermal.PVT_UI_Thermal_DayType1(
     redeclare package Medium =
-      .IDEAS.Media.Antifreeze.PropyleneGlycolWater(
+      .IBPSA.Media.Antifreeze.PropyleneGlycolWater(
         property_T=293.15, X_a=0.43),
-    redeclare parameter .IDEAS.Fluid.PVTCollectors.Data.Uncovered.UN_Validation datPVTCol,
-    redeclare parameter .IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses.UN_Validation datPVTColVal,
-    redeclare .IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.PVTCollectorValidation pvtCol(
+    redeclare parameter .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UN_Validation datPVTCol,
+    redeclare parameter .IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses.UN_Validation datPVTColVal,
+    redeclare .IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.PVTCollectorValidation pvtCol(
       redeclare package Medium =
-        .IDEAS.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.43),
+        .IBPSA.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.43),
       energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
       massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
       T_start=17.086651 + 273.15,
@@ -17,13 +17,13 @@ model PVT_UN_Thermal
       azi=0,
       til=0.34906585039887,
       rho=0.2,
-      nColType=.IDEAS.Fluid.SolarCollectors.Types.NumberSelection.Number,
+      nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
       nPanels=1,
       per=datPVTCol,
       eleLosFac=0.07),
-    redeclare .IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.PVTCollectorValidation pvtColVal(
+    redeclare .IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.PVTCollectorValidation pvtColVal(
       redeclare package Medium =
-        .IDEAS.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.43),
+        .IBPSA.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.43),
       energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
       massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
       T_start=17.086651 + 273.15,
@@ -31,7 +31,7 @@ model PVT_UN_Thermal
       azi=0,
       til=0.34906585039887,
       rho=0.2,
-      nColType=.IDEAS.Fluid.SolarCollectors.Types.NumberSelection.Number,
+      nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
       nPanels=1,
       per=datPVTCol,
       eleLosFac=0.07),
@@ -42,18 +42,18 @@ model PVT_UN_Thermal
     idxTAmb = 5,
     idxMeaPel = 19,
     meaFile =
-      "modelica://IDEAS/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UN/PVT_UN_measurements_" + week + ".txt");
+      "modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UN/PVT_UN_measurements_" + week + ".txt");
 
   parameter String week = "week1";
   annotation ( Documentation(info = "<html>
 <p>
 This model validates the thermal performance of the 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a> collector, 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a> collector, 
 an uncovered and uninsulated PVT collector.
 </p>
 <p>
 See the documentation of
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">
 PVT_UN
 </a>
 for details on the validation model and usage.
@@ -80,7 +80,7 @@ This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/1436\">#1436</a
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/PVTCollectors/Validation/PVT_UN/PVT_UN_Thermal.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/PVTCollectors/Validation/PVT_UN/PVT_UN_Thermal.mos"
         "Simulate and plot"),
  experiment(
       StartTime=16502400,

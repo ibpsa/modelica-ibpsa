@@ -3,9 +3,9 @@ package PVT_UI
   annotation (preferredView="info", Documentation(info=
   "<html>
 <p>
-This package contains validation models for the <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a> collector 
+This package contains validation models for the <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a> collector 
 (referred to as <code>PVT1</code> in Meertens et al., 2026), 
-an <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Data.Uncovered.UI_Validation\">uncovered PVT collector with rear insulation</a>, 
+an <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation\">uncovered PVT collector with rear insulation</a>, 
 based on experimental data from HTW Saar (Jonas et al., 2019).
 </p>
 <p>
@@ -28,25 +28,25 @@ The validation includes four representative day types:
 With the temperature difference refering to the difference between the fluid 
 temperature and the ambient temperature.
 <p>
-The validation of <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">
+The validation of <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">
 PVT_UI</a> is organized into two subpackages:
 </p>
 <ul>
 <li>
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.Thermal\">Thermal</a>:
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Thermal\">Thermal</a>:
 Includes four models for the four ISO&nbsp;9806:2017 day types. Each model
 compares simulated and measured thermal output and evaluates the thermal
 loss components.
 </li>
 <li>
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.Electrical\">Electrical</a>:
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Electrical\">Electrical</a>:
 Contains four corresponding day‑type models that validate the electrical performance 
 by comparing simulated and measured power output.
 </li>
 </ul>
 <h4>Model limitations</h4>
 <p>
-Overall, the <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a> 
+Overall, the <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a> 
 validation demonstrates strong agreement between the model and measurements for 
 both thermal and electrical outputs under a range of operating conditions. 
 While electrical outputs are accurate and consistent across all day types, 

@@ -1,8 +1,8 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses;
 record UI_Validation =
-  .IDEAS.Fluid.PVTCollectors.Data.Generic (
+  .IBPSA.Fluid.PVTCollectors.Data.Generic (
     final A=1.66,
-    final CTyp=.IDEAS.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=42200*1.66,
     final V=5/1000,
     final mDry=28,
@@ -10,7 +10,7 @@ record UI_Validation =
     final dp_nominal=60000,
     final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,90}),
     final incAngModDat={1,1,1,0.99,0.99,0.98,0.96,0.92,0.00},
-    final colTyp=.IDEAS.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=0.98,
     final eta0=0.475,
     final a1=12.51,

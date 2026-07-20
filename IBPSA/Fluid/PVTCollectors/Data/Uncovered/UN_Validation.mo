@@ -1,8 +1,8 @@
 within IBPSA.Fluid.PVTCollectors.Data.Uncovered;
 record UN_Validation =
-  .IDEAS.Fluid.PVTCollectors.Data.Generic(
+  .IBPSA.Fluid.PVTCollectors.Data.Generic(
     final A=1.64,
-    final CTyp=.IDEAS.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=22100*1.64,
     final V=1.54/1000,
     final mDry=30,
@@ -10,7 +10,7 @@ record UN_Validation =
     final dp_nominal=300000,
     final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
     final incAngModDat={1,1,1,1,0.99,0.97,0.92,0.80,0.55,0.00},
-    final colTyp=.IDEAS.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=0.931,
     final eta0=(1-3*0.067)*0.535/(0.85+0.15*0.931),
     final a1=10.74+3*1.0997,
@@ -32,13 +32,13 @@ annotation(
 This record contains performance parameters for a flat‑plate, <b>uncovered</b> and <b>uninsulated</b> PVT collector, 
 derived from manufacturer datasheets and thermal rating documentation. 
 Thermal parameters follow the ISO 9806:2017 quasi‑dynamic format and correspond to operation at the PV module’s maximum power point (MPP). 
-They were originally provided under ISO 9806:2013 and converted to the ISO 9806:2017 formulation using the Excel file in <code>IDEAS.Resources.Data.Fluid.PVTCollectors</code>.
+They were originally provided under ISO 9806:2013 and converted to the ISO 9806:2017 formulation using the Excel file in <code>IBPSA.Resources.Data.Fluid.PVTCollectors</code>.
 </p>
 <p>
 For this PVT collector, additional real-life measurement data is publicly available (Veynandt, 2023) and has been used in the validation of 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.PVTCollector\">IDEAS.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
 which can be found in the 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">IDEAS.Fluid.PVTCollectors.Validation.PVT_UN</a> package. 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">IBPSA.Fluid.PVTCollectors.Validation.PVT_UN</a> package. 
 </p>
 
 <h4>Certificate</h4>

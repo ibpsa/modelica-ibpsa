@@ -11,7 +11,7 @@ model PVTCollectorValidation
     columns=1:25) annotation (Placement(transformation(extent={{26,68},
             {6,88}})));
 
-  replaceable .IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGaiStc(
+  replaceable .IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGaiStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
     final incAngDat=per.incAngDat,
@@ -23,7 +23,7 @@ model PVTCollectorValidation
     final A_c=ATot_internal)
     "Calculates the heat gained from the sun using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  .IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806HeatLossValidation
+  .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806HeatLossValidation
     heaLosStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
@@ -37,7 +37,7 @@ model PVTCollectorValidation
     final A_c=ATot_internal)
     "Calculates the heat lost to the surroundings using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  .IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
+  .IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
     final nSeg = nSeg,
     final A_c = ATot_internal,
     final eleLosFac = eleLosFac,
@@ -50,7 +50,7 @@ model PVTCollectorValidation
     final etaEl = per.etaEl)
     "Calculates the electrical power output of the PVT model"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  .IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.LongWaveRadiation longWaveRad(
+  .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.LongWaveRadiation longWaveRad(
     final til = til)
     "Long‑wave radiation exchange model for tilted PVT surface"
     annotation (Placement(transformation(extent={{-58,-66},{-38,-46}})));
@@ -161,8 +161,8 @@ and calculates electrical output via the PVWatts-based submodel, relying solely 
 <h4>Extends</h4>
 <ul>
 <li>
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
 </a>
 </li>
 </ul>
@@ -170,35 +170,35 @@ IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
 <ul>
 <li>
 Electrical generation: 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
 </a>
 </li>
 <li>
 Quasi-dynamic thermal losses: 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
 </a>
 </li>
 <li>
 Solar (thermal) heat gain: see 
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain
 </a>
 </li>
 <li>
 Long-wave radiation (derived due to faulty measurements): 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.LongWaveRadiation\">
-IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.LongWaveRadiation
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.LongWaveRadiation\">
+IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.LongWaveRadiation
 </a>
 </li>
 </ul>
 <h4>Implementation Notes</h4>
 <p> 
 This validation model exclusively relies on measurement data provided by the 
-CombiTimeTable <code>meaDat</code>. However, because it extends <a href='modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector'>
-IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> and to limit 
-the number of extra components, the weather reader <code>IDEAS.BoundaryConditions.WeatherData.ReaderTMY3</code> 
+CombiTimeTable <code>meaDat</code>. However, because it extends <a href='modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector'>
+IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> and to limit 
+the number of extra components, the weather reader <code>IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</code> 
 remains instantiated and connected to the inherited <code>weaBus</code>. The 
 reader is retained only to satisfy the parent class connector and is <em>not</em> 
 used during simulation: all weather inputs (irradiance, ambient temperature, 
@@ -211,7 +211,7 @@ path into <code>nSeg</code> segments to capture temperature gradients. It is
 compatible with dynamic simulations in which irradiance, ambient and fluid temperatures,
 and wind speed vary over time. Because direct measurements of long-wave sky 
 irradiance were found to be faulty, the model instead computes long-wave radiation 
-using the dedicated <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.LongWaveRadiation\">LongWaveRadiation</a> model.
+using the dedicated <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.LongWaveRadiation\">LongWaveRadiation</a> model.
 </p>
 <h4>References</h4>
 <ul>

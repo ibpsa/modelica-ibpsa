@@ -5,7 +5,7 @@ package Thermal "Thermal behavior of an unglazed rear‑insulated PVT collector"
 "<html>
 <p>
 This subpackage contains the thermal validation models for the
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a>
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">PVT_UI</a>
 collector. 
 </p>
 </html>",

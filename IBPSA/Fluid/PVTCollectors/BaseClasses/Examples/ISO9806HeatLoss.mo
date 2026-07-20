@@ -1,10 +1,10 @@
 within IBPSA.Fluid.PVTCollectors.BaseClasses.Examples;
 model ISO9806HeatLoss "Example showing the use of ISO9806HeatLoss"
   extends .Modelica.Icons.Example;
-  replaceable package Medium = .IDEAS.Media.Water "Medium in the system";
+  replaceable package Medium = .IBPSA.Media.Water "Medium in the system";
 
-  parameter .IDEAS.Fluid.PVTCollectors.Data.Generic per=
-      .IDEAS.Fluid.PVTCollectors.Data.Uncovered.UI_Validation()
+  parameter .IBPSA.Fluid.PVTCollectors.Data.Generic per=
+      .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation()
     "Performance data" annotation (choicesAllMatching=true);
   .Modelica.Blocks.Sources.Sine T1(
     amplitude=15,
@@ -21,7 +21,7 @@ model ISO9806HeatLoss "Example showing the use of ISO9806HeatLoss"
     amplitude=15,
     offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-90,-52},{-70,-32}})));
-  .IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss heaLosQuaDyn(
+  .IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss heaLosQuaDyn(
     nSeg=3,
     redeclare package Medium = Medium,
     a1=per.a1,
@@ -33,7 +33,7 @@ model ISO9806HeatLoss "Example showing the use of ISO9806HeatLoss"
     a8=per.a8,
     A_c=per.A) annotation (Placement(transformation(extent={{18,-2},{38,18}})));
 
-  .IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLosSteSta(
+  .IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLosSteSta(
     A_c=per.A,
     nSeg=3,
     redeclare package Medium = Medium,
@@ -92,16 +92,16 @@ equation
    Documentation(info="<html>
 <p>
 This example demonstrates the implementation of
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss</a>,
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss</a>,
 which calculates the quasi-dynamic heat loss of a PVT or solar thermal collector
 according to the ISO 9806:2017 standard.
 </p>
 <p>
 In addition to showcasing the ISO 9806:2017-based model, this example also compares its behavior
 to the steady-state heat loss model
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>,
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>,
 which is based on the now-superseded EN 12975 standard.
 </p>
 <p>
@@ -119,7 +119,7 @@ This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/1436\">1436</a>
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/PVTCollectors/BaseClasses/Examples/ISO9806HeatLoss.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/PVTCollectors/BaseClasses/Examples/ISO9806HeatLoss.mos"
         "Simulate and plot"),
  experiment(
       StartTime=0,
