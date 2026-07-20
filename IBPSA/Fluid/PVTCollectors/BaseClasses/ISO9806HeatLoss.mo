@@ -2,7 +2,7 @@ within IBPSA.Fluid.PVTCollectors.BaseClasses;
 model ISO9806HeatLoss
   "Calculate the heat loss of a PVT collector using ISO9806:2017"
 
-  extends .IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss(
+  extends .IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss(
     // Override the internal heat-loss expression to include a3-a7 terms
     final QLos_internal=A_c/nSeg*{dT[i]*(a1 - a2*dT[i] + a3*(winSpePla-3)) + a4*(HHorIR
          - .Modelica.Constants.sigma*TEnv^4) - a6*(winSpePla-3)*HGloTil
@@ -51,8 +51,8 @@ Documentation(info="<html>
 <p>
 This component computes the heat loss from a solar thermal or PVT collector
 according to ISO&nbsp;9806:2017. It builds on the structure of the
-<a href='modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss'>
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a> model, but extends 
+<a href='modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss'>
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a> model, but extends 
 it with the wind‑ and long‑wave irradiance‑dependent loss mechanisms defined in
 ISO&nbsp;9806:2017.
 </p>
@@ -150,8 +150,8 @@ only the EN&nbsp;12975 a<sub>1</sub> and a<sub>2</sub> terms.
 <h4>Implementation Notes</h4>
 <p>
 The heat-loss block inherits from 
-<a href='modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss'>
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a> to reuse its interface 
+<a href='modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss'>
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a> to reuse its interface 
 and segment-wise structure. Only the heat‑loss equations and parameters are replaced 
 to match the ISO&nbsp;9806:2017
 formulation.
