@@ -1,8 +1,8 @@
 within IBPSA.Fluid.PVTCollectors.Data;
 record Generic "Generic data record for PVT collector models"
-  extends .IDEAS.Fluid.SolarCollectors.Data.BaseClasses.Generic;
+  extends .IBPSA.Fluid.SolarCollectors.Data.BaseClasses.Generic;
 
-  parameter .IDEAS.Fluid.PVTCollectors.Types.CollectorType colTyp
+  parameter .IBPSA.Fluid.PVTCollectors.Types.CollectorType colTyp
     "Type of PVT collector (Covered or Uncovered)";
   parameter Real IAMDiff(final min=0, final max=1, final unit="1")
     "Incidence angle modifier for diffuse irradiance (incidence angle of 50°)";
@@ -38,13 +38,13 @@ Record containing both thermal and electrical performance parameters for PVT
 collectors. Thermal parameters follow the ISO&nbsp;9806:2017 quasi‑dynamic
 procedure and apply to both covered and uncovered designs. Note that the
 ISO&nbsp;9806 coefficient <code>a<sub>5</sub></code> is not included here because this
-record extends from <a href='modelica://IDEAS.Fluid.SolarCollectors.Data.BaseClasses.Generic'>
-IDEAS.Fluid.SolarCollectors.Data.BaseClasses.Generic</a> , which defines heat‑capacity
+record extends from <a href='modelica://IBPSA.Fluid.SolarCollectors.Data.BaseClasses.Generic'>
+IBPSA.Fluid.SolarCollectors.Data.BaseClasses.Generic</a> , which defines heat‑capacity
 handling at the collector level. As a result, <code>a<sub>5</sub></code> (thermal
 capacitance) must be specified directly in the collector model as a
 <i>total</i> heat capacity, typically by multiplying the specific capacitance by
 the collector gross area (e.g., <code>C = a<sub>5</sub>&#183;A<sub>gross</sub></code> when using
-<code>CTyp = IDEAS.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity</code>). Electrical parameters follow manufacturer
+<code>CTyp = IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity</code>). Electrical parameters follow manufacturer
 datasheets.
 </p>
 <h4>References</h4>

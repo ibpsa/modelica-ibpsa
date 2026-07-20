@@ -1,18 +1,18 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UN;
 model PVTCollectorValidation
   "Validation model of a photovoltaic–thermal (PVT) collector using the ISO 9806:2017 thermal method with integrated electrical coupling"
-  extends .IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation(
+  extends .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation(
     eleLosFac = 0.07);
 
   outer .Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     tableName="data",
     fileName=.Modelica.Utilities.Files.loadResource(
-        "modelica://IDEAS/Resources/Data/Fluid/PvtCollectors/Validation/PVT_UN/PVT_UN_measurements.txt"),
+        "modelica://IBPSA/Resources/Data/Fluid/PvtCollectors/Validation/PVT_UN/PVT_UN_measurements.txt"),
     columns=1:25) annotation (Placement(transformation(extent={{78,70},
             {58,90}})));
 
-  .IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806HeatLossValidation
+  .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806HeatLossValidation
     heaLosStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
@@ -27,7 +27,7 @@ model PVTCollectorValidation
     "Calculates the heat lost to the surroundings using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
-  replaceable .IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806SolarGainHGloTil
+  replaceable .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806SolarGainHGloTil
     solGaiStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
@@ -37,7 +37,7 @@ model PVTCollectorValidation
     final A_c=ATot_internal)
     "Calculates the heat from the sun using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  .IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
+  .IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
     final nSeg = nSeg,
     final A_c = ATot_internal,
     final eleLosFac = eleLosFac,
@@ -119,8 +119,8 @@ and calculates electrical output via the PVWatts-based submodel, relying solely 
 <h4>Extends</h4>
 <ul>
 <li>
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
 </a>
 </li>
 </ul>
@@ -129,20 +129,20 @@ IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector
 <ul>
 <li>
 Electrical generation: 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
 </a>
 </li>
 <li>
 Quasi-dynamic thermal losses: 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
 </a>
 </li>
 <li>
 Solar (thermal) heat gain: see 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806SolarGainHGloTil\">
-IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses.ISO9806SolarGainHGloTil
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806SolarGainHGloTil\">
+IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses.ISO9806SolarGainHGloTil
 </a>
 </li>
 </ul>
@@ -151,9 +151,9 @@ IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses.ISO9806SolarGainHGloTil
 <p> 
 This validation model exclusively relies on measurement data provided by the 
 CombiTimeTable <code>meaDat</code>. However, because it extends  
-<a href='modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector'>
-IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> and to limit 
-the number of extra components, the weather reader <code>IDEAS.BoundaryConditions.WeatherData.ReaderTMY3</code> 
+<a href='modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector'>
+IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> and to limit 
+the number of extra components, the weather reader <code>IBPSA.BoundaryConditions.WeatherData.ReaderTMY3</code> 
 remains instantiated and connected to the inherited <code>weaBus</code>. The 
 reader is retained only to satisfy the parent class connector and is <em>not</em> 
 used during simulation: all weather inputs (irradiance, ambient temperature, 

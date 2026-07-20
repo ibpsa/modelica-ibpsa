@@ -5,8 +5,8 @@ model PVT_UI_Electrical_DayType4
   annotation (Documentation(info="<html>
 <p>
 See the documentation of
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">
-IDEAS.Fluid.PVTCollectors.Validation.PVT_UI
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">
+IBPSA.Fluid.PVTCollectors.Validation.PVT_UI
 </a>
 for details on the validation examples and usage.
 </p>
@@ -25,7 +25,7 @@ This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/1436\">#1436</a
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/PVTCollectors/Validation/PVT_UI/Electrical/PVT_UI_Electrical_DayType4.mos"
+__Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/PVTCollectors/Validation/PVT_UI/Electrical/PVT_UI_Electrical_DayType4.mos"
         "Simulate and plot"),
  experiment(
       StartTime=17837640,

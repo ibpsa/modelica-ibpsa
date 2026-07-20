@@ -1,15 +1,15 @@
 within IBPSA.Fluid.PVTCollectors;
 model PVTCollector
   "Model of a photovoltaic–thermal (PVT) collector using the ISO 9806:2017 thermal method with integrated thermal-electrical coupling"
-  extends .IDEAS.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
-     redeclare .IDEAS.Fluid.PVTCollectors.Data.Generic per);
+  extends .IBPSA.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
+     redeclare .IBPSA.Fluid.PVTCollectors.Data.Generic per);
 
   parameter .Modelica.Units.SI.Efficiency eleLosFac(min=0, max=1) = 0.10
     "Electrical system loss factor" annotation(Dialog(group="Electrical parameters"));
-  parameter .IDEAS.Fluid.PVTCollectors.Types.CollectorType collectorType = per.colTyp
+  parameter .IBPSA.Fluid.PVTCollectors.Types.CollectorType collectorType = per.colTyp
     "Collector type used to select a default tauAlpEff";
   parameter .Modelica.Units.SI.DimensionlessRatio tauAlpEff(min=0, max=1) =
-    (if collectorType == .IDEAS.Fluid.PVTCollectors.Types.CollectorType.Uncovered then 0.901 else 0.84)
+    (if collectorType == .IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered then 0.901 else 0.84)
     "Effective transmittance-absorptance product";
   parameter .Modelica.Units.SI.CoefficientOfHeatTransfer UAbsFluid(min=0) =
   ((tauAlpEff - per.etaEl) * (per.a1)) / ((tauAlpEff - per.etaEl) - per.eta0)
@@ -25,7 +25,7 @@ model PVTCollector
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  .IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGaiStc(
+  .IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain solGaiStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
     final incAngDat=per.incAngDat,
@@ -38,7 +38,7 @@ model PVTCollector
     "Calculates the heat gained from the sun using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  .IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss heaLosStc(
+  .IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss heaLosStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
     final a1=per.a1,
@@ -52,7 +52,7 @@ model PVTCollector
     "Calculates the heat lost to the surroundings using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
-  .IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
+  .IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
     final nSeg = nSeg,
     final A_c = ATot_internal,
     final eleLosFac = eleLosFac,
@@ -67,7 +67,7 @@ model PVTCollector
     "Calculates the electrical power output of the PVT model"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  .IDEAS.Fluid.PVTCollectors.BaseClasses.WindSpeedTilted winSpe(
+  .IBPSA.Fluid.PVTCollectors.BaseClasses.WindSpeedTilted winSpe(
     final azi=azi,
     final til=til)
     "Calculates the effective wind speed in the collector plane"
@@ -174,27 +174,27 @@ under a wide range of weather conditions.
 </p>
 <p>
 The main equations used in this model can be found in the following submodels, as described in the 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.UsersGuide\">
-IDEAS.Fluid.PVTCollectors.UsersGuide.
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.UsersGuide\">
+IBPSA.Fluid.PVTCollectors.UsersGuide.
 </a>
 </p>
 <ul>
 <li>
 Electrical generation: see 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
 </a>
 </li>
 <li>
 Quasi-dynamic thermal losses: see 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
 </a>
 </li>
 <li>
 Solar (thermal) heat gain: see 
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain
 </a>
 </li>
 </ul>

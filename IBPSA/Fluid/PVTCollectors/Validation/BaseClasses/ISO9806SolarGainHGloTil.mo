@@ -2,7 +2,7 @@ within IBPSA.Fluid.PVTCollectors.Validation.BaseClasses;
 model ISO9806SolarGainHGloTil
   "Model calculating solar gains per the ISO9806 standard"
   extends .Modelica.Blocks.Icons.Block;
-  extends .IDEAS.Fluid.SolarCollectors.BaseClasses.PartialParameters;
+  extends .IBPSA.Fluid.SolarCollectors.BaseClasses.PartialParameters;
 
   replaceable package Medium = .Modelica.Media.Interfaces.PartialMedium
     "Medium in the system";
@@ -53,7 +53,7 @@ equation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
   QSol_flow[i] =A_c/nSeg*(eta0*HGlob)*smooth(1, if TFlu[i] < TMedMax2 then 1 else
-      .IDEAS.Utilities.Math.Functions.smoothHeaviside(TMedMax - TFlu[i],
+      .IBPSA.Utilities.Math.Functions.smoothHeaviside(TMedMax - TFlu[i],
       dTMax));
   end for;
 annotation (
@@ -62,12 +62,12 @@ annotation (
 <p>
 This component calculates the solar heat gain on a solar thermal collector,
 based on 
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>.
 </p>
 <p>
-Unlike <a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>, 
+Unlike <a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>, 
 this component does not compute the global irradiance on the tilted surface 
 from direct and diffuse irradiance components and apply an incidence angle modifier.
 It is primarily intended for validation purposes, where the

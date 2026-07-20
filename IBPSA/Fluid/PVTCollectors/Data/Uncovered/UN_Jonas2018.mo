@@ -1,8 +1,8 @@
 within IBPSA.Fluid.PVTCollectors.Data.Uncovered;
 record UN_Jonas2018 =
-  .IDEAS.Fluid.PVTCollectors.Data.Generic(
+  .IBPSA.Fluid.PVTCollectors.Data.Generic(
     final A=1.66,
-    final CTyp=.IDEAS.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=35800*1.66,
     final V=5/1000,
     final mDry=20,
@@ -10,7 +10,7 @@ record UN_Jonas2018 =
     final dp_nominal=60000,
     final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,90}),
     final incAngModDat={1,1,0.99,0.98,0.97,0.95,0.92,0.88,0.00},
-    final colTyp=.IDEAS.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=(0.436*0.91-3*0.008)/(0.436-3*0.008),
     final eta0=0.436-3*0.008,
     final a1=7.750+3*1.640,
@@ -32,16 +32,16 @@ annotation(
 This record contains thermal and electrical parameters for an <b>uncovered</b> and <b>non-insulated</b> PVT collector (WISC type), 
 based on experimental identification results from Jonas et al. (2018). 
 These parameters were used in the validation of a TRNSYS PVT collector model under ISO 9806:2013 and converted 
-to the ISO 9806:2017 quasi‑dynamic formulation used by <a href=\"modelica://IDEAS.Fluid.PVTCollectors.PVTCollector\">
-IDEAS.Fluid.PVTCollectors.PVTCollector</a> using the Excel 
-file located at <code>IDEAS.Resources.Data.Fluid.PVTCollectors</code>.
+to the ISO 9806:2017 quasi‑dynamic formulation used by <a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">
+IBPSA.Fluid.PVTCollectors.PVTCollector</a> using the Excel 
+file located at <code>IBPSA.Resources.Data.Fluid.PVTCollectors</code>.
 </p>
 <p>
 This record can be used as a generic representation of a WISC-type collector. 
 However, if you know the brand and model of the PVT collector you plan to simulate or install, 
 it is recommended to use the actual datasheet parameters in a custom
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Data.Generic\">
-IDEAS.Fluid.PVTCollectors.Data.GenericQuasiDynamic </a> record.
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Data.Generic\">
+IBPSA.Fluid.PVTCollectors.Data.GenericQuasiDynamic </a> record.
 </p>
 <h4>Reference</h4>
 <ul>

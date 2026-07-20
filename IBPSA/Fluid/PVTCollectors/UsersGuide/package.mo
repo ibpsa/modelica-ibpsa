@@ -18,13 +18,13 @@ The equations related to the heat losses and heat gains can be found in the foll
 <ul>
 <li>
 Quasi‑dynamic thermal losses: see 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss</a>
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss</a>
 </li>
 <li>
 Solar (thermal) heat gain: see 
-<a href=\"modelica://IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
-IDEAS.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>
+<a href=\"modelica://IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain\">
+IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>
 </li>
 </ul>
 </p>
@@ -38,7 +38,7 @@ unified conversion procedure is provided to translate datasheet parameters from
 these standards into their ISO 9806:2017 equivalents. This guarantees that the
 model can be used for all commercially tested PVT collectors. The standard‑to‑standard 
 conversion routines are provided in the easy‑to‑use Excel file located at
-<code>IDEAS.Resources.Data.Fluid.PVTCollectors</code>. The conversion procedure 
+<code>IBPSA.Resources.Data.Fluid.PVTCollectors</code>. The conversion procedure 
 is based on (i) SKN‑N0474R0 for ISO 9806:2013 to ISO 9806:2017, and (ii) a newly 
 introduced conversion for ISO 9806:2025 to ISO 9806:2017 as published in Meertens et al. (2026).
 </p>
@@ -49,8 +49,8 @@ The equations and assumptions related to the electrical part can be found in the
 <ul>
 <li>
 Electrical generation: see 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
-IDEAS.Fluid.PVTCollectors.BaseClasses.ElectricalPVT</a>
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT\">
+IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT</a>
 </li>
 </ul>
 <p><b>Electrical–thermal coupling</b></p>
@@ -99,7 +99,7 @@ datasheet values.
 </p>
 <p align=\"center\">
 <img alt=\"Two-node, one-capacitance thermal network for PVT collectors (ISO 9806: dashed lines; extension: solid lines).\" 
- src=\"modelica://IDEAS/Resources/Images/Fluid/PVTCollectors/Tcell_coupling.png\" width=\"500\"/>
+ src=\"modelica://IBPSA/Resources/Images/Fluid/PVTCollectors/Tcell_coupling.png\" width=\"500\"/>
 </p>
 <p style=\"text-align:center; font-style:italic; font-size:90%;\">
 Figure 1: Equivalent thermal network between temperatuur node and cell node interlinked by <i>UAbsFluid</i> (Meertens et al., 2026).

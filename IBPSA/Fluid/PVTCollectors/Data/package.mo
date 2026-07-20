@@ -53,10 +53,10 @@ collector classification.
 To ensure compatibility with all commercially tested PVT collectors, this package
 also provides a standard‑to‑standard conversion tool that converts thermal
 parameters from ISO 9806:2013 and ISO 9806:2025 into the
-ISO 9806:2017 quasi-dynamic format used throughout IDEAS.
+ISO 9806:2017 quasi-dynamic format used throughout IBPSA.
 The conversion is implemented in an easy‑to‑use Excel file located at:
 <br/>
-<span style=\"font-family:monospace;\">IDEAS.Resources.Data.Fluid.PVTCollectors</span>.
+<span style=\"font-family:monospace;\">IBPSA.Resources.Data.Fluid.PVTCollectors</span>.
 </p>
 </html>"));
 

@@ -2,7 +2,7 @@ within IBPSA.Fluid.PVTCollectors.BaseClasses;
 model ElectricalPVT
   "Calculate the electrical power output of a PVT collector"
   extends .Modelica.Blocks.Icons.Block;
-  extends .IDEAS.Fluid.SolarCollectors.BaseClasses.PartialParameters;
+  extends .IBPSA.Fluid.SolarCollectors.BaseClasses.PartialParameters;
 
   // Parameters
   parameter .Modelica.Units.SI.Irradiance HGloHorNom = 1000 "global horizontal irradiances";
@@ -121,7 +121,7 @@ T<sub>cell,i</sub> = T<sub>m,i</sub> + q<sub>th,i</sub> / U<sub>AbsFluid</sub>
 </p>
 <p>
 The internal heat transfer coefficient <i>UAbsFluid</i> is approximately calculated from datasheet parameters. 
-For the mathematical description and visualisation, see <a href='modelica://IDEAS.Fluid.PVTCollectors.UsersGuide'>IDEAS.Fluid.PVTCollectors.UsersGuide</a>.
+For the mathematical description and visualisation, see <a href='modelica://IBPSA.Fluid.PVTCollectors.UsersGuide'>IBPSA.Fluid.PVTCollectors.UsersGuide</a>.
 </p>
 
 <h4>Electrical performance and losses</h4>

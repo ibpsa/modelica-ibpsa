@@ -1,8 +1,8 @@
 within IBPSA.Fluid.PVTCollectors.Data.Uncovered;
 record UI_Validation =
-  .IDEAS.Fluid.PVTCollectors.Data.Generic(
+  .IBPSA.Fluid.PVTCollectors.Data.Generic(
     final A=1.66,
-    final CTyp=.IDEAS.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=42200*1.66,
     final V=5/1000,
     final mDry=28,
@@ -10,7 +10,7 @@ record UI_Validation =
     final dp_nominal=60000,
     final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,90}),
     final incAngModDat={1,1,1,0.99,0.99,0.98,0.96,0.92,0.00},
-    final colTyp=.IDEAS.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=(0.475*1-3*0.003)/(0.475-3*0.003),
     final eta0=0.475-3*0.003,
     final a1=7.411+3*1.7,
@@ -33,17 +33,17 @@ This record contains anonymized thermal and electrical performance parameters fo
 an <b>uncovered</b> photovoltaic–thermal (PVT) collector <b>with rear insulation</b>.  
 The collector was originally tested under ISO 9806:2013 conditions and subsequently 
 converted to the ISO 9806:2017 quasi‑dynamic formulation used by 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.PVTCollector\">
-IDEAS.Fluid.PVTCollectors.PVTCollector</a>, using the Excel conversion file located at 
-<code>IDEAS.Resources.Data.Fluid.PVTCollectors</code>.  
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">
+IBPSA.Fluid.PVTCollectors.PVTCollector</a>, using the Excel conversion file located at 
+<code>IBPSA.Resources.Data.Fluid.PVTCollectors</code>.  
 Thermal performance parameters correspond to operation of the collector in maximum 
 power point (MPP) mode.
 </p>
 <p>
 This datasheet is used in the validation of 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.PVTCollector\">IDEAS.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
 which can be found in the 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UI\">IDEAS.Fluid.PVTCollectors.Validation.PVT_UI</a> package. 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">IBPSA.Fluid.PVTCollectors.Validation.PVT_UI</a> package. 
 </p>
 
 <h4>References</h4>

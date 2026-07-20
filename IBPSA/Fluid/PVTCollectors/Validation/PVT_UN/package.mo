@@ -3,7 +3,7 @@ package PVT_UN
     annotation (preferredView="info", Documentation(info=
     "<html>
 <p>
-This package contains validation models for the <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a> collector 
+This package contains validation models for the <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a> collector 
 (referred to as <code>PVT2</code> in Meertens et al., 2026), 
 an uncovered and uninsulated PVT collector, 
 based on experimental data from a long-term outdoor test campaign in Austria (Veynandt et al., 2023).
@@ -25,17 +25,17 @@ The package includes two models:
 </p>
 <ul>
 <li>
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.PVT_UN_Thermal\">Thermal</a>: 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.PVT_UN_Thermal\">Thermal</a>: 
 Validates thermal output using the quasi-dynamic ISO 9806:2017 formulation.
 </li>
 <li>
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN.PVT_UN_Electrical\">Electrical</a>: 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.PVT_UN_Electrical\">Electrical</a>: 
 Validates electrical output using the PVWatts V5 formulation.
 </li>
 </ul>
 <h4>Model limitations</h4>
 <p>
-Overall, the validation of the <a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a>
+Overall, the validation of the <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">PVT_UN</a>
 model shows good agreement under operating conditions that are representative
 for unglazed, non-insulated PVT collectors. However, several limitations arise
 from characteristics of the experimental setup rather than the model itself.
