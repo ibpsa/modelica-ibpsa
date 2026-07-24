@@ -1,5 +1,5 @@
 ﻿removePlots();
-simulateModel("IDEAS.Fluid.PVTCollectors.Validation.PVT_UI.Thermal.PVT_UI_Thermal_DayType1", tolerance=1e-6, startTime = 8872521.2, stopTime = 18908900.2, method = "Cvode", resultFile = "PVT_UI_Thermal_DayType1");
+simulateModel("IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Thermal.PVT_UI_Thermal_DayType1", tolerance=1e-6, startTime = 8872521.2, stopTime = 18908900.2, method = "Cvode", resultFile = "PVT_UI_Thermal_DayType1");
 createPlot(id = 11,
  position = {0, 0, 1000, 500},
  y = {"meaQ.y", "simQ.y"},
