@@ -73,7 +73,7 @@ equation
 <p>
 This example demonstrates the implementation of the 
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">
-IBPSA.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a> 
+IBPSA.Fluid.PVTCollectors.PVTCollector</a> 
 for a variable fluid flow rate and weather data from San Francisco, CA, USA.
 </p>
 <p>
@@ -88,8 +88,8 @@ This test model uses the <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Data.Unc
 IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation</a> record.
 However, if you know the brand and model of the PVT collector you plan to simulate or install, 
 it is recommended to use the actual datasheet parameters in a custom 
-<a href=\"IBPSA.Fluid.PVTCollectors.Data.GenericQuasiDynamic\">
-IBPSA.Fluid.PVTCollectors.Data.GenericQuasiDynamic</a> record.
+<a href=\"IBPSA.Fluid.PVTCollectors.Data.Generic\">
+IBPSA.Fluid.PVTCollectors.Data.Generic</a> record.
 </p>
 </html>",
 revisions="<html>
