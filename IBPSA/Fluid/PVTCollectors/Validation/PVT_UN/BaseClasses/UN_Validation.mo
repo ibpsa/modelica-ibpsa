@@ -1,8 +1,8 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses;
 record UN_Validation =
-  .IDEAS.Fluid.PVTCollectors.Data.Generic (
+  .IBPSA.Fluid.PVTCollectors.Data.Generic (
     final A=1.64,
-    final CTyp=.IDEAS.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=22100*1.64,
     final V=1.54/1000,
     final mDry=30,
@@ -10,7 +10,7 @@ record UN_Validation =
     final dp_nominal=300000,
     final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
     final incAngModDat={1,1,1,1,0.99,0.97,0.92,0.80,0.55,0.00},
-    final colTyp=.IDEAS.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=0.97,
     final eta0=0.499,
     final a1=11.84,
@@ -36,9 +36,9 @@ which are provided directly in the collector datasheet.
 </p>
 <p>
 For this PVT collector, additional real-life measurement data is publicly available (Veynandt, 2023) and has been used in the validation of 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.PVTCollector\">IDEAS.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
 which can be found in the 
-<a href=\"modelica://IDEAS.Fluid.PVTCollectors.Validation.PVT_UN\">IDEAS.Fluid.PVTCollectors.Validation.PVT_UN</a> package. 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">IBPSA.Fluid.PVTCollectors.Validation.PVT_UN</a> package. 
 </p>
 <h4>Certificate</h4>
 <ul>
