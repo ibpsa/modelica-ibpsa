@@ -102,7 +102,7 @@ Outside the turbulent region, the two models give the same result.
 However, inside the turbulent region, the results differ slightly because
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.powerLaw_dp\">
 IBPSA.Fluid.BaseClasses.FlowModels.powerLaw_dp</a>
-uses a 5th order polynominal to ensure C2 continuity, while
+uses a 5th order polynomial to ensure C2 continuity, while
 <a href=\"modelica://IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM\">
 IBPSA.Airflow.Multizone.BaseClasses.powerLawFixedM</a>
 uses a 7th order polynomial.

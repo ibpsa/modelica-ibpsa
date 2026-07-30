@@ -118,9 +118,9 @@ convertClass("IBPSA.Fluid.FixedResistances.BaseClasses.PlugFlowCore",
              "IBPSA.Obsolete.Fluid.FixedResistances.BaseClasses.PlugFlowCore");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
-convertClass("IBPSA.Utilities.Math.Polynominal",
+convertClass("IBPSA.Utilities.Math.Polynomial",
              "IBPSA.Utilities.Math.Polynomial");
-convertClass("IBPSA.Utilities.Math.Examples.Polynominal",
+convertClass("IBPSA.Utilities.Math.Examples.Polynomial",
              "IBPSA.Utilities.Math.Examples.Polynomial");
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1498
