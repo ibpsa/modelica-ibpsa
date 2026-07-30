@@ -31,7 +31,8 @@ IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 and
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
-are not invertible.
+do not have an analytic expression for their inverse function and hence
+the implementation of the inverse function slightly differs..
 </p>
 </html>", revisions="<html>
 <ul>
