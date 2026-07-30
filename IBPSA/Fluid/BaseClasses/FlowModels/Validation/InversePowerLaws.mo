@@ -70,7 +70,7 @@ and
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">
 IBPSA.Fluid.BaseClasses.FlowModels.powerLaw_m_flow</a>
 do not have an analytic expression for their inverse function and hence
-the implementation of the inverse function slightly differs..
+the implementation of the inverse function slightly differs.
 </p>
 </html>", revisions="<html>
 <ul>
