@@ -257,7 +257,7 @@ models from the package
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 can be used and combined with models from the
-<code>Buildings</code> library.
+<code>IBPSA</code> library.
 </p>
 <p>
 For a model that uses the hydraulic parameter and flow velocity at nominal conditions
