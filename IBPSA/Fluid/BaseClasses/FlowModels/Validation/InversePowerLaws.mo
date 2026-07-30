@@ -1,6 +1,14 @@
 within IBPSA.Fluid.BaseClasses.FlowModels.Validation;
 model InversePowerLaws "Test model for power law flow function and its inverse"
   extends Modelica.Icons.Example;
+
+  parameter Real k = 0.5;
+  parameter Real n(min=1, max=2) = 1/0.8
+    "Flow exponent, n=1 for laminar, n=2 for turbulent";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1 "Nominal flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=m_flow_nominal*0.3
+    "Mass flow rate where transition to turbulent flow occurs";
+
   Modelica.Units.SI.MassFlowRate m_flow;
   Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
     "Pressure difference";
@@ -9,12 +17,6 @@ model InversePowerLaws "Test model for power law flow function and its inverse"
   Modelica.Units.SI.Pressure deltaDp(displayUnit="Pa")
     "Pressure difference between input and output to the functions";
   Modelica.Units.SI.Time dTime=2;
- parameter Real k = 0.5;
-  parameter Real n(min=1, max=2) = 1/0.8
-    "Flow exponent, n=1 for laminar, n=2 for turbulent";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1 "Nominal flow rate";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent=m_flow_nominal*0.3
-    "Mass flow rate where transition to turbulent flow occurs";
 
 protected
   parameter Modelica.Units.SI.PressureDifference dp_turbulent(
