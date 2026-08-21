@@ -23,7 +23,9 @@ type SignalsForKPIs = enumeration(
     SolarThermalPower
       "Thermal power from solar thermal",
     FreshWaterFlowRate
-      "FreshWaterFlowRate") "Signals used for the calculation of key performance indicators"
+      "FreshWaterFlowRate",
+    ActuatorTravel
+      "Actuator travel") "Signals used for the calculation of key performance indicators"
   annotation (Documentation(info="<html>
 <p>
 This enumeration defines the signal types that are used by BOPTEST
