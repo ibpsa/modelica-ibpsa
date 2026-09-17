@@ -470,7 +470,7 @@ the second term describes the fluid flow.
 <p>
 The pressure losses in the aquifer are calculated using the Darcy's law
 <p align=\"center\" style=\"font-style:italic;\">
-V&#x0307 = 2 &#960; K h &#916;H/ ln(rMax &frasl; rWB)),
+V&#x0307; = 2 &#960; K h &#916;H/ ln(rMax &frasl; rWB)),
 </p>
 <p>
 where
@@ -508,7 +508,7 @@ we can write for the pressure difference due to flow friction
 &#916;p = m&#x0307; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB)),
 </p>
 <p>
-where <i>m&#x0307 = V&#x0307 &rho;</i> is the water mass flow rate.
+where <i>m&#x0307; = V&#x0307; &rho;</i> is the water mass flow rate.
 </p>
 <p>
 The pressure losses in the wells as a function of the mass flow rate are calculated using
