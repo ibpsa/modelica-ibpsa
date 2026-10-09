@@ -21,19 +21,11 @@ info="<html>
 <p>
 This record is a template for the records in
 <a href=\"modelica://IBPSA.Fluid.Geothermal.Aquifer.MultiWell\">
-IBPSA.Fluid.Geothermal.Aquifer.MultiWell</a>
-that specify
-the heat transfer and fluid flow properties of the subsurface.
+IBPSA.Fluid.Geothermal.Aquifer.MultiWell</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
-<li>
-September 17, 2026, by Michael Wetter:<br/>
-Improved documentation of pressure drop calculation.<br/>
-For
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2179\">IBPSA, #2179</a>.
-</li>
 <li>
 March 25, 2024, by Michael Wetter:<br/>
 Corrected broken link.<br/>
