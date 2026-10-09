@@ -9,5 +9,6 @@ PrescribedOutlet_Water
 PrescribedOutlet_X_wSetOnly
 ReverseFlowHumidifier
 ReverseFlowMassExchanger
+SpeciesBalance
 StaticTwoPortConservationEquation
 BaseClasses
