@@ -1,0 +1,13 @@
+within IBPSA.Fluid.HeatExchangers.ThermalWheels.Latent;
+package BaseClasses "Package with base classes for enthalpy recovery devices"
+  extends Modelica.Icons.BasesPackage;
+
+  annotation(
+    Documentation(info="<html>
+<p>
+This package contains base classes that are used to construct the models in
+<a href=\"modelica://IBPSA.Fluid.HeatExchangers.ThermalWheels.Latent\">
+IBPSA.Fluid.HeatExchangers.ThermalWheels.Latent</a>.
+</p>
+</html>"));
+end BaseClasses;
