@@ -1,5 +1,5 @@
-within IBPSA.Fluid.Interfaces.Examples;
-model SpeciesBalance "Validation model for conservation equation"
+within IBPSA.Fluid.MixingVolumes.Validation;
+model MassAccumulation "Validation model for conservation equation"
   extends Modelica.Icons.Example;
 
   package Medium = IBPSA.Media.Air(extraPropertiesNames={"CO2"}) "Air media";
@@ -40,7 +40,7 @@ equation
   annotation (experiment(
     StopTime=120,
     Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/SpeciesBalance.mos"
+    __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MassAccumulation.mos"
       "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -59,4 +59,4 @@ First implementation, for
 </li>
 </ul>
 </html>"));
-end SpeciesBalance;
+end MassAccumulation;
