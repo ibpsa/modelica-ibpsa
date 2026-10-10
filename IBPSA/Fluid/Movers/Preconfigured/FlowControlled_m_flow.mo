@@ -21,7 +21,7 @@ defaultComponentName="mov",
 Documentation(info="<html>
 <p>
 This model is the preconfigured version for
-<a href=\"Modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_m_flow\">
 IBPSA.Fluid.Movers.FlowControlled_m_flow</a>.
 </html>", revisions="<html>
 <ul>

@@ -12,13 +12,13 @@ annotation (experiment(StopTime=1, Tolerance=1e-6),
   Documentation(info="<html>
 <p>
 This model is largely the same as
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid\">
 IBPSA.Fluid.CHPs.OrganicRankine.BaseClasses.Validation.DryFluid</a>,
 except that it validates the handling of wet working fluids.
 As a result, a superheating temperature is computed that ensures
 the expansion does not land under the dome.
 How this superheating temperature is found is explained in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>.
 </p>
 </html>",revisions="<html>

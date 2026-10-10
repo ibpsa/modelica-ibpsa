@@ -617,24 +617,24 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
 <p>
 In the previous implementation, this model extends from
-<a href=\"Modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
 IBPSA.Fluid.Interfaces.PartialTwoPortInterface</a>.
 Now it copies much of the code instead.
 This is to resolve a potential circular parameter binding that occurs when
-<a href=\"Modelica://IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y\">
+<a href=\"modelica://IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y\">
 IBPSA.Fluid.Movers.Preconfigured.SpeedControlled_y</a>
 extends from
-<a href=\"Modelica://IBPSA.Fluid.Movers.SpeedControlled_y\">
+<a href=\"modelica://IBPSA.Fluid.Movers.SpeedControlled_y\">
 IBPSA.Fluid.Movers.SpeedControlled_y</a>.
 The former uses the nominal flow rate provided by user to construct
 the pressure curve, whilst the latter uses the user-provided pressure curve
 to determine the nominal flow rate. The new implementation removes the
 original declaration of nominal flow rate from
-<a href=\"Modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
 IBPSA.Fluid.Interfaces.PartialTwoPortInterface</a>
 and hides it (<code>protected _m_flow_nominal</code>) from the user.
 This way, A higher-level model (e.g.
-<a href=\"Modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
+<a href=\"modelica://IBPSA.Fluid.Movers.FlowControlled_dp\">
 IBPSA.Fluid.Movers.FlowControlled_dp</a>),
 can still provide a default but not the other way around.
 See discussions in
@@ -671,7 +671,7 @@ because it is no longer needed. This is for
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Instead of extending
-<a href=\"Modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
+<a href=\"modelica://IBPSA.Fluid.Interfaces.PartialTwoPortInterface\">
 IBPSA.Fluid.Interfaces.PartialTwoPortInterface</a>,
 this model now has its code copied, then rewrote <code>m_flow_nominal</code>
 as <code>protected _m_flow_nominal</code>.<br/>

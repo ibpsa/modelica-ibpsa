@@ -201,7 +201,7 @@ annotation(experiment(StopTime=900,Tolerance=1E-6),
   Documentation(info="<html>
 <p>
 This example model demonstrates how
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 can be integrated in a system.
 The three-way valve is controlled to track the hot water

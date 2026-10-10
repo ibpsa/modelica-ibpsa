@@ -11,7 +11,7 @@ annotation (
     Documentation(info="<html>
 <p>
 This model is the same as
-<a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
 IBPSA.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>
 except that the enumeration is used for total efficiency <i>&eta;</i>
 via the parameter <code>per.powerOrEfficiencyIsHydraulic</code>.
