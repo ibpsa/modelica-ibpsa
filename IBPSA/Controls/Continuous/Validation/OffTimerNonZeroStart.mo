@@ -16,7 +16,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>This model tests the implementation the
-<a href=\"Modelica://IBPSA.Controls.Continuous.OffTimer\">IBPSA.Controls.Continuous.OffTimer</a>
+<a href=\"modelica://IBPSA.Controls.Continuous.OffTimer\">IBPSA.Controls.Continuous.OffTimer</a>
 for negative start time.
 </p>
 </html>"));

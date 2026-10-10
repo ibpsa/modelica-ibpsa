@@ -32,7 +32,7 @@ annotation(experiment(StopTime=1, Tolerance=1e-6),
   Documentation(info="<html>
 <p>
 This model validates the basic use of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates\">
 IBPSA.Fluid.CHPs.OrganicRankine.BaseClasses.InterpolateStates</a>.
 </p>
 </html>",revisions="<html>

@@ -66,7 +66,7 @@ October 5, 2022, by Hongxiang Fu:<br/>
 <ul>
 <li>
 Remade this model with
-<a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 IBPSA.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 instead of using a full mover model so that forcing a flow rate and a pressure rise
 is more straightforward.
