@@ -45,6 +45,8 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "modelica://IDEAS",
                 "modelica://https://",
                 r'href=\"IBPSA.',
+                r'href=\"Modelica.',
+                r'href=\"Modelica://',
                 ">>>>>>",
                 "<<<<<<"]
 
@@ -64,7 +66,7 @@ INVALID_REGEXP_IN_MO=[r"StopTime\s*=\s*\d\s*[*]\s*\d+",
                       r'(Text\(\s*)textString\s*=\s*"[^"]*"\s*,\s*',
                       r"(Line\s*\([^\)]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples
-REQUIRED_IN_MO=["documentation"]
+REQUIRED_IN_MO=["Documentation"]
 
 #########################################################
 def reportError(message):
@@ -102,7 +104,7 @@ def reportErrorIfContains(fileName, listOfStrings):
         filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
-        if (filTex.find(string.lower()) > -1):
+        if (filTex.find(string) > -1):
             reportError("File '"
                         + getRelativeMoPath(fileName)
                         + "' contains invalid string '"
@@ -126,9 +128,8 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
 def reportErrorIfMissing(fileName, listOfStrings):
     with open(fileName, 'r') as filObj:
         filTex=filObj.read()
-    filTex=filTex.lower()
     for string in listOfStrings:
-        if (filTex.find(string.lower()) == -1):
+        if (filTex.find(string) == -1):
             reportError("File '"
                         + getRelativeMoPath(fileName)
                         + "' does not contain required string '"
