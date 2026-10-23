@@ -8,6 +8,7 @@ SensibleCooler_T
 WetCoilEffectivenessNTU
 ActiveBeams
 Radiators
+ThermalWheels
 Examples
 Validation
 BaseClasses
