@@ -32,7 +32,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/Movers/P
 <p>
 This model validates the preconfigured mover models.
 It is based on
-<a href=\"Modelica://IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic\">
+<a href=\"modelica://IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic\">
 IBPSA.Fluid.Movers.Validation.ControlledFlowMachineDynamic</a>.
 </p>
 </html>", revisions="<html>
