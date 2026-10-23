@@ -1,6 +1,6 @@
 within IBPSA.Fluid.PVTCollectors;
 package Data "Data for photovoltaic–thermal (PVT) collectors"
-extends .Modelica.Icons.MaterialPropertiesPackage;
+extends Modelica.Icons.MaterialPropertiesPackage;
 
 annotation (Documentation(info = "<html>
 <p>

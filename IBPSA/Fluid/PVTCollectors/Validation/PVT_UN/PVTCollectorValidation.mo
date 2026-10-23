@@ -1,18 +1,18 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UN;
 model PVTCollectorValidation
   "Validation model of a photovoltaic–thermal (PVT) collector using the ISO 9806:2017 thermal method with integrated electrical coupling"
-  extends .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation(
+  extends IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation(
     eleLosFac = 0.07);
 
-  outer .Modelica.Blocks.Sources.CombiTimeTable meaDat(
+  outer Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     tableName="data",
-    fileName=.Modelica.Utilities.Files.loadResource(
+    fileName=Modelica.Utilities.Files.loadResource(
         "modelica://IBPSA/Resources/Data/Fluid/PvtCollectors/Validation/PVT_UN/PVT_UN_measurements.txt"),
     columns=1:25) annotation (Placement(transformation(extent={{78,70},
             {58,90}})));
 
-  .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806HeatLossValidation
+  IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806HeatLossValidation
     heaLosStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
@@ -27,7 +27,7 @@ model PVTCollectorValidation
     "Calculates the heat lost to the surroundings using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 
-  replaceable .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806SolarGainHGloTil
+  replaceable IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ISO9806SolarGainHGloTil
     solGaiStc(
     redeclare final package Medium = Medium,
     final nSeg=nSeg,
@@ -37,7 +37,7 @@ model PVTCollectorValidation
     final A_c=ATot_internal)
     "Calculates the heat from the sun using the ISO 9806:2017 quasi-dynamic standard calculations"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  .IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
+  IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT eleGen(
     final nSeg = nSeg,
     final A_c = ATot_internal,
     final eleLosFac = eleLosFac,
@@ -51,18 +51,18 @@ model PVTCollectorValidation
     "Calculates the electrical power output of the PVT model"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  .Modelica.Blocks.Sources.RealExpression Gglob(y=meaDat.y[4]) "[W/m2]"
+  Modelica.Blocks.Sources.RealExpression Gglob(y=meaDat.y[4]) "[W/m2]"
     annotation (Placement(transformation(extent={{-51.5,66},{-32.5,82}})));
-  .Modelica.Blocks.Sources.RealExpression globIrrTil(y=(meaDat.y[4])) "[W/m2]"
+  Modelica.Blocks.Sources.RealExpression globIrrTil(y=(meaDat.y[4])) "[W/m2]"
     annotation (Placement(transformation(extent={{-67.5,6},{-48.5,22}})));
-  .Modelica.Blocks.Sources.RealExpression winSpe(y=(meaDat.y[10])) "[W/m2]"
+  Modelica.Blocks.Sources.RealExpression winSpe(y=(meaDat.y[10])) "[W/m2]"
     annotation (Placement(transformation(extent={{-67.5,28},{-48.5,44}})));
-  .Modelica.Blocks.Sources.RealExpression HHorIr(y=.Modelica.Constants.sigma*(
+  Modelica.Blocks.Sources.RealExpression HHorIr(y=Modelica.Constants.sigma*(
         meaDat.y[23] + 273.15)^4) "[W/m2]"
     annotation (Placement(transformation(extent={{-67.5,18},{-48.5,34}})));
-  .Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TFluKel annotation (Placement(transformation(extent={{21,77},
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TFluKel annotation (Placement(transformation(extent={{21,77},
             {11,87}})));
-  .Modelica.Blocks.Sources.RealExpression[nSeg] qThSegExp(final y=qThSeg)
+  Modelica.Blocks.Sources.RealExpression[nSeg] qThSegExp(final y=qThSeg)
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
 equation

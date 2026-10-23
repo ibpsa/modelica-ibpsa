@@ -1,27 +1,27 @@
 within IBPSA.Fluid.PVTCollectors.BaseClasses.Examples;
 model ISO9806HeatLoss "Example showing the use of ISO9806HeatLoss"
-  extends .Modelica.Icons.Example;
-  replaceable package Medium = .IBPSA.Media.Water "Medium in the system";
+  extends Modelica.Icons.Example;
+  replaceable package Medium = IBPSA.Media.Water "Medium in the system";
 
-  parameter .IBPSA.Fluid.PVTCollectors.Data.Generic per=
-      .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation()
+  parameter IBPSA.Fluid.PVTCollectors.Data.Generic per=
+      IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation()
     "Performance data" annotation (choicesAllMatching=true);
-  .Modelica.Blocks.Sources.Sine T1(
+  Modelica.Blocks.Sources.Sine T1(
     amplitude=15,
     f=0.1,
     offset=273.15 + 10) "Temperature of the first segment"
     annotation (Placement(transformation(extent={{-92,-22},{-72,-2}})));
-  .Modelica.Blocks.Sources.Sine T2(
+  Modelica.Blocks.Sources.Sine T2(
     f=0.1,
     amplitude=15,
     offset=273.15 + 15) "Temperature of the second segment"
     annotation (Placement(transformation(extent={{-68,-36},{-48,-16}})));
-  .Modelica.Blocks.Sources.Sine T3(
+  Modelica.Blocks.Sources.Sine T3(
     f=0.1,
     amplitude=15,
     offset=273.15 + 20) "Temperature of the third segment"
     annotation (Placement(transformation(extent={{-90,-52},{-70,-32}})));
-  .IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss heaLosQuaDyn(
+  IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss heaLosQuaDyn(
     nSeg=3,
     redeclare package Medium = Medium,
     a1=per.a1,
@@ -33,32 +33,32 @@ model ISO9806HeatLoss "Example showing the use of ISO9806HeatLoss"
     a8=per.a8,
     A_c=per.A) annotation (Placement(transformation(extent={{18,-2},{38,18}})));
 
-  .IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLosSteSta(
+  IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLosSteSta(
     A_c=per.A,
     nSeg=3,
     redeclare package Medium = Medium,
     a1=per.a1,
     a2=per.a2)
     annotation (Placement(transformation(extent={{18,-68},{38,-48}})));
-  .Modelica.Blocks.Sources.Sine TEnv(
+  Modelica.Blocks.Sources.Sine TEnv(
     f=0.01,
     offset=273.15 + 10,
     amplitude=15) "Temperature of the surrounding environment"
     annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
-  .Modelica.Blocks.Sources.Sine winSpePla(
+  Modelica.Blocks.Sources.Sine winSpePla(
     f=1/(24*3600),
     phase=0,
     offset=3,
     amplitude=2) "wind speed in the collector plane"
     annotation (Placement(transformation(extent={{60,58},{80,78}})));
-  .Modelica.Blocks.Sources.RealExpression HHorIR(y=400) "long wave irradiance"
+  Modelica.Blocks.Sources.RealExpression HHorIR(y=400) "long wave irradiance"
     annotation (Placement(transformation(extent={{-1.5,58},{17.5,74}})));
-  .Modelica.Blocks.Sources.RealExpression HGloTil(y=800) "Global irradiance on the tilted surface"
+  Modelica.Blocks.Sources.RealExpression HGloTil(y=800) "Global irradiance on the tilted surface"
     annotation (Placement(transformation(extent={{26.5,58},{45.5,74}})));
-  .Modelica.Blocks.Interfaces.RealOutput QLos_flow_QuaDyn[3]
+  Modelica.Blocks.Interfaces.RealOutput QLos_flow_QuaDyn[3]
     "Heat loss rate at current conditions"
     annotation (Placement(transformation(extent={{60,-2},{80,18}})));
-  .Modelica.Blocks.Interfaces.RealOutput QLos_flow_SteSta[3]
+  Modelica.Blocks.Interfaces.RealOutput QLos_flow_SteSta[3]
     "Heat loss rate at current conditions"
     annotation (Placement(transformation(extent={{62,-68},{82,-48}})));
 equation

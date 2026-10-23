@@ -1,22 +1,22 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UN;
 model PVT_UN_Electrical
   "Validation model for an unglazed rear-non-insulated PVT Collector"
-  extends .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Electrical.PVT_UI_Electrical_DayType1(
+  extends IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Electrical.PVT_UI_Electrical_DayType1(
     redeclare package Medium =
-      .IBPSA.Media.Antifreeze.PropyleneGlycolWater(
+      IBPSA.Media.Antifreeze.PropyleneGlycolWater(
         property_T=293.15, X_a=0.43),
-    redeclare parameter .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UN_Validation datPVTCol,
-    redeclare .IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.PVTCollectorValidation pvtCol(
+    redeclare parameter IBPSA.Fluid.PVTCollectors.Data.Uncovered.UN_Validation datPVTCol,
+    redeclare IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.PVTCollectorValidation pvtCol(
       redeclare package Medium =
-        .IBPSA.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.43),
-      energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
-      massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
+        IBPSA.Media.Antifreeze.PropyleneGlycolWater(property_T=293.15, X_a=0.43),
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       T_start=17.086651 + 273.15,
       show_T=true,
       azi=0,
       til=0.34906585039887,
       rho=0.2,
-      nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
+      nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
       nPanels=1,
       per=datPVTCol,
       eleLosFac=0.07),

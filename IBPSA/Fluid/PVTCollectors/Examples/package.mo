@@ -1,6 +1,6 @@
 within IBPSA.Fluid.PVTCollectors;
 package Examples "Examples demonstrating the use of models in the PVTCollectors package"
-  extends .Modelica.Icons.ExamplesPackage;
+  extends Modelica.Icons.ExamplesPackage;
 
   annotation(Documentation(info="<html>
 <p>

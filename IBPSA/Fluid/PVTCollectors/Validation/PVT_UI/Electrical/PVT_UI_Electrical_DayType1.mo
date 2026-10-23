@@ -1,13 +1,13 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Electrical;
 model PVT_UI_Electrical_DayType1
   "Validation model for an unglazed rear-insulated PVT Collector"
-  extends .Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-  replaceable package Medium = .IBPSA.Media.Water "Medium model";
-  replaceable parameter .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
+  replaceable package Medium = IBPSA.Media.Water "Medium model";
+  replaceable parameter IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
   annotation (Placement(transformation(extent={{74,-26},{94,-6}})));
   parameter String pvtTyp = "Typ1" "Type identifier for selecting the UI measurement dataset";
-  parameter .Modelica.Units.SI.Temperature T_start = 30.65195319 + 273.15 "Initial temperature (from measurement data)";
+  parameter Modelica.Units.SI.Temperature T_start = 30.65195319 + 273.15 "Initial temperature (from measurement data)";
   parameter Real eleLosFac = 0.09  "Electrical system loss factor of the PV module";
   parameter Real til = 0.78539816339745 "Collector tilt angle [rad]";
   parameter Real azi = 0 "Collector azimuth angle [rad]";
@@ -21,49 +21,49 @@ model PVT_UI_Electrical_DayType1
   parameter Integer idxMeaPel = 21 "Column index for measured electrical power";
   parameter String meaFile = "modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UI/PVT_UI_" + pvtTyp + "_measurements.txt" "Full path to measurement file";
 
-  inner .Modelica.Blocks.Sources.CombiTimeTable meaDat(
+  inner Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     tableName="data",
-    fileName=.Modelica.Utilities.Files.loadResource(meaFile),
+    fileName=Modelica.Utilities.Files.loadResource(meaFile),
     columns=1:25) annotation (Placement(transformation(extent={{-92,4},{-72,24}})));
 
-  replaceable .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtCol(
+  replaceable IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtCol(
     redeclare package Medium = Medium,
-    energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=T_start,
     show_T=true,
     azi=azi,
     til=til,
     rho=rho,
-    nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
     eleLosFac=eleLosFac)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
-  .Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TFluKel annotation (Placement(transformation(extent={{-87,-21},
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TFluKel annotation (Placement(transformation(extent={{-87,-21},
             {-77,-11}})));
-  .Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel;
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel;
 
-  .IBPSA.Fluid.Sources.Boundary_pT sou(
+  IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p = 101325,
     nPorts=1) "Outlet for water flow"
     annotation (Placement(transformation(extent={{62,-30},{42,-10}})));
-  .IBPSA.Fluid.Sources.MassFlowSource_T bou(
+  IBPSA.Fluid.Sources.MassFlowSource_T bou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     m_flow=0.03,
     use_T_in=true,
     nPorts=1) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-58,-30},{-38,-10}})));
-  .IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        .Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-52,8},{-32,28}})));
-  .IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ElectricalPV electricalPV(
+  IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.ElectricalPV electricalPV(
       P_STC=datPVTCol.P_nominal,
       beta=datPVTCol.beta,
       eleLosFac=eleLosFac,
@@ -72,17 +72,17 @@ model PVT_UI_Electrical_DayType1
       til=til,
       azi=azi)
     annotation (Placement(transformation(extent={{-80,-84},{-60,-64}})));
-  .Modelica.Blocks.Sources.RealExpression meaPel(y=meaDat.y[idxMeaPel])
+  Modelica.Blocks.Sources.RealExpression meaPel(y=meaDat.y[idxMeaPel])
   "Measured electrical power [W]" annotation (Placement(transformation(extent={{-87,52},{-61,68}})));
-  .Modelica.Blocks.Sources.RealExpression UAbsFluid(y=pvtCol.eleGen.UAbsFluid)
+  Modelica.Blocks.Sources.RealExpression UAbsFluid(y=pvtCol.eleGen.UAbsFluid)
     "Absorber-fluid heat transfer coefficient [W/m2K]" annotation (Placement(transformation(extent={{11,46},{37,62}})));
-  .Modelica.Blocks.Sources.RealExpression simPel(y=pvtCol.Pel)
+  Modelica.Blocks.Sources.RealExpression simPel(y=pvtCol.Pel)
   "Electrical power simulated by PVT model [W]" annotation (Placement(transformation(extent={{-51,52},{-25,68}})));
-  .Modelica.Blocks.Sources.RealExpression simPelPV(y=electricalPV.P)
+  Modelica.Blocks.Sources.RealExpression simPelPV(y=electricalPV.P)
   "Electrical power from standalone PV model [W]"  annotation (Placement(transformation(extent={{-49,-74},{-23,-58}})));
-  .Modelica.Blocks.Sources.RealExpression simTcellPV(y=electricalPV.T_cell -
+  Modelica.Blocks.Sources.RealExpression simTcellPV(y=electricalPV.T_cell -
         273.15) "PV-only cell temperature [°C]"  annotation (Placement(transformation(extent={{-49,-92},{-23,-76}})));
-  .Modelica.Blocks.Sources.RealExpression simTcell(y=pvtCol.eleGen.TavgCel -
+  Modelica.Blocks.Sources.RealExpression simTcell(y=pvtCol.eleGen.TavgCel -
         273.15) "PVT cell temperature [°C]"  annotation (Placement(transformation(extent={{-51,40},{-25,56}})));
 
 equation

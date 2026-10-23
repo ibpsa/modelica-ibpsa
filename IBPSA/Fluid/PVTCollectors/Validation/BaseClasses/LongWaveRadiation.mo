@@ -1,10 +1,10 @@
 within IBPSA.Fluid.PVTCollectors.Validation.BaseClasses;
 model LongWaveRadiation
-  extends .Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.Block;
 
   // Parameters
-  parameter .Modelica.Units.SI.Angle til "Surface tilt (0 for horizontally mounted collector)";
-  constant .Modelica.Units.SI.DimensionlessRatio epsGro = 0.95 "ground emissivity [-]";
+  parameter Modelica.Units.SI.Angle til "Surface tilt (0 for horizontally mounted collector)";
+  constant Modelica.Units.SI.DimensionlessRatio epsGro = 0.95 "ground emissivity [-]";
   // Constants for dew point calculation using Buck's equation [Buck, 1981]
   constant Real aBuck = 243.5 "Buck constant for dew point [°C]";
   constant Real bBuck = 17.67 "Buck constant for dew point [°C]";
@@ -12,30 +12,30 @@ model LongWaveRadiation
   Real epsSky "Clear sky emissivity [-]";
 
   // Real Inputs
-  .Modelica.Blocks.Interfaces.RealInput Tamb(
+  Modelica.Blocks.Interfaces.RealInput Tamb(
     quantity="AmbientTemperature",
     unit="degC",
     displayUnit="degC") "Ambient temperature [°C]"
     annotation (Placement(transformation(extent={{-140,-108},{-100,-68}})));
-  .Modelica.Blocks.Interfaces.RealInput rH(
+  Modelica.Blocks.Interfaces.RealInput rH(
     quantity="RelativeHumidity",
     unit="percentage",
     displayUnit="frac") "Relative Humidity [%]"
     annotation (Placement(transformation(extent={{-140,-64},{-100,-24}}),
         iconTransformation(extent={{-140,-64},{-100,-24}})));
-  .Modelica.Blocks.Interfaces.RealInput patm(
+  Modelica.Blocks.Interfaces.RealInput patm(
     quantity="AtmosphericPressure",
     unit="bar",
     displayUnit="bar") "Atmospheric pressure [atm]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  .Modelica.Blocks.Interfaces.RealInput Edif_h(
+  Modelica.Blocks.Interfaces.RealInput Edif_h(
     quantity="DiffuseRadiationCollector",
     unit="W/m2",
     displayUnit="kJ/hr.m²") "Diffuse horizontal irradiation [W/m2]"
     annotation (Placement(transformation(extent={{-140,24},{-100,64}}),
         iconTransformation(extent={{-140,24},{-100,64}})));
-  .Modelica.Blocks.Interfaces.RealInput Eglobh_h(
+  Modelica.Blocks.Interfaces.RealInput Eglobh_h(
     quantity="TotalRadiationCollector",
     unit="W/m2",
     displayUnit="kJ/hr.m²") "global horizontal irradiation [W/m2]"
@@ -43,7 +43,7 @@ model LongWaveRadiation
         iconTransformation(extent={{-140,68},{-100,108}})));
 
   // Outputs
-  .Modelica.Blocks.Interfaces.RealOutput lonRad(
+  Modelica.Blocks.Interfaces.RealOutput lonRad(
     quantity="LongwaveRadiation",
     unit="W/m2",
     displayUnit="W/m2") "Longwave radiation [W/m²]"
@@ -59,7 +59,7 @@ equation
   epsSky = 0.711 + 0.56 * (Tdew/100) + 0.73 * (Tdew/100)^2;
 
   // Calculate Longwave Radiation (lonRad) using Tview and the Stefan-Boltzmann Law
-  lonRad = .Modelica.Constants.sigma*Tamb^4*((epsSky*(1 + cos(til)) / 2) + (epsGro*(1 - cos(til)) / 2));
+  lonRad = Modelica.Constants.sigma*Tamb^4*((epsSky*(1 + cos(til)) / 2) + (epsGro*(1 - cos(til)) / 2));
 annotation (
   defaultComponentName="LongWaveRad",
   Documentation(info="<html>

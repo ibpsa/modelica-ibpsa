@@ -1,16 +1,16 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Thermal;
 model PVT_UI_Thermal_DayType1
   "Validation model for an unglazed rear-insulated PVT Collector"
-  extends .Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-  replaceable package Medium = .IBPSA.Media.Water "Medium model";
-  replaceable parameter .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
+  replaceable package Medium = IBPSA.Media.Water "Medium model";
+  replaceable parameter IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
   annotation (Placement(transformation(extent={{72,-6},{92,14}})));
-  replaceable parameter .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.UI_Validation datPVTColVal "Collector parameter record"
+  replaceable parameter IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.UI_Validation datPVTColVal "Collector parameter record"
   annotation (Placement(transformation(extent={{72,-32},{92,-12}})));
 
   parameter String pvtTyp = "Typ1" "Type identifier for selecting the UI measurement dataset";
-  parameter .Modelica.Units.SI.Temperature T_start = 30.65195319 + 273.15 "Initial temperature (from measurement data)";
+  parameter Modelica.Units.SI.Temperature T_start = 30.65195319 + 273.15 "Initial temperature (from measurement data)";
   parameter Real eleLosFac = 0.09  "Electrical system loss factor of the PV module";
   parameter Real til = 0.78539816339745 "Collector tilt angle [rad]";
   parameter Real azi = 0 "Collector azimuth angle [rad]";
@@ -24,56 +24,56 @@ model PVT_UI_Thermal_DayType1
   parameter Integer idxMeaPel = 21 "Column index for measured electrical power";
   parameter String meaFile = "modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UI/PVT_UI_" + pvtTyp + "_measurements.txt" "Full path to measurement file";
 
-  inner .Modelica.Blocks.Sources.CombiTimeTable meaDat(
+  inner Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     tableName="data",
-    fileName=.Modelica.Utilities.Files.loadResource(meaFile),
+    fileName=Modelica.Utilities.Files.loadResource(meaFile),
     columns=1:25) annotation (Placement(transformation(extent={{-92,20},{-72,40}})));
 
-  replaceable .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtCol(
+  replaceable IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtCol(
     redeclare package Medium = Medium,
-    energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=T_start,
     show_T=true,
     azi=azi,
     til=til,
     rho=rho,
-    nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
     eleLosFac=eleLosFac)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  replaceable .IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtColVal(
+  replaceable IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtColVal(
     redeclare package Medium = Medium,
-    energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=T_start,
     show_T=true,
     azi=azi,
     til=til,
     rho=rho,
-    nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
     eleLosFac=eleLosFac)
     annotation (Placement(transformation(extent={{-10,-36},{10,-16}})));
 
-  .Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel
     annotation (Placement(transformation(extent={{-87,-1},
             {-77,9}})));
-  .Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel1
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel1
     annotation (Placement(transformation(extent={{-87,-27},
             {-77,-17}})));
 
-  .IBPSA.Fluid.Sources.Boundary_pT sou(
+  IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=1) "Outlet for water flow"
     annotation (Placement(transformation(extent={{62,-10},{42,10}})));
-  .IBPSA.Fluid.Sources.MassFlowSource_T bou(
+  IBPSA.Fluid.Sources.MassFlowSource_T bou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     m_flow=0.03,
@@ -81,13 +81,13 @@ model PVT_UI_Thermal_DayType1
     nPorts=1) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 
-  .IBPSA.Fluid.Sources.Boundary_pT sou1(
+  IBPSA.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     use_p_in=false,
     p = 101325,
     nPorts=1) "Outlet for water flow"
     annotation (Placement(transformation(extent={{62,-36},{42,-16}})));
-  .IBPSA.Fluid.Sources.MassFlowSource_T bou1(
+  IBPSA.Fluid.Sources.MassFlowSource_T bou1(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     m_flow=0.03,
@@ -95,36 +95,36 @@ model PVT_UI_Thermal_DayType1
     nPorts=1) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-58,-36},{-38,-16}})));
 
-  .Modelica.Blocks.Sources.RealExpression meaQ(y=meaDat.y[19]) "Measured thermal power output [W]"
+  Modelica.Blocks.Sources.RealExpression meaQ(y=meaDat.y[19]) "Measured thermal power output [W]"
     annotation (Placement(transformation(extent={{-81,60},{-55,76}})));
-  .Modelica.Blocks.Sources.RealExpression a1_a2_term(y = pvtCol.heaLosStc.a1_a2_term)
+  Modelica.Blocks.Sources.RealExpression a1_a2_term(y = pvtCol.heaLosStc.a1_a2_term)
     "Heat loss contribution associated with the a1 and a2 coefficients [W]"
     annotation(Placement(transformation(extent={{19,68},{45,84}})));
-  .Modelica.Blocks.Sources.RealExpression a3_term(y = pvtCol.heaLosStc.a3_term)
+  Modelica.Blocks.Sources.RealExpression a3_term(y = pvtCol.heaLosStc.a3_term)
     "Heat loss contribution associated with the a3 coefficien [W]"
     annotation(Placement(transformation(extent={{19,52},{45,68}})));
-  .Modelica.Blocks.Sources.RealExpression a4_term(y = pvtCol.heaLosStc.a4_term)
+  Modelica.Blocks.Sources.RealExpression a4_term(y = pvtCol.heaLosStc.a4_term)
     "Heat loss contribution associated with the a4 coefficient [W]"
     annotation(Placement(transformation(extent={{57,68},{83,84}})));
-  .Modelica.Blocks.Sources.RealExpression a6_term(y = pvtCol.heaLosStc.a6_term)
+  Modelica.Blocks.Sources.RealExpression a6_term(y = pvtCol.heaLosStc.a6_term)
     "Heat loss contribution associated with the a6 coefficient [W]"
     annotation(Placement(transformation(extent={{57,52},{83,68}})));
-  .Modelica.Blocks.Sources.RealExpression a7_term(y = pvtCol.heaLosStc.a7_term)
+  Modelica.Blocks.Sources.RealExpression a7_term(y = pvtCol.heaLosStc.a7_term)
     "Heat loss contribution associated with the a7 coefficient [W]"
     annotation(Placement(transformation(extent={{19,36},{45,52}})));
-  .Modelica.Blocks.Sources.RealExpression a8_term(y = pvtCol.heaLosStc.a8_term)
+  Modelica.Blocks.Sources.RealExpression a8_term(y = pvtCol.heaLosStc.a8_term)
     "Heat loss contribution associated with the a8 coefficient [W]"
     annotation(Placement(transformation(extent={{57,36},{83,52}})));
-  .Modelica.Blocks.Sources.RealExpression simQ(
+  Modelica.Blocks.Sources.RealExpression simQ(
     y=Medium.cp_const*pvtCol.port_b.m_flow*(pvtCol.sta_a.T -pvtCol.sta_b.T))
     "Thermal power output of pvt model [W]"
     annotation (Placement(transformation(extent={{-45,60},{-19,76}})));
-  .Modelica.Blocks.Sources.RealExpression simQVal(
+  Modelica.Blocks.Sources.RealExpression simQVal(
     y=Medium.cp_const*pvtColVal.port_b.m_flow*(pvtColVal.sta_a.T -pvtColVal.sta_b.T))
     "Thermal power output of simplified pvt model [W]"
     annotation (Placement(transformation(extent={{-81,-86},{-55,-70}})));
-  .IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        .Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-40,18},{-20,38}})));
 equation

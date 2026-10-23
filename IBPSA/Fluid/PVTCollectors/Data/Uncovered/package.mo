@@ -1,7 +1,7 @@
 within IBPSA.Fluid.PVTCollectors.Data;
 package Uncovered
   "Performance data for uncovered (WISC) PVT collectors"
-extends .Modelica.Icons.MaterialPropertiesPackage;
+extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (
 Documentation(info = "<html>

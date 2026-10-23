@@ -1,16 +1,16 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UN.BaseClasses;
 record UN_Validation =
-  .IBPSA.Fluid.PVTCollectors.Data.Generic (
+  IBPSA.Fluid.PVTCollectors.Data.Generic (
     final A=1.64,
-    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=22100*1.64,
     final V=1.54/1000,
     final mDry=30,
     final mperA_flow_nominal=0.02,
     final dp_nominal=300000,
-    final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
+    final incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,80,90}),
     final incAngModDat={1,1,1,1,0.99,0.97,0.92,0.80,0.55,0.00},
-    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=0.97,
     final eta0=0.499,
     final a1=11.84,

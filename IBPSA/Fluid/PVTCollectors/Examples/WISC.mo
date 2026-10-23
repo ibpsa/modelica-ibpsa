@@ -1,27 +1,27 @@
 within IBPSA.Fluid.PVTCollectors.Examples;
 model WISC "Test model for WISC (Wind and Infrared Sensitive Collector) - uncovered PVT collectors"
-  extends .Modelica.Icons.Example;
-  replaceable package Medium = .Modelica.Media.Incompressible.Examples.Glycol47
+  extends Modelica.Icons.Example;
+  replaceable package Medium = Modelica.Media.Incompressible.Examples.Glycol47
     "Medium in the system";
 
-  .IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-    .Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+  IBPSA.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+    Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
     annotation (Placement(transformation(extent={{-28,60},{-8,80}})));
-  .IBPSA.Fluid.Sources.Boundary_pT sin(
+  IBPSA.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     p(displayUnit="bar") = 100000,
     nPorts=1) "Outlet for water flow"
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
-  .IBPSA.Fluid.Sensors.TemperatureTwoPort TOut(
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=pvtCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{32,-10},{52,10}})));
-  .IBPSA.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
+  IBPSA.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
     Medium, m_flow_nominal=pvtCol.m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-28,-10},{-8,10}})));
-  .IBPSA.Fluid.Sources.Boundary_pT sou(
+  IBPSA.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
     nPorts=1,
@@ -31,25 +31,25 @@ model WISC "Test model for WISC (Wind and Infrared Sensitive Collector) - uncove
       extent={{10,-10},{-10,10}},
       rotation=180,
       origin={-48,0})));
-  .Modelica.Blocks.Sources.Sine sine(
+  Modelica.Blocks.Sources.Sine sine(
     f=3/86400,
     amplitude=-pvtCol.dp_nominal,
     offset=1E5) "Pressure source"
     annotation (Placement(transformation(extent={{-88,-18},{-68,2}})));
-  .IBPSA.Fluid.PVTCollectors.PVTCollector pvtCol(
+  IBPSA.Fluid.PVTCollectors.PVTCollector pvtCol(
     redeclare package Medium = Medium,
-    energyDynamics=.Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
     azi=0,
     til=0.78539816339745,
     rho=0.2,
-    nColType=.IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     nSeg=9,
-    sysConfig=.IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+    sysConfig=IBPSA.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     per=datPVTCol)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  parameter .IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol
+  parameter IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol
     annotation (Placement(transformation(extent={{64,64},{84,84}})));
 equation
   connect(sou.ports[1], TIn.port_a) annotation (Line(

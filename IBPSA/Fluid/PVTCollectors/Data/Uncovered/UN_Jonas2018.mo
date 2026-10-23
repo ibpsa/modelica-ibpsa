@@ -1,16 +1,16 @@
 within IBPSA.Fluid.PVTCollectors.Data.Uncovered;
 record UN_Jonas2018 =
-  .IBPSA.Fluid.PVTCollectors.Data.Generic(
+  IBPSA.Fluid.PVTCollectors.Data.Generic(
     final A=1.66,
-    final CTyp=.IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
+    final CTyp=IBPSA.Fluid.SolarCollectors.Types.HeatCapacity.TotalCapacity,
     final C=35800*1.66,
     final V=5/1000,
     final mDry=20,
     final mperA_flow_nominal=0.03,
     final dp_nominal=60000,
-    final incAngDat=.Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,90}),
+    final incAngDat=Modelica.Units.Conversions.from_deg({0,10,20,30,40,50,60,70,90}),
     final incAngModDat={1,1,0.99,0.98,0.97,0.95,0.92,0.88,0.00},
-    final colTyp=.IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
+    final colTyp=IBPSA.Fluid.PVTCollectors.Types.CollectorType.Uncovered,
     final IAMDiff=(0.436*0.91-3*0.008)/(0.436-3*0.008),
     final eta0=0.436-3*0.008,
     final a1=7.750+3*1.640,

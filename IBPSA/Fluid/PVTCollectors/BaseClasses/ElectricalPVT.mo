@@ -1,60 +1,60 @@
 within IBPSA.Fluid.PVTCollectors.BaseClasses;
 model ElectricalPVT
   "Calculate the electrical power output of a PVT collector"
-  extends .Modelica.Blocks.Icons.Block;
-  extends .IBPSA.Fluid.SolarCollectors.BaseClasses.PartialParameters;
+  extends Modelica.Blocks.Icons.Block;
+  extends IBPSA.Fluid.SolarCollectors.BaseClasses.PartialParameters;
 
   // Parameters
-  parameter .Modelica.Units.SI.Irradiance HGloHorNom = 1000 "global horizontal irradiances";
-  parameter .Modelica.Units.SI.Efficiency eleLosFac = 0.09 "Electrical system loss factor";
-  parameter .Modelica.Units.SI.Temperature TpvtRef = 298.15 "Reference cell temperature";
+  parameter Modelica.Units.SI.Irradiance HGloHorNom = 1000 "global horizontal irradiances";
+  parameter Modelica.Units.SI.Efficiency eleLosFac = 0.09 "Electrical system loss factor";
+  parameter Modelica.Units.SI.Temperature TpvtRef = 298.15 "Reference cell temperature";
   parameter Real beta "Temperature coefficient [1/K]";
-  parameter .Modelica.Units.SI.Power P_nominal "Nominal PV power";
-  parameter .Modelica.Units.SI.Area A "PV area";
-  parameter .Modelica.Units.SI.Efficiency eta0 "Zero-loss efficiency";
-  parameter .Modelica.Units.SI.DimensionlessRatio tauAlpEff "Effective transmittance–absorptance product";
-  parameter .Modelica.Units.SI.CoefficientOfHeatTransfer a1 "First-order heat loss coefficient";
-  parameter .Modelica.Units.SI.Efficiency etaEl "Electrical efficiency";
+  parameter Modelica.Units.SI.Power P_nominal "Nominal PV power";
+  parameter Modelica.Units.SI.Area A "PV area";
+  parameter Modelica.Units.SI.Efficiency eta0 "Zero-loss efficiency";
+  parameter Modelica.Units.SI.DimensionlessRatio tauAlpEff "Effective transmittance–absorptance product";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer a1 "First-order heat loss coefficient";
+  parameter Modelica.Units.SI.Efficiency etaEl "Electrical efficiency";
 
-  parameter .Modelica.Units.SI.CoefficientOfHeatTransfer UAbsFluid =
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UAbsFluid =
     ((tauAlpEff - etaEl) * a1) / ((tauAlpEff - etaEl) - eta0)
     "Heat transfer coefficient between the fluid and the PV cells, calculated from datasheet parameters";
 
   // Inputs
-  .Modelica.Blocks.Interfaces.RealInput Tflu[nSeg]
+  Modelica.Blocks.Interfaces.RealInput Tflu[nSeg]
     "Fluid temperatures per segment [K]"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  .Modelica.Blocks.Interfaces.RealInput qth[nSeg]
+  Modelica.Blocks.Interfaces.RealInput qth[nSeg]
     "Thermal power density per segment [W/m2]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  .Modelica.Blocks.Interfaces.RealInput HGloTil
+  Modelica.Blocks.Interfaces.RealInput HGloTil
     "Global tilted irradiance [W/m2]"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   // Outputs
-  .Modelica.Blocks.Interfaces.RealOutput Pel
+  Modelica.Blocks.Interfaces.RealOutput Pel
     "Total electrical power output [W]"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  .Modelica.Blocks.Interfaces.RealOutput TavgCel
+  Modelica.Blocks.Interfaces.RealOutput TavgCel
     "Average PV module temperature [K]"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  .Modelica.Blocks.Interfaces.RealOutput TavgFlu
+  Modelica.Blocks.Interfaces.RealOutput TavgFlu
     "Average fluid temperature [K]"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
   // internal variables (not exposed as connectors)
-  .Modelica.Units.SI.Temperature temMod "Average cell/module temperature ";
-  .Modelica.Units.SI.Temperature temMea "Average fluid temperature";
-  .Modelica.Units.SI.Temperature TCel[nSeg];
-  .Modelica.Units.SI.Temperature TDif[nSeg];
-  .Modelica.Units.SI.Power Pel_int[nSeg];
+  Modelica.Units.SI.Temperature temMod "Average cell/module temperature ";
+  Modelica.Units.SI.Temperature temMea "Average fluid temperature";
+  Modelica.Units.SI.Temperature TCel[nSeg];
+  Modelica.Units.SI.Temperature TDif[nSeg];
+  Modelica.Units.SI.Power Pel_int[nSeg];
 
 equation
   for i in 1:nSeg loop

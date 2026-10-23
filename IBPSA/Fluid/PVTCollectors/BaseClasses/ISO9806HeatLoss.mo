@@ -2,19 +2,19 @@ within IBPSA.Fluid.PVTCollectors.BaseClasses;
 model ISO9806HeatLoss
   "Calculate the heat loss of a PVT collector using ISO9806:2017"
 
-  extends .IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss(
+  extends IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss(
     // Override the internal heat-loss expression to include a3-a7 terms
     final QLos_internal=A_c/nSeg*{dT[i]*(a1 - a2*dT[i] + a3*(winSpePla-3)) + a4*(HHorIR
-         - .Modelica.Constants.sigma*TEnv^4) - a6*(winSpePla-3)*HGloTil
-         - a7*(winSpePla-3)*(HHorIR - .Modelica.Constants.sigma*TEnv^4) - a8*(dT[i])^4 for i in 1:nSeg});
+         - Modelica.Constants.sigma*TEnv^4) - a6*(winSpePla-3)*HGloTil
+         - a7*(winSpePla-3)*(HHorIR - Modelica.Constants.sigma*TEnv^4) - a8*(dT[i])^4 for i in 1:nSeg});
 
-  parameter .Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)
     "Linear heat loss coefficient";
   parameter Real a2(final unit="W/(m2.K2)", final min=0)
     "Quadratic heat loss coefficient";
   parameter Real a3(final unit="J/(m3.K)", final min=0)
     "Wind speed dependence of heat loss";
-  parameter .Modelica.Units.SI.DimensionlessRatio a4(final min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio a4(final min=0)
     "Sky long-wave irradiance dependence";
   parameter Real a6(final unit="s/m", final min=0)
     "Wind speed dependence of thermal zero-loss efficiency";
@@ -23,21 +23,21 @@ model ISO9806HeatLoss
   parameter Real a8(final unit="W/(m2.K4)", final min=0)
     "Radiation losses";
 
-  .Modelica.Blocks.Interfaces.RealInput winSpePla(
+  Modelica.Blocks.Interfaces.RealInput winSpePla(
     unit="m/s")
     "Wind speed parallel to collector plane" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,30})));
-  .Modelica.Blocks.Interfaces.RealInput HGloTil(
+  Modelica.Blocks.Interfaces.RealInput HGloTil(
     unit="W/m2")
     "Global irradiance on the tilted plane" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,-30})));
-  .Modelica.Blocks.Interfaces.RealInput HHorIR(
+  Modelica.Blocks.Interfaces.RealInput HHorIR(
     unit="W/m2")
     "Long-wave (sky) irradiance [W/m2]" annotation (
       Placement(transformation(

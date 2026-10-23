@@ -1,6 +1,6 @@
 within IBPSA.Fluid.PVTCollectors.Data;
 package Covered "Performance data for covered PVT collectors"
-extends .Modelica.Icons.MaterialPropertiesPackage;
+extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (
 Documentation(info = "<html>

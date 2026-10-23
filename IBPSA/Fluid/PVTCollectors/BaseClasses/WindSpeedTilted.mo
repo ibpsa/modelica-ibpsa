@@ -1,33 +1,33 @@
 within IBPSA.Fluid.PVTCollectors.BaseClasses;
 model WindSpeedTilted "Calculate wind speed on a tilted surface"
-  extends .Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.Block;
 
   // Parameters
-  parameter .Modelica.Units.SI.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
-  parameter .Modelica.Units.SI.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (0 for horizontally mounted collector)";
 
   // Inputs
-  .Modelica.Blocks.Interfaces.RealInput winSpe
+  Modelica.Blocks.Interfaces.RealInput winSpe
     "Horizontal wind speed [m/s]"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  .Modelica.Blocks.Interfaces.RealInput winDir
+  Modelica.Blocks.Interfaces.RealInput winDir
     "Horizontal wind direction [rad]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   // Outputs
-  .Modelica.Blocks.Interfaces.RealOutput winSpeTil
+  Modelica.Blocks.Interfaces.RealOutput winSpeTil
     "Wind speed on the tilted surface [m/s]"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
         iconTransformation(extent={{100,50},{120,70}})));
 
 equation
   winSpeTil = winSpe * sqrt(1 - (
-    .Modelica.Math.cos(winDir - (azi + .Modelica.Constants.pi)) * .Modelica.Math.cos(til) +
-    .Modelica.Math.sin(winDir - (azi + .Modelica.Constants.pi)) * .Modelica.Math.sin(til))^2);
+    Modelica.Math.cos(winDir - (azi + Modelica.Constants.pi)) * Modelica.Math.cos(til) +
+    Modelica.Math.sin(winDir - (azi + Modelica.Constants.pi)) * Modelica.Math.sin(til))^2);
 
 annotation (
   defaultComponentName="winSpe",

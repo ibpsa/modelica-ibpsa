@@ -1,6 +1,6 @@
 within IBPSA.Fluid;
 package PVTCollectors "Package with models for photovoltaic thermal collectors"
-  extends .Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
 
 annotation (
   Documentation(info = "<html>

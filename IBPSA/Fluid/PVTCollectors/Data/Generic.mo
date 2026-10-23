@@ -1,20 +1,20 @@
 within IBPSA.Fluid.PVTCollectors.Data;
 record Generic "Generic data record for PVT collector models"
-  extends .IBPSA.Fluid.SolarCollectors.Data.BaseClasses.Generic;
+  extends IBPSA.Fluid.SolarCollectors.Data.BaseClasses.Generic;
 
-  parameter .IBPSA.Fluid.PVTCollectors.Types.CollectorType colTyp
+  parameter IBPSA.Fluid.PVTCollectors.Types.CollectorType colTyp
     "Type of PVT collector (Covered or Uncovered)";
   parameter Real IAMDiff(final min=0, final max=1, final unit="1")
     "Incidence angle modifier for diffuse irradiance (incidence angle of 50°)";
   parameter Real eta0(final min=0, final max=1, final unit="1")
     "Optical thermal efficiency (Maximum efficiency)";
-  parameter .Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer a1(final min=0)
     "First order thermal heat loss coefficient";
   parameter Real a2(final min=0, final unit="W/(m2.K2)")
     "Second order thermal heat loss coefficient";
   parameter Real a3(final min=0, final unit="J/(m3.K)")
     "Wind speed dependence of thermal heat loss";
-  parameter .Modelica.Units.SI.DimensionlessRatio a4(final min=0)
+  parameter Modelica.Units.SI.DimensionlessRatio a4(final min=0)
     "Sky temperature dependence of the thermal heat loss coefficient";
   parameter Real a6(final min=0, final unit="s/m")
     "Wind speed dependence of thermal zero-loss efficiency";
@@ -24,9 +24,9 @@ record Generic "Generic data record for PVT collector models"
     "Radiation losses";
   parameter Real P_nominal(final min=0, final unit="W")
     "PV panel power at nominal conditions";
-  parameter .Modelica.Units.SI.LinearTemperatureCoefficient beta
+  parameter Modelica.Units.SI.LinearTemperatureCoefficient beta
     "Temperature coefficient of the PV panel(s)";
-  parameter .Modelica.Units.SI.Efficiency etaEl(final min=0, final max=1)
+  parameter Modelica.Units.SI.Efficiency etaEl(final min=0, final max=1)
     "Module efficiency of the photovoltaic installation";
 
 annotation (

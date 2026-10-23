@@ -1,6 +1,6 @@
 within IBPSA.Fluid.PVTCollectors;
 package BaseClasses "Package with base classes for IDEAS.Fluid.PvtCollectors"
-extends .Modelica.Icons.BasesPackage;
+extends Modelica.Icons.BasesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
