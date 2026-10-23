@@ -1,0 +1,33 @@
+﻿removePlots();
+simulateModel("IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.Electrical.PVT_UI_Electrical_DayType1", tolerance=1e-6, startTime = 18872521.2, stopTime = 18908900.2, method = "Cvode", resultFile = "PVT_UI_Electrical_DayType1");
+createPlot(id = 11,
+ position = {0, 0, 1000, 500},
+ y = {"meaPel.y", "simPel.y"},
+ range = {18872521.2, 18908900.2, 0, 300},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "PVT_UI_Electrical_DayType1.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+createPlot(id = 11,
+ position = {0, 0, 1000, 500},
+ y = {"UAbsFluid.y"},
+ range = {18872521.2, 18909241.2, 0, 100},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+
