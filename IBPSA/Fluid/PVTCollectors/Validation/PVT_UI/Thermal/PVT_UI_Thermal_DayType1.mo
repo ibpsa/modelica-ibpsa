@@ -210,7 +210,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/PVTColle
           textStyle={TextStyle.Bold},
           textString="Measured and simulated
 thermal power"),
-        Rectangle(extent={{-86,-52},{18,-86}},  lineColor={28,108,200}),
+        Rectangle(extent={{-86,-48},{38,-90}},  lineColor={28,108,200}),
         Text(
           extent={{-84,-56},{2,-64}},
           textColor={28,108,200},
