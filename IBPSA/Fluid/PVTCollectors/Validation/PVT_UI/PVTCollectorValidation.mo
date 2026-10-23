@@ -7,7 +7,7 @@ model PVTCollectorValidation
   outer Modelica.Blocks.Sources.CombiTimeTable meaDat(
     tableOnFile=true,
     tableName="data",
-    fileName=Modelica.Utilities.Files.loadResource("modelica://PvTfluod/Resources/Validation/MeasurementData/Typ1_modelica.txt"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UI/PVT_UI_Typ1_measurements.txt"),
     columns=1:25) annotation (Placement(transformation(extent={{26,68},
             {6,88}})));
 
@@ -177,7 +177,7 @@ IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
 <li>
 Quasi-dynamic thermal losses: 
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss
 </a>
 </li>
 <li>

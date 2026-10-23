@@ -188,7 +188,7 @@ IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
 <li>
 Quasi-dynamic thermal losses: see 
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss
 </a>
 </li>
 <li>

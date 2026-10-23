@@ -41,7 +41,7 @@ This record can be used as a generic representation of a WISC-type collector.
 However, if you know the brand and model of the PVT collector you plan to simulate or install, 
 it is recommended to use the actual datasheet parameters in a custom
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Data.Generic\">
-IBPSA.Fluid.PVTCollectors.Data.GenericQuasiDynamic </a> record.
+IBPSA.Fluid.PVTCollectors.Data.Generic </a> record.
 </p>
 <h4>Reference</h4>
 <ul>

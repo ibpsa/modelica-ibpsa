@@ -44,7 +44,7 @@ equation
 <html>
 <p>
 Extends from the standard quasi‑dynamic heat‑loss model 
-(<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss</a>).  
+(<a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss</a>).  
 For validation purposes, this block adds:
 </p>
 <ul>

@@ -70,7 +70,6 @@ This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/1473\">#1473</a
 July 7, 2025, by Lone Meertens:<br/>
 First implementation PVT model.
 This is for <a href=\"https://github.com/open-ideas/IDEAS/issues/1436\">#1436</a>.
-</a>.
 </li>
 </ul>
 </html>"));

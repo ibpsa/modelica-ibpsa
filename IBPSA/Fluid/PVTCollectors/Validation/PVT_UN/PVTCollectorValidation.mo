@@ -8,7 +8,7 @@ model PVTCollectorValidation
     tableOnFile=true,
     tableName="data",
     fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://IBPSA/Resources/Data/Fluid/PvtCollectors/Validation/PVT_UN/PVT_UN_measurements.txt"),
+        "modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UN/PVT_UN_measurements_week1.txt"),
     columns=1:25) annotation (Placement(transformation(extent={{78,70},
             {58,90}})));
 
@@ -136,7 +136,7 @@ IBPSA.Fluid.PVTCollectors.BaseClasses.ElectricalPVT
 <li>
 Quasi-dynamic thermal losses: 
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss
 </a>
 </li>
 <li>

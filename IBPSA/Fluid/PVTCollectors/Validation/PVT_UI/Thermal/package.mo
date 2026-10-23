@@ -1,5 +1,6 @@
 within IBPSA.Fluid.PVTCollectors.Validation.PVT_UI;
 package Thermal "Thermal behavior of an unglazed rear‑insulated PVT collector"
+  extends Modelica.Icons.ExamplesPackage;
 
   annotation (preferredView="info", Documentation(info=
 "<html>

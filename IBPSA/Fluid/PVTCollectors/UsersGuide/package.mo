@@ -11,7 +11,7 @@ for both glazed and unglazed (WISC) collectors. The electrical submodel is
 internally coupled via a datasheet‑derived absorber–fluid heat transfer coefficient.
 </p>
 <h4>Model description</h4>
-<p><b>Thermal part</b><p>
+<p><b>Thermal part</b></p>
 <p>
 The equations related to the heat losses and heat gains can be found in the following models:
 </p>
@@ -27,7 +27,6 @@ Solar (thermal) heat gain: see
 IBPSA.Fluid.SolarCollectors.BaseClasses.EN12975SolarGain</a>
 </li>
 </ul>
-</p>
 <p>
 The thermal parameters used by this model are expressed in the ISO 9806:2017 quasi‑dynamic format.
 </p>

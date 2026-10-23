@@ -61,7 +61,7 @@ equation
   // Calculate Longwave Radiation (lonRad) using Tview and the Stefan-Boltzmann Law
   lonRad = Modelica.Constants.sigma*Tamb^4*((epsSky*(1 + cos(til)) / 2) + (epsGro*(1 - cos(til)) / 2));
 annotation (
-  defaultComponentName="LongWaveRad",
+  defaultComponentName="longWaveRad",
   Documentation(info="<html>
 <p>
 Computes longwave radiation exchange between the sky and a tilted surface using ambient meteorological inputs. 
@@ -74,7 +74,7 @@ accounting for both sky and ground contributions.
 <p>
 This model is used in the validation of unglazed photovoltaic–thermal (PVT) collectors 
 (<a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation\">
-IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTQuasiDynamicCollectorValidation</a>) 
+IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation</a>)
 where direct longwave irradiance measurements are unreliable or unavailable. It assumes a ground emissivity of 0.95. 
 The clear-sky emissivity is calculated using an empirical correlation based on the dew point temperature. 
 The model is particularly useful in dynamic simulations where longwave radiation must be estimated from standard meteorological data.

@@ -36,7 +36,7 @@ They were originally provided under ISO 9806:2013 and converted to the ISO 9806:
 </p>
 <p>
 For this PVT collector, additional real-life measurement data is publicly available (Veynandt, 2023) and has been used in the validation of 
-<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTCollector</a>,
 which can be found in the 
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UN\">IBPSA.Fluid.PVTCollectors.Validation.PVT_UN</a> package. 
 </p>

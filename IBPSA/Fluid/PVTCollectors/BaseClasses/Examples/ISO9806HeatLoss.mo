@@ -93,7 +93,7 @@ equation
 <p>
 This example demonstrates the implementation of
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss\">
-IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806QuasiDynamicHeatLoss</a>,
+IBPSA.Fluid.PVTCollectors.BaseClasses.ISO9806HeatLoss</a>,
 which calculates the quasi-dynamic heat loss of a PVT or solar thermal collector
 according to the ISO 9806:2017 standard.
 </p>

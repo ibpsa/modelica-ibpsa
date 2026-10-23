@@ -1,5 +1,6 @@
 within IBPSA.Fluid.PVTCollectors.Validation;
 package PVT_UN
+    extends Modelica.Icons.ExamplesPackage;
     annotation (preferredView="info", Documentation(info=
     "<html>
 <p>

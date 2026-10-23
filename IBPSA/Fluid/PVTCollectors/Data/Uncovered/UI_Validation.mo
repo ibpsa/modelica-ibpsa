@@ -41,12 +41,13 @@ power point (MPP) mode.
 </p>
 <p>
 This datasheet is used in the validation of 
-<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTQuasiDynamicCollector</a>, 
+<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTCollector</a>,
 which can be found in the 
 <a href=\"modelica://IBPSA.Fluid.PVTCollectors.Validation.PVT_UI\">IBPSA.Fluid.PVTCollectors.Validation.PVT_UI</a> package. 
 </p>
 
 <h4>References</h4>
+<ul>
 <li>
 ISO 9806:2017. <i><a href='https://www.iso.org/standard/67978.html'>Solar thermal collectors — Test methods</a></i>. ISO.
 </li>

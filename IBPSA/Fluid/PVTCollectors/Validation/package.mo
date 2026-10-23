@@ -25,7 +25,7 @@ in Meertens et al. (2026), where they are described in detail.
 
 <p>
 The purpose of these models is to assess the accuracy and limitations of the quasi-dynamic PVT model 
-(<a href=\"modelica://IBPSA.Fluid.PvtCollectors.QuasiDynamicPvtCollector\">IBPSA.Fluid.PvtCollectors.QuasiDynamicPvtCollector</a>) under realistic conditions. 
+(<a href=\"modelica://IBPSA.Fluid.PVTCollectors.PVTCollector\">IBPSA.Fluid.PVTCollectors.PVTCollector</a>) under realistic conditions.
 This is done by driving the model with experimental input data and comparing the simulated outputs 
 with measured results.
 </p>
