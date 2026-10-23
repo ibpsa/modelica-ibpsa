@@ -50,7 +50,7 @@ record R245fa "Data record for R245fa"
 Record containing properties of R245fa.
 Its name in CoolProp is \"R245fa\".
 A figure in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>

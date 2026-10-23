@@ -374,14 +374,14 @@ carries too little energy.
 <p>
 How these constraints affect the cycle's behavior reacting to
 a variable waste heat fluid stream is demonstrated in
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.Validation.VariableSource\">
 IBPSA.Fluid.CHPs.OrganicRankine.Validation.VariableSource</a>.
 </p>
 <h4>Thermodynamic Properties</h4>
 <p>
 The thermodynamic properties of the working fluid are not computed by a typical
 Modelica medium model, but by interpolating data records in
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.Data\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.Data\">
 IBPSA.Fluid.CHPs.OrganicRankine.Data</a>.
 Specific enthalpy and specific entropy values are provided as support points
 on the saturated liquid line, the saturated vapor line, and

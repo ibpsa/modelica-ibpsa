@@ -14,7 +14,7 @@ Data record for performance data that describe electrical power and its derivati
 versus volumetric flow rate.
 This record is specifically constructed for the Euler number method
 and is the output type of function
-<a href=\"Modelica://IBPSA.Fluid.Movers.BaseClasses.Euler.power\">
+<a href=\"modelica://IBPSA.Fluid.Movers.BaseClasses.Euler.power\">
 IBPSA.Fluid.Movers.BaseClasses.Euler.power</a>.
 </p>
 </html>",
