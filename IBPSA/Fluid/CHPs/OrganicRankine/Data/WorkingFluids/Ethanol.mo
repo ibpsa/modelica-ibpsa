@@ -48,7 +48,7 @@ record Ethanol "Data record for ethanol"
 Record containing properties of ethanol.
 Its name in CoolProp is \"Ethanol\".
 A figure in the documentation of
-<a href=\"Modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
+<a href=\"modelica://IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation\">
 IBPSA.Fluid.CHPs.OrganicRankine.ConstantEvaporation</a>
 shows which lines these arrays represent.
 </p>
