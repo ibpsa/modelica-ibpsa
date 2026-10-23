@@ -3,7 +3,8 @@ model PVT_UI_Thermal_DayType1
   "Validation model for an unglazed rear-insulated PVT Collector"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = IBPSA.Media.Water "Medium model";
+  replaceable package Medium = IBPSA.Media.Water constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Medium model";
   replaceable parameter IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
   annotation (Placement(transformation(extent={{72,-6},{92,14}})));
   replaceable parameter IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.BaseClasses.UI_Validation datPVTColVal "Collector parameter record"
@@ -42,7 +43,8 @@ model PVT_UI_Thermal_DayType1
     nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
-    eleLosFac=eleLosFac)
+    eleLosFac=eleLosFac) constrainedby
+    IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable IBPSA.Fluid.PVTCollectors.Validation.PVT_UI.PVTCollectorValidation pvtColVal(
@@ -57,7 +59,8 @@ model PVT_UI_Thermal_DayType1
     nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
-    eleLosFac=eleLosFac)
+    eleLosFac=eleLosFac) constrainedby
+    IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation
     annotation (Placement(transformation(extent={{-10,-36},{10,-16}})));
 
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TAmbKel

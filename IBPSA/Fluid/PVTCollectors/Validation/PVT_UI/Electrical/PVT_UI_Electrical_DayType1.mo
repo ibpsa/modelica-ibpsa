@@ -3,7 +3,8 @@ model PVT_UI_Electrical_DayType1
   "Validation model for an unglazed rear-insulated PVT Collector"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = IBPSA.Media.Water "Medium model";
+  replaceable package Medium = IBPSA.Media.Water constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Medium model";
   replaceable parameter IBPSA.Fluid.PVTCollectors.Data.Uncovered.UI_Validation datPVTCol "Collector parameter record"
   annotation (Placement(transformation(extent={{74,-26},{94,-6}})));
   parameter String pvtTyp = "Typ1" "Type identifier for selecting the UI measurement dataset";
@@ -39,7 +40,8 @@ model PVT_UI_Electrical_DayType1
     nColType=IBPSA.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=nPanels,
     per=datPVTCol,
-    eleLosFac=eleLosFac)
+    eleLosFac=eleLosFac) constrainedby
+    IBPSA.Fluid.PVTCollectors.Validation.BaseClasses.PartialPVTCollectorValidation
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin TFluKel annotation (Placement(transformation(extent={{-87,-21},
