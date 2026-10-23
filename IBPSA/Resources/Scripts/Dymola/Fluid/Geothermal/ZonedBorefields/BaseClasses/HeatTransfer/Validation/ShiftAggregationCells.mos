@@ -1,4 +1,4 @@
-simulateModel("IBPSA.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation.ShiftAggregationCells", startTime=3.5, stopTime=5.5, method="Cvode", tolerance=1e-06, resultFile="TemperatureResponseMatrix");
+simulateModel("IBPSA.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation.ShiftAggregationCells", startTime=3.5, stopTime=5.5, method="Cvode", tolerance=1e-06, resultFile="ShiftAggregationCells");
 
 createPlot(
   id=1,
