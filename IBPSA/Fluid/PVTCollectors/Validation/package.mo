@@ -34,11 +34,10 @@ with measured results.
 <ul>
 <li>
 Meertens, L.; Jansen, J.; Helsen, L. (2026).
-<i>Development and Experimental Validation of an Open-Source Unglazed
+<i><a href='https://doi.org/10.1080/13873954.2026.2717588'>Development and Experimental Validation of an Open-Source Unglazed
 Photovoltaic‑Thermal Collector Modelica Model that only needs
-Datasheet Parameters</i>. Submitted to 
-Mathematical and Computer Modelling of Dynamical Systems,
-Special Issue on Modelica, FMI, and Open Standards.
+Datasheet Parameters</a></i>. Mathematical and Computer Modelling of Dynamical Systems,
+32(1), Article 2717588. DOI: 10.1080/13873954.2026.2717588
 </li>
 </ul>
 </html>",
