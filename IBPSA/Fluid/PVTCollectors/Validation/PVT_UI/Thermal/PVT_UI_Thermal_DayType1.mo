@@ -23,6 +23,7 @@ model PVT_UI_Thermal_DayType1
   parameter Integer idxWinSpe = 10 "Column index for wind speed";
   parameter Integer idxTAmb = 12 "Column index for ambient temperature";
   parameter Integer idxMeaPel = 21 "Column index for measured electrical power";
+  parameter Integer idxMeaQ = 19 "Column index for measured thermal power";
   parameter String meaFile = "modelica://IBPSA/Resources/Data/Fluid/PVTCollectors/Validation/PVT_UI/PVT_UI_" + pvtTyp + "_measurements.txt" "Full path to measurement file";
 
   inner Modelica.Blocks.Sources.CombiTimeTable meaDat(
@@ -98,7 +99,7 @@ model PVT_UI_Thermal_DayType1
     nPorts=1) "Inlet for water flow, at a prescribed flow rate and temperature"
     annotation (Placement(transformation(extent={{-58,-36},{-38,-16}})));
 
-  Modelica.Blocks.Sources.RealExpression meaQ(y=meaDat.y[19]) "Measured thermal power output [W]"
+  Modelica.Blocks.Sources.RealExpression meaQ(y=meaDat.y[idxMeaQ]) "Measured thermal power output [W]"
     annotation (Placement(transformation(extent={{-81,60},{-55,76}})));
   Modelica.Blocks.Sources.RealExpression a1_a2_term(y = pvtCol.heaLosStc.a1_a2_term)
     "Heat loss contribution associated with the a1 and a2 coefficients [W]"
@@ -132,22 +133,22 @@ model PVT_UI_Thermal_DayType1
     annotation (Placement(transformation(extent={{-40,18},{-20,38}})));
 equation
 
-  connect(meaDat.y[13],TAmbKel. Celsius) annotation (Line(points={{-71,30},{-66,
+  connect(meaDat.y[idxTFlu],TAmbKel. Celsius) annotation (Line(points={{-71,30},{-66,
           30},{-66,16},{-92,16},{-92,4},{-88,4}},                                                       color={0,0,127}));
   connect(bou.T_in, TAmbKel.Kelvin)
     annotation (Line(points={{-60,4},{-76.5,4}}, color={0,0,127}));
-  connect(bou.m_flow_in, meaDat.y[17])
+  connect(bou.m_flow_in, meaDat.y[idxMFlow])
     annotation (Line(points={{-60,8},{-66,8},{-66,30},{-71,30}},
                                                          color={0,0,127}));
   connect(bou.ports[1],pvtCol. port_a)
     annotation (Line(points={{-38,0},{-10,0}}, color={0,127,255}));
   connect(pvtCol.port_b, sou.ports[1])
     annotation (Line(points={{10,0},{42,0}}, color={0,127,255}));
-  connect(meaDat.y[13], TAmbKel1.Celsius) annotation (Line(points={{-71,30},{-66,
+  connect(meaDat.y[idxTFlu], TAmbKel1.Celsius) annotation (Line(points={{-71,30},{-66,
           30},{-66,16},{-92,16},{-92,-22},{-88,-22}}, color={0,0,127}));
   connect(bou1.T_in, TAmbKel1.Kelvin)
     annotation (Line(points={{-60,-22},{-76.5,-22}}, color={0,0,127}));
-  connect(bou1.m_flow_in, meaDat.y[17]) annotation (Line(points={{-60,-18},{-72,
+  connect(bou1.m_flow_in, meaDat.y[idxMFlow]) annotation (Line(points={{-60,-18},{-72,
           -18},{-72,-6},{-92,-6},{-92,16},{-66,16},{-66,30},{-71,30}}, color={0,
           0,127}));
   connect(bou1.ports[1],pvtColVal. port_a)

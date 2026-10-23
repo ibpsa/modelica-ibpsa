@@ -84,7 +84,7 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/PVTColle
         "Simulate and plot"),
  experiment(
       StartTime=16502400,
-      StopTime=21513595,
+      StopTime=17107195,
       Interval=60,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"));
