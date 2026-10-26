@@ -551,7 +551,7 @@ To avoid thermal interferences, make sure that the aquifer domain radius
 Circulation pumps are included in the model and they can be controlled by acting on the input connector.
 The input must vary between <i>[1, -1]</i>.
 A positive value will circulate water
-clockwise (from <code>port_Hot</code> to <code>port_Col</code>, thus 
+clockwise (from <code>port_Hot</code> to <code>port_Col</code>, thus
 extraction from the cold well and injection into the warm well).
 A negative value will circulate water anticlockwise.
 </p>
