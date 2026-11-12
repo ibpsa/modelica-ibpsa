@@ -1,6 +1,5 @@
 within IBPSA.Media.Antifreeze;
-package EthyleneGlycolWater
-  "Package with model for ethylene glycol - water with constant properties"
+package EthyleneGlycolWater "Package with model for ethylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
     mediumName="EthyleneGlycolWater(X_a = " + String(X_a) + ", property_T = "
          + String(property_T) + ")",
@@ -113,6 +112,7 @@ as required from medium model \"" + mediumName + "\".");
     </p>
 </html>"));
   end BaseProperties;
+
 protected
   constant Modelica.Units.SI.MassFraction X_a_min=Functions.EthyleneGlycolWater.X_a_min
     "Minimum allowed mass fraction of ethylene glycol in water";
@@ -158,7 +158,7 @@ alt=\"Relative variation of specific heat capacity with temperature\"/>
 <p>
 The figure below shows the relative error of the the four properties over a
 <i>20</i> &deg;C range around the temperature used to evaluate the constant
-proepties. The maximum errors are <i>1.5</i> % for mass density, <i>5.3</i> %
+properties. The maximum errors are <i>1.5</i> % for mass density, <i>5.3</i> %
 for specific heat capacity, <i>5.9</i> % for thermal conductivity and <i>500</i>
 % for dynamic viscosity.
 </p>
