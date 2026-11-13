@@ -59,7 +59,7 @@
     time_out: 600
 - model_name: IBPSA.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2
   openmodelica:
-    comment: 'Translation failed. See https://github.com/OpenModelica/OpenModelica/issues/14791'
+    comment: Translation failed. See https://github.com/OpenModelica/OpenModelica/issues/14791
     translate: false
 - model_name: IBPSA.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
