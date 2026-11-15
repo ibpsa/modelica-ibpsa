@@ -32,7 +32,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal "Nominal mass flow rate" annotation (
       Dialog(group="Hydraulic circuit"));
   parameter Modelica.Units.SI.PressureDifference dpAquifer_nominal(displayUnit= "Pa")=
-    m_flow_nominal/nPai*Modelica.Constants.g_n/2/Modelica.Constants.pi/h/aquDat.K*log(d/rWB)
+    m_flow_nominal/nPai*Modelica.Constants.g_n/(Modelica.Constants.pi*h*aquDat.K)*log(d/rWB)
      "Pressure drop at nominal mass flow rate in the aquifer"  annotation (
       Dialog(group="Hydraulic circuit"));
   final parameter Modelica.Units.SI.PressureDifference dpWell_nominal(
@@ -103,7 +103,7 @@ model MultiWell "Model of a single well for aquifer thermal energy storage"
         mu_a=mu,
         mu_b=mu,
         length=length,
-        diameter=rWB,
+        diameter=2*rWB,
         roughness=2.5e-5)) "Pressure drop in the cold well" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -257,16 +257,18 @@ initial equation
 
   r[1] = rWB;
   for i in 2:nVol+1 loop
-    r[i]= r[i-1] + (rMax - rWB)  * (1-griFac)/(1-griFac^(nVol)) * griFac^(i-2);
+    r[i] = r[i-1] + (if abs(griFac - 1) > 1e-10
+                     then (rMax - rWB) * (1 - griFac)/(1 - griFac^(nVol)) * griFac^(i - 2)
+                     else (rMax - rWB)/nVol);
   end for;
   for i in 1:nVol loop
     rVol[i] = (r[i]+r[i+1])/2;
   end for;
   for i in 1:nVol loop
-    C[i] = cAqu*h*3.14*(r[i+1]^2-r[i]^2);
+    C[i] = cAqu*h*Modelica.Constants.pi*(r[i+1]^2-r[i]^2);
   end for;
   for i in 1:nVol loop
-    VWat[i] = aquDat.phi*h*3.14*(r[i+1]^2-r[i]^2);
+    VWat[i] = aquDat.phi*h*Modelica.Constants.pi*(r[i+1]^2-r[i]^2);
   end for;
 
   R[nVol]=Modelica.Math.log(rMax/rVol[nVol])/(2*Modelica.Constants.pi*kVol*h);
@@ -571,6 +573,23 @@ sign reversed.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Passed wellbore diameter <code>2*rWB</code> instead of radius <code>rWB</code> to <a href=\"modelica://Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow\">pressureLoss_m_flow</a>.
+</li>
+<li>
+Corrected the doublet factor in <code>dpAquifer_nominal</code> to divide by <code>Modelica.Constants.pi</code> rather than <code>2*Modelica.Constants.pi</code>.
+</li>
+<li>
+Guarded the radial grid spacing calculation for uniform spacing (<code>griFac == 1</code>) to avoid division by zero.
+</li>
+<li>
+Replaced hardcoded <code>3.14</code> with <code>Modelica.Constants.pi</code> in cylindrical shell capacities <code>C</code> and water volumes <code>VWat</code>.
+</li>
+</ul>
+</li>
 <li>
 September 17, 2026, by Michael Wetter:<br/>
 Improved documentation of pressure drop calculation.<br/>

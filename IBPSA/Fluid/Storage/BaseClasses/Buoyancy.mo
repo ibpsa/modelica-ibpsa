@@ -25,12 +25,17 @@ protected
       Medium.specificHeatCapacityCp(sta_default) "Specific heat capacity";
    parameter Real k(unit="W/K") = V*rho_default*cp_default/tau/nSeg
     "Proportionality constant, since we use dT instead of dH";
+  constant Modelica.Units.SI.TemperatureDifference dT_small=0.1
+    "Small temperature difference for regularization near zero";
   Modelica.Units.SI.TemperatureDifference dT[nSeg - 1]
     "Temperature difference between adjoining volumes";
 equation
   for i in 1:nSeg-1 loop
     dT[i] = heatPort[i+1].T-heatPort[i].T;
-    Q_flow[i] = k*noEvent(smooth(1, if dT[i]>0 then dT[i]^2 else 0));
+    Q_flow[i] = k*noEvent(smooth(1,
+      if dT[i] <= 0 then 0
+      elseif dT[i] < dT_small then dT[i]^2/(2*dT_small)
+      else dT[i] - 0.5*dT_small));
   end for;
 
   heatPort[1].Q_flow = -Q_flow[1];
@@ -48,6 +53,10 @@ associated with the buoyancy induced mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced quadratic <code>k*dT[i]^2</code> with dimensionally consistent linear <code>k*dT[i]</code> in buoyancy mixing heat flow rate <code>Q_flow[i]</code>.
+</li>
 <li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.

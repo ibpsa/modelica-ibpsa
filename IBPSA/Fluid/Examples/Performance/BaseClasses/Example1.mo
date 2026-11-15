@@ -67,12 +67,19 @@ partial model Example1 "Example 1 partial model"
   Modelica.Blocks.Sources.BooleanConstant from_dp(k=false)
     "Block for setting from_dp in res"
     annotation (Placement(transformation(extent={{-88,40},{-68,60}})));
+  Modelica.Blocks.Sources.Pulse pulseT(
+    period=1000,
+    offset=293.15,
+    amplitude=20,
+    y(unit="K", displayUnit="degC"))
+    "Pulse input for heater outlet temperature set point"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
       points={{-40,20},{-30,20},{-30,30},{-20,30}},
       color={0,127,255}));
-  connect(pulse.y,hea. TSet) annotation (Line(
-      points={{-39,80},{-30,80},{-30,38},{-24,38},{-24,38},{-22,38},{-22,38}},
+  connect(pulseT.y, hea.TSet) annotation (Line(
+      points={{-39,10},{-34,10},{-34,38},{-22,38}},
       color={0,0,127}));
   connect(pump.m_flow_in, gain.y) annotation (Line(
       points={{49.8,42},{49.8,80},{21,80}},
@@ -111,6 +118,10 @@ and is created to avoid errors in the implementation of the two depending exampl
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Added a dedicated Kelvin temperature pulse source <code>pulseT</code> for <code>hea.TSet</code> on <a href=\"modelica://IBPSA.Fluid.HeatExchangers.Heater_T\">Heater_T</a> instead of connecting the dimensionless <code>[0, 1]</code> pump flow signal <code>pulse.y</code>.
+</li>
 <li>
 March 31, 2026, by Michael Wetter:<br/>
 Corrected unit propagation error that causes Dymola 2026x to not show certain units.<br/>

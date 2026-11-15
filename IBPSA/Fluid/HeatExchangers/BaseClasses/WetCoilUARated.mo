@@ -104,7 +104,7 @@ protected
       phi=1)
     "Mass fraction of water in saturated moist air at the water inlet temperature";
   parameter Modelica.Units.SI.SpecificEnthalpy hSatTWatIn=
-      IBPSA.Media.Air.specificEnthalpy_pTX(
+      MediumA.specificEnthalpy_pTX(
       p=MediumA.p_default,
       T=TWatIn,
       X={X_wSatTWatIn,1 - X_wSatTWatIn})
@@ -119,14 +119,37 @@ protected
       phi=1)
     "Mass fraction of water in saturated moist air at the water outlet temperature";
   parameter Modelica.Units.SI.SpecificEnthalpy hSatTWatOut=
-      IBPSA.Media.Air.specificEnthalpy_pTX(
+      MediumA.specificEnthalpy_pTX(
       p=MediumA.p_default,
       T=TWatOut,
       X={X_wSatTWatOut,1 - X_wSatTWatOut})
     "Enthalpy of saturated moist air at the water oulet temperature";
+  parameter Modelica.Units.SI.Temperature TAirOutDry=
+      TAirIn + QTot_flow/mAir_flow/cpAir
+    "Air outlet temperature assuming dry heat transfer at a rated condition";
+  parameter Modelica.Units.SI.Temperature TSurAirOutDry=
+      (r_nominal*TAirOutDry + TWatIn)/(1 + r_nominal)
+    "Coil surface temperature at air outlet assuming dry regime";
+  parameter Modelica.Units.SI.Temperature TSurAirIn=
+      (r_nominal*TAirIn + TWatOut)/(1 + r_nominal)
+    "Coil surface temperature at air inlet";
+  parameter Modelica.Units.SI.MassFraction X_wSatTSurAirOutDry=
+      IBPSA.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=IBPSA.Utilities.Psychrometrics.Functions.saturationPressure(
+        min(373.15, max(200, TSurAirOutDry))),
+      p=MediumA.p_default,
+      phi=1)
+    "Saturation mass fraction at coil surface temperature at air outlet";
+  parameter Modelica.Units.SI.MassFraction X_wSatTSurAirIn=
+      IBPSA.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=IBPSA.Utilities.Psychrometrics.Functions.saturationPressure(
+        min(373.15, max(200, TSurAirIn))),
+      p=MediumA.p_default,
+      phi=1)
+    "Saturation mass fraction at coil surface temperature at air inlet";
 initial equation
-  isFulDry = if use_Q_flow_nominal then (X_wSatTWatIn >= X_wAirIn) else true;
-  isFulWet = if use_Q_flow_nominal then (X_wSatTWatOut <= X_wAirIn) else true;
+  isFulDry = if use_Q_flow_nominal then (X_wSatTSurAirOutDry >= X_wAirIn) else true;
+  isFulWet = if use_Q_flow_nominal then (X_wSatTSurAirIn <= X_wAirIn) else true;
   assert(
     not use_Q_flow_nominal or
       hAirOut >= hSatTWatIn and hAirIn >= hSatTWatOut or
@@ -195,6 +218,10 @@ initial equation
       coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Tested coil surface temperatures <code>TSurAirOut</code> and <code>TSurAirIn</code> instead of bulk water temperatures <code>TWatIn</code> and <code>TWatOut</code> when classifying rated dry, partially wet, and fully wet coil regimes.
+</li>
 <li>
 February 18, 2021 by Donghun Kim:<br/>
 First implementation

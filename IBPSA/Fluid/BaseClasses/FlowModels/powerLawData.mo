@@ -28,7 +28,7 @@ function powerLawData
 algorithm
   // Coefficients used by powerLaw_dp
   m := 1 / n;
-  dp_turbulent := (m_flow_turbulent^n) / k;
+  dp_turbulent := (m_flow_turbulent / k)^n;
   a1 := (k * (m - 3) * (m - 5) / 8) * (dp_turbulent^(m - 1));
   a3 := (k * (m - 1) * (5 - m) / 4) * (dp_turbulent^(m - 3));
   a5 := (k * (m - 1) * (m - 3) / 8) * (dp_turbulent^(m - 5));
@@ -71,6 +71,10 @@ which avoids recomputing them during the time step simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Corrected the exponent on the flow coefficient <code>k</code> in <code>dp_turbulent := (m_flow_turbulent / k)^n</code> (previously <code>(m_flow_turbulent^n) / k</code>) to restore dimensional consistency and inverse consistency between <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.powerLaw_dp\">powerLaw_dp</a> and <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.powerLaw_m_flow\">powerLaw_m_flow</a>.
+</li>
 <li>
 May 30, 2026, by Michael Wetter:<br/>
 First implementation.<br/>

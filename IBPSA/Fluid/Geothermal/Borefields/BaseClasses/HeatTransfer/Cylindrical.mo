@@ -60,14 +60,11 @@ protected
   parameter Real gridFac_sum_old(fixed=false);
 
 initial algorithm
-  for i in 0:nSta - 3 - 1 loop
-    if i == 0 then
-      gridFac_sum := gridFac^i;
-      gridFac_sum_old := gridFac_sum;
-    else
-      gridFac_sum := gridFac_sum_old + gridFac^i;
-      gridFac_sum_old := gridFac_sum;
-    end if;
+  gridFac_sum := 0;
+  gridFac_sum_old := 0;
+  for i in 0:(if nSta >= 4 then nSta - 4 else nSta - 1) loop
+    gridFac_sum := gridFac_sum_old + gridFac^i;
+    gridFac_sum_old := gridFac_sum;
   end for;
 
 initial equation
@@ -85,13 +82,23 @@ initial equation
   // r[i]= r[i-1] + ( r_b - r_a)  * (1-griFac)/(1-griFac^(nSta)) * griFac^(i-2);
 
   r[1] = r_a;
-  r[2] = r_a + sqrt(k/c/d*60) "eskilson minimum length";
-  r[3] = r_a + 2*sqrt(k/c/d*60);
-  r[4] = r_a + 3*sqrt(k/c/d*60);
-
-  for i in 5:nSta + 1 loop
-    r[i] = r[i - 1] + (r_b - r[4])/gridFac_sum*gridFac^(i - 5);
-  end for;
+  if soiDat.steadyState then
+    for i in 2:nSta + 1 loop
+      r[i] = r_a + (r_b - r_a)*(i - 1)/nSta;
+    end for;
+  elseif nSta < 4 then
+    for i in 2:nSta + 1 loop
+      r[i] = r[i - 1] + (r_b - r_a)/gridFac_sum*gridFac^(i - 2);
+    end for;
+  else
+    // Eskilson minimum length, capped so 3 inner cells always fit inside r_b - r_a
+    for i in 2:min(4, nSta + 1) loop
+      r[i] = r_a + (i - 1)*min(sqrt(k/max(c*d, Modelica.Constants.small)*60), (r_b - r_a)/nSta);
+    end for;
+    for i in 5:nSta + 1 loop
+      r[i] = r[i - 1] + (r_b - r[min(4, nSta + 1)])/gridFac_sum*gridFac^(i - 5);
+    end for;
+  end if;
   assert(abs(r[nSta + 1] - r_b) < 1E-3,
     "Error: Wrong computation of radius. r[nSta+1]=" + String(r[nSta + 1]));
 
@@ -248,6 +255,10 @@ and not the variable <code>T[1]</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Guarded the radial grid calculation for steady-state conduction (<code>c == 0</code>), small domain thickness <code>r_b - r_a</code>, and <code>nSta &lt; 4</code>.
+</li>
 <li>
 January, 2014, by Damien Picard:<br/>
 Modify the discretization of the cilindrical layer so that the first three layers have an equal thickness the following an exponentionally growing thickness.

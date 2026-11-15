@@ -18,7 +18,11 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final TEvaHea_nominal=0,
     final use_conCap=false,
         redeclare replaceable
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar(
+      final tabUppHea=datTab.tabLowBou,
+      final tabLowCoo=datTab.tabLowBou,
+      final use_TEvaOutCoo=datTab.use_TEvaOutForOpeEnv,
+      final use_TConOutCoo=datTab.use_TConOutForOpeEnv)
       constrainedby
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
       final tabUppHea=datTab.tabLowBou,
@@ -33,7 +37,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
         IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D (
         redeclare
           IBPSA.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.Frosting.NoFrosting
-          iceFacCal, datTab=datTab),
+          iceFacCal,
+        final mCon_flow_nominal=mCon_flow_nominal,
+        final mEva_flow_nominal=mEva_flow_nominal,
+        datTab=datTab),
     final use_rev=false,
     final QHea_flow_nominal=0,
     final mCon_flow_nominal=autCalMasCon_flow,
@@ -91,6 +98,10 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </li>
 </ul>
 </html>", revisions="<html><ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Moved the operational envelope modifiers onto the default declaration of <code>safCtrPar</code> and propagated <code>mCon_flow_nominal</code> and <code>mEva_flow_nominal</code> to <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">TableData2D</a>.
+</li>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>
     Implemented <a href=

@@ -25,15 +25,15 @@ record Generic "Generic data record for thermal wheels"
     "Power consumption at the design condition"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSen_nominal(
-    final max=1)=0.8
+    final max=1)=0.75
     "Nominal sensible heat exchanger effectiveness"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenPL(
-    final max=1)=0.75
+    final max=1)=0.8
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness"
     annotation(Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLat_nominal(
-    final max=1)=0.8
+    final max=1)=0.7
     "Nominal latent heat exchanger effectiveness"
     annotation(Dialog(group="Nominal condition",
                        enable=have_latHEX));
@@ -43,20 +43,20 @@ record Generic "Generic data record for thermal wheels"
     annotation(Dialog(group="Part load effectiveness",
                        enable=have_latHEX));
   parameter IBPSA.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness senEff(
-    uSpe={0},
-    epsCor={0.7})
+    uSpe={0, 1},
+    epsCor={0, 1})
     "Multiplication factor for sensible heat exchange effectiveness due to wheel speed ratio between 0 and 1"
     annotation(Dialog(group="Heat exchange effectiveness computation",
                        enable=have_varSpe));
   parameter IBPSA.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness latEff(
-    uSpe={0},
-    epsCor={0.7})
+    uSpe={0, 1},
+    epsCor={0, 1})
     "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1"
     annotation(Dialog(group="Heat exchange effectiveness computation",
                        enable=have_latHEX and have_varSpe));
   parameter IBPSA.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency relMotEff(
-    uSpe={0},
-    eta={0.7})
+    uSpe={0.1, 1},
+    eta={0.3, 1})
     "Ratio of the motor efficiency at give speed to the one when the speed is 1"
     annotation(Dialog(group="Power computation", enable=have_varSpe));
   final parameter IBPSA.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
@@ -71,6 +71,10 @@ record Generic "Generic data record for thermal wheels"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Updated default nominal and part-load effectiveness parameters to satisfy <code>eps_part &gt;= eps_nominal</code> and provided valid multi-point default speed-curve arrays.
+</li>
 <li>
 May 28, 2024, by Sen Huang:<br/>
 First implementation.

@@ -63,6 +63,29 @@ protected
   Modelica.Blocks.Math.Product pro_1 "Ratio of actual/nominal air flow rate"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
+  Modelica.Blocks.Sources.RealExpression watFloRatNonNeg(
+    final y=IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=pro_2.y,
+      x1=0,
+      x2=1e-4,
+      y1=0,
+      y2=1e-4,
+      y1d=0,
+      y2d=1))
+    "Non-negative ratio of actual/nominal water flow rate"
+    annotation (Placement(transformation(extent={{12,74},{18,86}})));
+  Modelica.Blocks.Sources.RealExpression airFloRatNonNeg(
+    final y=IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=pro_1.y,
+      x1=0,
+      x2=1e-4,
+      y1=0,
+      y2=1e-4,
+      y1d=0,
+      y2d=1))
+    "Non-negative ratio of actual/nominal air flow rate"
+    annotation (Placement(transformation(extent={{12,14},{18,26}})));
+
   Modelica.Blocks.Math.MultiProduct mulPro(final nu=3)
     "Product of the three modification factors"
     annotation (Placement(transformation(extent={{64,-6},{76,6}})));
@@ -76,14 +99,14 @@ equation
           30},{-20,26},{-12,26}}, color={0,0,127}));
   connect(airFlo_nom.y, pro_1.u2) annotation (Line(points={{-49,0},{-20,0},{-20,
           14},{-12,14}},     color={0,0,127}));
-  connect(pro_1.y, airFlo_mod.u)
-    annotation (Line(points={{11,20},{14.5,20},{18,20}}, color={0,0,127}));
+  connect(airFloRatNonNeg.y, airFlo_mod.u)
+    annotation (Line(points={{18.3,20},{18,20}}, color={0,0,127}));
   connect(mulPro.y, y)
     annotation (Line(points={{77.02,0},{110,0}}, color={0,0,127}));
   connect(mWat_flow, pro_2.u1) annotation (Line(points={{-120,90},{-72,90},{-20,
           90},{-20,86},{-12,86}}, color={0,0,127}));
-  connect(pro_2.y, watFlo_mod.u)
-    annotation (Line(points={{11,80},{18,80}}, color={0,0,127}));
+  connect(watFloRatNonNeg.y, watFlo_mod.u)
+    annotation (Line(points={{18.3,80},{18,80}}, color={0,0,127}));
   connect(watFlo_nom.y, pro_2.u2) annotation (Line(points={{-49,60},{-20,60},{
           -20,74},{-12,74}},
                          color={0,0,127}));
@@ -116,6 +139,10 @@ Input to this model are the total mass flow rates of all parallel beams combined
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Used <code>abs(mWat_flow)</code> and <code>abs(mAir_flow)</code> and clamped interpolated modification factors to remain non-negative under reverse or low flow.
+</li>
 <li>
 June 13, 2016, by Michael Wetter:<br/>
 Revised implementation.

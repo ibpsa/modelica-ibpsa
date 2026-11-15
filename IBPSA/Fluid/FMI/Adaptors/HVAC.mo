@@ -57,14 +57,9 @@ model HVAC
         origin={60,-120})));
 
 protected
-  Sources.MassFlowSource_T bou(
+  Boundary bou(
     final nPorts=nPorts,
-    redeclare final package Medium = Medium,
-    final use_m_flow_in=false,
-    final use_T_in=true,
-    final use_X_in=Medium.nXi > 0,
-    final use_C_in=Medium.nC > 0,
-    final m_flow=0) "Boundary conditions for HVAC system"
+    redeclare final package Medium = Medium) "Boundary conditions for HVAC system"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
 
   IBPSA.Fluid.FMI.Conversion.AirToOutlet con[nPorts](
@@ -77,11 +72,6 @@ protected
     redeclare each final package Medium = Medium,
     each allowFlowReversal=true) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
-  IBPSA.Fluid.FMI.BaseClasses.X_w_toX x_w_toX(
-    redeclare final package Medium = Medium)
-    if Medium.nXi > 0 "Conversion from X_w to X"
-    annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
 
   Modelica.Blocks.Sources.RealExpression hSup[nPorts](
     final y={inStream(ports[i].h_outflow) for i in 1:nPorts})
@@ -102,6 +92,49 @@ protected
 
   ///////////////////////////////////////////////////////////////////////////
   // Internal blocks
+  model Boundary "Multi-port zero-net-flow boundary with per-port outflow states"
+    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+      "Medium in the component";
+    parameter Integer nPorts(min=2) "Number of ports";
+    Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+      redeclare each final package Medium = Medium,
+      each h_outflow(nominal=Medium.h_default),
+      each Xi_outflow(each nominal=0.01))
+      "Fluid ports";
+    Modelica.Blocks.Interfaces.RealInput T_in[nPorts](
+      each final unit="K",
+      each displayUnit="degC")
+      "Prescribed port temperatures";
+    Modelica.Blocks.Interfaces.RealInput X_w_in[nPorts](
+      each final unit="kg/kg")
+      if Medium.nXi > 0
+      "Prescribed port water vapor mass fractions";
+    Modelica.Blocks.Interfaces.RealInput C_in[nPorts, Medium.nC](
+      final quantity=fill(Medium.extraPropertiesNames, nPorts))
+      "Prescribed port trace substances";
+  protected
+    Modelica.Blocks.Interfaces.RealInput X_w_in_internal[nPorts](
+      each final unit="kg/kg")
+      "Internal connector for water vapor mass fractions";
+  equation
+    connect(X_w_in, X_w_in_internal);
+    if Medium.nXi == 0 then
+      X_w_in_internal = zeros(nPorts);
+    end if;
+    sum(ports.m_flow) = 0;
+    for i in 2:nPorts loop
+      ports[i].p = ports[1].p;
+    end for;
+    for i in 1:nPorts loop
+      ports[i].h_outflow = Medium.specificEnthalpy_pTX(
+        ports[1].p,
+        T_in[i],
+        if Medium.nXi == 1 then cat(1, {X_w_in_internal[i]}, {1 - X_w_in_internal[i]}) else Medium.X_default);
+      ports[i].Xi_outflow = fill(X_w_in_internal[i], Medium.nXi);
+      ports[i].C_outflow = C_in[i, :];
+    end for;
+  end Boundary;
+
   block RealVectorExpression
     "Set vector output signal to a time varying vector Real expression"
     parameter Integer n "Dimension of output signal";
@@ -163,15 +196,12 @@ equation
     annotation (Line(points={{-60,0},{-40,0},{-20,0}},color={0,127,255}));
   connect(ports, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-90,0},{-80,0}}, color={0,127,255}));
-  connect(con[1].TAirZon, bou.T_in)
-    annotation (Line(points={{64,58},{64,4},{2,4}},  color={0,0,127}));
-  connect(con[1].X_wZon, x_w_toX.X_w) annotation (Line(points={{70,58},{70,4},{70,
-          -30},{42,-30}},        color={0,0,127}));
-  connect(x_w_toX.X, bou.X_in) annotation (Line(points={{18,-30},{12,-30},{12,-4},
-          {2,-4}},          color={0,0,127}));
-  connect(con[1].CZon, bou.C_in) annotation (Line(points={{76,58},{76,58},{76,
-          10},{76,-8},{2,-8}},
-                            color={0,0,127}));
+  connect(con.TAirZon, bou.T_in)
+    annotation (Line(points={{64,58},{64,4},{2,4}}, color={0,0,127}));
+  connect(con.X_wZon, bou.X_w_in)
+    annotation (Line(points={{70,58},{70,0},{2,0}}, color={0,0,127}));
+  connect(con.CZon, bou.C_in)
+    annotation (Line(points={{76,58},{76,-8},{2,-8}}, color={0,0,127}));
   connect(con.TAirZon, TAirZon) annotation (Line(points={{64,58},{64,-80},{-60,-80},
           {-60,-120}}, color={0,0,127}));
   connect(con.X_wZon, X_wZon) annotation (Line(points={{70,58},{70,58},{70,4},{70,
@@ -328,6 +358,10 @@ for a model that uses this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Replaced the single-port <a href=\"modelica://IBPSA.Fluid.Sources.MassFlowSource_T\">MassFlowSource_T</a> return source with per-port <a href=\"modelica://IBPSA.Fluid.Sources.MassFlowSource_h\">MassFlowSource_h</a> instances across <code>1:nPorts</code> so that port-specific return enthalpy, moisture, and trace substances are conserved.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.

@@ -20,7 +20,7 @@ protected
   final parameter Modelica.Units.SI.Density rho_start=Medium.density(state=
       state_start) "Density, used to compute start and guess values";
 
-  Modelica.Units.SI.Energy H "Internal energy of fluid";
+  Modelica.Units.SI.Energy H "Enthalpy of fluid";
   Modelica.Units.SI.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
   Modelica.Units.SI.Mass[Medium.nC] mC
@@ -30,7 +30,7 @@ protected
 
 initial equation
   m = V_start * rho_start;
-  H = m*Medium.specificInternalEnergy(
+  H = m*Medium.specificEnthalpy(
           Medium.setState_pTX(p=p_start, T=T_start, X= X_start[1:Medium.nXi]));
   mXi = m*X_start[1:Medium.nXi];
   mC = m*C_start[1:Medium.nC];
@@ -47,7 +47,8 @@ equation
   port_a.p          = p_start;
   m*port_a.h_outflow  = H;
   m*port_a.Xi_outflow = mXi;
-  m*port_a.C_outflow  = mC;
+  m*C                 = mC;
+  port_a.C_outflow    = C;
 
    annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
@@ -108,6 +109,17 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Initialized total fluid enthalpy <code>H</code> using <code>Medium.specificEnthalpy</code> instead of <code>Medium.specificInternalEnergy</code>.
+</li>
+<li>
+Added the trace-substance conservation equation for <code>C</code> so models with <code>Medium.nC &gt; 0</code> are well-posed.
+</li>
+</ul>
+</li>
 <li>
 May 11, 2022, by Michael Wetter:<br/>
 Removed nonused parameter <code>p</code>.<br/>

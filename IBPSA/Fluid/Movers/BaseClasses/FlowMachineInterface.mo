@@ -198,7 +198,7 @@ protected
     "Coefficient for internal pressure drop of the fan or pump";
 
   parameter Integer curve=
-     if (haveVMax and haveDPMax) or (nOri == 2) then 1
+     if haveVMax and haveDPMax then 1
      elseif haveVMax or haveDPMax then 2
      else 3
     "Flag, used to pick the right representation of the fan or pump's pressure curve";
@@ -206,11 +206,11 @@ protected
   final parameter
     IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
     final n = nOri,
-    final V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+    final V_flow = if haveVMax and haveDPMax then
              {per.pressure.V_flow[i] for i in 1:nOri}
              else
              zeros(nOri),
-    final dp = if (haveVMax and haveDPMax) or (nOri == 2) then
+    final dp = if haveVMax and haveDPMax then
              {(per.pressure.dp[i] + per.pressure.V_flow[i] * kRes) for i in 1:nOri}
              else
              zeros(nOri))
@@ -219,7 +219,7 @@ protected
   parameter
     IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
     final n = nOri + 1,
-    V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+    V_flow = if haveVMax and haveDPMax then
                 zeros(nOri + 1)
              elseif haveVMax then
               cat(1, {0}, {per.pressure.V_flow[i] for i in 1:nOri})
@@ -227,30 +227,30 @@ protected
               cat(1, { per.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max})
              else
               zeros(nOri + 1),
-    dp = if (haveVMax and haveDPMax) or (nOri == 2) then
+    dp = if haveVMax and haveDPMax then
                 zeros(nOri + 1)
              elseif haveVMax then
               cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri})
              elseif haveDPMax then
-              cat(1, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0})
+              cat(1, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {V_flow_max * kRes})
              else
                zeros(nOri+1))
     "Volume flow rate vs. total pressure rise with correction for fan or pump's resistance added";
   parameter
     IBPSA.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
     final n = nOri + 2,
-    V_flow = if (haveVMax and haveDPMax) or (nOri == 2) then
+    V_flow = if haveVMax and haveDPMax then
                zeros(nOri + 2)
              elseif haveVMax or haveDPMax then
                zeros(nOri + 2)
              else
                cat(1, {0}, {per.pressure.V_flow[i] for i in 1:nOri}, {V_flow_max}),
-    dp =     if (haveVMax and haveDPMax) or (nOri == 2) then
+    dp =     if haveVMax and haveDPMax then
                zeros(nOri + 2)
              elseif haveVMax or haveDPMax then
                zeros(nOri + 2)
              else
-               cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {0}))
+               cat(1, {dpMax}, {per.pressure.dp[i] + per.pressure.V_flow[i] * kRes for i in 1:nOri}, {V_flow_max * kRes}))
     "Volume flow rate vs. total pressure rise with correction for fan or pump's resistance added";
 
   parameter Real preDer1[nOri](each fixed=false)
@@ -594,24 +594,20 @@ equation
            deltaX=deltaP/2);
   if per.powerOrEfficiencyIsHydraulic then
     eta = etaHyd * etaMot;
+    P_internal = WHyd;
+    eta_internal = etaHyd;
+    PEle = WHyd / IBPSA.Utilities.Math.Functions.smoothMax(
+                    x1=etaMot, x2=1E-2, deltaX=1E-3);
   else
     etaHyd = IBPSA.Utilities.Math.Functions.smoothMin(
-               x1=eta/etaMot, x2=1, deltaX=1E-3);
-  end if;
-
-  // Hydraulic efficiency etaHyd and hydraulic work WHyd
-  //   or total efficiency eta and total electric power PEle
-  //   depending on the information provided
-  if per.powerOrEfficiencyIsHydraulic then
-    P_internal=WHyd;
-    eta_internal=etaHyd;
-    PEle = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
-                    x1=eta, x2=1E-2, deltaX=1E-3);
-  else
-    P_internal=PEle;
-    eta_internal=eta;
-    WHyd = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
-                    x1=etaHyd, x2=1E-2, deltaX=1E-3);
+               x1=eta / IBPSA.Utilities.Math.Functions.smoothMax(
+                          x1=etaMot, x2=1E-2, deltaX=1E-3),
+               x2=1,
+               deltaX=1E-3);
+    P_internal = PEle;
+    eta_internal = eta;
+    WHyd = IBPSA.Utilities.Math.Functions.smoothMax(
+             x1=etaMot * PEle, x2=WFlo, deltaX=deltaP/2);
   end if;
   if per.etaHydMet==
        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
@@ -620,7 +616,7 @@ equation
                       simplified=V_flow/V_flow_nominal*
                             IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P_internal = (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
+      P_internal = IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     eta_internal = WFlo/IBPSA.Utilities.Math.Functions.smoothMax(
                      x1=P_internal, x2=deltaP, deltaX=deltaP/2);
@@ -631,7 +627,7 @@ equation
                       simplified=V_flow/V_flow_nominal*
                             IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow_nominal, r_N=1, d=powEuDer, delta=delta));
     else
-      P_internal = (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
+      P_internal = IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
     end if;
     eta_internal = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
                             x1=P_internal, x2=deltaP, deltaX=deltaP/2);
@@ -858,6 +854,20 @@ See discussions and an example of this situation in
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+<ul>
+<li>
+Computed <code>PEle</code> and <code>WHyd</code> via regularized motor efficiency <code>etaMot</code> instead of total efficiency <code>eta</code> so electrical input power remains positive at shutoff and free delivery.
+</li>
+<li>
+Applied consistent density scaling <code>rho/rho_default</code> to pressure and power curves across both branches of <code>homotopyInitialization</code>.
+</li>
+<li>
+Extended <code>powEu_internal</code> and internal resistance compensation <code>V_flow_max*kRes</code> consistently to <code>V_flow_max</code> when <code>nOri == 2</code>.
+</li>
+</ul>
+</li>
 <li>
 February 7, 2025, by Jelger Jansen:<br/>
 Removed <code>import</code> statement.

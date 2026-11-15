@@ -15,6 +15,7 @@ model SpeedCorrectionSensible "Sensible heat wheels"
     annotation(Placement(transformation(extent={{60,60},{80,80}})));
   IBPSA.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
+    min=0,
     final max=1)
     "Wheel speed ratio"
     annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -31,15 +32,27 @@ model SpeedCorrectionSensible "Sensible heat wheels"
 protected
   parameter Integer nSpe = size(yEta, 1)
     "Number of the points in the power efficiency curve";
-  parameter Real s = max(xSpe[i]/yEta[i] for i in 1:size(yEta, 1)-1)
+  parameter Real s = if nSpe > 1 then
+    max(if xSpe[i] > Modelica.Constants.eps
+      then xSpe[i]/max(yEta[i], Modelica.Constants.eps)
+      else 0 for i in 1:nSpe - 1)
+    else 0
     "Maximum ratio of x-axis to y-axis in the power efficiency curve";
 
-  parameter Real[nSpe] dP(each fixed=false, each final unit="W")
-    "Derivatives at the support points for electric power consumption";
+  parameter Real[nSpe] dP(each fixed=false, each final unit="1")
+    "Derivatives at the support points for relative motor efficiency";
   parameter Real[size(per.senEff.uSpe, 1)] dEpsSenCor(each fixed=false, each final unit="1")
     "Derivatives at the support points for sensible heat exchanger effectiveness correction";
+  Real uSpeNonNeg(final min=0, final unit="1")
+    "Non-negative wheel speed ratio";
 
 initial equation
+  assert(nSpe >= 2,
+         "In " + getInstanceName() + ": The motor efficiency curve must have at least 2 support points.",
+         level=AssertionLevel.error);
+  assert(size(per.senEff.uSpe, 1) >= 2,
+         "In " + getInstanceName() + ": per.senEff must have at least 2 support points.",
+         level=AssertionLevel.error);
   assert(s < 1 + 1E-4,
          "In " + getInstanceName() + ": The motor efficiency curve is wrong.
          The ratio of the speed ratio to the motor percent
@@ -61,14 +74,25 @@ initial equation
     y=per.senEff.epsCor,
     ensureMonotonicity=IBPSA.Utilities.Math.Functions.isMonotonic(per.senEff.epsCor, strict=false));
 equation
-  P = per.P_nominal*uSpe/IBPSA.Utilities.Math.Functions.interpolate(
-        u=uSpe,
-        xd=xSpe,
-        yd=yEta,
-        d=dP)
+  uSpeNonNeg = IBPSA.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    x=uSpe,
+    x1=0,
+    x2=1e-4,
+    y1=0,
+    y2=1e-4,
+    y1d=0,
+    y2d=1);
+  P = per.P_nominal*uSpeNonNeg/IBPSA.Utilities.Math.Functions.smoothMax(
+        x1=IBPSA.Utilities.Math.Functions.interpolate(
+          u=uSpeNonNeg,
+          xd=xSpe,
+          yd=yEta,
+          d=dP),
+        x2=1E-2,
+        deltaX=1E-3)
         "Calculate the wheel power consumption";
   epsSenCor = IBPSA.Utilities.Math.Functions.interpolate(
-                u=uSpe,
+                u=uSpeNonNeg,
                 xd=per.senEff.uSpe,
                 yd=per.senEff.epsCor,
                 d=dEpsSenCor)
@@ -113,6 +137,10 @@ IBPSA.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffec
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Regularized the motor efficiency denominator near <code>uSpe = 0</code>, clamped electrical power <code>P</code> to be non-negative, and corrected the unit of dimensionless spline derivative <code>dP</code>.
+</li>
 <li>
 July 9, 2025, by Michael Wetter:<br/>
 Refactored implementation to avoid repetitive calculation of derivatives for spline interpolation.
