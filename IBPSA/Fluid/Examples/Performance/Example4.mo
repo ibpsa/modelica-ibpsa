@@ -72,11 +72,11 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
            annotation (Placement(transformation(extent={{-16,10},{-4,22}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow QLat(final alpha=0)
     "Latent and sensible enthalpy removed with condensed water vapor"
-    annotation (Placement(transformation(extent={{-24,22},{-12,34}})));
+    annotation (Placement(transformation(extent={{-22,-20},{-10,-8}})));
   Modelica.Blocks.Sources.RealExpression QCond_flow(
     y=m_condens*Medium.enthalpyOfCondensingGas(senTem.T))
     "Heat flow rate removed from moist air due to condensation"
-    annotation (Placement(transformation(extent={{-48,22},{-28,34}})));
+    annotation (Placement(transformation(extent={{-54,-20},{-34,-8}})));
 equation
   connect(phiSat.y, xSat.phi) annotation (Line(
       points={{-11.2,48},{28,48}},
@@ -85,10 +85,10 @@ equation
       points={{-19,30},{-16,30},{-16,34},{-2,34}},
       color={0,0,127}));
   connect(QCond_flow.y, QLat.Q_flow) annotation (Line(
-      points={{-27,28},{-24,28}},
+      points={{-33,-14},{-22,-14}},
       color={0,0,127}));
   connect(QLat.port, vol.heatPort) annotation (Line(
-      points={{-12,28},{-6,28},{-6,26},{0,26}},
+      points={{-10,-14},{-2,-14},{-2,26},{0,26}},
       color={191,0,0}));
   connect(Tin.y, bou.T_in) annotation (Line(
       points={{-73,40},{-80,40},{-80,10},{-72,10}},
