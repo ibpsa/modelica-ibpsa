@@ -74,7 +74,7 @@ function nusselt
   Real num "Numerator";
   Real den "Denominator";
 algorithm
-  num := 0.387*IBPSA.Utilities.Math.Functions.smoothMax(abs(Ra),1,0.1)^(1/6));
+  num := 0.387*IBPSA.Utilities.Math.Functions.smoothMax(abs(Ra),1,0.1)^(1/6);
   den := ((1+(0.559/Pr)^(9/16))^(8/27));
   Nu := (0.6+num/den)^2;
   annotation(smoothOrder=1);
