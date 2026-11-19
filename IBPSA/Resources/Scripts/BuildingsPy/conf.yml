@@ -1,3 +1,7 @@
+- model_name: IBPSA.Airflow.Multizone.Examples.PressurizationData
+  openmodelica:
+    comment: Solver cvode avoids convergence failure.
+    solver: cvode
 - model_name: IBPSA.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
