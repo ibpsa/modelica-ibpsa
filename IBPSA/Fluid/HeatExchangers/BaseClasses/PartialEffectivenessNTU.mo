@@ -160,9 +160,9 @@ equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if use_dynamicFlowRegime then
     if (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.ParallelFlow) then
-      flowRegime = if (m1_flow*m2_flow >= 0) then IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow else IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
+      flowRegime = if (C1_flow*C2_flow >= 0) then IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow else IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow;
     elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CounterFlow) then
-      flowRegime = if (m1_flow*m2_flow >= 0) then IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow else IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
+      flowRegime = if (C1_flow*C2_flow >= 0) then IBPSA.Fluid.Types.HeatExchangerFlowRegime.CounterFlow else IBPSA.Fluid.Types.HeatExchangerFlowRegime.ParallelFlow;
     elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed) then
       flowRegime = IBPSA.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed;
     elseif (configuration == IBPSA.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed) then
@@ -250,10 +250,6 @@ for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-November 15, 2026, by Michael Wetter:<br/>
-Tested signed mass flow rates <code>m1_flow*m2_flow &gt;= 0</code> instead of <code>C1_flow*C2_flow &gt;= 0</code> for dynamic counter/parallel-flow switching, and permitted <code>ConstantTemperaturePhaseChange</code> in <a href=\"modelica://IBPSA.Fluid.Types.HeatExchangerConfiguration\">HeatExchangerConfiguration</a>.
-</li>
 <li>
 February 7, 2025, by Jelger Jansen:<br/>
 Removed <code>import</code> statement.
