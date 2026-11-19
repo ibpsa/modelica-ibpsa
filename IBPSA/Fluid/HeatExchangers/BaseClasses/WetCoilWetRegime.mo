@@ -144,7 +144,7 @@ equation
 
   QTot_flow = epsSta*CStaMin*(hAirIn  - hSatWatIn);
 
-  QTot_flow = mAirNonZer_flow*(hAirIn- hAirOut);
+  QTot_flow = mAir_flow*(hAirIn- hAirOut);
   TWatOut=TWatIn+QTot_flow/(mWatNonZer_flow*cpWat);
 
   NTUAirSta = UAAir/(mAirNonZer_flow*cpAir);
@@ -173,7 +173,7 @@ annotation (Icon(graphics={
 <ul>
 <li>
 November 15, 2026, by Michael Wetter:<br/>
-Used regularized air mass flow rate <code>mAirNonZer_flow</code> instead of unguarded <code>mAir_flow</code> in <code>hAirOut</code> and <code>NTUAirSta</code> to prevent division by zero at zero air flow.
+Used regularized air mass flow rate <code>mAirNonZer_flow</code> instead of unguarded <code>mAir_flow</code> in <code>NTUAirSta</code> to prevent division by zero at zero air flow.
 </li>
 <li>
 April 18, 2023, by Michael Wetter:<br/>
