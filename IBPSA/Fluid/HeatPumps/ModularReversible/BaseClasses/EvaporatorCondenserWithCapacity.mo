@@ -38,14 +38,14 @@ model EvaporatorCondenserWithCapacity
       Placement(transformation(
         extent={{12,12},{-12,-12}},
         rotation=270,
-        origin={-10,70})));
+        origin={-10,74})));
   Modelica.Thermal.HeatTransfer.Components.Convection conNoCap
     if use_cap and not has_cap
     "Series thermal conductance between working fluid and ambient when dry mass is neglected"
     annotation (Placement(transformation(
         extent={{12,12},{-12,-12}},
         rotation=270,
-        origin={-10,50})));
+        origin={80,50})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(
     final C=C,
     final T(final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial),
@@ -53,9 +53,9 @@ model EvaporatorCondenserWithCapacity
     final der_T(final fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial),
         start=0)) if has_cap "Heat Capacity" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={30,50})));
+        origin={-50,50})));
   Modelica.Blocks.Sources.RealExpression heaLosInt(final y=GInn) if has_cap
     "Nominal heat loss coefficient to the interior" annotation (Placement(
         transformation(
@@ -71,7 +71,7 @@ model EvaporatorCondenserWithCapacity
         transformation(
         extent={{-20,-10},{20,10}},
         rotation=0,
-        origin={-60,70})));
+        origin={-60,74})));
   Modelica.Blocks.Sources.RealExpression heaLosNoCap(
     final y=noEvent(if GInn > G_small and GOut > G_small then GInn*GOut/(GInn + GOut) else 0))
     if use_cap and not has_cap
@@ -79,7 +79,7 @@ model EvaporatorCondenserWithCapacity
     annotation (Placement(transformation(
         extent={{-20,-10},{20,10}},
         rotation=0,
-        origin={-60,50})));
+        origin={34,50})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea(final alpha=0,
       final T_ref=293.15) "Heat flow rate of the condenser" annotation (
@@ -115,11 +115,11 @@ protected
     "= true if dry mass heat capacitor is active";
 equation
   connect(conIns.fluid, heaCap.port) annotation (Line(
-      points={{-10,42},{-10,50},{20,50}},
+      points={{-10,42},{-10,46},{-30,46},{-30,50},{-40,50}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(heaCap.port, conOut.solid) annotation (Line(
-      points={{20,50},{-10,50},{-10,58}},
+      points={{-40,50},{-30,50},{-30,56},{-10,56},{-10,62}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conIns.Gc, heaLosInt.y) annotation (Line(
@@ -127,11 +127,11 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(conOut.fluid, port_out)
-    annotation (Line(points={{-10,82},{-10,90},{0,90},{0,100}},
+    annotation (Line(points={{-10,86},{-10,90},{0,90},{0,100}},
                                                   color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conOut.Gc, heaLosExt.y) annotation (Line(
-      points={{-22,70},{-38,70}},
+      points={{-22,74},{-38,74}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, conIns.solid) annotation (Line(
@@ -139,15 +139,15 @@ equation
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, conNoCap.solid) annotation (Line(
-      points={{-9,-10},{-14,-10},{-14,30},{-10,30},{-10,38}},
+      points={{-9,-10},{-14,-10},{-14,8},{44,8},{44,38},{80,38}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conNoCap.fluid, port_out) annotation (Line(
-      points={{-10,62},{-10,90},{0,90},{0,100}},
+      points={{80,62},{80,92},{0,92},{0,100}},
       color={191,0,0},
       pattern=LinePattern.Dash));
   connect(conNoCap.Gc, heaLosNoCap.y) annotation (Line(
-      points={{-22,50},{-38,50}},
+      points={{68,50},{56,50}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(vol.heatPort, preHea.port) annotation (Line(points={{-9,-10},{-14,-10},
