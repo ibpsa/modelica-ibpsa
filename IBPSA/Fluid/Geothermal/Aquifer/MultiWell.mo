@@ -505,9 +505,10 @@ Using
 <p>
 where
 <i>g</i> is the gravitational acceleration,
-we can write for the pressure difference due to flow friction
+we can write for the pressure difference due to flow friction between the extraction and the injection well,
+which are at a distance <i>d</i> from each other and whose drawdown and build-up add up,
 <p align=\"center\" style=\"font-style:italic;\">
-&#916;p = m&#x0307; g &frasl; (2 &#960; K h ln(rMax &frasl; rWB)),
+&#916;p = m&#x0307; g ln(d &frasl; rWB) &frasl; (&#960; K h),
 </p>
 <p>
 where <i>m&#x0307; = V&#x0307; &rho;</i> is the water mass flow rate.
