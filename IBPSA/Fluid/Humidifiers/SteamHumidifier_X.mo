@@ -8,7 +8,6 @@ model SteamHumidifier_X
       final T_start=293.15,
       final X_start=X_start,
       final use_TSet = true,
-      final use_TDynamics = false,
       final use_X_wSet = true,
       final QMax_flow = Modelica.Constants.inf,
       final QMin_flow = -Modelica.Constants.inf,
@@ -261,7 +260,17 @@ revisions="<html>
 <ul>
 <li>
 November 15, 2026, by Michael Wetter:<br/>
-Constrained <code>Medium</code> to <a href=\"modelica://Modelica.Media.Interfaces.PartialCondensingGases\">PartialCondensingGases</a>, disabled redundant temperature state filtering via <code>use_TDynamics = false</code> on <code>outCon</code> (<a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutlet\">PrescribedOutlet</a>), used <code>Medium.setState_phX</code> in <code>TLea</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
+November 20, 2026, by Michael Wetter:<br/>
+Removed <code>use_TDynamics = false</code> binding
+as the parameter was removed from
+<a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutlet\">
+IBPSA.Fluid.Interfaces.PrescribedOutlet</a>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
+<li>
+November 15, 2026, by Michael Wetter:<br/>
+Constrained <code>Medium</code> to <a href=\"modelica://Modelica.Media.Interfaces.PartialCondensingGases\">PartialCondensingGases</a>, used <code>Medium.setState_phX</code> in <code>TLea</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
 </li>
 <li>
 March 8, 2022, by Michael Wetter:<br/>

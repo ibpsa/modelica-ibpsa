@@ -36,10 +36,6 @@ model PrescribedOutlet
     "Set to false to disable temperature set point"
     annotation(Evaluate=true);
 
-  parameter Boolean use_TDynamics = true
-    "Set to false to compute T algebraically even when energyDynamics <> SteadyState"
-    annotation(Evaluate=true, Dialog(tab="Advanced", enable=use_TSet and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
-
   parameter Boolean use_X_wSet = true
     "Set to false to disable water vapor set point"
     annotation(Evaluate=true);
@@ -136,7 +132,7 @@ protected
 initial equation
   // Set initial conditions, unless use_{T,Xi}Set = false in which case
   // it is not a state.
-  if use_TSet and use_TDynamics then
+  if use_TSet then
     if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(T) = 0;
     elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
@@ -173,7 +169,7 @@ equation
   end if;
   connect(X_wSet, X_wSet_internal);
 
-  if (((use_TSet and use_TDynamics) or use_X_wSet) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
+  if (((use_TSet) or use_X_wSet) and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState) then
     mNor_flow = port_a.m_flow/abs(m_flow_nominal);
     k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
                                          y1= mNor_flow,
@@ -184,7 +180,7 @@ equation
     k = 1;
   end if;
 
-  if use_TSet and use_TDynamics and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
+  if use_TSet and energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState then
     der(T) = (TSet_internal-T)*k/tau;
   else
     T = TSet_internal;
@@ -454,6 +450,12 @@ properties as the fluid that enters <code>port_b</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Removed parameter <code>use_TDynamics</code>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
 <li>
 November 15, 2026, by Michael Wetter:<br/>
 Changed <code>energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState</code> to <code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code> when computing dynamic flow-scaling gain <code>k</code>, added parameter <code>use_TDynamics</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
