@@ -302,7 +302,7 @@ protected
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    r_V(start=0),
+    r_V(start=_m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
