@@ -467,14 +467,14 @@ equation
   // pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3
   if (curve == 1) then
     if homotopyInitialization then
-       V_flow*kRes + dp_internal = homotopy(actual=IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
+       (rho/rho_default)*V_flow*kRes + dp_internal = homotopy(actual=(rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer1,
                                                      per=pCur1),
-                                           simplified=r_N * (IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
+                                           simplified=(rho/rho_default)*r_N * (IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
@@ -497,7 +497,7 @@ equation
                                                     /(2*delta*V_flow_nominal)));
 
     else
-       V_flow*kRes + dp_internal= IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
+       (rho/rho_default)*V_flow*kRes + dp_internal= (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
                                                r_N=r_N,
                                                dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
@@ -506,14 +506,14 @@ equation
     end if;     // end of computation for this branch
    elseif (curve == 2) then
     if homotopyInitialization then
-       V_flow*kRes + dp_internal = homotopy(actual=IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
+       (rho/rho_default)*V_flow*kRes + dp_internal = homotopy(actual=(rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer2,
                                                      per=pCur2),
-                                            simplified=r_N * (IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
+                                            simplified=(rho/rho_default)*r_N * (IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
@@ -536,7 +536,7 @@ equation
                                                     /(2*delta*V_flow_nominal)));
 
     else
-       V_flow*kRes + dp_internal= IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
+       (rho/rho_default)*V_flow*kRes + dp_internal= (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
                                                       r_N=r_N,
                                                       dpMax=dpMax,
                                                       V_flow_max=V_flow_max,
@@ -545,14 +545,14 @@ equation
     end if;     // end of computation for this branch
   else
     if homotopyInitialization then
-       V_flow*kRes + dp_internal = homotopy(actual=IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
+       (rho/rho_default)*V_flow*kRes + dp_internal = homotopy(actual=(rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow,
                                                      r_N=r_N,
                                                      dpMax=dpMax,
                                                      V_flow_max=V_flow_max,
                                                      d=preDer3,
                                                      per=pCur3),
-                          simplified=r_N * (IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
+                          simplified=(rho/rho_default)*r_N * (IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(
                                                      V_flow=V_flow_nominal,
                                                      r_N=1,
                                                      dpMax=dpMax,
@@ -575,7 +575,7 @@ equation
                                                     /(2*delta*V_flow_nominal)));
 
     else
-       V_flow*kRes + dp_internal= IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
+       (rho/rho_default)*V_flow*kRes + dp_internal= (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.pressure(V_flow=V_flow,
                                                       r_N=r_N,
                                                       dpMax=dpMax,
                                                       V_flow_max=V_flow_max,
@@ -612,22 +612,22 @@ equation
   if per.etaHydMet==
        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
     if homotopyInitialization then
-      P_internal = homotopy(actual=IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
-                      simplified=V_flow/V_flow_nominal*
+      P_internal = homotopy(actual=(rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta),
+                      simplified=(rho/rho_default)*V_flow/V_flow_nominal*
                             IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow_nominal, r_N=1, d=powDer, delta=delta));
     else
-      P_internal = IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
+      P_internal = (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     eta_internal = WFlo/IBPSA.Utilities.Math.Functions.smoothMax(
                      x1=P_internal, x2=deltaP, deltaX=deltaP/2);
   elseif per.etaHydMet==
        IBPSA.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     if homotopyInitialization then
-      P_internal = homotopy(actual=IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta),
-                      simplified=V_flow/V_flow_nominal*
+      P_internal = homotopy(actual=(rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta),
+                      simplified=(rho/rho_default)*V_flow/V_flow_nominal*
                             IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow_nominal, r_N=1, d=powEuDer, delta=delta));
     else
-      P_internal = IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
+      P_internal = (rho/rho_default)*IBPSA.Fluid.Movers.BaseClasses.Characteristics.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
     end if;
     eta_internal = WFlo / IBPSA.Utilities.Math.Functions.smoothMax(
                             x1=P_internal, x2=deltaP, deltaX=deltaP/2);
@@ -795,6 +795,12 @@ using the data record <code>per</code>, which is an instance of
 IBPSA.Fluid.Movers.Data.Generic</a>.
 A cubic hermite spline with linear extrapolation is used to compute
 the performance at other operating points.
+The characteristic curves are assumed to be measured at the reference fluid density
+<code>rho_default</code>.
+At the actual fluid density <code>rho</code>, the pressure rise and shaft power
+are both scaled by the ratio <code>rho/rho_default</code> per the fan and pump
+affinity laws.
+Efficiency curves are dimensionless and require no density scaling.
 </p>
 <p>
 The model computes the power and efficiency items in the list below.
@@ -855,13 +861,21 @@ See discussions and an example of this situation in
 revisions="<html>
 <ul>
 <li>
+November 20, 2026, by Michael Wetter:<br/>
+Implemented affinity-law density scaling <code>(rho/rho_default)</code> for both
+the pressure rise and shaft power characteristic curves. The characteristic curves
+<code>per.pressure</code> and <code>per.power</code> are assumed to be measured at the
+reference fluid density <code>rho_default</code>; at a different fluid density
+<code>rho</code>, both pressure rise and power scale proportionally with
+<code>rho/rho_default</code> per the fan and pump affinity laws.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
+<li>
 November 15, 2026, by Michael Wetter:<br/>
 <ul>
 <li>
 Computed <code>PEle</code> and <code>WHyd</code> via regularized motor efficiency <code>etaMot</code> instead of total efficiency <code>eta</code> so electrical input power remains positive at shutoff and free delivery.
-</li>
-<li>
-Applied consistent density scaling <code>rho/rho_default</code> to pressure and power curves across both branches of <code>homotopyInitialization</code>.
 </li>
 <li>
 Extended <code>powEu_internal</code> and internal resistance compensation <code>V_flow_max*kRes</code> consistently to <code>V_flow_max</code> when <code>nOri == 2</code>.
