@@ -47,9 +47,6 @@ protected
     "Non-negative wheel speed ratio";
 
 initial equation
-  assert(nSpe >= 2,
-         "In " + getInstanceName() + ": The motor efficiency curve must have at least 2 support points.",
-         level=AssertionLevel.error);
   assert(size(per.senEff.uSpe, 1) >= 2,
          "In " + getInstanceName() + ": per.senEff must have at least 2 support points.",
          level=AssertionLevel.error);
@@ -137,6 +134,15 @@ IBPSA.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffec
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2026, by Michael Wetter:<br/>
+Removed the assertion <code>nSpe &ge; 2</code> now that
+<a href=\"modelica://IBPSA.Utilities.Math.Functions.interpolate\">
+IBPSA.Utilities.Math.Functions.interpolate</a>
+handles a single support point correctly.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
+</li>
 <li>
 November 15, 2026, by Michael Wetter:<br/>
 Regularized the motor efficiency denominator near <code>uSpe = 0</code>, clamped electrical power <code>P</code> to be non-negative, and corrected the unit of dimensionless spline derivative <code>dP</code>.
