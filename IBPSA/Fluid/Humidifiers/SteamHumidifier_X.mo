@@ -260,16 +260,6 @@ revisions="<html>
 <ul>
 <li>
 November 15, 2026, by Michael Wetter:<br/>
-November 20, 2026, by Michael Wetter:<br/>
-Removed <code>use_TDynamics = false</code> binding
-as the parameter was removed from
-<a href=\"modelica://IBPSA.Fluid.Interfaces.PrescribedOutlet\">
-IBPSA.Fluid.Interfaces.PrescribedOutlet</a>.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2208\">IBPSA, #2208</a>.
-</li>
-<li>
-November 15, 2026, by Michael Wetter:<br/>
 Constrained <code>Medium</code> to <a href=\"modelica://Modelica.Media.Interfaces.PartialCondensingGases\">PartialCondensingGases</a>, used <code>Medium.setState_phX</code> in <code>TLea</code>, and corrected the formula for <code>tau_eff</code> in the documentation.
 </li>
 <li>
