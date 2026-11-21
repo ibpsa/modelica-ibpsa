@@ -58,8 +58,7 @@ model ControlledFlowMachine
   replaceable
   IBPSA.Fluid.Movers.FlowControlled_dp fan3(
     redeclare package Medium = Medium,
-    m_flow_nominal=0.006,
-    dp_nominal=27400,
+    m_flow_nominal=6000/3600*1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     constrainedby IBPSA.Fluid.Movers.FlowControlled_dp
@@ -68,27 +67,26 @@ model ControlledFlowMachine
   replaceable
   IBPSA.Fluid.Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = Medium,
-    m_flow_nominal=0.006,
-    dp_nominal=27400,
+    m_flow_nominal=6000/3600*1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare IBPSA.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12 per)
     constrainedby IBPSA.Fluid.Movers.FlowControlled_m_flow
     "Fan with mass flow rate as input"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   IBPSA.Fluid.FixedResistances.PressureDrop dp5(
-    m_flow_nominal=0.006,
+    m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
     from_dp=true) "Pressure drop"
     annotation (Placement(transformation(extent={{-52,50},{-32,70}})));
   IBPSA.Fluid.FixedResistances.PressureDrop dp6(
-    m_flow_nominal=0.006,
+    m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
     from_dp=true) "Pressure drop"
     annotation (Placement(transformation(extent={{-52,-30},{-32,-10}})));
   IBPSA.Fluid.FixedResistances.PressureDrop dp7(
-    m_flow_nominal=0.006,
+    m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300,
     from_dp=true) "Pressure drop"
@@ -170,10 +168,6 @@ This example demonstrates the use of the flow model with four different configur
 At steady-state, all flow models have the same mass flow rate and pressure difference.
 </html>", revisions="<html>
 <ul>
-<li>
-November 15, 2026, by Michael Wetter:<br/>
-Aligned <code>m_flow_nominal</code> and <code>dp_nominal</code> on <code>fan2</code>, <code>fan3</code>, and <code>dp5</code> through <code>dp7</code> with the fan performance curve.
-</li>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
 Deleted the mover with <code>Nrpm</code> signal.
