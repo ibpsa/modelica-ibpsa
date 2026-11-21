@@ -24,18 +24,30 @@ __Dymola_Commands(file="modelica://IBPSA/Resources/Scripts/Dymola/Fluid/BaseClas
 <p>
 This model tests the inverse formulation of the flow functions.
 The pressure difference <code>dp</code> and <code>dpCalc</code> need to
-be equal up to the solver tolerance, except for a small neighborhood
-around the origin. In this neighborhood around the origin, the functions
+be equal up to the solver tolerance in the turbulent region.
+However, for small absolute pressure drops, the results differ slightly
+because the functions
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
 IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 and
 <a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
-do not have an analytic expression for their inverse function and hence
-the implementation of the inverse function slightly differs.
+are not exact inverses of each other.
+The exact inverses are
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv\">
+IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_inv</a>
+and
+<a href=\"modelica://IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_inv\">
+IBPSA.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_inv</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 25, 2026, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4798\">Buildings, #4798</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
