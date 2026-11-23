@@ -167,7 +167,7 @@ numerical tolerance throughout the simulation.
 November 23, 2026, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">#2220</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">IBPSA, #2220</a>.
 </li>
 </ul>
 </html>"));

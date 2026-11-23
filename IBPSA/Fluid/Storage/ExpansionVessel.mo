@@ -157,7 +157,7 @@ IBPSA.Fluid.Storage.BaseClasses.ExpansionVesselVolume</a>
 and compute the vessel pressure from the isothermal ideal gas law of the gas
 cushion so that multiple expansion vessels can be used in the same fluid loop.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">#2220</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">IBPSA, #2220</a>.
 </li>
 <li>
 November 15, 2026, by Michael Wetter:<br/>

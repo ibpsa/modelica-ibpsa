@@ -74,7 +74,7 @@ Changed medium to
 IBPSA.Media.Specialized.Water.TemperatureDependentDensity</a>
 to exercise thermal expansion and pressure variation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">#2220</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/2220\">IBPSA, #2220</a>.
 </li>
 <li>
 December 19, 2022 by Hongxiang Fu:<br/>
