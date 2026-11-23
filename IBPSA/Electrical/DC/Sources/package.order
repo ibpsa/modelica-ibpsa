@@ -1,4 +1,6 @@
 ConstantVoltage
+PVSingleDiode
 VoltageSource
 Examples
+Validation
 BaseClasses
