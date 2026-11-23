@@ -2,7 +2,9 @@ FixedVoltage
 FixedVoltage_N
 Grid
 Grid_N
+GroundingTransformer
 WindTurbine
 WindTurbine_N
 Examples
+Validation
 BaseClasses
