@@ -96,7 +96,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
 </html>", revisions="<html><ul>
 <li>
 November 15, 2026, by Michael Wetter:<br/>
-Moved the operational envelope modifiers onto the default declaration of <code>safCtrPar</code> and propagated <code>mCon_flow_nominal</code> and <code>mEva_flow_nominal</code> to <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">TableData2D</a>.
+Propagated <code>mCon_flow_nominal</code> and <code>mEva_flow_nominal</code> to <a href=\"modelica://IBPSA.Fluid.Chillers.ModularReversible.RefrigerantCycle.TableData2D\">TableData2D</a>.
 </li>
   <li>
     <i>Novemeber 11, 2022</i> by Fabian Wuellhorst:<br/>
