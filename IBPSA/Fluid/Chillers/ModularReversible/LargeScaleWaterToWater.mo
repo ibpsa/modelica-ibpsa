@@ -18,11 +18,7 @@ model LargeScaleWaterToWater "Large scale water to water chiller"
     final TEvaHea_nominal=0,
     final use_conCap=false,
         redeclare replaceable
-    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar(
-      final tabUppHea=datTab.tabLowBou,
-      final tabLowCoo=datTab.tabLowBou,
-      final use_TEvaOutCoo=datTab.use_TEvaOutForOpeEnv,
-      final use_TConOutCoo=datTab.use_TConOutForOpeEnv)
+    IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
       constrainedby
       IBPSA.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic(
       final tabUppHea=datTab.tabLowBou,
