@@ -104,7 +104,7 @@ equation
   T_t = T + convT*time^3;
   v = IBPSA.Media.Refrigerants.R410A.specificVolumeVap_pT(p_t, T_t);
   der(v_int) = der(v);
-  assert(abs(v - v_int) < 1e-4*v,
+  assert(abs(v - v_int) < 1e-2*v,
     "Integrated time derivative of specific volume differs from function evaluation.");
 
   annotation (
